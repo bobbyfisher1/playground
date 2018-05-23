@@ -76,35 +76,97 @@ ruleModel returns [EObject current=null]
 	leaveRule();
 }:
 	(
+		otherlv_0='project'
+		{
+			newLeafNode(otherlv_0, grammarAccess.getModelAccess().getProjectKeyword_0());
+		}
+		otherlv_1='='
+		{
+			newLeafNode(otherlv_1, grammarAccess.getModelAccess().getEqualsSignKeyword_1());
+		}
 		(
-			{
-				newCompositeNode(grammarAccess.getModelAccess().getEisEisTypeParserRuleCall_0());
-			}
-			lv_eis_0_0=ruleEisType
-			{
-				if ($current==null) {
-					$current = createModelElementForParent(grammarAccess.getModelRule());
+			(
+				lv_project_name_2_0=RULE_ID
+				{
+					newLeafNode(lv_project_name_2_0, grammarAccess.getModelAccess().getProject_nameIDTerminalRuleCall_2_0());
 				}
-				add(
-					$current,
-					"eis",
-					lv_eis_0_0,
-					"org.example.eis.Eis.EisType");
-				afterParserOrEnumRuleCall();
-			}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getModelRule());
+					}
+					setWithLastConsumed(
+						$current,
+						"project_name",
+						lv_project_name_2_0,
+						"org.eclipse.xtext.common.Terminals.ID");
+				}
+			)
 		)
-	)*
+		otherlv_3=';'
+		{
+			newLeafNode(otherlv_3, grammarAccess.getModelAccess().getSemicolonKeyword_3());
+		}
+		otherlv_4='plcname'
+		{
+			newLeafNode(otherlv_4, grammarAccess.getModelAccess().getPlcnameKeyword_4());
+		}
+		otherlv_5='='
+		{
+			newLeafNode(otherlv_5, grammarAccess.getModelAccess().getEqualsSignKeyword_5());
+		}
+		(
+			(
+				lv_plc_name_6_0=RULE_ID
+				{
+					newLeafNode(lv_plc_name_6_0, grammarAccess.getModelAccess().getPlc_nameIDTerminalRuleCall_6_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getModelRule());
+					}
+					setWithLastConsumed(
+						$current,
+						"plc_name",
+						lv_plc_name_6_0,
+						"org.eclipse.xtext.common.Terminals.ID");
+				}
+			)
+		)
+		otherlv_7=';'
+		{
+			newLeafNode(otherlv_7, grammarAccess.getModelAccess().getSemicolonKeyword_7());
+		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getModelAccess().getEisEisTypeParserRuleCall_8_0());
+				}
+				lv_eis_8_0=ruleEisType
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getModelRule());
+					}
+					add(
+						$current,
+						"eis",
+						lv_eis_8_0,
+						"org.example.eis.Eis.EisType");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)*
+	)
 ;
 
 // Entry rule entryRuleEisType
-entryRuleEisType returns [EObject current=null]:
+entryRuleEisType returns [String current=null]:
 	{ newCompositeNode(grammarAccess.getEisTypeRule()); }
 	iv_ruleEisType=ruleEisType
-	{ $current=$iv_ruleEisType.current; }
+	{ $current=$iv_ruleEisType.current.getText(); }
 	EOF;
 
 // Rule EisType
-ruleEisType returns [EObject current=null]
+ruleEisType returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
 @init {
 	enterRule();
 }
@@ -112,120 +174,15 @@ ruleEisType returns [EObject current=null]
 	leaveRule();
 }:
 	(
+		kw='abc'
 		{
-			newCompositeNode(grammarAccess.getEisTypeAccess().getTiaProjectNameParserRuleCall_0());
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getEisTypeAccess().getAbcKeyword_0());
 		}
-		this_TiaProjectName_0=ruleTiaProjectName
+		kw=';'
 		{
-			$current = $this_TiaProjectName_0.current;
-			afterParserOrEnumRuleCall();
-		}
-		    |
-		{
-			newCompositeNode(grammarAccess.getEisTypeAccess().getPLCNameParserRuleCall_1());
-		}
-		this_PLCName_1=rulePLCName
-		{
-			$current = $this_PLCName_1.current;
-			afterParserOrEnumRuleCall();
-		}
-	)
-;
-
-// Entry rule entryRuleTiaProjectName
-entryRuleTiaProjectName returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getTiaProjectNameRule()); }
-	iv_ruleTiaProjectName=ruleTiaProjectName
-	{ $current=$iv_ruleTiaProjectName.current; }
-	EOF;
-
-// Rule TiaProjectName
-ruleTiaProjectName returns [EObject current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		otherlv_0='project'
-		{
-			newLeafNode(otherlv_0, grammarAccess.getTiaProjectNameAccess().getProjectKeyword_0());
-		}
-		otherlv_1='='
-		{
-			newLeafNode(otherlv_1, grammarAccess.getTiaProjectNameAccess().getEqualsSignKeyword_1());
-		}
-		(
-			(
-				lv_name_2_0=RULE_ID
-				{
-					newLeafNode(lv_name_2_0, grammarAccess.getTiaProjectNameAccess().getNameIDTerminalRuleCall_2_0());
-				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getTiaProjectNameRule());
-					}
-					setWithLastConsumed(
-						$current,
-						"name",
-						lv_name_2_0,
-						"org.eclipse.xtext.common.Terminals.ID");
-				}
-			)
-		)
-		otherlv_3=';'
-		{
-			newLeafNode(otherlv_3, grammarAccess.getTiaProjectNameAccess().getSemicolonKeyword_3());
-		}
-	)
-;
-
-// Entry rule entryRulePLCName
-entryRulePLCName returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getPLCNameRule()); }
-	iv_rulePLCName=rulePLCName
-	{ $current=$iv_rulePLCName.current; }
-	EOF;
-
-// Rule PLCName
-rulePLCName returns [EObject current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		otherlv_0='plcname'
-		{
-			newLeafNode(otherlv_0, grammarAccess.getPLCNameAccess().getPlcnameKeyword_0());
-		}
-		otherlv_1='='
-		{
-			newLeafNode(otherlv_1, grammarAccess.getPLCNameAccess().getEqualsSignKeyword_1());
-		}
-		(
-			(
-				lv_name_2_0=RULE_ID
-				{
-					newLeafNode(lv_name_2_0, grammarAccess.getPLCNameAccess().getNameIDTerminalRuleCall_2_0());
-				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getPLCNameRule());
-					}
-					setWithLastConsumed(
-						$current,
-						"name",
-						lv_name_2_0,
-						"org.eclipse.xtext.common.Terminals.ID");
-				}
-			)
-		)
-		otherlv_3=';'
-		{
-			newLeafNode(otherlv_3, grammarAccess.getPLCNameAccess().getSemicolonKeyword_3());
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getEisTypeAccess().getSemicolonKeyword_1());
 		}
 	)
 ;

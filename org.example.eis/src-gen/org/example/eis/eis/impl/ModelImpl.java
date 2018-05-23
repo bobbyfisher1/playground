@@ -5,20 +5,18 @@ package org.example.eis.eis.impl;
 
 import java.util.Collection;
 
-import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.ecore.util.EDataTypeEList;
 
 import org.example.eis.eis.EisPackage;
-import org.example.eis.eis.EisType;
 import org.example.eis.eis.Model;
 
 /**
@@ -29,6 +27,8 @@ import org.example.eis.eis.Model;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.example.eis.eis.impl.ModelImpl#getProject_name <em>Project name</em>}</li>
+ *   <li>{@link org.example.eis.eis.impl.ModelImpl#getPlc_name <em>Plc name</em>}</li>
  *   <li>{@link org.example.eis.eis.impl.ModelImpl#getEis <em>Eis</em>}</li>
  * </ul>
  *
@@ -37,14 +37,54 @@ import org.example.eis.eis.Model;
 public class ModelImpl extends MinimalEObjectImpl.Container implements Model
 {
   /**
-   * The cached value of the '{@link #getEis() <em>Eis</em>}' containment reference list.
+   * The default value of the '{@link #getProject_name() <em>Project name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getProject_name()
+   * @generated
+   * @ordered
+   */
+  protected static final String PROJECT_NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getProject_name() <em>Project name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getProject_name()
+   * @generated
+   * @ordered
+   */
+  protected String project_name = PROJECT_NAME_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getPlc_name() <em>Plc name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPlc_name()
+   * @generated
+   * @ordered
+   */
+  protected static final String PLC_NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getPlc_name() <em>Plc name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPlc_name()
+   * @generated
+   * @ordered
+   */
+  protected String plc_name = PLC_NAME_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getEis() <em>Eis</em>}' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getEis()
    * @generated
    * @ordered
    */
-  protected EList<EisType> eis;
+  protected EList<String> eis;
 
   /**
    * <!-- begin-user-doc -->
@@ -72,13 +112,9 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<EisType> getEis()
+  public String getProject_name()
   {
-    if (eis == null)
-    {
-      eis = new EObjectContainmentEList<EisType>(EisType.class, this, EisPackage.MODEL__EIS);
-    }
-    return eis;
+    return project_name;
   }
 
   /**
@@ -86,15 +122,49 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
    * <!-- end-user-doc -->
    * @generated
    */
-  @Override
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  public void setProject_name(String newProject_name)
   {
-    switch (featureID)
+    String oldProject_name = project_name;
+    project_name = newProject_name;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, EisPackage.MODEL__PROJECT_NAME, oldProject_name, project_name));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getPlc_name()
+  {
+    return plc_name;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setPlc_name(String newPlc_name)
+  {
+    String oldPlc_name = plc_name;
+    plc_name = newPlc_name;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, EisPackage.MODEL__PLC_NAME, oldPlc_name, plc_name));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<String> getEis()
+  {
+    if (eis == null)
     {
-      case EisPackage.MODEL__EIS:
-        return ((InternalEList<?>)getEis()).basicRemove(otherEnd, msgs);
+      eis = new EDataTypeEList<String>(String.class, this, EisPackage.MODEL__EIS);
     }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
+    return eis;
   }
 
   /**
@@ -107,6 +177,10 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
   {
     switch (featureID)
     {
+      case EisPackage.MODEL__PROJECT_NAME:
+        return getProject_name();
+      case EisPackage.MODEL__PLC_NAME:
+        return getPlc_name();
       case EisPackage.MODEL__EIS:
         return getEis();
     }
@@ -124,9 +198,15 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
   {
     switch (featureID)
     {
+      case EisPackage.MODEL__PROJECT_NAME:
+        setProject_name((String)newValue);
+        return;
+      case EisPackage.MODEL__PLC_NAME:
+        setPlc_name((String)newValue);
+        return;
       case EisPackage.MODEL__EIS:
         getEis().clear();
-        getEis().addAll((Collection<? extends EisType>)newValue);
+        getEis().addAll((Collection<? extends String>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -142,6 +222,12 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
   {
     switch (featureID)
     {
+      case EisPackage.MODEL__PROJECT_NAME:
+        setProject_name(PROJECT_NAME_EDEFAULT);
+        return;
+      case EisPackage.MODEL__PLC_NAME:
+        setPlc_name(PLC_NAME_EDEFAULT);
+        return;
       case EisPackage.MODEL__EIS:
         getEis().clear();
         return;
@@ -159,10 +245,35 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
   {
     switch (featureID)
     {
+      case EisPackage.MODEL__PROJECT_NAME:
+        return PROJECT_NAME_EDEFAULT == null ? project_name != null : !PROJECT_NAME_EDEFAULT.equals(project_name);
+      case EisPackage.MODEL__PLC_NAME:
+        return PLC_NAME_EDEFAULT == null ? plc_name != null : !PLC_NAME_EDEFAULT.equals(plc_name);
       case EisPackage.MODEL__EIS:
         return eis != null && !eis.isEmpty();
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (project_name: ");
+    result.append(project_name);
+    result.append(", plc_name: ");
+    result.append(plc_name);
+    result.append(", eis: ");
+    result.append(eis);
+    result.append(')');
+    return result.toString();
   }
 
 } //ModelImpl

@@ -11,13 +11,9 @@ import org.eclipse.xtext.Action;
 import org.eclipse.xtext.Parameter;
 import org.eclipse.xtext.ParserRule;
 import org.eclipse.xtext.serializer.ISerializationContext;
-import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
 import org.eclipse.xtext.serializer.sequencer.AbstractDelegatingSemanticSequencer;
-import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 import org.example.eis.eis.EisPackage;
 import org.example.eis.eis.Model;
-import org.example.eis.eis.PLCName;
-import org.example.eis.eis.TiaProjectName;
 import org.example.eis.services.EisGrammarAccess;
 
 @SuppressWarnings("all")
@@ -37,12 +33,6 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case EisPackage.MODEL:
 				sequence_Model(context, (Model) semanticObject); 
 				return; 
-			case EisPackage.PLC_NAME:
-				sequence_PLCName(context, (PLCName) semanticObject); 
-				return; 
-			case EisPackage.TIA_PROJECT_NAME:
-				sequence_TiaProjectName(context, (TiaProjectName) semanticObject); 
-				return; 
 			}
 		if (errorAcceptor != null)
 			errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
@@ -53,48 +43,10 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Model returns Model
 	 *
 	 * Constraint:
-	 *     eis+=EisType+
+	 *     (project_name=ID plc_name=ID eis+=EisType*)
 	 */
 	protected void sequence_Model(ISerializationContext context, Model semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     EisType returns PLCName
-	 *     PLCName returns PLCName
-	 *
-	 * Constraint:
-	 *     name=ID
-	 */
-	protected void sequence_PLCName(ISerializationContext context, PLCName semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, EisPackage.Literals.EIS_TYPE__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EisPackage.Literals.EIS_TYPE__NAME));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getPLCNameAccess().getNameIDTerminalRuleCall_2_0(), semanticObject.getName());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     EisType returns TiaProjectName
-	 *     TiaProjectName returns TiaProjectName
-	 *
-	 * Constraint:
-	 *     name=ID
-	 */
-	protected void sequence_TiaProjectName(ISerializationContext context, TiaProjectName semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, EisPackage.Literals.EIS_TYPE__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EisPackage.Literals.EIS_TYPE__NAME));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getTiaProjectNameAccess().getNameIDTerminalRuleCall_2_0(), semanticObject.getName());
-		feeder.finish();
 	}
 	
 	

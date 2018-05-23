@@ -3,13 +3,9 @@ grammar org.example.eis.Eis with org.eclipse.xtext.common.Terminals
 generate eis "http://www.example.org/eis/Eis"
 
 Model:
+	'project' '=' project_name=ID ';'
+	'plcname' '=' plc_name=ID ';'
 	eis+=EisType*;
 
 EisType:
-	TiaProjectName | PLCName;
-
-TiaProjectName:
-	'project' '=' name=ID ';';
-
-PLCName:
-	'plcname' '=' name=ID ';';
+	"abc" ';';

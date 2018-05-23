@@ -33,33 +33,6 @@ public interface EisFactory extends EFactory
   Model createModel();
 
   /**
-   * Returns a new object of class '<em>Type</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Type</em>'.
-   * @generated
-   */
-  EisType createEisType();
-
-  /**
-   * Returns a new object of class '<em>Tia Project Name</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Tia Project Name</em>'.
-   * @generated
-   */
-  TiaProjectName createTiaProjectName();
-
-  /**
-   * Returns a new object of class '<em>PLC Name</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>PLC Name</em>'.
-   * @generated
-   */
-  PLCName createPLCName();
-
-  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

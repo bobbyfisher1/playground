@@ -6,7 +6,6 @@ package org.example.eis.services;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.util.List;
-import org.eclipse.xtext.Alternatives;
 import org.eclipse.xtext.Assignment;
 import org.eclipse.xtext.Grammar;
 import org.eclipse.xtext.GrammarUtil;
@@ -24,52 +23,27 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public class ModelElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.Model");
-		private final Assignment cEisAssignment = (Assignment)rule.eContents().get(1);
-		private final RuleCall cEisEisTypeParserRuleCall_0 = (RuleCall)cEisAssignment.eContents().get(0);
-		
-		//Model:
-		//	eis+=EisType*;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//eis+=EisType*
-		public Assignment getEisAssignment() { return cEisAssignment; }
-		
-		//EisType
-		public RuleCall getEisEisTypeParserRuleCall_0() { return cEisEisTypeParserRuleCall_0; }
-	}
-	public class EisTypeElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.EisType");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cTiaProjectNameParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cPLCNameParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		
-		//EisType:
-		//	TiaProjectName | PLCName;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//TiaProjectName | PLCName
-		public Alternatives getAlternatives() { return cAlternatives; }
-		
-		//TiaProjectName
-		public RuleCall getTiaProjectNameParserRuleCall_0() { return cTiaProjectNameParserRuleCall_0; }
-		
-		//PLCName
-		public RuleCall getPLCNameParserRuleCall_1() { return cPLCNameParserRuleCall_1; }
-	}
-	public class TiaProjectNameElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.TiaProjectName");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cProjectKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Keyword cEqualsSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
+		private final Assignment cProject_nameAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cProject_nameIDTerminalRuleCall_2_0 = (RuleCall)cProject_nameAssignment_2.eContents().get(0);
 		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Keyword cPlcnameKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Keyword cEqualsSignKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Assignment cPlc_nameAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cPlc_nameIDTerminalRuleCall_6_0 = (RuleCall)cPlc_nameAssignment_6.eContents().get(0);
+		private final Keyword cSemicolonKeyword_7 = (Keyword)cGroup.eContents().get(7);
+		private final Assignment cEisAssignment_8 = (Assignment)cGroup.eContents().get(8);
+		private final RuleCall cEisEisTypeParserRuleCall_8_0 = (RuleCall)cEisAssignment_8.eContents().get(0);
 		
-		//TiaProjectName:
-		//	'project' '=' name=ID ';';
+		//Model:
+		//	'project' '=' project_name=ID ';'
+		//	'plcname' '=' plc_name=ID ';'
+		//	eis+=EisType*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'project' '=' name=ID ';'
+		//'project' '=' project_name=ID ';' 'plcname' '=' plc_name=ID ';' eis+=EisType*
 		public Group getGroup() { return cGroup; }
 		
 		//'project'
@@ -78,52 +52,59 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		//'='
 		public Keyword getEqualsSignKeyword_1() { return cEqualsSignKeyword_1; }
 		
-		//name=ID
-		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
+		//project_name=ID
+		public Assignment getProject_nameAssignment_2() { return cProject_nameAssignment_2; }
 		
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
+		public RuleCall getProject_nameIDTerminalRuleCall_2_0() { return cProject_nameIDTerminalRuleCall_2_0; }
 		
 		//';'
 		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
-	}
-	public class PLCNameElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.PLCName");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cPlcnameKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Keyword cEqualsSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
-		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		
-		//PLCName:
-		//	'plcname' '=' name=ID ';';
-		@Override public ParserRule getRule() { return rule; }
-		
-		//'plcname' '=' name=ID ';'
-		public Group getGroup() { return cGroup; }
 		
 		//'plcname'
-		public Keyword getPlcnameKeyword_0() { return cPlcnameKeyword_0; }
+		public Keyword getPlcnameKeyword_4() { return cPlcnameKeyword_4; }
 		
 		//'='
-		public Keyword getEqualsSignKeyword_1() { return cEqualsSignKeyword_1; }
+		public Keyword getEqualsSignKeyword_5() { return cEqualsSignKeyword_5; }
 		
-		//name=ID
-		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
+		//plc_name=ID
+		public Assignment getPlc_nameAssignment_6() { return cPlc_nameAssignment_6; }
 		
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
+		public RuleCall getPlc_nameIDTerminalRuleCall_6_0() { return cPlc_nameIDTerminalRuleCall_6_0; }
 		
 		//';'
-		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
+		public Keyword getSemicolonKeyword_7() { return cSemicolonKeyword_7; }
+		
+		//eis+=EisType*
+		public Assignment getEisAssignment_8() { return cEisAssignment_8; }
+		
+		//EisType
+		public RuleCall getEisEisTypeParserRuleCall_8_0() { return cEisEisTypeParserRuleCall_8_0; }
+	}
+	public class EisTypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.EisType");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cAbcKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cSemicolonKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		
+		//EisType:
+		//	"abc" ';';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//"abc" ';'
+		public Group getGroup() { return cGroup; }
+		
+		//"abc"
+		public Keyword getAbcKeyword_0() { return cAbcKeyword_0; }
+		
+		//';'
+		public Keyword getSemicolonKeyword_1() { return cSemicolonKeyword_1; }
 	}
 	
 	
 	private final ModelElements pModel;
 	private final EisTypeElements pEisType;
-	private final TiaProjectNameElements pTiaProjectName;
-	private final PLCNameElements pPLCName;
 	
 	private final Grammar grammar;
 	
@@ -136,8 +117,6 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		this.gaTerminals = gaTerminals;
 		this.pModel = new ModelElements();
 		this.pEisType = new EisTypeElements();
-		this.pTiaProjectName = new TiaProjectNameElements();
-		this.pPLCName = new PLCNameElements();
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -168,6 +147,8 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//Model:
+	//	'project' '=' project_name=ID ';'
+	//	'plcname' '=' plc_name=ID ';'
 	//	eis+=EisType*;
 	public ModelElements getModelAccess() {
 		return pModel;
@@ -178,33 +159,13 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//EisType:
-	//	TiaProjectName | PLCName;
+	//	"abc" ';';
 	public EisTypeElements getEisTypeAccess() {
 		return pEisType;
 	}
 	
 	public ParserRule getEisTypeRule() {
 		return getEisTypeAccess().getRule();
-	}
-	
-	//TiaProjectName:
-	//	'project' '=' name=ID ';';
-	public TiaProjectNameElements getTiaProjectNameAccess() {
-		return pTiaProjectName;
-	}
-	
-	public ParserRule getTiaProjectNameRule() {
-		return getTiaProjectNameAccess().getRule();
-	}
-	
-	//PLCName:
-	//	'plcname' '=' name=ID ';';
-	public PLCNameElements getPLCNameAccess() {
-		return pPLCName;
-	}
-	
-	public ParserRule getPLCNameRule() {
-		return getPLCNameAccess().getRule();
 	}
 	
 	//terminal ID:

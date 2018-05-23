@@ -66,9 +66,6 @@ public class EisFactoryImpl extends EFactoryImpl implements EisFactory
     switch (eClass.getClassifierID())
     {
       case EisPackage.MODEL: return createModel();
-      case EisPackage.EIS_TYPE: return createEisType();
-      case EisPackage.TIA_PROJECT_NAME: return createTiaProjectName();
-      case EisPackage.PLC_NAME: return createPLCName();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -83,39 +80,6 @@ public class EisFactoryImpl extends EFactoryImpl implements EisFactory
   {
     ModelImpl model = new ModelImpl();
     return model;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EisType createEisType()
-  {
-    EisTypeImpl eisType = new EisTypeImpl();
-    return eisType;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public TiaProjectName createTiaProjectName()
-  {
-    TiaProjectNameImpl tiaProjectName = new TiaProjectNameImpl();
-    return tiaProjectName;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public PLCName createPLCName()
-  {
-    PLCNameImpl plcName = new PLCNameImpl();
-    return plcName;
   }
 
   /**

@@ -81,21 +81,6 @@ public class EisAdapterFactory extends AdapterFactoryImpl
         return createModelAdapter();
       }
       @Override
-      public Adapter caseEisType(EisType object)
-      {
-        return createEisTypeAdapter();
-      }
-      @Override
-      public Adapter caseTiaProjectName(TiaProjectName object)
-      {
-        return createTiaProjectNameAdapter();
-      }
-      @Override
-      public Adapter casePLCName(PLCName object)
-      {
-        return createPLCNameAdapter();
-      }
-      @Override
       public Adapter defaultCase(EObject object)
       {
         return createEObjectAdapter();
@@ -128,51 +113,6 @@ public class EisAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createModelAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.example.eis.eis.EisType <em>Type</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.example.eis.eis.EisType
-   * @generated
-   */
-  public Adapter createEisTypeAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.example.eis.eis.TiaProjectName <em>Tia Project Name</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.example.eis.eis.TiaProjectName
-   * @generated
-   */
-  public Adapter createTiaProjectNameAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.example.eis.eis.PLCName <em>PLC Name</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.example.eis.eis.PLCName
-   * @generated
-   */
-  public Adapter createPLCNameAdapter()
   {
     return null;
   }

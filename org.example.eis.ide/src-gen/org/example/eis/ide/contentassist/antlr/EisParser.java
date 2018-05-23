@@ -31,12 +31,11 @@ public class EisParser extends AbstractContentAssistParser {
 			nameMappings = new HashMap<AbstractElement, String>() {
 				private static final long serialVersionUID = 1L;
 				{
-					put(grammarAccess.getEisTypeAccess().getAlternatives(), "rule__EisType__Alternatives");
-					put(grammarAccess.getTiaProjectNameAccess().getGroup(), "rule__TiaProjectName__Group__0");
-					put(grammarAccess.getPLCNameAccess().getGroup(), "rule__PLCName__Group__0");
-					put(grammarAccess.getModelAccess().getEisAssignment(), "rule__Model__EisAssignment");
-					put(grammarAccess.getTiaProjectNameAccess().getNameAssignment_2(), "rule__TiaProjectName__NameAssignment_2");
-					put(grammarAccess.getPLCNameAccess().getNameAssignment_2(), "rule__PLCName__NameAssignment_2");
+					put(grammarAccess.getModelAccess().getGroup(), "rule__Model__Group__0");
+					put(grammarAccess.getEisTypeAccess().getGroup(), "rule__EisType__Group__0");
+					put(grammarAccess.getModelAccess().getProject_nameAssignment_2(), "rule__Model__Project_nameAssignment_2");
+					put(grammarAccess.getModelAccess().getPlc_nameAssignment_6(), "rule__Model__Plc_nameAssignment_6");
+					put(grammarAccess.getModelAccess().getEisAssignment_8(), "rule__Model__EisAssignment_8");
 				}
 			};
 		}

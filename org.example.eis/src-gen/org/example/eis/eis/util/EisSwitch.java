@@ -80,29 +80,6 @@ public class EisSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case EisPackage.EIS_TYPE:
-      {
-        EisType eisType = (EisType)theEObject;
-        T result = caseEisType(eisType);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case EisPackage.TIA_PROJECT_NAME:
-      {
-        TiaProjectName tiaProjectName = (TiaProjectName)theEObject;
-        T result = caseTiaProjectName(tiaProjectName);
-        if (result == null) result = caseEisType(tiaProjectName);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case EisPackage.PLC_NAME:
-      {
-        PLCName plcName = (PLCName)theEObject;
-        T result = casePLCName(plcName);
-        if (result == null) result = caseEisType(plcName);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       default: return defaultCase(theEObject);
     }
   }
@@ -119,54 +96,6 @@ public class EisSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseModel(Model object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Type</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Type</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseEisType(EisType object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Tia Project Name</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Tia Project Name</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseTiaProjectName(TiaProjectName object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>PLC Name</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>PLC Name</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T casePLCName(PLCName object)
   {
     return null;
   }

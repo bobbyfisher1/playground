@@ -16,6 +16,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link org.example.eis.eis.Model#getProject_name <em>Project name</em>}</li>
+ *   <li>{@link org.example.eis.eis.Model#getPlc_name <em>Plc name</em>}</li>
  *   <li>{@link org.example.eis.eis.Model#getEis <em>Eis</em>}</li>
  * </ul>
  *
@@ -26,19 +28,71 @@ import org.eclipse.emf.ecore.EObject;
 public interface Model extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Eis</b></em>' containment reference list.
-   * The list contents are of type {@link org.example.eis.eis.EisType}.
+   * Returns the value of the '<em><b>Project name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Eis</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Project name</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Eis</em>' containment reference list.
-   * @see org.example.eis.eis.EisPackage#getModel_Eis()
-   * @model containment="true"
+   * @return the value of the '<em>Project name</em>' attribute.
+   * @see #setProject_name(String)
+   * @see org.example.eis.eis.EisPackage#getModel_Project_name()
+   * @model
    * @generated
    */
-  EList<EisType> getEis();
+  String getProject_name();
+
+  /**
+   * Sets the value of the '{@link org.example.eis.eis.Model#getProject_name <em>Project name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Project name</em>' attribute.
+   * @see #getProject_name()
+   * @generated
+   */
+  void setProject_name(String value);
+
+  /**
+   * Returns the value of the '<em><b>Plc name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Plc name</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Plc name</em>' attribute.
+   * @see #setPlc_name(String)
+   * @see org.example.eis.eis.EisPackage#getModel_Plc_name()
+   * @model
+   * @generated
+   */
+  String getPlc_name();
+
+  /**
+   * Sets the value of the '{@link org.example.eis.eis.Model#getPlc_name <em>Plc name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Plc name</em>' attribute.
+   * @see #getPlc_name()
+   * @generated
+   */
+  void setPlc_name(String value);
+
+  /**
+   * Returns the value of the '<em><b>Eis</b></em>' attribute list.
+   * The list contents are of type {@link java.lang.String}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Eis</em>' attribute list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Eis</em>' attribute list.
+   * @see org.example.eis.eis.EisPackage#getModel_Eis()
+   * @model unique="false"
+   * @generated
+   */
+  EList<String> getEis();
 
 } // Model

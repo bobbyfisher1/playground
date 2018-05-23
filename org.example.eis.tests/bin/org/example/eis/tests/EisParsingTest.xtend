@@ -20,22 +20,21 @@ class EisParsingTest {
 	@Inject extension ParseHelper<Model>
 	@Inject extension ValidationTestHelper;
 
-	@Test def void test_project_name() {
-		val text = '''
-			project = x;
-			plcname = fj484;
-		'''.parse.eis
-
-		text.get(0).name.assertEquals("x");
-		text.get(1).name.assertEquals('fj484')
-	}
-
-	@Test def void test_correct() {
+	@Test def void testA() {
 		'''
-			project = x;
 			project = abckdjh;
 			plcname = d383;
 		'''.parse.assertNoErrors
+	}
+
+	@Test def void test_project_name() {
+		'''
+			project = x;
+			plcname = fj484;
+		'''.parse => [
+			project_name.assertEquals("x");
+			plc_name.assertEquals("fj484")
+		]
 	}
 
 }

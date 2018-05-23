@@ -6,16 +6,12 @@ package org.example.eis.eis.impl;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.example.eis.eis.EisFactory;
 import org.example.eis.eis.EisPackage;
-import org.example.eis.eis.EisType;
 import org.example.eis.eis.Model;
-import org.example.eis.eis.PLCName;
-import org.example.eis.eis.TiaProjectName;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,27 +27,6 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * @generated
    */
   private EClass modelEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass eisTypeEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass tiaProjectNameEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass plcNameEClass = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -131,9 +106,9 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getModel_Eis()
+  public EAttribute getModel_Project_name()
   {
-    return (EReference)modelEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)modelEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -141,9 +116,9 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getEisType()
+  public EAttribute getModel_Plc_name()
   {
-    return eisTypeEClass;
+    return (EAttribute)modelEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -151,29 +126,9 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getEisType_Name()
+  public EAttribute getModel_Eis()
   {
-    return (EAttribute)eisTypeEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getTiaProjectName()
-  {
-    return tiaProjectNameEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getPLCName()
-  {
-    return plcNameEClass;
+    return (EAttribute)modelEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -207,14 +162,9 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
 
     // Create classes and their features
     modelEClass = createEClass(MODEL);
-    createEReference(modelEClass, MODEL__EIS);
-
-    eisTypeEClass = createEClass(EIS_TYPE);
-    createEAttribute(eisTypeEClass, EIS_TYPE__NAME);
-
-    tiaProjectNameEClass = createEClass(TIA_PROJECT_NAME);
-
-    plcNameEClass = createEClass(PLC_NAME);
+    createEAttribute(modelEClass, MODEL__PROJECT_NAME);
+    createEAttribute(modelEClass, MODEL__PLC_NAME);
+    createEAttribute(modelEClass, MODEL__EIS);
   }
 
   /**
@@ -246,19 +196,12 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
-    tiaProjectNameEClass.getESuperTypes().add(this.getEisType());
-    plcNameEClass.getESuperTypes().add(this.getEisType());
 
     // Initialize classes and features; add operations and parameters
     initEClass(modelEClass, Model.class, "Model", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getModel_Eis(), this.getEisType(), null, "eis", null, 0, -1, Model.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(eisTypeEClass, EisType.class, "EisType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getEisType_Name(), ecorePackage.getEString(), "name", null, 0, 1, EisType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(tiaProjectNameEClass, TiaProjectName.class, "TiaProjectName", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(plcNameEClass, PLCName.class, "PLCName", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getModel_Project_name(), ecorePackage.getEString(), "project_name", null, 0, 1, Model.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getModel_Plc_name(), ecorePackage.getEString(), "plc_name", null, 0, 1, Model.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getModel_Eis(), ecorePackage.getEString(), "eis", null, 0, -1, Model.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

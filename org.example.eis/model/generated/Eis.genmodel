@@ -7,12 +7,9 @@
   <genPackages prefix="Eis" basePackage="org.example.eis" disposableProviderFactory="true"
       fileExtensions="eis" ecorePackage="Eis.ecore#/">
     <genClasses ecoreClass="Eis.ecore#//Model">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eis.ecore#//Model/eis"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//Model/project_name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//Model/plc_name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//Model/eis"/>
     </genClasses>
-    <genClasses ecoreClass="Eis.ecore#//EisType">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//EisType/name"/>
-    </genClasses>
-    <genClasses ecoreClass="Eis.ecore#//TiaProjectName"/>
-    <genClasses ecoreClass="Eis.ecore#//PLCName"/>
   </genPackages>
 </genmodel:GenModel>

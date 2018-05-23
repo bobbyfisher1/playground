@@ -4,7 +4,6 @@
 package org.example.eis.tests;
 
 import com.google.inject.Inject;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
@@ -12,7 +11,8 @@ import org.eclipse.xtext.testing.util.ParseHelper;
 import org.eclipse.xtext.testing.validation.ValidationTestHelper;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Extension;
-import org.example.eis.eis.EisType;
+import org.eclipse.xtext.xbase.lib.ObjectExtensions;
+import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.example.eis.eis.Model;
 import org.example.eis.tests.EisInjectorProvider;
 import org.junit.Assert;
@@ -32,6 +32,20 @@ public class EisParsingTest {
   private ValidationTestHelper _validationTestHelper;
   
   @Test
+  public void testA() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("project = abckdjh;");
+      _builder.newLine();
+      _builder.append("plcname = d383;");
+      _builder.newLine();
+      this._validationTestHelper.assertNoErrors(this._parseHelper.parse(_builder));
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
   public void test_project_name() {
     try {
       StringConcatenation _builder = new StringConcatenation();
@@ -39,25 +53,12 @@ public class EisParsingTest {
       _builder.newLine();
       _builder.append("plcname = fj484;");
       _builder.newLine();
-      final EList<EisType> text = this._parseHelper.parse(_builder).getEis();
-      Assert.assertEquals(text.get(0).getName(), "x");
-      Assert.assertEquals(text.get(1).getName(), "fj484");
-    } catch (Throwable _e) {
-      throw Exceptions.sneakyThrow(_e);
-    }
-  }
-  
-  @Test
-  public void test_correct() {
-    try {
-      StringConcatenation _builder = new StringConcatenation();
-      _builder.append("project = x;");
-      _builder.newLine();
-      _builder.append("project = abckdjh;");
-      _builder.newLine();
-      _builder.append("plcname = d383;");
-      _builder.newLine();
-      this._validationTestHelper.assertNoErrors(this._parseHelper.parse(_builder));
+      Model _parse = this._parseHelper.parse(_builder);
+      final Procedure1<Model> _function = (Model it) -> {
+        Assert.assertEquals(it.getProject_name(), "x");
+        Assert.assertEquals(it.getPlc_name(), "fj484");
+      };
+      ObjectExtensions.<Model>operator_doubleArrow(_parse, _function);
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
