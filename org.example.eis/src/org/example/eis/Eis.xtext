@@ -5,7 +5,9 @@ generate eis "http://www.example.org/eis/Eis"
 Model:
 	'project' '=' project_name=ID ';'
 	'plcname' '=' plc_name=ID ';'
-	eis+=EisType*;
+	testcases+=Testcase*
+;
 
-EisType:
-	"abc" ';';
+Testcase:
+	"<>"
+;

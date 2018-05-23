@@ -21,7 +21,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalEisParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'project'", "'='", "';'", "'plcname'", "'abc'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'project'", "'='", "';'", "'plcname'", "'<>'"
     };
     public static final int RULE_ID=4;
     public static final int RULE_WS=9;
@@ -113,7 +113,7 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleModel"
-    // InternalEis.g:71:1: ruleModel returns [EObject current=null] : (otherlv_0= 'project' otherlv_1= '=' ( (lv_project_name_2_0= RULE_ID ) ) otherlv_3= ';' otherlv_4= 'plcname' otherlv_5= '=' ( (lv_plc_name_6_0= RULE_ID ) ) otherlv_7= ';' ( (lv_eis_8_0= ruleEisType ) )* ) ;
+    // InternalEis.g:71:1: ruleModel returns [EObject current=null] : (otherlv_0= 'project' otherlv_1= '=' ( (lv_project_name_2_0= RULE_ID ) ) otherlv_3= ';' otherlv_4= 'plcname' otherlv_5= '=' ( (lv_plc_name_6_0= RULE_ID ) ) otherlv_7= ';' ( (lv_testcases_8_0= ruleTestcase ) )* ) ;
     public final EObject ruleModel() throws RecognitionException {
         EObject current = null;
 
@@ -125,18 +125,18 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
         Token otherlv_5=null;
         Token lv_plc_name_6_0=null;
         Token otherlv_7=null;
-        AntlrDatatypeRuleToken lv_eis_8_0 = null;
+        AntlrDatatypeRuleToken lv_testcases_8_0 = null;
 
 
 
         	enterRule();
 
         try {
-            // InternalEis.g:77:2: ( (otherlv_0= 'project' otherlv_1= '=' ( (lv_project_name_2_0= RULE_ID ) ) otherlv_3= ';' otherlv_4= 'plcname' otherlv_5= '=' ( (lv_plc_name_6_0= RULE_ID ) ) otherlv_7= ';' ( (lv_eis_8_0= ruleEisType ) )* ) )
-            // InternalEis.g:78:2: (otherlv_0= 'project' otherlv_1= '=' ( (lv_project_name_2_0= RULE_ID ) ) otherlv_3= ';' otherlv_4= 'plcname' otherlv_5= '=' ( (lv_plc_name_6_0= RULE_ID ) ) otherlv_7= ';' ( (lv_eis_8_0= ruleEisType ) )* )
+            // InternalEis.g:77:2: ( (otherlv_0= 'project' otherlv_1= '=' ( (lv_project_name_2_0= RULE_ID ) ) otherlv_3= ';' otherlv_4= 'plcname' otherlv_5= '=' ( (lv_plc_name_6_0= RULE_ID ) ) otherlv_7= ';' ( (lv_testcases_8_0= ruleTestcase ) )* ) )
+            // InternalEis.g:78:2: (otherlv_0= 'project' otherlv_1= '=' ( (lv_project_name_2_0= RULE_ID ) ) otherlv_3= ';' otherlv_4= 'plcname' otherlv_5= '=' ( (lv_plc_name_6_0= RULE_ID ) ) otherlv_7= ';' ( (lv_testcases_8_0= ruleTestcase ) )* )
             {
-            // InternalEis.g:78:2: (otherlv_0= 'project' otherlv_1= '=' ( (lv_project_name_2_0= RULE_ID ) ) otherlv_3= ';' otherlv_4= 'plcname' otherlv_5= '=' ( (lv_plc_name_6_0= RULE_ID ) ) otherlv_7= ';' ( (lv_eis_8_0= ruleEisType ) )* )
-            // InternalEis.g:79:3: otherlv_0= 'project' otherlv_1= '=' ( (lv_project_name_2_0= RULE_ID ) ) otherlv_3= ';' otherlv_4= 'plcname' otherlv_5= '=' ( (lv_plc_name_6_0= RULE_ID ) ) otherlv_7= ';' ( (lv_eis_8_0= ruleEisType ) )*
+            // InternalEis.g:78:2: (otherlv_0= 'project' otherlv_1= '=' ( (lv_project_name_2_0= RULE_ID ) ) otherlv_3= ';' otherlv_4= 'plcname' otherlv_5= '=' ( (lv_plc_name_6_0= RULE_ID ) ) otherlv_7= ';' ( (lv_testcases_8_0= ruleTestcase ) )* )
+            // InternalEis.g:79:3: otherlv_0= 'project' otherlv_1= '=' ( (lv_project_name_2_0= RULE_ID ) ) otherlv_3= ';' otherlv_4= 'plcname' otherlv_5= '=' ( (lv_plc_name_6_0= RULE_ID ) ) otherlv_7= ';' ( (lv_testcases_8_0= ruleTestcase ) )*
             {
             otherlv_0=(Token)match(input,11,FOLLOW_3); 
 
@@ -214,7 +214,7 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
 
             			newLeafNode(otherlv_7, grammarAccess.getModelAccess().getSemicolonKeyword_7());
             		
-            // InternalEis.g:139:3: ( (lv_eis_8_0= ruleEisType ) )*
+            // InternalEis.g:139:3: ( (lv_testcases_8_0= ruleTestcase ) )*
             loop1:
             do {
                 int alt1=2;
@@ -227,16 +227,16 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
 
                 switch (alt1) {
             	case 1 :
-            	    // InternalEis.g:140:4: (lv_eis_8_0= ruleEisType )
+            	    // InternalEis.g:140:4: (lv_testcases_8_0= ruleTestcase )
             	    {
-            	    // InternalEis.g:140:4: (lv_eis_8_0= ruleEisType )
-            	    // InternalEis.g:141:5: lv_eis_8_0= ruleEisType
+            	    // InternalEis.g:140:4: (lv_testcases_8_0= ruleTestcase )
+            	    // InternalEis.g:141:5: lv_testcases_8_0= ruleTestcase
             	    {
 
-            	    					newCompositeNode(grammarAccess.getModelAccess().getEisEisTypeParserRuleCall_8_0());
+            	    					newCompositeNode(grammarAccess.getModelAccess().getTestcasesTestcaseParserRuleCall_8_0());
             	    				
             	    pushFollow(FOLLOW_7);
-            	    lv_eis_8_0=ruleEisType();
+            	    lv_testcases_8_0=ruleTestcase();
 
             	    state._fsp--;
 
@@ -246,9 +246,9 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
             	    					}
             	    					add(
             	    						current,
-            	    						"eis",
-            	    						lv_eis_8_0,
-            	    						"org.example.eis.Eis.EisType");
+            	    						"testcases",
+            	    						lv_testcases_8_0,
+            	    						"org.example.eis.Eis.Testcase");
             	    					afterParserOrEnumRuleCall();
             	    				
 
@@ -285,25 +285,25 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleModel"
 
 
-    // $ANTLR start "entryRuleEisType"
-    // InternalEis.g:162:1: entryRuleEisType returns [String current=null] : iv_ruleEisType= ruleEisType EOF ;
-    public final String entryRuleEisType() throws RecognitionException {
+    // $ANTLR start "entryRuleTestcase"
+    // InternalEis.g:162:1: entryRuleTestcase returns [String current=null] : iv_ruleTestcase= ruleTestcase EOF ;
+    public final String entryRuleTestcase() throws RecognitionException {
         String current = null;
 
-        AntlrDatatypeRuleToken iv_ruleEisType = null;
+        AntlrDatatypeRuleToken iv_ruleTestcase = null;
 
 
         try {
-            // InternalEis.g:162:47: (iv_ruleEisType= ruleEisType EOF )
-            // InternalEis.g:163:2: iv_ruleEisType= ruleEisType EOF
+            // InternalEis.g:162:48: (iv_ruleTestcase= ruleTestcase EOF )
+            // InternalEis.g:163:2: iv_ruleTestcase= ruleTestcase EOF
             {
-             newCompositeNode(grammarAccess.getEisTypeRule()); 
+             newCompositeNode(grammarAccess.getTestcaseRule()); 
             pushFollow(FOLLOW_1);
-            iv_ruleEisType=ruleEisType();
+            iv_ruleTestcase=ruleTestcase();
 
             state._fsp--;
 
-             current =iv_ruleEisType.getText(); 
+             current =iv_ruleTestcase.getText(); 
             match(input,EOF,FOLLOW_2); 
 
             }
@@ -318,12 +318,12 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleEisType"
+    // $ANTLR end "entryRuleTestcase"
 
 
-    // $ANTLR start "ruleEisType"
-    // InternalEis.g:169:1: ruleEisType returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= 'abc' kw= ';' ) ;
-    public final AntlrDatatypeRuleToken ruleEisType() throws RecognitionException {
+    // $ANTLR start "ruleTestcase"
+    // InternalEis.g:169:1: ruleTestcase returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= '<>' ;
+    public final AntlrDatatypeRuleToken ruleTestcase() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
         Token kw=null;
@@ -332,25 +332,14 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalEis.g:175:2: ( (kw= 'abc' kw= ';' ) )
-            // InternalEis.g:176:2: (kw= 'abc' kw= ';' )
+            // InternalEis.g:175:2: (kw= '<>' )
+            // InternalEis.g:176:2: kw= '<>'
             {
-            // InternalEis.g:176:2: (kw= 'abc' kw= ';' )
-            // InternalEis.g:177:3: kw= 'abc' kw= ';'
-            {
-            kw=(Token)match(input,15,FOLLOW_5); 
+            kw=(Token)match(input,15,FOLLOW_2); 
 
-            			current.merge(kw);
-            			newLeafNode(kw, grammarAccess.getEisTypeAccess().getAbcKeyword_0());
-            		
-            kw=(Token)match(input,13,FOLLOW_2); 
-
-            			current.merge(kw);
-            			newLeafNode(kw, grammarAccess.getEisTypeAccess().getSemicolonKeyword_1());
-            		
-
-            }
-
+            		current.merge(kw);
+            		newLeafNode(kw, grammarAccess.getTestcaseAccess().getLessThanSignGreaterThanSignKeyword());
+            	
 
             }
 
@@ -367,7 +356,7 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleEisType"
+    // $ANTLR end "ruleTestcase"
 
     // Delegated rules
 

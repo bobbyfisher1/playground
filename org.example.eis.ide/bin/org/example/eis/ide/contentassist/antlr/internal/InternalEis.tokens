@@ -1,8 +1,8 @@
-';'=13
-'='=12
-'abc'=15
-'plcname'=14
-'project'=11
+';'=14
+'<>'=11
+'='=13
+'plcname'=15
+'project'=12
 RULE_ANY_OTHER=10
 RULE_ID=4
 RULE_INT=5

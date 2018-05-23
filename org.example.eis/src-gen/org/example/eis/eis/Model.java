@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.example.eis.eis.Model#getProject_name <em>Project name</em>}</li>
  *   <li>{@link org.example.eis.eis.Model#getPlc_name <em>Plc name</em>}</li>
- *   <li>{@link org.example.eis.eis.Model#getEis <em>Eis</em>}</li>
+ *   <li>{@link org.example.eis.eis.Model#getTestcases <em>Testcases</em>}</li>
  * </ul>
  *
  * @see org.example.eis.eis.EisPackage#getModel()
@@ -80,19 +80,19 @@ public interface Model extends EObject
   void setPlc_name(String value);
 
   /**
-   * Returns the value of the '<em><b>Eis</b></em>' attribute list.
+   * Returns the value of the '<em><b>Testcases</b></em>' attribute list.
    * The list contents are of type {@link java.lang.String}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Eis</em>' attribute list isn't clear,
+   * If the meaning of the '<em>Testcases</em>' attribute list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Eis</em>' attribute list.
-   * @see org.example.eis.eis.EisPackage#getModel_Eis()
+   * @return the value of the '<em>Testcases</em>' attribute list.
+   * @see org.example.eis.eis.EisPackage#getModel_Testcases()
    * @model unique="false"
    * @generated
    */
-  EList<String> getEis();
+  EList<String> getTestcases();
 
 } // Model

@@ -9,7 +9,7 @@
     <genClasses ecoreClass="Eis.ecore#//Model">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//Model/project_name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//Model/plc_name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//Model/eis"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//Model/testcases"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

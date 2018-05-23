@@ -85,13 +85,13 @@ public interface EisPackage extends EPackage
   int MODEL__PLC_NAME = 1;
 
   /**
-   * The feature id for the '<em><b>Eis</b></em>' attribute list.
+   * The feature id for the '<em><b>Testcases</b></em>' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MODEL__EIS = 2;
+  int MODEL__TESTCASES = 2;
 
   /**
    * The number of structural features of the '<em>Model</em>' class.
@@ -136,15 +136,15 @@ public interface EisPackage extends EPackage
   EAttribute getModel_Plc_name();
 
   /**
-   * Returns the meta object for the attribute list '{@link org.example.eis.eis.Model#getEis <em>Eis</em>}'.
+   * Returns the meta object for the attribute list '{@link org.example.eis.eis.Model#getTestcases <em>Testcases</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Eis</em>'.
-   * @see org.example.eis.eis.Model#getEis()
+   * @return the meta object for the attribute list '<em>Testcases</em>'.
+   * @see org.example.eis.eis.Model#getTestcases()
    * @see #getModel()
    * @generated
    */
-  EAttribute getModel_Eis();
+  EAttribute getModel_Testcases();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -196,12 +196,12 @@ public interface EisPackage extends EPackage
     EAttribute MODEL__PLC_NAME = eINSTANCE.getModel_Plc_name();
 
     /**
-     * The meta object literal for the '<em><b>Eis</b></em>' attribute list feature.
+     * The meta object literal for the '<em><b>Testcases</b></em>' attribute list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute MODEL__EIS = eINSTANCE.getModel_Eis();
+    EAttribute MODEL__TESTCASES = eINSTANCE.getModel_Testcases();
 
   }
 

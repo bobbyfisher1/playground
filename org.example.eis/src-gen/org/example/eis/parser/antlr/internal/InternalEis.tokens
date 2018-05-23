@@ -1,6 +1,6 @@
 ';'=13
+'<>'=15
 '='=12
-'abc'=15
 'plcname'=14
 'project'=11
 RULE_ANY_OTHER=10

@@ -139,18 +139,18 @@ ruleModel returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getModelAccess().getEisEisTypeParserRuleCall_8_0());
+					newCompositeNode(grammarAccess.getModelAccess().getTestcasesTestcaseParserRuleCall_8_0());
 				}
-				lv_eis_8_0=ruleEisType
+				lv_testcases_8_0=ruleTestcase
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getModelRule());
 					}
 					add(
 						$current,
-						"eis",
-						lv_eis_8_0,
-						"org.example.eis.Eis.EisType");
+						"testcases",
+						lv_testcases_8_0,
+						"org.example.eis.Eis.Testcase");
 					afterParserOrEnumRuleCall();
 				}
 			)
@@ -158,33 +158,26 @@ ruleModel returns [EObject current=null]
 	)
 ;
 
-// Entry rule entryRuleEisType
-entryRuleEisType returns [String current=null]:
-	{ newCompositeNode(grammarAccess.getEisTypeRule()); }
-	iv_ruleEisType=ruleEisType
-	{ $current=$iv_ruleEisType.current.getText(); }
+// Entry rule entryRuleTestcase
+entryRuleTestcase returns [String current=null]:
+	{ newCompositeNode(grammarAccess.getTestcaseRule()); }
+	iv_ruleTestcase=ruleTestcase
+	{ $current=$iv_ruleTestcase.current.getText(); }
 	EOF;
 
-// Rule EisType
-ruleEisType returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
+// Rule Testcase
+ruleTestcase returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
 @init {
 	enterRule();
 }
 @after {
 	leaveRule();
 }:
-	(
-		kw='abc'
-		{
-			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getEisTypeAccess().getAbcKeyword_0());
-		}
-		kw=';'
-		{
-			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getEisTypeAccess().getSemicolonKeyword_1());
-		}
-	)
+	kw='<>'
+	{
+		$current.merge(kw);
+		newLeafNode(kw, grammarAccess.getTestcaseAccess().getLessThanSignGreaterThanSignKeyword());
+	}
 ;
 
 RULE_ID : '^'? ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;

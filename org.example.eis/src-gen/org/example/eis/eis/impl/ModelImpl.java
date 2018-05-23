@@ -29,7 +29,7 @@ import org.example.eis.eis.Model;
  * <ul>
  *   <li>{@link org.example.eis.eis.impl.ModelImpl#getProject_name <em>Project name</em>}</li>
  *   <li>{@link org.example.eis.eis.impl.ModelImpl#getPlc_name <em>Plc name</em>}</li>
- *   <li>{@link org.example.eis.eis.impl.ModelImpl#getEis <em>Eis</em>}</li>
+ *   <li>{@link org.example.eis.eis.impl.ModelImpl#getTestcases <em>Testcases</em>}</li>
  * </ul>
  *
  * @generated
@@ -77,14 +77,14 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
   protected String plc_name = PLC_NAME_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getEis() <em>Eis</em>}' attribute list.
+   * The cached value of the '{@link #getTestcases() <em>Testcases</em>}' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getEis()
+   * @see #getTestcases()
    * @generated
    * @ordered
    */
-  protected EList<String> eis;
+  protected EList<String> testcases;
 
   /**
    * <!-- begin-user-doc -->
@@ -158,13 +158,13 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<String> getEis()
+  public EList<String> getTestcases()
   {
-    if (eis == null)
+    if (testcases == null)
     {
-      eis = new EDataTypeEList<String>(String.class, this, EisPackage.MODEL__EIS);
+      testcases = new EDataTypeEList<String>(String.class, this, EisPackage.MODEL__TESTCASES);
     }
-    return eis;
+    return testcases;
   }
 
   /**
@@ -181,8 +181,8 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
         return getProject_name();
       case EisPackage.MODEL__PLC_NAME:
         return getPlc_name();
-      case EisPackage.MODEL__EIS:
-        return getEis();
+      case EisPackage.MODEL__TESTCASES:
+        return getTestcases();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -204,9 +204,9 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
       case EisPackage.MODEL__PLC_NAME:
         setPlc_name((String)newValue);
         return;
-      case EisPackage.MODEL__EIS:
-        getEis().clear();
-        getEis().addAll((Collection<? extends String>)newValue);
+      case EisPackage.MODEL__TESTCASES:
+        getTestcases().clear();
+        getTestcases().addAll((Collection<? extends String>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -228,8 +228,8 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
       case EisPackage.MODEL__PLC_NAME:
         setPlc_name(PLC_NAME_EDEFAULT);
         return;
-      case EisPackage.MODEL__EIS:
-        getEis().clear();
+      case EisPackage.MODEL__TESTCASES:
+        getTestcases().clear();
         return;
     }
     super.eUnset(featureID);
@@ -249,8 +249,8 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
         return PROJECT_NAME_EDEFAULT == null ? project_name != null : !PROJECT_NAME_EDEFAULT.equals(project_name);
       case EisPackage.MODEL__PLC_NAME:
         return PLC_NAME_EDEFAULT == null ? plc_name != null : !PLC_NAME_EDEFAULT.equals(plc_name);
-      case EisPackage.MODEL__EIS:
-        return eis != null && !eis.isEmpty();
+      case EisPackage.MODEL__TESTCASES:
+        return testcases != null && !testcases.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -270,8 +270,8 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
     result.append(project_name);
     result.append(", plc_name: ");
     result.append(plc_name);
-    result.append(", eis: ");
-    result.append(eis);
+    result.append(", testcases: ");
+    result.append(testcases);
     result.append(')');
     return result.toString();
   }

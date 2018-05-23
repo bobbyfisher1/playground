@@ -43,7 +43,7 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Model returns Model
 	 *
 	 * Constraint:
-	 *     (project_name=ID plc_name=ID eis+=EisType*)
+	 *     (project_name=ID plc_name=ID testcases+=Testcase*)
 	 */
 	protected void sequence_Model(ISerializationContext context, Model semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

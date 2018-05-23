@@ -126,7 +126,7 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getModel_Eis()
+  public EAttribute getModel_Testcases()
   {
     return (EAttribute)modelEClass.getEStructuralFeatures().get(2);
   }
@@ -164,7 +164,7 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
     modelEClass = createEClass(MODEL);
     createEAttribute(modelEClass, MODEL__PROJECT_NAME);
     createEAttribute(modelEClass, MODEL__PLC_NAME);
-    createEAttribute(modelEClass, MODEL__EIS);
+    createEAttribute(modelEClass, MODEL__TESTCASES);
   }
 
   /**
@@ -201,7 +201,7 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
     initEClass(modelEClass, Model.class, "Model", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getModel_Project_name(), ecorePackage.getEString(), "project_name", null, 0, 1, Model.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getModel_Plc_name(), ecorePackage.getEString(), "plc_name", null, 0, 1, Model.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getModel_Eis(), ecorePackage.getEString(), "eis", null, 0, -1, Model.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getModel_Testcases(), ecorePackage.getEString(), "testcases", null, 0, -1, Model.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

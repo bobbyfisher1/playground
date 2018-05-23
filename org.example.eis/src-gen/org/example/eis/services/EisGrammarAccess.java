@@ -34,16 +34,16 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cPlc_nameAssignment_6 = (Assignment)cGroup.eContents().get(6);
 		private final RuleCall cPlc_nameIDTerminalRuleCall_6_0 = (RuleCall)cPlc_nameAssignment_6.eContents().get(0);
 		private final Keyword cSemicolonKeyword_7 = (Keyword)cGroup.eContents().get(7);
-		private final Assignment cEisAssignment_8 = (Assignment)cGroup.eContents().get(8);
-		private final RuleCall cEisEisTypeParserRuleCall_8_0 = (RuleCall)cEisAssignment_8.eContents().get(0);
+		private final Assignment cTestcasesAssignment_8 = (Assignment)cGroup.eContents().get(8);
+		private final RuleCall cTestcasesTestcaseParserRuleCall_8_0 = (RuleCall)cTestcasesAssignment_8.eContents().get(0);
 		
 		//Model:
 		//	'project' '=' project_name=ID ';'
 		//	'plcname' '=' plc_name=ID ';'
-		//	eis+=EisType*;
+		//	testcases+=Testcase*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'project' '=' project_name=ID ';' 'plcname' '=' plc_name=ID ';' eis+=EisType*
+		//'project' '=' project_name=ID ';' 'plcname' '=' plc_name=ID ';' testcases+=Testcase*
 		public Group getGroup() { return cGroup; }
 		
 		//'project'
@@ -76,35 +76,27 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		//';'
 		public Keyword getSemicolonKeyword_7() { return cSemicolonKeyword_7; }
 		
-		//eis+=EisType*
-		public Assignment getEisAssignment_8() { return cEisAssignment_8; }
+		//testcases+=Testcase*
+		public Assignment getTestcasesAssignment_8() { return cTestcasesAssignment_8; }
 		
-		//EisType
-		public RuleCall getEisEisTypeParserRuleCall_8_0() { return cEisEisTypeParserRuleCall_8_0; }
+		//Testcase
+		public RuleCall getTestcasesTestcaseParserRuleCall_8_0() { return cTestcasesTestcaseParserRuleCall_8_0; }
 	}
-	public class EisTypeElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.EisType");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cAbcKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Keyword cSemicolonKeyword_1 = (Keyword)cGroup.eContents().get(1);
+	public class TestcaseElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.Testcase");
+		private final Keyword cLessThanSignGreaterThanSignKeyword = (Keyword)rule.eContents().get(1);
 		
-		//EisType:
-		//	"abc" ';';
+		//Testcase:
+		//	"<>";
 		@Override public ParserRule getRule() { return rule; }
 		
-		//"abc" ';'
-		public Group getGroup() { return cGroup; }
-		
-		//"abc"
-		public Keyword getAbcKeyword_0() { return cAbcKeyword_0; }
-		
-		//';'
-		public Keyword getSemicolonKeyword_1() { return cSemicolonKeyword_1; }
+		//"<>"
+		public Keyword getLessThanSignGreaterThanSignKeyword() { return cLessThanSignGreaterThanSignKeyword; }
 	}
 	
 	
 	private final ModelElements pModel;
-	private final EisTypeElements pEisType;
+	private final TestcaseElements pTestcase;
 	
 	private final Grammar grammar;
 	
@@ -116,7 +108,7 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		this.grammar = internalFindGrammar(grammarProvider);
 		this.gaTerminals = gaTerminals;
 		this.pModel = new ModelElements();
-		this.pEisType = new EisTypeElements();
+		this.pTestcase = new TestcaseElements();
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -149,7 +141,7 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	//Model:
 	//	'project' '=' project_name=ID ';'
 	//	'plcname' '=' plc_name=ID ';'
-	//	eis+=EisType*;
+	//	testcases+=Testcase*;
 	public ModelElements getModelAccess() {
 		return pModel;
 	}
@@ -158,14 +150,14 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		return getModelAccess().getRule();
 	}
 	
-	//EisType:
-	//	"abc" ';';
-	public EisTypeElements getEisTypeAccess() {
-		return pEisType;
+	//Testcase:
+	//	"<>";
+	public TestcaseElements getTestcaseAccess() {
+		return pTestcase;
 	}
 	
-	public ParserRule getEisTypeRule() {
-		return getEisTypeAccess().getRule();
+	public ParserRule getTestcaseRule() {
+		return getTestcaseAccess().getRule();
 	}
 	
 	//terminal ID:

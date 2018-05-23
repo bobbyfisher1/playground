@@ -32,10 +32,9 @@ public class EisParser extends AbstractContentAssistParser {
 				private static final long serialVersionUID = 1L;
 				{
 					put(grammarAccess.getModelAccess().getGroup(), "rule__Model__Group__0");
-					put(grammarAccess.getEisTypeAccess().getGroup(), "rule__EisType__Group__0");
 					put(grammarAccess.getModelAccess().getProject_nameAssignment_2(), "rule__Model__Project_nameAssignment_2");
 					put(grammarAccess.getModelAccess().getPlc_nameAssignment_6(), "rule__Model__Plc_nameAssignment_6");
-					put(grammarAccess.getModelAccess().getEisAssignment_8(), "rule__Model__EisAssignment_8");
+					put(grammarAccess.getModelAccess().getTestcasesAssignment_8(), "rule__Model__TestcasesAssignment_8");
 				}
 			};
 		}

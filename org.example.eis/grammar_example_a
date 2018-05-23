@@ -1,0 +1,10 @@
+testcase Name{
+	testActive = false; 	//boolean
+	blockType = FC;			//enum{FC, FB}			figure out what else is possible here
+	description = "";		//string	
+
+	teststep(int plcCycle, string description){
+		input  { datatype name = value }
+		output { datatype name = value (+- range)* }
+	}
+}
