@@ -1,0 +1,15 @@
+grammar org.example.eis.Eis with org.eclipse.xtext.common.Terminals
+
+generate eis "http://www.example.org/eis/Eis"
+
+Model:
+	eis+=EisType*;
+
+EisType:
+	TiaProjectName | PLCName;
+
+TiaProjectName:
+	'project' '=' name=ID ';';
+
+PLCName:
+	'plcname' '=' name=ID ';';
