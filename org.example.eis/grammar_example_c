@@ -3,53 +3,23 @@ plcname = name;
 author  = name;
 
 testcase BlockName{
-									//IDs can be counted automatically and omitted
-	testActive = boolean
-	blockType = FC | FB 
-	description = string	
+									// testCase IDs can be counted automatically (starting at 0) and omitted
+	testActive = boolean;
+	blockType = (FC | FB);
+	description = string;	
 
-	teststep testName(int plcCycle, string description){
-		(input | output | inout)[ 
-		
-			datatype name = value;	
-								
-			udt name(specific_datatype_name){
-				datatype name = value;
-			}		
-		]	
-				
-		input  { datatype name = value }
-		output { overload? datatype name = value (range +/- [])? }
-		inout  { datatype name = value }
+	define{ ((input | inout | output)[])* }		
+
+	teststep(int plcCycle, string description){
+		(input | inout | output)[]	
 	}
 }
-
-//example1-------------------just testing the grammar--------------------------------------------------------------------
+	
+	
+//example2-------------------------define--------------------------------------------------------------
 ...
 
-	teststep multiplication_correct(plcCycle, "89*89"){
-		input int Zahl1 = 89;
-		input int Zahl2 = 89;
-		
-		assert Zahl1 * Zahl2 => 7921;
-	}
-	
-	
-	teststep multiplication_false(plcCycle, "3*3 falsch"){
-		int Zahl1 = 3, Zahl2 = 3;
-		
-		assert Zahl1 * Zahl2 => 42;
-	}
-	
-	teststep int_overload(plcCycle, "32767+1"){
-		int Zahl1 = 32767, Zahl2 = 1;
-		
-		assertOverload Zahl1 * Zahl2;
-	}
-	
-//example2-------------------------implementing testcases--------------------------------------------------------------
-...
-	teststep template(0, "Template"){
+	define{
 		input[ 
 			udt Steuerwort(typeSteuerwort){
 				bool Start, Stop, Modus; 							//undefined boolean types can be preset to false
@@ -64,8 +34,7 @@ testcase BlockName{
 				}
 			}
 			
-			bool Freigabe;
-			int Rechte;
+			bool Freigabe;			
 		]
 		
 		inout[	
@@ -88,6 +57,8 @@ testcase BlockName{
 					dint istPos;				
 				}									
 			}
+			
+			int Rechte;
 		]
 		
 		output[
@@ -104,9 +75,9 @@ testcase BlockName{
 //example3-------------------------implementing testcases--------------------------------------------------------------
 ...
 	
-	teststep template(2, "Keine Freigabe Hand"){
+	teststep(2, "Keine Freigabe Hand"){
 		input[ 
-			Steuerwort.Start = true;
+			bool Steuerwort.Start = true;
 			Steuerwort.Stop = Steuerwort.Modus = false; 							
 					
 			Steuerwort.Manuell.Links  = true; 
@@ -115,8 +86,7 @@ testcase BlockName{
 			Steuerwort.Auto.SollPos = 0;									
 			Steuerwort.Auto.Execute = false;
 		
-			Freigabe = false;
-			Rechte   = 0; 
+			Freigabe = false;			
 		]
 		
 		inout[													
@@ -130,9 +100,12 @@ testcase BlockName{
 			InterfaceHMI.Steuerwort.Auto.SollPos = 0;
 			InterfaceHMI.Steuerwort.Auto.Execute = false;
 	
+	
 			InterfaceHMI.Statuswort.ready  = false;
 			InterfaceHMI.Statuswort.busy   = false;
-			InterfaceHMI.Statuswort.istPos = 0;						
+			InterfaceHMI.Statuswort.istPos = 0;			
+			
+			Rechte   = 0; 			
 		]
 		
 		output[
@@ -143,6 +116,195 @@ testcase BlockName{
 			Motorlinks = Motorrechts = false;		
 		]
 	}
+
+
 //------------------------------------------------------------------------------------------------------
 
+	testStep(3, "Freigabe Hand"){
+		input[
+			Steuerwort => [
+				Start = true;
+				Stop = false;
+				Modus = false;
+				
+				Manuell => [
+					Links = false;
+					Rechts = false;
+				]
+				
+				Auto => [
+					SollPos = 0;
+					Execute = false;
+				]
+			]
+			
+			Freigabe = true;			
+		]
+		
+		inout[
+			InterfaceHMI => [
+				Steuerwort => [ 
+					Start = Stop = Modus = false; 
+				
+					Manuell => [ Links = Rechts = false; ]
+					Auto => [ 
+						SollPos = 0;
+						Execute = false;
+					]
+				]
+				
+				Statuswort => [
+					ready = busy = false;
+					istPos = 0;
+				]
+			]
+			
+			Rechte = 0;
+		]
+		
+		output[
+			Statuswort => [
+				ready = true;
+				busy = false;
+				istPos = 0;
+			]
+			
+			Motorlinks = Motorrechts = false;
+		]		
+	}
 
+
+
+//------------------------------------------------------------------------------------------------------
+/*
+	Here I was thinking that after the define section, as a quickfix or autocomplete function, a template could be instanciated,
+	which the user can copy for other tests.
+	
+	I'd say that the template always needs to be there and an error would occour, if it's missing.
+	This way it would always be there for the user before they start writing wild tests.
+	And they're shown how to write minimalistic tests and the sugar. 
+	
+	Of course, the testSteps and testCases can be folded.
+*/
+	testStep(0, "Template"){
+		input[
+			Steuerwort => [
+				Start = false;
+				Stop = false;
+				Modus = false;
+				
+				Manuell => [
+					Links = false;
+					Rechts = false;
+				]
+				
+				Auto => [
+					SollPos = 0;
+					Execute = false;
+				]
+			]
+			
+			Freigabe = false;			
+		]
+		
+		inout[
+			InterfaceHMI => [
+				Steuerwort => [ 
+					Start = false;
+					Stop = false;
+					Modus = false; 
+				
+					Manuell => [ 
+						Links = false;
+						Rechts = false; 
+					]
+					Auto => [ 
+						SollPos = 0;
+						Execute = false;
+					]
+				]
+				
+				Statuswort => [
+					ready = false;
+					busy = false;
+					istPos = 0;
+				]
+			]
+			
+			Rechte = 0;
+		]
+		
+		output[
+			Statuswort => [
+				ready = false;
+				busy = false;
+				istPos = 0;
+			]
+			
+			Motorlinks = false;
+			Motorrechts = false;
+		]		
+	}
+
+//----------------------------------------------------------------------------------------------------
+
+	testStep(0, "Template"){
+		input[
+			Steuerwort => [
+				Start = true;
+				Stop = false;
+				Modus = false;
+				
+				Manuell => [
+					Links = false;
+					Rechts = true;
+				]
+				
+				Auto => [
+					SollPos = 0;
+					Execute = false;
+				]
+			]
+			
+			Freigabe = true;			
+		]
+		
+		inout[
+			InterfaceHMI => [
+				Steuerwort => [ 
+					Start = false;
+					Stop = false;
+					Modus = false; 
+				
+					Manuell => [ 
+						Links = false;
+						Rechts = false; 
+					]
+					Auto => [ 
+						SollPos = 0;
+						Execute = false;
+					]
+				]
+				
+				Statuswort => [
+					ready = false;
+					busy = false;
+					istPos = 0;
+				]
+			]
+			
+			Rechte = 0;
+		]
+		
+		output[
+			Statuswort => [
+				ready = true;
+				busy = true;
+				istPos = 0;
+			]
+			
+			Motorlinks = false;
+			Motorrechts = true;
+		]		
+	}
+	
