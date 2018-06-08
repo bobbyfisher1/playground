@@ -2,13 +2,14 @@ project = name;
 plcname = name;
 author  = name;
 
-testcase BlockName{
-									// testCase IDs can be counted automatically (starting at 0) and omitted
+testcase BlockName{					//testCase IDs can be counted automatically (starting at 0) and omitted
 	testActive = boolean;
 	blockType = (FC | FB);
 	description = string;	
 
-	define{ ((input | inout | output)[])* }		
+	define{ 
+		(input | inout | output)[] 			//the question of quantity and order remains
+	}		
 
 	teststep(int plcCycle, string description){
 		(input | inout | output)[]	
@@ -16,8 +17,7 @@ testcase BlockName{
 }
 	
 	
-//example2-------------------------define--------------------------------------------------------------
-...
+//example-of-the-define-section-------------------------------------------------------------
 
 	define{
 		input[ 
@@ -64,7 +64,9 @@ testcase BlockName{
 		output[
 			udt Statuswort(typeStatuswort){
 				bool ready, busy;
-				dint istPos;
+				dint istPos +/- dint;				//Default range can set here in the define section. '0' if not specified. 
+													//Only '+/-' can be specified, not just '+' or '-' alone.
+													//Only for numerical types, of course. 
 			}
 			
 			bool Motorlinks, Motorrechts;		
@@ -72,8 +74,7 @@ testcase BlockName{
 	}
 	
 	
-//example3-------------------------implementing testcases--------------------------------------------------------------
-...
+//1st-example-of-implementing testcases--------------------------------------------------------------
 	
 	teststep(2, "Keine Freigabe Hand"){
 		input[ 
@@ -111,18 +112,18 @@ testcase BlockName{
 		output[
 			Statuswort.ready  = false;
 			Statuswort.busy   = false;
-			Statuswort.istPos = 0;
+			Statuswort.istPos = 0 +/- 4;					// range can be set individually for this specific testStep
 						
 			Motorlinks = Motorrechts = false;		
 		]
 	}
 
 
-//------------------------------------------------------------------------------------------------------
+//2nd-example-of-implementing testcases-----------another-possible-syntax-----------------------------------------
 
 	testStep(3, "Freigabe Hand"){
 		input[
-			Steuerwort => [
+			Steuerwort => [											//sugar
 				Start = true;
 				Stop = false;
 				Modus = false;
@@ -144,7 +145,7 @@ testcase BlockName{
 		inout[
 			InterfaceHMI => [
 				Steuerwort => [ 
-					Start = Stop = Modus = false; 
+					Start = Stop = Modus = false; 					//sugar
 				
 					Manuell => [ Links = Rechts = false; ]
 					Auto => [ 
@@ -186,6 +187,7 @@ testcase BlockName{
 	
 	Of course, the testSteps and testCases can be folded.
 */
+
 	testStep(0, "Template"){
 		input[
 			Steuerwort => [
@@ -246,9 +248,9 @@ testcase BlockName{
 		]		
 	}
 
-//----------------------------------------------------------------------------------------------------
+//3rd-example-of-implementing testcases------------copied-from-template----------------------------------------------
 
-	testStep(0, "Template"){
+	testStep(7, "Hand rechts"){
 		input[
 			Steuerwort => [
 				Start = true;
