@@ -1,0 +1,148 @@
+project = name;
+plcname = name;
+author  = name;
+
+testcase BlockName{
+									//IDs can be counted automatically and omitted
+	testActive = boolean
+	blockType = FC | FB 
+	description = string	
+
+	teststep testName(int plcCycle, string description){
+		(input | output | inout)[ 
+		
+			datatype name = value;	
+								
+			udt name(specific_datatype_name){
+				datatype name = value;
+			}		
+		]	
+				
+		input  { datatype name = value }
+		output { overload? datatype name = value (range +/- [])? }
+		inout  { datatype name = value }
+	}
+}
+
+//example1-------------------just testing the grammar--------------------------------------------------------------------
+...
+
+	teststep multiplication_correct(plcCycle, "89*89"){
+		input int Zahl1 = 89;
+		input int Zahl2 = 89;
+		
+		assert Zahl1 * Zahl2 => 7921;
+	}
+	
+	
+	teststep multiplication_false(plcCycle, "3*3 falsch"){
+		int Zahl1 = 3, Zahl2 = 3;
+		
+		assert Zahl1 * Zahl2 => 42;
+	}
+	
+	teststep int_overload(plcCycle, "32767+1"){
+		int Zahl1 = 32767, Zahl2 = 1;
+		
+		assertOverload Zahl1 * Zahl2;
+	}
+	
+//example2-------------------------implementing testcases--------------------------------------------------------------
+...
+	teststep template(0, "Template"){
+		input[ 
+			udt Steuerwort(typeSteuerwort){
+				bool Start, Stop, Modus; 							//undefined boolean types can be preset to false
+				
+				udt Manuell(typeManuellSteuerwort){
+					bool Links, Rechts;
+				}
+			
+				udt Auto(typeAutoSteuerwort){
+					dint SollPos;									//undefined numerical types can be preset to 0
+					bool Execute;
+				}
+			}
+			
+			bool Freigabe;
+			int Rechte;
+		]
+		
+		inout[	
+			udt InterfaceHMI(typeHMImotorInterface){				
+				udt Steuerwort(typeSteuerwort){									
+					bool Start, Stop, Modus; 
+									
+					udt Manuell(typeManuellSteuerwort){
+						bool Links, Rechts;
+					}
+				
+					udt Auto(typeAutoSteuerwort){
+						dint SollPos;
+						bool Execute;
+					}
+				}
+				
+				udt Statuswort(typeStatuswort){
+					bool ready, busy;
+					dint istPos;				
+				}									
+			}
+		]
+		
+		output[
+			udt Statuswort(typeStatuswort){
+				bool ready, busy;
+				dint istPos;
+			}
+			
+			bool Motorlinks, Motorrechts;		
+		]
+	}
+	
+	
+//example3-------------------------implementing testcases--------------------------------------------------------------
+...
+	
+	teststep template(2, "Keine Freigabe Hand"){
+		input[ 
+			Steuerwort.Start = true;
+			Steuerwort.Stop = Steuerwort.Modus = false; 							
+					
+			Steuerwort.Manuell.Links  = true; 
+			Steuerwort.Manuell.Rechts = false;
+									
+			Steuerwort.Auto.SollPos = 0;									
+			Steuerwort.Auto.Execute = false;
+		
+			Freigabe = false;
+			Rechte   = 0; 
+		]
+		
+		inout[													
+			InterfaceHMI.Steuerwort.Start 	= false;
+			InterfaceHMI.Steuerwort.Stop	= false;
+			InterfaceHMI.Steuerwort.Modus	= false; 
+			
+			InterfaceHMI.Steuerwort.Manuell.Links 	= false; 
+			InterfaceHMI.Steuerwort.Manuell.Rechts	= false;
+			
+			InterfaceHMI.Steuerwort.Auto.SollPos = 0;
+			InterfaceHMI.Steuerwort.Auto.Execute = false;
+	
+			InterfaceHMI.Statuswort.ready  = false;
+			InterfaceHMI.Statuswort.busy   = false;
+			InterfaceHMI.Statuswort.istPos = 0;						
+		]
+		
+		output[
+			Statuswort.ready  = false;
+			Statuswort.busy   = false;
+			Statuswort.istPos = 0;
+						
+			Motorlinks = Motorrechts = false;		
+		]
+	}
+//------------------------------------------------------------------------------------------------------
+
+

@@ -1,0 +1,65 @@
+project = name;
+plcname = name;
+author  = name;
+
+testcase BlockName{
+									//IDs can be counted automatically and omitted
+	testActive = boolean
+	blockType = FC | FB 
+	description = string	
+
+	teststep testName(int plcCycle, string description){
+		(input | output | inout) datatype name = value;	//datatypes: see surftodoeldia/things_to_be_discussed/unit_testing_in_Tia/what/datatypes
+							
+		(input | output | inout) udt name(specific_datatype_name){
+			datatype name = value;
+		}		
+										//implicit newline here		
+		assert input => output;	
+		
+		assertOverload input;			//the output variable/tag 'Overload' is set true ... else false 				
+	}
+}
+
+//example1---------------------------------------------------------------------------------------
+...
+
+	teststep multiplication_correct(plcCycle, "89*89"){
+		int Zahl1 = 89;
+		int Zahl2 = 89;
+		
+		assert Zahl1 * Zahl2 => 7921;
+	}
+	
+	
+	teststep multiplication_false(plcCycle, "3*3 falsch"){
+		int Zahl1 = 3, Zahl2 = 3;
+		
+		assert Zahl1 * Zahl2 => 42;
+	}
+	
+	teststep int_overload(plcCycle, "32767+1"){
+		int Zahl1 = 32767, Zahl2 = 1;
+		
+		assertOverload Zahl1 * Zahl2;
+	}
+	
+//example2---------------------------------------------------------------------------------------
+...
+	teststep template(0, "Template"){
+		udt Steuerwort(typeSteuerwort){
+		
+		}
+		
+	
+	}
+	
+
+
+
+
+
+
+	udt name(specific_datatype_name){
+		datatype name = value;
+	}	
