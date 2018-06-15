@@ -20,14 +20,14 @@ class EisParsingTest {
 	@Inject extension ParseHelper<Model>
 	@Inject extension ValidationTestHelper;
 
-	@Test def void testA() {
+	@Test def void testFixedProgramBeginning_noErrors() {
 		'''
 			project = abckdjh;
 			plcname = d383;
 		'''.parse.assertNoErrors
 	}
 
-	@Test def void test_project_name() {
+	@Test def void testAccessingProjectProperties_noErrors() {
 		'''
 			project = x;
 			plcname = fj484;

@@ -32,7 +32,7 @@ public class EisParsingTest {
   private ValidationTestHelper _validationTestHelper;
   
   @Test
-  public void testA() {
+  public void testFixedProgramBeginning_noErrors() {
     try {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("project = abckdjh;");
@@ -46,7 +46,7 @@ public class EisParsingTest {
   }
   
   @Test
-  public void test_project_name() {
+  public void testAccessingProjectProperties_noErrors() {
     try {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("project = x;");

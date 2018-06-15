@@ -8,11 +8,11 @@ testcase BlockName{					//testCase IDs can be counted automatically (starting at
 	description = string;	
 
 	define{ 
-		(input | inout | output)[] 			//the question of quantity and order remains
+		(input+ & inout? & output+)[] 			//the question of quantity and order remains
 	}		
 
 	teststep(int plcCycle, string description){
-		(input | inout | output)[]	
+		(input+ & inout? & output+)[]	
 	}
 }
 	
@@ -59,6 +59,9 @@ testcase BlockName{					//testCase IDs can be counted automatically (starting at
 			}
 			
 			int Rechte;
+			
+			//From Kevin
+			variant Zeiger(int); -> In der XML: Variant@Int
 		]
 		
 		output[
@@ -78,8 +81,8 @@ testcase BlockName{					//testCase IDs can be counted automatically (starting at
 	
 	teststep(2, "Keine Freigabe Hand"){
 		input[ 
-			bool Steuerwort.Start = true;
-			Steuerwort.Stop = Steuerwort.Modus = false; 							
+			Steuerwort.Start = true;
+			Steuerwort.Stop = Steuerwort.Modus = false;			//schmankerl 							
 					
 			Steuerwort.Manuell.Links  = true; 
 			Steuerwort.Manuell.Rechts = false;
