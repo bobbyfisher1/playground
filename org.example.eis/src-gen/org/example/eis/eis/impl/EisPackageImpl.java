@@ -6,12 +6,17 @@ package org.example.eis.eis.impl;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
+import org.example.eis.eis.BlockConstant;
+import org.example.eis.eis.BoolConstant;
 import org.example.eis.eis.EisFactory;
+import org.example.eis.eis.EisModel;
 import org.example.eis.eis.EisPackage;
-import org.example.eis.eis.Model;
+import org.example.eis.eis.Testblock;
+import org.example.eis.eis.Testcase;
 
 /**
  * <!-- begin-user-doc -->
@@ -26,7 +31,35 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass modelEClass = null;
+  private EClass eisModelEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass testcaseEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass testblockEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass boolConstantEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass blockConstantEClass = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -96,9 +129,9 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getModel()
+  public EClass getEisModel()
   {
-    return modelEClass;
+    return eisModelEClass;
   }
 
   /**
@@ -106,9 +139,9 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getModel_Project_name()
+  public EAttribute getEisModel_Project_name()
   {
-    return (EAttribute)modelEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)eisModelEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -116,9 +149,9 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getModel_Plc_name()
+  public EAttribute getEisModel_Plc_name()
   {
-    return (EAttribute)modelEClass.getEStructuralFeatures().get(1);
+    return (EAttribute)eisModelEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -126,9 +159,129 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getModel_Testcases()
+  public EAttribute getEisModel_Author_name()
   {
-    return (EAttribute)modelEClass.getEStructuralFeatures().get(2);
+    return (EAttribute)eisModelEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEisModel_Testcases()
+  {
+    return (EReference)eisModelEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getTestcase()
+  {
+    return testcaseEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getTestcase_Testcase_name()
+  {
+    return (EAttribute)testcaseEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTestcase_Testblock()
+  {
+    return (EReference)testcaseEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getTestblock()
+  {
+    return testblockEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTestblock_TestActive()
+  {
+    return (EReference)testblockEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTestblock_BlockType()
+  {
+    return (EReference)testblockEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getTestblock_Description()
+  {
+    return (EAttribute)testblockEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getBoolConstant()
+  {
+    return boolConstantEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getBoolConstant_Value()
+  {
+    return (EAttribute)boolConstantEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getBlockConstant()
+  {
+    return blockConstantEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getBlockConstant_Value()
+  {
+    return (EAttribute)blockConstantEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -161,10 +314,26 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
     isCreated = true;
 
     // Create classes and their features
-    modelEClass = createEClass(MODEL);
-    createEAttribute(modelEClass, MODEL__PROJECT_NAME);
-    createEAttribute(modelEClass, MODEL__PLC_NAME);
-    createEAttribute(modelEClass, MODEL__TESTCASES);
+    eisModelEClass = createEClass(EIS_MODEL);
+    createEAttribute(eisModelEClass, EIS_MODEL__PROJECT_NAME);
+    createEAttribute(eisModelEClass, EIS_MODEL__PLC_NAME);
+    createEAttribute(eisModelEClass, EIS_MODEL__AUTHOR_NAME);
+    createEReference(eisModelEClass, EIS_MODEL__TESTCASES);
+
+    testcaseEClass = createEClass(TESTCASE);
+    createEAttribute(testcaseEClass, TESTCASE__TESTCASE_NAME);
+    createEReference(testcaseEClass, TESTCASE__TESTBLOCK);
+
+    testblockEClass = createEClass(TESTBLOCK);
+    createEReference(testblockEClass, TESTBLOCK__TEST_ACTIVE);
+    createEReference(testblockEClass, TESTBLOCK__BLOCK_TYPE);
+    createEAttribute(testblockEClass, TESTBLOCK__DESCRIPTION);
+
+    boolConstantEClass = createEClass(BOOL_CONSTANT);
+    createEAttribute(boolConstantEClass, BOOL_CONSTANT__VALUE);
+
+    blockConstantEClass = createEClass(BLOCK_CONSTANT);
+    createEAttribute(blockConstantEClass, BLOCK_CONSTANT__VALUE);
   }
 
   /**
@@ -198,10 +367,26 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
     // Add supertypes to classes
 
     // Initialize classes and features; add operations and parameters
-    initEClass(modelEClass, Model.class, "Model", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getModel_Project_name(), ecorePackage.getEString(), "project_name", null, 0, 1, Model.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getModel_Plc_name(), ecorePackage.getEString(), "plc_name", null, 0, 1, Model.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getModel_Testcases(), ecorePackage.getEString(), "testcases", null, 0, -1, Model.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(eisModelEClass, EisModel.class, "EisModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getEisModel_Project_name(), ecorePackage.getEString(), "project_name", null, 0, 1, EisModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEisModel_Plc_name(), ecorePackage.getEString(), "plc_name", null, 0, 1, EisModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEisModel_Author_name(), ecorePackage.getEString(), "author_name", null, 0, 1, EisModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEisModel_Testcases(), this.getTestcase(), null, "testcases", null, 0, -1, EisModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(testcaseEClass, Testcase.class, "Testcase", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getTestcase_Testcase_name(), ecorePackage.getEString(), "testcase_name", null, 0, 1, Testcase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTestcase_Testblock(), this.getTestblock(), null, "testblock", null, 0, 1, Testcase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(testblockEClass, Testblock.class, "Testblock", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getTestblock_TestActive(), this.getBoolConstant(), null, "testActive", null, 0, 1, Testblock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTestblock_BlockType(), this.getBlockConstant(), null, "blockType", null, 0, 1, Testblock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTestblock_Description(), ecorePackage.getEString(), "description", null, 0, 1, Testblock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(boolConstantEClass, BoolConstant.class, "BoolConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getBoolConstant_Value(), ecorePackage.getEString(), "value", null, 0, 1, BoolConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(blockConstantEClass, BlockConstant.class, "BlockConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getBlockConstant_Value(), ecorePackage.getEString(), "value", null, 0, 1, BlockConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

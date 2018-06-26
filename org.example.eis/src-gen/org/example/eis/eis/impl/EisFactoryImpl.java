@@ -65,7 +65,11 @@ public class EisFactoryImpl extends EFactoryImpl implements EisFactory
   {
     switch (eClass.getClassifierID())
     {
-      case EisPackage.MODEL: return createModel();
+      case EisPackage.EIS_MODEL: return createEisModel();
+      case EisPackage.TESTCASE: return createTestcase();
+      case EisPackage.TESTBLOCK: return createTestblock();
+      case EisPackage.BOOL_CONSTANT: return createBoolConstant();
+      case EisPackage.BLOCK_CONSTANT: return createBlockConstant();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -76,10 +80,54 @@ public class EisFactoryImpl extends EFactoryImpl implements EisFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public Model createModel()
+  public EisModel createEisModel()
   {
-    ModelImpl model = new ModelImpl();
-    return model;
+    EisModelImpl eisModel = new EisModelImpl();
+    return eisModel;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Testcase createTestcase()
+  {
+    TestcaseImpl testcase = new TestcaseImpl();
+    return testcase;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Testblock createTestblock()
+  {
+    TestblockImpl testblock = new TestblockImpl();
+    return testblock;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public BoolConstant createBoolConstant()
+  {
+    BoolConstantImpl boolConstant = new BoolConstantImpl();
+    return boolConstant;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public BlockConstant createBlockConstant()
+  {
+    BlockConstantImpl blockConstant = new BlockConstantImpl();
+    return blockConstant;
   }
 
   /**

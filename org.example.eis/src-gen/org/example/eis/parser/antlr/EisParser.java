@@ -27,7 +27,7 @@ public class EisParser extends AbstractAntlrParser {
 
 	@Override 
 	protected String getDefaultRuleName() {
-		return "Model";
+		return "EisModel";
 	}
 
 	public EisGrammarAccess getGrammarAccess() {

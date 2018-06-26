@@ -27,3 +27,4 @@ Export-Package: org.example.eis.eis,
  org.example.eis.scoping,
  org.example.eis.serializer
 Import-Package: org.apache.log4j
+Automatic-Module-Name: org.example.eis

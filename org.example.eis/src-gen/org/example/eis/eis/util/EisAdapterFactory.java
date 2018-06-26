@@ -76,9 +76,29 @@ public class EisAdapterFactory extends AdapterFactoryImpl
     new EisSwitch<Adapter>()
     {
       @Override
-      public Adapter caseModel(Model object)
+      public Adapter caseEisModel(EisModel object)
       {
-        return createModelAdapter();
+        return createEisModelAdapter();
+      }
+      @Override
+      public Adapter caseTestcase(Testcase object)
+      {
+        return createTestcaseAdapter();
+      }
+      @Override
+      public Adapter caseTestblock(Testblock object)
+      {
+        return createTestblockAdapter();
+      }
+      @Override
+      public Adapter caseBoolConstant(BoolConstant object)
+      {
+        return createBoolConstantAdapter();
+      }
+      @Override
+      public Adapter caseBlockConstant(BlockConstant object)
+      {
+        return createBlockConstantAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -103,16 +123,76 @@ public class EisAdapterFactory extends AdapterFactoryImpl
 
 
   /**
-   * Creates a new adapter for an object of class '{@link org.example.eis.eis.Model <em>Model</em>}'.
+   * Creates a new adapter for an object of class '{@link org.example.eis.eis.EisModel <em>Model</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.example.eis.eis.Model
+   * @see org.example.eis.eis.EisModel
    * @generated
    */
-  public Adapter createModelAdapter()
+  public Adapter createEisModelAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.example.eis.eis.Testcase <em>Testcase</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.example.eis.eis.Testcase
+   * @generated
+   */
+  public Adapter createTestcaseAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.example.eis.eis.Testblock <em>Testblock</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.example.eis.eis.Testblock
+   * @generated
+   */
+  public Adapter createTestblockAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.example.eis.eis.BoolConstant <em>Bool Constant</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.example.eis.eis.BoolConstant
+   * @generated
+   */
+  public Adapter createBoolConstantAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.example.eis.eis.BlockConstant <em>Block Constant</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.example.eis.eis.BlockConstant
+   * @generated
+   */
+  public Adapter createBlockConstantAdapter()
   {
     return null;
   }

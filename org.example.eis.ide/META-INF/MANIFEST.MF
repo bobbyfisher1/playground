@@ -12,4 +12,5 @@ Require-Bundle: org.example.eis,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.example.eis.ide.contentassist.antlr,
  org.example.eis.ide.contentassist.antlr.internal
+Automatic-Module-Name: org.example.eis.ide
 

@@ -30,7 +30,43 @@ public interface EisFactory extends EFactory
    * @return a new object of class '<em>Model</em>'.
    * @generated
    */
-  Model createModel();
+  EisModel createEisModel();
+
+  /**
+   * Returns a new object of class '<em>Testcase</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Testcase</em>'.
+   * @generated
+   */
+  Testcase createTestcase();
+
+  /**
+   * Returns a new object of class '<em>Testblock</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Testblock</em>'.
+   * @generated
+   */
+  Testblock createTestblock();
+
+  /**
+   * Returns a new object of class '<em>Bool Constant</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Bool Constant</em>'.
+   * @generated
+   */
+  BoolConstant createBoolConstant();
+
+  /**
+   * Returns a new object of class '<em>Block Constant</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Block Constant</em>'.
+   * @generated
+   */
+  BlockConstant createBlockConstant();
 
   /**
    * Returns the package supported by this factory.

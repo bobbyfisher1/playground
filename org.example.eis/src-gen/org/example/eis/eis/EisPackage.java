@@ -6,6 +6,7 @@ package org.example.eis.eis;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 
 /**
  * <!-- begin-user-doc -->
@@ -57,14 +58,14 @@ public interface EisPackage extends EPackage
   EisPackage eINSTANCE = org.example.eis.eis.impl.EisPackageImpl.init();
 
   /**
-   * The meta object id for the '{@link org.example.eis.eis.impl.ModelImpl <em>Model</em>}' class.
+   * The meta object id for the '{@link org.example.eis.eis.impl.EisModelImpl <em>Model</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.example.eis.eis.impl.ModelImpl
-   * @see org.example.eis.eis.impl.EisPackageImpl#getModel()
+   * @see org.example.eis.eis.impl.EisModelImpl
+   * @see org.example.eis.eis.impl.EisPackageImpl#getEisModel()
    * @generated
    */
-  int MODEL = 0;
+  int EIS_MODEL = 0;
 
   /**
    * The feature id for the '<em><b>Project name</b></em>' attribute.
@@ -73,7 +74,7 @@ public interface EisPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MODEL__PROJECT_NAME = 0;
+  int EIS_MODEL__PROJECT_NAME = 0;
 
   /**
    * The feature id for the '<em><b>Plc name</b></em>' attribute.
@@ -82,16 +83,25 @@ public interface EisPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MODEL__PLC_NAME = 1;
+  int EIS_MODEL__PLC_NAME = 1;
 
   /**
-   * The feature id for the '<em><b>Testcases</b></em>' attribute list.
+   * The feature id for the '<em><b>Author name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MODEL__TESTCASES = 2;
+  int EIS_MODEL__AUTHOR_NAME = 2;
+
+  /**
+   * The feature id for the '<em><b>Testcases</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EIS_MODEL__TESTCASES = 3;
 
   /**
    * The number of structural features of the '<em>Model</em>' class.
@@ -100,51 +110,318 @@ public interface EisPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MODEL_FEATURE_COUNT = 3;
+  int EIS_MODEL_FEATURE_COUNT = 4;
+
+  /**
+   * The meta object id for the '{@link org.example.eis.eis.impl.TestcaseImpl <em>Testcase</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.example.eis.eis.impl.TestcaseImpl
+   * @see org.example.eis.eis.impl.EisPackageImpl#getTestcase()
+   * @generated
+   */
+  int TESTCASE = 1;
+
+  /**
+   * The feature id for the '<em><b>Testcase name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TESTCASE__TESTCASE_NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Testblock</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TESTCASE__TESTBLOCK = 1;
+
+  /**
+   * The number of structural features of the '<em>Testcase</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TESTCASE_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link org.example.eis.eis.impl.TestblockImpl <em>Testblock</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.example.eis.eis.impl.TestblockImpl
+   * @see org.example.eis.eis.impl.EisPackageImpl#getTestblock()
+   * @generated
+   */
+  int TESTBLOCK = 2;
+
+  /**
+   * The feature id for the '<em><b>Test Active</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TESTBLOCK__TEST_ACTIVE = 0;
+
+  /**
+   * The feature id for the '<em><b>Block Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TESTBLOCK__BLOCK_TYPE = 1;
+
+  /**
+   * The feature id for the '<em><b>Description</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TESTBLOCK__DESCRIPTION = 2;
+
+  /**
+   * The number of structural features of the '<em>Testblock</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TESTBLOCK_FEATURE_COUNT = 3;
+
+  /**
+   * The meta object id for the '{@link org.example.eis.eis.impl.BoolConstantImpl <em>Bool Constant</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.example.eis.eis.impl.BoolConstantImpl
+   * @see org.example.eis.eis.impl.EisPackageImpl#getBoolConstant()
+   * @generated
+   */
+  int BOOL_CONSTANT = 3;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BOOL_CONSTANT__VALUE = 0;
+
+  /**
+   * The number of structural features of the '<em>Bool Constant</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BOOL_CONSTANT_FEATURE_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link org.example.eis.eis.impl.BlockConstantImpl <em>Block Constant</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.example.eis.eis.impl.BlockConstantImpl
+   * @see org.example.eis.eis.impl.EisPackageImpl#getBlockConstant()
+   * @generated
+   */
+  int BLOCK_CONSTANT = 4;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BLOCK_CONSTANT__VALUE = 0;
+
+  /**
+   * The number of structural features of the '<em>Block Constant</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BLOCK_CONSTANT_FEATURE_COUNT = 1;
 
 
   /**
-   * Returns the meta object for class '{@link org.example.eis.eis.Model <em>Model</em>}'.
+   * Returns the meta object for class '{@link org.example.eis.eis.EisModel <em>Model</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for class '<em>Model</em>'.
-   * @see org.example.eis.eis.Model
+   * @see org.example.eis.eis.EisModel
    * @generated
    */
-  EClass getModel();
+  EClass getEisModel();
 
   /**
-   * Returns the meta object for the attribute '{@link org.example.eis.eis.Model#getProject_name <em>Project name</em>}'.
+   * Returns the meta object for the attribute '{@link org.example.eis.eis.EisModel#getProject_name <em>Project name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Project name</em>'.
-   * @see org.example.eis.eis.Model#getProject_name()
-   * @see #getModel()
+   * @see org.example.eis.eis.EisModel#getProject_name()
+   * @see #getEisModel()
    * @generated
    */
-  EAttribute getModel_Project_name();
+  EAttribute getEisModel_Project_name();
 
   /**
-   * Returns the meta object for the attribute '{@link org.example.eis.eis.Model#getPlc_name <em>Plc name</em>}'.
+   * Returns the meta object for the attribute '{@link org.example.eis.eis.EisModel#getPlc_name <em>Plc name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Plc name</em>'.
-   * @see org.example.eis.eis.Model#getPlc_name()
-   * @see #getModel()
+   * @see org.example.eis.eis.EisModel#getPlc_name()
+   * @see #getEisModel()
    * @generated
    */
-  EAttribute getModel_Plc_name();
+  EAttribute getEisModel_Plc_name();
 
   /**
-   * Returns the meta object for the attribute list '{@link org.example.eis.eis.Model#getTestcases <em>Testcases</em>}'.
+   * Returns the meta object for the attribute '{@link org.example.eis.eis.EisModel#getAuthor_name <em>Author name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Testcases</em>'.
-   * @see org.example.eis.eis.Model#getTestcases()
-   * @see #getModel()
+   * @return the meta object for the attribute '<em>Author name</em>'.
+   * @see org.example.eis.eis.EisModel#getAuthor_name()
+   * @see #getEisModel()
    * @generated
    */
-  EAttribute getModel_Testcases();
+  EAttribute getEisModel_Author_name();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.example.eis.eis.EisModel#getTestcases <em>Testcases</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Testcases</em>'.
+   * @see org.example.eis.eis.EisModel#getTestcases()
+   * @see #getEisModel()
+   * @generated
+   */
+  EReference getEisModel_Testcases();
+
+  /**
+   * Returns the meta object for class '{@link org.example.eis.eis.Testcase <em>Testcase</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Testcase</em>'.
+   * @see org.example.eis.eis.Testcase
+   * @generated
+   */
+  EClass getTestcase();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.example.eis.eis.Testcase#getTestcase_name <em>Testcase name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Testcase name</em>'.
+   * @see org.example.eis.eis.Testcase#getTestcase_name()
+   * @see #getTestcase()
+   * @generated
+   */
+  EAttribute getTestcase_Testcase_name();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.example.eis.eis.Testcase#getTestblock <em>Testblock</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Testblock</em>'.
+   * @see org.example.eis.eis.Testcase#getTestblock()
+   * @see #getTestcase()
+   * @generated
+   */
+  EReference getTestcase_Testblock();
+
+  /**
+   * Returns the meta object for class '{@link org.example.eis.eis.Testblock <em>Testblock</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Testblock</em>'.
+   * @see org.example.eis.eis.Testblock
+   * @generated
+   */
+  EClass getTestblock();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.example.eis.eis.Testblock#getTestActive <em>Test Active</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Test Active</em>'.
+   * @see org.example.eis.eis.Testblock#getTestActive()
+   * @see #getTestblock()
+   * @generated
+   */
+  EReference getTestblock_TestActive();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.example.eis.eis.Testblock#getBlockType <em>Block Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Block Type</em>'.
+   * @see org.example.eis.eis.Testblock#getBlockType()
+   * @see #getTestblock()
+   * @generated
+   */
+  EReference getTestblock_BlockType();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.example.eis.eis.Testblock#getDescription <em>Description</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Description</em>'.
+   * @see org.example.eis.eis.Testblock#getDescription()
+   * @see #getTestblock()
+   * @generated
+   */
+  EAttribute getTestblock_Description();
+
+  /**
+   * Returns the meta object for class '{@link org.example.eis.eis.BoolConstant <em>Bool Constant</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Bool Constant</em>'.
+   * @see org.example.eis.eis.BoolConstant
+   * @generated
+   */
+  EClass getBoolConstant();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.example.eis.eis.BoolConstant#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see org.example.eis.eis.BoolConstant#getValue()
+   * @see #getBoolConstant()
+   * @generated
+   */
+  EAttribute getBoolConstant_Value();
+
+  /**
+   * Returns the meta object for class '{@link org.example.eis.eis.BlockConstant <em>Block Constant</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Block Constant</em>'.
+   * @see org.example.eis.eis.BlockConstant
+   * @generated
+   */
+  EClass getBlockConstant();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.example.eis.eis.BlockConstant#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see org.example.eis.eis.BlockConstant#getValue()
+   * @see #getBlockConstant()
+   * @generated
+   */
+  EAttribute getBlockConstant_Value();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -170,14 +447,14 @@ public interface EisPackage extends EPackage
   interface Literals
   {
     /**
-     * The meta object literal for the '{@link org.example.eis.eis.impl.ModelImpl <em>Model</em>}' class.
+     * The meta object literal for the '{@link org.example.eis.eis.impl.EisModelImpl <em>Model</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.example.eis.eis.impl.ModelImpl
-     * @see org.example.eis.eis.impl.EisPackageImpl#getModel()
+     * @see org.example.eis.eis.impl.EisModelImpl
+     * @see org.example.eis.eis.impl.EisPackageImpl#getEisModel()
      * @generated
      */
-    EClass MODEL = eINSTANCE.getModel();
+    EClass EIS_MODEL = eINSTANCE.getEisModel();
 
     /**
      * The meta object literal for the '<em><b>Project name</b></em>' attribute feature.
@@ -185,7 +462,7 @@ public interface EisPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute MODEL__PROJECT_NAME = eINSTANCE.getModel_Project_name();
+    EAttribute EIS_MODEL__PROJECT_NAME = eINSTANCE.getEisModel_Project_name();
 
     /**
      * The meta object literal for the '<em><b>Plc name</b></em>' attribute feature.
@@ -193,15 +470,119 @@ public interface EisPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute MODEL__PLC_NAME = eINSTANCE.getModel_Plc_name();
+    EAttribute EIS_MODEL__PLC_NAME = eINSTANCE.getEisModel_Plc_name();
 
     /**
-     * The meta object literal for the '<em><b>Testcases</b></em>' attribute list feature.
+     * The meta object literal for the '<em><b>Author name</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute MODEL__TESTCASES = eINSTANCE.getModel_Testcases();
+    EAttribute EIS_MODEL__AUTHOR_NAME = eINSTANCE.getEisModel_Author_name();
+
+    /**
+     * The meta object literal for the '<em><b>Testcases</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EIS_MODEL__TESTCASES = eINSTANCE.getEisModel_Testcases();
+
+    /**
+     * The meta object literal for the '{@link org.example.eis.eis.impl.TestcaseImpl <em>Testcase</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.example.eis.eis.impl.TestcaseImpl
+     * @see org.example.eis.eis.impl.EisPackageImpl#getTestcase()
+     * @generated
+     */
+    EClass TESTCASE = eINSTANCE.getTestcase();
+
+    /**
+     * The meta object literal for the '<em><b>Testcase name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute TESTCASE__TESTCASE_NAME = eINSTANCE.getTestcase_Testcase_name();
+
+    /**
+     * The meta object literal for the '<em><b>Testblock</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TESTCASE__TESTBLOCK = eINSTANCE.getTestcase_Testblock();
+
+    /**
+     * The meta object literal for the '{@link org.example.eis.eis.impl.TestblockImpl <em>Testblock</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.example.eis.eis.impl.TestblockImpl
+     * @see org.example.eis.eis.impl.EisPackageImpl#getTestblock()
+     * @generated
+     */
+    EClass TESTBLOCK = eINSTANCE.getTestblock();
+
+    /**
+     * The meta object literal for the '<em><b>Test Active</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TESTBLOCK__TEST_ACTIVE = eINSTANCE.getTestblock_TestActive();
+
+    /**
+     * The meta object literal for the '<em><b>Block Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TESTBLOCK__BLOCK_TYPE = eINSTANCE.getTestblock_BlockType();
+
+    /**
+     * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute TESTBLOCK__DESCRIPTION = eINSTANCE.getTestblock_Description();
+
+    /**
+     * The meta object literal for the '{@link org.example.eis.eis.impl.BoolConstantImpl <em>Bool Constant</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.example.eis.eis.impl.BoolConstantImpl
+     * @see org.example.eis.eis.impl.EisPackageImpl#getBoolConstant()
+     * @generated
+     */
+    EClass BOOL_CONSTANT = eINSTANCE.getBoolConstant();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute BOOL_CONSTANT__VALUE = eINSTANCE.getBoolConstant_Value();
+
+    /**
+     * The meta object literal for the '{@link org.example.eis.eis.impl.BlockConstantImpl <em>Block Constant</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.example.eis.eis.impl.BlockConstantImpl
+     * @see org.example.eis.eis.impl.EisPackageImpl#getBlockConstant()
+     * @generated
+     */
+    EClass BLOCK_CONSTANT = eINSTANCE.getBlockConstant();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute BLOCK_CONSTANT__VALUE = eINSTANCE.getBlockConstant_Value();
 
   }
 

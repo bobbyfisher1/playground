@@ -23,3 +23,4 @@ Export-Package: org.example.eis.ui.quickfix,
  org.example.eis.ui.contentassist,
  org.example.eis.ui.internal
 Bundle-Activator: org.example.eis.ui.internal.EisActivator
+Automatic-Module-Name: org.example.eis.ui

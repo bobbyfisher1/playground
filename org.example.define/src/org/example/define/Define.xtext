@@ -1,0 +1,76 @@
+grammar org.example.define.Define with org.eclipse.xtext.common.Terminals
+
+generate define "http://www.example.org/define/Define"
+
+DefineBlock:
+	'define' '{'
+	direction=DirectionBlock
+	'}';
+
+DirectionBlock:
+	input=Input & inout=Inout? & output=Output;
+
+Input:
+	'input' {Input} '[' inputVariables+=Variable* ']';
+
+Inout:
+	'inout' {Inout} '[' inoutVariables+=Variable* ']';
+
+Output:
+	('output' {Output} '[' outputVariables+=Variable* ']');
+
+	/*@Todo:	Forbid during validation the occurance of multiple type definitions
+	 				  	Yet a single type definition must be at the beginning
+	 				  	AND MOST IMPORTANTLY don't forget to assign variableType*/
+Variable:
+	(variableType=VariableType? variableDefinition=VariableDefinition) | udt=Udt | ('variant'? variant=Variant);
+
+/*@Todo:	Check that only a single ';' is at the end */
+VariableDefinition:
+	variableName=ID ('=' expression=Expression ('+/-' range=Expression)?)? (';' | nextVariable?=',');
+
+Udt:
+	'udt' udtName=ID '(' udtType=ID ')' '{' udtVariables+=Variable* '}';
+
+Variant:
+	variantName=ID '(' variantType=VariableType ')' (';' | nextVariant?=',');
+
+VariableType:
+	'int' | 'bool' | 'float';
+
+Expression:
+	{IntConstant} value=INT
+	| {StringConstant} value=STRING
+	| {BoolConstant} value=('true' | 'false')
+	| {VariableRef} variable=[Variable];
+	/*	<listed_datatypes_in_S7UintTest_Editor>
+					Bool
+					Byte
+					Word
+					DWord
+					LWord
+					SInt
+					Int
+					DInt
+					LInt
+					USInt
+					UInt
+					UDInt
+					ULInt
+					Real
+					LReal
+					Char
+					WChar
+					String
+					WString
+					S5Time
+					Time
+					LTime
+					Date
+					Tod
+					LTod
+					DT
+					LDT
+					DTL
+					UDT */
+

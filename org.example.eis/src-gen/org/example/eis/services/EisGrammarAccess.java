@@ -6,6 +6,7 @@ package org.example.eis.services;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.util.List;
+import org.eclipse.xtext.Alternatives;
 import org.eclipse.xtext.Assignment;
 import org.eclipse.xtext.Grammar;
 import org.eclipse.xtext.GrammarUtil;
@@ -21,29 +22,36 @@ import org.eclipse.xtext.service.GrammarProvider;
 @Singleton
 public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	
-	public class ModelElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.Model");
+	public class EisModelElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.EisModel");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cProjectKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Keyword cEqualsSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cProject_nameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cProject_nameIDTerminalRuleCall_2_0 = (RuleCall)cProject_nameAssignment_2.eContents().get(0);
+		private final RuleCall cProject_nameSTRINGTerminalRuleCall_2_0 = (RuleCall)cProject_nameAssignment_2.eContents().get(0);
 		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Keyword cPlcnameKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final Keyword cEqualsSignKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		private final Assignment cPlc_nameAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final RuleCall cPlc_nameIDTerminalRuleCall_6_0 = (RuleCall)cPlc_nameAssignment_6.eContents().get(0);
+		private final RuleCall cPlc_nameSTRINGTerminalRuleCall_6_0 = (RuleCall)cPlc_nameAssignment_6.eContents().get(0);
 		private final Keyword cSemicolonKeyword_7 = (Keyword)cGroup.eContents().get(7);
-		private final Assignment cTestcasesAssignment_8 = (Assignment)cGroup.eContents().get(8);
-		private final RuleCall cTestcasesTestcaseParserRuleCall_8_0 = (RuleCall)cTestcasesAssignment_8.eContents().get(0);
+		private final Keyword cAuthorKeyword_8 = (Keyword)cGroup.eContents().get(8);
+		private final Keyword cEqualsSignKeyword_9 = (Keyword)cGroup.eContents().get(9);
+		private final Assignment cAuthor_nameAssignment_10 = (Assignment)cGroup.eContents().get(10);
+		private final RuleCall cAuthor_nameSTRINGTerminalRuleCall_10_0 = (RuleCall)cAuthor_nameAssignment_10.eContents().get(0);
+		private final Keyword cSemicolonKeyword_11 = (Keyword)cGroup.eContents().get(11);
+		private final Assignment cTestcasesAssignment_12 = (Assignment)cGroup.eContents().get(12);
+		private final RuleCall cTestcasesTestcaseParserRuleCall_12_0 = (RuleCall)cTestcasesAssignment_12.eContents().get(0);
 		
-		//Model:
-		//	'project' '=' project_name=ID ';'
-		//	'plcname' '=' plc_name=ID ';'
+		//EisModel:
+		//	'project' '=' project_name=STRING ';' //ID or STRING?
+		//	'plcname' '=' plc_name=STRING ';'
+		//	'author' '=' author_name=STRING ';'
 		//	testcases+=Testcase*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'project' '=' project_name=ID ';' 'plcname' '=' plc_name=ID ';' testcases+=Testcase*
+		//'project' '=' project_name=STRING ';' //ID or STRING?
+		//'plcname' '=' plc_name=STRING ';' 'author' '=' author_name=STRING ';' testcases+=Testcase*
 		public Group getGroup() { return cGroup; }
 		
 		//'project'
@@ -52,51 +60,254 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		//'='
 		public Keyword getEqualsSignKeyword_1() { return cEqualsSignKeyword_1; }
 		
-		//project_name=ID
+		//project_name=STRING
 		public Assignment getProject_nameAssignment_2() { return cProject_nameAssignment_2; }
 		
-		//ID
-		public RuleCall getProject_nameIDTerminalRuleCall_2_0() { return cProject_nameIDTerminalRuleCall_2_0; }
+		//STRING
+		public RuleCall getProject_nameSTRINGTerminalRuleCall_2_0() { return cProject_nameSTRINGTerminalRuleCall_2_0; }
 		
 		//';'
 		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
 		
+		////ID or STRING?
 		//'plcname'
 		public Keyword getPlcnameKeyword_4() { return cPlcnameKeyword_4; }
 		
 		//'='
 		public Keyword getEqualsSignKeyword_5() { return cEqualsSignKeyword_5; }
 		
-		//plc_name=ID
+		//plc_name=STRING
 		public Assignment getPlc_nameAssignment_6() { return cPlc_nameAssignment_6; }
 		
-		//ID
-		public RuleCall getPlc_nameIDTerminalRuleCall_6_0() { return cPlc_nameIDTerminalRuleCall_6_0; }
+		//STRING
+		public RuleCall getPlc_nameSTRINGTerminalRuleCall_6_0() { return cPlc_nameSTRINGTerminalRuleCall_6_0; }
 		
 		//';'
 		public Keyword getSemicolonKeyword_7() { return cSemicolonKeyword_7; }
 		
+		//'author'
+		public Keyword getAuthorKeyword_8() { return cAuthorKeyword_8; }
+		
+		//'='
+		public Keyword getEqualsSignKeyword_9() { return cEqualsSignKeyword_9; }
+		
+		//author_name=STRING
+		public Assignment getAuthor_nameAssignment_10() { return cAuthor_nameAssignment_10; }
+		
+		//STRING
+		public RuleCall getAuthor_nameSTRINGTerminalRuleCall_10_0() { return cAuthor_nameSTRINGTerminalRuleCall_10_0; }
+		
+		//';'
+		public Keyword getSemicolonKeyword_11() { return cSemicolonKeyword_11; }
+		
 		//testcases+=Testcase*
-		public Assignment getTestcasesAssignment_8() { return cTestcasesAssignment_8; }
+		public Assignment getTestcasesAssignment_12() { return cTestcasesAssignment_12; }
 		
 		//Testcase
-		public RuleCall getTestcasesTestcaseParserRuleCall_8_0() { return cTestcasesTestcaseParserRuleCall_8_0; }
+		public RuleCall getTestcasesTestcaseParserRuleCall_12_0() { return cTestcasesTestcaseParserRuleCall_12_0; }
 	}
 	public class TestcaseElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.Testcase");
-		private final Keyword cLessThanSignGreaterThanSignKeyword = (Keyword)rule.eContents().get(1);
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cTestcaseKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cTestcase_nameAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cTestcase_nameIDTerminalRuleCall_1_0 = (RuleCall)cTestcase_nameAssignment_1.eContents().get(0);
+		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cTestblockAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cTestblockTestblockParserRuleCall_3_0 = (RuleCall)cTestblockAssignment_3.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//Testcase:
-		//	"<>";
+		//	"testcase" testcase_name=ID '{'
+		//	testblock=Testblock?
+		//	'}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//"<>"
-		public Keyword getLessThanSignGreaterThanSignKeyword() { return cLessThanSignGreaterThanSignKeyword; }
+		//"testcase" testcase_name=ID '{' testblock=Testblock? '}'
+		public Group getGroup() { return cGroup; }
+		
+		//"testcase"
+		public Keyword getTestcaseKeyword_0() { return cTestcaseKeyword_0; }
+		
+		//testcase_name=ID
+		public Assignment getTestcase_nameAssignment_1() { return cTestcase_nameAssignment_1; }
+		
+		//ID
+		public RuleCall getTestcase_nameIDTerminalRuleCall_1_0() { return cTestcase_nameIDTerminalRuleCall_1_0; }
+		
+		//'{'
+		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
+		
+		//testblock=Testblock?
+		public Assignment getTestblockAssignment_3() { return cTestblockAssignment_3; }
+		
+		//Testblock
+		public RuleCall getTestblockTestblockParserRuleCall_3_0() { return cTestblockTestblockParserRuleCall_3_0; }
+		
+		//'}'
+		public Keyword getRightCurlyBracketKeyword_4() { return cRightCurlyBracketKeyword_4; }
+	}
+	public class TestblockElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.Testblock");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cTestActiveKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cEqualsSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cTestActiveAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cTestActiveBoolConstantParserRuleCall_2_0 = (RuleCall)cTestActiveAssignment_2.eContents().get(0);
+		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Keyword cBlockTypeKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Keyword cEqualsSignKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Assignment cBlockTypeAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cBlockTypeBlockConstantParserRuleCall_6_0 = (RuleCall)cBlockTypeAssignment_6.eContents().get(0);
+		private final Keyword cSemicolonKeyword_7 = (Keyword)cGroup.eContents().get(7);
+		private final Keyword cDescriptionKeyword_8 = (Keyword)cGroup.eContents().get(8);
+		private final Keyword cEqualsSignKeyword_9 = (Keyword)cGroup.eContents().get(9);
+		private final Assignment cDescriptionAssignment_10 = (Assignment)cGroup.eContents().get(10);
+		private final RuleCall cDescriptionSTRINGTerminalRuleCall_10_0 = (RuleCall)cDescriptionAssignment_10.eContents().get(0);
+		private final Keyword cSemicolonKeyword_11 = (Keyword)cGroup.eContents().get(11);
+		private final RuleCall cDefineBlockParserRuleCall_12 = (RuleCall)cGroup.eContents().get(12);
+		private final RuleCall cTeststepBlockParserRuleCall_13 = (RuleCall)cGroup.eContents().get(13);
+		
+		//Testblock:
+		//	'testActive' '=' testActive=BoolConstant ';'
+		//	'blockType' '=' blockType=BlockConstant ';'
+		//	'description' '=' description=STRING ';'
+		//	DefineBlock
+		//	TeststepBlock;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'testActive' '=' testActive=BoolConstant ';' 'blockType' '=' blockType=BlockConstant ';' 'description' '='
+		//description=STRING ';' DefineBlock TeststepBlock
+		public Group getGroup() { return cGroup; }
+		
+		//'testActive'
+		public Keyword getTestActiveKeyword_0() { return cTestActiveKeyword_0; }
+		
+		//'='
+		public Keyword getEqualsSignKeyword_1() { return cEqualsSignKeyword_1; }
+		
+		//testActive=BoolConstant
+		public Assignment getTestActiveAssignment_2() { return cTestActiveAssignment_2; }
+		
+		//BoolConstant
+		public RuleCall getTestActiveBoolConstantParserRuleCall_2_0() { return cTestActiveBoolConstantParserRuleCall_2_0; }
+		
+		//';'
+		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
+		
+		//'blockType'
+		public Keyword getBlockTypeKeyword_4() { return cBlockTypeKeyword_4; }
+		
+		//'='
+		public Keyword getEqualsSignKeyword_5() { return cEqualsSignKeyword_5; }
+		
+		//blockType=BlockConstant
+		public Assignment getBlockTypeAssignment_6() { return cBlockTypeAssignment_6; }
+		
+		//BlockConstant
+		public RuleCall getBlockTypeBlockConstantParserRuleCall_6_0() { return cBlockTypeBlockConstantParserRuleCall_6_0; }
+		
+		//';'
+		public Keyword getSemicolonKeyword_7() { return cSemicolonKeyword_7; }
+		
+		//'description'
+		public Keyword getDescriptionKeyword_8() { return cDescriptionKeyword_8; }
+		
+		//'='
+		public Keyword getEqualsSignKeyword_9() { return cEqualsSignKeyword_9; }
+		
+		//description=STRING
+		public Assignment getDescriptionAssignment_10() { return cDescriptionAssignment_10; }
+		
+		//STRING
+		public RuleCall getDescriptionSTRINGTerminalRuleCall_10_0() { return cDescriptionSTRINGTerminalRuleCall_10_0; }
+		
+		//';'
+		public Keyword getSemicolonKeyword_11() { return cSemicolonKeyword_11; }
+		
+		//DefineBlock
+		public RuleCall getDefineBlockParserRuleCall_12() { return cDefineBlockParserRuleCall_12; }
+		
+		//TeststepBlock
+		public RuleCall getTeststepBlockParserRuleCall_13() { return cTeststepBlockParserRuleCall_13; }
+	}
+	public class BoolConstantElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.BoolConstant");
+		private final Assignment cValueAssignment = (Assignment)rule.eContents().get(1);
+		private final Alternatives cValueAlternatives_0 = (Alternatives)cValueAssignment.eContents().get(0);
+		private final Keyword cValueTrueKeyword_0_0 = (Keyword)cValueAlternatives_0.eContents().get(0);
+		private final Keyword cValueFalseKeyword_0_1 = (Keyword)cValueAlternatives_0.eContents().get(1);
+		
+		//BoolConstant:
+		//	value=('true' | 'false');
+		@Override public ParserRule getRule() { return rule; }
+		
+		//value=('true' | 'false')
+		public Assignment getValueAssignment() { return cValueAssignment; }
+		
+		//('true' | 'false')
+		public Alternatives getValueAlternatives_0() { return cValueAlternatives_0; }
+		
+		//'true'
+		public Keyword getValueTrueKeyword_0_0() { return cValueTrueKeyword_0_0; }
+		
+		//'false'
+		public Keyword getValueFalseKeyword_0_1() { return cValueFalseKeyword_0_1; }
+	}
+	public class BlockConstantElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.BlockConstant");
+		private final Assignment cValueAssignment = (Assignment)rule.eContents().get(1);
+		private final Alternatives cValueAlternatives_0 = (Alternatives)cValueAssignment.eContents().get(0);
+		private final Keyword cValueFCKeyword_0_0 = (Keyword)cValueAlternatives_0.eContents().get(0);
+		private final Keyword cValueFBKeyword_0_1 = (Keyword)cValueAlternatives_0.eContents().get(1);
+		
+		//BlockConstant:
+		//	value=('FC' | 'FB');
+		@Override public ParserRule getRule() { return rule; }
+		
+		//value=('FC' | 'FB')
+		public Assignment getValueAssignment() { return cValueAssignment; }
+		
+		//('FC' | 'FB')
+		public Alternatives getValueAlternatives_0() { return cValueAlternatives_0; }
+		
+		//'FC'
+		public Keyword getValueFCKeyword_0_0() { return cValueFCKeyword_0_0; }
+		
+		//'FB'
+		public Keyword getValueFBKeyword_0_1() { return cValueFBKeyword_0_1; }
+	}
+	public class DefineBlockElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.DefineBlock");
+		private final Keyword cDefineKeyword = (Keyword)rule.eContents().get(1);
+		
+		//DefineBlock:
+		//	'define';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'define'
+		public Keyword getDefineKeyword() { return cDefineKeyword; }
+	}
+	public class TeststepBlockElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.TeststepBlock");
+		private final Keyword cTeststepKeyword = (Keyword)rule.eContents().get(1);
+		
+		//TeststepBlock:
+		//	'teststep';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'teststep'
+		public Keyword getTeststepKeyword() { return cTeststepKeyword; }
 	}
 	
 	
-	private final ModelElements pModel;
+	private final EisModelElements pEisModel;
 	private final TestcaseElements pTestcase;
+	private final TestblockElements pTestblock;
+	private final BoolConstantElements pBoolConstant;
+	private final BlockConstantElements pBlockConstant;
+	private final DefineBlockElements pDefineBlock;
+	private final TeststepBlockElements pTeststepBlock;
 	
 	private final Grammar grammar;
 	
@@ -107,8 +318,13 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 			TerminalsGrammarAccess gaTerminals) {
 		this.grammar = internalFindGrammar(grammarProvider);
 		this.gaTerminals = gaTerminals;
-		this.pModel = new ModelElements();
+		this.pEisModel = new EisModelElements();
 		this.pTestcase = new TestcaseElements();
+		this.pTestblock = new TestblockElements();
+		this.pBoolConstant = new BoolConstantElements();
+		this.pBlockConstant = new BlockConstantElements();
+		this.pDefineBlock = new DefineBlockElements();
+		this.pTeststepBlock = new TeststepBlockElements();
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -138,26 +354,83 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	
-	//Model:
-	//	'project' '=' project_name=ID ';'
-	//	'plcname' '=' plc_name=ID ';'
+	//EisModel:
+	//	'project' '=' project_name=STRING ';' //ID or STRING?
+	//	'plcname' '=' plc_name=STRING ';'
+	//	'author' '=' author_name=STRING ';'
 	//	testcases+=Testcase*;
-	public ModelElements getModelAccess() {
-		return pModel;
+	public EisModelElements getEisModelAccess() {
+		return pEisModel;
 	}
 	
-	public ParserRule getModelRule() {
-		return getModelAccess().getRule();
+	public ParserRule getEisModelRule() {
+		return getEisModelAccess().getRule();
 	}
 	
 	//Testcase:
-	//	"<>";
+	//	"testcase" testcase_name=ID '{'
+	//	testblock=Testblock?
+	//	'}';
 	public TestcaseElements getTestcaseAccess() {
 		return pTestcase;
 	}
 	
 	public ParserRule getTestcaseRule() {
 		return getTestcaseAccess().getRule();
+	}
+	
+	//Testblock:
+	//	'testActive' '=' testActive=BoolConstant ';'
+	//	'blockType' '=' blockType=BlockConstant ';'
+	//	'description' '=' description=STRING ';'
+	//	DefineBlock
+	//	TeststepBlock;
+	public TestblockElements getTestblockAccess() {
+		return pTestblock;
+	}
+	
+	public ParserRule getTestblockRule() {
+		return getTestblockAccess().getRule();
+	}
+	
+	//BoolConstant:
+	//	value=('true' | 'false');
+	public BoolConstantElements getBoolConstantAccess() {
+		return pBoolConstant;
+	}
+	
+	public ParserRule getBoolConstantRule() {
+		return getBoolConstantAccess().getRule();
+	}
+	
+	//BlockConstant:
+	//	value=('FC' | 'FB');
+	public BlockConstantElements getBlockConstantAccess() {
+		return pBlockConstant;
+	}
+	
+	public ParserRule getBlockConstantRule() {
+		return getBlockConstantAccess().getRule();
+	}
+	
+	//DefineBlock:
+	//	'define';
+	public DefineBlockElements getDefineBlockAccess() {
+		return pDefineBlock;
+	}
+	
+	public ParserRule getDefineBlockRule() {
+		return getDefineBlockAccess().getRule();
+	}
+	
+	//TeststepBlock:
+	//	'teststep';
+	public TeststepBlockElements getTeststepBlockAccess() {
+		return pTeststepBlock;
+	}
+	
+	public ParserRule getTeststepBlockRule() {
+		return getTeststepBlockAccess().getRule();
 	}
 	
 	//terminal ID:

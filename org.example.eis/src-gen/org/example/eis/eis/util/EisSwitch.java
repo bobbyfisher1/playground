@@ -73,10 +73,38 @@ public class EisSwitch<T> extends Switch<T>
   {
     switch (classifierID)
     {
-      case EisPackage.MODEL:
+      case EisPackage.EIS_MODEL:
       {
-        Model model = (Model)theEObject;
-        T result = caseModel(model);
+        EisModel eisModel = (EisModel)theEObject;
+        T result = caseEisModel(eisModel);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case EisPackage.TESTCASE:
+      {
+        Testcase testcase = (Testcase)theEObject;
+        T result = caseTestcase(testcase);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case EisPackage.TESTBLOCK:
+      {
+        Testblock testblock = (Testblock)theEObject;
+        T result = caseTestblock(testblock);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case EisPackage.BOOL_CONSTANT:
+      {
+        BoolConstant boolConstant = (BoolConstant)theEObject;
+        T result = caseBoolConstant(boolConstant);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case EisPackage.BLOCK_CONSTANT:
+      {
+        BlockConstant blockConstant = (BlockConstant)theEObject;
+        T result = caseBlockConstant(blockConstant);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -95,7 +123,71 @@ public class EisSwitch<T> extends Switch<T>
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseModel(Model object)
+  public T caseEisModel(EisModel object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Testcase</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Testcase</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTestcase(Testcase object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Testblock</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Testblock</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTestblock(Testblock object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Bool Constant</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Bool Constant</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseBoolConstant(BoolConstant object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Block Constant</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Block Constant</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseBlockConstant(BlockConstant object)
   {
     return null;
   }

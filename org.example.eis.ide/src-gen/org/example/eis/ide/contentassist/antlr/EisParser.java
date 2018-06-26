@@ -31,10 +31,22 @@ public class EisParser extends AbstractContentAssistParser {
 			nameMappings = new HashMap<AbstractElement, String>() {
 				private static final long serialVersionUID = 1L;
 				{
-					put(grammarAccess.getModelAccess().getGroup(), "rule__Model__Group__0");
-					put(grammarAccess.getModelAccess().getProject_nameAssignment_2(), "rule__Model__Project_nameAssignment_2");
-					put(grammarAccess.getModelAccess().getPlc_nameAssignment_6(), "rule__Model__Plc_nameAssignment_6");
-					put(grammarAccess.getModelAccess().getTestcasesAssignment_8(), "rule__Model__TestcasesAssignment_8");
+					put(grammarAccess.getBoolConstantAccess().getValueAlternatives_0(), "rule__BoolConstant__ValueAlternatives_0");
+					put(grammarAccess.getBlockConstantAccess().getValueAlternatives_0(), "rule__BlockConstant__ValueAlternatives_0");
+					put(grammarAccess.getEisModelAccess().getGroup(), "rule__EisModel__Group__0");
+					put(grammarAccess.getTestcaseAccess().getGroup(), "rule__Testcase__Group__0");
+					put(grammarAccess.getTestblockAccess().getGroup(), "rule__Testblock__Group__0");
+					put(grammarAccess.getEisModelAccess().getProject_nameAssignment_2(), "rule__EisModel__Project_nameAssignment_2");
+					put(grammarAccess.getEisModelAccess().getPlc_nameAssignment_6(), "rule__EisModel__Plc_nameAssignment_6");
+					put(grammarAccess.getEisModelAccess().getAuthor_nameAssignment_10(), "rule__EisModel__Author_nameAssignment_10");
+					put(grammarAccess.getEisModelAccess().getTestcasesAssignment_12(), "rule__EisModel__TestcasesAssignment_12");
+					put(grammarAccess.getTestcaseAccess().getTestcase_nameAssignment_1(), "rule__Testcase__Testcase_nameAssignment_1");
+					put(grammarAccess.getTestcaseAccess().getTestblockAssignment_3(), "rule__Testcase__TestblockAssignment_3");
+					put(grammarAccess.getTestblockAccess().getTestActiveAssignment_2(), "rule__Testblock__TestActiveAssignment_2");
+					put(grammarAccess.getTestblockAccess().getBlockTypeAssignment_6(), "rule__Testblock__BlockTypeAssignment_6");
+					put(grammarAccess.getTestblockAccess().getDescriptionAssignment_10(), "rule__Testblock__DescriptionAssignment_10");
+					put(grammarAccess.getBoolConstantAccess().getValueAssignment(), "rule__BoolConstant__ValueAssignment");
+					put(grammarAccess.getBlockConstantAccess().getValueAssignment(), "rule__BlockConstant__ValueAssignment");
 				}
 			};
 		}

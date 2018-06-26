@@ -1,0 +1,5 @@
+define { 
+	inout[int a = 0 +/- 3; ]
+	input [ float a; ] 
+	output [variant a(float);]
+}

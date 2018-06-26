@@ -26,9 +26,34 @@ public class EisSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	@Override
 	protected String getUnassignedRuleCallToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (ruleCall.getRule() == grammarAccess.getDefineBlockRule())
+			return getDefineBlockToken(semanticObject, ruleCall, node);
+		else if (ruleCall.getRule() == grammarAccess.getTeststepBlockRule())
+			return getTeststepBlockToken(semanticObject, ruleCall, node);
 		return "";
 	}
 	
+	/**
+	 * DefineBlock:
+	 * 	'define'
+	 * ;
+	 */
+	protected String getDefineBlockToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "define";
+	}
+	
+	/**
+	 * TeststepBlock:
+	 * 	'teststep'
+	 * ;
+	 */
+	protected String getTeststepBlockToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "teststep";
+	}
 	
 	@Override
 	protected void emitUnassignedTokens(EObject semanticObject, ISynTransition transition, INode fromNode, INode toNode) {

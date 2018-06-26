@@ -11,9 +11,15 @@ import org.eclipse.xtext.Action;
 import org.eclipse.xtext.Parameter;
 import org.eclipse.xtext.ParserRule;
 import org.eclipse.xtext.serializer.ISerializationContext;
+import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
 import org.eclipse.xtext.serializer.sequencer.AbstractDelegatingSemanticSequencer;
+import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
+import org.example.eis.eis.BlockConstant;
+import org.example.eis.eis.BoolConstant;
+import org.example.eis.eis.EisModel;
 import org.example.eis.eis.EisPackage;
-import org.example.eis.eis.Model;
+import org.example.eis.eis.Testblock;
+import org.example.eis.eis.Testcase;
 import org.example.eis.services.EisGrammarAccess;
 
 @SuppressWarnings("all")
@@ -30,8 +36,20 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 		Set<Parameter> parameters = context.getEnabledBooleanParameters();
 		if (epackage == EisPackage.eINSTANCE)
 			switch (semanticObject.eClass().getClassifierID()) {
-			case EisPackage.MODEL:
-				sequence_Model(context, (Model) semanticObject); 
+			case EisPackage.BLOCK_CONSTANT:
+				sequence_BlockConstant(context, (BlockConstant) semanticObject); 
+				return; 
+			case EisPackage.BOOL_CONSTANT:
+				sequence_BoolConstant(context, (BoolConstant) semanticObject); 
+				return; 
+			case EisPackage.EIS_MODEL:
+				sequence_EisModel(context, (EisModel) semanticObject); 
+				return; 
+			case EisPackage.TESTBLOCK:
+				sequence_Testblock(context, (Testblock) semanticObject); 
+				return; 
+			case EisPackage.TESTCASE:
+				sequence_Testcase(context, (Testcase) semanticObject); 
 				return; 
 			}
 		if (errorAcceptor != null)
@@ -40,12 +58,72 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     Model returns Model
+	 *     BlockConstant returns BlockConstant
 	 *
 	 * Constraint:
-	 *     (project_name=ID plc_name=ID testcases+=Testcase*)
+	 *     (value='FC' | value='FB')
 	 */
-	protected void sequence_Model(ISerializationContext context, Model semanticObject) {
+	protected void sequence_BlockConstant(ISerializationContext context, BlockConstant semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     BoolConstant returns BoolConstant
+	 *
+	 * Constraint:
+	 *     (value='true' | value='false')
+	 */
+	protected void sequence_BoolConstant(ISerializationContext context, BoolConstant semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     EisModel returns EisModel
+	 *
+	 * Constraint:
+	 *     (project_name=STRING plc_name=STRING author_name=STRING testcases+=Testcase*)
+	 */
+	protected void sequence_EisModel(ISerializationContext context, EisModel semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Testblock returns Testblock
+	 *
+	 * Constraint:
+	 *     (testActive=BoolConstant blockType=BlockConstant description=STRING)
+	 */
+	protected void sequence_Testblock(ISerializationContext context, Testblock semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, EisPackage.Literals.TESTBLOCK__TEST_ACTIVE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EisPackage.Literals.TESTBLOCK__TEST_ACTIVE));
+			if (transientValues.isValueTransient(semanticObject, EisPackage.Literals.TESTBLOCK__BLOCK_TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EisPackage.Literals.TESTBLOCK__BLOCK_TYPE));
+			if (transientValues.isValueTransient(semanticObject, EisPackage.Literals.TESTBLOCK__DESCRIPTION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EisPackage.Literals.TESTBLOCK__DESCRIPTION));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getTestblockAccess().getTestActiveBoolConstantParserRuleCall_2_0(), semanticObject.getTestActive());
+		feeder.accept(grammarAccess.getTestblockAccess().getBlockTypeBlockConstantParserRuleCall_6_0(), semanticObject.getBlockType());
+		feeder.accept(grammarAccess.getTestblockAccess().getDescriptionSTRINGTerminalRuleCall_10_0(), semanticObject.getDescription());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Testcase returns Testcase
+	 *
+	 * Constraint:
+	 *     (testcase_name=ID testblock=Testblock?)
+	 */
+	protected void sequence_Testcase(ISerializationContext context, Testcase semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
