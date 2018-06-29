@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link org.example.define.define.Udt#getUdtName <em>Udt Name</em>}</li>
- *   <li>{@link org.example.define.define.Udt#getUdtType <em>Udt Type</em>}</li>
+ *   <li>{@link org.example.define.define.Udt#getUdtTypes <em>Udt Types</em>}</li>
  *   <li>{@link org.example.define.define.Udt#getUdtVariables <em>Udt Variables</em>}</li>
  * </ul>
  *
@@ -54,30 +54,30 @@ public interface Udt extends EObject
   void setUdtName(String value);
 
   /**
-   * Returns the value of the '<em><b>Udt Type</b></em>' attribute.
+   * Returns the value of the '<em><b>Udt Types</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Udt Type</em>' attribute isn't clear,
+   * If the meaning of the '<em>Udt Types</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Udt Type</em>' attribute.
-   * @see #setUdtType(String)
-   * @see org.example.define.define.DefinePackage#getUdt_UdtType()
-   * @model
+   * @return the value of the '<em>Udt Types</em>' containment reference.
+   * @see #setUdtTypes(UdtType)
+   * @see org.example.define.define.DefinePackage#getUdt_UdtTypes()
+   * @model containment="true"
    * @generated
    */
-  String getUdtType();
+  UdtType getUdtTypes();
 
   /**
-   * Sets the value of the '{@link org.example.define.define.Udt#getUdtType <em>Udt Type</em>}' attribute.
+   * Sets the value of the '{@link org.example.define.define.Udt#getUdtTypes <em>Udt Types</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Udt Type</em>' attribute.
-   * @see #getUdtType()
+   * @param value the new value of the '<em>Udt Types</em>' containment reference.
+   * @see #getUdtTypes()
    * @generated
    */
-  void setUdtType(String value);
+  void setUdtTypes(UdtType value);
 
   /**
    * Returns the value of the '<em><b>Udt Variables</b></em>' containment reference list.

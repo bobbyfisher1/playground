@@ -72,8 +72,10 @@ public class DefineFactoryImpl extends EFactoryImpl implements DefineFactory
       case DefinePackage.OUTPUT: return createOutput();
       case DefinePackage.VARIABLE: return createVariable();
       case DefinePackage.VARIABLE_DEFINITION: return createVariableDefinition();
-      case DefinePackage.UDT: return createUdt();
       case DefinePackage.VARIANT: return createVariant();
+      case DefinePackage.UDT: return createUdt();
+      case DefinePackage.UDT_TYPE: return createUdtType();
+      case DefinePackage.VARIABLE_TYPE: return createVariableType();
       case DefinePackage.EXPRESSION: return createExpression();
       case DefinePackage.INT_CONSTANT: return createIntConstant();
       case DefinePackage.STRING_CONSTANT: return createStringConstant();
@@ -166,6 +168,17 @@ public class DefineFactoryImpl extends EFactoryImpl implements DefineFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public Variant createVariant()
+  {
+    VariantImpl variant = new VariantImpl();
+    return variant;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public Udt createUdt()
   {
     UdtImpl udt = new UdtImpl();
@@ -177,10 +190,21 @@ public class DefineFactoryImpl extends EFactoryImpl implements DefineFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public Variant createVariant()
+  public UdtType createUdtType()
   {
-    VariantImpl variant = new VariantImpl();
-    return variant;
+    UdtTypeImpl udtType = new UdtTypeImpl();
+    return udtType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public VariableType createVariableType()
+  {
+    VariableTypeImpl variableType = new VariableTypeImpl();
+    return variableType;
   }
 
   /**

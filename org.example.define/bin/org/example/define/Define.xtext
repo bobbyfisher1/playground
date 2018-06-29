@@ -3,9 +3,7 @@ grammar org.example.define.Define with org.eclipse.xtext.common.Terminals
 generate define "http://www.example.org/define/Define"
 
 DefineBlock:
-	'define' '{'
-	direction=DirectionBlock
-	'}';
+	'define' '{' direction=DirectionBlock '}';
 
 DirectionBlock:
 	input=Input & inout=Inout? & output=Output;
@@ -17,26 +15,26 @@ Inout:
 	'inout' {Inout} '[' inoutVariables+=Variable* ']';
 
 Output:
-	('output' {Output} '[' outputVariables+=Variable* ']');
+	'output' {Output} '[' outputVariables+=Variable* ']';
 
-	/*@Todo:	Forbid during validation the occurance of multiple type definitions
-	 				  	Yet a single type definition must be at the beginning
-	 				  	AND MOST IMPORTANTLY don't forget to assign variableType*/
 Variable:
-	(variableType=VariableType? variableDefinition=VariableDefinition) | udt=Udt | ('variant'? variant=Variant);
+	(variableType=VariableType? variableDefinition=VariableDefinition) | ((variantKeyword?='variant')? variant=Variant)
+	| udt=Udt;
 
-/*@Todo:	Check that only a single ';' is at the end */
 VariableDefinition:
 	variableName=ID ('=' expression=Expression ('+/-' range=Expression)?)? (';' | nextVariable?=',');
-
-Udt:
-	'udt' udtName=ID '(' udtType=ID ')' '{' udtVariables+=Variable* '}';
 
 Variant:
 	variantName=ID '(' variantType=VariableType ')' (';' | nextVariant?=',');
 
+Udt:
+	'udt' udtName=ID '(' udtTypes=UdtType ')' '{' udtVariables+=Variable* '}';
+
+UdtType:
+	udtTypeName=ID;
+
 VariableType:
-	'int' | 'bool' | 'float';
+	{VariableType} ((basicTypes=('int' | 'bool' | 'float')) | specifiedUdtType=[UdtType]);
 
 Expression:
 	{IntConstant} value=INT

@@ -111,14 +111,24 @@ public class DefineAdapterFactory extends AdapterFactoryImpl
         return createVariableDefinitionAdapter();
       }
       @Override
+      public Adapter caseVariant(Variant object)
+      {
+        return createVariantAdapter();
+      }
+      @Override
       public Adapter caseUdt(Udt object)
       {
         return createUdtAdapter();
       }
       @Override
-      public Adapter caseVariant(Variant object)
+      public Adapter caseUdtType(UdtType object)
       {
-        return createVariantAdapter();
+        return createUdtTypeAdapter();
+      }
+      @Override
+      public Adapter caseVariableType(VariableType object)
+      {
+        return createVariableTypeAdapter();
       }
       @Override
       public Adapter caseExpression(Expression object)
@@ -273,6 +283,21 @@ public class DefineAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link org.example.define.define.Variant <em>Variant</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.example.define.define.Variant
+   * @generated
+   */
+  public Adapter createVariantAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link org.example.define.define.Udt <em>Udt</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -288,16 +313,31 @@ public class DefineAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.example.define.define.Variant <em>Variant</em>}'.
+   * Creates a new adapter for an object of class '{@link org.example.define.define.UdtType <em>Udt Type</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.example.define.define.Variant
+   * @see org.example.define.define.UdtType
    * @generated
    */
-  public Adapter createVariantAdapter()
+  public Adapter createUdtTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.example.define.define.VariableType <em>Variable Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.example.define.define.VariableType
+   * @generated
+   */
+  public Adapter createVariableTypeAdapter()
   {
     return null;
   }

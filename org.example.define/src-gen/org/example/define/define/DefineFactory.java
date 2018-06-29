@@ -87,6 +87,15 @@ public interface DefineFactory extends EFactory
   VariableDefinition createVariableDefinition();
 
   /**
+   * Returns a new object of class '<em>Variant</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Variant</em>'.
+   * @generated
+   */
+  Variant createVariant();
+
+  /**
    * Returns a new object of class '<em>Udt</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -96,13 +105,22 @@ public interface DefineFactory extends EFactory
   Udt createUdt();
 
   /**
-   * Returns a new object of class '<em>Variant</em>'.
+   * Returns a new object of class '<em>Udt Type</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Variant</em>'.
+   * @return a new object of class '<em>Udt Type</em>'.
    * @generated
    */
-  Variant createVariant();
+  UdtType createUdtType();
+
+  /**
+   * Returns a new object of class '<em>Variable Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Variable Type</em>'.
+   * @generated
+   */
+  VariableType createVariableType();
 
   /**
    * Returns a new object of class '<em>Expression</em>'.

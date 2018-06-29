@@ -4,13 +4,16 @@
 package org.example.define.define.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.example.define.define.DefinePackage;
+import org.example.define.define.VariableType;
 import org.example.define.define.Variant;
 
 /**
@@ -51,24 +54,14 @@ public class VariantImpl extends MinimalEObjectImpl.Container implements Variant
   protected String variantName = VARIANT_NAME_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getVariantType() <em>Variant Type</em>}' attribute.
+   * The cached value of the '{@link #getVariantType() <em>Variant Type</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getVariantType()
    * @generated
    * @ordered
    */
-  protected static final String VARIANT_TYPE_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getVariantType() <em>Variant Type</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getVariantType()
-   * @generated
-   * @ordered
-   */
-  protected String variantType = VARIANT_TYPE_EDEFAULT;
+  protected VariableType variantType;
 
   /**
    * The default value of the '{@link #isNextVariant() <em>Next Variant</em>}' attribute.
@@ -139,7 +132,7 @@ public class VariantImpl extends MinimalEObjectImpl.Container implements Variant
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getVariantType()
+  public VariableType getVariantType()
   {
     return variantType;
   }
@@ -149,12 +142,37 @@ public class VariantImpl extends MinimalEObjectImpl.Container implements Variant
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setVariantType(String newVariantType)
+  public NotificationChain basicSetVariantType(VariableType newVariantType, NotificationChain msgs)
   {
-    String oldVariantType = variantType;
+    VariableType oldVariantType = variantType;
     variantType = newVariantType;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DefinePackage.VARIANT__VARIANT_TYPE, oldVariantType, variantType));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DefinePackage.VARIANT__VARIANT_TYPE, oldVariantType, newVariantType);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setVariantType(VariableType newVariantType)
+  {
+    if (newVariantType != variantType)
+    {
+      NotificationChain msgs = null;
+      if (variantType != null)
+        msgs = ((InternalEObject)variantType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DefinePackage.VARIANT__VARIANT_TYPE, null, msgs);
+      if (newVariantType != null)
+        msgs = ((InternalEObject)newVariantType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DefinePackage.VARIANT__VARIANT_TYPE, null, msgs);
+      msgs = basicSetVariantType(newVariantType, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DefinePackage.VARIANT__VARIANT_TYPE, newVariantType, newVariantType));
   }
 
   /**
@@ -178,6 +196,22 @@ public class VariantImpl extends MinimalEObjectImpl.Container implements Variant
     nextVariant = newNextVariant;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, DefinePackage.VARIANT__NEXT_VARIANT, oldNextVariant, nextVariant));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case DefinePackage.VARIANT__VARIANT_TYPE:
+        return basicSetVariantType(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -214,7 +248,7 @@ public class VariantImpl extends MinimalEObjectImpl.Container implements Variant
         setVariantName((String)newValue);
         return;
       case DefinePackage.VARIANT__VARIANT_TYPE:
-        setVariantType((String)newValue);
+        setVariantType((VariableType)newValue);
         return;
       case DefinePackage.VARIANT__NEXT_VARIANT:
         setNextVariant((Boolean)newValue);
@@ -237,7 +271,7 @@ public class VariantImpl extends MinimalEObjectImpl.Container implements Variant
         setVariantName(VARIANT_NAME_EDEFAULT);
         return;
       case DefinePackage.VARIANT__VARIANT_TYPE:
-        setVariantType(VARIANT_TYPE_EDEFAULT);
+        setVariantType((VariableType)null);
         return;
       case DefinePackage.VARIANT__NEXT_VARIANT:
         setNextVariant(NEXT_VARIANT_EDEFAULT);
@@ -259,7 +293,7 @@ public class VariantImpl extends MinimalEObjectImpl.Container implements Variant
       case DefinePackage.VARIANT__VARIANT_NAME:
         return VARIANT_NAME_EDEFAULT == null ? variantName != null : !VARIANT_NAME_EDEFAULT.equals(variantName);
       case DefinePackage.VARIANT__VARIANT_TYPE:
-        return VARIANT_TYPE_EDEFAULT == null ? variantType != null : !VARIANT_TYPE_EDEFAULT.equals(variantType);
+        return variantType != null;
       case DefinePackage.VARIANT__NEXT_VARIANT:
         return nextVariant != NEXT_VARIANT_EDEFAULT;
     }
@@ -279,8 +313,6 @@ public class VariantImpl extends MinimalEObjectImpl.Container implements Variant
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (variantName: ");
     result.append(variantName);
-    result.append(", variantType: ");
-    result.append(variantType);
     result.append(", nextVariant: ");
     result.append(nextVariant);
     result.append(')');

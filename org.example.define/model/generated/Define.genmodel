@@ -24,10 +24,11 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Define.ecore#//Output/outputVariables"/>
     </genClasses>
     <genClasses ecoreClass="Define.ecore#//Variable">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Define.ecore#//Variable/variableType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Define.ecore#//Variable/variableType"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Define.ecore#//Variable/variableDefinition"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Define.ecore#//Variable/udt"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Define.ecore#//Variable/variantKeyword"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Define.ecore#//Variable/variant"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Define.ecore#//Variable/udt"/>
     </genClasses>
     <genClasses ecoreClass="Define.ecore#//VariableDefinition">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Define.ecore#//VariableDefinition/variableName"/>
@@ -35,15 +36,22 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Define.ecore#//VariableDefinition/range"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Define.ecore#//VariableDefinition/nextVariable"/>
     </genClasses>
-    <genClasses ecoreClass="Define.ecore#//Udt">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Define.ecore#//Udt/udtName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Define.ecore#//Udt/udtType"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Define.ecore#//Udt/udtVariables"/>
-    </genClasses>
     <genClasses ecoreClass="Define.ecore#//Variant">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Define.ecore#//Variant/variantName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Define.ecore#//Variant/variantType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Define.ecore#//Variant/variantType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Define.ecore#//Variant/nextVariant"/>
+    </genClasses>
+    <genClasses ecoreClass="Define.ecore#//Udt">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Define.ecore#//Udt/udtName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Define.ecore#//Udt/udtTypes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Define.ecore#//Udt/udtVariables"/>
+    </genClasses>
+    <genClasses ecoreClass="Define.ecore#//UdtType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Define.ecore#//UdtType/udtTypeName"/>
+    </genClasses>
+    <genClasses ecoreClass="Define.ecore#//VariableType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Define.ecore#//VariableType/basicTypes"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Define.ecore#//VariableType/specifiedUdtType"/>
     </genClasses>
     <genClasses ecoreClass="Define.ecore#//Expression"/>
     <genClasses ecoreClass="Define.ecore#//IntConstant">

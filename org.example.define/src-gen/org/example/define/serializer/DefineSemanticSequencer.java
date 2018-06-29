@@ -24,9 +24,11 @@ import org.example.define.define.IntConstant;
 import org.example.define.define.Output;
 import org.example.define.define.StringConstant;
 import org.example.define.define.Udt;
+import org.example.define.define.UdtType;
 import org.example.define.define.Variable;
 import org.example.define.define.VariableDefinition;
 import org.example.define.define.VariableRef;
+import org.example.define.define.VariableType;
 import org.example.define.define.Variant;
 import org.example.define.services.DefineGrammarAccess;
 
@@ -71,6 +73,9 @@ public class DefineSemanticSequencer extends AbstractDelegatingSemanticSequencer
 			case DefinePackage.UDT:
 				sequence_Udt(context, (Udt) semanticObject); 
 				return; 
+			case DefinePackage.UDT_TYPE:
+				sequence_UdtType(context, (UdtType) semanticObject); 
+				return; 
 			case DefinePackage.VARIABLE:
 				sequence_Variable(context, (Variable) semanticObject); 
 				return; 
@@ -79,6 +84,9 @@ public class DefineSemanticSequencer extends AbstractDelegatingSemanticSequencer
 				return; 
 			case DefinePackage.VARIABLE_REF:
 				sequence_Expression(context, (VariableRef) semanticObject); 
+				return; 
+			case DefinePackage.VARIABLE_TYPE:
+				sequence_VariableType(context, (VariableType) semanticObject); 
 				return; 
 			case DefinePackage.VARIANT:
 				sequence_Variant(context, (Variant) semanticObject); 
@@ -222,10 +230,28 @@ public class DefineSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Contexts:
+	 *     UdtType returns UdtType
+	 *
+	 * Constraint:
+	 *     udtTypeName=ID
+	 */
+	protected void sequence_UdtType(ISerializationContext context, UdtType semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DefinePackage.Literals.UDT_TYPE__UDT_TYPE_NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DefinePackage.Literals.UDT_TYPE__UDT_TYPE_NAME));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getUdtTypeAccess().getUdtTypeNameIDTerminalRuleCall_0(), semanticObject.getUdtTypeName());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     Udt returns Udt
 	 *
 	 * Constraint:
-	 *     (udtName=ID udtType=ID udtVariables+=Variable*)
+	 *     (udtName=ID udtTypes=UdtType udtVariables+=Variable*)
 	 */
 	protected void sequence_Udt(ISerializationContext context, Udt semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -246,10 +272,22 @@ public class DefineSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Contexts:
+	 *     VariableType returns VariableType
+	 *
+	 * Constraint:
+	 *     (basicTypes='int' | basicTypes='bool' | basicTypes='float' | specifiedUdtType=[UdtType|ID])
+	 */
+	protected void sequence_VariableType(ISerializationContext context, VariableType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     Variable returns Variable
 	 *
 	 * Constraint:
-	 *     ((variableType=VariableType? variableDefinition=VariableDefinition) | udt=Udt | variant=Variant)
+	 *     ((variableType=VariableType? variableDefinition=VariableDefinition) | (variantKeyword?='variant'? variant=Variant) | udt=Udt)
 	 */
 	protected void sequence_Variable(ISerializationContext context, Variable semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

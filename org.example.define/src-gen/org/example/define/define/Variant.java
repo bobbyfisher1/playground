@@ -52,30 +52,30 @@ public interface Variant extends EObject
   void setVariantName(String value);
 
   /**
-   * Returns the value of the '<em><b>Variant Type</b></em>' attribute.
+   * Returns the value of the '<em><b>Variant Type</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Variant Type</em>' attribute isn't clear,
+   * If the meaning of the '<em>Variant Type</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Variant Type</em>' attribute.
-   * @see #setVariantType(String)
+   * @return the value of the '<em>Variant Type</em>' containment reference.
+   * @see #setVariantType(VariableType)
    * @see org.example.define.define.DefinePackage#getVariant_VariantType()
-   * @model
+   * @model containment="true"
    * @generated
    */
-  String getVariantType();
+  VariableType getVariantType();
 
   /**
-   * Sets the value of the '{@link org.example.define.define.Variant#getVariantType <em>Variant Type</em>}' attribute.
+   * Sets the value of the '{@link org.example.define.define.Variant#getVariantType <em>Variant Type</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Variant Type</em>' attribute.
+   * @param value the new value of the '<em>Variant Type</em>' containment reference.
    * @see #getVariantType()
    * @generated
    */
-  void setVariantType(String value);
+  void setVariantType(VariableType value);
 
   /**
    * Returns the value of the '<em><b>Next Variant</b></em>' attribute.

@@ -49,7 +49,7 @@ public class DefineParsingTest {
       _builder.append("input[");
       _builder.newLine();
       _builder.append("\t\t");
-      _builder.append("int a= 4, int b=0+/-3;");
+      _builder.append("int a= 4, b = 0 +/- 3;");
       _builder.newLine();
       _builder.append("\t\t");
       _builder.append("bool Int=8;");
@@ -58,7 +58,7 @@ public class DefineParsingTest {
       _builder.append("float f = 5;");
       _builder.newLine();
       _builder.append("\t\t");
-      _builder.append("int a, variant b(int), udt a(atype){}");
+      _builder.append("int x; variant y(int); udt z(atype){}");
       _builder.newLine();
       _builder.append("\t");
       _builder.append("]");
@@ -70,13 +70,13 @@ public class DefineParsingTest {
       _builder.append("udt Rain(typeRain){ ");
       _builder.newLine();
       _builder.append("\t\t\t");
-      _builder.append("int a = 90;");
+      _builder.append("int d = 90;");
       _builder.newLine();
       _builder.append("\t\t\t");
       _builder.append("udt Sun(typeSun){");
       _builder.newLine();
       _builder.append("\t\t\t\t");
-      _builder.append("int b = 10;");
+      _builder.append("int e = 10;");
       _builder.newLine();
       _builder.append("\t\t\t");
       _builder.append("}");
@@ -142,7 +142,7 @@ public class DefineParsingTest {
         final Procedure1<EList<Variable>> _function_1 = (EList<Variable> it_1) -> {
           Variable _get = it_1.get(0);
           final Procedure1<Variable> _function_2 = (Variable it_2) -> {
-            Assert.assertEquals(it_2.getVariableType(), "int");
+            Assert.assertEquals(it_2.getVariableType().getBasicTypes(), "int");
             VariableDefinition _variableDefinition = it_2.getVariableDefinition();
             final Procedure1<VariableDefinition> _function_3 = (VariableDefinition it_3) -> {
               Assert.assertEquals(it_3.getVariableName(), "a");
@@ -152,13 +152,13 @@ public class DefineParsingTest {
             ObjectExtensions.<VariableDefinition>operator_doubleArrow(_variableDefinition, _function_3);
           };
           ObjectExtensions.<Variable>operator_doubleArrow(_get, _function_2);
-          Variable _get_1 = it_1.get(1);
+          Udt _udt = it_1.get(1).getUdt();
           final Procedure1<Udt> _function_3 = (Udt it_2) -> {
             Assert.assertEquals(it_2.getUdtName(), "Dido");
-            Assert.assertEquals(it_2.getUdtType(), "typeDido");
-            Variable _get_2 = it_2.getUdtVariables().get(0);
+            Assert.assertEquals(it_2.getUdtTypes().getUdtTypeName(), "typeDido");
+            Variable _get_1 = it_2.getUdtVariables().get(0);
             final Procedure1<Variable> _function_4 = (Variable it_3) -> {
-              Assert.assertEquals(it_3.getVariableType(), "int");
+              Assert.assertEquals(it_3.getVariableType().getBasicTypes(), "int");
               VariableDefinition _variableDefinition = it_3.getVariableDefinition();
               final Procedure1<VariableDefinition> _function_5 = (VariableDefinition it_4) -> {
                 Assert.assertEquals(it_4.getVariableName(), "b");
@@ -167,15 +167,15 @@ public class DefineParsingTest {
               };
               ObjectExtensions.<VariableDefinition>operator_doubleArrow(_variableDefinition, _function_5);
             };
-            ObjectExtensions.<Variable>operator_doubleArrow(_get_2, _function_4);
+            ObjectExtensions.<Variable>operator_doubleArrow(_get_1, _function_4);
           };
-          ObjectExtensions.<Udt>operator_doubleArrow(((Udt) _get_1), _function_3);
-          Variable _get_2 = it_1.get(2);
+          ObjectExtensions.<Udt>operator_doubleArrow(_udt, _function_3);
+          Variant _variant = it_1.get(2).getVariant();
           final Procedure1<Variant> _function_4 = (Variant it_2) -> {
             Assert.assertEquals(it_2.getVariantName(), "Train");
-            Assert.assertEquals(it_2.getVariantType(), "int");
+            Assert.assertEquals(it_2.getVariantType().getBasicTypes(), "int");
           };
-          ObjectExtensions.<Variant>operator_doubleArrow(((Variant) _get_2), _function_4);
+          ObjectExtensions.<Variant>operator_doubleArrow(_variant, _function_4);
         };
         ObjectExtensions.<EList<Variable>>operator_doubleArrow(_inputVariables, _function_1);
       };
@@ -195,7 +195,7 @@ public class DefineParsingTest {
       _builder.append("input[ ");
       _builder.newLine();
       _builder.append("\t\t\t\t");
-      _builder.append("int a= 4, b, c = false;");
+      _builder.append("int a = 4, b; bool c = false;");
       _builder.newLine();
       _builder.append("\t\t\t\t");
       _builder.append("bool d=true;");
@@ -215,7 +215,7 @@ public class DefineParsingTest {
         final Procedure1<EList<Variable>> _function_1 = (EList<Variable> it_1) -> {
           Variable _get = it_1.get(0);
           final Procedure1<Variable> _function_2 = (Variable it_2) -> {
-            Assert.assertEquals(it_2.getVariableType(), "int");
+            Assert.assertEquals(it_2.getVariableType().getBasicTypes(), "int");
             VariableDefinition _variableDefinition = it_2.getVariableDefinition();
             final Procedure1<VariableDefinition> _function_3 = (VariableDefinition it_3) -> {
               Assert.assertEquals(it_3.getVariableName(), "a");
@@ -232,7 +232,7 @@ public class DefineParsingTest {
           ObjectExtensions.<Variable>operator_doubleArrow(_get_1, _function_3);
           Variable _get_2 = it_1.get(2);
           final Procedure1<Variable> _function_4 = (Variable it_2) -> {
-            Assert.assertNull(it_2.getVariableType());
+            Assert.assertEquals(it_2.getVariableType().getBasicTypes(), "bool");
             VariableDefinition _variableDefinition = it_2.getVariableDefinition();
             final Procedure1<VariableDefinition> _function_5 = (VariableDefinition it_3) -> {
               Assert.assertEquals(it_3.getVariableName(), "c");
@@ -244,7 +244,7 @@ public class DefineParsingTest {
           ObjectExtensions.<Variable>operator_doubleArrow(_get_2, _function_4);
           Variable _get_3 = it_1.get(3);
           final Procedure1<Variable> _function_5 = (Variable it_2) -> {
-            Assert.assertEquals(it_2.getVariableType(), "bool");
+            Assert.assertEquals(it_2.getVariableType().getBasicTypes(), "bool");
             VariableDefinition _variableDefinition = it_2.getVariableDefinition();
             final Procedure1<VariableDefinition> _function_6 = (VariableDefinition it_3) -> {
               Assert.assertEquals(it_3.getVariableName(), "d");
@@ -285,7 +285,10 @@ public class DefineParsingTest {
       _builder.append("udt Two(typeTwo){");
       _builder.newLine();
       _builder.append("\t\t\t\t");
-      _builder.append("int a,a,a,a,a, TwoAndAHalf(bool);");
+      _builder.append("int a,a,a,a,a; ");
+      _builder.newLine();
+      _builder.append("\t\t\t\t");
+      _builder.append("variant TwoAndAHalf(bool);");
       _builder.newLine();
       _builder.append("\t\t\t\t");
       _builder.append("variant Three(int);\t\t\t\t\t\t\t");
@@ -331,6 +334,9 @@ public class DefineParsingTest {
       _builder.newLine();
       _builder.append("\t");
       _builder.append("input[]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("inout[]");
       _builder.newLine();
       _builder.append("\t");
       _builder.append("output[ variant A(int), B(int), C(bool); ]");

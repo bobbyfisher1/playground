@@ -8,12 +8,17 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.validation.Check;
+import org.eclipse.xtext.xbase.lib.Conversions;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.example.define.define.DefinePackage;
 import org.example.define.define.DirectionBlock;
+import org.example.define.define.Inout;
 import org.example.define.define.Udt;
 import org.example.define.define.Variable;
 import org.example.define.define.VariableDefinition;
+import org.example.define.define.VariableType;
 import org.example.define.define.Variant;
 import org.example.define.validation.AbstractDefineValidator;
 
@@ -21,25 +26,167 @@ import org.example.define.validation.AbstractDefineValidator;
 public class DefineValidator extends AbstractDefineValidator {
   protected final static String ISSUE_CODE_PREFIX = "org.example.entities.";
   
-  public final static String MULTIPLE_VARIABLE = (DefineValidator.ISSUE_CODE_PREFIX + "MultipleVariable");
+  public final static String MULTIPLE_VARIABLE_DECLARATION = (DefineValidator.ISSUE_CODE_PREFIX + "MultipleVariableDeclaration");
   
-  public final static String MULTIPLE_VARIANT = (DefineValidator.ISSUE_CODE_PREFIX + "MultipleVariant");
+  public final static String MULTIPLE_VARIANT_DECLARATION = (DefineValidator.ISSUE_CODE_PREFIX + "MultipleVariantDeclaration");
   
-  public final static String MULTIPLE_UDT = (DefineValidator.ISSUE_CODE_PREFIX + "MultipleUdt");
+  public final static String MULTIPLE_UDT_DECLARATION = (DefineValidator.ISSUE_CODE_PREFIX + "MultipleUdtDeclaration");
+  
+  public final static String MISSING_VARIABLE_TYPE = (DefineValidator.ISSUE_CODE_PREFIX + "MissingVariableType");
+  
+  public final static String MULTIPLE_TYPE_DEFINITION = (DefineValidator.ISSUE_CODE_PREFIX + "MultipleTypeDefinition");
+  
+  public final static String INVALID_COMMA_NOTATION = (DefineValidator.ISSUE_CODE_PREFIX + "InvalidCommaNotation");
+  
+  public final static String MISSING_VARIANT_KEYWORD = (DefineValidator.ISSUE_CODE_PREFIX + "MissingVariantDeclaration");
+  
+  public final static String MULTIPLE_VARIANT_KEYWORD = (DefineValidator.ISSUE_CODE_PREFIX + "MultipleVariantKeyword");
   
   @Check
-  public void checkNoDuplicateVariablesInputOutput(final DirectionBlock directionblock) {
+  public void checkNoDuplicateVariablesIO(final DirectionBlock directionblock) {
     final EList<Variable> in = directionblock.getInput().getInputVariables();
     final EList<Variable> out = directionblock.getOutput().getOutputVariables();
     this.checkNoDuplicateElements(in, out, "variable name");
   }
   
   @Check
-  public void checkNoDuplicateVariablesInputOutputInout(final DirectionBlock directionblock) {
+  public void checkNoDuplicateVariablesIOInout(final DirectionBlock directionblock) {
     final EList<Variable> in = directionblock.getInput().getInputVariables();
     final EList<Variable> out = directionblock.getOutput().getOutputVariables();
     final EList<Variable> inout = directionblock.getInout().getInoutVariables();
     this.checkNoDuplicateElements(in, out, inout, "variable name");
+  }
+  
+  @Check
+  public void checkCommaSyntaxIO(final DirectionBlock directionblock) {
+    final EList<Variable> in = directionblock.getInput().getInputVariables();
+    final EList<Variable> out = directionblock.getOutput().getOutputVariables();
+    boolean _isEmpty = in.isEmpty();
+    boolean _not = (!_isEmpty);
+    if (_not) {
+      this.checkCommaSyntaxWithVariables(in);
+      this.checkCommaSyntaxWithVariants(in);
+    }
+    boolean _isEmpty_1 = out.isEmpty();
+    boolean _not_1 = (!_isEmpty_1);
+    if (_not_1) {
+      this.checkCommaSyntaxWithVariables(out);
+      this.checkCommaSyntaxWithVariants(out);
+    }
+  }
+  
+  @Check
+  public void checkCommaSyntaxIOInout(final Inout inouts) {
+    final EList<Variable> inout = inouts.getInoutVariables();
+    boolean _isEmpty = inout.isEmpty();
+    boolean _not = (!_isEmpty);
+    if (_not) {
+      this.checkCommaSyntaxWithVariables(inout);
+      this.checkCommaSyntaxWithVariants(inout);
+    }
+  }
+  
+  private void checkCommaSyntaxWithVariables(final Iterable<? extends Variable> variables) {
+    int count = 0;
+    int countOfVariableBefore = 0;
+    boolean commaBeforeVariable = false;
+    String helpingVariableType = "";
+    for (final Variable e : variables) {
+      {
+        if ((commaBeforeVariable && (e.getVariableDefinition() == null))) {
+          this.error("Invalid comma. Semicolon expected.", ((EObject[])Conversions.unwrapArray(variables, EObject.class))[countOfVariableBefore], 
+            DefinePackage.eINSTANCE.getVariable_VariableDefinition(), DefineValidator.INVALID_COMMA_NOTATION);
+        }
+        VariableDefinition _variableDefinition = e.getVariableDefinition();
+        boolean _tripleNotEquals = (_variableDefinition != null);
+        if (_tripleNotEquals) {
+          if (((count - countOfVariableBefore) > 1)) {
+            commaBeforeVariable = false;
+          }
+          if ((!commaBeforeVariable)) {
+            VariableType _variableType = e.getVariableType();
+            boolean _tripleEquals = (_variableType == null);
+            if (_tripleEquals) {
+              this.error("Missing variable type", e, DefinePackage.eINSTANCE.getVariable_VariableType(), 
+                DefineValidator.MISSING_VARIABLE_TYPE);
+            }
+          } else {
+            VariableType _variableType_1 = e.getVariableType();
+            boolean _tripleEquals_1 = (_variableType_1 == null);
+            if (_tripleEquals_1) {
+              VariableType _variableType_2 = e.getVariableType();
+              _variableType_2.setBasicTypes(helpingVariableType);
+            } else {
+              this.error("Multiple type definition", e, DefinePackage.eINSTANCE.getVariable_VariableType(), 
+                DefineValidator.MULTIPLE_TYPE_DEFINITION);
+            }
+          }
+          boolean _isNextVariable = e.getVariableDefinition().isNextVariable();
+          if (_isNextVariable) {
+            commaBeforeVariable = true;
+            helpingVariableType = e.getVariableType().getBasicTypes();
+            countOfVariableBefore = count;
+          } else {
+            commaBeforeVariable = false;
+            helpingVariableType = "";
+          }
+        }
+        count++;
+      }
+    }
+    final Variable last = IterableExtensions.last(variables);
+    if (((last.getVariableDefinition() != null) && last.getVariableDefinition().isNextVariable())) {
+      this.error("Invalid comma. Semicolon expected.", last, DefinePackage.eINSTANCE.getVariable_VariableDefinition(), 
+        DefineValidator.INVALID_COMMA_NOTATION);
+    }
+  }
+  
+  private void checkCommaSyntaxWithVariants(final Iterable<? extends Variable> variables) {
+    int count = 0;
+    int countOfVariantBefore = 0;
+    boolean commaBeforeVariant = false;
+    for (final Variable e : variables) {
+      {
+        if ((commaBeforeVariant && (e.getVariant() == null))) {
+          this.error("Invalid comma. Semicolon expected.", ((EObject[])Conversions.unwrapArray(variables, EObject.class))[countOfVariantBefore], 
+            DefinePackage.eINSTANCE.getVariable_Variant(), DefineValidator.INVALID_COMMA_NOTATION);
+        }
+        Variant _variant = e.getVariant();
+        boolean _tripleNotEquals = (_variant != null);
+        if (_tripleNotEquals) {
+          if (((count - countOfVariantBefore) > 1)) {
+            commaBeforeVariant = false;
+          }
+          if ((!commaBeforeVariant)) {
+            boolean _isVariantKeyword = e.isVariantKeyword();
+            boolean _not = (!_isVariantKeyword);
+            if (_not) {
+              this.error("Missing keyword: variant", e, DefinePackage.eINSTANCE.getVariable_Variant(), 
+                DefineValidator.MISSING_VARIANT_KEYWORD);
+            }
+          } else {
+            boolean _isVariantKeyword_1 = e.isVariantKeyword();
+            if (_isVariantKeyword_1) {
+              this.error("Multiple keyword: variant", e, DefinePackage.eINSTANCE.getVariable_VariantKeyword(), 
+                DefineValidator.MULTIPLE_VARIANT_KEYWORD);
+            }
+          }
+          boolean _isNextVariant = e.getVariant().isNextVariant();
+          if (_isNextVariant) {
+            commaBeforeVariant = true;
+            countOfVariantBefore = count;
+          } else {
+            commaBeforeVariant = false;
+          }
+        }
+        count++;
+      }
+    }
+    final Variable last = IterableExtensions.last(variables);
+    if (((last.getVariant() != null) && last.getVariant().isNextVariant())) {
+      this.error("Invalid comma. Semicolon expected.", last, DefinePackage.eINSTANCE.getVariable_Variant(), 
+        DefineValidator.INVALID_COMMA_NOTATION);
+    }
   }
   
   private boolean checkVariableTypeAndAddToMap(final Variable d, final HashMultimap<String, Variable> multiMap) {
@@ -75,7 +222,7 @@ public class DefineValidator extends AbstractDefineValidator {
       String _plus_1 = (_plus + "\'");
       this.error(_plus_1, d, 
         DefinePackage.eINSTANCE.getVariable_Variant(), 
-        DefineValidator.MULTIPLE_VARIANT);
+        DefineValidator.MULTIPLE_VARIANT_DECLARATION);
     }
     Udt _udt = d.getUdt();
     boolean _tripleNotEquals_1 = (_udt != null);
@@ -85,7 +232,7 @@ public class DefineValidator extends AbstractDefineValidator {
       String _plus_3 = (_plus_2 + "\'");
       this.error(_plus_3, d, 
         DefinePackage.eINSTANCE.getVariable_Udt(), 
-        DefineValidator.MULTIPLE_UDT);
+        DefineValidator.MULTIPLE_UDT_DECLARATION);
     }
     VariableDefinition _variableDefinition = d.getVariableDefinition();
     boolean _tripleNotEquals_2 = (_variableDefinition != null);
@@ -95,7 +242,7 @@ public class DefineValidator extends AbstractDefineValidator {
       String _plus_5 = (_plus_4 + "\'");
       this.error(_plus_5, d, 
         DefinePackage.eINSTANCE.getVariable_VariableDefinition(), 
-        DefineValidator.MULTIPLE_VARIABLE);
+        DefineValidator.MULTIPLE_VARIABLE_DECLARATION);
     }
   }
   
@@ -148,38 +295,8 @@ public class DefineValidator extends AbstractDefineValidator {
     }
   }
   
-  /**
-   * @Todo:
-   * Forbid during validation the occurance of multiple type definitions
-   * Yet a single type definition must be at the beginning
-   * AND MOST IMPORTANTLY don't forget to assign variableType to the rest of the variables after the ','
-   */
-  @Check
-  public void checkForMultipleDeclaredTypesInSingleLine() {
-  }
-  
   @Check
   public void checkMatchBetweenTypeAndExpression() {
-  }
-  
-  @Check
-  public void checkSemicolonsOnlyAtEndOfLine() {
-  }
-  
-  @Check
-  public void checkNoCommasAtEndOfLine() {
-  }
-  
-  @Check
-  public void checkVariantsNotDefinedInTheSameLineWithVariables() {
-  }
-  
-  @Check
-  public void checkUdtsNotDefinedInTheSameLineWithVariables() {
-  }
-  
-  @Check
-  public void checkOnlyBeginningVariantHasKeyword() {
   }
   
   @Check
@@ -196,5 +313,17 @@ public class DefineValidator extends AbstractDefineValidator {
   
   @Check
   public void checkUdtScope() {
+  }
+  
+  @Check
+  public void checkVariantsNotDefinedInTheSameLineWithVariables() {
+  }
+  
+  @Check
+  public void checkUdtsNotDefinedInTheSameLineWithVariables() {
+  }
+  
+  @Check
+  public void checkOnlyBeginningVariantHasKeyword() {
   }
 }

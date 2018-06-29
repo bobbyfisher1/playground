@@ -7,33 +7,172 @@ import com.google.common.collect.HashMultimap
 import org.eclipse.xtext.validation.Check
 import org.example.define.define.DefinePackage
 import org.example.define.define.DirectionBlock
+import org.example.define.define.Inout
 import org.example.define.define.Variable
 
 class DefineValidator extends AbstractDefineValidator {
 	protected static val ISSUE_CODE_PREFIX = "org.example.entities.";
-	public static val MULTIPLE_VARIABLE = ISSUE_CODE_PREFIX + "MultipleVariable"
-	public static val MULTIPLE_VARIANT = ISSUE_CODE_PREFIX + "MultipleVariant"
-	public static val MULTIPLE_UDT = ISSUE_CODE_PREFIX + "MultipleUdt"
+	public static val MULTIPLE_VARIABLE_DECLARATION = ISSUE_CODE_PREFIX + "MultipleVariableDeclaration"
+	public static val MULTIPLE_VARIANT_DECLARATION = ISSUE_CODE_PREFIX + "MultipleVariantDeclaration"
+	public static val MULTIPLE_UDT_DECLARATION = ISSUE_CODE_PREFIX + "MultipleUdtDeclaration"
+	public static val MISSING_VARIABLE_TYPE = ISSUE_CODE_PREFIX + "MissingVariableType"
+	public static val MULTIPLE_TYPE_DEFINITION = ISSUE_CODE_PREFIX + "MultipleTypeDefinition"
+	public static val INVALID_COMMA_NOTATION = ISSUE_CODE_PREFIX + "InvalidCommaNotation"
+	public static val MISSING_VARIANT_KEYWORD = ISSUE_CODE_PREFIX + "MissingVariantDeclaration"
+	public static val MULTIPLE_VARIANT_KEYWORD = ISSUE_CODE_PREFIX + "MultipleVariantKeyword"
 
 //
 // checks -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //
-	@Check def void checkNoDuplicateVariablesInputOutput(DirectionBlock directionblock) {
+	@Check def void checkNoDuplicateVariablesIO(DirectionBlock directionblock) {
 		val in = directionblock.input.inputVariables
 		val out = directionblock.output.outputVariables
 		checkNoDuplicateElements(in, out, "variable name")
 	}
 
-	@Check def void checkNoDuplicateVariablesInputOutputInout(DirectionBlock directionblock) {
+	@Check def void checkNoDuplicateVariablesIOInout(DirectionBlock directionblock) {
 		val in = directionblock.input.inputVariables
 		val out = directionblock.output.outputVariables
 		val inout = directionblock.inout.inoutVariables
 		checkNoDuplicateElements(in, out, inout, "variable name")
 	}
 
+	@Check def void checkCommaSyntaxIO(DirectionBlock directionblock) {
+		val in = directionblock.input.inputVariables
+		val out = directionblock.output.outputVariables
+		if (!in.empty) {
+			checkCommaSyntaxWithVariables(in)
+			checkCommaSyntaxWithVariants(in)
+		}
+		if (!out.empty) {
+			checkCommaSyntaxWithVariables(out)
+			checkCommaSyntaxWithVariants(out)
+		}
+	}
+
+	@Check def void checkCommaSyntaxIOInout(Inout inouts) {
+		val inout = inouts.inoutVariables
+		if (!inout.empty) {
+			checkCommaSyntaxWithVariables(inout)
+			checkCommaSyntaxWithVariants(inout)
+		}
+	}
+
 //
 // methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //
+	def private checkCommaSyntaxWithVariables(
+		Iterable<? extends Variable> variables
+	) {
+		var count = 0 // ugly programming
+		var countOfVariableBefore = 0
+		var commaBeforeVariable = false;
+		var helpingVariableType = ''; // I don't know how else to assign the type
+//		helpingVariableType = null; // and setting it null
+		//
+		for (e : variables) {
+			// refer error to the last variable which was succeeded by a comma
+			if (commaBeforeVariable && (e.variableDefinition === null)) {
+				error("Invalid comma. Semicolon expected.", variables.get(countOfVariableBefore),
+					DefinePackage.eINSTANCE.variable_VariableDefinition, INVALID_COMMA_NOTATION)
+			}
+			//
+			if (e.variableDefinition !== null) { // e is of type variable
+				if ((count - countOfVariableBefore) > 1) {
+					// this checks the case if there's a variant or udt type between a comma and the expected inferred type
+					commaBeforeVariable = false
+				}
+
+				if (!commaBeforeVariable) {
+					if (e.variableType === null) {
+						error("Missing variable type", e, DefinePackage.eINSTANCE.variable_VariableType,
+							MISSING_VARIABLE_TYPE);
+					}
+				} // else if there was a comma before the variable
+				else {
+//					if ((count - 1) !== countOfVariableBefore) {
+//						error("Missing variable type", e, DefinePackage.eINSTANCE.variable_VariableType,
+//							MISSING_VARIABLE_TYPE);
+//					} // assign inferred type 										
+					if (e.variableType === null) {
+						e.variableType.basicTypes = helpingVariableType;
+//						println("LOOK HERE TO DOUBLE CHECK THE ASSIGNMENT OF THE TYPE:")
+//						println("-------> e.variableDefinition.variableName = " + e.variableDefinition.variableName)
+//						println("-------> e.variableType                    = " + e.variableType)
+					} // defined type after a comma
+					else {
+						error("Multiple type definition", e, DefinePackage.eINSTANCE.variable_VariableType,
+							MULTIPLE_TYPE_DEFINITION)
+					}
+				}
+				// for the immediate next variable
+				if (e.variableDefinition.nextVariable) { // comma at the end instead of semicolon
+					commaBeforeVariable = true; // must be of type variable
+					helpingVariableType = e.variableType.basicTypes; // the type must be handed over to the next variable
+					countOfVariableBefore = count;
+				} else {
+					commaBeforeVariable = false
+					helpingVariableType = ''
+				}
+			}
+			count++
+		}
+		// check if the last/only variable ends with a comma
+		val last = variables.last
+		if (last.variableDefinition !== null && last.variableDefinition.nextVariable)
+			error("Invalid comma. Semicolon expected.", last, DefinePackage.eINSTANCE.variable_VariableDefinition,
+				INVALID_COMMA_NOTATION)
+	}
+
+	def private checkCommaSyntaxWithVariants(
+		Iterable<? extends Variable> variables
+	) {
+		var count = 0 // ugly programming
+		var countOfVariantBefore = 0
+		var commaBeforeVariant = false;
+
+		for (e : variables) {
+			// refer error to the last variable which was succeeded by a comma
+			if (commaBeforeVariant && (e.variant === null)) {
+				error("Invalid comma. Semicolon expected.", variables.get(countOfVariantBefore),
+					DefinePackage.eINSTANCE.variable_Variant, INVALID_COMMA_NOTATION)
+			}
+			//
+			if (e.variant !== null) { // e is of type variant
+				if ((count - countOfVariantBefore) > 1) {
+					// this checks the case if there's a variant or udt type between a comma and the expected inferred type
+					commaBeforeVariant = false
+				}
+
+				if (!commaBeforeVariant) {
+					if (!e.variantKeyword) {
+						error("Missing keyword: variant", e, DefinePackage.eINSTANCE.variable_Variant,
+							org.example.define.validation.DefineValidator.MISSING_VARIANT_KEYWORD);
+					}
+				} // else if there was a comma before the variant
+				else {
+					if (e.variantKeyword) { // keyword: 'variant' defined again
+						error("Multiple keyword: variant", e, DefinePackage.eINSTANCE.variable_VariantKeyword,
+							MULTIPLE_VARIANT_KEYWORD)
+					}
+				}
+				// for the immediate next variable
+				if (e.variant.nextVariant) { // comma at the end instead of semicolon
+					commaBeforeVariant = true;
+					countOfVariantBefore = count;
+				} else {
+					commaBeforeVariant = false
+				}
+			}
+			count++
+		}
+		// check if the last/only variant ends with a comma
+		val last = variables.last
+		if (last.variant !== null && last.variant.nextVariant)
+			error("Invalid comma. Semicolon expected.", last, DefinePackage.eINSTANCE.variable_Variant,
+				INVALID_COMMA_NOTATION)
+	}
+
 	def private checkVariableTypeAndAddToMap(Variable d, HashMultimap<String, Variable> multiMap) {
 		if (d.udt !== null)
 			multiMap.put(d.udt.udtName, d)
@@ -49,21 +188,21 @@ class DefineValidator extends AbstractDefineValidator {
 				"Multiple " + text + " '" + d.variant.variantName + "'",
 				d,
 				DefinePackage.eINSTANCE.variable_Variant,
-				org.example.define.validation.DefineValidator.MULTIPLE_VARIANT
+				DefineValidator.MULTIPLE_VARIANT_DECLARATION
 			)
 		if (d.udt !== null)
 			error(
 				"Multiple " + text + " '" + d.udt.udtName + "'",
 				d,
 				DefinePackage.eINSTANCE.variable_Udt,
-				org.example.define.validation.DefineValidator.MULTIPLE_UDT
+				DefineValidator.MULTIPLE_UDT_DECLARATION
 			)
 		if (d.variableDefinition !== null)
 			error(
 				"Multiple " + text + " '" + d.variableDefinition.variableName + "'",
 				d,
 				DefinePackage.eINSTANCE.variable_VariableDefinition,
-				org.example.define.validation.DefineValidator.MULTIPLE_VARIABLE
+				DefineValidator.MULTIPLE_VARIABLE_DECLARATION
 			)
 	}
 
@@ -122,42 +261,22 @@ class DefineValidator extends AbstractDefineValidator {
 //
 // yet unimplemented -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //
-	/*@Todo:	
-	 * Forbid during validation the occurance of multiple type definitions
-	 * Yet a single type definition must be at the beginning
-	 * AND MOST IMPORTANTLY don't forget to assign variableType to the rest of the variables after the ','	 */
-	@Check
-	def void checkForMultipleDeclaredTypesInSingleLine() {
-	}
+	@Check def void checkMatchBetweenTypeAndExpression() {}
 
-	@Check
-	def void checkMatchBetweenTypeAndExpression() {}
+	@Check def void checkUppercaseVariantName() {}
 
-	@Check
-	def void checkSemicolonsOnlyAtEndOfLine() {}
+	@Check def void checkUppercaseUdtName() {}
 
-	@Check
-	def void checkNoCommasAtEndOfLine() {}
+	@Check def void checkLowercaseUdtType() {}
 
-	@Check
-	def void checkVariantsNotDefinedInTheSameLineWithVariables() {}
+	@Check def void checkUdtScope() {}
 
-	@Check
-	def void checkUdtsNotDefinedInTheSameLineWithVariables() {}
+//
+// obsolete checks -----------------------------------------------------------------------------------------------------------------------------------------------------------
+//
+	@Check def void checkVariantsNotDefinedInTheSameLineWithVariables() {}
 
-	@Check
-	def void checkOnlyBeginningVariantHasKeyword() {}
+	@Check def void checkUdtsNotDefinedInTheSameLineWithVariables() {}
 
-	@Check
-	def void checkUppercaseVariantName() {}
-
-	@Check
-	def void checkUppercaseUdtName() {}
-
-	@Check
-	def void checkLowercaseUdtType() {}
-
-	@Check
-	def void checkUdtScope() {}
-
+	@Check def void checkOnlyBeginningVariantHasKeyword() {}
 }

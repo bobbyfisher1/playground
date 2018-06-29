@@ -122,6 +122,13 @@ public class DefineSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DefinePackage.VARIANT:
+      {
+        Variant variant = (Variant)theEObject;
+        T result = caseVariant(variant);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DefinePackage.UDT:
       {
         Udt udt = (Udt)theEObject;
@@ -129,10 +136,17 @@ public class DefineSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case DefinePackage.VARIANT:
+      case DefinePackage.UDT_TYPE:
       {
-        Variant variant = (Variant)theEObject;
-        T result = caseVariant(variant);
+        UdtType udtType = (UdtType)theEObject;
+        T result = caseUdtType(udtType);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DefinePackage.VARIABLE_TYPE:
+      {
+        VariableType variableType = (VariableType)theEObject;
+        T result = caseVariableType(variableType);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -292,6 +306,22 @@ public class DefineSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Variant</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Variant</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseVariant(Variant object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Udt</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -308,17 +338,33 @@ public class DefineSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Variant</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Udt Type</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Variant</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Udt Type</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseVariant(Variant object)
+  public T caseUdtType(UdtType object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Variable Type</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Variable Type</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseVariableType(VariableType object)
   {
     return null;
   }

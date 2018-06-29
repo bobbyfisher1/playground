@@ -226,7 +226,7 @@ public interface DefinePackage extends EPackage
   int VARIABLE = 5;
 
   /**
-   * The feature id for the '<em><b>Variable Type</b></em>' attribute.
+   * The feature id for the '<em><b>Variable Type</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -244,13 +244,13 @@ public interface DefinePackage extends EPackage
   int VARIABLE__VARIABLE_DEFINITION = 1;
 
   /**
-   * The feature id for the '<em><b>Udt</b></em>' containment reference.
+   * The feature id for the '<em><b>Variant Keyword</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VARIABLE__UDT = 2;
+  int VARIABLE__VARIANT_KEYWORD = 2;
 
   /**
    * The feature id for the '<em><b>Variant</b></em>' containment reference.
@@ -262,13 +262,22 @@ public interface DefinePackage extends EPackage
   int VARIABLE__VARIANT = 3;
 
   /**
+   * The feature id for the '<em><b>Udt</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE__UDT = 4;
+
+  /**
    * The number of structural features of the '<em>Variable</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VARIABLE_FEATURE_COUNT = 4;
+  int VARIABLE_FEATURE_COUNT = 5;
 
   /**
    * The meta object id for the '{@link org.example.define.define.impl.VariableDefinitionImpl <em>Variable Definition</em>}' class.
@@ -326,52 +335,6 @@ public interface DefinePackage extends EPackage
   int VARIABLE_DEFINITION_FEATURE_COUNT = 4;
 
   /**
-   * The meta object id for the '{@link org.example.define.define.impl.UdtImpl <em>Udt</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.example.define.define.impl.UdtImpl
-   * @see org.example.define.define.impl.DefinePackageImpl#getUdt()
-   * @generated
-   */
-  int UDT = 7;
-
-  /**
-   * The feature id for the '<em><b>Udt Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int UDT__UDT_NAME = 0;
-
-  /**
-   * The feature id for the '<em><b>Udt Type</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int UDT__UDT_TYPE = 1;
-
-  /**
-   * The feature id for the '<em><b>Udt Variables</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int UDT__UDT_VARIABLES = 2;
-
-  /**
-   * The number of structural features of the '<em>Udt</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int UDT_FEATURE_COUNT = 3;
-
-  /**
    * The meta object id for the '{@link org.example.define.define.impl.VariantImpl <em>Variant</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -379,7 +342,7 @@ public interface DefinePackage extends EPackage
    * @see org.example.define.define.impl.DefinePackageImpl#getVariant()
    * @generated
    */
-  int VARIANT = 8;
+  int VARIANT = 7;
 
   /**
    * The feature id for the '<em><b>Variant Name</b></em>' attribute.
@@ -391,7 +354,7 @@ public interface DefinePackage extends EPackage
   int VARIANT__VARIANT_NAME = 0;
 
   /**
-   * The feature id for the '<em><b>Variant Type</b></em>' attribute.
+   * The feature id for the '<em><b>Variant Type</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -418,6 +381,117 @@ public interface DefinePackage extends EPackage
   int VARIANT_FEATURE_COUNT = 3;
 
   /**
+   * The meta object id for the '{@link org.example.define.define.impl.UdtImpl <em>Udt</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.example.define.define.impl.UdtImpl
+   * @see org.example.define.define.impl.DefinePackageImpl#getUdt()
+   * @generated
+   */
+  int UDT = 8;
+
+  /**
+   * The feature id for the '<em><b>Udt Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UDT__UDT_NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Udt Types</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UDT__UDT_TYPES = 1;
+
+  /**
+   * The feature id for the '<em><b>Udt Variables</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UDT__UDT_VARIABLES = 2;
+
+  /**
+   * The number of structural features of the '<em>Udt</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UDT_FEATURE_COUNT = 3;
+
+  /**
+   * The meta object id for the '{@link org.example.define.define.impl.UdtTypeImpl <em>Udt Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.example.define.define.impl.UdtTypeImpl
+   * @see org.example.define.define.impl.DefinePackageImpl#getUdtType()
+   * @generated
+   */
+  int UDT_TYPE = 9;
+
+  /**
+   * The feature id for the '<em><b>Udt Type Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UDT_TYPE__UDT_TYPE_NAME = 0;
+
+  /**
+   * The number of structural features of the '<em>Udt Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UDT_TYPE_FEATURE_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link org.example.define.define.impl.VariableTypeImpl <em>Variable Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.example.define.define.impl.VariableTypeImpl
+   * @see org.example.define.define.impl.DefinePackageImpl#getVariableType()
+   * @generated
+   */
+  int VARIABLE_TYPE = 10;
+
+  /**
+   * The feature id for the '<em><b>Basic Types</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE_TYPE__BASIC_TYPES = 0;
+
+  /**
+   * The feature id for the '<em><b>Specified Udt Type</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE_TYPE__SPECIFIED_UDT_TYPE = 1;
+
+  /**
+   * The number of structural features of the '<em>Variable Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE_TYPE_FEATURE_COUNT = 2;
+
+  /**
    * The meta object id for the '{@link org.example.define.define.impl.ExpressionImpl <em>Expression</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -425,7 +499,7 @@ public interface DefinePackage extends EPackage
    * @see org.example.define.define.impl.DefinePackageImpl#getExpression()
    * @generated
    */
-  int EXPRESSION = 9;
+  int EXPRESSION = 11;
 
   /**
    * The number of structural features of the '<em>Expression</em>' class.
@@ -444,7 +518,7 @@ public interface DefinePackage extends EPackage
    * @see org.example.define.define.impl.DefinePackageImpl#getIntConstant()
    * @generated
    */
-  int INT_CONSTANT = 10;
+  int INT_CONSTANT = 12;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -472,7 +546,7 @@ public interface DefinePackage extends EPackage
    * @see org.example.define.define.impl.DefinePackageImpl#getStringConstant()
    * @generated
    */
-  int STRING_CONSTANT = 11;
+  int STRING_CONSTANT = 13;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -500,7 +574,7 @@ public interface DefinePackage extends EPackage
    * @see org.example.define.define.impl.DefinePackageImpl#getBoolConstant()
    * @generated
    */
-  int BOOL_CONSTANT = 12;
+  int BOOL_CONSTANT = 14;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -528,7 +602,7 @@ public interface DefinePackage extends EPackage
    * @see org.example.define.define.impl.DefinePackageImpl#getVariableRef()
    * @generated
    */
-  int VARIABLE_REF = 13;
+  int VARIABLE_REF = 15;
 
   /**
    * The feature id for the '<em><b>Variable</b></em>' reference.
@@ -687,15 +761,15 @@ public interface DefinePackage extends EPackage
   EClass getVariable();
 
   /**
-   * Returns the meta object for the attribute '{@link org.example.define.define.Variable#getVariableType <em>Variable Type</em>}'.
+   * Returns the meta object for the containment reference '{@link org.example.define.define.Variable#getVariableType <em>Variable Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Variable Type</em>'.
+   * @return the meta object for the containment reference '<em>Variable Type</em>'.
    * @see org.example.define.define.Variable#getVariableType()
    * @see #getVariable()
    * @generated
    */
-  EAttribute getVariable_VariableType();
+  EReference getVariable_VariableType();
 
   /**
    * Returns the meta object for the containment reference '{@link org.example.define.define.Variable#getVariableDefinition <em>Variable Definition</em>}'.
@@ -709,15 +783,15 @@ public interface DefinePackage extends EPackage
   EReference getVariable_VariableDefinition();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.example.define.define.Variable#getUdt <em>Udt</em>}'.
+   * Returns the meta object for the attribute '{@link org.example.define.define.Variable#isVariantKeyword <em>Variant Keyword</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Udt</em>'.
-   * @see org.example.define.define.Variable#getUdt()
+   * @return the meta object for the attribute '<em>Variant Keyword</em>'.
+   * @see org.example.define.define.Variable#isVariantKeyword()
    * @see #getVariable()
    * @generated
    */
-  EReference getVariable_Udt();
+  EAttribute getVariable_VariantKeyword();
 
   /**
    * Returns the meta object for the containment reference '{@link org.example.define.define.Variable#getVariant <em>Variant</em>}'.
@@ -729,6 +803,17 @@ public interface DefinePackage extends EPackage
    * @generated
    */
   EReference getVariable_Variant();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.example.define.define.Variable#getUdt <em>Udt</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Udt</em>'.
+   * @see org.example.define.define.Variable#getUdt()
+   * @see #getVariable()
+   * @generated
+   */
+  EReference getVariable_Udt();
 
   /**
    * Returns the meta object for class '{@link org.example.define.define.VariableDefinition <em>Variable Definition</em>}'.
@@ -785,49 +870,6 @@ public interface DefinePackage extends EPackage
   EAttribute getVariableDefinition_NextVariable();
 
   /**
-   * Returns the meta object for class '{@link org.example.define.define.Udt <em>Udt</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Udt</em>'.
-   * @see org.example.define.define.Udt
-   * @generated
-   */
-  EClass getUdt();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.example.define.define.Udt#getUdtName <em>Udt Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Udt Name</em>'.
-   * @see org.example.define.define.Udt#getUdtName()
-   * @see #getUdt()
-   * @generated
-   */
-  EAttribute getUdt_UdtName();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.example.define.define.Udt#getUdtType <em>Udt Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Udt Type</em>'.
-   * @see org.example.define.define.Udt#getUdtType()
-   * @see #getUdt()
-   * @generated
-   */
-  EAttribute getUdt_UdtType();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.example.define.define.Udt#getUdtVariables <em>Udt Variables</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Udt Variables</em>'.
-   * @see org.example.define.define.Udt#getUdtVariables()
-   * @see #getUdt()
-   * @generated
-   */
-  EReference getUdt_UdtVariables();
-
-  /**
    * Returns the meta object for class '{@link org.example.define.define.Variant <em>Variant</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -849,15 +891,15 @@ public interface DefinePackage extends EPackage
   EAttribute getVariant_VariantName();
 
   /**
-   * Returns the meta object for the attribute '{@link org.example.define.define.Variant#getVariantType <em>Variant Type</em>}'.
+   * Returns the meta object for the containment reference '{@link org.example.define.define.Variant#getVariantType <em>Variant Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Variant Type</em>'.
+   * @return the meta object for the containment reference '<em>Variant Type</em>'.
    * @see org.example.define.define.Variant#getVariantType()
    * @see #getVariant()
    * @generated
    */
-  EAttribute getVariant_VariantType();
+  EReference getVariant_VariantType();
 
   /**
    * Returns the meta object for the attribute '{@link org.example.define.define.Variant#isNextVariant <em>Next Variant</em>}'.
@@ -869,6 +911,102 @@ public interface DefinePackage extends EPackage
    * @generated
    */
   EAttribute getVariant_NextVariant();
+
+  /**
+   * Returns the meta object for class '{@link org.example.define.define.Udt <em>Udt</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Udt</em>'.
+   * @see org.example.define.define.Udt
+   * @generated
+   */
+  EClass getUdt();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.example.define.define.Udt#getUdtName <em>Udt Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Udt Name</em>'.
+   * @see org.example.define.define.Udt#getUdtName()
+   * @see #getUdt()
+   * @generated
+   */
+  EAttribute getUdt_UdtName();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.example.define.define.Udt#getUdtTypes <em>Udt Types</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Udt Types</em>'.
+   * @see org.example.define.define.Udt#getUdtTypes()
+   * @see #getUdt()
+   * @generated
+   */
+  EReference getUdt_UdtTypes();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.example.define.define.Udt#getUdtVariables <em>Udt Variables</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Udt Variables</em>'.
+   * @see org.example.define.define.Udt#getUdtVariables()
+   * @see #getUdt()
+   * @generated
+   */
+  EReference getUdt_UdtVariables();
+
+  /**
+   * Returns the meta object for class '{@link org.example.define.define.UdtType <em>Udt Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Udt Type</em>'.
+   * @see org.example.define.define.UdtType
+   * @generated
+   */
+  EClass getUdtType();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.example.define.define.UdtType#getUdtTypeName <em>Udt Type Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Udt Type Name</em>'.
+   * @see org.example.define.define.UdtType#getUdtTypeName()
+   * @see #getUdtType()
+   * @generated
+   */
+  EAttribute getUdtType_UdtTypeName();
+
+  /**
+   * Returns the meta object for class '{@link org.example.define.define.VariableType <em>Variable Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Variable Type</em>'.
+   * @see org.example.define.define.VariableType
+   * @generated
+   */
+  EClass getVariableType();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.example.define.define.VariableType#getBasicTypes <em>Basic Types</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Basic Types</em>'.
+   * @see org.example.define.define.VariableType#getBasicTypes()
+   * @see #getVariableType()
+   * @generated
+   */
+  EAttribute getVariableType_BasicTypes();
+
+  /**
+   * Returns the meta object for the reference '{@link org.example.define.define.VariableType#getSpecifiedUdtType <em>Specified Udt Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Specified Udt Type</em>'.
+   * @see org.example.define.define.VariableType#getSpecifiedUdtType()
+   * @see #getVariableType()
+   * @generated
+   */
+  EReference getVariableType_SpecifiedUdtType();
 
   /**
    * Returns the meta object for class '{@link org.example.define.define.Expression <em>Expression</em>}'.
@@ -1104,12 +1242,12 @@ public interface DefinePackage extends EPackage
     EClass VARIABLE = eINSTANCE.getVariable();
 
     /**
-     * The meta object literal for the '<em><b>Variable Type</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Variable Type</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute VARIABLE__VARIABLE_TYPE = eINSTANCE.getVariable_VariableType();
+    EReference VARIABLE__VARIABLE_TYPE = eINSTANCE.getVariable_VariableType();
 
     /**
      * The meta object literal for the '<em><b>Variable Definition</b></em>' containment reference feature.
@@ -1120,12 +1258,12 @@ public interface DefinePackage extends EPackage
     EReference VARIABLE__VARIABLE_DEFINITION = eINSTANCE.getVariable_VariableDefinition();
 
     /**
-     * The meta object literal for the '<em><b>Udt</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Variant Keyword</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference VARIABLE__UDT = eINSTANCE.getVariable_Udt();
+    EAttribute VARIABLE__VARIANT_KEYWORD = eINSTANCE.getVariable_VariantKeyword();
 
     /**
      * The meta object literal for the '<em><b>Variant</b></em>' containment reference feature.
@@ -1134,6 +1272,14 @@ public interface DefinePackage extends EPackage
      * @generated
      */
     EReference VARIABLE__VARIANT = eINSTANCE.getVariable_Variant();
+
+    /**
+     * The meta object literal for the '<em><b>Udt</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VARIABLE__UDT = eINSTANCE.getVariable_Udt();
 
     /**
      * The meta object literal for the '{@link org.example.define.define.impl.VariableDefinitionImpl <em>Variable Definition</em>}' class.
@@ -1178,40 +1324,6 @@ public interface DefinePackage extends EPackage
     EAttribute VARIABLE_DEFINITION__NEXT_VARIABLE = eINSTANCE.getVariableDefinition_NextVariable();
 
     /**
-     * The meta object literal for the '{@link org.example.define.define.impl.UdtImpl <em>Udt</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.example.define.define.impl.UdtImpl
-     * @see org.example.define.define.impl.DefinePackageImpl#getUdt()
-     * @generated
-     */
-    EClass UDT = eINSTANCE.getUdt();
-
-    /**
-     * The meta object literal for the '<em><b>Udt Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute UDT__UDT_NAME = eINSTANCE.getUdt_UdtName();
-
-    /**
-     * The meta object literal for the '<em><b>Udt Type</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute UDT__UDT_TYPE = eINSTANCE.getUdt_UdtType();
-
-    /**
-     * The meta object literal for the '<em><b>Udt Variables</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference UDT__UDT_VARIABLES = eINSTANCE.getUdt_UdtVariables();
-
-    /**
      * The meta object literal for the '{@link org.example.define.define.impl.VariantImpl <em>Variant</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1230,12 +1342,12 @@ public interface DefinePackage extends EPackage
     EAttribute VARIANT__VARIANT_NAME = eINSTANCE.getVariant_VariantName();
 
     /**
-     * The meta object literal for the '<em><b>Variant Type</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Variant Type</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute VARIANT__VARIANT_TYPE = eINSTANCE.getVariant_VariantType();
+    EReference VARIANT__VARIANT_TYPE = eINSTANCE.getVariant_VariantType();
 
     /**
      * The meta object literal for the '<em><b>Next Variant</b></em>' attribute feature.
@@ -1244,6 +1356,84 @@ public interface DefinePackage extends EPackage
      * @generated
      */
     EAttribute VARIANT__NEXT_VARIANT = eINSTANCE.getVariant_NextVariant();
+
+    /**
+     * The meta object literal for the '{@link org.example.define.define.impl.UdtImpl <em>Udt</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.example.define.define.impl.UdtImpl
+     * @see org.example.define.define.impl.DefinePackageImpl#getUdt()
+     * @generated
+     */
+    EClass UDT = eINSTANCE.getUdt();
+
+    /**
+     * The meta object literal for the '<em><b>Udt Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute UDT__UDT_NAME = eINSTANCE.getUdt_UdtName();
+
+    /**
+     * The meta object literal for the '<em><b>Udt Types</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference UDT__UDT_TYPES = eINSTANCE.getUdt_UdtTypes();
+
+    /**
+     * The meta object literal for the '<em><b>Udt Variables</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference UDT__UDT_VARIABLES = eINSTANCE.getUdt_UdtVariables();
+
+    /**
+     * The meta object literal for the '{@link org.example.define.define.impl.UdtTypeImpl <em>Udt Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.example.define.define.impl.UdtTypeImpl
+     * @see org.example.define.define.impl.DefinePackageImpl#getUdtType()
+     * @generated
+     */
+    EClass UDT_TYPE = eINSTANCE.getUdtType();
+
+    /**
+     * The meta object literal for the '<em><b>Udt Type Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute UDT_TYPE__UDT_TYPE_NAME = eINSTANCE.getUdtType_UdtTypeName();
+
+    /**
+     * The meta object literal for the '{@link org.example.define.define.impl.VariableTypeImpl <em>Variable Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.example.define.define.impl.VariableTypeImpl
+     * @see org.example.define.define.impl.DefinePackageImpl#getVariableType()
+     * @generated
+     */
+    EClass VARIABLE_TYPE = eINSTANCE.getVariableType();
+
+    /**
+     * The meta object literal for the '<em><b>Basic Types</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VARIABLE_TYPE__BASIC_TYPES = eINSTANCE.getVariableType_BasicTypes();
+
+    /**
+     * The meta object literal for the '<em><b>Specified Udt Type</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VARIABLE_TYPE__SPECIFIED_UDT_TYPE = eINSTANCE.getVariableType_SpecifiedUdtType();
 
     /**
      * The meta object literal for the '{@link org.example.define.define.impl.ExpressionImpl <em>Expression</em>}' class.

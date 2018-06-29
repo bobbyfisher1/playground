@@ -16,8 +16,9 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.example.define.define.Variable#getVariableType <em>Variable Type</em>}</li>
  *   <li>{@link org.example.define.define.Variable#getVariableDefinition <em>Variable Definition</em>}</li>
- *   <li>{@link org.example.define.define.Variable#getUdt <em>Udt</em>}</li>
+ *   <li>{@link org.example.define.define.Variable#isVariantKeyword <em>Variant Keyword</em>}</li>
  *   <li>{@link org.example.define.define.Variable#getVariant <em>Variant</em>}</li>
+ *   <li>{@link org.example.define.define.Variable#getUdt <em>Udt</em>}</li>
  * </ul>
  *
  * @see org.example.define.define.DefinePackage#getVariable()
@@ -27,30 +28,30 @@ import org.eclipse.emf.ecore.EObject;
 public interface Variable extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Variable Type</b></em>' attribute.
+   * Returns the value of the '<em><b>Variable Type</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Variable Type</em>' attribute isn't clear,
+   * If the meaning of the '<em>Variable Type</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Variable Type</em>' attribute.
-   * @see #setVariableType(String)
+   * @return the value of the '<em>Variable Type</em>' containment reference.
+   * @see #setVariableType(VariableType)
    * @see org.example.define.define.DefinePackage#getVariable_VariableType()
-   * @model
+   * @model containment="true"
    * @generated
    */
-  String getVariableType();
+  VariableType getVariableType();
 
   /**
-   * Sets the value of the '{@link org.example.define.define.Variable#getVariableType <em>Variable Type</em>}' attribute.
+   * Sets the value of the '{@link org.example.define.define.Variable#getVariableType <em>Variable Type</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Variable Type</em>' attribute.
+   * @param value the new value of the '<em>Variable Type</em>' containment reference.
    * @see #getVariableType()
    * @generated
    */
-  void setVariableType(String value);
+  void setVariableType(VariableType value);
 
   /**
    * Returns the value of the '<em><b>Variable Definition</b></em>' containment reference.
@@ -79,30 +80,30 @@ public interface Variable extends EObject
   void setVariableDefinition(VariableDefinition value);
 
   /**
-   * Returns the value of the '<em><b>Udt</b></em>' containment reference.
+   * Returns the value of the '<em><b>Variant Keyword</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Udt</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Variant Keyword</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Udt</em>' containment reference.
-   * @see #setUdt(Udt)
-   * @see org.example.define.define.DefinePackage#getVariable_Udt()
-   * @model containment="true"
+   * @return the value of the '<em>Variant Keyword</em>' attribute.
+   * @see #setVariantKeyword(boolean)
+   * @see org.example.define.define.DefinePackage#getVariable_VariantKeyword()
+   * @model
    * @generated
    */
-  Udt getUdt();
+  boolean isVariantKeyword();
 
   /**
-   * Sets the value of the '{@link org.example.define.define.Variable#getUdt <em>Udt</em>}' containment reference.
+   * Sets the value of the '{@link org.example.define.define.Variable#isVariantKeyword <em>Variant Keyword</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Udt</em>' containment reference.
-   * @see #getUdt()
+   * @param value the new value of the '<em>Variant Keyword</em>' attribute.
+   * @see #isVariantKeyword()
    * @generated
    */
-  void setUdt(Udt value);
+  void setVariantKeyword(boolean value);
 
   /**
    * Returns the value of the '<em><b>Variant</b></em>' containment reference.
@@ -129,5 +130,31 @@ public interface Variable extends EObject
    * @generated
    */
   void setVariant(Variant value);
+
+  /**
+   * Returns the value of the '<em><b>Udt</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Udt</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Udt</em>' containment reference.
+   * @see #setUdt(Udt)
+   * @see org.example.define.define.DefinePackage#getVariable_Udt()
+   * @model containment="true"
+   * @generated
+   */
+  Udt getUdt();
+
+  /**
+   * Sets the value of the '{@link org.example.define.define.Variable#getUdt <em>Udt</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Udt</em>' containment reference.
+   * @see #getUdt()
+   * @generated
+   */
+  void setUdt(Udt value);
 
 } // Variable

@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.example.define.define.DefinePackage;
 import org.example.define.define.Udt;
+import org.example.define.define.UdtType;
 import org.example.define.define.Variable;
 
 /**
@@ -32,7 +33,7 @@ import org.example.define.define.Variable;
  * </p>
  * <ul>
  *   <li>{@link org.example.define.define.impl.UdtImpl#getUdtName <em>Udt Name</em>}</li>
- *   <li>{@link org.example.define.define.impl.UdtImpl#getUdtType <em>Udt Type</em>}</li>
+ *   <li>{@link org.example.define.define.impl.UdtImpl#getUdtTypes <em>Udt Types</em>}</li>
  *   <li>{@link org.example.define.define.impl.UdtImpl#getUdtVariables <em>Udt Variables</em>}</li>
  * </ul>
  *
@@ -61,24 +62,14 @@ public class UdtImpl extends MinimalEObjectImpl.Container implements Udt
   protected String udtName = UDT_NAME_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getUdtType() <em>Udt Type</em>}' attribute.
+   * The cached value of the '{@link #getUdtTypes() <em>Udt Types</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getUdtType()
+   * @see #getUdtTypes()
    * @generated
    * @ordered
    */
-  protected static final String UDT_TYPE_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getUdtType() <em>Udt Type</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getUdtType()
-   * @generated
-   * @ordered
-   */
-  protected String udtType = UDT_TYPE_EDEFAULT;
+  protected UdtType udtTypes;
 
   /**
    * The cached value of the '{@link #getUdtVariables() <em>Udt Variables</em>}' containment reference list.
@@ -139,9 +130,9 @@ public class UdtImpl extends MinimalEObjectImpl.Container implements Udt
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getUdtType()
+  public UdtType getUdtTypes()
   {
-    return udtType;
+    return udtTypes;
   }
 
   /**
@@ -149,12 +140,37 @@ public class UdtImpl extends MinimalEObjectImpl.Container implements Udt
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setUdtType(String newUdtType)
+  public NotificationChain basicSetUdtTypes(UdtType newUdtTypes, NotificationChain msgs)
   {
-    String oldUdtType = udtType;
-    udtType = newUdtType;
+    UdtType oldUdtTypes = udtTypes;
+    udtTypes = newUdtTypes;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DefinePackage.UDT__UDT_TYPE, oldUdtType, udtType));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DefinePackage.UDT__UDT_TYPES, oldUdtTypes, newUdtTypes);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setUdtTypes(UdtType newUdtTypes)
+  {
+    if (newUdtTypes != udtTypes)
+    {
+      NotificationChain msgs = null;
+      if (udtTypes != null)
+        msgs = ((InternalEObject)udtTypes).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DefinePackage.UDT__UDT_TYPES, null, msgs);
+      if (newUdtTypes != null)
+        msgs = ((InternalEObject)newUdtTypes).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DefinePackage.UDT__UDT_TYPES, null, msgs);
+      msgs = basicSetUdtTypes(newUdtTypes, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DefinePackage.UDT__UDT_TYPES, newUdtTypes, newUdtTypes));
   }
 
   /**
@@ -181,6 +197,8 @@ public class UdtImpl extends MinimalEObjectImpl.Container implements Udt
   {
     switch (featureID)
     {
+      case DefinePackage.UDT__UDT_TYPES:
+        return basicSetUdtTypes(null, msgs);
       case DefinePackage.UDT__UDT_VARIABLES:
         return ((InternalEList<?>)getUdtVariables()).basicRemove(otherEnd, msgs);
     }
@@ -199,8 +217,8 @@ public class UdtImpl extends MinimalEObjectImpl.Container implements Udt
     {
       case DefinePackage.UDT__UDT_NAME:
         return getUdtName();
-      case DefinePackage.UDT__UDT_TYPE:
-        return getUdtType();
+      case DefinePackage.UDT__UDT_TYPES:
+        return getUdtTypes();
       case DefinePackage.UDT__UDT_VARIABLES:
         return getUdtVariables();
     }
@@ -221,8 +239,8 @@ public class UdtImpl extends MinimalEObjectImpl.Container implements Udt
       case DefinePackage.UDT__UDT_NAME:
         setUdtName((String)newValue);
         return;
-      case DefinePackage.UDT__UDT_TYPE:
-        setUdtType((String)newValue);
+      case DefinePackage.UDT__UDT_TYPES:
+        setUdtTypes((UdtType)newValue);
         return;
       case DefinePackage.UDT__UDT_VARIABLES:
         getUdtVariables().clear();
@@ -245,8 +263,8 @@ public class UdtImpl extends MinimalEObjectImpl.Container implements Udt
       case DefinePackage.UDT__UDT_NAME:
         setUdtName(UDT_NAME_EDEFAULT);
         return;
-      case DefinePackage.UDT__UDT_TYPE:
-        setUdtType(UDT_TYPE_EDEFAULT);
+      case DefinePackage.UDT__UDT_TYPES:
+        setUdtTypes((UdtType)null);
         return;
       case DefinePackage.UDT__UDT_VARIABLES:
         getUdtVariables().clear();
@@ -267,8 +285,8 @@ public class UdtImpl extends MinimalEObjectImpl.Container implements Udt
     {
       case DefinePackage.UDT__UDT_NAME:
         return UDT_NAME_EDEFAULT == null ? udtName != null : !UDT_NAME_EDEFAULT.equals(udtName);
-      case DefinePackage.UDT__UDT_TYPE:
-        return UDT_TYPE_EDEFAULT == null ? udtType != null : !UDT_TYPE_EDEFAULT.equals(udtType);
+      case DefinePackage.UDT__UDT_TYPES:
+        return udtTypes != null;
       case DefinePackage.UDT__UDT_VARIABLES:
         return udtVariables != null && !udtVariables.isEmpty();
     }
@@ -288,8 +306,6 @@ public class UdtImpl extends MinimalEObjectImpl.Container implements Udt
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (udtName: ");
     result.append(udtName);
-    result.append(", udtType: ");
-    result.append(udtType);
     result.append(')');
     return result.toString();
   }
