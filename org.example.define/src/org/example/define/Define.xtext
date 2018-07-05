@@ -11,21 +11,17 @@ DirectionBlock:
 Input:
 	'input' {Input} '[' inputVariables+=Variable* ']';
 
-Inout:
-	'inout' {Inout} '[' inoutVariables+=Variable* ']';
-
 Output:
 	'output' {Output} '[' outputVariables+=Variable* ']';
 
+Inout:
+	'inout' {Inout} '[' inoutVariables+=Variable* ']';
+
 Variable:
-	(variableType=VariableType? variableDefinition=VariableDefinition) | ((variantKeyword?='variant')? variant=Variant)
-	| udt=Udt;
-
-VariableDefinition:
-	variableName=ID ('=' expression=Expression ('+/-' range=Expression)?)? (';' | nextVariable?=',');
-
-Variant:
-	variantName=ID '(' variantType=VariableType ')' (';' | nextVariant?=',');
+	({Variable} (variantKeyword?='variant')? variableType=Types variableName=ID
+	('=' expression=Expression ('+/-' range=Expression)?)? ';' /*(';' | nextVariable?=',')*/)
+	//
+	| (udt=Udt);
 
 Udt:
 	'udt' udtName=ID '(' udtTypes=UdtType ')' '{' udtVariables+=Variable* '}';
@@ -33,14 +29,42 @@ Udt:
 UdtType:
 	udtTypeName=ID;
 
-VariableType:
-	{VariableType} ((basicTypes=('int' | 'bool' | 'float')) | specifiedUdtType=[UdtType]);
+Types:
+/*basicTypes=*/
+	{Int} 'int' | {Bool} 'bool' | {Float} 'float' | {StringTyp} 'string'
+	/*| [UdtType]*/;
 
 Expression:
-	{IntConstant} value=INT
-	| {StringConstant} value=STRING
-	| {BoolConstant} value=('true' | 'false')
-	| {VariableRef} variable=[Variable];
+	Or;
+
+Or returns Expression:
+	And ({Or.left=current} "||" right=And)*;
+
+And returns Expression:
+	Equality ({And.left=current} "&&" right=Equality)*;
+
+Equality returns Expression:
+	Comparison ({Equality.left=current} op=("==" | "!=") right=Comparison)*;
+
+Comparison returns Expression:
+	PlusOrMinus ({Comparison.left=current} op=(">=" | "<=" | ">" | "<") right=PlusOrMinus)*;
+
+PlusOrMinus returns Expression:
+	MulOrDiv (({Plus.left=current} '+' | {Minus.left=current} '-') right=MulOrDiv)*;
+
+MulOrDiv returns Expression:
+	Primary ({MulOrDiv.left=current} op=('*' | '/') right=Primary)*;
+
+Primary returns Expression:
+	'(' Expression ')' | {Not} "!" expression=Primary | Atomic;
+
+Atomic returns Expression:
+	{IntConstant} value=INT | {StringConstant} value=STRING | {BoolConstant} value=('true' | 'false') | {VariableRef}
+	variable=[Variable] | FloatConstant;
+
+FloatConstant returns EFloat:
+	{EFloat} ((value=INT '.' valueOfDecimal=INT) | (value=INT? '.' valueOfDecimal=INT) | (value=INT '.'
+	valueOfDecimal=INT?));
 	/*	<listed_datatypes_in_S7UintTest_Editor>
 					Bool
 					Byte
@@ -70,5 +94,4 @@ Expression:
 					DT
 					LDT
 					DTL
-					UDT */
-
+UDT */

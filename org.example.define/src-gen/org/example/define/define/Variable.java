@@ -14,10 +14,11 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.example.define.define.Variable#getVariableType <em>Variable Type</em>}</li>
- *   <li>{@link org.example.define.define.Variable#getVariableDefinition <em>Variable Definition</em>}</li>
  *   <li>{@link org.example.define.define.Variable#isVariantKeyword <em>Variant Keyword</em>}</li>
- *   <li>{@link org.example.define.define.Variable#getVariant <em>Variant</em>}</li>
+ *   <li>{@link org.example.define.define.Variable#getVariableType <em>Variable Type</em>}</li>
+ *   <li>{@link org.example.define.define.Variable#getVariableName <em>Variable Name</em>}</li>
+ *   <li>{@link org.example.define.define.Variable#getExpression <em>Expression</em>}</li>
+ *   <li>{@link org.example.define.define.Variable#getRange <em>Range</em>}</li>
  *   <li>{@link org.example.define.define.Variable#getUdt <em>Udt</em>}</li>
  * </ul>
  *
@@ -27,58 +28,6 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Variable extends EObject
 {
-  /**
-   * Returns the value of the '<em><b>Variable Type</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Variable Type</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Variable Type</em>' containment reference.
-   * @see #setVariableType(VariableType)
-   * @see org.example.define.define.DefinePackage#getVariable_VariableType()
-   * @model containment="true"
-   * @generated
-   */
-  VariableType getVariableType();
-
-  /**
-   * Sets the value of the '{@link org.example.define.define.Variable#getVariableType <em>Variable Type</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Variable Type</em>' containment reference.
-   * @see #getVariableType()
-   * @generated
-   */
-  void setVariableType(VariableType value);
-
-  /**
-   * Returns the value of the '<em><b>Variable Definition</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Variable Definition</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Variable Definition</em>' containment reference.
-   * @see #setVariableDefinition(VariableDefinition)
-   * @see org.example.define.define.DefinePackage#getVariable_VariableDefinition()
-   * @model containment="true"
-   * @generated
-   */
-  VariableDefinition getVariableDefinition();
-
-  /**
-   * Sets the value of the '{@link org.example.define.define.Variable#getVariableDefinition <em>Variable Definition</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Variable Definition</em>' containment reference.
-   * @see #getVariableDefinition()
-   * @generated
-   */
-  void setVariableDefinition(VariableDefinition value);
-
   /**
    * Returns the value of the '<em><b>Variant Keyword</b></em>' attribute.
    * <!-- begin-user-doc -->
@@ -106,30 +55,108 @@ public interface Variable extends EObject
   void setVariantKeyword(boolean value);
 
   /**
-   * Returns the value of the '<em><b>Variant</b></em>' containment reference.
+   * Returns the value of the '<em><b>Variable Type</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Variant</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Variable Type</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Variant</em>' containment reference.
-   * @see #setVariant(Variant)
-   * @see org.example.define.define.DefinePackage#getVariable_Variant()
+   * @return the value of the '<em>Variable Type</em>' containment reference.
+   * @see #setVariableType(Types)
+   * @see org.example.define.define.DefinePackage#getVariable_VariableType()
    * @model containment="true"
    * @generated
    */
-  Variant getVariant();
+  Types getVariableType();
 
   /**
-   * Sets the value of the '{@link org.example.define.define.Variable#getVariant <em>Variant</em>}' containment reference.
+   * Sets the value of the '{@link org.example.define.define.Variable#getVariableType <em>Variable Type</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Variant</em>' containment reference.
-   * @see #getVariant()
+   * @param value the new value of the '<em>Variable Type</em>' containment reference.
+   * @see #getVariableType()
    * @generated
    */
-  void setVariant(Variant value);
+  void setVariableType(Types value);
+
+  /**
+   * Returns the value of the '<em><b>Variable Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Variable Name</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Variable Name</em>' attribute.
+   * @see #setVariableName(String)
+   * @see org.example.define.define.DefinePackage#getVariable_VariableName()
+   * @model
+   * @generated
+   */
+  String getVariableName();
+
+  /**
+   * Sets the value of the '{@link org.example.define.define.Variable#getVariableName <em>Variable Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Variable Name</em>' attribute.
+   * @see #getVariableName()
+   * @generated
+   */
+  void setVariableName(String value);
+
+  /**
+   * Returns the value of the '<em><b>Expression</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Expression</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Expression</em>' containment reference.
+   * @see #setExpression(Expression)
+   * @see org.example.define.define.DefinePackage#getVariable_Expression()
+   * @model containment="true"
+   * @generated
+   */
+  Expression getExpression();
+
+  /**
+   * Sets the value of the '{@link org.example.define.define.Variable#getExpression <em>Expression</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Expression</em>' containment reference.
+   * @see #getExpression()
+   * @generated
+   */
+  void setExpression(Expression value);
+
+  /**
+   * Returns the value of the '<em><b>Range</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Range</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Range</em>' containment reference.
+   * @see #setRange(Expression)
+   * @see org.example.define.define.DefinePackage#getVariable_Range()
+   * @model containment="true"
+   * @generated
+   */
+  Expression getRange();
+
+  /**
+   * Sets the value of the '{@link org.example.define.define.Variable#getRange <em>Range</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Range</em>' containment reference.
+   * @see #getRange()
+   * @generated
+   */
+  void setRange(Expression value);
 
   /**
    * Returns the value of the '<em><b>Udt</b></em>' containment reference.

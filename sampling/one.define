@@ -1,15 +1,6 @@
-define {
-	output[]
-	input[
-		int a;
-		float b;
-		bool c; 
-		variant d(int); variant e(bool);
-		udt f(TYPO){
-			int g;			
-		}
-		variant x(TYPO);
+define { 
+	output [ ] 
+	input [ 
+		int a= '49' +/- 2;
 	]
-	inout[]
-	
 }

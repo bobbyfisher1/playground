@@ -160,34 +160,6 @@ public interface DefinePackage extends EPackage
   int INPUT_FEATURE_COUNT = 1;
 
   /**
-   * The meta object id for the '{@link org.example.define.define.impl.InoutImpl <em>Inout</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.example.define.define.impl.InoutImpl
-   * @see org.example.define.define.impl.DefinePackageImpl#getInout()
-   * @generated
-   */
-  int INOUT = 3;
-
-  /**
-   * The feature id for the '<em><b>Inout Variables</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INOUT__INOUT_VARIABLES = 0;
-
-  /**
-   * The number of structural features of the '<em>Inout</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INOUT_FEATURE_COUNT = 1;
-
-  /**
    * The meta object id for the '{@link org.example.define.define.impl.OutputImpl <em>Output</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -195,7 +167,7 @@ public interface DefinePackage extends EPackage
    * @see org.example.define.define.impl.DefinePackageImpl#getOutput()
    * @generated
    */
-  int OUTPUT = 4;
+  int OUTPUT = 3;
 
   /**
    * The feature id for the '<em><b>Output Variables</b></em>' containment reference list.
@@ -216,6 +188,34 @@ public interface DefinePackage extends EPackage
   int OUTPUT_FEATURE_COUNT = 1;
 
   /**
+   * The meta object id for the '{@link org.example.define.define.impl.InoutImpl <em>Inout</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.example.define.define.impl.InoutImpl
+   * @see org.example.define.define.impl.DefinePackageImpl#getInout()
+   * @generated
+   */
+  int INOUT = 4;
+
+  /**
+   * The feature id for the '<em><b>Inout Variables</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INOUT__INOUT_VARIABLES = 0;
+
+  /**
+   * The number of structural features of the '<em>Inout</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INOUT_FEATURE_COUNT = 1;
+
+  /**
    * The meta object id for the '{@link org.example.define.define.impl.VariableImpl <em>Variable</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -226,68 +226,22 @@ public interface DefinePackage extends EPackage
   int VARIABLE = 5;
 
   /**
-   * The feature id for the '<em><b>Variable Type</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VARIABLE__VARIABLE_TYPE = 0;
-
-  /**
-   * The feature id for the '<em><b>Variable Definition</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VARIABLE__VARIABLE_DEFINITION = 1;
-
-  /**
    * The feature id for the '<em><b>Variant Keyword</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VARIABLE__VARIANT_KEYWORD = 2;
+  int VARIABLE__VARIANT_KEYWORD = 0;
 
   /**
-   * The feature id for the '<em><b>Variant</b></em>' containment reference.
+   * The feature id for the '<em><b>Variable Type</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VARIABLE__VARIANT = 3;
-
-  /**
-   * The feature id for the '<em><b>Udt</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VARIABLE__UDT = 4;
-
-  /**
-   * The number of structural features of the '<em>Variable</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VARIABLE_FEATURE_COUNT = 5;
-
-  /**
-   * The meta object id for the '{@link org.example.define.define.impl.VariableDefinitionImpl <em>Variable Definition</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.example.define.define.impl.VariableDefinitionImpl
-   * @see org.example.define.define.impl.DefinePackageImpl#getVariableDefinition()
-   * @generated
-   */
-  int VARIABLE_DEFINITION = 6;
+  int VARIABLE__VARIABLE_TYPE = 1;
 
   /**
    * The feature id for the '<em><b>Variable Name</b></em>' attribute.
@@ -296,7 +250,7 @@ public interface DefinePackage extends EPackage
    * @generated
    * @ordered
    */
-  int VARIABLE_DEFINITION__VARIABLE_NAME = 0;
+  int VARIABLE__VARIABLE_NAME = 2;
 
   /**
    * The feature id for the '<em><b>Expression</b></em>' containment reference.
@@ -305,7 +259,7 @@ public interface DefinePackage extends EPackage
    * @generated
    * @ordered
    */
-  int VARIABLE_DEFINITION__EXPRESSION = 1;
+  int VARIABLE__EXPRESSION = 3;
 
   /**
    * The feature id for the '<em><b>Range</b></em>' containment reference.
@@ -314,71 +268,25 @@ public interface DefinePackage extends EPackage
    * @generated
    * @ordered
    */
-  int VARIABLE_DEFINITION__RANGE = 2;
+  int VARIABLE__RANGE = 4;
 
   /**
-   * The feature id for the '<em><b>Next Variable</b></em>' attribute.
+   * The feature id for the '<em><b>Udt</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VARIABLE_DEFINITION__NEXT_VARIABLE = 3;
+  int VARIABLE__UDT = 5;
 
   /**
-   * The number of structural features of the '<em>Variable Definition</em>' class.
+   * The number of structural features of the '<em>Variable</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VARIABLE_DEFINITION_FEATURE_COUNT = 4;
-
-  /**
-   * The meta object id for the '{@link org.example.define.define.impl.VariantImpl <em>Variant</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.example.define.define.impl.VariantImpl
-   * @see org.example.define.define.impl.DefinePackageImpl#getVariant()
-   * @generated
-   */
-  int VARIANT = 7;
-
-  /**
-   * The feature id for the '<em><b>Variant Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VARIANT__VARIANT_NAME = 0;
-
-  /**
-   * The feature id for the '<em><b>Variant Type</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VARIANT__VARIANT_TYPE = 1;
-
-  /**
-   * The feature id for the '<em><b>Next Variant</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VARIANT__NEXT_VARIANT = 2;
-
-  /**
-   * The number of structural features of the '<em>Variant</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VARIANT_FEATURE_COUNT = 3;
+  int VARIABLE_FEATURE_COUNT = 6;
 
   /**
    * The meta object id for the '{@link org.example.define.define.impl.UdtImpl <em>Udt</em>}' class.
@@ -388,7 +296,7 @@ public interface DefinePackage extends EPackage
    * @see org.example.define.define.impl.DefinePackageImpl#getUdt()
    * @generated
    */
-  int UDT = 8;
+  int UDT = 6;
 
   /**
    * The feature id for the '<em><b>Udt Name</b></em>' attribute.
@@ -434,7 +342,7 @@ public interface DefinePackage extends EPackage
    * @see org.example.define.define.impl.DefinePackageImpl#getUdtType()
    * @generated
    */
-  int UDT_TYPE = 9;
+  int UDT_TYPE = 7;
 
   /**
    * The feature id for the '<em><b>Udt Type Name</b></em>' attribute.
@@ -455,41 +363,23 @@ public interface DefinePackage extends EPackage
   int UDT_TYPE_FEATURE_COUNT = 1;
 
   /**
-   * The meta object id for the '{@link org.example.define.define.impl.VariableTypeImpl <em>Variable Type</em>}' class.
+   * The meta object id for the '{@link org.example.define.define.impl.TypesImpl <em>Types</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.example.define.define.impl.VariableTypeImpl
-   * @see org.example.define.define.impl.DefinePackageImpl#getVariableType()
+   * @see org.example.define.define.impl.TypesImpl
+   * @see org.example.define.define.impl.DefinePackageImpl#getTypes()
    * @generated
    */
-  int VARIABLE_TYPE = 10;
+  int TYPES = 8;
 
   /**
-   * The feature id for the '<em><b>Basic Types</b></em>' attribute.
+   * The number of structural features of the '<em>Types</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VARIABLE_TYPE__BASIC_TYPES = 0;
-
-  /**
-   * The feature id for the '<em><b>Specified Udt Type</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VARIABLE_TYPE__SPECIFIED_UDT_TYPE = 1;
-
-  /**
-   * The number of structural features of the '<em>Variable Type</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VARIABLE_TYPE_FEATURE_COUNT = 2;
+  int TYPES_FEATURE_COUNT = 0;
 
   /**
    * The meta object id for the '{@link org.example.define.define.impl.ExpressionImpl <em>Expression</em>}' class.
@@ -499,7 +389,7 @@ public interface DefinePackage extends EPackage
    * @see org.example.define.define.impl.DefinePackageImpl#getExpression()
    * @generated
    */
-  int EXPRESSION = 11;
+  int EXPRESSION = 9;
 
   /**
    * The number of structural features of the '<em>Expression</em>' class.
@@ -511,6 +401,433 @@ public interface DefinePackage extends EPackage
   int EXPRESSION_FEATURE_COUNT = 0;
 
   /**
+   * The meta object id for the '{@link org.example.define.define.impl.EFloatImpl <em>EFloat</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.example.define.define.impl.EFloatImpl
+   * @see org.example.define.define.impl.DefinePackageImpl#getEFloat()
+   * @generated
+   */
+  int EFLOAT = 10;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EFLOAT__VALUE = EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Value Of Decimal</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EFLOAT__VALUE_OF_DECIMAL = EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>EFloat</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EFLOAT_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link org.example.define.define.impl.IntImpl <em>Int</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.example.define.define.impl.IntImpl
+   * @see org.example.define.define.impl.DefinePackageImpl#getInt()
+   * @generated
+   */
+  int INT = 11;
+
+  /**
+   * The number of structural features of the '<em>Int</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INT_FEATURE_COUNT = TYPES_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.example.define.define.impl.BoolImpl <em>Bool</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.example.define.define.impl.BoolImpl
+   * @see org.example.define.define.impl.DefinePackageImpl#getBool()
+   * @generated
+   */
+  int BOOL = 12;
+
+  /**
+   * The number of structural features of the '<em>Bool</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BOOL_FEATURE_COUNT = TYPES_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.example.define.define.impl.FloatImpl <em>Float</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.example.define.define.impl.FloatImpl
+   * @see org.example.define.define.impl.DefinePackageImpl#getFloat()
+   * @generated
+   */
+  int FLOAT = 13;
+
+  /**
+   * The number of structural features of the '<em>Float</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FLOAT_FEATURE_COUNT = TYPES_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.example.define.define.impl.StringTypImpl <em>String Typ</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.example.define.define.impl.StringTypImpl
+   * @see org.example.define.define.impl.DefinePackageImpl#getStringTyp()
+   * @generated
+   */
+  int STRING_TYP = 14;
+
+  /**
+   * The number of structural features of the '<em>String Typ</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STRING_TYP_FEATURE_COUNT = TYPES_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.example.define.define.impl.OrImpl <em>Or</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.example.define.define.impl.OrImpl
+   * @see org.example.define.define.impl.DefinePackageImpl#getOr()
+   * @generated
+   */
+  int OR = 15;
+
+  /**
+   * The feature id for the '<em><b>Left</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OR__LEFT = EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Right</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OR__RIGHT = EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Or</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OR_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link org.example.define.define.impl.AndImpl <em>And</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.example.define.define.impl.AndImpl
+   * @see org.example.define.define.impl.DefinePackageImpl#getAnd()
+   * @generated
+   */
+  int AND = 16;
+
+  /**
+   * The feature id for the '<em><b>Left</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AND__LEFT = EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Right</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AND__RIGHT = EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>And</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AND_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link org.example.define.define.impl.EqualityImpl <em>Equality</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.example.define.define.impl.EqualityImpl
+   * @see org.example.define.define.impl.DefinePackageImpl#getEquality()
+   * @generated
+   */
+  int EQUALITY = 17;
+
+  /**
+   * The feature id for the '<em><b>Left</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EQUALITY__LEFT = EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Op</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EQUALITY__OP = EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Right</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EQUALITY__RIGHT = EXPRESSION_FEATURE_COUNT + 2;
+
+  /**
+   * The number of structural features of the '<em>Equality</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EQUALITY_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
+
+  /**
+   * The meta object id for the '{@link org.example.define.define.impl.ComparisonImpl <em>Comparison</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.example.define.define.impl.ComparisonImpl
+   * @see org.example.define.define.impl.DefinePackageImpl#getComparison()
+   * @generated
+   */
+  int COMPARISON = 18;
+
+  /**
+   * The feature id for the '<em><b>Left</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMPARISON__LEFT = EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Op</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMPARISON__OP = EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Right</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMPARISON__RIGHT = EXPRESSION_FEATURE_COUNT + 2;
+
+  /**
+   * The number of structural features of the '<em>Comparison</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMPARISON_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
+
+  /**
+   * The meta object id for the '{@link org.example.define.define.impl.PlusImpl <em>Plus</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.example.define.define.impl.PlusImpl
+   * @see org.example.define.define.impl.DefinePackageImpl#getPlus()
+   * @generated
+   */
+  int PLUS = 19;
+
+  /**
+   * The feature id for the '<em><b>Left</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PLUS__LEFT = EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Right</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PLUS__RIGHT = EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Plus</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PLUS_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link org.example.define.define.impl.MinusImpl <em>Minus</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.example.define.define.impl.MinusImpl
+   * @see org.example.define.define.impl.DefinePackageImpl#getMinus()
+   * @generated
+   */
+  int MINUS = 20;
+
+  /**
+   * The feature id for the '<em><b>Left</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MINUS__LEFT = EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Right</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MINUS__RIGHT = EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Minus</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MINUS_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link org.example.define.define.impl.MulOrDivImpl <em>Mul Or Div</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.example.define.define.impl.MulOrDivImpl
+   * @see org.example.define.define.impl.DefinePackageImpl#getMulOrDiv()
+   * @generated
+   */
+  int MUL_OR_DIV = 21;
+
+  /**
+   * The feature id for the '<em><b>Left</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MUL_OR_DIV__LEFT = EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Op</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MUL_OR_DIV__OP = EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Right</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MUL_OR_DIV__RIGHT = EXPRESSION_FEATURE_COUNT + 2;
+
+  /**
+   * The number of structural features of the '<em>Mul Or Div</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MUL_OR_DIV_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
+
+  /**
+   * The meta object id for the '{@link org.example.define.define.impl.NotImpl <em>Not</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.example.define.define.impl.NotImpl
+   * @see org.example.define.define.impl.DefinePackageImpl#getNot()
+   * @generated
+   */
+  int NOT = 22;
+
+  /**
+   * The feature id for the '<em><b>Expression</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NOT__EXPRESSION = EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Not</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NOT_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
    * The meta object id for the '{@link org.example.define.define.impl.IntConstantImpl <em>Int Constant</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -518,7 +835,7 @@ public interface DefinePackage extends EPackage
    * @see org.example.define.define.impl.DefinePackageImpl#getIntConstant()
    * @generated
    */
-  int INT_CONSTANT = 12;
+  int INT_CONSTANT = 23;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -546,7 +863,7 @@ public interface DefinePackage extends EPackage
    * @see org.example.define.define.impl.DefinePackageImpl#getStringConstant()
    * @generated
    */
-  int STRING_CONSTANT = 13;
+  int STRING_CONSTANT = 24;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -574,7 +891,7 @@ public interface DefinePackage extends EPackage
    * @see org.example.define.define.impl.DefinePackageImpl#getBoolConstant()
    * @generated
    */
-  int BOOL_CONSTANT = 14;
+  int BOOL_CONSTANT = 25;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -602,7 +919,7 @@ public interface DefinePackage extends EPackage
    * @see org.example.define.define.impl.DefinePackageImpl#getVariableRef()
    * @generated
    */
-  int VARIABLE_REF = 15;
+  int VARIABLE_REF = 26;
 
   /**
    * The feature id for the '<em><b>Variable</b></em>' reference.
@@ -709,27 +1026,6 @@ public interface DefinePackage extends EPackage
   EReference getInput_InputVariables();
 
   /**
-   * Returns the meta object for class '{@link org.example.define.define.Inout <em>Inout</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Inout</em>'.
-   * @see org.example.define.define.Inout
-   * @generated
-   */
-  EClass getInout();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.example.define.define.Inout#getInoutVariables <em>Inout Variables</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Inout Variables</em>'.
-   * @see org.example.define.define.Inout#getInoutVariables()
-   * @see #getInout()
-   * @generated
-   */
-  EReference getInout_InoutVariables();
-
-  /**
    * Returns the meta object for class '{@link org.example.define.define.Output <em>Output</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -751,6 +1047,27 @@ public interface DefinePackage extends EPackage
   EReference getOutput_OutputVariables();
 
   /**
+   * Returns the meta object for class '{@link org.example.define.define.Inout <em>Inout</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Inout</em>'.
+   * @see org.example.define.define.Inout
+   * @generated
+   */
+  EClass getInout();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.example.define.define.Inout#getInoutVariables <em>Inout Variables</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Inout Variables</em>'.
+   * @see org.example.define.define.Inout#getInoutVariables()
+   * @see #getInout()
+   * @generated
+   */
+  EReference getInout_InoutVariables();
+
+  /**
    * Returns the meta object for class '{@link org.example.define.define.Variable <em>Variable</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -759,28 +1076,6 @@ public interface DefinePackage extends EPackage
    * @generated
    */
   EClass getVariable();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.example.define.define.Variable#getVariableType <em>Variable Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Variable Type</em>'.
-   * @see org.example.define.define.Variable#getVariableType()
-   * @see #getVariable()
-   * @generated
-   */
-  EReference getVariable_VariableType();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.example.define.define.Variable#getVariableDefinition <em>Variable Definition</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Variable Definition</em>'.
-   * @see org.example.define.define.Variable#getVariableDefinition()
-   * @see #getVariable()
-   * @generated
-   */
-  EReference getVariable_VariableDefinition();
 
   /**
    * Returns the meta object for the attribute '{@link org.example.define.define.Variable#isVariantKeyword <em>Variant Keyword</em>}'.
@@ -794,15 +1089,48 @@ public interface DefinePackage extends EPackage
   EAttribute getVariable_VariantKeyword();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.example.define.define.Variable#getVariant <em>Variant</em>}'.
+   * Returns the meta object for the containment reference '{@link org.example.define.define.Variable#getVariableType <em>Variable Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Variant</em>'.
-   * @see org.example.define.define.Variable#getVariant()
+   * @return the meta object for the containment reference '<em>Variable Type</em>'.
+   * @see org.example.define.define.Variable#getVariableType()
    * @see #getVariable()
    * @generated
    */
-  EReference getVariable_Variant();
+  EReference getVariable_VariableType();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.example.define.define.Variable#getVariableName <em>Variable Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Variable Name</em>'.
+   * @see org.example.define.define.Variable#getVariableName()
+   * @see #getVariable()
+   * @generated
+   */
+  EAttribute getVariable_VariableName();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.example.define.define.Variable#getExpression <em>Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Expression</em>'.
+   * @see org.example.define.define.Variable#getExpression()
+   * @see #getVariable()
+   * @generated
+   */
+  EReference getVariable_Expression();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.example.define.define.Variable#getRange <em>Range</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Range</em>'.
+   * @see org.example.define.define.Variable#getRange()
+   * @see #getVariable()
+   * @generated
+   */
+  EReference getVariable_Range();
 
   /**
    * Returns the meta object for the containment reference '{@link org.example.define.define.Variable#getUdt <em>Udt</em>}'.
@@ -814,103 +1142,6 @@ public interface DefinePackage extends EPackage
    * @generated
    */
   EReference getVariable_Udt();
-
-  /**
-   * Returns the meta object for class '{@link org.example.define.define.VariableDefinition <em>Variable Definition</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Variable Definition</em>'.
-   * @see org.example.define.define.VariableDefinition
-   * @generated
-   */
-  EClass getVariableDefinition();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.example.define.define.VariableDefinition#getVariableName <em>Variable Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Variable Name</em>'.
-   * @see org.example.define.define.VariableDefinition#getVariableName()
-   * @see #getVariableDefinition()
-   * @generated
-   */
-  EAttribute getVariableDefinition_VariableName();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.example.define.define.VariableDefinition#getExpression <em>Expression</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Expression</em>'.
-   * @see org.example.define.define.VariableDefinition#getExpression()
-   * @see #getVariableDefinition()
-   * @generated
-   */
-  EReference getVariableDefinition_Expression();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.example.define.define.VariableDefinition#getRange <em>Range</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Range</em>'.
-   * @see org.example.define.define.VariableDefinition#getRange()
-   * @see #getVariableDefinition()
-   * @generated
-   */
-  EReference getVariableDefinition_Range();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.example.define.define.VariableDefinition#isNextVariable <em>Next Variable</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Next Variable</em>'.
-   * @see org.example.define.define.VariableDefinition#isNextVariable()
-   * @see #getVariableDefinition()
-   * @generated
-   */
-  EAttribute getVariableDefinition_NextVariable();
-
-  /**
-   * Returns the meta object for class '{@link org.example.define.define.Variant <em>Variant</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Variant</em>'.
-   * @see org.example.define.define.Variant
-   * @generated
-   */
-  EClass getVariant();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.example.define.define.Variant#getVariantName <em>Variant Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Variant Name</em>'.
-   * @see org.example.define.define.Variant#getVariantName()
-   * @see #getVariant()
-   * @generated
-   */
-  EAttribute getVariant_VariantName();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.example.define.define.Variant#getVariantType <em>Variant Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Variant Type</em>'.
-   * @see org.example.define.define.Variant#getVariantType()
-   * @see #getVariant()
-   * @generated
-   */
-  EReference getVariant_VariantType();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.example.define.define.Variant#isNextVariant <em>Next Variant</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Next Variant</em>'.
-   * @see org.example.define.define.Variant#isNextVariant()
-   * @see #getVariant()
-   * @generated
-   */
-  EAttribute getVariant_NextVariant();
 
   /**
    * Returns the meta object for class '{@link org.example.define.define.Udt <em>Udt</em>}'.
@@ -977,36 +1208,14 @@ public interface DefinePackage extends EPackage
   EAttribute getUdtType_UdtTypeName();
 
   /**
-   * Returns the meta object for class '{@link org.example.define.define.VariableType <em>Variable Type</em>}'.
+   * Returns the meta object for class '{@link org.example.define.define.Types <em>Types</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Variable Type</em>'.
-   * @see org.example.define.define.VariableType
+   * @return the meta object for class '<em>Types</em>'.
+   * @see org.example.define.define.Types
    * @generated
    */
-  EClass getVariableType();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.example.define.define.VariableType#getBasicTypes <em>Basic Types</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Basic Types</em>'.
-   * @see org.example.define.define.VariableType#getBasicTypes()
-   * @see #getVariableType()
-   * @generated
-   */
-  EAttribute getVariableType_BasicTypes();
-
-  /**
-   * Returns the meta object for the reference '{@link org.example.define.define.VariableType#getSpecifiedUdtType <em>Specified Udt Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Specified Udt Type</em>'.
-   * @see org.example.define.define.VariableType#getSpecifiedUdtType()
-   * @see #getVariableType()
-   * @generated
-   */
-  EReference getVariableType_SpecifiedUdtType();
+  EClass getTypes();
 
   /**
    * Returns the meta object for class '{@link org.example.define.define.Expression <em>Expression</em>}'.
@@ -1017,6 +1226,356 @@ public interface DefinePackage extends EPackage
    * @generated
    */
   EClass getExpression();
+
+  /**
+   * Returns the meta object for class '{@link org.example.define.define.EFloat <em>EFloat</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>EFloat</em>'.
+   * @see org.example.define.define.EFloat
+   * @generated
+   */
+  EClass getEFloat();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.example.define.define.EFloat#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see org.example.define.define.EFloat#getValue()
+   * @see #getEFloat()
+   * @generated
+   */
+  EAttribute getEFloat_Value();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.example.define.define.EFloat#getValueOfDecimal <em>Value Of Decimal</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Value Of Decimal</em>'.
+   * @see org.example.define.define.EFloat#getValueOfDecimal()
+   * @see #getEFloat()
+   * @generated
+   */
+  EAttribute getEFloat_ValueOfDecimal();
+
+  /**
+   * Returns the meta object for class '{@link org.example.define.define.Int <em>Int</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Int</em>'.
+   * @see org.example.define.define.Int
+   * @generated
+   */
+  EClass getInt();
+
+  /**
+   * Returns the meta object for class '{@link org.example.define.define.Bool <em>Bool</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Bool</em>'.
+   * @see org.example.define.define.Bool
+   * @generated
+   */
+  EClass getBool();
+
+  /**
+   * Returns the meta object for class '{@link org.example.define.define.Float <em>Float</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Float</em>'.
+   * @see org.example.define.define.Float
+   * @generated
+   */
+  EClass getFloat();
+
+  /**
+   * Returns the meta object for class '{@link org.example.define.define.StringTyp <em>String Typ</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>String Typ</em>'.
+   * @see org.example.define.define.StringTyp
+   * @generated
+   */
+  EClass getStringTyp();
+
+  /**
+   * Returns the meta object for class '{@link org.example.define.define.Or <em>Or</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Or</em>'.
+   * @see org.example.define.define.Or
+   * @generated
+   */
+  EClass getOr();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.example.define.define.Or#getLeft <em>Left</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Left</em>'.
+   * @see org.example.define.define.Or#getLeft()
+   * @see #getOr()
+   * @generated
+   */
+  EReference getOr_Left();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.example.define.define.Or#getRight <em>Right</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Right</em>'.
+   * @see org.example.define.define.Or#getRight()
+   * @see #getOr()
+   * @generated
+   */
+  EReference getOr_Right();
+
+  /**
+   * Returns the meta object for class '{@link org.example.define.define.And <em>And</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>And</em>'.
+   * @see org.example.define.define.And
+   * @generated
+   */
+  EClass getAnd();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.example.define.define.And#getLeft <em>Left</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Left</em>'.
+   * @see org.example.define.define.And#getLeft()
+   * @see #getAnd()
+   * @generated
+   */
+  EReference getAnd_Left();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.example.define.define.And#getRight <em>Right</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Right</em>'.
+   * @see org.example.define.define.And#getRight()
+   * @see #getAnd()
+   * @generated
+   */
+  EReference getAnd_Right();
+
+  /**
+   * Returns the meta object for class '{@link org.example.define.define.Equality <em>Equality</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Equality</em>'.
+   * @see org.example.define.define.Equality
+   * @generated
+   */
+  EClass getEquality();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.example.define.define.Equality#getLeft <em>Left</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Left</em>'.
+   * @see org.example.define.define.Equality#getLeft()
+   * @see #getEquality()
+   * @generated
+   */
+  EReference getEquality_Left();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.example.define.define.Equality#getOp <em>Op</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Op</em>'.
+   * @see org.example.define.define.Equality#getOp()
+   * @see #getEquality()
+   * @generated
+   */
+  EAttribute getEquality_Op();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.example.define.define.Equality#getRight <em>Right</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Right</em>'.
+   * @see org.example.define.define.Equality#getRight()
+   * @see #getEquality()
+   * @generated
+   */
+  EReference getEquality_Right();
+
+  /**
+   * Returns the meta object for class '{@link org.example.define.define.Comparison <em>Comparison</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Comparison</em>'.
+   * @see org.example.define.define.Comparison
+   * @generated
+   */
+  EClass getComparison();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.example.define.define.Comparison#getLeft <em>Left</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Left</em>'.
+   * @see org.example.define.define.Comparison#getLeft()
+   * @see #getComparison()
+   * @generated
+   */
+  EReference getComparison_Left();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.example.define.define.Comparison#getOp <em>Op</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Op</em>'.
+   * @see org.example.define.define.Comparison#getOp()
+   * @see #getComparison()
+   * @generated
+   */
+  EAttribute getComparison_Op();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.example.define.define.Comparison#getRight <em>Right</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Right</em>'.
+   * @see org.example.define.define.Comparison#getRight()
+   * @see #getComparison()
+   * @generated
+   */
+  EReference getComparison_Right();
+
+  /**
+   * Returns the meta object for class '{@link org.example.define.define.Plus <em>Plus</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Plus</em>'.
+   * @see org.example.define.define.Plus
+   * @generated
+   */
+  EClass getPlus();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.example.define.define.Plus#getLeft <em>Left</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Left</em>'.
+   * @see org.example.define.define.Plus#getLeft()
+   * @see #getPlus()
+   * @generated
+   */
+  EReference getPlus_Left();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.example.define.define.Plus#getRight <em>Right</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Right</em>'.
+   * @see org.example.define.define.Plus#getRight()
+   * @see #getPlus()
+   * @generated
+   */
+  EReference getPlus_Right();
+
+  /**
+   * Returns the meta object for class '{@link org.example.define.define.Minus <em>Minus</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Minus</em>'.
+   * @see org.example.define.define.Minus
+   * @generated
+   */
+  EClass getMinus();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.example.define.define.Minus#getLeft <em>Left</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Left</em>'.
+   * @see org.example.define.define.Minus#getLeft()
+   * @see #getMinus()
+   * @generated
+   */
+  EReference getMinus_Left();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.example.define.define.Minus#getRight <em>Right</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Right</em>'.
+   * @see org.example.define.define.Minus#getRight()
+   * @see #getMinus()
+   * @generated
+   */
+  EReference getMinus_Right();
+
+  /**
+   * Returns the meta object for class '{@link org.example.define.define.MulOrDiv <em>Mul Or Div</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Mul Or Div</em>'.
+   * @see org.example.define.define.MulOrDiv
+   * @generated
+   */
+  EClass getMulOrDiv();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.example.define.define.MulOrDiv#getLeft <em>Left</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Left</em>'.
+   * @see org.example.define.define.MulOrDiv#getLeft()
+   * @see #getMulOrDiv()
+   * @generated
+   */
+  EReference getMulOrDiv_Left();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.example.define.define.MulOrDiv#getOp <em>Op</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Op</em>'.
+   * @see org.example.define.define.MulOrDiv#getOp()
+   * @see #getMulOrDiv()
+   * @generated
+   */
+  EAttribute getMulOrDiv_Op();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.example.define.define.MulOrDiv#getRight <em>Right</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Right</em>'.
+   * @see org.example.define.define.MulOrDiv#getRight()
+   * @see #getMulOrDiv()
+   * @generated
+   */
+  EReference getMulOrDiv_Right();
+
+  /**
+   * Returns the meta object for class '{@link org.example.define.define.Not <em>Not</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Not</em>'.
+   * @see org.example.define.define.Not
+   * @generated
+   */
+  EClass getNot();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.example.define.define.Not#getExpression <em>Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Expression</em>'.
+   * @see org.example.define.define.Not#getExpression()
+   * @see #getNot()
+   * @generated
+   */
+  EReference getNot_Expression();
 
   /**
    * Returns the meta object for class '{@link org.example.define.define.IntConstant <em>Int Constant</em>}'.
@@ -1196,24 +1755,6 @@ public interface DefinePackage extends EPackage
     EReference INPUT__INPUT_VARIABLES = eINSTANCE.getInput_InputVariables();
 
     /**
-     * The meta object literal for the '{@link org.example.define.define.impl.InoutImpl <em>Inout</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.example.define.define.impl.InoutImpl
-     * @see org.example.define.define.impl.DefinePackageImpl#getInout()
-     * @generated
-     */
-    EClass INOUT = eINSTANCE.getInout();
-
-    /**
-     * The meta object literal for the '<em><b>Inout Variables</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference INOUT__INOUT_VARIABLES = eINSTANCE.getInout_InoutVariables();
-
-    /**
      * The meta object literal for the '{@link org.example.define.define.impl.OutputImpl <em>Output</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1232,6 +1773,24 @@ public interface DefinePackage extends EPackage
     EReference OUTPUT__OUTPUT_VARIABLES = eINSTANCE.getOutput_OutputVariables();
 
     /**
+     * The meta object literal for the '{@link org.example.define.define.impl.InoutImpl <em>Inout</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.example.define.define.impl.InoutImpl
+     * @see org.example.define.define.impl.DefinePackageImpl#getInout()
+     * @generated
+     */
+    EClass INOUT = eINSTANCE.getInout();
+
+    /**
+     * The meta object literal for the '<em><b>Inout Variables</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference INOUT__INOUT_VARIABLES = eINSTANCE.getInout_InoutVariables();
+
+    /**
      * The meta object literal for the '{@link org.example.define.define.impl.VariableImpl <em>Variable</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1242,22 +1801,6 @@ public interface DefinePackage extends EPackage
     EClass VARIABLE = eINSTANCE.getVariable();
 
     /**
-     * The meta object literal for the '<em><b>Variable Type</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VARIABLE__VARIABLE_TYPE = eINSTANCE.getVariable_VariableType();
-
-    /**
-     * The meta object literal for the '<em><b>Variable Definition</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VARIABLE__VARIABLE_DEFINITION = eINSTANCE.getVariable_VariableDefinition();
-
-    /**
      * The meta object literal for the '<em><b>Variant Keyword</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1266,12 +1809,36 @@ public interface DefinePackage extends EPackage
     EAttribute VARIABLE__VARIANT_KEYWORD = eINSTANCE.getVariable_VariantKeyword();
 
     /**
-     * The meta object literal for the '<em><b>Variant</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Variable Type</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference VARIABLE__VARIANT = eINSTANCE.getVariable_Variant();
+    EReference VARIABLE__VARIABLE_TYPE = eINSTANCE.getVariable_VariableType();
+
+    /**
+     * The meta object literal for the '<em><b>Variable Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VARIABLE__VARIABLE_NAME = eINSTANCE.getVariable_VariableName();
+
+    /**
+     * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VARIABLE__EXPRESSION = eINSTANCE.getVariable_Expression();
+
+    /**
+     * The meta object literal for the '<em><b>Range</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VARIABLE__RANGE = eINSTANCE.getVariable_Range();
 
     /**
      * The meta object literal for the '<em><b>Udt</b></em>' containment reference feature.
@@ -1280,82 +1847,6 @@ public interface DefinePackage extends EPackage
      * @generated
      */
     EReference VARIABLE__UDT = eINSTANCE.getVariable_Udt();
-
-    /**
-     * The meta object literal for the '{@link org.example.define.define.impl.VariableDefinitionImpl <em>Variable Definition</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.example.define.define.impl.VariableDefinitionImpl
-     * @see org.example.define.define.impl.DefinePackageImpl#getVariableDefinition()
-     * @generated
-     */
-    EClass VARIABLE_DEFINITION = eINSTANCE.getVariableDefinition();
-
-    /**
-     * The meta object literal for the '<em><b>Variable Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute VARIABLE_DEFINITION__VARIABLE_NAME = eINSTANCE.getVariableDefinition_VariableName();
-
-    /**
-     * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VARIABLE_DEFINITION__EXPRESSION = eINSTANCE.getVariableDefinition_Expression();
-
-    /**
-     * The meta object literal for the '<em><b>Range</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VARIABLE_DEFINITION__RANGE = eINSTANCE.getVariableDefinition_Range();
-
-    /**
-     * The meta object literal for the '<em><b>Next Variable</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute VARIABLE_DEFINITION__NEXT_VARIABLE = eINSTANCE.getVariableDefinition_NextVariable();
-
-    /**
-     * The meta object literal for the '{@link org.example.define.define.impl.VariantImpl <em>Variant</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.example.define.define.impl.VariantImpl
-     * @see org.example.define.define.impl.DefinePackageImpl#getVariant()
-     * @generated
-     */
-    EClass VARIANT = eINSTANCE.getVariant();
-
-    /**
-     * The meta object literal for the '<em><b>Variant Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute VARIANT__VARIANT_NAME = eINSTANCE.getVariant_VariantName();
-
-    /**
-     * The meta object literal for the '<em><b>Variant Type</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VARIANT__VARIANT_TYPE = eINSTANCE.getVariant_VariantType();
-
-    /**
-     * The meta object literal for the '<em><b>Next Variant</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute VARIANT__NEXT_VARIANT = eINSTANCE.getVariant_NextVariant();
 
     /**
      * The meta object literal for the '{@link org.example.define.define.impl.UdtImpl <em>Udt</em>}' class.
@@ -1410,30 +1901,14 @@ public interface DefinePackage extends EPackage
     EAttribute UDT_TYPE__UDT_TYPE_NAME = eINSTANCE.getUdtType_UdtTypeName();
 
     /**
-     * The meta object literal for the '{@link org.example.define.define.impl.VariableTypeImpl <em>Variable Type</em>}' class.
+     * The meta object literal for the '{@link org.example.define.define.impl.TypesImpl <em>Types</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.example.define.define.impl.VariableTypeImpl
-     * @see org.example.define.define.impl.DefinePackageImpl#getVariableType()
+     * @see org.example.define.define.impl.TypesImpl
+     * @see org.example.define.define.impl.DefinePackageImpl#getTypes()
      * @generated
      */
-    EClass VARIABLE_TYPE = eINSTANCE.getVariableType();
-
-    /**
-     * The meta object literal for the '<em><b>Basic Types</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute VARIABLE_TYPE__BASIC_TYPES = eINSTANCE.getVariableType_BasicTypes();
-
-    /**
-     * The meta object literal for the '<em><b>Specified Udt Type</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VARIABLE_TYPE__SPECIFIED_UDT_TYPE = eINSTANCE.getVariableType_SpecifiedUdtType();
+    EClass TYPES = eINSTANCE.getTypes();
 
     /**
      * The meta object literal for the '{@link org.example.define.define.impl.ExpressionImpl <em>Expression</em>}' class.
@@ -1444,6 +1919,296 @@ public interface DefinePackage extends EPackage
      * @generated
      */
     EClass EXPRESSION = eINSTANCE.getExpression();
+
+    /**
+     * The meta object literal for the '{@link org.example.define.define.impl.EFloatImpl <em>EFloat</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.example.define.define.impl.EFloatImpl
+     * @see org.example.define.define.impl.DefinePackageImpl#getEFloat()
+     * @generated
+     */
+    EClass EFLOAT = eINSTANCE.getEFloat();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EFLOAT__VALUE = eINSTANCE.getEFloat_Value();
+
+    /**
+     * The meta object literal for the '<em><b>Value Of Decimal</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EFLOAT__VALUE_OF_DECIMAL = eINSTANCE.getEFloat_ValueOfDecimal();
+
+    /**
+     * The meta object literal for the '{@link org.example.define.define.impl.IntImpl <em>Int</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.example.define.define.impl.IntImpl
+     * @see org.example.define.define.impl.DefinePackageImpl#getInt()
+     * @generated
+     */
+    EClass INT = eINSTANCE.getInt();
+
+    /**
+     * The meta object literal for the '{@link org.example.define.define.impl.BoolImpl <em>Bool</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.example.define.define.impl.BoolImpl
+     * @see org.example.define.define.impl.DefinePackageImpl#getBool()
+     * @generated
+     */
+    EClass BOOL = eINSTANCE.getBool();
+
+    /**
+     * The meta object literal for the '{@link org.example.define.define.impl.FloatImpl <em>Float</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.example.define.define.impl.FloatImpl
+     * @see org.example.define.define.impl.DefinePackageImpl#getFloat()
+     * @generated
+     */
+    EClass FLOAT = eINSTANCE.getFloat();
+
+    /**
+     * The meta object literal for the '{@link org.example.define.define.impl.StringTypImpl <em>String Typ</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.example.define.define.impl.StringTypImpl
+     * @see org.example.define.define.impl.DefinePackageImpl#getStringTyp()
+     * @generated
+     */
+    EClass STRING_TYP = eINSTANCE.getStringTyp();
+
+    /**
+     * The meta object literal for the '{@link org.example.define.define.impl.OrImpl <em>Or</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.example.define.define.impl.OrImpl
+     * @see org.example.define.define.impl.DefinePackageImpl#getOr()
+     * @generated
+     */
+    EClass OR = eINSTANCE.getOr();
+
+    /**
+     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference OR__LEFT = eINSTANCE.getOr_Left();
+
+    /**
+     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference OR__RIGHT = eINSTANCE.getOr_Right();
+
+    /**
+     * The meta object literal for the '{@link org.example.define.define.impl.AndImpl <em>And</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.example.define.define.impl.AndImpl
+     * @see org.example.define.define.impl.DefinePackageImpl#getAnd()
+     * @generated
+     */
+    EClass AND = eINSTANCE.getAnd();
+
+    /**
+     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AND__LEFT = eINSTANCE.getAnd_Left();
+
+    /**
+     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AND__RIGHT = eINSTANCE.getAnd_Right();
+
+    /**
+     * The meta object literal for the '{@link org.example.define.define.impl.EqualityImpl <em>Equality</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.example.define.define.impl.EqualityImpl
+     * @see org.example.define.define.impl.DefinePackageImpl#getEquality()
+     * @generated
+     */
+    EClass EQUALITY = eINSTANCE.getEquality();
+
+    /**
+     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EQUALITY__LEFT = eINSTANCE.getEquality_Left();
+
+    /**
+     * The meta object literal for the '<em><b>Op</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EQUALITY__OP = eINSTANCE.getEquality_Op();
+
+    /**
+     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EQUALITY__RIGHT = eINSTANCE.getEquality_Right();
+
+    /**
+     * The meta object literal for the '{@link org.example.define.define.impl.ComparisonImpl <em>Comparison</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.example.define.define.impl.ComparisonImpl
+     * @see org.example.define.define.impl.DefinePackageImpl#getComparison()
+     * @generated
+     */
+    EClass COMPARISON = eINSTANCE.getComparison();
+
+    /**
+     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference COMPARISON__LEFT = eINSTANCE.getComparison_Left();
+
+    /**
+     * The meta object literal for the '<em><b>Op</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute COMPARISON__OP = eINSTANCE.getComparison_Op();
+
+    /**
+     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference COMPARISON__RIGHT = eINSTANCE.getComparison_Right();
+
+    /**
+     * The meta object literal for the '{@link org.example.define.define.impl.PlusImpl <em>Plus</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.example.define.define.impl.PlusImpl
+     * @see org.example.define.define.impl.DefinePackageImpl#getPlus()
+     * @generated
+     */
+    EClass PLUS = eINSTANCE.getPlus();
+
+    /**
+     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PLUS__LEFT = eINSTANCE.getPlus_Left();
+
+    /**
+     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PLUS__RIGHT = eINSTANCE.getPlus_Right();
+
+    /**
+     * The meta object literal for the '{@link org.example.define.define.impl.MinusImpl <em>Minus</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.example.define.define.impl.MinusImpl
+     * @see org.example.define.define.impl.DefinePackageImpl#getMinus()
+     * @generated
+     */
+    EClass MINUS = eINSTANCE.getMinus();
+
+    /**
+     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MINUS__LEFT = eINSTANCE.getMinus_Left();
+
+    /**
+     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MINUS__RIGHT = eINSTANCE.getMinus_Right();
+
+    /**
+     * The meta object literal for the '{@link org.example.define.define.impl.MulOrDivImpl <em>Mul Or Div</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.example.define.define.impl.MulOrDivImpl
+     * @see org.example.define.define.impl.DefinePackageImpl#getMulOrDiv()
+     * @generated
+     */
+    EClass MUL_OR_DIV = eINSTANCE.getMulOrDiv();
+
+    /**
+     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MUL_OR_DIV__LEFT = eINSTANCE.getMulOrDiv_Left();
+
+    /**
+     * The meta object literal for the '<em><b>Op</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute MUL_OR_DIV__OP = eINSTANCE.getMulOrDiv_Op();
+
+    /**
+     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MUL_OR_DIV__RIGHT = eINSTANCE.getMulOrDiv_Right();
+
+    /**
+     * The meta object literal for the '{@link org.example.define.define.impl.NotImpl <em>Not</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.example.define.define.impl.NotImpl
+     * @see org.example.define.define.impl.DefinePackageImpl#getNot()
+     * @generated
+     */
+    EClass NOT = eINSTANCE.getNot();
+
+    /**
+     * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference NOT__EXPRESSION = eINSTANCE.getNot_Expression();
 
     /**
      * The meta object literal for the '{@link org.example.define.define.impl.IntConstantImpl <em>Int Constant</em>}' class.

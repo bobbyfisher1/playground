@@ -8,9 +8,12 @@ import org.eclipse.xtext.testing.util.ParseHelper
 import org.eclipse.xtext.testing.validation.ValidationTestHelper
 import org.example.define.define.DefineBlock
 import org.example.define.define.DefinePackage
+import org.example.define.typing.DefineType
 import org.example.define.validation.DefineValidator
 import org.junit.Test
 import org.junit.runner.RunWith
+
+import static org.example.define.typing.DefineTypeComputer.*
 
 import static extension org.junit.Assert.*
 
@@ -20,6 +23,19 @@ class DefineValidatorTest {
 
 	@Inject extension ParseHelper<DefineBlock>
 	@Inject extension ValidationTestHelper
+	val start = '''
+		define{
+			input[]
+			output[	
+	'''
+	val end = "]}"
+//	-----------------------------------------------------------------------------------------------
+	val startWithVariable = '''
+	define{
+		input[]
+		output[	int a = '''
+
+	val endWithSemicolon = ";]}"
 
 	//
 // tests -----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -54,187 +70,90 @@ class DefineValidatorTest {
 		'''.toString.assertDuplicateVariables(DefinePackage.eINSTANCE.variable, "variable name", 't', 4)
 	}
 
-	@Test def void testDuplicateVariants() {
-		'''
-			define{
-				input[variant a(int);]
-				output[]
-				inout[variant a(int);]
-			}
-		'''.toString.assertDuplicateVariants(DefinePackage.eINSTANCE.variable, "variable name", 'a', 'int', 2)
-	}
-
 	@Test def void testDuplicateUdts() {
 		'''
 			define{
-				input[udt a(udtType){}]
+				input[udt a(udtType1){}]
 				output[]
-				inout[udt a(udtType){}]
+				inout[udt a(udtType2){}]
 			}
 		'''.toString.assertDuplicateUdts(DefinePackage.eINSTANCE.variable, "variable name", 'a', 'udtType', 2)
 	}
 
-	@Test def void testMissingTypeIOInout() {
+	@Test def void testDuplicateNameInUdt() {
 		'''
 			define{
-				input[a;] 
-				output[] 
-				inout[]
+				input[]
+				output[ 
+					udt a(typeA){
+						int a;
+						bool a;
+					}
+				]
 			}
 		'''.parse => [
-			assertError(DefinePackage.eINSTANCE.variable, DefineValidator.MISSING_VARIABLE_TYPE)
-			1.assertEquals(validate.size)
-		]
-	}
-
-	@Test def void testMissingTypeIO() {
-		'''
-			define{
-				input[a;] 
-				output[]
-			}
-		'''.parse => [
-			assertError(DefinePackage.eINSTANCE.variable, DefineValidator.MISSING_VARIABLE_TYPE)
-			1.assertEquals(validate.size)
-		]
-	}
-
-	@Test def void failingTestInferredType() {
-		'''
-			define{
-				input[int a; t;] 
-				output[]
-			}
-		'''.parse => [
-			assertError(DefinePackage.eINSTANCE.variable, DefineValidator.MISSING_VARIABLE_TYPE)
-			1.assertEquals(validate.size)
-		]
-	}
-
-	@Test def void testInferredType() {
-		'''
-			define{
-				input[int a, t;] 
-				output[]
-			}
-		'''.parse.assertNoErrors
-	}
-
-	@Test def void testInvalidCommaNotationAndMissingType() {
-		'''
-			define{
-				input[
-					int a, 
-					variant b(int);
-					t;
-				] 
-				output[]
-			}
-		'''.parse => [
-			assertError(DefinePackage.eINSTANCE.variable, DefineValidator.MISSING_VARIABLE_TYPE)
-			assertError(DefinePackage.eINSTANCE.variable, DefineValidator.INVALID_COMMA_NOTATION)
+			assertError(DefinePackage.eINSTANCE.variable, DefineValidator.MULTIPLE_VARIABLE_DECLARATION)
 			2.assertEquals(validate.size)
 		]
 	}
 
-	@Test def void testInvalidCommaNotation() {
-		'''
-			define{
-				output[
-					int a,
-					variant b(int);
-			] 
-				input[]
-			}
-		'''.parse => [
-			assertError(DefinePackage.eINSTANCE.variable, DefineValidator.INVALID_COMMA_NOTATION)
-			1.assertEquals(validate.size)
-		]
+	@Test def void testWrongNotType() { "!10".assertType(INT_TYPE, BOOL_TYPE) }
+
+	@Test def void testWrongMulOrDivType() {
+		"10 * true".assertType(BOOL_TYPE, INT_TYPE)
+		"'10' / 10".assertType(STRING_TYPE, INT_TYPE)
 	}
 
-	@Test def void testInvalidCommaOnLastVariable() {
-		'''
-			define{
-				output[ int a,] 
-				input[]
-			}
-		'''.parse => [
-			assertError(DefinePackage.eINSTANCE.variable, DefineValidator.INVALID_COMMA_NOTATION)
-			1.assertEquals(validate.size)
-		]
+	@Test def void testWrongMinusType() {
+		"10 - true".assertType(BOOL_TYPE, INT_TYPE)
+		"'10' - 10".assertType(STRING_TYPE, INT_TYPE)
 	}
 
-	@Test def void testTypesAfterComma() {
-		'''
-			define{
-				output[ int a = 8, b = 10 +/- 5;] 
-				input[]
-			}
-		'''.parse => [
-			direction.output.outputVariables => [
-				get(0) => [
-					variableDefinition.variableName.assertEquals('a')
-					variableType.basicTypes.assertEquals('int')
-				]
-				get(1) => [
-					variableDefinition.variableName.assertEquals('b')
-					variableType.assertEquals(null) // after validation the type is also 'int'
-				]
-			]
-		]
+	@Test def void testWrongAndType() {
+		"10 && true".assertType(INT_TYPE, BOOL_TYPE)
+		"false && '10'".assertType(STRING_TYPE, BOOL_TYPE)
 	}
 
-	@Test def void testMissingVariantKeyword() {
-		'''
-			define{
-				input[]
-				output[a(int);]
-			}
-		'''.parse => [
-			assertError(DefinePackage.eINSTANCE.variable, DefineValidator.MISSING_VARIANT_KEYWORD)
-			1.assertEquals(validate.size)
-		]
+	@Test def void testWrongOrType() {
+		"10 || true".assertType(INT_TYPE, BOOL_TYPE)
+		"false || '10'".assertType(STRING_TYPE, BOOL_TYPE)
 	}
 
-	@Test def void testInvalidCommaNotationAndMissingVariantKeyword() {
-		'''
-			define{
-				input[]
-				output[
-					variant a(int),
-					int b;
-					c(bool);
-				]
-			}
-		'''.parse => [
-			assertError(DefinePackage.eINSTANCE.variable, DefineValidator.INVALID_COMMA_NOTATION)
-			assertError(DefinePackage.eINSTANCE.variable, DefineValidator.MISSING_VARIANT_KEYWORD)
-			2.assertEquals(validate.size)
-		]
+	@Test def void testWrongEqualityType() {
+		"10 == true".assertSameType(INT_TYPE, BOOL_TYPE)
+		"false != '10'".assertSameType(BOOL_TYPE, STRING_TYPE)
 	}
 
-	@Test def void testMultipleVariantKeyword() {
-		'''
-			define{
-				input[]
-				output[variant a(int), variant b(bool);]
-			}
-		'''.parse => [
-			assertError(DefinePackage.eINSTANCE.variable, DefineValidator.MULTIPLE_VARIANT_KEYWORD)
-			1.assertEquals(validate.size)
-		]
+	@Test def void testWrongComparisonType() {
+		"10 < '1'".assertSameType(INT_TYPE, STRING_TYPE)
+		"'10' > 10".assertSameType(STRING_TYPE, INT_TYPE)
 	}
 
-	@Test def void testInvalidCommaOnLastVariant() {
-		'''
-			define{
-				input[]
-				output[variant a(int),]
-			}
-		'''.parse => [
-			assertError(DefinePackage.eINSTANCE.variable, DefineValidator.INVALID_COMMA_NOTATION)
-			1.assertEquals(validate.size)
-		]
+	@Test def void testWrongBooleanComparison() {
+		"10 < true".assertNotBooleanType
+		"false > 0".assertNotBooleanType
+		"false > true".assertNotBooleanType
+	}
+
+	@Test def void testWrongBooleanPlus() {
+		"10 + true".assertNotBooleanType
+		"false + 0".assertNotBooleanType
+		"false + true".assertNotBooleanType
+	}
+
+	@Test def void testCorrectType() {
+		(start + "int a=4;" + end).parse.assertNoErrors;
+		(start + "int a = 4 +/- 16;" + end).parse.assertNoErrors;
+	}
+
+	@Test def void testWrongTypes() {
+		(start + "int a = 4 +/- true;" + end).assertWrongType;
+		(start + "int a = true +/- 3" + end).assertWrongType;
+		(start + "int a = true +/- 'string' " + end).assertWrongType;
+	}
+
+	def private void assertWrongType(String text) {
+		text.parse.assertError(DefinePackage.eINSTANCE.variable, DefineValidator.INCOMPATIBLE_TYPES)
 	}
 
 	//
@@ -248,7 +167,7 @@ class DefineValidatorTest {
 				type,
 				DefineValidator.MULTIPLE_VARIABLE_DECLARATION,
 				text.indexOf(type.toString),
-				name.length + ';'.length, // AVA: the ';' is highlighted as an error as well
+				name.length, // + ';'.length, // AVA: the ';' is highlighted as an error as well
 				"Multiple " + description + " '" + name + "'"
 			)
 
@@ -261,38 +180,13 @@ class DefineValidatorTest {
 				type,
 				DefineValidator.MULTIPLE_VARIABLE_DECLARATION,
 				text.lastIndexOf(type.toString),
-				name.length + 1,
+				name.length, // + ';'.length,
 				"Multiple " + description + " '" + name + "'"
 			)
 
 			// check that the amount of errors equals the amount of duplicates
 			duplicateErrors.assertEquals(validate.size)
 
-		]
-	}
-
-	def private void assertDuplicateVariants(String text, EClass type, String description, String name,
-		String variableType, int duplicateErrors) {
-		text.parse => [
-			// check that the error is on both duplicates 
-			assertError(
-				type,
-				DefineValidator.MULTIPLE_VARIANT_DECLARATION,
-				text.indexOf(type.toString),
-				name.length + '();'.length + variableType.length,
-				"Multiple " + description + " '" + name + "'"
-			)
-
-			assertError(
-				type,
-				DefineValidator.MULTIPLE_VARIANT_DECLARATION,
-				text.lastIndexOf(type.toString),
-				name.length + '();'.length + variableType.length,
-				"Multiple " + description + " '" + name + "'"
-			)
-
-			// check that the amount of errors equals the amount of duplicates
-			duplicateErrors.assertEquals(validate.size)
 		]
 	}
 
@@ -304,7 +198,7 @@ class DefineValidatorTest {
 				type,
 				DefineValidator.MULTIPLE_UDT_DECLARATION,
 				text.indexOf(type.toString),
-				name.length + 'udt (){}'.length + variableType.length,
+				name.length + 'udt ( ){}'.length + variableType.length,
 				"Multiple " + description + " '" + name + "'"
 			)
 
@@ -312,7 +206,7 @@ class DefineValidatorTest {
 				type,
 				DefineValidator.MULTIPLE_UDT_DECLARATION,
 				text.lastIndexOf(type.toString),
-				name.length + 'udt (){}'.length + variableType.length,
+				name.length + 'udt ( ){}'.length + variableType.length,
 				"Multiple " + description + " '" + name + "'"
 			)
 
@@ -320,5 +214,19 @@ class DefineValidatorTest {
 			duplicateErrors.assertEquals(validate.size)
 		]
 	}
+
+	def void assertType(CharSequence input, DefineType expectedWrongType, DefineType expectedActualType) {
+		(startWithVariable + input + endWithSemicolon).parse.assertError(DefinePackage.eINSTANCE.expression,
+			DefineValidator.TYPE_MISMATCH, "expected " + expectedActualType + " type, but was " + expectedWrongType)
+	}
+
+	def void assertSameType(CharSequence input, DefineType expectedLeft, DefineType expectedRight) {
+		(startWithVariable + input + endWithSemicolon).parse.assertError(DefinePackage.eINSTANCE.expression,
+			DefineValidator.TYPE_MISMATCH, "expected the same type, but was " + expectedLeft + ", " + expectedRight)
+	}
+
+	def void assertNotBooleanType(CharSequence input) {
+		(startWithVariable + input + endWithSemicolon).parse.assertError(DefinePackage.eINSTANCE.expression,
+			DefineValidator.TYPE_MISMATCH, "cannot be boolean")
+	}
 }
-//

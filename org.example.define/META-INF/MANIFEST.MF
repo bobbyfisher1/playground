@@ -15,16 +15,17 @@ Require-Bundle: org.eclipse.xtext,
  org.eclipse.emf.common,
  org.eclipse.xtend.lib;bundle-version="2.13.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: org.example.define.scoping,
- org.example.define,
- org.example.define.define.util,
- org.example.define.define.impl,
- org.example.define.generator,
- org.example.define.validation,
- org.example.define.services,
+Export-Package: org.example.define,
  org.example.define.define,
+ org.example.define.define.impl,
+ org.example.define.define.util,
+ org.example.define.generator,
+ org.example.define.parser.antlr,
  org.example.define.parser.antlr.internal,
+ org.example.define.scoping,
  org.example.define.serializer,
- org.example.define.parser.antlr
+ org.example.define.services,
+ org.example.define.typing,
+ org.example.define.validation
 Import-Package: org.apache.log4j
 Automatic-Module-Name: org.example.define

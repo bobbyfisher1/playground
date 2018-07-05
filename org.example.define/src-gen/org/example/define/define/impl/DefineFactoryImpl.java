@@ -11,7 +11,34 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
-import org.example.define.define.*;
+import org.example.define.define.And;
+import org.example.define.define.Bool;
+import org.example.define.define.BoolConstant;
+import org.example.define.define.Comparison;
+import org.example.define.define.DefineBlock;
+import org.example.define.define.DefineFactory;
+import org.example.define.define.DefinePackage;
+import org.example.define.define.DirectionBlock;
+import org.example.define.define.EFloat;
+import org.example.define.define.Equality;
+import org.example.define.define.Expression;
+import org.example.define.define.Inout;
+import org.example.define.define.Input;
+import org.example.define.define.Int;
+import org.example.define.define.IntConstant;
+import org.example.define.define.Minus;
+import org.example.define.define.MulOrDiv;
+import org.example.define.define.Not;
+import org.example.define.define.Or;
+import org.example.define.define.Output;
+import org.example.define.define.Plus;
+import org.example.define.define.StringConstant;
+import org.example.define.define.StringTyp;
+import org.example.define.define.Types;
+import org.example.define.define.Udt;
+import org.example.define.define.UdtType;
+import org.example.define.define.Variable;
+import org.example.define.define.VariableRef;
 
 /**
  * <!-- begin-user-doc -->
@@ -68,15 +95,26 @@ public class DefineFactoryImpl extends EFactoryImpl implements DefineFactory
       case DefinePackage.DEFINE_BLOCK: return createDefineBlock();
       case DefinePackage.DIRECTION_BLOCK: return createDirectionBlock();
       case DefinePackage.INPUT: return createInput();
-      case DefinePackage.INOUT: return createInout();
       case DefinePackage.OUTPUT: return createOutput();
+      case DefinePackage.INOUT: return createInout();
       case DefinePackage.VARIABLE: return createVariable();
-      case DefinePackage.VARIABLE_DEFINITION: return createVariableDefinition();
-      case DefinePackage.VARIANT: return createVariant();
       case DefinePackage.UDT: return createUdt();
       case DefinePackage.UDT_TYPE: return createUdtType();
-      case DefinePackage.VARIABLE_TYPE: return createVariableType();
+      case DefinePackage.TYPES: return createTypes();
       case DefinePackage.EXPRESSION: return createExpression();
+      case DefinePackage.EFLOAT: return createEFloat();
+      case DefinePackage.INT: return createInt();
+      case DefinePackage.BOOL: return createBool();
+      case DefinePackage.FLOAT: return createFloat();
+      case DefinePackage.STRING_TYP: return createStringTyp();
+      case DefinePackage.OR: return createOr();
+      case DefinePackage.AND: return createAnd();
+      case DefinePackage.EQUALITY: return createEquality();
+      case DefinePackage.COMPARISON: return createComparison();
+      case DefinePackage.PLUS: return createPlus();
+      case DefinePackage.MINUS: return createMinus();
+      case DefinePackage.MUL_OR_DIV: return createMulOrDiv();
+      case DefinePackage.NOT: return createNot();
       case DefinePackage.INT_CONSTANT: return createIntConstant();
       case DefinePackage.STRING_CONSTANT: return createStringConstant();
       case DefinePackage.BOOL_CONSTANT: return createBoolConstant();
@@ -124,17 +162,6 @@ public class DefineFactoryImpl extends EFactoryImpl implements DefineFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public Inout createInout()
-  {
-    InoutImpl inout = new InoutImpl();
-    return inout;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public Output createOutput()
   {
     OutputImpl output = new OutputImpl();
@@ -146,32 +173,21 @@ public class DefineFactoryImpl extends EFactoryImpl implements DefineFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public Inout createInout()
+  {
+    InoutImpl inout = new InoutImpl();
+    return inout;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public Variable createVariable()
   {
     VariableImpl variable = new VariableImpl();
     return variable;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public VariableDefinition createVariableDefinition()
-  {
-    VariableDefinitionImpl variableDefinition = new VariableDefinitionImpl();
-    return variableDefinition;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Variant createVariant()
-  {
-    VariantImpl variant = new VariantImpl();
-    return variant;
   }
 
   /**
@@ -201,10 +217,10 @@ public class DefineFactoryImpl extends EFactoryImpl implements DefineFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public VariableType createVariableType()
+  public Types createTypes()
   {
-    VariableTypeImpl variableType = new VariableTypeImpl();
-    return variableType;
+    TypesImpl types = new TypesImpl();
+    return types;
   }
 
   /**
@@ -216,6 +232,149 @@ public class DefineFactoryImpl extends EFactoryImpl implements DefineFactory
   {
     ExpressionImpl expression = new ExpressionImpl();
     return expression;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EFloat createEFloat()
+  {
+    EFloatImpl eFloat = new EFloatImpl();
+    return eFloat;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Int createInt()
+  {
+    IntImpl int_ = new IntImpl();
+    return int_;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Bool createBool()
+  {
+    BoolImpl bool = new BoolImpl();
+    return bool;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public org.example.define.define.Float createFloat()
+  {
+    FloatImpl float_ = new FloatImpl();
+    return float_;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public StringTyp createStringTyp()
+  {
+    StringTypImpl stringTyp = new StringTypImpl();
+    return stringTyp;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Or createOr()
+  {
+    OrImpl or = new OrImpl();
+    return or;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public And createAnd()
+  {
+    AndImpl and = new AndImpl();
+    return and;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Equality createEquality()
+  {
+    EqualityImpl equality = new EqualityImpl();
+    return equality;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Comparison createComparison()
+  {
+    ComparisonImpl comparison = new ComparisonImpl();
+    return comparison;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Plus createPlus()
+  {
+    PlusImpl plus = new PlusImpl();
+    return plus;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Minus createMinus()
+  {
+    MinusImpl minus = new MinusImpl();
+    return minus;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public MulOrDiv createMulOrDiv()
+  {
+    MulOrDivImpl mulOrDiv = new MulOrDivImpl();
+    return mulOrDiv;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Not createNot()
+  {
+    NotImpl not = new NotImpl();
+    return not;
   }
 
   /**
