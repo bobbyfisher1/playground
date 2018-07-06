@@ -1,6 +1,0 @@
-define { 
-	output [ ] 
-	input [ 
-		int a= '49' +/- 2;
-	]
-}
