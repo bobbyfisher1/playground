@@ -35,14 +35,9 @@ class DefineLabelProvider extends DefaultEObjectLabelProvider {
 			"udt " + v.udt.udtName + " of type " + v.udt.udtTypes.udtTypeName
 		else
 			v.variableName + " : " + v.trueVariableType
-
 	}
 
-//	def text(VariableDefinition vd) {
-//	vd.variableName + " : " + "variable type"
-//	}
-//
-//
+
 //	def image(Greeting ele) {
 //		'Greeting.gif'
 //	}

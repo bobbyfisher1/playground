@@ -135,7 +135,7 @@ public class DefineParsingTest {
       _builder.append("inout[]");
       _builder.newLine();
       _builder.append("\t\t\t");
-      _builder.append("output[]\t\t\t\t\t");
+      _builder.append("output[bool x,y,z;]\t\t\t\t\t");
       _builder.newLine();
       _builder.append("}");
       _builder.newLine();
@@ -146,7 +146,6 @@ public class DefineParsingTest {
         final Procedure1<EList<Variable>> _function_1 = (EList<Variable> it_1) -> {
           Variable _get = it_1.get(0);
           final Procedure1<Variable> _function_2 = (Variable it_2) -> {
-            Assert.assertSame(this._defineTypeComputer.typeFor(it_2.getVariableType()), DefineTypeComputer.INT_TYPE);
             Assert.assertEquals(it_2.getVariableName(), "a");
             Expression _expression = it_2.getExpression();
             Assert.assertEquals(((IntConstant) _expression).getValue(), 4);
@@ -158,7 +157,6 @@ public class DefineParsingTest {
             Assert.assertEquals(it_2.getUdtTypes().getUdtTypeName(), "typeDido");
             Variable _get_1 = it_2.getUdtVariables().get(0);
             final Procedure1<Variable> _function_4 = (Variable it_3) -> {
-              Assert.assertSame(this._defineTypeComputer.typeFor(it_3.getVariableType()), DefineTypeComputer.INT_TYPE);
               Assert.assertEquals(it_3.getVariableName(), "b");
               Expression _expression = it_3.getExpression();
               Assert.assertEquals(((IntConstant) _expression).getValue(), 39);
@@ -169,7 +167,6 @@ public class DefineParsingTest {
           Variable _get_1 = it_1.get(2);
           final Procedure1<Variable> _function_4 = (Variable it_2) -> {
             Assert.assertEquals(it_2.getVariableName(), "Train");
-            Assert.assertSame(this._defineTypeComputer.typeFor(it_2.getVariableType()), DefineTypeComputer.INT_TYPE);
             Assert.assertEquals(Boolean.valueOf(it_2.isVariantKeyword()), Boolean.valueOf(true));
           };
           ObjectExtensions.<Variable>operator_doubleArrow(_get_1, _function_4);
@@ -414,7 +411,7 @@ public class DefineParsingTest {
       _builder.append("define{");
       _builder.newLine();
       _builder.append("\t");
-      _builder.append("input[ float a = .4; ]");
+      _builder.append("input[ float a = 0.4; ]");
       _builder.newLine();
       _builder.append("\t");
       _builder.append("output[]");

@@ -8,11 +8,13 @@ import com.google.inject.Inject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.validation.Check
 import org.example.define.define.And
+import org.example.define.define.BasicType
 import org.example.define.define.Comparison
 import org.example.define.define.DefinePackage
 import org.example.define.define.DirectionBlock
 import org.example.define.define.Equality
 import org.example.define.define.Expression
+import org.example.define.define.Inout
 import org.example.define.define.Minus
 import org.example.define.define.MulOrDiv
 import org.example.define.define.Not
@@ -164,6 +166,24 @@ class DefineValidator extends AbstractDefineValidator {
 		}
 	}
 
+	@Check def void checkCommaSyntaxIO(DirectionBlock directionblock) {
+		val in = directionblock.input.inputVariables
+		val out = directionblock.output.outputVariables
+		if (!in.empty) {
+			checkCommaSyntaxWithVariables(in)
+		}
+		if (!out.empty) {
+			checkCommaSyntaxWithVariables(out)
+		}
+	}
+
+	@Check def void checkCommaSyntaxIOInout(Inout inouts) {
+		val inout = inouts.inoutVariables
+		if (!inout.empty) {
+			checkCommaSyntaxWithVariables(inout)
+		}
+	}
+
 //
 // methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //
@@ -234,6 +254,69 @@ class DefineValidator extends AbstractDefineValidator {
 	def private checkNotBoolean(DefineType type, EReference reference) {
 		if (type.isBoolType)
 			error("cannot be boolean", reference, TYPE_MISMATCH)
+	}
+
+	def private checkCommaSyntaxWithVariables(
+		Iterable<? extends Variable> variables
+	) {
+		var count = 0 // ugly programming
+		var countOfVariableBefore = 0
+		var commaBeforeVariable = false;
+		var helpingVariableType = BasicType.INT
+		var variantKeyword = false
+		//
+		for (e : variables) {
+			// refer error to the last variable which was succeeded by a comma
+			if (commaBeforeVariable && (e.udt !== null)) {
+				error("Invalid comma. Semicolon expected.", variables.get(countOfVariableBefore),
+					DefinePackage.eINSTANCE.variable_NextVariable, INVALID_COMMA_NOTATION)
+			}
+			//
+			if (e.udt === null) { // e is of type variable and not udt
+				if ((count - countOfVariableBefore) > 1) {
+					// this checks the case if there's a udt type between a comma and the expected inferred type
+					commaBeforeVariable = false
+				}
+
+				if (!commaBeforeVariable) {
+					if (e.variableType === BasicType.NULL) {
+						error("Missing variable type", e, DefinePackage.eINSTANCE.variable_VariableType,
+							MISSING_VARIABLE_TYPE);
+					}
+				} // else if there was a comma before the variable
+				else {
+					// assign inferred type 										
+					if (e.variableType === BasicType.NULL) {
+						e.variableType = helpingVariableType
+					} // defined type after a comma
+					else {
+						error("Multiple type definition", e, DefinePackage.eINSTANCE.variable_VariableType,
+							MULTIPLE_TYPE_DEFINITION)
+					}
+					// assign variantKeyword
+					if (variantKeyword)
+						e.variantKeyword = true
+				}
+				// for the immediate next variable
+				if (e.nextVariable) { // comma at the end instead of semicolon
+					commaBeforeVariable = true; // must be of type variable
+					helpingVariableType = e.variableType // .basicType; // the type must be handed over to the next variable
+					countOfVariableBefore = count;
+					if (e.variantKeyword)
+						variantKeyword = true
+				} else {
+					commaBeforeVariable = false
+					helpingVariableType = null
+					variantKeyword = false
+				}
+			}
+			count++
+		}
+		// check if the last/only variable ends with a comma
+		val last = variables.last
+		if (last.udt === null && last.nextVariable)
+			error("Invalid comma. Semicolon expected.", last, DefinePackage.eINSTANCE.variable_NextVariable,
+				INVALID_COMMA_NOTATION)
 	}
 
 //

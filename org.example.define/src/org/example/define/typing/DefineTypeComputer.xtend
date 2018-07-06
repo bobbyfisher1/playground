@@ -1,12 +1,11 @@
 package org.example.define.typing
 
 import org.example.define.define.And
-import org.example.define.define.Bool
+import org.example.define.define.BasicType
 import org.example.define.define.BoolConstant
 import org.example.define.define.Comparison
 import org.example.define.define.Equality
 import org.example.define.define.Expression
-import org.example.define.define.Int
 import org.example.define.define.IntConstant
 import org.example.define.define.Minus
 import org.example.define.define.MulOrDiv
@@ -14,13 +13,12 @@ import org.example.define.define.Not
 import org.example.define.define.Or
 import org.example.define.define.Plus
 import org.example.define.define.StringConstant
-import org.example.define.define.StringTyp
-import org.example.define.define.Types
 
 class DefineTypeComputer {
 	public static val STRING_TYPE = new StringType
 	public static val INT_TYPE = new IntType
 	public static val BOOL_TYPE = new BoolType
+	public static val NULL_TYPE = new NullType
 
 //	@Inject extension DefineModelUtil
 //
@@ -52,12 +50,16 @@ class DefineTypeComputer {
 		}
 	}
 
-	def dispatch DefineType typeFor(Types t) {
-		switch (t) {
-			Int: INT_TYPE
-			Bool: BOOL_TYPE
-			StringTyp: STRING_TYPE
-		}
+	def dispatch DefineType typeFor(BasicType type) {
+		val t = type.toString
+		if (t === 'int') {
+			INT_TYPE
+		} else if (t === 'bool') {
+			BOOL_TYPE;
+		} else if (t === 'string') {
+			STRING_TYPE
+		} else
+			NULL_TYPE
 	}
 
 	def dispatch DefineType typeFor(Plus e) {

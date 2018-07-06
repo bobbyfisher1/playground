@@ -1,14 +1,12 @@
 package org.example.define.typing;
 
 import java.util.Arrays;
-import org.eclipse.emf.ecore.EObject;
 import org.example.define.define.And;
-import org.example.define.define.Bool;
+import org.example.define.define.BasicType;
 import org.example.define.define.BoolConstant;
 import org.example.define.define.Comparison;
 import org.example.define.define.Equality;
 import org.example.define.define.Expression;
-import org.example.define.define.Int;
 import org.example.define.define.IntConstant;
 import org.example.define.define.Minus;
 import org.example.define.define.MulOrDiv;
@@ -16,11 +14,10 @@ import org.example.define.define.Not;
 import org.example.define.define.Or;
 import org.example.define.define.Plus;
 import org.example.define.define.StringConstant;
-import org.example.define.define.StringTyp;
-import org.example.define.define.Types;
 import org.example.define.typing.BoolType;
 import org.example.define.typing.DefineType;
 import org.example.define.typing.IntType;
+import org.example.define.typing.NullType;
 import org.example.define.typing.StringType;
 
 @SuppressWarnings("all")
@@ -30,6 +27,8 @@ public class DefineTypeComputer {
   public final static IntType INT_TYPE = new IntType();
   
   public final static BoolType BOOL_TYPE = new BoolType();
+  
+  public final static NullType NULL_TYPE = new NullType();
   
   public boolean isStringType(final DefineType type) {
     return (type == DefineTypeComputer.STRING_TYPE);
@@ -107,26 +106,31 @@ public class DefineTypeComputer {
     return _switchResult;
   }
   
-  protected DefineType _typeFor(final Types t) {
-    DefineType _switchResult = null;
-    boolean _matched = false;
-    if (t instanceof Int) {
-      _matched=true;
-      _switchResult = DefineTypeComputer.INT_TYPE;
-    }
-    if (!_matched) {
-      if (t instanceof Bool) {
-        _matched=true;
-        _switchResult = DefineTypeComputer.BOOL_TYPE;
+  protected DefineType _typeFor(final BasicType type) {
+    DefineType _xblockexpression = null;
+    {
+      final String t = type.toString();
+      DefineType _xifexpression = null;
+      if ((t == "int")) {
+        _xifexpression = DefineTypeComputer.INT_TYPE;
+      } else {
+        DefineType _xifexpression_1 = null;
+        if ((t == "bool")) {
+          _xifexpression_1 = DefineTypeComputer.BOOL_TYPE;
+        } else {
+          DefineType _xifexpression_2 = null;
+          if ((t == "string")) {
+            _xifexpression_2 = DefineTypeComputer.STRING_TYPE;
+          } else {
+            _xifexpression_2 = DefineTypeComputer.NULL_TYPE;
+          }
+          _xifexpression_1 = _xifexpression_2;
+        }
+        _xifexpression = _xifexpression_1;
       }
+      _xblockexpression = _xifexpression;
     }
-    if (!_matched) {
-      if (t instanceof StringTyp) {
-        _matched=true;
-        _switchResult = DefineTypeComputer.STRING_TYPE;
-      }
-    }
-    return _switchResult;
+    return _xblockexpression;
   }
   
   protected DefineType _typeFor(final Plus e) {
@@ -150,13 +154,13 @@ public class DefineTypeComputer {
     return _xblockexpression;
   }
   
-  public DefineType typeFor(final EObject e) {
+  public DefineType typeFor(final Object e) {
     if (e instanceof Plus) {
       return _typeFor((Plus)e);
+    } else if (e instanceof BasicType) {
+      return _typeFor((BasicType)e);
     } else if (e instanceof Expression) {
       return _typeFor((Expression)e);
-    } else if (e instanceof Types) {
-      return _typeFor((Types)e);
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(e).toString());

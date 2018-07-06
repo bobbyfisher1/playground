@@ -18,21 +18,22 @@ Inout:
 	'inout' {Inout} '[' inoutVariables+=Variable* ']';
 
 Variable:
-	({Variable} (variantKeyword?='variant')? variableType=Types variableName=ID
-	('=' expression=Expression ('+/-' range=Expression)?)? ';' /*(';' | nextVariable?=',')*/)
+	({Variable} variantKeyword?='variant'? variableType=BasicType? /*udtType=[UdtType]?*/ variableName=ID
+	('=' expression=Expression ('+/-' range=Expression)?)? (';' | nextVariable?=','))
 	//
 	| (udt=Udt);
 
 Udt:
 	'udt' udtName=ID '(' udtTypes=UdtType ')' '{' udtVariables+=Variable* '}';
 
+	//Types:
+//	basicType=BasicType ;//| udtType=[UdtType]; // look up top
+//
+enum BasicType:
+	NULL='null' | INT='int' | BOOL='bool' | FLOAT='float' | STRINGTYP='string';
+
 UdtType:
 	udtTypeName=ID;
-
-Types:
-/*basicTypes=*/
-	{Int} 'int' | {Bool} 'bool' | {Float} 'float' | {StringTyp} 'string'
-	/*| [UdtType]*/;
 
 Expression:
 	Or;
@@ -63,8 +64,7 @@ Atomic returns Expression:
 	variable=[Variable] | FloatConstant;
 
 FloatConstant returns EFloat:
-	{EFloat} ((value=INT '.' valueOfDecimal=INT) | (value=INT? '.' valueOfDecimal=INT) | (value=INT '.'
-	valueOfDecimal=INT?));
+	{EFloat} value=INT '.' valueOfDecimal=INT;
 	/*	<listed_datatypes_in_S7UintTest_Editor>
 					Bool
 					Byte

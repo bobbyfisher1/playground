@@ -1,21 +1,25 @@
 package org.example.define
 
 class DefineModelUtil {
-	/*@Inject extension ParseHelper<DefineBlock>
-	
-	def boolean isVariableDefinedBefore(CharSequence text) {
-		var alreadyDefined = false
-		text.parse
-		
-		
-		val inputs = input.inputVariables
-		val size = inputs.size
-
-		for (i : 0 ..< size) {
-			if (varName == inputs.get(i).variableDefinition.variableName) {
-				alreadyDefined = true;
-			}
-			return alreadyDefined;
-		}
-	}*/
+//
+//	@Inject IResourceScopeCache cache
+//
+//	def isVariableDefinedBefore(VariableRef varRef) {
+//		varRef.variablesDefinedBefore.contains(varRef.variable)
+//	}
+//
+//	def variablesDefinedBefore(Expression e) {
+//		e.getContainerOfType(Variable).variablesDefinedBefore
+//	}
+//
+//	def variablesDefinedBefore(Variable containingElement) {
+//		cache.get(containingElement, containingElement.eResource) [
+//			val allElements = (containingElement.eContainer as DefineBlock).direction
+//
+//			allElements.subList(
+//				0,
+//				allElements.indexOf(containingElement)
+//			).typeSelect(Variable).toSet
+//		]
+//	}
 }

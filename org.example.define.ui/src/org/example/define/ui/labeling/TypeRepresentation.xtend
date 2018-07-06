@@ -12,14 +12,14 @@ class TypeRepresentation {
 		var string = ""
 		if (v.variantKeyword)
 			string += "variant "
-		if (v.variableType !== null) {
+		if (v.variableType/* .basicType*/ !== null) {
 			string += v.variableType.typeFor.toString
 		}
-		/*else if (v.variableType.specifiedUdtType !== null) {
-		 * 	string += v.variableType.specifiedUdtType
+		/*else if (v.variableType.udtType !== null) {
+		 * 	string += v.variableType.udtType
 		 } */
 		else {
-			string
+			string += ' absolutely, positvely, truly null '
 		}
 	}
 }

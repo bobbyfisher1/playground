@@ -27,13 +27,13 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Variable">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="variantKeyword" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="variableType" eType="#//Types"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="variableType" eType="#//BasicType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="variableName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="#//Expression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="range" eType="#//Expression"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nextVariable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="udt" eType="#//Udt" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Udt">
@@ -43,19 +43,21 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="udtVariables" upperBound="-1"
         eType="#//Variable" containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="BasicType">
+    <eLiterals name="NULL" literal="null"/>
+    <eLiterals name="INT" value="1" literal="int"/>
+    <eLiterals name="BOOL" value="2" literal="bool"/>
+    <eLiterals name="FLOAT" value="3" literal="float"/>
+    <eLiterals name="STRINGTYP" value="4" literal="string"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UdtType">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="udtTypeName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Types"/>
   <eClassifiers xsi:type="ecore:EClass" name="Expression"/>
   <eClassifiers xsi:type="ecore:EClass" name="EFloat" eSuperTypes="#//Expression">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="valueOfDecimal" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Int" eSuperTypes="#//Types"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Bool" eSuperTypes="#//Types"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Float" eSuperTypes="#//Types"/>
-  <eClassifiers xsi:type="ecore:EClass" name="StringTyp" eSuperTypes="#//Types"/>
   <eClassifiers xsi:type="ecore:EClass" name="Or" eSuperTypes="#//Expression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//Expression"
         containment="true"/>

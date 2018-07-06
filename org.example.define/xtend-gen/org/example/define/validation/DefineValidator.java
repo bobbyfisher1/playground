@@ -10,15 +10,20 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.validation.Check;
+import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Extension;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.example.define.define.And;
+import org.example.define.define.BasicType;
 import org.example.define.define.Comparison;
 import org.example.define.define.DefinePackage;
 import org.example.define.define.DirectionBlock;
 import org.example.define.define.Equality;
 import org.example.define.define.Expression;
+import org.example.define.define.Inout;
 import org.example.define.define.Minus;
 import org.example.define.define.MulOrDiv;
 import org.example.define.define.Not;
@@ -239,6 +244,32 @@ public class DefineValidator extends AbstractDefineValidator {
     }
   }
   
+  @Check
+  public void checkCommaSyntaxIO(final DirectionBlock directionblock) {
+    final EList<Variable> in = directionblock.getInput().getInputVariables();
+    final EList<Variable> out = directionblock.getOutput().getOutputVariables();
+    boolean _isEmpty = in.isEmpty();
+    boolean _not = (!_isEmpty);
+    if (_not) {
+      this.checkCommaSyntaxWithVariables(in);
+    }
+    boolean _isEmpty_1 = out.isEmpty();
+    boolean _not_1 = (!_isEmpty_1);
+    if (_not_1) {
+      this.checkCommaSyntaxWithVariables(out);
+    }
+  }
+  
+  @Check
+  public void checkCommaSyntaxIOInout(final Inout inouts) {
+    final EList<Variable> inout = inouts.getInoutVariables();
+    boolean _isEmpty = inout.isEmpty();
+    boolean _not = (!_isEmpty);
+    if (_not) {
+      this.checkCommaSyntaxWithVariables(inout);
+    }
+  }
+  
   private boolean checkVariableTypeAndAddToMap(final Variable e, final HashMultimap<String, Variable> multiMap) {
     boolean _xifexpression = false;
     Udt _udt = e.getUdt();
@@ -335,6 +366,69 @@ public class DefineValidator extends AbstractDefineValidator {
     boolean _isBoolType = this._defineTypeComputer.isBoolType(type);
     if (_isBoolType) {
       this.error("cannot be boolean", reference, DefineValidator.TYPE_MISMATCH);
+    }
+  }
+  
+  private void checkCommaSyntaxWithVariables(final Iterable<? extends Variable> variables) {
+    int count = 0;
+    int countOfVariableBefore = 0;
+    boolean commaBeforeVariable = false;
+    BasicType helpingVariableType = BasicType.INT;
+    boolean variantKeyword = false;
+    for (final Variable e : variables) {
+      {
+        if ((commaBeforeVariable && (e.getUdt() != null))) {
+          this.error("Invalid comma. Semicolon expected.", ((EObject[])Conversions.unwrapArray(variables, EObject.class))[countOfVariableBefore], 
+            DefinePackage.eINSTANCE.getVariable_NextVariable(), DefineValidator.INVALID_COMMA_NOTATION);
+        }
+        Udt _udt = e.getUdt();
+        boolean _tripleEquals = (_udt == null);
+        if (_tripleEquals) {
+          if (((count - countOfVariableBefore) > 1)) {
+            commaBeforeVariable = false;
+          }
+          if ((!commaBeforeVariable)) {
+            BasicType _variableType = e.getVariableType();
+            boolean _tripleEquals_1 = (_variableType == BasicType.NULL);
+            if (_tripleEquals_1) {
+              this.error("Missing variable type", e, DefinePackage.eINSTANCE.getVariable_VariableType(), 
+                DefineValidator.MISSING_VARIABLE_TYPE);
+            }
+          } else {
+            BasicType _variableType_1 = e.getVariableType();
+            boolean _tripleEquals_2 = (_variableType_1 == BasicType.NULL);
+            if (_tripleEquals_2) {
+              e.setVariableType(helpingVariableType);
+            } else {
+              this.error("Multiple type definition", e, DefinePackage.eINSTANCE.getVariable_VariableType(), 
+                DefineValidator.MULTIPLE_TYPE_DEFINITION);
+            }
+            if (variantKeyword) {
+              e.setVariantKeyword(true);
+            }
+          }
+          boolean _isNextVariable = e.isNextVariable();
+          if (_isNextVariable) {
+            commaBeforeVariable = true;
+            helpingVariableType = e.getVariableType();
+            countOfVariableBefore = count;
+            boolean _isVariantKeyword = e.isVariantKeyword();
+            if (_isVariantKeyword) {
+              variantKeyword = true;
+            }
+          } else {
+            commaBeforeVariable = false;
+            helpingVariableType = null;
+            variantKeyword = false;
+          }
+        }
+        count++;
+      }
+    }
+    final Variable last = IterableExtensions.last(variables);
+    if (((last.getUdt() == null) && last.isNextVariable())) {
+      this.error("Invalid comma. Semicolon expected.", last, DefinePackage.eINSTANCE.getVariable_NextVariable(), 
+        DefineValidator.INVALID_COMMA_NOTATION);
     }
   }
   

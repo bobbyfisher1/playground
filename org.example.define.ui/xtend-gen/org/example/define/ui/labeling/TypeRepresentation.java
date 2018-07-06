@@ -2,7 +2,7 @@ package org.example.define.ui.labeling;
 
 import javax.inject.Inject;
 import org.eclipse.xtext.xbase.lib.Extension;
-import org.example.define.define.Types;
+import org.example.define.define.BasicType;
 import org.example.define.define.Variable;
 import org.example.define.typing.DefineTypeComputer;
 
@@ -22,14 +22,15 @@ public class TypeRepresentation {
         string = (_string + "variant ");
       }
       String _xifexpression = null;
-      Types _variableType = v.getVariableType();
+      BasicType _variableType = v.getVariableType();
       boolean _tripleNotEquals = (_variableType != null);
       if (_tripleNotEquals) {
         String _string_1 = string;
         String _string_2 = this._defineTypeComputer.typeFor(v.getVariableType()).toString();
         _xifexpression = string = (_string_1 + _string_2);
       } else {
-        _xifexpression = string;
+        String _string_3 = string;
+        _xifexpression = string = (_string_3 + " absolutely, positvely, truly null ");
       }
       _xblockexpression = _xifexpression;
     }

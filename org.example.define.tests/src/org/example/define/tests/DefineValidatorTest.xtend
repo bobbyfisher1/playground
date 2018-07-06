@@ -9,6 +9,7 @@ import org.eclipse.xtext.testing.validation.ValidationTestHelper
 import org.example.define.define.DefineBlock
 import org.example.define.define.DefinePackage
 import org.example.define.typing.DefineType
+import org.example.define.typing.DefineTypeComputer
 import org.example.define.validation.DefineValidator
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -23,6 +24,8 @@ class DefineValidatorTest {
 
 	@Inject extension ParseHelper<DefineBlock>
 	@Inject extension ValidationTestHelper
+	@Inject extension DefineTypeComputer
+
 	val start = '''
 		define{
 			input[]
@@ -154,6 +157,106 @@ class DefineValidatorTest {
 
 	def private void assertWrongType(String text) {
 		text.parse.assertError(DefinePackage.eINSTANCE.variable, DefineValidator.INCOMPATIBLE_TYPES)
+	}
+
+	@Test def void testCommaNotation() {
+		'''
+			define{
+				input[int a, t;] 
+				output[]
+			}
+		'''.parse.assertNoErrors
+	}
+
+	@Test def void testInvalidCommaOnLastVariable() {
+		'''
+			define{
+				output[ variant int a,] 
+				input[]
+			}
+		'''.parse => [
+			assertError(DefinePackage.eINSTANCE.variable, DefineValidator.INVALID_COMMA_NOTATION)
+			1.assertEquals(validate.size)
+		]
+	}
+
+	@Test def void testInvalidCommaNotation() {
+		'''
+			define{
+				input[]
+				output[
+					variant int a,
+					udt b(typeB){}
+					bool c;
+				]
+			}
+		'''.parse => [
+			assertError(DefinePackage.eINSTANCE.variable, DefineValidator.INVALID_COMMA_NOTATION)
+			1.assertEquals(validate.size)
+		]
+	}
+
+	@Test def void testMissingTypeIO() {
+		'''
+			define{
+				input[a;] 
+				output[]
+			}
+		'''.parse => [
+			assertError(DefinePackage.eINSTANCE.variable, DefineValidator.MISSING_VARIABLE_TYPE)
+			1.assertEquals(validate.size)
+		]
+	}
+
+	@Test def void testMissingTypeIOInout() {
+		'''
+			define{
+				input[a;] 
+				output[] 
+				inout[]
+			}
+		'''.parse => [
+			assertError(DefinePackage.eINSTANCE.variable, DefineValidator.MISSING_VARIABLE_TYPE)
+			1.assertEquals(validate.size)
+		]
+	}
+
+	@Test def void testMissingVariableType() {
+		'''
+			define{	
+				input[int a; t;] 
+				output[]
+			}
+		'''.parse => [
+			assertError(DefinePackage.eINSTANCE.variable, DefineValidator.MISSING_VARIABLE_TYPE)
+			1.assertEquals(validate.size)
+		]
+	}
+
+	@Test def void testInferredType() {
+		'''
+			define{
+				input[int a, t;] 
+				output[]
+			}
+		'''.parse.direction.input.inputVariables => [
+			get(0).variableType.typeFor.assertSame(INT_TYPE)
+			get(1).variableType.typeFor.assertSame(NULL_TYPE) // After validation the type is inferred!!!!! It works!!!!!!!!!!!
+		]
+	}
+
+	@Test def void testInferredVariant() {
+		'''
+			define{
+				input[
+					variant int a, t;
+				] 
+				output[]
+			}
+		'''.parse.direction.input.inputVariables => [
+			get(0).variantKeyword.assertTrue
+			get(1).variantKeyword.assertFalse//  It works after validation!!!!!!!!!!!
+		]
 	}
 
 	//
