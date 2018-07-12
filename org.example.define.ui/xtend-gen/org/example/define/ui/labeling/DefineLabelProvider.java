@@ -12,6 +12,7 @@ import org.example.define.define.Input;
 import org.example.define.define.Output;
 import org.example.define.define.Udt;
 import org.example.define.define.Variable;
+import org.example.define.define.Variables;
 import org.example.define.ui.labeling.TypeRepresentation;
 
 /**
@@ -42,21 +43,29 @@ public class DefineLabelProvider extends DefaultEObjectLabelProvider {
     return "inout";
   }
   
-  public String text(final Variable v) {
+  public String text(final Variables v) {
     String _xifexpression = null;
-    Udt _udt = v.getUdt();
-    boolean _tripleNotEquals = (_udt != null);
-    if (_tripleNotEquals) {
-      String _udtName = v.getUdt().getUdtName();
-      String _plus = ("udt " + _udtName);
+    if ((v instanceof Udt)) {
+      String _name = ((Udt)v).getName();
+      String _plus = ("udt " + _name);
       String _plus_1 = (_plus + " of type ");
-      String _udtTypeName = v.getUdt().getUdtTypes().getUdtTypeName();
-      _xifexpression = (_plus_1 + _udtTypeName);
+      String _name_1 = ((Udt)v).getUdtType().getName();
+      _xifexpression = (_plus_1 + _name_1);
     } else {
-      String _variableName = v.getVariableName();
-      String _plus_2 = (_variableName + " : ");
-      String _trueVariableType = this._typeRepresentation.trueVariableType(v);
-      _xifexpression = (_plus_2 + _trueVariableType);
+      String _xifexpression_1 = null;
+      if (((v instanceof Variable) && (((Variable) v).getUdtType() != null))) {
+        String _name_2 = v.getName();
+        String _plus_2 = ("udt " + _name_2);
+        String _plus_3 = (_plus_2 + " of type ");
+        String _name_3 = ((Variable) v).getUdtType().getName();
+        _xifexpression_1 = (_plus_3 + _name_3);
+      } else {
+        String _name_4 = v.getName();
+        String _plus_4 = (_name_4 + " : ");
+        String _trueVariableType = this._typeRepresentation.trueVariableType(v);
+        _xifexpression_1 = (_plus_4 + _trueVariableType);
+      }
+      _xifexpression = _xifexpression_1;
     }
     return _xifexpression;
   }

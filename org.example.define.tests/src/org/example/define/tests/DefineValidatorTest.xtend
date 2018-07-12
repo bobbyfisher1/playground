@@ -8,6 +8,7 @@ import org.eclipse.xtext.testing.util.ParseHelper
 import org.eclipse.xtext.testing.validation.ValidationTestHelper
 import org.example.define.define.DefineBlock
 import org.example.define.define.DefinePackage
+import org.example.define.define.Variable
 import org.example.define.typing.DefineType
 import org.example.define.typing.DefineTypeComputer
 import org.example.define.validation.DefineValidator
@@ -32,7 +33,7 @@ class DefineValidatorTest {
 			output[	
 	'''
 	val end = "]}"
-//	-----------------------------------------------------------------------------------------------
+//	-------------------------------------------------
 	val startWithVariable = '''
 	define{
 		input[]
@@ -80,7 +81,7 @@ class DefineValidatorTest {
 				output[]
 				inout[udt a(udtType2){}]
 			}
-		'''.toString.assertDuplicateUdts(DefinePackage.eINSTANCE.variable, "variable name", 'a', 'udtType', 2)
+		'''.toString.assertDuplicateUdts(DefinePackage.eINSTANCE.udt, "variable name", 'a', 'udtType', 2)
 	}
 
 	@Test def void testDuplicateNameInUdt() {
@@ -240,8 +241,8 @@ class DefineValidatorTest {
 				output[]
 			}
 		'''.parse.direction.input.inputVariables => [
-			get(0).variableType.typeFor.assertSame(INT_TYPE)
-			get(1).variableType.typeFor.assertSame(NULL_TYPE) // After validation the type is inferred!!!!! It works!!!!!!!!!!!
+			(get(0) as Variable).variableType.typeFor.assertSame(INT_TYPE);
+			(get(1) as Variable).variableType.typeFor.assertSame(NULL_TYPE) // After validation the type is inferred!!!!! It works!!!!!!!!!!!
 		]
 	}
 
@@ -254,8 +255,46 @@ class DefineValidatorTest {
 				output[]
 			}
 		'''.parse.direction.input.inputVariables => [
-			get(0).variantKeyword.assertTrue
-			get(1).variantKeyword.assertFalse//  It works after validation!!!!!!!!!!!
+			(get(0) as Variable).variantKeyword.assertTrue;
+			(get(1) as Variable).variantKeyword.assertFalse // It works after validation!!!!!!!!!!!
+		]
+	}
+
+	@Test def void testInferredUdtType() {
+		val text = '''
+			udt a(typeA){}
+			typeA b,c;
+		'''
+		(start + text + end).parse => [
+			assertNoErrors
+		]
+	}
+
+	@Test def void testBothTypesDeclared() {
+		'''
+			define{
+				input[]
+				output[ 
+					udt a(typeA){}
+					null typeA b;
+				]
+			}
+		'''.parse => [
+			assertNoErrors
+		]
+	}
+
+	@Test def void testMultipleUdtType() {
+		'''
+			define{
+				input[]
+				output[ 
+					udt a(typeA){}
+					udt b(typeA){}
+				]
+			}
+		'''.parse => [
+			assertError(DefinePackage.eINSTANCE.udt, DefineValidator.MULTIPLE_UDT_TYPE)
 		]
 	}
 
@@ -301,7 +340,7 @@ class DefineValidatorTest {
 				type,
 				DefineValidator.MULTIPLE_UDT_DECLARATION,
 				text.indexOf(type.toString),
-				name.length + 'udt ( ){}'.length + variableType.length,
+				name.length, // + 'udt ( ){}'.length + variableType.length,
 				"Multiple " + description + " '" + name + "'"
 			)
 
@@ -309,7 +348,7 @@ class DefineValidatorTest {
 				type,
 				DefineValidator.MULTIPLE_UDT_DECLARATION,
 				text.lastIndexOf(type.toString),
-				name.length + 'udt ( ){}'.length + variableType.length,
+				name.length, // + 'udt ( ){}'.length + variableType.length,
 				"Multiple " + description + " '" + name + "'"
 			)
 

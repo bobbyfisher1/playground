@@ -16,7 +16,7 @@ import org.example.define.define.Variable
  */
 class DefineOutlineTreeProvider extends DefaultOutlineTreeProvider {
 	def _isLeaf(Variable v) {
-		if (v.udt !== null)
+		if (v instanceof Udt)
 			false
 		else
 			true
@@ -33,8 +33,8 @@ class DefineOutlineTreeProvider extends DefaultOutlineTreeProvider {
 		}
 
 		for (e : in.inputVariables) {
-			if (e.udt !== null) {
-				for (f : e.udt.udtVariables) {
+			if (e instanceof Udt) {
+				for (f : e.udtVariables) {
 					_createNode(Udt, f)
 				}
 			}

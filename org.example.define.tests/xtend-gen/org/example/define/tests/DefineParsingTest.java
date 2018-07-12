@@ -21,6 +21,7 @@ import org.example.define.define.Expression;
 import org.example.define.define.IntConstant;
 import org.example.define.define.Udt;
 import org.example.define.define.Variable;
+import org.example.define.define.Variables;
 import org.example.define.tests.DefineInjectorProvider;
 import org.example.define.typing.DefineTypeComputer;
 import org.junit.Assert;
@@ -142,36 +143,36 @@ public class DefineParsingTest {
       DefineBlock _parse = this._parseHelper.parse(_builder);
       final Procedure1<DefineBlock> _function = (DefineBlock it) -> {
         this._validationTestHelper.assertNoErrors(it);
-        EList<Variable> _inputVariables = it.getDirection().getInput().getInputVariables();
-        final Procedure1<EList<Variable>> _function_1 = (EList<Variable> it_1) -> {
-          Variable _get = it_1.get(0);
+        EList<Variables> _inputVariables = it.getDirection().getInput().getInputVariables();
+        final Procedure1<EList<Variables>> _function_1 = (EList<Variables> it_1) -> {
+          Variables _get = it_1.get(0);
           final Procedure1<Variable> _function_2 = (Variable it_2) -> {
-            Assert.assertEquals(it_2.getVariableName(), "a");
+            Assert.assertEquals(it_2.getName(), "a");
             Expression _expression = it_2.getExpression();
             Assert.assertEquals(((IntConstant) _expression).getValue(), 4);
           };
-          ObjectExtensions.<Variable>operator_doubleArrow(_get, _function_2);
-          Udt _udt = it_1.get(1).getUdt();
+          ObjectExtensions.<Variable>operator_doubleArrow(((Variable) _get), _function_2);
+          Variables _get_1 = it_1.get(1);
           final Procedure1<Udt> _function_3 = (Udt it_2) -> {
-            Assert.assertEquals(it_2.getUdtName(), "Dido");
-            Assert.assertEquals(it_2.getUdtTypes().getUdtTypeName(), "typeDido");
-            Variable _get_1 = it_2.getUdtVariables().get(0);
+            Assert.assertEquals(it_2.getName(), "Dido");
+            Assert.assertEquals(it_2.getUdtType().getName(), "typeDido");
+            Variables _get_2 = it_2.getUdtVariables().get(0);
             final Procedure1<Variable> _function_4 = (Variable it_3) -> {
-              Assert.assertEquals(it_3.getVariableName(), "b");
+              Assert.assertEquals(it_3.getName(), "b");
               Expression _expression = it_3.getExpression();
               Assert.assertEquals(((IntConstant) _expression).getValue(), 39);
             };
-            ObjectExtensions.<Variable>operator_doubleArrow(_get_1, _function_4);
+            ObjectExtensions.<Variable>operator_doubleArrow(((Variable) _get_2), _function_4);
           };
-          ObjectExtensions.<Udt>operator_doubleArrow(_udt, _function_3);
-          Variable _get_1 = it_1.get(2);
+          ObjectExtensions.<Udt>operator_doubleArrow(((Udt) _get_1), _function_3);
+          Variables _get_2 = it_1.get(2);
           final Procedure1<Variable> _function_4 = (Variable it_2) -> {
-            Assert.assertEquals(it_2.getVariableName(), "Train");
+            Assert.assertEquals(it_2.getName(), "Train");
             Assert.assertEquals(Boolean.valueOf(it_2.isVariantKeyword()), Boolean.valueOf(true));
           };
-          ObjectExtensions.<Variable>operator_doubleArrow(_get_1, _function_4);
+          ObjectExtensions.<Variable>operator_doubleArrow(((Variable) _get_2), _function_4);
         };
-        ObjectExtensions.<EList<Variable>>operator_doubleArrow(_inputVariables, _function_1);
+        ObjectExtensions.<EList<Variables>>operator_doubleArrow(_inputVariables, _function_1);
       };
       ObjectExtensions.<DefineBlock>operator_doubleArrow(_parse, _function);
     } catch (Throwable _e) {
@@ -205,39 +206,39 @@ public class DefineParsingTest {
       DefineBlock _parse = this._parseHelper.parse(_builder);
       final Procedure1<DefineBlock> _function = (DefineBlock it) -> {
         this._validationTestHelper.assertNoErrors(it);
-        EList<Variable> _inputVariables = it.getDirection().getInput().getInputVariables();
-        final Procedure1<EList<Variable>> _function_1 = (EList<Variable> it_1) -> {
-          Variable _get = it_1.get(0);
+        EList<Variables> _inputVariables = it.getDirection().getInput().getInputVariables();
+        final Procedure1<EList<Variables>> _function_1 = (EList<Variables> it_1) -> {
+          Variables _get = it_1.get(0);
           final Procedure1<Variable> _function_2 = (Variable it_2) -> {
             Assert.assertSame(this._defineTypeComputer.typeFor(it_2.getVariableType()), DefineTypeComputer.INT_TYPE);
-            Assert.assertEquals(it_2.getVariableName(), "a");
+            Assert.assertEquals(it_2.getName(), "a");
             Expression _expression = it_2.getExpression();
             Assert.assertEquals(((IntConstant) _expression).getValue(), 4);
           };
-          ObjectExtensions.<Variable>operator_doubleArrow(_get, _function_2);
-          Variable _get_1 = it_1.get(1);
-          final Procedure1<Variable> _function_3 = (Variable it_2) -> {
-            Assert.assertEquals(it_2.getVariableName(), "b");
+          ObjectExtensions.<Variable>operator_doubleArrow(((Variable) _get), _function_2);
+          Variables _get_1 = it_1.get(1);
+          final Procedure1<Variables> _function_3 = (Variables it_2) -> {
+            Assert.assertEquals(it_2.getName(), "b");
           };
-          ObjectExtensions.<Variable>operator_doubleArrow(_get_1, _function_3);
-          Variable _get_2 = it_1.get(2);
+          ObjectExtensions.<Variables>operator_doubleArrow(_get_1, _function_3);
+          Variables _get_2 = it_1.get(2);
           final Procedure1<Variable> _function_4 = (Variable it_2) -> {
             Assert.assertSame(this._defineTypeComputer.typeFor(it_2.getVariableType()), DefineTypeComputer.BOOL_TYPE);
-            Assert.assertEquals(it_2.getVariableName(), "c");
+            Assert.assertEquals(it_2.getName(), "c");
             Expression _expression = it_2.getExpression();
             Assert.assertEquals(((BoolConstant) _expression).getValue(), "false");
           };
-          ObjectExtensions.<Variable>operator_doubleArrow(_get_2, _function_4);
-          Variable _get_3 = it_1.get(3);
+          ObjectExtensions.<Variable>operator_doubleArrow(((Variable) _get_2), _function_4);
+          Variables _get_3 = it_1.get(3);
           final Procedure1<Variable> _function_5 = (Variable it_2) -> {
             Assert.assertSame(this._defineTypeComputer.typeFor(it_2.getVariableType()), DefineTypeComputer.BOOL_TYPE);
-            Assert.assertEquals(it_2.getVariableName(), "d");
+            Assert.assertEquals(it_2.getName(), "d");
             Expression _expression = it_2.getExpression();
             Assert.assertEquals(((BoolConstant) _expression).getValue(), "true");
           };
-          ObjectExtensions.<Variable>operator_doubleArrow(_get_3, _function_5);
+          ObjectExtensions.<Variable>operator_doubleArrow(((Variable) _get_3), _function_5);
         };
-        ObjectExtensions.<EList<Variable>>operator_doubleArrow(_inputVariables, _function_1);
+        ObjectExtensions.<EList<Variables>>operator_doubleArrow(_inputVariables, _function_1);
       };
       ObjectExtensions.<DefineBlock>operator_doubleArrow(_parse, _function);
     } catch (Throwable _e) {
@@ -358,14 +359,14 @@ public class DefineParsingTest {
       _builder.newLine();
       DefineBlock _parse = this._parseHelper.parse(_builder);
       final Procedure1<DefineBlock> _function = (DefineBlock it) -> {
-        Variable _get = it.getDirection().getInput().getInputVariables().get(0);
+        Variables _get = it.getDirection().getInput().getInputVariables().get(0);
         final Procedure1<Variable> _function_1 = (Variable it_1) -> {
           Expression _expression = it_1.getExpression();
           Assert.assertEquals(((EFloat) _expression).getValue(), 19);
           Expression _expression_1 = it_1.getExpression();
           Assert.assertEquals(((EFloat) _expression_1).getValueOfDecimal(), 5);
         };
-        ObjectExtensions.<Variable>operator_doubleArrow(_get, _function_1);
+        ObjectExtensions.<Variable>operator_doubleArrow(((Variable) _get), _function_1);
       };
       ObjectExtensions.<DefineBlock>operator_doubleArrow(_parse, _function);
     } catch (Throwable _e) {
@@ -389,14 +390,14 @@ public class DefineParsingTest {
       _builder.newLine();
       DefineBlock _parse = this._parseHelper.parse(_builder);
       final Procedure1<DefineBlock> _function = (DefineBlock it) -> {
-        Variable _get = it.getDirection().getInput().getInputVariables().get(0);
+        Variables _get = it.getDirection().getInput().getInputVariables().get(0);
         final Procedure1<Variable> _function_1 = (Variable it_1) -> {
           Expression _expression = it_1.getExpression();
           Assert.assertEquals(((EFloat) _expression).getValue(), 19);
           Expression _expression_1 = it_1.getExpression();
           Assert.assertEquals(((EFloat) _expression_1).getValueOfDecimal(), 0);
         };
-        ObjectExtensions.<Variable>operator_doubleArrow(_get, _function_1);
+        ObjectExtensions.<Variable>operator_doubleArrow(((Variable) _get), _function_1);
       };
       ObjectExtensions.<DefineBlock>operator_doubleArrow(_parse, _function);
     } catch (Throwable _e) {
@@ -420,14 +421,14 @@ public class DefineParsingTest {
       _builder.newLine();
       DefineBlock _parse = this._parseHelper.parse(_builder);
       final Procedure1<DefineBlock> _function = (DefineBlock it) -> {
-        Variable _get = it.getDirection().getInput().getInputVariables().get(0);
+        Variables _get = it.getDirection().getInput().getInputVariables().get(0);
         final Procedure1<Variable> _function_1 = (Variable it_1) -> {
           Expression _expression = it_1.getExpression();
           Assert.assertEquals(((EFloat) _expression).getValue(), 0);
           Expression _expression_1 = it_1.getExpression();
           Assert.assertEquals(((EFloat) _expression_1).getValueOfDecimal(), 4);
         };
-        ObjectExtensions.<Variable>operator_doubleArrow(_get, _function_1);
+        ObjectExtensions.<Variable>operator_doubleArrow(((Variable) _get), _function_1);
       };
       ObjectExtensions.<DefineBlock>operator_doubleArrow(_parse, _function);
     } catch (Throwable _e) {

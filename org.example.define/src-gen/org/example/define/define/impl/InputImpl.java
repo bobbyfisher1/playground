@@ -5,6 +5,7 @@ package org.example.define.define.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -12,6 +13,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -19,7 +21,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.example.define.define.DefinePackage;
 import org.example.define.define.Input;
-import org.example.define.define.Variable;
+import org.example.define.define.Variables;
 
 /**
  * <!-- begin-user-doc -->
@@ -29,6 +31,7 @@ import org.example.define.define.Variable;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.example.define.define.impl.InputImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.example.define.define.impl.InputImpl#getInputVariables <em>Input Variables</em>}</li>
  * </ul>
  *
@@ -37,6 +40,26 @@ import org.example.define.define.Variable;
 public class InputImpl extends MinimalEObjectImpl.Container implements Input
 {
   /**
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected static final String NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = NAME_EDEFAULT;
+
+  /**
    * The cached value of the '{@link #getInputVariables() <em>Input Variables</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -44,7 +67,7 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
    * @generated
    * @ordered
    */
-  protected EList<Variable> inputVariables;
+  protected EList<Variables> inputVariables;
 
   /**
    * <!-- begin-user-doc -->
@@ -72,11 +95,34 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Variable> getInputVariables()
+  public String getName()
+  {
+    return name;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setName(String newName)
+  {
+    String oldName = name;
+    name = newName;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DefinePackage.INPUT__NAME, oldName, name));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<Variables> getInputVariables()
   {
     if (inputVariables == null)
     {
-      inputVariables = new EObjectContainmentEList<Variable>(Variable.class, this, DefinePackage.INPUT__INPUT_VARIABLES);
+      inputVariables = new EObjectContainmentEList<Variables>(Variables.class, this, DefinePackage.INPUT__INPUT_VARIABLES);
     }
     return inputVariables;
   }
@@ -107,6 +153,8 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
   {
     switch (featureID)
     {
+      case DefinePackage.INPUT__NAME:
+        return getName();
       case DefinePackage.INPUT__INPUT_VARIABLES:
         return getInputVariables();
     }
@@ -124,9 +172,12 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
   {
     switch (featureID)
     {
+      case DefinePackage.INPUT__NAME:
+        setName((String)newValue);
+        return;
       case DefinePackage.INPUT__INPUT_VARIABLES:
         getInputVariables().clear();
-        getInputVariables().addAll((Collection<? extends Variable>)newValue);
+        getInputVariables().addAll((Collection<? extends Variables>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -142,6 +193,9 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
   {
     switch (featureID)
     {
+      case DefinePackage.INPUT__NAME:
+        setName(NAME_EDEFAULT);
+        return;
       case DefinePackage.INPUT__INPUT_VARIABLES:
         getInputVariables().clear();
         return;
@@ -159,10 +213,29 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
   {
     switch (featureID)
     {
+      case DefinePackage.INPUT__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case DefinePackage.INPUT__INPUT_VARIABLES:
         return inputVariables != null && !inputVariables.isEmpty();
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (name: ");
+    result.append(name);
+    result.append(')');
+    return result.toString();
   }
 
 } //InputImpl

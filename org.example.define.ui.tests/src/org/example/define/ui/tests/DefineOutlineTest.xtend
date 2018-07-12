@@ -23,10 +23,9 @@ class DefineOutlineTest extends AbstractOutlineTest {
 			}
 		'''.assertAllLabels(
 			'''
-				test
-				  input
-				  inout
-				  output
+			input
+			output
+			inout
 			'''
 		)
 	}

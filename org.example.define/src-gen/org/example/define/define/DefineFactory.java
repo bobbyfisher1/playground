@@ -69,6 +69,15 @@ public interface DefineFactory extends EFactory
   Inout createInout();
 
   /**
+   * Returns a new object of class '<em>Variables</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Variables</em>'.
+   * @generated
+   */
+  Variables createVariables();
+
+  /**
    * Returns a new object of class '<em>Variable</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

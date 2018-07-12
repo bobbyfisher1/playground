@@ -3,7 +3,6 @@
  */
 package org.example.define.define;
 
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -16,18 +15,17 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.example.define.define.Variable#isVariantKeyword <em>Variant Keyword</em>}</li>
  *   <li>{@link org.example.define.define.Variable#getVariableType <em>Variable Type</em>}</li>
- *   <li>{@link org.example.define.define.Variable#getVariableName <em>Variable Name</em>}</li>
+ *   <li>{@link org.example.define.define.Variable#getUdtType <em>Udt Type</em>}</li>
  *   <li>{@link org.example.define.define.Variable#getExpression <em>Expression</em>}</li>
  *   <li>{@link org.example.define.define.Variable#getRange <em>Range</em>}</li>
  *   <li>{@link org.example.define.define.Variable#isNextVariable <em>Next Variable</em>}</li>
- *   <li>{@link org.example.define.define.Variable#getUdt <em>Udt</em>}</li>
  * </ul>
  *
  * @see org.example.define.define.DefinePackage#getVariable()
  * @model
  * @generated
  */
-public interface Variable extends EObject
+public interface Variable extends Variables
 {
   /**
    * Returns the value of the '<em><b>Variant Keyword</b></em>' attribute.
@@ -85,30 +83,30 @@ public interface Variable extends EObject
   void setVariableType(BasicType value);
 
   /**
-   * Returns the value of the '<em><b>Variable Name</b></em>' attribute.
+   * Returns the value of the '<em><b>Udt Type</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Variable Name</em>' attribute isn't clear,
+   * If the meaning of the '<em>Udt Type</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Variable Name</em>' attribute.
-   * @see #setVariableName(String)
-   * @see org.example.define.define.DefinePackage#getVariable_VariableName()
+   * @return the value of the '<em>Udt Type</em>' reference.
+   * @see #setUdtType(UdtType)
+   * @see org.example.define.define.DefinePackage#getVariable_UdtType()
    * @model
    * @generated
    */
-  String getVariableName();
+  UdtType getUdtType();
 
   /**
-   * Sets the value of the '{@link org.example.define.define.Variable#getVariableName <em>Variable Name</em>}' attribute.
+   * Sets the value of the '{@link org.example.define.define.Variable#getUdtType <em>Udt Type</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Variable Name</em>' attribute.
-   * @see #getVariableName()
+   * @param value the new value of the '<em>Udt Type</em>' reference.
+   * @see #getUdtType()
    * @generated
    */
-  void setVariableName(String value);
+  void setUdtType(UdtType value);
 
   /**
    * Returns the value of the '<em><b>Expression</b></em>' containment reference.
@@ -187,31 +185,5 @@ public interface Variable extends EObject
    * @generated
    */
   void setNextVariable(boolean value);
-
-  /**
-   * Returns the value of the '<em><b>Udt</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Udt</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Udt</em>' containment reference.
-   * @see #setUdt(Udt)
-   * @see org.example.define.define.DefinePackage#getVariable_Udt()
-   * @model containment="true"
-   * @generated
-   */
-  Udt getUdt();
-
-  /**
-   * Sets the value of the '{@link org.example.define.define.Variable#getUdt <em>Udt</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Udt</em>' containment reference.
-   * @see #getUdt()
-   * @generated
-   */
-  void setUdt(Udt value);
 
 } // Variable

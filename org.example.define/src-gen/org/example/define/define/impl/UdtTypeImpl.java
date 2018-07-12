@@ -21,7 +21,7 @@ import org.example.define.define.UdtType;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.example.define.define.impl.UdtTypeImpl#getUdtTypeName <em>Udt Type Name</em>}</li>
+ *   <li>{@link org.example.define.define.impl.UdtTypeImpl#getName <em>Name</em>}</li>
  * </ul>
  *
  * @generated
@@ -29,24 +29,24 @@ import org.example.define.define.UdtType;
 public class UdtTypeImpl extends MinimalEObjectImpl.Container implements UdtType
 {
   /**
-   * The default value of the '{@link #getUdtTypeName() <em>Udt Type Name</em>}' attribute.
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getUdtTypeName()
+   * @see #getName()
    * @generated
    * @ordered
    */
-  protected static final String UDT_TYPE_NAME_EDEFAULT = null;
+  protected static final String NAME_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getUdtTypeName() <em>Udt Type Name</em>}' attribute.
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getUdtTypeName()
+   * @see #getName()
    * @generated
    * @ordered
    */
-  protected String udtTypeName = UDT_TYPE_NAME_EDEFAULT;
+  protected String name = NAME_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -74,9 +74,9 @@ public class UdtTypeImpl extends MinimalEObjectImpl.Container implements UdtType
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getUdtTypeName()
+  public String getName()
   {
-    return udtTypeName;
+    return name;
   }
 
   /**
@@ -84,12 +84,12 @@ public class UdtTypeImpl extends MinimalEObjectImpl.Container implements UdtType
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setUdtTypeName(String newUdtTypeName)
+  public void setName(String newName)
   {
-    String oldUdtTypeName = udtTypeName;
-    udtTypeName = newUdtTypeName;
+    String oldName = name;
+    name = newName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DefinePackage.UDT_TYPE__UDT_TYPE_NAME, oldUdtTypeName, udtTypeName));
+      eNotify(new ENotificationImpl(this, Notification.SET, DefinePackage.UDT_TYPE__NAME, oldName, name));
   }
 
   /**
@@ -102,8 +102,8 @@ public class UdtTypeImpl extends MinimalEObjectImpl.Container implements UdtType
   {
     switch (featureID)
     {
-      case DefinePackage.UDT_TYPE__UDT_TYPE_NAME:
-        return getUdtTypeName();
+      case DefinePackage.UDT_TYPE__NAME:
+        return getName();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -118,8 +118,8 @@ public class UdtTypeImpl extends MinimalEObjectImpl.Container implements UdtType
   {
     switch (featureID)
     {
-      case DefinePackage.UDT_TYPE__UDT_TYPE_NAME:
-        setUdtTypeName((String)newValue);
+      case DefinePackage.UDT_TYPE__NAME:
+        setName((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -135,8 +135,8 @@ public class UdtTypeImpl extends MinimalEObjectImpl.Container implements UdtType
   {
     switch (featureID)
     {
-      case DefinePackage.UDT_TYPE__UDT_TYPE_NAME:
-        setUdtTypeName(UDT_TYPE_NAME_EDEFAULT);
+      case DefinePackage.UDT_TYPE__NAME:
+        setName(NAME_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -152,8 +152,8 @@ public class UdtTypeImpl extends MinimalEObjectImpl.Container implements UdtType
   {
     switch (featureID)
     {
-      case DefinePackage.UDT_TYPE__UDT_TYPE_NAME:
-        return UDT_TYPE_NAME_EDEFAULT == null ? udtTypeName != null : !UDT_TYPE_NAME_EDEFAULT.equals(udtTypeName);
+      case DefinePackage.UDT_TYPE__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
     }
     return super.eIsSet(featureID);
   }
@@ -169,8 +169,8 @@ public class UdtTypeImpl extends MinimalEObjectImpl.Container implements UdtType
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (udtTypeName: ");
-    result.append(udtTypeName);
+    result.append(" (name: ");
+    result.append(name);
     result.append(')');
     return result.toString();
   }

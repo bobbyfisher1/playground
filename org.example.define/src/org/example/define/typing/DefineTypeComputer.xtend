@@ -13,6 +13,7 @@ import org.example.define.define.Not
 import org.example.define.define.Or
 import org.example.define.define.Plus
 import org.example.define.define.StringConstant
+import org.example.define.define.VariableRef
 
 class DefineTypeComputer {
 	public static val STRING_TYPE = new StringType
@@ -20,9 +21,6 @@ class DefineTypeComputer {
 	public static val BOOL_TYPE = new BoolType
 	public static val NULL_TYPE = new NullType
 
-//	@Inject extension DefineModelUtil
-//
-//	@Inject IResourceScopeCache cache
 	def isStringType(DefineType type) {
 		type === STRING_TYPE
 	}
@@ -47,6 +45,7 @@ class DefineTypeComputer {
 			Equality: BOOL_TYPE
 			And: BOOL_TYPE
 			Or: BOOL_TYPE
+			default: NULL_TYPE
 		}
 	}
 
@@ -70,17 +69,9 @@ class DefineTypeComputer {
 		else
 			INT_TYPE
 	}
-//
-//	def dispatch DefineType typeFor(VariableRef varRef) {
-//		if (!varRef.isVariableDefinedBefore)
-//			return null
-//		else {
-//			val variable = varRef.variable
-//			// use a pair as the key, not to conflict with the
-//			// use of cache we make in DefineModelUtil
-//			return cache.get("type" -> variable, variable.eResource) [
-//				variable.expression.typeFor
-//			]
-//		}
-//	}
+
+	def dispatch DefineType typeFor(VariableRef varRef) {
+		return varRef.variable.expression?.typeFor
+
+	}
 }

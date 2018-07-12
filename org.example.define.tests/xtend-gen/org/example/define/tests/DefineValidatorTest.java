@@ -16,6 +16,7 @@ import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.example.define.define.DefineBlock;
 import org.example.define.define.DefinePackage;
 import org.example.define.define.Variable;
+import org.example.define.define.Variables;
 import org.example.define.tests.DefineInjectorProvider;
 import org.example.define.typing.DefineType;
 import org.example.define.typing.DefineTypeComputer;
@@ -144,7 +145,7 @@ public class DefineValidatorTest {
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    this.assertDuplicateUdts(_builder.toString(), DefinePackage.eINSTANCE.getVariable(), "variable name", "a", "udtType", 2);
+    this.assertDuplicateUdts(_builder.toString(), DefinePackage.eINSTANCE.getUdt(), "variable name", "a", "udtType", 2);
   }
   
   @Test
@@ -441,12 +442,14 @@ public class DefineValidatorTest {
       _builder.newLine();
       _builder.append("}");
       _builder.newLine();
-      EList<Variable> _inputVariables = this._parseHelper.parse(_builder).getDirection().getInput().getInputVariables();
-      final Procedure1<EList<Variable>> _function = (EList<Variable> it) -> {
-        Assert.assertSame(this._defineTypeComputer.typeFor(it.get(0).getVariableType()), DefineTypeComputer.INT_TYPE);
-        Assert.assertSame(this._defineTypeComputer.typeFor(it.get(1).getVariableType()), DefineTypeComputer.NULL_TYPE);
+      EList<Variables> _inputVariables = this._parseHelper.parse(_builder).getDirection().getInput().getInputVariables();
+      final Procedure1<EList<Variables>> _function = (EList<Variables> it) -> {
+        Variables _get = it.get(0);
+        Assert.assertSame(this._defineTypeComputer.typeFor(((Variable) _get).getVariableType()), DefineTypeComputer.INT_TYPE);
+        Variables _get_1 = it.get(1);
+        Assert.assertSame(this._defineTypeComputer.typeFor(((Variable) _get_1).getVariableType()), DefineTypeComputer.NULL_TYPE);
       };
-      ObjectExtensions.<EList<Variable>>operator_doubleArrow(_inputVariables, _function);
+      ObjectExtensions.<EList<Variables>>operator_doubleArrow(_inputVariables, _function);
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
@@ -472,12 +475,99 @@ public class DefineValidatorTest {
       _builder.newLine();
       _builder.append("}");
       _builder.newLine();
-      EList<Variable> _inputVariables = this._parseHelper.parse(_builder).getDirection().getInput().getInputVariables();
-      final Procedure1<EList<Variable>> _function = (EList<Variable> it) -> {
-        Assert.assertTrue(it.get(0).isVariantKeyword());
-        Assert.assertFalse(it.get(1).isVariantKeyword());
+      EList<Variables> _inputVariables = this._parseHelper.parse(_builder).getDirection().getInput().getInputVariables();
+      final Procedure1<EList<Variables>> _function = (EList<Variables> it) -> {
+        Variables _get = it.get(0);
+        Assert.assertTrue(((Variable) _get).isVariantKeyword());
+        Variables _get_1 = it.get(1);
+        Assert.assertFalse(((Variable) _get_1).isVariantKeyword());
       };
-      ObjectExtensions.<EList<Variable>>operator_doubleArrow(_inputVariables, _function);
+      ObjectExtensions.<EList<Variables>>operator_doubleArrow(_inputVariables, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void testInferredUdtType() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("udt a(typeA){}");
+      _builder.newLine();
+      _builder.append("typeA b,c;");
+      _builder.newLine();
+      final String text = _builder.toString();
+      DefineBlock _parse = this._parseHelper.parse(((this.start + text) + this.end));
+      final Procedure1<DefineBlock> _function = (DefineBlock it) -> {
+        this._validationTestHelper.assertNoErrors(it);
+      };
+      ObjectExtensions.<DefineBlock>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void testBothTypesDeclared() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("define{");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("input[]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("output[ ");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("udt a(typeA){}");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("null typeA b;");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      DefineBlock _parse = this._parseHelper.parse(_builder);
+      final Procedure1<DefineBlock> _function = (DefineBlock it) -> {
+        this._validationTestHelper.assertNoErrors(it);
+      };
+      ObjectExtensions.<DefineBlock>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void testMultipleUdtType() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("define{");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("input[]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("output[ ");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("udt a(typeA){}");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("udt b(typeA){}");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      DefineBlock _parse = this._parseHelper.parse(_builder);
+      final Procedure1<DefineBlock> _function = (DefineBlock it) -> {
+        this._validationTestHelper.assertError(it, DefinePackage.eINSTANCE.getUdt(), DefineValidator.MULTIPLE_UDT_TYPE);
+      };
+      ObjectExtensions.<DefineBlock>operator_doubleArrow(_parse, _function);
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
@@ -509,23 +599,15 @@ public class DefineValidatorTest {
     try {
       DefineBlock _parse = this._parseHelper.parse(text);
       final Procedure1<DefineBlock> _function = (DefineBlock it) -> {
-        int _indexOf = text.indexOf(type.toString());
-        int _length = name.length();
-        int _length_1 = "udt ( ){}".length();
-        int _plus = (_length + _length_1);
-        int _length_2 = variableType.length();
-        int _plus_1 = (_plus + _length_2);
         this._validationTestHelper.assertError(it, type, 
-          DefineValidator.MULTIPLE_UDT_DECLARATION, _indexOf, _plus_1, 
+          DefineValidator.MULTIPLE_UDT_DECLARATION, 
+          text.indexOf(type.toString()), 
+          name.length(), 
           (((("Multiple " + description) + " \'") + name) + "\'"));
-        int _lastIndexOf = text.lastIndexOf(type.toString());
-        int _length_3 = name.length();
-        int _length_4 = "udt ( ){}".length();
-        int _plus_2 = (_length_3 + _length_4);
-        int _length_5 = variableType.length();
-        int _plus_3 = (_plus_2 + _length_5);
         this._validationTestHelper.assertError(it, type, 
-          DefineValidator.MULTIPLE_UDT_DECLARATION, _lastIndexOf, _plus_3, 
+          DefineValidator.MULTIPLE_UDT_DECLARATION, 
+          text.lastIndexOf(type.toString()), 
+          name.length(), 
           (((("Multiple " + description) + " \'") + name) + "\'"));
         Assert.assertEquals(duplicateErrors, this._validationTestHelper.validate(it).size());
       };

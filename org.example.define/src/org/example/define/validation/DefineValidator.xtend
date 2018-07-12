@@ -22,6 +22,8 @@ import org.example.define.define.Or
 import org.example.define.define.Plus
 import org.example.define.define.Udt
 import org.example.define.define.Variable
+import org.example.define.define.VariableRef
+import org.example.define.define.Variables
 import org.example.define.typing.DefineType
 import org.example.define.typing.DefineTypeComputer
 
@@ -35,6 +37,9 @@ class DefineValidator extends AbstractDefineValidator {
 	public static val INVALID_COMMA_NOTATION = ISSUE_CODE_PREFIX + "InvalidCommaNotation"
 	public static val TYPE_MISMATCH = ISSUE_CODE_PREFIX + "TypeMismatch"
 	public static val INCOMPATIBLE_TYPES = ISSUE_CODE_PREFIX + "IncompatibleTypes"
+	public static val NULL_REFERENCE = ISSUE_CODE_PREFIX + "NullReference"
+	public static val MULTIPLE_UDT_TYPE = ISSUE_CODE_PREFIX + "MultipleUdtType"
+	public static val VARIANT_MISMATCH = ISSUE_CODE_PREFIX + "VariantMismatch"
 
 	@Inject extension DefineTypeComputer
 
@@ -49,12 +54,14 @@ class DefineValidator extends AbstractDefineValidator {
 		// add all variables to the map
 		for (e : in) {
 			e.checkVariableTypeAndAddToMap(multiMap)
-			e.udt?.checkAllVariableNamesInUdtScope
+			if (e instanceof Udt)
+				e.checkAllVariableNamesInUdtScope
 		}
 
 		for (e : out) {
 			e.checkVariableTypeAndAddToMap(multiMap)
-			e.udt?.checkAllVariableNamesInUdtScope
+			if (e instanceof Udt)
+				e.checkAllVariableNamesInUdtScope
 		}
 
 		// check for duplicates
@@ -76,16 +83,19 @@ class DefineValidator extends AbstractDefineValidator {
 		// add all variables to the multimap
 		for (e : in) {
 			e.checkVariableTypeAndAddToMap(multiMap)
-			e.udt?.checkAllVariableNamesInUdtScope
+			if (e instanceof Udt)
+				e.checkAllVariableNamesInUdtScope
 		}
 		for (e : out) {
 			e.checkVariableTypeAndAddToMap(multiMap)
-			e.udt?.checkAllVariableNamesInUdtScope
+			if (e instanceof Udt)
+				e.checkAllVariableNamesInUdtScope
 		}
 
 		for (e : inout) {
 			e.checkVariableTypeAndAddToMap(multiMap)
-			e.udt?.checkAllVariableNamesInUdtScope
+			if (e instanceof Udt)
+				e.checkAllVariableNamesInUdtScope
 		}
 
 		// check for duplicates
@@ -94,6 +104,63 @@ class DefineValidator extends AbstractDefineValidator {
 			if (duplicates.size > 1) {
 				for (d : duplicates)
 					d.checkVariableTypeAndCallError
+			}
+		}
+	}
+
+	@Check def void checkNoDuplicateUdtTypesIO(DirectionBlock directionblock) {
+		var multiMap = HashMultimap.create
+		val in = directionblock.input.inputVariables
+		val out = directionblock.output.outputVariables
+
+		// add all udtTypes of input to the multimap
+		for (e : in) {
+			if (e instanceof Udt)
+				e.checkNoDuplicateUdtTypes(multiMap)
+		}
+
+		for (e : out) {
+			if (e instanceof Udt)
+				e.checkNoDuplicateUdtTypes(multiMap)
+		}
+		// check for duplicates
+		for (entry : multiMap.asMap.entrySet) {
+			val duplicates = entry.value
+			if (duplicates.size > 1) {
+				for (d : duplicates)
+					error("Multiple udtType '" + (d as Udt).udtType.name + "'", d, DefinePackage.eINSTANCE.udt_UdtType,
+						DefineValidator.MULTIPLE_UDT_TYPE)
+			}
+		}
+	}
+
+	@Check def void checkNoDuplicateUdtTypesIOInout(DirectionBlock directionblock) {
+		var multiMap = HashMultimap.create
+		val in = directionblock.input.inputVariables
+		val out = directionblock.output.outputVariables
+		val inout = directionblock.inout.inoutVariables
+
+		// add all udtTypes of input to the multimap
+		for (e : in) {
+			if (e instanceof Udt)
+				e.checkNoDuplicateUdtTypes(multiMap)
+		}
+
+		for (e : out) {
+			if (e instanceof Udt)
+				e.checkNoDuplicateUdtTypes(multiMap)
+		}
+		for (e : inout) {
+			if (e instanceof Udt)
+				e.checkNoDuplicateUdtTypes(multiMap)
+		}
+		// check for duplicates
+		for (entry : multiMap.asMap.entrySet) {
+			val duplicates = entry.value
+			if (duplicates.size > 1) {
+				for (d : duplicates)
+					error("Multiple udtType '" + (d as Udt).udtType.name + "'", d, DefinePackage.eINSTANCE.udt_UdtType,
+						DefineValidator.MULTIPLE_UDT_TYPE)
 			}
 		}
 	}
@@ -146,7 +213,7 @@ class DefineValidator extends AbstractDefineValidator {
 	}
 
 	@Check def checkType(Variable v) {
-		if (v.udt === null && v.expression !== null) {
+		if ( /*v.udt === null &&*/ v.expression !== null) {
 			val actualType = v?.expression.typeFor
 			val expectedType = v.variableType.typeFor
 			val rangeType = v?.range?.typeFor
@@ -159,9 +226,8 @@ class DefineValidator extends AbstractDefineValidator {
 					"'", v, DefinePackage.eINSTANCE.variable_Expression, INCOMPATIBLE_TYPES)
 
 			if (rangeType !== null && rangeType != actualType)
-				error(
-					"Incompatible types. Expected '" + expectedType.toString + "' but was '" + rangeType.toString + "'",
-					v, DefinePackage.eINSTANCE.variable_Range, INCOMPATIBLE_TYPES)
+				error("Incompatible types. Expected '" + expectedType.toString + "' but was '" + rangeType.toString +
+					"'", v, DefinePackage.eINSTANCE.variable_Range, INCOMPATIBLE_TYPES)
 
 		}
 	}
@@ -184,28 +250,42 @@ class DefineValidator extends AbstractDefineValidator {
 		}
 	}
 
+	@Check def void checkNullVariableRefs(VariableRef varRef) {
+		if (varRef.variable.expression === null)
+			error("Referred variable '" + varRef.variable.name + "' is null.", varRef,
+				DefinePackage.eINSTANCE.variableRef_Variable, NULL_REFERENCE)
+	}
+
+	@Check def void checkVariantWithRefs(VariableRef varRef) {
+		val variable = varRef.eContainer
+		if ((variable as Variable).variantKeyword !== varRef.variable.variantKeyword)
+			error("Both variables must be variant types.", variable, DefinePackage.eINSTANCE.variable_VariantKeyword,
+				VARIANT_MISMATCH)
+	}
+
 //
 // methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //
 	def private checkVariableTypeAndAddToMap(
-		Variable e,
-		HashMultimap<String, Variable> multiMap
+		Variables e,
+		HashMultimap<String, Variables> multiMap
 	) {
-		if (e.udt !== null) {
-			multiMap.put(e.udt.udtName, e)
-		} else
-			multiMap.put(e.variableName, e)
+		if (e instanceof Udt) {
+			multiMap.put(e.name, e)
+		} else if (e instanceof Variable)
+			multiMap.put(e.name, e)
 	}
 
-	def private checkAllVariableNamesInUdtScope(Udt udts) {
+	def private void checkAllVariableNamesInUdtScope(Udt udt) {
 		val newMultimap = HashMultimap.create
-		val udt = udts.udtVariables
+		val udts = udt.udtVariables
 
-		for (e : udt) {
+		for (e : udts) {
 			e.checkVariableTypeAndAddToMap(newMultimap)
-			e.udt?.checkAllVariableNamesInUdtScope
+			if (e instanceof Udt)
+				e.checkAllVariableNamesInUdtScope
 		}
-		// check for duplicates
+// check for duplicates
 		for (entry : newMultimap.asMap.entrySet) {
 			val duplicates = entry.value
 			if (duplicates.size > 1) {
@@ -215,12 +295,12 @@ class DefineValidator extends AbstractDefineValidator {
 		}
 	}
 
-	def private checkVariableTypeAndCallError(Variable e) {
-		if (e.udt !== null)
-			error("Multiple variable name '" + e.udt.udtName + "'", e, DefinePackage.eINSTANCE.variable_Udt,
+	def private checkVariableTypeAndCallError(Variables e) {
+		if (e instanceof Udt)
+			error("Multiple variable name '" + e.name + "'", e, DefinePackage.eINSTANCE.variables_Name,
 				DefineValidator.MULTIPLE_UDT_DECLARATION)
-		else // if (e.variableDefinition !== null)
-			error("Multiple variable name '" + e.variableName + "'", e, DefinePackage.eINSTANCE.variable_VariableName,
+		else if (e instanceof Variable)
+			error("Multiple variable name '" + e.name + "'", e, DefinePackage.eINSTANCE.variables_Name,
 				DefineValidator.MULTIPLE_VARIABLE_DECLARATION)
 	}
 
@@ -256,57 +336,95 @@ class DefineValidator extends AbstractDefineValidator {
 			error("cannot be boolean", reference, TYPE_MISMATCH)
 	}
 
+	def void checkNoDuplicateUdtTypes(
+		Udt udt,
+		HashMultimap<String, Variables> multiMap
+	) {
+		multiMap.put(udt.udtType.name, udt)
+
+		val udts = udt.udtVariables
+		for (e : udts) {
+			if (e instanceof Udt) {
+				multiMap.put(e.udtType.name, e)
+				e.checkNoDuplicateUdtTypes(multiMap)
+			}
+		}
+	}
+
 	def private checkCommaSyntaxWithVariables(
-		Iterable<? extends Variable> variables
+		Iterable<? extends Variables> variables
 	) {
 		var count = 0 // ugly programming
 		var countOfVariableBefore = 0
 		var commaBeforeVariable = false;
-		var helpingVariableType = BasicType.INT
+		var helpingVariableType = BasicType.NULL
+		var inferUdtType = false
 		var variantKeyword = false
 		//
 		for (e : variables) {
 			// refer error to the last variable which was succeeded by a comma
-			if (commaBeforeVariable && (e.udt !== null)) {
+			if (commaBeforeVariable && e instanceof Udt) {
 				error("Invalid comma. Semicolon expected.", variables.get(countOfVariableBefore),
 					DefinePackage.eINSTANCE.variable_NextVariable, INVALID_COMMA_NOTATION)
 			}
-			//
-			if (e.udt === null) { // e is of type variable and not udt
+
+			if (e instanceof Variable) { // e is of type variable and not udt	//
 				if ((count - countOfVariableBefore) > 1) {
 					// this checks the case if there's a udt type between a comma and the expected inferred type
 					commaBeforeVariable = false
 				}
 
 				if (!commaBeforeVariable) {
-					if (e.variableType === BasicType.NULL) {
+					if (e.variableType === BasicType.NULL && e.udtType === null) {
 						error("Missing variable type", e, DefinePackage.eINSTANCE.variable_VariableType,
 							MISSING_VARIABLE_TYPE);
 					}
-				} // else if there was a comma before the variable
-				else {
-					// assign inferred type 										
-					if (e.variableType === BasicType.NULL) {
-						e.variableType = helpingVariableType
-					} // defined type after a comma
-					else {
+					if (e.variableType !== BasicType.NULL && e.udtType !== null) {
 						error("Multiple type definition", e, DefinePackage.eINSTANCE.variable_VariableType,
 							MULTIPLE_TYPE_DEFINITION)
+					}
+				} // else if there was a comma before the variable
+				else {
+					// assign inferred type 								
+					if (!inferUdtType && e.udtType === null) { // basicType
+						if (e.variableType === BasicType.NULL) {
+							e.variableType = helpingVariableType
+						} // defined type after a comma
+						else {
+							error("Multiple type definition", e, DefinePackage.eINSTANCE.variable_VariableType,
+								MULTIPLE_TYPE_DEFINITION)
+						}
+					} else if (inferUdtType) { // udtType
+						if (e.udtType === null)
+							e.udtType = (variables.get(countOfVariableBefore) as Variable).udtType
+						else
+							error("Multiple type definition", e, DefinePackage.eINSTANCE.variable_UdtType,
+								MULTIPLE_TYPE_DEFINITION)
 					}
 					// assign variantKeyword
 					if (variantKeyword)
 						e.variantKeyword = true
 				}
-				// for the immediate next variable
+// for the immediate next variable
 				if (e.nextVariable) { // comma at the end instead of semicolon
-					commaBeforeVariable = true; // must be of type variable
-					helpingVariableType = e.variableType // .basicType; // the type must be handed over to the next variable
+					commaBeforeVariable = true;
 					countOfVariableBefore = count;
+
+					// the type must be handed over to the next variable
+					if (e.udtType === null) {
+						helpingVariableType = e.variableType
+						inferUdtType = false
+					} else {
+						inferUdtType = true
+						helpingVariableType = BasicType.NULL
+					}
+					// the variant as well					
 					if (e.variantKeyword)
 						variantKeyword = true
 				} else {
 					commaBeforeVariable = false
 					helpingVariableType = null
+					inferUdtType = false
 					variantKeyword = false
 				}
 			}
@@ -314,16 +432,15 @@ class DefineValidator extends AbstractDefineValidator {
 		}
 		// check if the last/only variable ends with a comma
 		val last = variables.last
-		if (last.udt === null && last.nextVariable)
-			error("Invalid comma. Semicolon expected.", last, DefinePackage.eINSTANCE.variable_NextVariable,
-				INVALID_COMMA_NOTATION)
+		if (last instanceof Variable)
+			if (last.nextVariable)
+				error("Invalid comma. Semicolon expected.", last, DefinePackage.eINSTANCE.variable_NextVariable,
+					INVALID_COMMA_NOTATION)
 	}
 
 //
 // yet unimplemented -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //
-	@Check def void checkMatchBetweenTypeAndExpression() {}
-
 	@Check def void checkUppercaseVariantName() {}
 
 	@Check def void checkUppercaseUdtName() {}

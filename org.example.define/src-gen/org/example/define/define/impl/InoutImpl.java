@@ -5,6 +5,7 @@ package org.example.define.define.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -12,6 +13,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -19,7 +21,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.example.define.define.DefinePackage;
 import org.example.define.define.Inout;
-import org.example.define.define.Variable;
+import org.example.define.define.Variables;
 
 /**
  * <!-- begin-user-doc -->
@@ -29,6 +31,7 @@ import org.example.define.define.Variable;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.example.define.define.impl.InoutImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.example.define.define.impl.InoutImpl#getInoutVariables <em>Inout Variables</em>}</li>
  * </ul>
  *
@@ -37,6 +40,26 @@ import org.example.define.define.Variable;
 public class InoutImpl extends MinimalEObjectImpl.Container implements Inout
 {
   /**
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected static final String NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = NAME_EDEFAULT;
+
+  /**
    * The cached value of the '{@link #getInoutVariables() <em>Inout Variables</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -44,7 +67,7 @@ public class InoutImpl extends MinimalEObjectImpl.Container implements Inout
    * @generated
    * @ordered
    */
-  protected EList<Variable> inoutVariables;
+  protected EList<Variables> inoutVariables;
 
   /**
    * <!-- begin-user-doc -->
@@ -72,11 +95,34 @@ public class InoutImpl extends MinimalEObjectImpl.Container implements Inout
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Variable> getInoutVariables()
+  public String getName()
+  {
+    return name;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setName(String newName)
+  {
+    String oldName = name;
+    name = newName;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DefinePackage.INOUT__NAME, oldName, name));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<Variables> getInoutVariables()
   {
     if (inoutVariables == null)
     {
-      inoutVariables = new EObjectContainmentEList<Variable>(Variable.class, this, DefinePackage.INOUT__INOUT_VARIABLES);
+      inoutVariables = new EObjectContainmentEList<Variables>(Variables.class, this, DefinePackage.INOUT__INOUT_VARIABLES);
     }
     return inoutVariables;
   }
@@ -107,6 +153,8 @@ public class InoutImpl extends MinimalEObjectImpl.Container implements Inout
   {
     switch (featureID)
     {
+      case DefinePackage.INOUT__NAME:
+        return getName();
       case DefinePackage.INOUT__INOUT_VARIABLES:
         return getInoutVariables();
     }
@@ -124,9 +172,12 @@ public class InoutImpl extends MinimalEObjectImpl.Container implements Inout
   {
     switch (featureID)
     {
+      case DefinePackage.INOUT__NAME:
+        setName((String)newValue);
+        return;
       case DefinePackage.INOUT__INOUT_VARIABLES:
         getInoutVariables().clear();
-        getInoutVariables().addAll((Collection<? extends Variable>)newValue);
+        getInoutVariables().addAll((Collection<? extends Variables>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -142,6 +193,9 @@ public class InoutImpl extends MinimalEObjectImpl.Container implements Inout
   {
     switch (featureID)
     {
+      case DefinePackage.INOUT__NAME:
+        setName(NAME_EDEFAULT);
+        return;
       case DefinePackage.INOUT__INOUT_VARIABLES:
         getInoutVariables().clear();
         return;
@@ -159,10 +213,29 @@ public class InoutImpl extends MinimalEObjectImpl.Container implements Inout
   {
     switch (featureID)
     {
+      case DefinePackage.INOUT__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case DefinePackage.INOUT__INOUT_VARIABLES:
         return inoutVariables != null && !inoutVariables.isEmpty();
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (name: ");
+    result.append(name);
+    result.append(')');
+    return result.toString();
   }
 
 } //InoutImpl

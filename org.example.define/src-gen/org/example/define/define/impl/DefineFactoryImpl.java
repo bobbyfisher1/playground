@@ -71,6 +71,7 @@ public class DefineFactoryImpl extends EFactoryImpl implements DefineFactory
       case DefinePackage.INPUT: return createInput();
       case DefinePackage.OUTPUT: return createOutput();
       case DefinePackage.INOUT: return createInout();
+      case DefinePackage.VARIABLES: return createVariables();
       case DefinePackage.VARIABLE: return createVariable();
       case DefinePackage.UDT: return createUdt();
       case DefinePackage.UDT_TYPE: return createUdtType();
@@ -180,6 +181,17 @@ public class DefineFactoryImpl extends EFactoryImpl implements DefineFactory
   {
     InoutImpl inout = new InoutImpl();
     return inout;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Variables createVariables()
+  {
+    VariablesImpl variables = new VariablesImpl();
+    return variables;
   }
 
   /**

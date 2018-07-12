@@ -3,6 +3,16 @@
  */
 package org.example.define.scoping
 
+import com.google.inject.Inject
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.EReference
+import org.eclipse.xtext.scoping.IScope
+import org.eclipse.xtext.scoping.Scopes
+import org.example.define.DefineModelUtil
+import org.example.define.define.DefinePackage
+import org.example.define.define.Expression
+import org.example.define.define.Variable
+
 /**
  * This class contains custom scoping description.
  * 
@@ -10,7 +20,30 @@ package org.example.define.scoping
  * on how and when to use it.
  */
 class DefineScopeProvider extends AbstractDefineScopeProvider {
-	
-	
-	
+
+	@Inject extension DefineModelUtil
+
+	override getScope(EObject context, EReference reference) {
+		if (reference == DefinePackage.eINSTANCE.variable_UdtType) {
+			return scopeForUdtType(context)
+		} else if (reference == DefinePackage.eINSTANCE.variableRef_Variable) {
+			return scopeForVariableRef(context)
+		} else
+			return super.getScope(context, reference)
+	}
+
+	def protected IScope scopeForVariableRef(EObject context) {
+//		if (context instanceof VariableRef)
+//			return Scopes.scopeFor(context.variable.variablesDefinedBefore)
+		if (context instanceof Variable)
+			return Scopes.scopeFor(context.variablesDefinedBefore)
+		if (context instanceof Expression) {
+			return Scopes.scopeFor((context.eContainer as Variable).variablesDefinedBefore)
+		}
+
+	}
+
+	def protected IScope scopeForUdtType(EObject context) {
+		return Scopes.scopeFor((context as Variable).udtTypesDefinedBefore)
+	}
 }

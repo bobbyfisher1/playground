@@ -12,6 +12,7 @@ import org.example.define.define.Input;
 import org.example.define.define.Output;
 import org.example.define.define.Udt;
 import org.example.define.define.Variable;
+import org.example.define.define.Variables;
 
 /**
  * Customization of the default outline structure.
@@ -22,9 +23,7 @@ import org.example.define.define.Variable;
 public class DefineOutlineTreeProvider extends DefaultOutlineTreeProvider {
   public boolean _isLeaf(final Variable v) {
     boolean _xifexpression = false;
-    Udt _udt = v.getUdt();
-    boolean _tripleNotEquals = (_udt != null);
-    if (_tripleNotEquals) {
+    if ((v instanceof Udt)) {
       _xifexpression = false;
     } else {
       _xifexpression = true;
@@ -43,13 +42,11 @@ public class DefineOutlineTreeProvider extends DefaultOutlineTreeProvider {
       final Inout inout = defineBlock.getDirection().getInout();
       this.createNode(outlineNode, inout);
     }
-    EList<Variable> _inputVariables = in.getInputVariables();
-    for (final Variable e : _inputVariables) {
-      Udt _udt = e.getUdt();
-      boolean _tripleNotEquals_1 = (_udt != null);
-      if (_tripleNotEquals_1) {
-        EList<Variable> _udtVariables = e.getUdt().getUdtVariables();
-        for (final Variable f : _udtVariables) {
+    EList<Variables> _inputVariables = in.getInputVariables();
+    for (final Variables e : _inputVariables) {
+      if ((e instanceof Udt)) {
+        EList<Variables> _udtVariables = ((Udt)e).getUdtVariables();
+        for (final Variables f : _udtVariables) {
           this._createNode(Udt.class, f);
         }
       }

@@ -5,8 +5,6 @@ package org.example.define.define;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.eclipse.emf.ecore.EObject;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Udt</b></em>'.
@@ -16,8 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.example.define.define.Udt#getUdtName <em>Udt Name</em>}</li>
- *   <li>{@link org.example.define.define.Udt#getUdtTypes <em>Udt Types</em>}</li>
+ *   <li>{@link org.example.define.define.Udt#getUdtType <em>Udt Type</em>}</li>
  *   <li>{@link org.example.define.define.Udt#getUdtVariables <em>Udt Variables</em>}</li>
  * </ul>
  *
@@ -25,63 +22,37 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface Udt extends EObject
+public interface Udt extends Variables
 {
   /**
-   * Returns the value of the '<em><b>Udt Name</b></em>' attribute.
+   * Returns the value of the '<em><b>Udt Type</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Udt Name</em>' attribute isn't clear,
+   * If the meaning of the '<em>Udt Type</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Udt Name</em>' attribute.
-   * @see #setUdtName(String)
-   * @see org.example.define.define.DefinePackage#getUdt_UdtName()
-   * @model
-   * @generated
-   */
-  String getUdtName();
-
-  /**
-   * Sets the value of the '{@link org.example.define.define.Udt#getUdtName <em>Udt Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Udt Name</em>' attribute.
-   * @see #getUdtName()
-   * @generated
-   */
-  void setUdtName(String value);
-
-  /**
-   * Returns the value of the '<em><b>Udt Types</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Udt Types</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Udt Types</em>' containment reference.
-   * @see #setUdtTypes(UdtType)
-   * @see org.example.define.define.DefinePackage#getUdt_UdtTypes()
+   * @return the value of the '<em>Udt Type</em>' containment reference.
+   * @see #setUdtType(UdtType)
+   * @see org.example.define.define.DefinePackage#getUdt_UdtType()
    * @model containment="true"
    * @generated
    */
-  UdtType getUdtTypes();
+  UdtType getUdtType();
 
   /**
-   * Sets the value of the '{@link org.example.define.define.Udt#getUdtTypes <em>Udt Types</em>}' containment reference.
+   * Sets the value of the '{@link org.example.define.define.Udt#getUdtType <em>Udt Type</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Udt Types</em>' containment reference.
-   * @see #getUdtTypes()
+   * @param value the new value of the '<em>Udt Type</em>' containment reference.
+   * @see #getUdtType()
    * @generated
    */
-  void setUdtTypes(UdtType value);
+  void setUdtType(UdtType value);
 
   /**
    * Returns the value of the '<em><b>Udt Variables</b></em>' containment reference list.
-   * The list contents are of type {@link org.example.define.define.Variable}.
+   * The list contents are of type {@link org.example.define.define.Variables}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Udt Variables</em>' containment reference list isn't clear,
@@ -93,6 +64,6 @@ public interface Udt extends EObject
    * @model containment="true"
    * @generated
    */
-  EList<Variable> getUdtVariables();
+  EList<Variables> getUdtVariables();
 
 } // Udt

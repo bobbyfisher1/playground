@@ -14,6 +14,7 @@ import org.example.define.define.Not;
 import org.example.define.define.Or;
 import org.example.define.define.Plus;
 import org.example.define.define.StringConstant;
+import org.example.define.define.VariableRef;
 import org.example.define.typing.BoolType;
 import org.example.define.typing.DefineType;
 import org.example.define.typing.IntType;
@@ -103,6 +104,9 @@ public class DefineTypeComputer {
         _switchResult = DefineTypeComputer.BOOL_TYPE;
       }
     }
+    if (!_matched) {
+      _switchResult = DefineTypeComputer.NULL_TYPE;
+    }
     return _switchResult;
   }
   
@@ -154,9 +158,20 @@ public class DefineTypeComputer {
     return _xblockexpression;
   }
   
+  protected DefineType _typeFor(final VariableRef varRef) {
+    Expression _expression = varRef.getVariable().getExpression();
+    DefineType _typeFor = null;
+    if (_expression!=null) {
+      _typeFor=this.typeFor(_expression);
+    }
+    return _typeFor;
+  }
+  
   public DefineType typeFor(final Object e) {
     if (e instanceof Plus) {
       return _typeFor((Plus)e);
+    } else if (e instanceof VariableRef) {
+      return _typeFor((VariableRef)e);
     } else if (e instanceof BasicType) {
       return _typeFor((BasicType)e);
     } else if (e instanceof Expression) {

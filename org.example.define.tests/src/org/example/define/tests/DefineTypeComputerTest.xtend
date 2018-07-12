@@ -5,13 +5,15 @@ import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.eclipse.xtext.testing.util.ParseHelper
 import org.example.define.define.DefineBlock
+import org.example.define.define.Variable
+import org.example.define.typing.DefineType
 import org.example.define.typing.DefineTypeComputer
 import org.junit.Test
 import org.junit.runner.RunWith
+
 import static org.example.define.typing.DefineTypeComputer.*
 
 import static extension org.junit.Assert.*
-import org.example.define.typing.DefineType
 
 @RunWith(XtextRunner)
 @InjectWith(DefineInjectorProvider)
@@ -78,6 +80,7 @@ class DefineTypeComputerTest {
 // methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//
 	def private void assertSameType(String text, DefineType expectedType) {
-		(start + text + end).parse.direction.output.outputVariables.get(0).expression.typeFor.assertSame(expectedType)
+		((start + text + end).parse.direction.output.outputVariables.get(0) as Variable).expression.typeFor.assertSame(
+			expectedType)
 	}
 }

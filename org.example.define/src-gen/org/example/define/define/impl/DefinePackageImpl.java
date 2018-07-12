@@ -36,6 +36,7 @@ import org.example.define.define.Udt;
 import org.example.define.define.UdtType;
 import org.example.define.define.Variable;
 import org.example.define.define.VariableRef;
+import org.example.define.define.Variables;
 
 /**
  * <!-- begin-user-doc -->
@@ -79,6 +80,13 @@ public class DefinePackageImpl extends EPackageImpl implements DefinePackage
    * @generated
    */
   private EClass inoutEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass variablesEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -344,9 +352,19 @@ public class DefinePackageImpl extends EPackageImpl implements DefinePackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getInput_Name()
+  {
+    return (EAttribute)inputEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getInput_InputVariables()
   {
-    return (EReference)inputEClass.getEStructuralFeatures().get(0);
+    return (EReference)inputEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -364,9 +382,19 @@ public class DefinePackageImpl extends EPackageImpl implements DefinePackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getOutput_Name()
+  {
+    return (EAttribute)outputEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getOutput_OutputVariables()
   {
-    return (EReference)outputEClass.getEStructuralFeatures().get(0);
+    return (EReference)outputEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -384,9 +412,39 @@ public class DefinePackageImpl extends EPackageImpl implements DefinePackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getInout_Name()
+  {
+    return (EAttribute)inoutEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getInout_InoutVariables()
   {
-    return (EReference)inoutEClass.getEStructuralFeatures().get(0);
+    return (EReference)inoutEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getVariables()
+  {
+    return variablesEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getVariables_Name()
+  {
+    return (EAttribute)variablesEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -424,9 +482,9 @@ public class DefinePackageImpl extends EPackageImpl implements DefinePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getVariable_VariableName()
+  public EReference getVariable_UdtType()
   {
-    return (EAttribute)variableEClass.getEStructuralFeatures().get(2);
+    return (EReference)variableEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -464,16 +522,6 @@ public class DefinePackageImpl extends EPackageImpl implements DefinePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVariable_Udt()
-  {
-    return (EReference)variableEClass.getEStructuralFeatures().get(6);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getUdt()
   {
     return udtEClass;
@@ -484,19 +532,9 @@ public class DefinePackageImpl extends EPackageImpl implements DefinePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getUdt_UdtName()
+  public EReference getUdt_UdtType()
   {
-    return (EAttribute)udtEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getUdt_UdtTypes()
-  {
-    return (EReference)udtEClass.getEStructuralFeatures().get(1);
+    return (EReference)udtEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -506,7 +544,7 @@ public class DefinePackageImpl extends EPackageImpl implements DefinePackage
    */
   public EReference getUdt_UdtVariables()
   {
-    return (EReference)udtEClass.getEStructuralFeatures().get(2);
+    return (EReference)udtEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -524,7 +562,7 @@ public class DefinePackageImpl extends EPackageImpl implements DefinePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getUdtType_UdtTypeName()
+  public EAttribute getUdtType_Name()
   {
     return (EAttribute)udtTypeEClass.getEStructuralFeatures().get(0);
   }
@@ -958,30 +996,34 @@ public class DefinePackageImpl extends EPackageImpl implements DefinePackage
     createEReference(directionBlockEClass, DIRECTION_BLOCK__OUTPUT);
 
     inputEClass = createEClass(INPUT);
+    createEAttribute(inputEClass, INPUT__NAME);
     createEReference(inputEClass, INPUT__INPUT_VARIABLES);
 
     outputEClass = createEClass(OUTPUT);
+    createEAttribute(outputEClass, OUTPUT__NAME);
     createEReference(outputEClass, OUTPUT__OUTPUT_VARIABLES);
 
     inoutEClass = createEClass(INOUT);
+    createEAttribute(inoutEClass, INOUT__NAME);
     createEReference(inoutEClass, INOUT__INOUT_VARIABLES);
+
+    variablesEClass = createEClass(VARIABLES);
+    createEAttribute(variablesEClass, VARIABLES__NAME);
 
     variableEClass = createEClass(VARIABLE);
     createEAttribute(variableEClass, VARIABLE__VARIANT_KEYWORD);
     createEAttribute(variableEClass, VARIABLE__VARIABLE_TYPE);
-    createEAttribute(variableEClass, VARIABLE__VARIABLE_NAME);
+    createEReference(variableEClass, VARIABLE__UDT_TYPE);
     createEReference(variableEClass, VARIABLE__EXPRESSION);
     createEReference(variableEClass, VARIABLE__RANGE);
     createEAttribute(variableEClass, VARIABLE__NEXT_VARIABLE);
-    createEReference(variableEClass, VARIABLE__UDT);
 
     udtEClass = createEClass(UDT);
-    createEAttribute(udtEClass, UDT__UDT_NAME);
-    createEReference(udtEClass, UDT__UDT_TYPES);
+    createEReference(udtEClass, UDT__UDT_TYPE);
     createEReference(udtEClass, UDT__UDT_VARIABLES);
 
     udtTypeEClass = createEClass(UDT_TYPE);
-    createEAttribute(udtTypeEClass, UDT_TYPE__UDT_TYPE_NAME);
+    createEAttribute(udtTypeEClass, UDT_TYPE__NAME);
 
     expressionEClass = createEClass(EXPRESSION);
 
@@ -1068,6 +1110,8 @@ public class DefinePackageImpl extends EPackageImpl implements DefinePackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
+    variableEClass.getESuperTypes().add(this.getVariables());
+    udtEClass.getESuperTypes().add(this.getVariables());
     eFloatEClass.getESuperTypes().add(this.getExpression());
     orEClass.getESuperTypes().add(this.getExpression());
     andEClass.getESuperTypes().add(this.getExpression());
@@ -1092,30 +1136,34 @@ public class DefinePackageImpl extends EPackageImpl implements DefinePackage
     initEReference(getDirectionBlock_Output(), this.getOutput(), null, "output", null, 0, 1, DirectionBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(inputEClass, Input.class, "Input", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getInput_InputVariables(), this.getVariable(), null, "inputVariables", null, 0, -1, Input.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getInput_Name(), ecorePackage.getEString(), "name", null, 0, 1, Input.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getInput_InputVariables(), this.getVariables(), null, "inputVariables", null, 0, -1, Input.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(outputEClass, Output.class, "Output", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getOutput_OutputVariables(), this.getVariable(), null, "outputVariables", null, 0, -1, Output.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getOutput_Name(), ecorePackage.getEString(), "name", null, 0, 1, Output.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getOutput_OutputVariables(), this.getVariables(), null, "outputVariables", null, 0, -1, Output.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(inoutEClass, Inout.class, "Inout", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getInout_InoutVariables(), this.getVariable(), null, "inoutVariables", null, 0, -1, Inout.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getInout_Name(), ecorePackage.getEString(), "name", null, 0, 1, Inout.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getInout_InoutVariables(), this.getVariables(), null, "inoutVariables", null, 0, -1, Inout.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(variablesEClass, Variables.class, "Variables", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getVariables_Name(), ecorePackage.getEString(), "name", null, 0, 1, Variables.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(variableEClass, Variable.class, "Variable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getVariable_VariantKeyword(), ecorePackage.getEBoolean(), "variantKeyword", null, 0, 1, Variable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getVariable_VariableType(), this.getBasicType(), "variableType", null, 0, 1, Variable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getVariable_VariableName(), ecorePackage.getEString(), "variableName", null, 0, 1, Variable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVariable_UdtType(), this.getUdtType(), null, "udtType", null, 0, 1, Variable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVariable_Expression(), this.getExpression(), null, "expression", null, 0, 1, Variable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVariable_Range(), this.getExpression(), null, "range", null, 0, 1, Variable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getVariable_NextVariable(), ecorePackage.getEBoolean(), "nextVariable", null, 0, 1, Variable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getVariable_Udt(), this.getUdt(), null, "udt", null, 0, 1, Variable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(udtEClass, Udt.class, "Udt", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getUdt_UdtName(), ecorePackage.getEString(), "udtName", null, 0, 1, Udt.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getUdt_UdtTypes(), this.getUdtType(), null, "udtTypes", null, 0, 1, Udt.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getUdt_UdtVariables(), this.getVariable(), null, "udtVariables", null, 0, -1, Udt.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUdt_UdtType(), this.getUdtType(), null, "udtType", null, 0, 1, Udt.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUdt_UdtVariables(), this.getVariables(), null, "udtVariables", null, 0, -1, Udt.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(udtTypeEClass, UdtType.class, "UdtType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getUdtType_UdtTypeName(), ecorePackage.getEString(), "udtTypeName", null, 0, 1, UdtType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getUdtType_Name(), ecorePackage.getEString(), "name", null, 0, 1, UdtType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(expressionEClass, Expression.class, "Expression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

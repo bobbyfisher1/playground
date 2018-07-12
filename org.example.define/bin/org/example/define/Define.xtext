@@ -9,31 +9,34 @@ DirectionBlock:
 	input=Input & inout=Inout? & output=Output;
 
 Input:
-	'input' {Input} '[' inputVariables+=Variable* ']';
+	name='input' '[' inputVariables+=Variables* ']';
 
 Output:
-	'output' {Output} '[' outputVariables+=Variable* ']';
+	name='output' '[' outputVariables+=Variables* ']';
 
 Inout:
-	'inout' {Inout} '[' inoutVariables+=Variable* ']';
+	name='inout' '[' inoutVariables+=Variables* ']';
+
+Variables:
+	Variable | Udt;
 
 Variable:
-	({Variable} variantKeyword?='variant'? variableType=BasicType? /*udtType=[UdtType]?*/ variableName=ID
-	('=' expression=Expression ('+/-' range=Expression)?)? (';' | nextVariable?=','))
-	//
-	| (udt=Udt);
+	({Variable} variantKeyword?='variant'? variableType=BasicType? udtType=[UdtType]? name=ID
+	('=' expression=Expression ('+/-' range=Expression)?)? (';' | nextVariable?=','));
 
 Udt:
-	'udt' udtName=ID '(' udtTypes=UdtType ')' '{' udtVariables+=Variable* '}';
+	('udt' name=ID '(' udtType=UdtType ')' '{' udtVariables+=Variables* '}')
+	| (udtTypeRef=[UdtType] name=ID 
+		
+		(';' | nextVariable?=',')
+		
+	);
 
-	//Types:
-//	basicType=BasicType ;//| udtType=[UdtType]; // look up top
-//
 enum BasicType:
 	NULL='null' | INT='int' | BOOL='bool' | FLOAT='float' | STRINGTYP='string';
 
 UdtType:
-	udtTypeName=ID;
+	name=ID;
 
 Expression:
 	Or;
@@ -60,8 +63,11 @@ Primary returns Expression:
 	'(' Expression ')' | {Not} "!" expression=Primary | Atomic;
 
 Atomic returns Expression:
-	{IntConstant} value=INT | {StringConstant} value=STRING | {BoolConstant} value=('true' | 'false') | {VariableRef}
-	variable=[Variable] | FloatConstant;
+	{IntConstant} value=INT
+	| {StringConstant} value=STRING
+	| {BoolConstant} value=('true' | 'false')
+	| {VariableRef} variable=[Variable]
+	| FloatConstant;
 
 FloatConstant returns EFloat:
 	{EFloat} value=INT '.' valueOfDecimal=INT;

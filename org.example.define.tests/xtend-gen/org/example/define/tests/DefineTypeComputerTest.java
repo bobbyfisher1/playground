@@ -9,6 +9,8 @@ import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Functions.Function0;
 import org.example.define.define.DefineBlock;
+import org.example.define.define.Variable;
+import org.example.define.define.Variables;
 import org.example.define.tests.DefineInjectorProvider;
 import org.example.define.typing.DefineType;
 import org.example.define.typing.DefineTypeComputer;
@@ -106,7 +108,8 @@ public class DefineTypeComputerTest {
   
   private void assertSameType(final String text, final DefineType expectedType) {
     try {
-      Assert.assertSame(this._defineTypeComputer.typeFor(this._parseHelper.parse(((this.start + text) + this.end)).getDirection().getOutput().getOutputVariables().get(0).getExpression()), expectedType);
+      Variables _get = this._parseHelper.parse(((this.start + text) + this.end)).getDirection().getOutput().getOutputVariables().get(0);
+      Assert.assertSame(this._defineTypeComputer.typeFor(((Variable) _get).getExpression()), expectedType);
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }

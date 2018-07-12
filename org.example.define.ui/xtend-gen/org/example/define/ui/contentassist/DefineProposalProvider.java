@@ -3,6 +3,18 @@
  */
 package org.example.define.ui.contentassist;
 
+import com.google.common.collect.Iterables;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.Assignment;
+import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
+import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.example.define.define.Inout;
+import org.example.define.define.Input;
+import org.example.define.define.Output;
+import org.example.define.define.Udt;
+import org.example.define.define.UdtType;
 import org.example.define.ui.contentassist.AbstractDefineProposalProvider;
 
 /**
@@ -11,4 +23,40 @@ import org.example.define.ui.contentassist.AbstractDefineProposalProvider;
  */
 @SuppressWarnings("all")
 public class DefineProposalProvider extends AbstractDefineProposalProvider {
+  @Override
+  public void completeVariable_VariableType(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
+    super.completeVariable_VariableType(model, assignment, context, acceptor);
+    Iterable<UdtType> _xifexpression = null;
+    if ((model instanceof Input)) {
+      final Function1<Udt, UdtType> _function = (Udt it) -> {
+        return it.getUdtType();
+      };
+      _xifexpression = IterableExtensions.<Udt, UdtType>map(Iterables.<Udt>filter(((Input)model).getInputVariables(), Udt.class), _function);
+    } else {
+      Iterable<UdtType> _xifexpression_1 = null;
+      if ((model instanceof Inout)) {
+        final Function1<Udt, UdtType> _function_1 = (Udt it) -> {
+          return it.getUdtType();
+        };
+        _xifexpression_1 = IterableExtensions.<Udt, UdtType>map(Iterables.<Udt>filter(((Inout)model).getInoutVariables(), Udt.class), _function_1);
+      } else {
+        Iterable<UdtType> _xifexpression_2 = null;
+        if ((model instanceof Output)) {
+          final Function1<Udt, UdtType> _function_2 = (Udt it) -> {
+            return it.getUdtType();
+          };
+          _xifexpression_2 = IterableExtensions.<Udt, UdtType>map(Iterables.<Udt>filter(((Output)model).getOutputVariables(), Udt.class), _function_2);
+        }
+        _xifexpression_1 = _xifexpression_2;
+      }
+      _xifexpression = _xifexpression_1;
+    }
+    final Iterable<UdtType> udtTypes = _xifexpression;
+    for (final UdtType e : udtTypes) {
+      String _name = e.getName();
+      String _name_1 = e.getName();
+      String _plus = (_name_1 + " - UdtType");
+      acceptor.accept(this.createCompletionProposal(_name, _plus, null, context));
+    }
+  }
 }

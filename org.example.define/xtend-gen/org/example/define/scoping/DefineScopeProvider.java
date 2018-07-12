@@ -3,6 +3,17 @@
  */
 package org.example.define.scoping;
 
+import com.google.common.base.Objects;
+import com.google.inject.Inject;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.xtext.scoping.IScope;
+import org.eclipse.xtext.scoping.Scopes;
+import org.eclipse.xtext.xbase.lib.Extension;
+import org.example.define.DefineModelUtil;
+import org.example.define.define.DefinePackage;
+import org.example.define.define.Expression;
+import org.example.define.define.Variable;
 import org.example.define.scoping.AbstractDefineScopeProvider;
 
 /**
@@ -13,4 +24,39 @@ import org.example.define.scoping.AbstractDefineScopeProvider;
  */
 @SuppressWarnings("all")
 public class DefineScopeProvider extends AbstractDefineScopeProvider {
+  @Inject
+  @Extension
+  private DefineModelUtil _defineModelUtil;
+  
+  @Override
+  public IScope getScope(final EObject context, final EReference reference) {
+    EReference _variable_UdtType = DefinePackage.eINSTANCE.getVariable_UdtType();
+    boolean _equals = Objects.equal(reference, _variable_UdtType);
+    if (_equals) {
+      return this.scopeForUdtType(context);
+    } else {
+      EReference _variableRef_Variable = DefinePackage.eINSTANCE.getVariableRef_Variable();
+      boolean _equals_1 = Objects.equal(reference, _variableRef_Variable);
+      if (_equals_1) {
+        return this.scopeForVariableRef(context);
+      } else {
+        return super.getScope(context, reference);
+      }
+    }
+  }
+  
+  protected IScope scopeForVariableRef(final EObject context) {
+    if ((context instanceof Variable)) {
+      return Scopes.scopeFor(this._defineModelUtil.variablesDefinedBefore(((Variable)context)));
+    }
+    if ((context instanceof Expression)) {
+      EObject _eContainer = ((Expression)context).eContainer();
+      return Scopes.scopeFor(this._defineModelUtil.variablesDefinedBefore(((Variable) _eContainer)));
+    }
+    return null;
+  }
+  
+  protected IScope scopeForUdtType(final EObject context) {
+    return Scopes.scopeFor(this._defineModelUtil.udtTypesDefinedBefore(((Variable) context)));
+  }
 }

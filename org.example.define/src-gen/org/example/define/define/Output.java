@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link org.example.define.define.Output#getName <em>Name</em>}</li>
  *   <li>{@link org.example.define.define.Output#getOutputVariables <em>Output Variables</em>}</li>
  * </ul>
  *
@@ -26,8 +27,34 @@ import org.eclipse.emf.ecore.EObject;
 public interface Output extends EObject
 {
   /**
+   * Returns the value of the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Name</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Name</em>' attribute.
+   * @see #setName(String)
+   * @see org.example.define.define.DefinePackage#getOutput_Name()
+   * @model
+   * @generated
+   */
+  String getName();
+
+  /**
+   * Sets the value of the '{@link org.example.define.define.Output#getName <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Name</em>' attribute.
+   * @see #getName()
+   * @generated
+   */
+  void setName(String value);
+
+  /**
    * Returns the value of the '<em><b>Output Variables</b></em>' containment reference list.
-   * The list contents are of type {@link org.example.define.define.Variable}.
+   * The list contents are of type {@link org.example.define.define.Variables}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Output Variables</em>' containment reference list isn't clear,
@@ -39,6 +66,6 @@ public interface Output extends EObject
    * @model containment="true"
    * @generated
    */
-  EList<Variable> getOutputVariables();
+  EList<Variables> getOutputVariables();
 
 } // Output

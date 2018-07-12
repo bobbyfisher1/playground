@@ -5,6 +5,7 @@ package org.example.define.define.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -12,6 +13,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -19,7 +21,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.example.define.define.DefinePackage;
 import org.example.define.define.Output;
-import org.example.define.define.Variable;
+import org.example.define.define.Variables;
 
 /**
  * <!-- begin-user-doc -->
@@ -29,6 +31,7 @@ import org.example.define.define.Variable;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.example.define.define.impl.OutputImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.example.define.define.impl.OutputImpl#getOutputVariables <em>Output Variables</em>}</li>
  * </ul>
  *
@@ -37,6 +40,26 @@ import org.example.define.define.Variable;
 public class OutputImpl extends MinimalEObjectImpl.Container implements Output
 {
   /**
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected static final String NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = NAME_EDEFAULT;
+
+  /**
    * The cached value of the '{@link #getOutputVariables() <em>Output Variables</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -44,7 +67,7 @@ public class OutputImpl extends MinimalEObjectImpl.Container implements Output
    * @generated
    * @ordered
    */
-  protected EList<Variable> outputVariables;
+  protected EList<Variables> outputVariables;
 
   /**
    * <!-- begin-user-doc -->
@@ -72,11 +95,34 @@ public class OutputImpl extends MinimalEObjectImpl.Container implements Output
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Variable> getOutputVariables()
+  public String getName()
+  {
+    return name;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setName(String newName)
+  {
+    String oldName = name;
+    name = newName;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DefinePackage.OUTPUT__NAME, oldName, name));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<Variables> getOutputVariables()
   {
     if (outputVariables == null)
     {
-      outputVariables = new EObjectContainmentEList<Variable>(Variable.class, this, DefinePackage.OUTPUT__OUTPUT_VARIABLES);
+      outputVariables = new EObjectContainmentEList<Variables>(Variables.class, this, DefinePackage.OUTPUT__OUTPUT_VARIABLES);
     }
     return outputVariables;
   }
@@ -107,6 +153,8 @@ public class OutputImpl extends MinimalEObjectImpl.Container implements Output
   {
     switch (featureID)
     {
+      case DefinePackage.OUTPUT__NAME:
+        return getName();
       case DefinePackage.OUTPUT__OUTPUT_VARIABLES:
         return getOutputVariables();
     }
@@ -124,9 +172,12 @@ public class OutputImpl extends MinimalEObjectImpl.Container implements Output
   {
     switch (featureID)
     {
+      case DefinePackage.OUTPUT__NAME:
+        setName((String)newValue);
+        return;
       case DefinePackage.OUTPUT__OUTPUT_VARIABLES:
         getOutputVariables().clear();
-        getOutputVariables().addAll((Collection<? extends Variable>)newValue);
+        getOutputVariables().addAll((Collection<? extends Variables>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -142,6 +193,9 @@ public class OutputImpl extends MinimalEObjectImpl.Container implements Output
   {
     switch (featureID)
     {
+      case DefinePackage.OUTPUT__NAME:
+        setName(NAME_EDEFAULT);
+        return;
       case DefinePackage.OUTPUT__OUTPUT_VARIABLES:
         getOutputVariables().clear();
         return;
@@ -159,10 +213,29 @@ public class OutputImpl extends MinimalEObjectImpl.Container implements Output
   {
     switch (featureID)
     {
+      case DefinePackage.OUTPUT__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case DefinePackage.OUTPUT__OUTPUT_VARIABLES:
         return outputVariables != null && !outputVariables.isEmpty();
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (name: ");
+    result.append(name);
+    result.append(')');
+    return result.toString();
   }
 
 } //OutputImpl

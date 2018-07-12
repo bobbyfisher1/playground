@@ -12,13 +12,15 @@ import org.example.define.define.BoolConstant
 import org.example.define.define.DefineBlock
 import org.example.define.define.EFloat
 import org.example.define.define.IntConstant
+import org.example.define.define.Udt
+import org.example.define.define.Variable
+import org.example.define.typing.DefineTypeComputer
 import org.junit.Test
 import org.junit.runner.RunWith
 
-import static extension org.junit.Assert.*
-
 import static org.example.define.typing.DefineTypeComputer.*
-import org.example.define.typing.DefineTypeComputer
+
+import static extension org.junit.Assert.*
 
 @RunWith(XtextRunner)
 @InjectWith(DefineInjectorProvider)
@@ -69,22 +71,22 @@ class DefineParsingTest {
 		'''.parse => [
 			assertNoErrors
 			direction.input.inputVariables => [
-				get(0) => [
+				(get(0) as Variable) => [
 //					variableType.typeFor.assertSame(INT_TYPE)
-					variableName.assertEquals('a')
+					name.assertEquals('a')
 					(expression as IntConstant).value.assertEquals(4)
 				]
-				get(1).udt => [
-					udtName.assertEquals('Dido')
-					udtTypes.udtTypeName.assertEquals('typeDido')
-					udtVariables.get(0) => [
+				(get(1) as Udt) => [
+					name.assertEquals('Dido')
+					udtType.name.assertEquals('typeDido')
+					(udtVariables.get(0) as Variable) => [
 //						variableType.typeFor.assertSame(INT_TYPE)
-						variableName.assertEquals('b')
+						name.assertEquals('b')
 						(expression as IntConstant).value.assertEquals(39)
 					]
 				]
-				get(2) => [
-					variableName.assertEquals('Train')
+				(get(2) as Variable) => [
+					name.assertEquals('Train')
 //					variableType.typeFor.assertSame(INT_TYPE)
 					variantKeyword.assertEquals(true)
 				]
@@ -104,23 +106,23 @@ class DefineParsingTest {
 		'''.parse => [
 			assertNoErrors
 			direction.input.inputVariables => [
-				get(0) => [
+				(get(0) as Variable) => [
 					variableType.typeFor.assertSame(INT_TYPE)
 					// .assertEquals(IntType)
-					variableName.assertEquals('a')
+					name.assertEquals('a')
 					(expression as IntConstant).value.assertEquals(4)
 				]
-				get(1) => [variableName.assertEquals('b')]
-				get(2) => [
+				get(1) => [name.assertEquals('b')]
+				(get(2) as Variable) => [
 					variableType.typeFor.assertSame(BOOL_TYPE)
 					// assertEquals('bool')
-					variableName.assertEquals('c')
+					name.assertEquals('c')
 					(expression as BoolConstant).value.assertEquals('false')
 				]
-				get(3) => [
+				(get(3) as Variable) => [
 					variableType.typeFor.assertSame(BOOL_TYPE)
 					// .assertEquals('bool')
-					variableName.assertEquals('d')
+					name.assertEquals('d')
 					(expression as BoolConstant).value.assertEquals('true')
 				]
 			]
@@ -173,7 +175,7 @@ class DefineParsingTest {
 				output[]
 			}
 		'''.parse => [
-			direction.input.inputVariables.get(0) => [
+			(direction.input.inputVariables.get(0) as Variable) => [
 				(expression as EFloat).value.assertEquals(19)
 				(expression as EFloat).valueOfDecimal.assertEquals(5)
 			]
@@ -187,7 +189,7 @@ class DefineParsingTest {
 				output[]
 			}
 		'''.parse => [
-			direction.input.inputVariables.get(0) => [
+			(direction.input.inputVariables.get(0) as Variable) => [
 				(expression as EFloat).value.assertEquals(19)
 				(expression as EFloat).valueOfDecimal.assertEquals(0)
 			]
@@ -201,7 +203,7 @@ class DefineParsingTest {
 				output[]
 			}
 		'''.parse => [
-			direction.input.inputVariables.get(0) => [
+			(direction.input.inputVariables.get(0) as Variable) => [
 				(expression as EFloat).value.assertEquals(0)
 				(expression as EFloat).valueOfDecimal.assertEquals(4)
 			]

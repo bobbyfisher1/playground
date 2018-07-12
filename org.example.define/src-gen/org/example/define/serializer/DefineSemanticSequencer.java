@@ -405,7 +405,7 @@ public class DefineSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *     Inout returns Inout
 	 *
 	 * Constraint:
-	 *     inoutVariables+=Variable*
+	 *     (name='inout' inoutVariables+=Variables*)
 	 */
 	protected void sequence_Inout(ISerializationContext context, Inout semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -417,7 +417,7 @@ public class DefineSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *     Input returns Input
 	 *
 	 * Constraint:
-	 *     inputVariables+=Variable*
+	 *     (name='input' inputVariables+=Variables*)
 	 */
 	protected void sequence_Input(ISerializationContext context, Input semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -490,7 +490,7 @@ public class DefineSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *     Output returns Output
 	 *
 	 * Constraint:
-	 *     outputVariables+=Variable*
+	 *     (name='output' outputVariables+=Variables*)
 	 */
 	protected void sequence_Output(ISerializationContext context, Output semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -604,25 +604,26 @@ public class DefineSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *     UdtType returns UdtType
 	 *
 	 * Constraint:
-	 *     udtTypeName=ID
+	 *     name=ID
 	 */
 	protected void sequence_UdtType(ISerializationContext context, UdtType semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, DefinePackage.Literals.UDT_TYPE__UDT_TYPE_NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DefinePackage.Literals.UDT_TYPE__UDT_TYPE_NAME));
+			if (transientValues.isValueTransient(semanticObject, DefinePackage.Literals.UDT_TYPE__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DefinePackage.Literals.UDT_TYPE__NAME));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getUdtTypeAccess().getUdtTypeNameIDTerminalRuleCall_0(), semanticObject.getUdtTypeName());
+		feeder.accept(grammarAccess.getUdtTypeAccess().getNameIDTerminalRuleCall_0(), semanticObject.getName());
 		feeder.finish();
 	}
 	
 	
 	/**
 	 * Contexts:
+	 *     Variables returns Udt
 	 *     Udt returns Udt
 	 *
 	 * Constraint:
-	 *     (udtName=ID udtTypes=UdtType udtVariables+=Variable*)
+	 *     (name=ID udtType=UdtType udtVariables+=Variables*)
 	 */
 	protected void sequence_Udt(ISerializationContext context, Udt semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -631,10 +632,18 @@ public class DefineSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Contexts:
+	 *     Variables returns Variable
 	 *     Variable returns Variable
 	 *
 	 * Constraint:
-	 *     ((variantKeyword?='variant'? variableType=BasicType? variableName=ID (expression=Expression range=Expression?)? nextVariable?=','?) | udt=Udt)
+	 *     (
+	 *         variantKeyword?='variant'? 
+	 *         variableType=BasicType? 
+	 *         udtType=[UdtType|ID]? 
+	 *         name=ID 
+	 *         (expression=Expression range=Expression?)? 
+	 *         nextVariable?=','?
+	 *     )
 	 */
 	protected void sequence_Variable(ISerializationContext context, Variable semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

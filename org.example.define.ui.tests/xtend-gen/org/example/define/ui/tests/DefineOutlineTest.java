@@ -36,16 +36,11 @@ public class DefineOutlineTest extends AbstractOutlineTest {
       _builder.append("}");
       _builder.newLine();
       StringConcatenation _builder_1 = new StringConcatenation();
-      _builder_1.append("test");
-      _builder_1.newLine();
-      _builder_1.append("  ");
       _builder_1.append("input");
       _builder_1.newLine();
-      _builder_1.append("  ");
-      _builder_1.append("inout");
-      _builder_1.newLine();
-      _builder_1.append("  ");
       _builder_1.append("output");
+      _builder_1.newLine();
+      _builder_1.append("inout");
       _builder_1.newLine();
       this.assertAllLabels(_builder, _builder_1);
     } catch (Throwable _e) {

@@ -108,10 +108,18 @@ public class DefineSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DefinePackage.VARIABLES:
+      {
+        Variables variables = (Variables)theEObject;
+        T result = caseVariables(variables);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DefinePackage.VARIABLE:
       {
         Variable variable = (Variable)theEObject;
         T result = caseVariable(variable);
+        if (result == null) result = caseVariables(variable);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -119,6 +127,7 @@ public class DefineSwitch<T> extends Switch<T>
       {
         Udt udt = (Udt)theEObject;
         T result = caseUdt(udt);
+        if (result == null) result = caseVariables(udt);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -320,6 +329,22 @@ public class DefineSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseInout(Inout object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Variables</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Variables</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseVariables(Variables object)
   {
     return null;
   }

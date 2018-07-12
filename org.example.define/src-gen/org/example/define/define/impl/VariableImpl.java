@@ -10,12 +10,11 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.example.define.define.BasicType;
 import org.example.define.define.DefinePackage;
 import org.example.define.define.Expression;
-import org.example.define.define.Udt;
+import org.example.define.define.UdtType;
 import org.example.define.define.Variable;
 
 /**
@@ -28,16 +27,15 @@ import org.example.define.define.Variable;
  * <ul>
  *   <li>{@link org.example.define.define.impl.VariableImpl#isVariantKeyword <em>Variant Keyword</em>}</li>
  *   <li>{@link org.example.define.define.impl.VariableImpl#getVariableType <em>Variable Type</em>}</li>
- *   <li>{@link org.example.define.define.impl.VariableImpl#getVariableName <em>Variable Name</em>}</li>
+ *   <li>{@link org.example.define.define.impl.VariableImpl#getUdtType <em>Udt Type</em>}</li>
  *   <li>{@link org.example.define.define.impl.VariableImpl#getExpression <em>Expression</em>}</li>
  *   <li>{@link org.example.define.define.impl.VariableImpl#getRange <em>Range</em>}</li>
  *   <li>{@link org.example.define.define.impl.VariableImpl#isNextVariable <em>Next Variable</em>}</li>
- *   <li>{@link org.example.define.define.impl.VariableImpl#getUdt <em>Udt</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class VariableImpl extends MinimalEObjectImpl.Container implements Variable
+public class VariableImpl extends VariablesImpl implements Variable
 {
   /**
    * The default value of the '{@link #isVariantKeyword() <em>Variant Keyword</em>}' attribute.
@@ -80,24 +78,14 @@ public class VariableImpl extends MinimalEObjectImpl.Container implements Variab
   protected BasicType variableType = VARIABLE_TYPE_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getVariableName() <em>Variable Name</em>}' attribute.
+   * The cached value of the '{@link #getUdtType() <em>Udt Type</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getVariableName()
+   * @see #getUdtType()
    * @generated
    * @ordered
    */
-  protected static final String VARIABLE_NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getVariableName() <em>Variable Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getVariableName()
-   * @generated
-   * @ordered
-   */
-  protected String variableName = VARIABLE_NAME_EDEFAULT;
+  protected UdtType udtType;
 
   /**
    * The cached value of the '{@link #getExpression() <em>Expression</em>}' containment reference.
@@ -138,16 +126,6 @@ public class VariableImpl extends MinimalEObjectImpl.Container implements Variab
    * @ordered
    */
   protected boolean nextVariable = NEXT_VARIABLE_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getUdt() <em>Udt</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getUdt()
-   * @generated
-   * @ordered
-   */
-  protected Udt udt;
 
   /**
    * <!-- begin-user-doc -->
@@ -221,9 +199,19 @@ public class VariableImpl extends MinimalEObjectImpl.Container implements Variab
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getVariableName()
+  public UdtType getUdtType()
   {
-    return variableName;
+    if (udtType != null && udtType.eIsProxy())
+    {
+      InternalEObject oldUdtType = (InternalEObject)udtType;
+      udtType = (UdtType)eResolveProxy(oldUdtType);
+      if (udtType != oldUdtType)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, DefinePackage.VARIABLE__UDT_TYPE, oldUdtType, udtType));
+      }
+    }
+    return udtType;
   }
 
   /**
@@ -231,12 +219,22 @@ public class VariableImpl extends MinimalEObjectImpl.Container implements Variab
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setVariableName(String newVariableName)
+  public UdtType basicGetUdtType()
   {
-    String oldVariableName = variableName;
-    variableName = newVariableName;
+    return udtType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setUdtType(UdtType newUdtType)
+  {
+    UdtType oldUdtType = udtType;
+    udtType = newUdtType;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DefinePackage.VARIABLE__VARIABLE_NAME, oldVariableName, variableName));
+      eNotify(new ENotificationImpl(this, Notification.SET, DefinePackage.VARIABLE__UDT_TYPE, oldUdtType, udtType));
   }
 
   /**
@@ -363,54 +361,6 @@ public class VariableImpl extends MinimalEObjectImpl.Container implements Variab
    * <!-- end-user-doc -->
    * @generated
    */
-  public Udt getUdt()
-  {
-    return udt;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetUdt(Udt newUdt, NotificationChain msgs)
-  {
-    Udt oldUdt = udt;
-    udt = newUdt;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DefinePackage.VARIABLE__UDT, oldUdt, newUdt);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setUdt(Udt newUdt)
-  {
-    if (newUdt != udt)
-    {
-      NotificationChain msgs = null;
-      if (udt != null)
-        msgs = ((InternalEObject)udt).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DefinePackage.VARIABLE__UDT, null, msgs);
-      if (newUdt != null)
-        msgs = ((InternalEObject)newUdt).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DefinePackage.VARIABLE__UDT, null, msgs);
-      msgs = basicSetUdt(newUdt, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DefinePackage.VARIABLE__UDT, newUdt, newUdt));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -420,8 +370,6 @@ public class VariableImpl extends MinimalEObjectImpl.Container implements Variab
         return basicSetExpression(null, msgs);
       case DefinePackage.VARIABLE__RANGE:
         return basicSetRange(null, msgs);
-      case DefinePackage.VARIABLE__UDT:
-        return basicSetUdt(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -440,16 +388,15 @@ public class VariableImpl extends MinimalEObjectImpl.Container implements Variab
         return isVariantKeyword();
       case DefinePackage.VARIABLE__VARIABLE_TYPE:
         return getVariableType();
-      case DefinePackage.VARIABLE__VARIABLE_NAME:
-        return getVariableName();
+      case DefinePackage.VARIABLE__UDT_TYPE:
+        if (resolve) return getUdtType();
+        return basicGetUdtType();
       case DefinePackage.VARIABLE__EXPRESSION:
         return getExpression();
       case DefinePackage.VARIABLE__RANGE:
         return getRange();
       case DefinePackage.VARIABLE__NEXT_VARIABLE:
         return isNextVariable();
-      case DefinePackage.VARIABLE__UDT:
-        return getUdt();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -470,8 +417,8 @@ public class VariableImpl extends MinimalEObjectImpl.Container implements Variab
       case DefinePackage.VARIABLE__VARIABLE_TYPE:
         setVariableType((BasicType)newValue);
         return;
-      case DefinePackage.VARIABLE__VARIABLE_NAME:
-        setVariableName((String)newValue);
+      case DefinePackage.VARIABLE__UDT_TYPE:
+        setUdtType((UdtType)newValue);
         return;
       case DefinePackage.VARIABLE__EXPRESSION:
         setExpression((Expression)newValue);
@@ -481,9 +428,6 @@ public class VariableImpl extends MinimalEObjectImpl.Container implements Variab
         return;
       case DefinePackage.VARIABLE__NEXT_VARIABLE:
         setNextVariable((Boolean)newValue);
-        return;
-      case DefinePackage.VARIABLE__UDT:
-        setUdt((Udt)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -505,8 +449,8 @@ public class VariableImpl extends MinimalEObjectImpl.Container implements Variab
       case DefinePackage.VARIABLE__VARIABLE_TYPE:
         setVariableType(VARIABLE_TYPE_EDEFAULT);
         return;
-      case DefinePackage.VARIABLE__VARIABLE_NAME:
-        setVariableName(VARIABLE_NAME_EDEFAULT);
+      case DefinePackage.VARIABLE__UDT_TYPE:
+        setUdtType((UdtType)null);
         return;
       case DefinePackage.VARIABLE__EXPRESSION:
         setExpression((Expression)null);
@@ -516,9 +460,6 @@ public class VariableImpl extends MinimalEObjectImpl.Container implements Variab
         return;
       case DefinePackage.VARIABLE__NEXT_VARIABLE:
         setNextVariable(NEXT_VARIABLE_EDEFAULT);
-        return;
-      case DefinePackage.VARIABLE__UDT:
-        setUdt((Udt)null);
         return;
     }
     super.eUnset(featureID);
@@ -538,16 +479,14 @@ public class VariableImpl extends MinimalEObjectImpl.Container implements Variab
         return variantKeyword != VARIANT_KEYWORD_EDEFAULT;
       case DefinePackage.VARIABLE__VARIABLE_TYPE:
         return variableType != VARIABLE_TYPE_EDEFAULT;
-      case DefinePackage.VARIABLE__VARIABLE_NAME:
-        return VARIABLE_NAME_EDEFAULT == null ? variableName != null : !VARIABLE_NAME_EDEFAULT.equals(variableName);
+      case DefinePackage.VARIABLE__UDT_TYPE:
+        return udtType != null;
       case DefinePackage.VARIABLE__EXPRESSION:
         return expression != null;
       case DefinePackage.VARIABLE__RANGE:
         return range != null;
       case DefinePackage.VARIABLE__NEXT_VARIABLE:
         return nextVariable != NEXT_VARIABLE_EDEFAULT;
-      case DefinePackage.VARIABLE__UDT:
-        return udt != null;
     }
     return super.eIsSet(featureID);
   }
@@ -567,8 +506,6 @@ public class VariableImpl extends MinimalEObjectImpl.Container implements Variab
     result.append(variantKeyword);
     result.append(", variableType: ");
     result.append(variableType);
-    result.append(", variableName: ");
-    result.append(variableName);
     result.append(", nextVariable: ");
     result.append(nextVariable);
     result.append(')');

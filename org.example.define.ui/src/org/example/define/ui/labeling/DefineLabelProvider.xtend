@@ -9,6 +9,8 @@ import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider
 import org.example.define.define.Inout
 import org.example.define.define.Input
 import org.example.define.define.Output
+import org.example.define.define.Udt
+import org.example.define.define.Variables
 import org.example.define.define.Variable
 
 /**
@@ -30,13 +32,14 @@ class DefineLabelProvider extends DefaultEObjectLabelProvider {
 
 	def text(Inout io) { "inout" }
 
-	def text(Variable v) {
-		if (v.udt !== null)
-			"udt " + v.udt.udtName + " of type " + v.udt.udtTypes.udtTypeName
-		else
-			v.variableName + " : " + v.trueVariableType
+	def text(Variables v) {
+		if (v instanceof Udt)
+			"udt " + v.name + " of type " + v.udtType.name
+		else if (v instanceof Variable && (v as Variable).udtType !== null) {
+			"udt " + v.name + " of type " + (v as Variable).udtType.name
+		} else
+			v.name + " : " + v.trueVariableType  
 	}
-
 
 //	def image(Greeting ele) {
 //		'Greeting.gif'

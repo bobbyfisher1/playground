@@ -14,7 +14,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -22,7 +21,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.example.define.define.DefinePackage;
 import org.example.define.define.Udt;
 import org.example.define.define.UdtType;
-import org.example.define.define.Variable;
+import org.example.define.define.Variables;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,44 +31,23 @@ import org.example.define.define.Variable;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.example.define.define.impl.UdtImpl#getUdtName <em>Udt Name</em>}</li>
- *   <li>{@link org.example.define.define.impl.UdtImpl#getUdtTypes <em>Udt Types</em>}</li>
+ *   <li>{@link org.example.define.define.impl.UdtImpl#getUdtType <em>Udt Type</em>}</li>
  *   <li>{@link org.example.define.define.impl.UdtImpl#getUdtVariables <em>Udt Variables</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class UdtImpl extends MinimalEObjectImpl.Container implements Udt
+public class UdtImpl extends VariablesImpl implements Udt
 {
   /**
-   * The default value of the '{@link #getUdtName() <em>Udt Name</em>}' attribute.
+   * The cached value of the '{@link #getUdtType() <em>Udt Type</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getUdtName()
+   * @see #getUdtType()
    * @generated
    * @ordered
    */
-  protected static final String UDT_NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getUdtName() <em>Udt Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getUdtName()
-   * @generated
-   * @ordered
-   */
-  protected String udtName = UDT_NAME_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getUdtTypes() <em>Udt Types</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getUdtTypes()
-   * @generated
-   * @ordered
-   */
-  protected UdtType udtTypes;
+  protected UdtType udtType;
 
   /**
    * The cached value of the '{@link #getUdtVariables() <em>Udt Variables</em>}' containment reference list.
@@ -79,7 +57,7 @@ public class UdtImpl extends MinimalEObjectImpl.Container implements Udt
    * @generated
    * @ordered
    */
-  protected EList<Variable> udtVariables;
+  protected EList<Variables> udtVariables;
 
   /**
    * <!-- begin-user-doc -->
@@ -107,9 +85,9 @@ public class UdtImpl extends MinimalEObjectImpl.Container implements Udt
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getUdtName()
+  public UdtType getUdtType()
   {
-    return udtName;
+    return udtType;
   }
 
   /**
@@ -117,36 +95,13 @@ public class UdtImpl extends MinimalEObjectImpl.Container implements Udt
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setUdtName(String newUdtName)
+  public NotificationChain basicSetUdtType(UdtType newUdtType, NotificationChain msgs)
   {
-    String oldUdtName = udtName;
-    udtName = newUdtName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DefinePackage.UDT__UDT_NAME, oldUdtName, udtName));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public UdtType getUdtTypes()
-  {
-    return udtTypes;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetUdtTypes(UdtType newUdtTypes, NotificationChain msgs)
-  {
-    UdtType oldUdtTypes = udtTypes;
-    udtTypes = newUdtTypes;
+    UdtType oldUdtType = udtType;
+    udtType = newUdtType;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DefinePackage.UDT__UDT_TYPES, oldUdtTypes, newUdtTypes);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DefinePackage.UDT__UDT_TYPE, oldUdtType, newUdtType);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -157,20 +112,20 @@ public class UdtImpl extends MinimalEObjectImpl.Container implements Udt
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setUdtTypes(UdtType newUdtTypes)
+  public void setUdtType(UdtType newUdtType)
   {
-    if (newUdtTypes != udtTypes)
+    if (newUdtType != udtType)
     {
       NotificationChain msgs = null;
-      if (udtTypes != null)
-        msgs = ((InternalEObject)udtTypes).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DefinePackage.UDT__UDT_TYPES, null, msgs);
-      if (newUdtTypes != null)
-        msgs = ((InternalEObject)newUdtTypes).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DefinePackage.UDT__UDT_TYPES, null, msgs);
-      msgs = basicSetUdtTypes(newUdtTypes, msgs);
+      if (udtType != null)
+        msgs = ((InternalEObject)udtType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DefinePackage.UDT__UDT_TYPE, null, msgs);
+      if (newUdtType != null)
+        msgs = ((InternalEObject)newUdtType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DefinePackage.UDT__UDT_TYPE, null, msgs);
+      msgs = basicSetUdtType(newUdtType, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DefinePackage.UDT__UDT_TYPES, newUdtTypes, newUdtTypes));
+      eNotify(new ENotificationImpl(this, Notification.SET, DefinePackage.UDT__UDT_TYPE, newUdtType, newUdtType));
   }
 
   /**
@@ -178,11 +133,11 @@ public class UdtImpl extends MinimalEObjectImpl.Container implements Udt
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Variable> getUdtVariables()
+  public EList<Variables> getUdtVariables()
   {
     if (udtVariables == null)
     {
-      udtVariables = new EObjectContainmentEList<Variable>(Variable.class, this, DefinePackage.UDT__UDT_VARIABLES);
+      udtVariables = new EObjectContainmentEList<Variables>(Variables.class, this, DefinePackage.UDT__UDT_VARIABLES);
     }
     return udtVariables;
   }
@@ -197,8 +152,8 @@ public class UdtImpl extends MinimalEObjectImpl.Container implements Udt
   {
     switch (featureID)
     {
-      case DefinePackage.UDT__UDT_TYPES:
-        return basicSetUdtTypes(null, msgs);
+      case DefinePackage.UDT__UDT_TYPE:
+        return basicSetUdtType(null, msgs);
       case DefinePackage.UDT__UDT_VARIABLES:
         return ((InternalEList<?>)getUdtVariables()).basicRemove(otherEnd, msgs);
     }
@@ -215,10 +170,8 @@ public class UdtImpl extends MinimalEObjectImpl.Container implements Udt
   {
     switch (featureID)
     {
-      case DefinePackage.UDT__UDT_NAME:
-        return getUdtName();
-      case DefinePackage.UDT__UDT_TYPES:
-        return getUdtTypes();
+      case DefinePackage.UDT__UDT_TYPE:
+        return getUdtType();
       case DefinePackage.UDT__UDT_VARIABLES:
         return getUdtVariables();
     }
@@ -236,15 +189,12 @@ public class UdtImpl extends MinimalEObjectImpl.Container implements Udt
   {
     switch (featureID)
     {
-      case DefinePackage.UDT__UDT_NAME:
-        setUdtName((String)newValue);
-        return;
-      case DefinePackage.UDT__UDT_TYPES:
-        setUdtTypes((UdtType)newValue);
+      case DefinePackage.UDT__UDT_TYPE:
+        setUdtType((UdtType)newValue);
         return;
       case DefinePackage.UDT__UDT_VARIABLES:
         getUdtVariables().clear();
-        getUdtVariables().addAll((Collection<? extends Variable>)newValue);
+        getUdtVariables().addAll((Collection<? extends Variables>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -260,11 +210,8 @@ public class UdtImpl extends MinimalEObjectImpl.Container implements Udt
   {
     switch (featureID)
     {
-      case DefinePackage.UDT__UDT_NAME:
-        setUdtName(UDT_NAME_EDEFAULT);
-        return;
-      case DefinePackage.UDT__UDT_TYPES:
-        setUdtTypes((UdtType)null);
+      case DefinePackage.UDT__UDT_TYPE:
+        setUdtType((UdtType)null);
         return;
       case DefinePackage.UDT__UDT_VARIABLES:
         getUdtVariables().clear();
@@ -283,31 +230,12 @@ public class UdtImpl extends MinimalEObjectImpl.Container implements Udt
   {
     switch (featureID)
     {
-      case DefinePackage.UDT__UDT_NAME:
-        return UDT_NAME_EDEFAULT == null ? udtName != null : !UDT_NAME_EDEFAULT.equals(udtName);
-      case DefinePackage.UDT__UDT_TYPES:
-        return udtTypes != null;
+      case DefinePackage.UDT__UDT_TYPE:
+        return udtType != null;
       case DefinePackage.UDT__UDT_VARIABLES:
         return udtVariables != null && !udtVariables.isEmpty();
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (udtName: ");
-    result.append(udtName);
-    result.append(')');
-    return result.toString();
   }
 
 } //UdtImpl
