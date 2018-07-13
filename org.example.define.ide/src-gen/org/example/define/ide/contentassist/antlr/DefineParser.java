@@ -32,7 +32,7 @@ public class DefineParser extends AbstractContentAssistParser {
 		
 		private static void init(ImmutableMap.Builder<AbstractElement, String> builder, DefineGrammarAccess grammarAccess) {
 			builder.put(grammarAccess.getVariablesAccess().getAlternatives(), "rule__Variables__Alternatives");
-			builder.put(grammarAccess.getVariableAccess().getAlternatives_6(), "rule__Variable__Alternatives_6");
+			builder.put(grammarAccess.getVariableAccess().getAlternatives_5(), "rule__Variable__Alternatives_5");
 			builder.put(grammarAccess.getEqualityAccess().getOpAlternatives_1_1_0(), "rule__Equality__OpAlternatives_1_1_0");
 			builder.put(grammarAccess.getComparisonAccess().getOpAlternatives_1_1_0(), "rule__Comparison__OpAlternatives_1_1_0");
 			builder.put(grammarAccess.getPlusOrMinusAccess().getAlternatives_1_0(), "rule__PlusOrMinus__Alternatives_1_0");
@@ -46,9 +46,10 @@ public class DefineParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getOutputAccess().getGroup(), "rule__Output__Group__0");
 			builder.put(grammarAccess.getInoutAccess().getGroup(), "rule__Inout__Group__0");
 			builder.put(grammarAccess.getVariableAccess().getGroup(), "rule__Variable__Group__0");
-			builder.put(grammarAccess.getVariableAccess().getGroup_5(), "rule__Variable__Group_5__0");
-			builder.put(grammarAccess.getVariableAccess().getGroup_5_2(), "rule__Variable__Group_5_2__0");
+			builder.put(grammarAccess.getVariableAccess().getGroup_4(), "rule__Variable__Group_4__0");
+			builder.put(grammarAccess.getVariableAccess().getGroup_4_2(), "rule__Variable__Group_4_2__0");
 			builder.put(grammarAccess.getUdtAccess().getGroup(), "rule__Udt__Group__0");
+			builder.put(grammarAccess.getUdtRefAccess().getGroup(), "rule__UdtRef__Group__0");
 			builder.put(grammarAccess.getOrAccess().getGroup(), "rule__Or__Group__0");
 			builder.put(grammarAccess.getOrAccess().getGroup_1(), "rule__Or__Group_1__0");
 			builder.put(grammarAccess.getAndAccess().getGroup(), "rule__And__Group__0");
@@ -82,14 +83,16 @@ public class DefineParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getInoutAccess().getInoutVariablesAssignment_2(), "rule__Inout__InoutVariablesAssignment_2");
 			builder.put(grammarAccess.getVariableAccess().getVariantKeywordAssignment_1(), "rule__Variable__VariantKeywordAssignment_1");
 			builder.put(grammarAccess.getVariableAccess().getVariableTypeAssignment_2(), "rule__Variable__VariableTypeAssignment_2");
-			builder.put(grammarAccess.getVariableAccess().getUdtTypeAssignment_3(), "rule__Variable__UdtTypeAssignment_3");
-			builder.put(grammarAccess.getVariableAccess().getNameAssignment_4(), "rule__Variable__NameAssignment_4");
-			builder.put(grammarAccess.getVariableAccess().getExpressionAssignment_5_1(), "rule__Variable__ExpressionAssignment_5_1");
-			builder.put(grammarAccess.getVariableAccess().getRangeAssignment_5_2_1(), "rule__Variable__RangeAssignment_5_2_1");
-			builder.put(grammarAccess.getVariableAccess().getNextVariableAssignment_6_1(), "rule__Variable__NextVariableAssignment_6_1");
-			builder.put(grammarAccess.getUdtAccess().getNameAssignment_2(), "rule__Udt__NameAssignment_2");
-			builder.put(grammarAccess.getUdtAccess().getUdtTypeAssignment_4(), "rule__Udt__UdtTypeAssignment_4");
-			builder.put(grammarAccess.getUdtAccess().getUdtVariablesAssignment_7(), "rule__Udt__UdtVariablesAssignment_7");
+			builder.put(grammarAccess.getVariableAccess().getNameAssignment_3(), "rule__Variable__NameAssignment_3");
+			builder.put(grammarAccess.getVariableAccess().getExpressionAssignment_4_1(), "rule__Variable__ExpressionAssignment_4_1");
+			builder.put(grammarAccess.getVariableAccess().getRangeAssignment_4_2_1(), "rule__Variable__RangeAssignment_4_2_1");
+			builder.put(grammarAccess.getVariableAccess().getNextVariableAssignment_5_1(), "rule__Variable__NextVariableAssignment_5_1");
+			builder.put(grammarAccess.getUdtAccess().getNameAssignment_1(), "rule__Udt__NameAssignment_1");
+			builder.put(grammarAccess.getUdtAccess().getUdtTypeAssignment_3(), "rule__Udt__UdtTypeAssignment_3");
+			builder.put(grammarAccess.getUdtAccess().getUdtVariablesAssignment_6(), "rule__Udt__UdtVariablesAssignment_6");
+			builder.put(grammarAccess.getUdtRefAccess().getUdtTypeAssignment_0(), "rule__UdtRef__UdtTypeAssignment_0");
+			builder.put(grammarAccess.getUdtRefAccess().getNameAssignment_1(), "rule__UdtRef__NameAssignment_1");
+			builder.put(grammarAccess.getUdtRefAccess().getUdtVariablesAssignment_2(), "rule__UdtRef__UdtVariablesAssignment_2");
 			builder.put(grammarAccess.getUdtTypeAccess().getNameAssignment(), "rule__UdtType__NameAssignment");
 			builder.put(grammarAccess.getOrAccess().getRightAssignment_1_2(), "rule__Or__RightAssignment_1_2");
 			builder.put(grammarAccess.getAndAccess().getRightAssignment_1_2(), "rule__And__RightAssignment_1_2");

@@ -30,7 +30,6 @@ import org.example.define.define.Not;
 import org.example.define.define.Or;
 import org.example.define.define.Plus;
 import org.example.define.define.Udt;
-import org.example.define.define.UdtType;
 import org.example.define.define.Variable;
 import org.example.define.define.VariableRef;
 import org.example.define.define.Variables;
@@ -151,27 +150,29 @@ public class DefineValidator extends AbstractDefineValidator {
   
   @Check
   public void checkNoDuplicateUdtTypesIO(final DirectionBlock directionblock) {
-    HashMultimap<String, Variables> multiMap = HashMultimap.<String, Variables>create();
+    HashMultimap<String, Udt> multiMap = HashMultimap.<String, Udt>create();
     final EList<Variables> in = directionblock.getInput().getInputVariables();
     final EList<Variables> out = directionblock.getOutput().getOutputVariables();
     for (final Variables e : in) {
       if ((e instanceof Udt)) {
-        this.checkNoDuplicateUdtTypes(((Udt)e), multiMap);
+        multiMap.put(((Udt)e).getUdtType().getName(), ((Udt)e));
+        this.checkNoDuplicateUdtTypes(((Udt)e));
       }
     }
     for (final Variables e_1 : out) {
       if ((e_1 instanceof Udt)) {
-        this.checkNoDuplicateUdtTypes(((Udt)e_1), multiMap);
+        multiMap.put(((Udt)e_1).getUdtType().getName(), ((Udt)e_1));
+        this.checkNoDuplicateUdtTypes(((Udt)e_1));
       }
     }
-    Set<Map.Entry<String, Collection<Variables>>> _entrySet = multiMap.asMap().entrySet();
-    for (final Map.Entry<String, Collection<Variables>> entry : _entrySet) {
+    Set<Map.Entry<String, Collection<Udt>>> _entrySet = multiMap.asMap().entrySet();
+    for (final Map.Entry<String, Collection<Udt>> entry : _entrySet) {
       {
-        final Collection<Variables> duplicates = entry.getValue();
+        final Collection<Udt> duplicates = entry.getValue();
         int _size = duplicates.size();
         boolean _greaterThan = (_size > 1);
         if (_greaterThan) {
-          for (final Variables d : duplicates) {
+          for (final Udt d : duplicates) {
             String _name = ((Udt) d).getUdtType().getName();
             String _plus = ("Multiple udtType \'" + _name);
             String _plus_1 = (_plus + "\'");
@@ -185,33 +186,36 @@ public class DefineValidator extends AbstractDefineValidator {
   
   @Check
   public void checkNoDuplicateUdtTypesIOInout(final DirectionBlock directionblock) {
-    HashMultimap<String, Variables> multiMap = HashMultimap.<String, Variables>create();
+    HashMultimap<String, Udt> multiMap = HashMultimap.<String, Udt>create();
     final EList<Variables> in = directionblock.getInput().getInputVariables();
     final EList<Variables> out = directionblock.getOutput().getOutputVariables();
     final EList<Variables> inout = directionblock.getInout().getInoutVariables();
     for (final Variables e : in) {
       if ((e instanceof Udt)) {
-        this.checkNoDuplicateUdtTypes(((Udt)e), multiMap);
+        multiMap.put(((Udt)e).getUdtType().getName(), ((Udt)e));
+        this.checkNoDuplicateUdtTypes(((Udt)e));
       }
     }
     for (final Variables e_1 : out) {
       if ((e_1 instanceof Udt)) {
-        this.checkNoDuplicateUdtTypes(((Udt)e_1), multiMap);
+        multiMap.put(((Udt)e_1).getUdtType().getName(), ((Udt)e_1));
+        this.checkNoDuplicateUdtTypes(((Udt)e_1));
       }
     }
     for (final Variables e_2 : inout) {
       if ((e_2 instanceof Udt)) {
-        this.checkNoDuplicateUdtTypes(((Udt)e_2), multiMap);
+        multiMap.put(((Udt)e_2).getUdtType().getName(), ((Udt)e_2));
+        this.checkNoDuplicateUdtTypes(((Udt)e_2));
       }
     }
-    Set<Map.Entry<String, Collection<Variables>>> _entrySet = multiMap.asMap().entrySet();
-    for (final Map.Entry<String, Collection<Variables>> entry : _entrySet) {
+    Set<Map.Entry<String, Collection<Udt>>> _entrySet = multiMap.asMap().entrySet();
+    for (final Map.Entry<String, Collection<Udt>> entry : _entrySet) {
       {
-        final Collection<Variables> duplicates = entry.getValue();
+        final Collection<Udt> duplicates = entry.getValue();
         int _size = duplicates.size();
         boolean _greaterThan = (_size > 1);
         if (_greaterThan) {
-          for (final Variables d : duplicates) {
+          for (final Udt d : duplicates) {
             String _name = ((Udt) d).getUdtType().getName();
             String _plus = ("Multiple udtType \'" + _name);
             String _plus_1 = (_plus + "\'");
@@ -476,13 +480,13 @@ public class DefineValidator extends AbstractDefineValidator {
     }
   }
   
-  public void checkNoDuplicateUdtTypes(final Udt udt, final HashMultimap<String, Variables> multiMap) {
-    multiMap.put(udt.getUdtType().getName(), udt);
+  public void checkNoDuplicateUdtTypes(final Udt udt) {
+    HashMultimap<String, Udt> multiMap = HashMultimap.<String, Udt>create();
     final EList<Variables> udts = udt.getUdtVariables();
     for (final Variables e : udts) {
       if ((e instanceof Udt)) {
-        multiMap.put(((Udt)e).getUdtType().getName(), e);
-        this.checkNoDuplicateUdtTypes(((Udt)e), multiMap);
+        multiMap.put(((Udt)e).getUdtType().getName(), ((Udt)e));
+        this.checkNoDuplicateUdtTypes(((Udt)e));
       }
     }
   }
@@ -492,7 +496,6 @@ public class DefineValidator extends AbstractDefineValidator {
     int countOfVariableBefore = 0;
     boolean commaBeforeVariable = false;
     BasicType helpingVariableType = BasicType.NULL;
-    boolean inferUdtType = false;
     boolean variantKeyword = false;
     for (final Variables e : variables) {
       {
@@ -505,64 +508,33 @@ public class DefineValidator extends AbstractDefineValidator {
             commaBeforeVariable = false;
           }
           if ((!commaBeforeVariable)) {
-            if (((((Variable)e).getVariableType() == BasicType.NULL) && (((Variable)e).getUdtType() == null))) {
+            BasicType _variableType = ((Variable)e).getVariableType();
+            boolean _tripleEquals = (_variableType == BasicType.NULL);
+            if (_tripleEquals) {
               this.error("Missing variable type", e, DefinePackage.eINSTANCE.getVariable_VariableType(), 
                 DefineValidator.MISSING_VARIABLE_TYPE);
             }
-            if (((((Variable)e).getVariableType() != BasicType.NULL) && (((Variable)e).getUdtType() != null))) {
+          } else {
+            BasicType _variableType_1 = ((Variable)e).getVariableType();
+            boolean _tripleEquals_1 = (_variableType_1 == BasicType.NULL);
+            if (_tripleEquals_1) {
+              ((Variable)e).setVariableType(helpingVariableType);
+            } else {
               this.error("Multiple type definition", e, DefinePackage.eINSTANCE.getVariable_VariableType(), 
                 DefineValidator.MULTIPLE_TYPE_DEFINITION);
             }
-          } else {
-            if (((!inferUdtType) && (((Variable)e).getUdtType() == null))) {
-              BasicType _variableType = ((Variable)e).getVariableType();
-              boolean _tripleEquals = (_variableType == BasicType.NULL);
-              if (_tripleEquals) {
-                ((Variable)e).setVariableType(helpingVariableType);
-              } else {
-                this.error("Multiple type definition", e, DefinePackage.eINSTANCE.getVariable_VariableType(), 
-                  DefineValidator.MULTIPLE_TYPE_DEFINITION);
-              }
-            } else {
-              if (inferUdtType) {
-                UdtType _udtType = ((Variable)e).getUdtType();
-                boolean _tripleEquals_1 = (_udtType == null);
-                if (_tripleEquals_1) {
-                  Variables _get = ((Variables[])Conversions.unwrapArray(variables, Variables.class))[countOfVariableBefore];
-                  ((Variable)e).setUdtType(((Variable) _get).getUdtType());
-                } else {
-                  this.error("Multiple type definition", e, DefinePackage.eINSTANCE.getVariable_UdtType(), 
-                    DefineValidator.MULTIPLE_TYPE_DEFINITION);
-                }
-              }
-            }
-            if (variantKeyword) {
-              ((Variable)e).setVariantKeyword(true);
-            }
+            ((Variable)e).setVariantKeyword(variantKeyword);
           }
           boolean _isNextVariable = ((Variable)e).isNextVariable();
           if (_isNextVariable) {
             commaBeforeVariable = true;
             countOfVariableBefore = count;
-            UdtType _udtType_1 = ((Variable)e).getUdtType();
-            boolean _tripleEquals_2 = (_udtType_1 == null);
-            if (_tripleEquals_2) {
-              helpingVariableType = ((Variable)e).getVariableType();
-              inferUdtType = false;
-            } else {
-              inferUdtType = true;
-              helpingVariableType = BasicType.NULL;
-            }
-            boolean _isVariantKeyword = ((Variable)e).isVariantKeyword();
-            if (_isVariantKeyword) {
-              variantKeyword = true;
-            }
+            helpingVariableType = ((Variable)e).getVariableType();
           } else {
             commaBeforeVariable = false;
             helpingVariableType = null;
-            inferUdtType = false;
-            variantKeyword = false;
           }
+          variantKeyword = ((Variable)e).isVariantKeyword();
         }
         count++;
       }

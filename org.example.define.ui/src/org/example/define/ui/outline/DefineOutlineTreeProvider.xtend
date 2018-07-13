@@ -7,7 +7,8 @@ import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider
 import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode
 import org.example.define.define.DefineBlock
 import org.example.define.define.Udt
-import org.example.define.define.Variable
+import org.example.define.define.Variables
+import org.example.define.define.UdtRef
 
 /**
  * Customization of the default outline structure.
@@ -15,8 +16,10 @@ import org.example.define.define.Variable
  * See https://www.eclipse.org/Xtext/documentation/310_eclipse_support.html#outline
  */
 class DefineOutlineTreeProvider extends DefaultOutlineTreeProvider {
-	def _isLeaf(Variable v) {
+	def _isLeaf(Variables v) {
 		if (v instanceof Udt)
+			false
+		else if (v instanceof UdtRef)
 			false
 		else
 			true
@@ -25,20 +28,22 @@ class DefineOutlineTreeProvider extends DefaultOutlineTreeProvider {
 	def _createChildren(DocumentRootNode outlineNode, DefineBlock defineBlock) {
 		val in = defineBlock.direction.input
 		val out = defineBlock.direction.output
+
 		createNode(outlineNode, in)
 		createNode(outlineNode, out)
+
 		if (defineBlock.direction.inout !== null) {
 			val inout = defineBlock.direction.inout
 			createNode(outlineNode, inout)
 		}
 
-		for (e : in.inputVariables) {
-			if (e instanceof Udt) {
-				for (f : e.udtVariables) {
-					_createNode(Udt, f)
-				}
-			}
-		}
+//		for (e : in.inputVariables) {
+//			if (e instanceof Udt) {
+//				for (f : e.udtVariables) {
+//					_createNode(Udt, f)
+//				}
+//			}
+//		}
 	}
 
 //	def _createUdtChildren(Abstract) {

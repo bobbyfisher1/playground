@@ -3,8 +3,9 @@
  */
 package org.example.define.services;
 
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import java.util.List;
-
 import org.eclipse.xtext.Action;
 import org.eclipse.xtext.Alternatives;
 import org.eclipse.xtext.Assignment;
@@ -20,11 +21,9 @@ import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.TerminalRule;
 import org.eclipse.xtext.UnorderedGroup;
 import org.eclipse.xtext.common.services.TerminalsGrammarAccess;
+import org.eclipse.xtext.service.AbstractElementFinder.AbstractEnumRuleElementFinder;
 import org.eclipse.xtext.service.AbstractElementFinder.AbstractGrammarElementFinder;
 import org.eclipse.xtext.service.GrammarProvider;
-
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
 
 @Singleton
 public class DefineGrammarAccess extends AbstractGrammarElementFinder {
@@ -205,12 +204,13 @@ public class DefineGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cVariableParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cUdtParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cUdtRefParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
 		//Variables:
-		//	Variable | Udt;
+		//	Variable | Udt | UdtRef;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//Variable | Udt
+		//Variable | Udt | UdtRef
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//Variable
@@ -218,6 +218,9 @@ public class DefineGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//Udt
 		public RuleCall getUdtParserRuleCall_1() { return cUdtParserRuleCall_1; }
+		
+		//UdtRef
+		public RuleCall getUdtRefParserRuleCall_2() { return cUdtRefParserRuleCall_2; }
 	}
 	public class VariableElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.define.Define.Variable");
@@ -227,31 +230,28 @@ public class DefineGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cVariantKeywordVariantKeyword_1_0 = (Keyword)cVariantKeywordAssignment_1.eContents().get(0);
 		private final Assignment cVariableTypeAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cVariableTypeBasicTypeEnumRuleCall_2_0 = (RuleCall)cVariableTypeAssignment_2.eContents().get(0);
-		private final Assignment cUdtTypeAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final CrossReference cUdtTypeUdtTypeCrossReference_3_0 = (CrossReference)cUdtTypeAssignment_3.eContents().get(0);
-		private final RuleCall cUdtTypeUdtTypeIDTerminalRuleCall_3_0_1 = (RuleCall)cUdtTypeUdtTypeCrossReference_3_0.eContents().get(1);
-		private final Assignment cNameAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cNameIDTerminalRuleCall_4_0 = (RuleCall)cNameAssignment_4.eContents().get(0);
-		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final Keyword cEqualsSignKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
-		private final Assignment cExpressionAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
-		private final RuleCall cExpressionExpressionParserRuleCall_5_1_0 = (RuleCall)cExpressionAssignment_5_1.eContents().get(0);
-		private final Group cGroup_5_2 = (Group)cGroup_5.eContents().get(2);
-		private final Keyword cPlusSignSolidusHyphenMinusKeyword_5_2_0 = (Keyword)cGroup_5_2.eContents().get(0);
-		private final Assignment cRangeAssignment_5_2_1 = (Assignment)cGroup_5_2.eContents().get(1);
-		private final RuleCall cRangeExpressionParserRuleCall_5_2_1_0 = (RuleCall)cRangeAssignment_5_2_1.eContents().get(0);
-		private final Alternatives cAlternatives_6 = (Alternatives)cGroup.eContents().get(6);
-		private final Keyword cSemicolonKeyword_6_0 = (Keyword)cAlternatives_6.eContents().get(0);
-		private final Assignment cNextVariableAssignment_6_1 = (Assignment)cAlternatives_6.eContents().get(1);
-		private final Keyword cNextVariableCommaKeyword_6_1_0 = (Keyword)cNextVariableAssignment_6_1.eContents().get(0);
+		private final Assignment cNameAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cNameIDTerminalRuleCall_3_0 = (RuleCall)cNameAssignment_3.eContents().get(0);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cEqualsSignKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cExpressionAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cExpressionExpressionParserRuleCall_4_1_0 = (RuleCall)cExpressionAssignment_4_1.eContents().get(0);
+		private final Group cGroup_4_2 = (Group)cGroup_4.eContents().get(2);
+		private final Keyword cPlusSignSolidusHyphenMinusKeyword_4_2_0 = (Keyword)cGroup_4_2.eContents().get(0);
+		private final Assignment cRangeAssignment_4_2_1 = (Assignment)cGroup_4_2.eContents().get(1);
+		private final RuleCall cRangeExpressionParserRuleCall_4_2_1_0 = (RuleCall)cRangeAssignment_4_2_1.eContents().get(0);
+		private final Alternatives cAlternatives_5 = (Alternatives)cGroup.eContents().get(5);
+		private final Keyword cSemicolonKeyword_5_0 = (Keyword)cAlternatives_5.eContents().get(0);
+		private final Assignment cNextVariableAssignment_5_1 = (Assignment)cAlternatives_5.eContents().get(1);
+		private final Keyword cNextVariableCommaKeyword_5_1_0 = (Keyword)cNextVariableAssignment_5_1.eContents().get(0);
 		
 		//Variable:
-		//	{Variable} variantKeyword?='variant'? variableType=BasicType? udtType=[UdtType]? name=ID ('=' expression=Expression
-		//	('+/-' range=Expression)?)? (';' | nextVariable?=',');
+		//	{Variable} variantKeyword?='variant'? variableType=BasicType? name=ID ('=' expression=Expression ('+/-'
+		//	range=Expression)?)? (';' | nextVariable?=',');
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{Variable} variantKeyword?='variant'? variableType=BasicType? udtType=[UdtType]? name=ID ('=' expression=Expression
-		//('+/-' range=Expression)?)? (';' | nextVariable?=',')
+		//{Variable} variantKeyword?='variant'? variableType=BasicType? name=ID ('=' expression=Expression ('+/-'
+		//range=Expression)?)? (';' | nextVariable?=',')
 		public Group getGroup() { return cGroup; }
 		
 		//{Variable}
@@ -269,117 +269,145 @@ public class DefineGrammarAccess extends AbstractGrammarElementFinder {
 		//BasicType
 		public RuleCall getVariableTypeBasicTypeEnumRuleCall_2_0() { return cVariableTypeBasicTypeEnumRuleCall_2_0; }
 		
-		//udtType=[UdtType]?
-		public Assignment getUdtTypeAssignment_3() { return cUdtTypeAssignment_3; }
-		
-		//[UdtType]
-		public CrossReference getUdtTypeUdtTypeCrossReference_3_0() { return cUdtTypeUdtTypeCrossReference_3_0; }
-		
-		//ID
-		public RuleCall getUdtTypeUdtTypeIDTerminalRuleCall_3_0_1() { return cUdtTypeUdtTypeIDTerminalRuleCall_3_0_1; }
-		
 		//name=ID
-		public Assignment getNameAssignment_4() { return cNameAssignment_4; }
+		public Assignment getNameAssignment_3() { return cNameAssignment_3; }
 		
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_4_0() { return cNameIDTerminalRuleCall_4_0; }
+		public RuleCall getNameIDTerminalRuleCall_3_0() { return cNameIDTerminalRuleCall_3_0; }
 		
 		//('=' expression=Expression ('+/-' range=Expression)?)?
-		public Group getGroup_5() { return cGroup_5; }
+		public Group getGroup_4() { return cGroup_4; }
 		
 		//'='
-		public Keyword getEqualsSignKeyword_5_0() { return cEqualsSignKeyword_5_0; }
+		public Keyword getEqualsSignKeyword_4_0() { return cEqualsSignKeyword_4_0; }
 		
 		//expression=Expression
-		public Assignment getExpressionAssignment_5_1() { return cExpressionAssignment_5_1; }
+		public Assignment getExpressionAssignment_4_1() { return cExpressionAssignment_4_1; }
 		
 		//Expression
-		public RuleCall getExpressionExpressionParserRuleCall_5_1_0() { return cExpressionExpressionParserRuleCall_5_1_0; }
+		public RuleCall getExpressionExpressionParserRuleCall_4_1_0() { return cExpressionExpressionParserRuleCall_4_1_0; }
 		
 		//('+/-' range=Expression)?
-		public Group getGroup_5_2() { return cGroup_5_2; }
+		public Group getGroup_4_2() { return cGroup_4_2; }
 		
 		//'+/-'
-		public Keyword getPlusSignSolidusHyphenMinusKeyword_5_2_0() { return cPlusSignSolidusHyphenMinusKeyword_5_2_0; }
+		public Keyword getPlusSignSolidusHyphenMinusKeyword_4_2_0() { return cPlusSignSolidusHyphenMinusKeyword_4_2_0; }
 		
 		//range=Expression
-		public Assignment getRangeAssignment_5_2_1() { return cRangeAssignment_5_2_1; }
+		public Assignment getRangeAssignment_4_2_1() { return cRangeAssignment_4_2_1; }
 		
 		//Expression
-		public RuleCall getRangeExpressionParserRuleCall_5_2_1_0() { return cRangeExpressionParserRuleCall_5_2_1_0; }
+		public RuleCall getRangeExpressionParserRuleCall_4_2_1_0() { return cRangeExpressionParserRuleCall_4_2_1_0; }
 		
 		//';' | nextVariable?=','
-		public Alternatives getAlternatives_6() { return cAlternatives_6; }
+		public Alternatives getAlternatives_5() { return cAlternatives_5; }
 		
 		//';'
-		public Keyword getSemicolonKeyword_6_0() { return cSemicolonKeyword_6_0; }
+		public Keyword getSemicolonKeyword_5_0() { return cSemicolonKeyword_5_0; }
 		
 		//nextVariable?=','
-		public Assignment getNextVariableAssignment_6_1() { return cNextVariableAssignment_6_1; }
+		public Assignment getNextVariableAssignment_5_1() { return cNextVariableAssignment_5_1; }
 		
 		//','
-		public Keyword getNextVariableCommaKeyword_6_1_0() { return cNextVariableCommaKeyword_6_1_0; }
+		public Keyword getNextVariableCommaKeyword_5_1_0() { return cNextVariableCommaKeyword_5_1_0; }
 	}
 	public class UdtElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.define.Define.Udt");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cUdtAction_0 = (Action)cGroup.eContents().get(0);
-		private final Keyword cUdtKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
-		private final Keyword cLeftParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cUdtTypeAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cUdtTypeUdtTypeParserRuleCall_4_0 = (RuleCall)cUdtTypeAssignment_4.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_5 = (Keyword)cGroup.eContents().get(5);
-		private final Keyword cLeftCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
-		private final Assignment cUdtVariablesAssignment_7 = (Assignment)cGroup.eContents().get(7);
-		private final RuleCall cUdtVariablesVariablesParserRuleCall_7_0 = (RuleCall)cUdtVariablesAssignment_7.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
+		private final Keyword cUdtKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cUdtTypeAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cUdtTypeUdtTypeParserRuleCall_3_0 = (RuleCall)cUdtTypeAssignment_3.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Keyword cLeftCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Assignment cUdtVariablesAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cUdtVariablesVariablesParserRuleCall_6_0 = (RuleCall)cUdtVariablesAssignment_6.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
-		////
-		////	| (udt=Udt);
 		//Udt:
-		//	{Udt} 'udt' name=ID '(' udtType=UdtType ')' '{' udtVariables+=Variables* '}';
+		//	'udt' name=ID '(' udtType=UdtType ')' '{' udtVariables+=Variables* '}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{Udt} 'udt' name=ID '(' udtType=UdtType ')' '{' udtVariables+=Variables* '}'
+		//'udt' name=ID '(' udtType=UdtType ')' '{' udtVariables+=Variables* '}'
 		public Group getGroup() { return cGroup; }
 		
-		//{Udt}
-		public Action getUdtAction_0() { return cUdtAction_0; }
-		
 		//'udt'
-		public Keyword getUdtKeyword_1() { return cUdtKeyword_1; }
+		public Keyword getUdtKeyword_0() { return cUdtKeyword_0; }
 		
 		//name=ID
-		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
+		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
 		
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
+		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 		
 		//'('
-		public Keyword getLeftParenthesisKeyword_3() { return cLeftParenthesisKeyword_3; }
+		public Keyword getLeftParenthesisKeyword_2() { return cLeftParenthesisKeyword_2; }
 		
 		//udtType=UdtType
-		public Assignment getUdtTypeAssignment_4() { return cUdtTypeAssignment_4; }
+		public Assignment getUdtTypeAssignment_3() { return cUdtTypeAssignment_3; }
 		
 		//UdtType
-		public RuleCall getUdtTypeUdtTypeParserRuleCall_4_0() { return cUdtTypeUdtTypeParserRuleCall_4_0; }
+		public RuleCall getUdtTypeUdtTypeParserRuleCall_3_0() { return cUdtTypeUdtTypeParserRuleCall_3_0; }
 		
 		//')'
-		public Keyword getRightParenthesisKeyword_5() { return cRightParenthesisKeyword_5; }
+		public Keyword getRightParenthesisKeyword_4() { return cRightParenthesisKeyword_4; }
 		
 		//'{'
-		public Keyword getLeftCurlyBracketKeyword_6() { return cLeftCurlyBracketKeyword_6; }
+		public Keyword getLeftCurlyBracketKeyword_5() { return cLeftCurlyBracketKeyword_5; }
 		
 		//udtVariables+=Variables*
-		public Assignment getUdtVariablesAssignment_7() { return cUdtVariablesAssignment_7; }
+		public Assignment getUdtVariablesAssignment_6() { return cUdtVariablesAssignment_6; }
 		
 		//Variables
-		public RuleCall getUdtVariablesVariablesParserRuleCall_7_0() { return cUdtVariablesVariablesParserRuleCall_7_0; }
+		public RuleCall getUdtVariablesVariablesParserRuleCall_6_0() { return cUdtVariablesVariablesParserRuleCall_6_0; }
 		
 		//'}'
-		public Keyword getRightCurlyBracketKeyword_8() { return cRightCurlyBracketKeyword_8; }
+		public Keyword getRightCurlyBracketKeyword_7() { return cRightCurlyBracketKeyword_7; }
+	}
+	public class UdtRefElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.define.Define.UdtRef");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cUdtTypeAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final CrossReference cUdtTypeUdtTypeCrossReference_0_0 = (CrossReference)cUdtTypeAssignment_0.eContents().get(0);
+		private final RuleCall cUdtTypeUdtTypeIDTerminalRuleCall_0_0_1 = (RuleCall)cUdtTypeUdtTypeCrossReference_0_0.eContents().get(1);
+		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final Assignment cUdtVariablesAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cUdtVariablesVariablesParserRuleCall_2_0 = (RuleCall)cUdtVariablesAssignment_2.eContents().get(0);
+		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		
+		//UdtRef:
+		//	udtType=[UdtType] name=ID udtVariables+=Variables* ';';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//udtType=[UdtType] name=ID udtVariables+=Variables* ';'
+		public Group getGroup() { return cGroup; }
+		
+		//udtType=[UdtType]
+		public Assignment getUdtTypeAssignment_0() { return cUdtTypeAssignment_0; }
+		
+		//[UdtType]
+		public CrossReference getUdtTypeUdtTypeCrossReference_0_0() { return cUdtTypeUdtTypeCrossReference_0_0; }
+		
+		//ID
+		public RuleCall getUdtTypeUdtTypeIDTerminalRuleCall_0_0_1() { return cUdtTypeUdtTypeIDTerminalRuleCall_0_0_1; }
+		
+		//name=ID
+		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+		
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
+		
+		//udtVariables+=Variables*
+		public Assignment getUdtVariablesAssignment_2() { return cUdtVariablesAssignment_2; }
+		
+		//Variables
+		public RuleCall getUdtVariablesVariablesParserRuleCall_2_0() { return cUdtVariablesVariablesParserRuleCall_2_0; }
+		
+		//';'
+		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
 	}
 	public class UdtTypeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.define.Define.UdtType");
@@ -757,8 +785,9 @@ public class DefineGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cFloatConstantParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
 		
 		//Atomic Expression:
-		//	{IntConstant} value=INT | {StringConstant} value=STRING | {BoolConstant} value=('true' | 'false') | {VariableRef}
-		//	variable=[Variable] | FloatConstant;
+		//	{IntConstant} value=INT
+		//	| {StringConstant} value=STRING
+		//	| {BoolConstant} value=('true' | 'false') | {VariableRef} variable=[Variable] | FloatConstant;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{IntConstant} value=INT | {StringConstant} value=STRING | {BoolConstant} value=('true' | 'false') | {VariableRef}
@@ -921,6 +950,7 @@ public class DefineGrammarAccess extends AbstractGrammarElementFinder {
 	private final VariablesElements pVariables;
 	private final VariableElements pVariable;
 	private final UdtElements pUdt;
+	private final UdtRefElements pUdtRef;
 	private final BasicTypeElements eBasicType;
 	private final UdtTypeElements pUdtType;
 	private final ExpressionElements pExpression;
@@ -951,6 +981,7 @@ public class DefineGrammarAccess extends AbstractGrammarElementFinder {
 		this.pVariables = new VariablesElements();
 		this.pVariable = new VariableElements();
 		this.pUdt = new UdtElements();
+		this.pUdtRef = new UdtRefElements();
 		this.eBasicType = new BasicTypeElements();
 		this.pUdtType = new UdtTypeElements();
 		this.pExpression = new ExpressionElements();
@@ -1043,7 +1074,7 @@ public class DefineGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Variables:
-	//	Variable | Udt;
+	//	Variable | Udt | UdtRef;
 	public VariablesElements getVariablesAccess() {
 		return pVariables;
 	}
@@ -1053,8 +1084,8 @@ public class DefineGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Variable:
-	//	{Variable} variantKeyword?='variant'? variableType=BasicType? udtType=[UdtType]? name=ID ('=' expression=Expression
-	//	('+/-' range=Expression)?)? (';' | nextVariable?=',');
+	//	{Variable} variantKeyword?='variant'? variableType=BasicType? name=ID ('=' expression=Expression ('+/-'
+	//	range=Expression)?)? (';' | nextVariable?=',');
 	public VariableElements getVariableAccess() {
 		return pVariable;
 	}
@@ -1063,16 +1094,24 @@ public class DefineGrammarAccess extends AbstractGrammarElementFinder {
 		return getVariableAccess().getRule();
 	}
 	
-	////
-	////	| (udt=Udt);
 	//Udt:
-	//	{Udt} 'udt' name=ID '(' udtType=UdtType ')' '{' udtVariables+=Variables* '}';
+	//	'udt' name=ID '(' udtType=UdtType ')' '{' udtVariables+=Variables* '}';
 	public UdtElements getUdtAccess() {
 		return pUdt;
 	}
 	
 	public ParserRule getUdtRule() {
 		return getUdtAccess().getRule();
+	}
+	
+	//UdtRef:
+	//	udtType=[UdtType] name=ID udtVariables+=Variables* ';';
+	public UdtRefElements getUdtRefAccess() {
+		return pUdtRef;
+	}
+	
+	public ParserRule getUdtRefRule() {
+		return getUdtRefAccess().getRule();
 	}
 	
 	//enum BasicType:
@@ -1176,8 +1215,9 @@ public class DefineGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Atomic Expression:
-	//	{IntConstant} value=INT | {StringConstant} value=STRING | {BoolConstant} value=('true' | 'false') | {VariableRef}
-	//	variable=[Variable] | FloatConstant;
+	//	{IntConstant} value=INT
+	//	| {StringConstant} value=STRING
+	//	| {BoolConstant} value=('true' | 'false') | {VariableRef} variable=[Variable] | FloatConstant;
 	public AtomicElements getAtomicAccess() {
 		return pAtomic;
 	}

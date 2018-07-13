@@ -96,6 +96,15 @@ public interface DefineFactory extends EFactory
   Udt createUdt();
 
   /**
+   * Returns a new object of class '<em>Udt Ref</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Udt Ref</em>'.
+   * @generated
+   */
+  UdtRef createUdtRef();
+
+  /**
    * Returns a new object of class '<em>Udt Type</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

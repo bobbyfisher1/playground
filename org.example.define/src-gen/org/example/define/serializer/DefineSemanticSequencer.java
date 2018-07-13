@@ -33,6 +33,7 @@ import org.example.define.define.Output;
 import org.example.define.define.Plus;
 import org.example.define.define.StringConstant;
 import org.example.define.define.Udt;
+import org.example.define.define.UdtRef;
 import org.example.define.define.UdtType;
 import org.example.define.define.Variable;
 import org.example.define.define.VariableRef;
@@ -105,6 +106,9 @@ public class DefineSemanticSequencer extends AbstractDelegatingSemanticSequencer
 				return; 
 			case DefinePackage.UDT:
 				sequence_Udt(context, (Udt) semanticObject); 
+				return; 
+			case DefinePackage.UDT_REF:
+				sequence_UdtRef(context, (UdtRef) semanticObject); 
 				return; 
 			case DefinePackage.UDT_TYPE:
 				sequence_UdtType(context, (UdtType) semanticObject); 
@@ -601,6 +605,19 @@ public class DefineSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Contexts:
+	 *     Variables returns UdtRef
+	 *     UdtRef returns UdtRef
+	 *
+	 * Constraint:
+	 *     (udtType=[UdtType|ID] name=ID udtVariables+=Variables*)
+	 */
+	protected void sequence_UdtRef(ISerializationContext context, UdtRef semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     UdtType returns UdtType
 	 *
 	 * Constraint:
@@ -636,14 +653,7 @@ public class DefineSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *     Variable returns Variable
 	 *
 	 * Constraint:
-	 *     (
-	 *         variantKeyword?='variant'? 
-	 *         variableType=BasicType? 
-	 *         udtType=[UdtType|ID]? 
-	 *         name=ID 
-	 *         (expression=Expression range=Expression?)? 
-	 *         nextVariable?=','?
-	 *     )
+	 *     (variantKeyword?='variant'? variableType=BasicType? name=ID (expression=Expression range=Expression?)? nextVariable?=','?)
 	 */
 	protected void sequence_Variable(ISerializationContext context, Variable semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

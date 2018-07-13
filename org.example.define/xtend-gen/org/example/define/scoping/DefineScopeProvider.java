@@ -13,6 +13,7 @@ import org.eclipse.xtext.xbase.lib.Extension;
 import org.example.define.DefineModelUtil;
 import org.example.define.define.DefinePackage;
 import org.example.define.define.Expression;
+import org.example.define.define.UdtRef;
 import org.example.define.define.Variable;
 import org.example.define.scoping.AbstractDefineScopeProvider;
 
@@ -30,8 +31,8 @@ public class DefineScopeProvider extends AbstractDefineScopeProvider {
   
   @Override
   public IScope getScope(final EObject context, final EReference reference) {
-    EReference _variable_UdtType = DefinePackage.eINSTANCE.getVariable_UdtType();
-    boolean _equals = Objects.equal(reference, _variable_UdtType);
+    EReference _udtRef_UdtType = DefinePackage.eINSTANCE.getUdtRef_UdtType();
+    boolean _equals = Objects.equal(reference, _udtRef_UdtType);
     if (_equals) {
       return this.scopeForUdtType(context);
     } else {
@@ -57,6 +58,6 @@ public class DefineScopeProvider extends AbstractDefineScopeProvider {
   }
   
   protected IScope scopeForUdtType(final EObject context) {
-    return Scopes.scopeFor(this._defineModelUtil.udtTypesDefinedBefore(((Variable) context)));
+    return Scopes.scopeFor(this._defineModelUtil.udtTypesDefinedBefore(((UdtRef) context)));
   }
 }

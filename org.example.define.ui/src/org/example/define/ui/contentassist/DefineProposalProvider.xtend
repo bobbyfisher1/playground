@@ -31,10 +31,9 @@ class DefineProposalProvider extends AbstractDefineProposalProvider {
 				model.inoutVariables.filter(Udt).map[udtType]
 			else if (model instanceof Output)
 				model.outputVariables.filter(Udt).map[udtType]
-
+			else if (model instanceof Udt)
+				model.udtVariables.filter(Udt).map[udtType]
 		for (e : udtTypes)
 			acceptor.accept(createCompletionProposal(e.name, e.name + " - UdtType", null, context))
-
 	}
-
 }

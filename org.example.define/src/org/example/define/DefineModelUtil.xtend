@@ -6,6 +6,7 @@ import org.example.define.define.Output
 import org.example.define.define.Udt
 import org.example.define.define.Variable
 import org.example.define.define.VariableRef
+import org.example.define.define.UdtRef
 
 class DefineModelUtil {
 
@@ -30,7 +31,7 @@ class DefineModelUtil {
 		return variablesBefore.toSet
 	}
 
-	def udtTypesDefinedBefore(Variable variable) {
+	def udtTypesDefinedBefore(UdtRef variable) {
 		val container = variable.eContainer
 		val udtTypesBefore = switch (container) {
 			Output:

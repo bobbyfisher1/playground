@@ -11,6 +11,7 @@ import org.example.define.define.Inout;
 import org.example.define.define.Input;
 import org.example.define.define.Output;
 import org.example.define.define.Udt;
+import org.example.define.define.UdtRef;
 import org.example.define.define.Variable;
 import org.example.define.define.Variables;
 import org.example.define.ui.labeling.TypeRepresentation;
@@ -45,25 +46,29 @@ public class DefineLabelProvider extends DefaultEObjectLabelProvider {
   
   public String text(final Variables v) {
     String _xifexpression = null;
-    if ((v instanceof Udt)) {
-      String _name = ((Udt)v).getName();
-      String _plus = ("udt " + _name);
-      String _plus_1 = (_plus + " of type ");
-      String _name_1 = ((Udt)v).getUdtType().getName();
-      _xifexpression = (_plus_1 + _name_1);
+    if ((v instanceof Variable)) {
+      String _name = ((Variable)v).getName();
+      String _plus = (_name + " : ");
+      String _trueVariableType = this._typeRepresentation.trueVariableType(((Variable)v));
+      _xifexpression = (_plus + _trueVariableType);
     } else {
       String _xifexpression_1 = null;
-      if (((v instanceof Variable) && (((Variable) v).getUdtType() != null))) {
-        String _name_2 = v.getName();
-        String _plus_2 = ("udt " + _name_2);
-        String _plus_3 = (_plus_2 + " of type ");
-        String _name_3 = ((Variable) v).getUdtType().getName();
-        _xifexpression_1 = (_plus_3 + _name_3);
+      if ((v instanceof Udt)) {
+        String _name_1 = ((Udt)v).getName();
+        String _plus_1 = ("udt " + _name_1);
+        String _plus_2 = (_plus_1 + " of type ");
+        String _name_2 = ((Udt)v).getUdtType().getName();
+        _xifexpression_1 = (_plus_2 + _name_2);
       } else {
-        String _name_4 = v.getName();
-        String _plus_4 = (_name_4 + " : ");
-        String _trueVariableType = this._typeRepresentation.trueVariableType(v);
-        _xifexpression_1 = (_plus_4 + _trueVariableType);
+        String _xifexpression_2 = null;
+        if ((v instanceof UdtRef)) {
+          String _name_3 = ((UdtRef)v).getName();
+          String _plus_3 = ("udt " + _name_3);
+          String _plus_4 = (_plus_3 + " of type ");
+          String _name_4 = ((UdtRef)v).getUdtType().getName();
+          _xifexpression_2 = (_plus_4 + _name_4);
+        }
+        _xifexpression_1 = _xifexpression_2;
       }
       _xifexpression = _xifexpression_1;
     }

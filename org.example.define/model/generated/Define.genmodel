@@ -39,7 +39,6 @@
     <genClasses ecoreClass="Define.ecore#//Variable">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Define.ecore#//Variable/variantKeyword"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Define.ecore#//Variable/variableType"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Define.ecore#//Variable/udtType"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Define.ecore#//Variable/expression"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Define.ecore#//Variable/range"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Define.ecore#//Variable/nextVariable"/>
@@ -47,6 +46,10 @@
     <genClasses ecoreClass="Define.ecore#//Udt">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Define.ecore#//Udt/udtType"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Define.ecore#//Udt/udtVariables"/>
+    </genClasses>
+    <genClasses ecoreClass="Define.ecore#//UdtRef">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Define.ecore#//UdtRef/udtType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Define.ecore#//UdtRef/udtVariables"/>
     </genClasses>
     <genClasses ecoreClass="Define.ecore#//UdtType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Define.ecore#//UdtType/name"/>

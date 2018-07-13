@@ -11,6 +11,7 @@ import org.eclipse.xtext.testing.validation.ValidationTestHelper
 import org.example.define.define.DefineBlock
 import org.example.define.define.DefinePackage
 import org.example.define.define.Udt
+import org.example.define.define.UdtRef
 import org.example.define.define.Variable
 import org.example.define.validation.DefineValidator
 import org.junit.Test
@@ -29,7 +30,7 @@ class DefineScopeProviderTest {
 	//
 // tests -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//
-	@Test def void testScope() {
+	@Test def void testVariableRefScope() {
 		'''
 			define{
 				input[ 
@@ -37,15 +38,20 @@ class DefineScopeProviderTest {
 					udt b(typeB){}
 					int c=0;
 					udt d(typeD){}
-					int e;
+					typeB e;
+					udt f(typeF){}
 				]
 				output[]
 			}
 		'''.parse => [
 			assertNoErrors
-			direction.input.inputVariables.get(2) as Variable => [
-				assertScope(DefinePackage.eINSTANCE.variable_UdtType, "typeB")
-				expression.assertScope(DefinePackage.eINSTANCE.variableRef_Variable, "a")
+			direction.input.inputVariables => [
+				get(2) as Variable => [
+					expression.assertScope(DefinePackage.eINSTANCE.variableRef_Variable, "a")
+				]
+				get(4) as UdtRef => [
+					assertScope(DefinePackage.eINSTANCE.udtRef_UdtType, "typeB, typeD")
+				]
 			]
 		]
 	}
@@ -59,26 +65,24 @@ class DefineScopeProviderTest {
 					int a;
 					udt b(typeB){}
 					int c = 0;
-					udt d(typeD){
+					typeB d;
+					udt dd(typeDD){
 						int A;
 						udt B(typeBB){}
 						int C=0;
-					}	
+						typeBB D;
+					}
 				}
 			]
 		}'''.parse => [
 			assertNoErrors
 			direction.input.inputVariables.head as Udt => [
-				udtVariables.get(2) as Variable => [
-					assertScope(DefinePackage.eINSTANCE.variable_UdtType, "typeB")
-					assertScope(DefinePackage.eINSTANCE.variableRef_Variable, "a")
-				]
+				udtVariables.get(2) as Variable => [assertScope(DefinePackage.eINSTANCE.variableRef_Variable, "a")]
+				udtVariables.get(3) as UdtRef => [assertScope(DefinePackage.eINSTANCE.udtRef_UdtType, "typeB")]
 				// testing the cascade
-				udtVariables.get(3) as Udt => [
-					udtVariables.get(2) as Variable => [
-						assertScope(DefinePackage.eINSTANCE.variable_UdtType, "typeBB")
-						assertScope(DefinePackage.eINSTANCE.variableRef_Variable, "A")
-					]
+				udtVariables.get(4) as Udt => [
+					udtVariables.get(2) as Variable => [assertScope(DefinePackage.eINSTANCE.variableRef_Variable, "A")]
+					udtVariables.get(3) as UdtRef => [assertScope(DefinePackage.eINSTANCE.udtRef_UdtType, "typeBB")]
 				]
 			]
 		]
@@ -143,6 +147,35 @@ class DefineScopeProviderTest {
 			assertError(DefinePackage.eINSTANCE.variable, DefineValidator.VARIANT_MISMATCH)
 			1.assertEquals(validate.size)
 		]
+	}
+
+	@Test def void testReferencingVariables() {
+		'''
+			define{
+				input[]
+				output[ 
+					udt a(typeA){
+						variant int b = 69 +/- 666;
+					}
+					typeA c;
+				]
+			}
+		'''.parse =>
+		 [assertNoErrors]
+	}
+
+	@Test def void testReferencingVariables2() {
+		'''
+			define{
+				input[]
+				output[ 
+					udt a(typeA){
+						int b;
+					}
+					typeA c.b;
+				]
+			}
+		'''.parse => [assertNoErrors]
 	}
 
 	//

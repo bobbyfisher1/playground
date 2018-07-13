@@ -11,6 +11,7 @@ import org.eclipse.xtext.scoping.Scopes
 import org.example.define.DefineModelUtil
 import org.example.define.define.DefinePackage
 import org.example.define.define.Expression
+import org.example.define.define.UdtRef
 import org.example.define.define.Variable
 
 /**
@@ -24,7 +25,7 @@ class DefineScopeProvider extends AbstractDefineScopeProvider {
 	@Inject extension DefineModelUtil
 
 	override getScope(EObject context, EReference reference) {
-		if (reference == DefinePackage.eINSTANCE.variable_UdtType) {
+		if (reference == DefinePackage.eINSTANCE.udtRef_UdtType) {
 			return scopeForUdtType(context)
 		} else if (reference == DefinePackage.eINSTANCE.variableRef_Variable) {
 			return scopeForVariableRef(context)
@@ -33,17 +34,14 @@ class DefineScopeProvider extends AbstractDefineScopeProvider {
 	}
 
 	def protected IScope scopeForVariableRef(EObject context) {
-//		if (context instanceof VariableRef)
-//			return Scopes.scopeFor(context.variable.variablesDefinedBefore)
 		if (context instanceof Variable)
 			return Scopes.scopeFor(context.variablesDefinedBefore)
 		if (context instanceof Expression) {
 			return Scopes.scopeFor((context.eContainer as Variable).variablesDefinedBefore)
 		}
-
 	}
 
 	def protected IScope scopeForUdtType(EObject context) {
-		return Scopes.scopeFor((context as Variable).udtTypesDefinedBefore)
+		return Scopes.scopeFor((context as UdtRef).udtTypesDefinedBefore)
 	}
 }

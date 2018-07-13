@@ -116,6 +116,11 @@ public class DefineAdapterFactory extends AdapterFactoryImpl
         return createUdtAdapter();
       }
       @Override
+      public Adapter caseUdtRef(UdtRef object)
+      {
+        return createUdtRefAdapter();
+      }
+      @Override
       public Adapter caseUdtType(UdtType object)
       {
         return createUdtTypeAdapter();
@@ -328,6 +333,21 @@ public class DefineAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createUdtAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.example.define.define.UdtRef <em>Udt Ref</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.example.define.define.UdtRef
+   * @generated
+   */
+  public Adapter createUdtRefAdapter()
   {
     return null;
   }

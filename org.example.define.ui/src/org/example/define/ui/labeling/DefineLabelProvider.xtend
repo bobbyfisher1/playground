@@ -12,6 +12,7 @@ import org.example.define.define.Output
 import org.example.define.define.Udt
 import org.example.define.define.Variables
 import org.example.define.define.Variable
+import org.example.define.define.UdtRef
 
 /**
  * Provides labels for EObjects.
@@ -33,12 +34,13 @@ class DefineLabelProvider extends DefaultEObjectLabelProvider {
 	def text(Inout io) { "inout" }
 
 	def text(Variables v) {
-		if (v instanceof Udt)
+		if (v instanceof Variable)
+			v.name + " : " + v.trueVariableType
+		else if (v instanceof Udt)
 			"udt " + v.name + " of type " + v.udtType.name
-		else if (v instanceof Variable && (v as Variable).udtType !== null) {
-			"udt " + v.name + " of type " + (v as Variable).udtType.name
-		} else
-			v.name + " : " + v.trueVariableType  
+		else if (v instanceof UdtRef)
+			"udt " + v.name + " of type " + v.udtType.name
+
 	}
 
 //	def image(Greeting ele) {

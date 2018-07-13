@@ -46,6 +46,15 @@ public class DefineProposalProvider extends AbstractDefineProposalProvider {
             return it.getUdtType();
           };
           _xifexpression_2 = IterableExtensions.<Udt, UdtType>map(Iterables.<Udt>filter(((Output)model).getOutputVariables(), Udt.class), _function_2);
+        } else {
+          Iterable<UdtType> _xifexpression_3 = null;
+          if ((model instanceof Udt)) {
+            final Function1<Udt, UdtType> _function_3 = (Udt it) -> {
+              return it.getUdtType();
+            };
+            _xifexpression_3 = IterableExtensions.<Udt, UdtType>map(Iterables.<Udt>filter(((Udt)model).getUdtVariables(), Udt.class), _function_3);
+          }
+          _xifexpression_2 = _xifexpression_3;
         }
         _xifexpression_1 = _xifexpression_2;
       }

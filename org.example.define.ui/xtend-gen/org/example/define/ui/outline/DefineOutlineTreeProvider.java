@@ -3,7 +3,6 @@
  */
 package org.example.define.ui.outline;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
 import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode;
 import org.example.define.define.DefineBlock;
@@ -11,7 +10,7 @@ import org.example.define.define.Inout;
 import org.example.define.define.Input;
 import org.example.define.define.Output;
 import org.example.define.define.Udt;
-import org.example.define.define.Variable;
+import org.example.define.define.UdtRef;
 import org.example.define.define.Variables;
 
 /**
@@ -21,12 +20,18 @@ import org.example.define.define.Variables;
  */
 @SuppressWarnings("all")
 public class DefineOutlineTreeProvider extends DefaultOutlineTreeProvider {
-  public boolean _isLeaf(final Variable v) {
+  public boolean _isLeaf(final Variables v) {
     boolean _xifexpression = false;
     if ((v instanceof Udt)) {
       _xifexpression = false;
     } else {
-      _xifexpression = true;
+      boolean _xifexpression_1 = false;
+      if ((v instanceof UdtRef)) {
+        _xifexpression_1 = false;
+      } else {
+        _xifexpression_1 = true;
+      }
+      _xifexpression = _xifexpression_1;
     }
     return _xifexpression;
   }
@@ -41,15 +46,6 @@ public class DefineOutlineTreeProvider extends DefaultOutlineTreeProvider {
     if (_tripleNotEquals) {
       final Inout inout = defineBlock.getDirection().getInout();
       this.createNode(outlineNode, inout);
-    }
-    EList<Variables> _inputVariables = in.getInputVariables();
-    for (final Variables e : _inputVariables) {
-      if ((e instanceof Udt)) {
-        EList<Variables> _udtVariables = ((Udt)e).getUdtVariables();
-        for (final Variables f : _udtVariables) {
-          this._createNode(Udt.class, f);
-        }
-      }
     }
   }
 }

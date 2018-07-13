@@ -440,6 +440,15 @@ ruleVariables returns [EObject current=null]
 			$current = $this_Udt_1.current;
 			afterParserOrEnumRuleCall();
 		}
+		    |
+		{
+			newCompositeNode(grammarAccess.getVariablesAccess().getUdtRefParserRuleCall_2());
+		}
+		this_UdtRef_2=ruleUdtRef
+		{
+			$current = $this_UdtRef_2.current;
+			afterParserOrEnumRuleCall();
+		}
 	)
 ;
 
@@ -501,22 +510,9 @@ ruleVariable returns [EObject current=null]
 		)?
 		(
 			(
+				lv_name_3_0=RULE_ID
 				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getVariableRule());
-					}
-				}
-				otherlv_3=RULE_ID
-				{
-					newLeafNode(otherlv_3, grammarAccess.getVariableAccess().getUdtTypeUdtTypeCrossReference_3_0());
-				}
-			)
-		)?
-		(
-			(
-				lv_name_4_0=RULE_ID
-				{
-					newLeafNode(lv_name_4_0, grammarAccess.getVariableAccess().getNameIDTerminalRuleCall_4_0());
+					newLeafNode(lv_name_3_0, grammarAccess.getVariableAccess().getNameIDTerminalRuleCall_3_0());
 				}
 				{
 					if ($current==null) {
@@ -525,22 +521,22 @@ ruleVariable returns [EObject current=null]
 					setWithLastConsumed(
 						$current,
 						"name",
-						lv_name_4_0,
+						lv_name_3_0,
 						"org.eclipse.xtext.common.Terminals.ID");
 				}
 			)
 		)
 		(
-			otherlv_5='='
+			otherlv_4='='
 			{
-				newLeafNode(otherlv_5, grammarAccess.getVariableAccess().getEqualsSignKeyword_5_0());
+				newLeafNode(otherlv_4, grammarAccess.getVariableAccess().getEqualsSignKeyword_4_0());
 			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getVariableAccess().getExpressionExpressionParserRuleCall_5_1_0());
+						newCompositeNode(grammarAccess.getVariableAccess().getExpressionExpressionParserRuleCall_4_1_0());
 					}
-					lv_expression_6_0=ruleExpression
+					lv_expression_5_0=ruleExpression
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getVariableRule());
@@ -548,23 +544,23 @@ ruleVariable returns [EObject current=null]
 						set(
 							$current,
 							"expression",
-							lv_expression_6_0,
+							lv_expression_5_0,
 							"org.example.define.Define.Expression");
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)
 			(
-				otherlv_7='+/-'
+				otherlv_6='+/-'
 				{
-					newLeafNode(otherlv_7, grammarAccess.getVariableAccess().getPlusSignSolidusHyphenMinusKeyword_5_2_0());
+					newLeafNode(otherlv_6, grammarAccess.getVariableAccess().getPlusSignSolidusHyphenMinusKeyword_4_2_0());
 				}
 				(
 					(
 						{
-							newCompositeNode(grammarAccess.getVariableAccess().getRangeExpressionParserRuleCall_5_2_1_0());
+							newCompositeNode(grammarAccess.getVariableAccess().getRangeExpressionParserRuleCall_4_2_1_0());
 						}
-						lv_range_8_0=ruleExpression
+						lv_range_7_0=ruleExpression
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getVariableRule());
@@ -572,7 +568,7 @@ ruleVariable returns [EObject current=null]
 							set(
 								$current,
 								"range",
-								lv_range_8_0,
+								lv_range_7_0,
 								"org.example.define.Define.Expression");
 							afterParserOrEnumRuleCall();
 						}
@@ -581,16 +577,16 @@ ruleVariable returns [EObject current=null]
 			)?
 		)?
 		(
-			otherlv_9=';'
+			otherlv_8=';'
 			{
-				newLeafNode(otherlv_9, grammarAccess.getVariableAccess().getSemicolonKeyword_6_0());
+				newLeafNode(otherlv_8, grammarAccess.getVariableAccess().getSemicolonKeyword_5_0());
 			}
 			    |
 			(
 				(
-					lv_nextVariable_10_0=','
+					lv_nextVariable_9_0=','
 					{
-						newLeafNode(lv_nextVariable_10_0, grammarAccess.getVariableAccess().getNextVariableCommaKeyword_6_1_0());
+						newLeafNode(lv_nextVariable_9_0, grammarAccess.getVariableAccess().getNextVariableCommaKeyword_5_1_0());
 					}
 					{
 						if ($current==null) {
@@ -620,22 +616,15 @@ ruleUdt returns [EObject current=null]
 	leaveRule();
 }:
 	(
-		(
-			{
-				$current = forceCreateModelElement(
-					grammarAccess.getUdtAccess().getUdtAction_0(),
-					$current);
-			}
-		)
-		otherlv_1='udt'
+		otherlv_0='udt'
 		{
-			newLeafNode(otherlv_1, grammarAccess.getUdtAccess().getUdtKeyword_1());
+			newLeafNode(otherlv_0, grammarAccess.getUdtAccess().getUdtKeyword_0());
 		}
 		(
 			(
-				lv_name_2_0=RULE_ID
+				lv_name_1_0=RULE_ID
 				{
-					newLeafNode(lv_name_2_0, grammarAccess.getUdtAccess().getNameIDTerminalRuleCall_2_0());
+					newLeafNode(lv_name_1_0, grammarAccess.getUdtAccess().getNameIDTerminalRuleCall_1_0());
 				}
 				{
 					if ($current==null) {
@@ -644,21 +633,21 @@ ruleUdt returns [EObject current=null]
 					setWithLastConsumed(
 						$current,
 						"name",
-						lv_name_2_0,
+						lv_name_1_0,
 						"org.eclipse.xtext.common.Terminals.ID");
 				}
 			)
 		)
-		otherlv_3='('
+		otherlv_2='('
 		{
-			newLeafNode(otherlv_3, grammarAccess.getUdtAccess().getLeftParenthesisKeyword_3());
+			newLeafNode(otherlv_2, grammarAccess.getUdtAccess().getLeftParenthesisKeyword_2());
 		}
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getUdtAccess().getUdtTypeUdtTypeParserRuleCall_4_0());
+					newCompositeNode(grammarAccess.getUdtAccess().getUdtTypeUdtTypeParserRuleCall_3_0());
 				}
-				lv_udtType_4_0=ruleUdtType
+				lv_udtType_3_0=ruleUdtType
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getUdtRule());
@@ -666,26 +655,26 @@ ruleUdt returns [EObject current=null]
 					set(
 						$current,
 						"udtType",
-						lv_udtType_4_0,
+						lv_udtType_3_0,
 						"org.example.define.Define.UdtType");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)
-		otherlv_5=')'
+		otherlv_4=')'
 		{
-			newLeafNode(otherlv_5, grammarAccess.getUdtAccess().getRightParenthesisKeyword_5());
+			newLeafNode(otherlv_4, grammarAccess.getUdtAccess().getRightParenthesisKeyword_4());
 		}
-		otherlv_6='{'
+		otherlv_5='{'
 		{
-			newLeafNode(otherlv_6, grammarAccess.getUdtAccess().getLeftCurlyBracketKeyword_6());
+			newLeafNode(otherlv_5, grammarAccess.getUdtAccess().getLeftCurlyBracketKeyword_5());
 		}
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getUdtAccess().getUdtVariablesVariablesParserRuleCall_7_0());
+					newCompositeNode(grammarAccess.getUdtAccess().getUdtVariablesVariablesParserRuleCall_6_0());
 				}
-				lv_udtVariables_7_0=ruleVariables
+				lv_udtVariables_6_0=ruleVariables
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getUdtRule());
@@ -693,15 +682,88 @@ ruleUdt returns [EObject current=null]
 					add(
 						$current,
 						"udtVariables",
-						lv_udtVariables_7_0,
+						lv_udtVariables_6_0,
 						"org.example.define.Define.Variables");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)*
-		otherlv_8='}'
+		otherlv_7='}'
 		{
-			newLeafNode(otherlv_8, grammarAccess.getUdtAccess().getRightCurlyBracketKeyword_8());
+			newLeafNode(otherlv_7, grammarAccess.getUdtAccess().getRightCurlyBracketKeyword_7());
+		}
+	)
+;
+
+// Entry rule entryRuleUdtRef
+entryRuleUdtRef returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getUdtRefRule()); }
+	iv_ruleUdtRef=ruleUdtRef
+	{ $current=$iv_ruleUdtRef.current; }
+	EOF;
+
+// Rule UdtRef
+ruleUdtRef returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			(
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getUdtRefRule());
+					}
+				}
+				otherlv_0=RULE_ID
+				{
+					newLeafNode(otherlv_0, grammarAccess.getUdtRefAccess().getUdtTypeUdtTypeCrossReference_0_0());
+				}
+			)
+		)
+		(
+			(
+				lv_name_1_0=RULE_ID
+				{
+					newLeafNode(lv_name_1_0, grammarAccess.getUdtRefAccess().getNameIDTerminalRuleCall_1_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getUdtRefRule());
+					}
+					setWithLastConsumed(
+						$current,
+						"name",
+						lv_name_1_0,
+						"org.eclipse.xtext.common.Terminals.ID");
+				}
+			)
+		)
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getUdtRefAccess().getUdtVariablesVariablesParserRuleCall_2_0());
+				}
+				lv_udtVariables_2_0=ruleVariables
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getUdtRefRule());
+					}
+					add(
+						$current,
+						"udtVariables",
+						lv_udtVariables_2_0,
+						"org.example.define.Define.Variables");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)*
+		otherlv_3=';'
+		{
+			newLeafNode(otherlv_3, grammarAccess.getUdtRefAccess().getSemicolonKeyword_3());
 		}
 	)
 ;

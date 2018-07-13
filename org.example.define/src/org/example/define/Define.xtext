@@ -18,19 +18,17 @@ Inout:
 	name='inout' '[' inoutVariables+=Variables* ']';
 
 Variables:
-	Variable | Udt;
+	Variable | Udt | UdtRef;
 
 Variable:
-	({Variable} variantKeyword?='variant'? variableType=BasicType? udtType=[UdtType]? name=ID
+	({Variable} variantKeyword?='variant'? variableType=BasicType? name=ID
 	('=' expression=Expression ('+/-' range=Expression)?)? (';' | nextVariable?=','));
 
 Udt:
-	('udt' name=ID '(' udtType=UdtType ')' '{' udtVariables+=Variables* '}')
-	| (udtTypeRef=[UdtType] name=ID 
-		
-		(';' | nextVariable?=',')
-		
-	);
+	'udt' name=ID '(' udtType=UdtType ')' '{' udtVariables+=Variables* '}';
+
+UdtRef:
+	udtType=[UdtType] name=ID udtVariables+=Variables* ';';
 
 enum BasicType:
 	NULL='null' | INT='int' | BOOL='bool' | FLOAT='float' | STRINGTYP='string';

@@ -11,6 +11,7 @@ import org.example.define.define.Inout;
 import org.example.define.define.Input;
 import org.example.define.define.Output;
 import org.example.define.define.Udt;
+import org.example.define.define.UdtRef;
 import org.example.define.define.UdtType;
 import org.example.define.define.Variable;
 import org.example.define.define.VariableRef;
@@ -67,7 +68,7 @@ public class DefineModelUtil {
     return IterableExtensions.<Variable>toSet(variablesBefore);
   }
   
-  public Iterable<UdtType> udtTypesDefinedBefore(final Variable variable) {
+  public Iterable<UdtType> udtTypesDefinedBefore(final UdtRef variable) {
     final EObject container = variable.eContainer();
     Iterable<UdtType> _switchResult = null;
     boolean _matched = false;

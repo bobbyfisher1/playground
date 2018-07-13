@@ -34,7 +34,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="Variable" eSuperTypes="#//Variables">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="variantKeyword" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="variableType" eType="#//BasicType"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="udtType" eType="#//UdtType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="#//Expression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="range" eType="#//Expression"
@@ -44,6 +43,11 @@
   <eClassifiers xsi:type="ecore:EClass" name="Udt" eSuperTypes="#//Variables">
     <eStructuralFeatures xsi:type="ecore:EReference" name="udtType" eType="#//UdtType"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="udtVariables" upperBound="-1"
+        eType="#//Variables" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="UdtRef" eSuperTypes="#//Variables">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="udtType" eType="#//UdtType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="udtVariables" upperBound="-1"
         eType="#//Variables" containment="true"/>
   </eClassifiers>

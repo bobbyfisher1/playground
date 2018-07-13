@@ -14,7 +14,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.example.define.define.BasicType;
 import org.example.define.define.DefinePackage;
 import org.example.define.define.Expression;
-import org.example.define.define.UdtType;
 import org.example.define.define.Variable;
 
 /**
@@ -27,7 +26,6 @@ import org.example.define.define.Variable;
  * <ul>
  *   <li>{@link org.example.define.define.impl.VariableImpl#isVariantKeyword <em>Variant Keyword</em>}</li>
  *   <li>{@link org.example.define.define.impl.VariableImpl#getVariableType <em>Variable Type</em>}</li>
- *   <li>{@link org.example.define.define.impl.VariableImpl#getUdtType <em>Udt Type</em>}</li>
  *   <li>{@link org.example.define.define.impl.VariableImpl#getExpression <em>Expression</em>}</li>
  *   <li>{@link org.example.define.define.impl.VariableImpl#getRange <em>Range</em>}</li>
  *   <li>{@link org.example.define.define.impl.VariableImpl#isNextVariable <em>Next Variable</em>}</li>
@@ -78,16 +76,6 @@ public class VariableImpl extends VariablesImpl implements Variable
   protected BasicType variableType = VARIABLE_TYPE_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getUdtType() <em>Udt Type</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getUdtType()
-   * @generated
-   * @ordered
-   */
-  protected UdtType udtType;
-
-  /**
    * The cached value of the '{@link #getExpression() <em>Expression</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -130,9 +118,9 @@ public class VariableImpl extends VariablesImpl implements Variable
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
+   * @generated NOT
    */
-  protected VariableImpl()
+  public VariableImpl()
   {
     super();
   }
@@ -192,49 +180,6 @@ public class VariableImpl extends VariablesImpl implements Variable
     variableType = newVariableType == null ? VARIABLE_TYPE_EDEFAULT : newVariableType;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, DefinePackage.VARIABLE__VARIABLE_TYPE, oldVariableType, variableType));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public UdtType getUdtType()
-  {
-    if (udtType != null && udtType.eIsProxy())
-    {
-      InternalEObject oldUdtType = (InternalEObject)udtType;
-      udtType = (UdtType)eResolveProxy(oldUdtType);
-      if (udtType != oldUdtType)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, DefinePackage.VARIABLE__UDT_TYPE, oldUdtType, udtType));
-      }
-    }
-    return udtType;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public UdtType basicGetUdtType()
-  {
-    return udtType;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setUdtType(UdtType newUdtType)
-  {
-    UdtType oldUdtType = udtType;
-    udtType = newUdtType;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DefinePackage.VARIABLE__UDT_TYPE, oldUdtType, udtType));
   }
 
   /**
@@ -388,9 +333,6 @@ public class VariableImpl extends VariablesImpl implements Variable
         return isVariantKeyword();
       case DefinePackage.VARIABLE__VARIABLE_TYPE:
         return getVariableType();
-      case DefinePackage.VARIABLE__UDT_TYPE:
-        if (resolve) return getUdtType();
-        return basicGetUdtType();
       case DefinePackage.VARIABLE__EXPRESSION:
         return getExpression();
       case DefinePackage.VARIABLE__RANGE:
@@ -416,9 +358,6 @@ public class VariableImpl extends VariablesImpl implements Variable
         return;
       case DefinePackage.VARIABLE__VARIABLE_TYPE:
         setVariableType((BasicType)newValue);
-        return;
-      case DefinePackage.VARIABLE__UDT_TYPE:
-        setUdtType((UdtType)newValue);
         return;
       case DefinePackage.VARIABLE__EXPRESSION:
         setExpression((Expression)newValue);
@@ -449,9 +388,6 @@ public class VariableImpl extends VariablesImpl implements Variable
       case DefinePackage.VARIABLE__VARIABLE_TYPE:
         setVariableType(VARIABLE_TYPE_EDEFAULT);
         return;
-      case DefinePackage.VARIABLE__UDT_TYPE:
-        setUdtType((UdtType)null);
-        return;
       case DefinePackage.VARIABLE__EXPRESSION:
         setExpression((Expression)null);
         return;
@@ -479,8 +415,6 @@ public class VariableImpl extends VariablesImpl implements Variable
         return variantKeyword != VARIANT_KEYWORD_EDEFAULT;
       case DefinePackage.VARIABLE__VARIABLE_TYPE:
         return variableType != VARIABLE_TYPE_EDEFAULT;
-      case DefinePackage.VARIABLE__UDT_TYPE:
-        return udtType != null;
       case DefinePackage.VARIABLE__EXPRESSION:
         return expression != null;
       case DefinePackage.VARIABLE__RANGE:

@@ -74,6 +74,7 @@ public class DefineFactoryImpl extends EFactoryImpl implements DefineFactory
       case DefinePackage.VARIABLES: return createVariables();
       case DefinePackage.VARIABLE: return createVariable();
       case DefinePackage.UDT: return createUdt();
+      case DefinePackage.UDT_REF: return createUdtRef();
       case DefinePackage.UDT_TYPE: return createUdtType();
       case DefinePackage.EXPRESSION: return createExpression();
       case DefinePackage.EFLOAT: return createEFloat();
@@ -214,6 +215,17 @@ public class DefineFactoryImpl extends EFactoryImpl implements DefineFactory
   {
     UdtImpl udt = new UdtImpl();
     return udt;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public UdtRef createUdtRef()
+  {
+    UdtRefImpl udtRef = new UdtRefImpl();
+    return udtRef;
   }
 
   /**

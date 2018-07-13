@@ -196,31 +196,31 @@ public class DefineValidatorTest {
   @Test
   public void testWrongMulOrDivType() {
     this.assertType("10 * true", DefineTypeComputer.BOOL_TYPE, DefineTypeComputer.INT_TYPE);
-    this.assertType("\'10\' / 10", DefineTypeComputer.STRING_TYPE, DefineTypeComputer.INT_TYPE);
+    this.assertType(" \'10\' / 10", DefineTypeComputer.STRING_TYPE, DefineTypeComputer.INT_TYPE);
   }
   
   @Test
   public void testWrongMinusType() {
     this.assertType("10 - true", DefineTypeComputer.BOOL_TYPE, DefineTypeComputer.INT_TYPE);
-    this.assertType("\'10\' - 10", DefineTypeComputer.STRING_TYPE, DefineTypeComputer.INT_TYPE);
+    this.assertType(" \'10\' - 10", DefineTypeComputer.STRING_TYPE, DefineTypeComputer.INT_TYPE);
   }
   
   @Test
   public void testWrongAndType() {
     this.assertType("10 && true", DefineTypeComputer.INT_TYPE, DefineTypeComputer.BOOL_TYPE);
-    this.assertType("false && \'10\'", DefineTypeComputer.STRING_TYPE, DefineTypeComputer.BOOL_TYPE);
+    this.assertType("false && \'10\' ", DefineTypeComputer.STRING_TYPE, DefineTypeComputer.BOOL_TYPE);
   }
   
   @Test
   public void testWrongOrType() {
     this.assertType("10 || true", DefineTypeComputer.INT_TYPE, DefineTypeComputer.BOOL_TYPE);
-    this.assertType("false || \'10\'", DefineTypeComputer.STRING_TYPE, DefineTypeComputer.BOOL_TYPE);
+    this.assertType("false || \'10\' ", DefineTypeComputer.STRING_TYPE, DefineTypeComputer.BOOL_TYPE);
   }
   
   @Test
   public void testWrongEqualityType() {
     this.assertSameType("10 == true", DefineTypeComputer.INT_TYPE, DefineTypeComputer.BOOL_TYPE);
-    this.assertSameType("false != \'10\'", DefineTypeComputer.BOOL_TYPE, DefineTypeComputer.STRING_TYPE);
+    this.assertSameType("false != \'10\' ", DefineTypeComputer.BOOL_TYPE, DefineTypeComputer.STRING_TYPE);
   }
   
   @Test
@@ -258,14 +258,6 @@ public class DefineValidatorTest {
     this.assertWrongType(((this.start + "int a = 4 +/- true;") + this.end));
     this.assertWrongType(((this.start + "int a = true +/- 3") + this.end));
     this.assertWrongType(((this.start + "int a = true +/- \'string\' ") + this.end));
-  }
-  
-  private void assertWrongType(final String text) {
-    try {
-      this._validationTestHelper.assertError(this._parseHelper.parse(text), DefinePackage.eINSTANCE.getVariable(), DefineValidator.INCOMPATIBLE_TYPES);
-    } catch (Throwable _e) {
-      throw Exceptions.sneakyThrow(_e);
-    }
   }
   
   @Test
@@ -489,12 +481,14 @@ public class DefineValidatorTest {
   }
   
   @Test
-  public void testInferredUdtType() {
+  public void test0UdtTypeRef() {
     try {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("udt a(typeA){}");
       _builder.newLine();
-      _builder.append("typeA b,c;");
+      _builder.append("typeA b;");
+      _builder.newLine();
+      _builder.append("typeA c;");
       _builder.newLine();
       final String text = _builder.toString();
       DefineBlock _parse = this._parseHelper.parse(((this.start + text) + this.end));
@@ -522,8 +516,8 @@ public class DefineValidatorTest {
       _builder.append("\t\t");
       _builder.append("udt a(typeA){}");
       _builder.newLine();
-      _builder.append("\t\t");
-      _builder.append("null typeA b;");
+      _builder.append("\t\t ");
+      _builder.append("typeA b;");
       _builder.newLine();
       _builder.append("\t");
       _builder.append("]");
@@ -568,6 +562,14 @@ public class DefineValidatorTest {
         this._validationTestHelper.assertError(it, DefinePackage.eINSTANCE.getUdt(), DefineValidator.MULTIPLE_UDT_TYPE);
       };
       ObjectExtensions.<DefineBlock>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  private void assertWrongType(final String text) {
+    try {
+      this._validationTestHelper.assertError(this._parseHelper.parse(text), DefinePackage.eINSTANCE.getVariable(), DefineValidator.INCOMPATIBLE_TYPES);
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }

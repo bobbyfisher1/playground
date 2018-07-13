@@ -15,7 +15,6 @@ package org.example.define.define;
  * <ul>
  *   <li>{@link org.example.define.define.Variable#isVariantKeyword <em>Variant Keyword</em>}</li>
  *   <li>{@link org.example.define.define.Variable#getVariableType <em>Variable Type</em>}</li>
- *   <li>{@link org.example.define.define.Variable#getUdtType <em>Udt Type</em>}</li>
  *   <li>{@link org.example.define.define.Variable#getExpression <em>Expression</em>}</li>
  *   <li>{@link org.example.define.define.Variable#getRange <em>Range</em>}</li>
  *   <li>{@link org.example.define.define.Variable#isNextVariable <em>Next Variable</em>}</li>
@@ -81,32 +80,6 @@ public interface Variable extends Variables
    * @generated
    */
   void setVariableType(BasicType value);
-
-  /**
-   * Returns the value of the '<em><b>Udt Type</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Udt Type</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Udt Type</em>' reference.
-   * @see #setUdtType(UdtType)
-   * @see org.example.define.define.DefinePackage#getVariable_UdtType()
-   * @model
-   * @generated
-   */
-  UdtType getUdtType();
-
-  /**
-   * Sets the value of the '{@link org.example.define.define.Variable#getUdtType <em>Udt Type</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Udt Type</em>' reference.
-   * @see #getUdtType()
-   * @generated
-   */
-  void setUdtType(UdtType value);
 
   /**
    * Returns the value of the '<em><b>Expression</b></em>' containment reference.

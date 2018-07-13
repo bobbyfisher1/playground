@@ -115,13 +115,17 @@ class DefineValidator extends AbstractDefineValidator {
 
 		// add all udtTypes of input to the multimap
 		for (e : in) {
-			if (e instanceof Udt)
-				e.checkNoDuplicateUdtTypes(multiMap)
+			if (e instanceof Udt) {
+				multiMap.put(e.udtType.name, e)
+				e.checkNoDuplicateUdtTypes
+			}
 		}
 
 		for (e : out) {
-			if (e instanceof Udt)
-				e.checkNoDuplicateUdtTypes(multiMap)
+			if (e instanceof Udt) {
+				multiMap.put(e.udtType.name, e)
+				e.checkNoDuplicateUdtTypes
+			}
 		}
 		// check for duplicates
 		for (entry : multiMap.asMap.entrySet) {
@@ -142,17 +146,23 @@ class DefineValidator extends AbstractDefineValidator {
 
 		// add all udtTypes of input to the multimap
 		for (e : in) {
-			if (e instanceof Udt)
-				e.checkNoDuplicateUdtTypes(multiMap)
+			if (e instanceof Udt) {
+				multiMap.put(e.udtType.name, e)
+				e.checkNoDuplicateUdtTypes
+			}
 		}
 
 		for (e : out) {
-			if (e instanceof Udt)
-				e.checkNoDuplicateUdtTypes(multiMap)
+			if (e instanceof Udt) {
+				multiMap.put(e.udtType.name, e)
+				e.checkNoDuplicateUdtTypes
+			}
 		}
 		for (e : inout) {
-			if (e instanceof Udt)
-				e.checkNoDuplicateUdtTypes(multiMap)
+			if (e instanceof Udt) {
+				multiMap.put(e.udtType.name, e)
+				e.checkNoDuplicateUdtTypes
+			}
 		}
 		// check for duplicates
 		for (entry : multiMap.asMap.entrySet) {
@@ -263,6 +273,25 @@ class DefineValidator extends AbstractDefineValidator {
 				VARIANT_MISMATCH)
 	}
 
+//	@Check def void checkUdtRefs(UdtRef udtRef) {
+//		var ownUdtVars = udtRef.udtVariables
+//		val referredUdtVars = (udtRef.udtType.eContainer as Udt).udtVariables
+////		if (udtRef.udtVariables.empty)
+//		var newVariable = new VariableImpl
+//		newVariable.assignNewVariable(referredUdtVars)
+//		ownUdtVars.add(newVariable)
+//		println("wowzah")
+//	}
+//
+//	def private assignNewVariable(Variable newVariable, Iterable<? extends Variables> referredUdtVars) {
+//		newVariable.name = (referredUdtVars.get(0) as Variable).name
+//		newVariable.variableType = (referredUdtVars.get(0) as Variable).variableType
+//		newVariable.variantKeyword = (referredUdtVars.get(0) as Variable).isVariantKeyword
+//		newVariable.nextVariable = (referredUdtVars.get(0) as Variable).isNextVariable
+//		newVariable.expression = (referredUdtVars.get(0) as Variable).expression
+//		newVariable.range = (referredUdtVars.get(0) as Variable).range
+//	}
+
 //
 // methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //
@@ -336,29 +365,24 @@ class DefineValidator extends AbstractDefineValidator {
 			error("cannot be boolean", reference, TYPE_MISMATCH)
 	}
 
-	def void checkNoDuplicateUdtTypes(
-		Udt udt,
-		HashMultimap<String, Variables> multiMap
-	) {
-		multiMap.put(udt.udtType.name, udt)
-
+	def void checkNoDuplicateUdtTypes(Udt udt) {
+		var multiMap = HashMultimap.create
 		val udts = udt.udtVariables
+
 		for (e : udts) {
 			if (e instanceof Udt) {
 				multiMap.put(e.udtType.name, e)
-				e.checkNoDuplicateUdtTypes(multiMap)
+				e.checkNoDuplicateUdtTypes
 			}
 		}
 	}
 
-	def private checkCommaSyntaxWithVariables(
-		Iterable<? extends Variables> variables
-	) {
+	def private checkCommaSyntaxWithVariables(Iterable<? extends Variables> variables) {
 		var count = 0 // ugly programming
 		var countOfVariableBefore = 0
 		var commaBeforeVariable = false;
 		var helpingVariableType = BasicType.NULL
-		var inferUdtType = false
+//		var inferUdtType = false
 		var variantKeyword = false
 		//
 		for (e : variables) {
@@ -375,35 +399,35 @@ class DefineValidator extends AbstractDefineValidator {
 				}
 
 				if (!commaBeforeVariable) {
-					if (e.variableType === BasicType.NULL && e.udtType === null) {
+					if (e.variableType === BasicType.NULL) {
 						error("Missing variable type", e, DefinePackage.eINSTANCE.variable_VariableType,
 							MISSING_VARIABLE_TYPE);
 					}
-					if (e.variableType !== BasicType.NULL && e.udtType !== null) {
-						error("Multiple type definition", e, DefinePackage.eINSTANCE.variable_VariableType,
-							MULTIPLE_TYPE_DEFINITION)
-					}
+//					if (e.variableType !== BasicType.NULL && e.udtType !== null) {
+//						error("Multiple type definition", e, DefinePackage.eINSTANCE.variable_VariableType,
+//							MULTIPLE_TYPE_DEFINITION)
+//					}
 				} // else if there was a comma before the variable
 				else {
 					// assign inferred type 								
-					if (!inferUdtType && e.udtType === null) { // basicType
-						if (e.variableType === BasicType.NULL) {
-							e.variableType = helpingVariableType
-						} // defined type after a comma
-						else {
-							error("Multiple type definition", e, DefinePackage.eINSTANCE.variable_VariableType,
-								MULTIPLE_TYPE_DEFINITION)
-						}
-					} else if (inferUdtType) { // udtType
-						if (e.udtType === null)
-							e.udtType = (variables.get(countOfVariableBefore) as Variable).udtType
-						else
-							error("Multiple type definition", e, DefinePackage.eINSTANCE.variable_UdtType,
-								MULTIPLE_TYPE_DEFINITION)
+//					if (!inferUdtType && e.udtType === null) { // basicType
+					if (e.variableType === BasicType.NULL) {
+						e.variableType = helpingVariableType
+					} // defined type after a comma
+					else {
+						error("Multiple type definition", e, DefinePackage.eINSTANCE.variable_VariableType,
+							MULTIPLE_TYPE_DEFINITION)
 					}
+//					}
+//					 else if (inferUdtType) { // udtType
+//						if (e.udtType === null)
+//							e.udtType = (variables.get(countOfVariableBefore) as Variable).udtType
+//						else
+//							error("Multiple type definition", e, DefinePackage.eINSTANCE.variable_UdtType,
+//								MULTIPLE_TYPE_DEFINITION)
+//					}
 					// assign variantKeyword
-					if (variantKeyword)
-						e.variantKeyword = true
+					e.variantKeyword = variantKeyword
 				}
 // for the immediate next variable
 				if (e.nextVariable) { // comma at the end instead of semicolon
@@ -411,22 +435,22 @@ class DefineValidator extends AbstractDefineValidator {
 					countOfVariableBefore = count;
 
 					// the type must be handed over to the next variable
-					if (e.udtType === null) {
-						helpingVariableType = e.variableType
-						inferUdtType = false
-					} else {
-						inferUdtType = true
-						helpingVariableType = BasicType.NULL
-					}
-					// the variant as well					
-					if (e.variantKeyword)
-						variantKeyword = true
+//					if (e.udtType === null) {
+					helpingVariableType = e.variableType
+//						inferUdtType = false
+//					} else {
+////						inferUdtType = true
+//						helpingVariableType = BasicType.NULL
+//					}
+				// the variant as well					
+//					variantKeyword = e.variantKeyword
 				} else {
 					commaBeforeVariable = false
 					helpingVariableType = null
-					inferUdtType = false
-					variantKeyword = false
+//					inferUdtType = false
+//					variantKeyword = false
 				}
+				variantKeyword = e.variantKeyword
 			}
 			count++
 		}

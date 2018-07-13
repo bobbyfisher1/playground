@@ -1,6 +1,7 @@
 package org.example.define.tests;
 
 import com.google.inject.Inject;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtend2.lib.StringConcatenation;
@@ -20,6 +21,7 @@ import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.example.define.define.DefineBlock;
 import org.example.define.define.DefinePackage;
 import org.example.define.define.Udt;
+import org.example.define.define.UdtRef;
 import org.example.define.define.Variable;
 import org.example.define.define.Variables;
 import org.example.define.tests.DefineInjectorProvider;
@@ -45,7 +47,7 @@ public class DefineScopeProviderTest {
   private IScopeProvider _iScopeProvider;
   
   @Test
-  public void testScope() {
+  public void testVariableRefScope() {
     try {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("define{");
@@ -66,7 +68,10 @@ public class DefineScopeProviderTest {
       _builder.append("udt d(typeD){}");
       _builder.newLine();
       _builder.append("\t\t");
-      _builder.append("int e;");
+      _builder.append("typeB e;");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("udt f(typeF){}");
       _builder.newLine();
       _builder.append("\t");
       _builder.append("]");
@@ -79,13 +84,22 @@ public class DefineScopeProviderTest {
       DefineBlock _parse = this._parseHelper.parse(_builder);
       final Procedure1<DefineBlock> _function = (DefineBlock it) -> {
         this._validationTestHelper.assertNoErrors(it);
-        Variables _get = it.getDirection().getInput().getInputVariables().get(2);
-        final Procedure1<Variable> _function_1 = (Variable it_1) -> {
-          this.assertScope(it_1, DefinePackage.eINSTANCE.getVariable_UdtType(), "typeB");
-          this.assertScope(it_1.getExpression(), DefinePackage.eINSTANCE.getVariableRef_Variable(), "a");
+        EList<Variables> _inputVariables = it.getDirection().getInput().getInputVariables();
+        final Procedure1<EList<Variables>> _function_1 = (EList<Variables> it_1) -> {
+          Variables _get = it_1.get(2);
+          final Procedure1<Variable> _function_2 = (Variable it_2) -> {
+            this.assertScope(it_2.getExpression(), DefinePackage.eINSTANCE.getVariableRef_Variable(), "a");
+          };
+          ObjectExtensions.<Variable>operator_doubleArrow(
+            ((Variable) _get), _function_2);
+          Variables _get_1 = it_1.get(4);
+          final Procedure1<UdtRef> _function_3 = (UdtRef it_2) -> {
+            this.assertScope(it_2, DefinePackage.eINSTANCE.getUdtRef_UdtType(), "typeB, typeD");
+          };
+          ObjectExtensions.<UdtRef>operator_doubleArrow(
+            ((UdtRef) _get_1), _function_3);
         };
-        ObjectExtensions.<Variable>operator_doubleArrow(
-          ((Variable) _get), _function_1);
+        ObjectExtensions.<EList<Variables>>operator_doubleArrow(_inputVariables, _function_1);
       };
       ObjectExtensions.<DefineBlock>operator_doubleArrow(_parse, _function);
     } catch (Throwable _e) {
@@ -118,7 +132,10 @@ public class DefineScopeProviderTest {
       _builder.append("int c = 0;");
       _builder.newLine();
       _builder.append("\t\t\t");
-      _builder.append("udt d(typeD){");
+      _builder.append("typeB d;");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("udt dd(typeDD){");
       _builder.newLine();
       _builder.append("\t\t\t\t");
       _builder.append("int A;");
@@ -129,8 +146,11 @@ public class DefineScopeProviderTest {
       _builder.append("\t\t\t\t");
       _builder.append("int C=0;");
       _builder.newLine();
+      _builder.append("\t\t\t\t");
+      _builder.append("typeBB D;");
+      _builder.newLine();
       _builder.append("\t\t\t");
-      _builder.append("}\t");
+      _builder.append("}");
       _builder.newLine();
       _builder.append("\t\t");
       _builder.append("}");
@@ -146,23 +166,33 @@ public class DefineScopeProviderTest {
         final Procedure1<Udt> _function_1 = (Udt it_1) -> {
           Variables _get = it_1.getUdtVariables().get(2);
           final Procedure1<Variable> _function_2 = (Variable it_2) -> {
-            this.assertScope(it_2, DefinePackage.eINSTANCE.getVariable_UdtType(), "typeB");
             this.assertScope(it_2, DefinePackage.eINSTANCE.getVariableRef_Variable(), "a");
           };
           ObjectExtensions.<Variable>operator_doubleArrow(
             ((Variable) _get), _function_2);
           Variables _get_1 = it_1.getUdtVariables().get(3);
-          final Procedure1<Udt> _function_3 = (Udt it_2) -> {
-            Variables _get_2 = it_2.getUdtVariables().get(2);
-            final Procedure1<Variable> _function_4 = (Variable it_3) -> {
-              this.assertScope(it_3, DefinePackage.eINSTANCE.getVariable_UdtType(), "typeBB");
+          final Procedure1<UdtRef> _function_3 = (UdtRef it_2) -> {
+            this.assertScope(it_2, DefinePackage.eINSTANCE.getUdtRef_UdtType(), "typeB");
+          };
+          ObjectExtensions.<UdtRef>operator_doubleArrow(
+            ((UdtRef) _get_1), _function_3);
+          Variables _get_2 = it_1.getUdtVariables().get(4);
+          final Procedure1<Udt> _function_4 = (Udt it_2) -> {
+            Variables _get_3 = it_2.getUdtVariables().get(2);
+            final Procedure1<Variable> _function_5 = (Variable it_3) -> {
               this.assertScope(it_3, DefinePackage.eINSTANCE.getVariableRef_Variable(), "A");
             };
             ObjectExtensions.<Variable>operator_doubleArrow(
-              ((Variable) _get_2), _function_4);
+              ((Variable) _get_3), _function_5);
+            Variables _get_4 = it_2.getUdtVariables().get(3);
+            final Procedure1<UdtRef> _function_6 = (UdtRef it_3) -> {
+              this.assertScope(it_3, DefinePackage.eINSTANCE.getUdtRef_UdtType(), "typeBB");
+            };
+            ObjectExtensions.<UdtRef>operator_doubleArrow(
+              ((UdtRef) _get_4), _function_6);
           };
           ObjectExtensions.<Udt>operator_doubleArrow(
-            ((Udt) _get_1), _function_3);
+            ((Udt) _get_2), _function_4);
         };
         ObjectExtensions.<Udt>operator_doubleArrow(
           ((Udt) _head), _function_1);
@@ -307,6 +337,84 @@ public class DefineScopeProviderTest {
       };
       ObjectExtensions.<Variable>operator_doubleArrow(
         ((Variable) _get), _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void testReferencingVariables() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("define{");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("input[]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("output[ ");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("udt a(typeA){");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("variant int b = 69 +/- 666;");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("typeA c;");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      DefineBlock _parse = this._parseHelper.parse(_builder);
+      final Procedure1<DefineBlock> _function = (DefineBlock it) -> {
+        this._validationTestHelper.assertNoErrors(it);
+      };
+      ObjectExtensions.<DefineBlock>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void testReferencingVariables2() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("define{");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("input[]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("output[ ");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("udt a(typeA){");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("int b;");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("typeA c.b;");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      DefineBlock _parse = this._parseHelper.parse(_builder);
+      final Procedure1<DefineBlock> _function = (DefineBlock it) -> {
+        this._validationTestHelper.assertNoErrors(it);
+      };
+      ObjectExtensions.<DefineBlock>operator_doubleArrow(_parse, _function);
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }

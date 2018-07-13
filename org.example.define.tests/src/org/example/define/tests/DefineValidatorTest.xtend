@@ -101,31 +101,33 @@ class DefineValidatorTest {
 		]
 	}
 
-	@Test def void testWrongNotType() { "!10".assertType(INT_TYPE, BOOL_TYPE) }
+	@Test def void testWrongNotType() {
+		"!10".assertType(INT_TYPE, BOOL_TYPE)
+	}
 
 	@Test def void testWrongMulOrDivType() {
 		"10 * true".assertType(BOOL_TYPE, INT_TYPE)
-		"'10' / 10".assertType(STRING_TYPE, INT_TYPE)
+		" '10' / 10".assertType(STRING_TYPE, INT_TYPE)
 	}
 
 	@Test def void testWrongMinusType() {
 		"10 - true".assertType(BOOL_TYPE, INT_TYPE)
-		"'10' - 10".assertType(STRING_TYPE, INT_TYPE)
+		" '10' - 10".assertType(STRING_TYPE, INT_TYPE)
 	}
 
 	@Test def void testWrongAndType() {
 		"10 && true".assertType(INT_TYPE, BOOL_TYPE)
-		"false && '10'".assertType(STRING_TYPE, BOOL_TYPE)
+		"false && '10' ".assertType(STRING_TYPE, BOOL_TYPE)
 	}
 
 	@Test def void testWrongOrType() {
 		"10 || true".assertType(INT_TYPE, BOOL_TYPE)
-		"false || '10'".assertType(STRING_TYPE, BOOL_TYPE)
+		"false || '10' ".assertType(STRING_TYPE, BOOL_TYPE)
 	}
 
 	@Test def void testWrongEqualityType() {
 		"10 == true".assertSameType(INT_TYPE, BOOL_TYPE)
-		"false != '10'".assertSameType(BOOL_TYPE, STRING_TYPE)
+		"false != '10' ".assertSameType(BOOL_TYPE, STRING_TYPE)
 	}
 
 	@Test def void testWrongComparisonType() {
@@ -154,10 +156,6 @@ class DefineValidatorTest {
 		(start + "int a = 4 +/- true;" + end).assertWrongType;
 		(start + "int a = true +/- 3" + end).assertWrongType;
 		(start + "int a = true +/- 'string' " + end).assertWrongType;
-	}
-
-	def private void assertWrongType(String text) {
-		text.parse.assertError(DefinePackage.eINSTANCE.variable, DefineValidator.INCOMPATIBLE_TYPES)
 	}
 
 	@Test def void testCommaNotation() {
@@ -260,10 +258,11 @@ class DefineValidatorTest {
 		]
 	}
 
-	@Test def void testInferredUdtType() {
+	@Test def void test0UdtTypeRef() {
 		val text = '''
 			udt a(typeA){}
-			typeA b,c;
+			typeA b;
+			typeA c;
 		'''
 		(start + text + end).parse => [
 			assertNoErrors
@@ -276,7 +275,7 @@ class DefineValidatorTest {
 				input[]
 				output[ 
 					udt a(typeA){}
-					null typeA b;
+					 typeA b;
 				]
 			}
 		'''.parse => [
@@ -301,6 +300,10 @@ class DefineValidatorTest {
 	//
 // methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//
+	def private void assertWrongType(String text) {
+		text.parse.assertError(DefinePackage.eINSTANCE.variable, DefineValidator.INCOMPATIBLE_TYPES)
+	}
+
 	def private void assertDuplicateVariables(String text, EClass type, String description, String name,
 		int duplicateErrors) {
 		text.parse => [
