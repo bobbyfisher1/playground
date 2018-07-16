@@ -484,7 +484,12 @@ public class DefineValidatorTest {
   public void test0UdtTypeRef() {
     try {
       StringConcatenation _builder = new StringConcatenation();
-      _builder.append("udt a(typeA){}");
+      _builder.append("udt a(typeA){");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("int x = 99 +/- 1;");
+      _builder.newLine();
+      _builder.append("}");
       _builder.newLine();
       _builder.append("typeA b;");
       _builder.newLine();
@@ -502,7 +507,7 @@ public class DefineValidatorTest {
   }
   
   @Test
-  public void testBothTypesDeclared() {
+  public void testRecursiveReference() {
     try {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("define{");
@@ -514,7 +519,19 @@ public class DefineValidatorTest {
       _builder.append("output[ ");
       _builder.newLine();
       _builder.append("\t\t");
-      _builder.append("udt a(typeA){}");
+      _builder.append("udt a(typeA){");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("int x;");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("udt y(typeY){}");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("typeY z;");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("}");
       _builder.newLine();
       _builder.append("\t\t ");
       _builder.append("typeA b;");
@@ -526,7 +543,7 @@ public class DefineValidatorTest {
       _builder.newLine();
       DefineBlock _parse = this._parseHelper.parse(_builder);
       final Procedure1<DefineBlock> _function = (DefineBlock it) -> {
-        this._validationTestHelper.assertNoErrors(it);
+        this._validationTestHelper.assertError(it, DefinePackage.eINSTANCE.getUdtRef(), DefineValidator.RECURSIVE_UDT_REFERENCE);
       };
       ObjectExtensions.<DefineBlock>operator_doubleArrow(_parse, _function);
     } catch (Throwable _e) {
@@ -621,7 +638,7 @@ public class DefineValidatorTest {
   
   public void assertType(final CharSequence input, final DefineType expectedWrongType, final DefineType expectedActualType) {
     try {
-      this._validationTestHelper.assertError(this._parseHelper.parse(((this.startWithVariable + input) + this.endWithSemicolon)), DefinePackage.eINSTANCE.getExpression(), 
+      this._validationTestHelper.assertError(this._parseHelper.parse(((this.startWithVariable + input) + this.endWithSemicolon)), DefinePackage.eINSTANCE.getIdiom(), 
         DefineValidator.TYPE_MISMATCH, ((("expected " + expectedActualType) + " type, but was ") + expectedWrongType));
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
@@ -630,7 +647,7 @@ public class DefineValidatorTest {
   
   public void assertSameType(final CharSequence input, final DefineType expectedLeft, final DefineType expectedRight) {
     try {
-      this._validationTestHelper.assertError(this._parseHelper.parse(((this.startWithVariable + input) + this.endWithSemicolon)), DefinePackage.eINSTANCE.getExpression(), 
+      this._validationTestHelper.assertError(this._parseHelper.parse(((this.startWithVariable + input) + this.endWithSemicolon)), DefinePackage.eINSTANCE.getIdiom(), 
         DefineValidator.TYPE_MISMATCH, ((("expected the same type, but was " + expectedLeft) + ", ") + expectedRight));
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
@@ -639,7 +656,7 @@ public class DefineValidatorTest {
   
   public void assertNotBooleanType(final CharSequence input) {
     try {
-      this._validationTestHelper.assertError(this._parseHelper.parse(((this.startWithVariable + input) + this.endWithSemicolon)), DefinePackage.eINSTANCE.getExpression(), 
+      this._validationTestHelper.assertError(this._parseHelper.parse(((this.startWithVariable + input) + this.endWithSemicolon)), DefinePackage.eINSTANCE.getIdiom(), 
         DefineValidator.TYPE_MISMATCH, "cannot be boolean");
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);

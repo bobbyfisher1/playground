@@ -6,7 +6,7 @@ import org.example.define.define.BasicType;
 import org.example.define.define.BoolConstant;
 import org.example.define.define.Comparison;
 import org.example.define.define.Equality;
-import org.example.define.define.Expression;
+import org.example.define.define.Idiom;
 import org.example.define.define.IntConstant;
 import org.example.define.define.Minus;
 import org.example.define.define.MulOrDiv;
@@ -43,63 +43,63 @@ public class DefineTypeComputer {
     return (type == DefineTypeComputer.BOOL_TYPE);
   }
   
-  protected DefineType _typeFor(final Expression e) {
+  protected DefineType _typeFor(final Idiom i) {
     DefineType _switchResult = null;
     boolean _matched = false;
-    if (e instanceof StringConstant) {
+    if (i instanceof StringConstant) {
       _matched=true;
       _switchResult = DefineTypeComputer.STRING_TYPE;
     }
     if (!_matched) {
-      if (e instanceof IntConstant) {
+      if (i instanceof IntConstant) {
         _matched=true;
         _switchResult = DefineTypeComputer.INT_TYPE;
       }
     }
     if (!_matched) {
-      if (e instanceof BoolConstant) {
+      if (i instanceof BoolConstant) {
         _matched=true;
         _switchResult = DefineTypeComputer.BOOL_TYPE;
       }
     }
     if (!_matched) {
-      if (e instanceof Not) {
+      if (i instanceof Not) {
         _matched=true;
         _switchResult = DefineTypeComputer.BOOL_TYPE;
       }
     }
     if (!_matched) {
-      if (e instanceof MulOrDiv) {
+      if (i instanceof MulOrDiv) {
         _matched=true;
         _switchResult = DefineTypeComputer.INT_TYPE;
       }
     }
     if (!_matched) {
-      if (e instanceof Minus) {
+      if (i instanceof Minus) {
         _matched=true;
         _switchResult = DefineTypeComputer.INT_TYPE;
       }
     }
     if (!_matched) {
-      if (e instanceof Comparison) {
+      if (i instanceof Comparison) {
         _matched=true;
         _switchResult = DefineTypeComputer.BOOL_TYPE;
       }
     }
     if (!_matched) {
-      if (e instanceof Equality) {
+      if (i instanceof Equality) {
         _matched=true;
         _switchResult = DefineTypeComputer.BOOL_TYPE;
       }
     }
     if (!_matched) {
-      if (e instanceof And) {
+      if (i instanceof And) {
         _matched=true;
         _switchResult = DefineTypeComputer.BOOL_TYPE;
       }
     }
     if (!_matched) {
-      if (e instanceof Or) {
+      if (i instanceof Or) {
         _matched=true;
         _switchResult = DefineTypeComputer.BOOL_TYPE;
       }
@@ -137,11 +137,11 @@ public class DefineTypeComputer {
     return _xblockexpression;
   }
   
-  protected DefineType _typeFor(final Plus e) {
+  protected DefineType _typeFor(final Plus plus) {
     DefineType _xblockexpression = null;
     {
-      final DefineType leftType = this.typeFor(e.getLeft());
-      Expression _right = e.getRight();
+      final DefineType leftType = this.typeFor(plus.getLeft());
+      Idiom _right = plus.getRight();
       DefineType _typeFor = null;
       if (_right!=null) {
         _typeFor=this.typeFor(_right);
@@ -159,26 +159,26 @@ public class DefineTypeComputer {
   }
   
   protected DefineType _typeFor(final VariableRef varRef) {
-    Expression _expression = varRef.getVariable().getExpression();
+    Idiom _idiom = varRef.getVariable().getIdiom();
     DefineType _typeFor = null;
-    if (_expression!=null) {
-      _typeFor=this.typeFor(_expression);
+    if (_idiom!=null) {
+      _typeFor=this.typeFor(_idiom);
     }
     return _typeFor;
   }
   
-  public DefineType typeFor(final Object e) {
-    if (e instanceof Plus) {
-      return _typeFor((Plus)e);
-    } else if (e instanceof VariableRef) {
-      return _typeFor((VariableRef)e);
-    } else if (e instanceof BasicType) {
-      return _typeFor((BasicType)e);
-    } else if (e instanceof Expression) {
-      return _typeFor((Expression)e);
+  public DefineType typeFor(final Object plus) {
+    if (plus instanceof Plus) {
+      return _typeFor((Plus)plus);
+    } else if (plus instanceof VariableRef) {
+      return _typeFor((VariableRef)plus);
+    } else if (plus instanceof BasicType) {
+      return _typeFor((BasicType)plus);
+    } else if (plus instanceof Idiom) {
+      return _typeFor((Idiom)plus);
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
-        Arrays.<Object>asList(e).toString());
+        Arrays.<Object>asList(plus).toString());
     }
   }
 }

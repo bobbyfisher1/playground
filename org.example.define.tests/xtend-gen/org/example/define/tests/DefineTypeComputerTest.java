@@ -109,7 +109,7 @@ public class DefineTypeComputerTest {
   private void assertSameType(final String text, final DefineType expectedType) {
     try {
       Variables _get = this._parseHelper.parse(((this.start + text) + this.end)).getDirection().getOutput().getOutputVariables().get(0);
-      Assert.assertSame(this._defineTypeComputer.typeFor(((Variable) _get).getExpression()), expectedType);
+      Assert.assertSame(this._defineTypeComputer.typeFor(((Variable) _get).getIdiom()), expectedType);
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }

@@ -22,7 +22,7 @@ import org.example.define.define.Comparison;
 import org.example.define.define.DefinePackage;
 import org.example.define.define.DirectionBlock;
 import org.example.define.define.Equality;
-import org.example.define.define.Expression;
+import org.example.define.define.Idiom;
 import org.example.define.define.Inout;
 import org.example.define.define.Minus;
 import org.example.define.define.MulOrDiv;
@@ -30,9 +30,12 @@ import org.example.define.define.Not;
 import org.example.define.define.Or;
 import org.example.define.define.Plus;
 import org.example.define.define.Udt;
+import org.example.define.define.UdtRef;
 import org.example.define.define.Variable;
 import org.example.define.define.VariableRef;
 import org.example.define.define.Variables;
+import org.example.define.define.impl.UdtImpl;
+import org.example.define.define.impl.VariableImpl;
 import org.example.define.typing.DefineType;
 import org.example.define.typing.DefineTypeComputer;
 import org.example.define.validation.AbstractDefineValidator;
@@ -62,6 +65,10 @@ public class DefineValidator extends AbstractDefineValidator {
   public final static String MULTIPLE_UDT_TYPE = (DefineValidator.ISSUE_CODE_PREFIX + "MultipleUdtType");
   
   public final static String VARIANT_MISMATCH = (DefineValidator.ISSUE_CODE_PREFIX + "VariantMismatch");
+  
+  public final static String RECURSIVE_VARIABLE_REFERENCE = (DefineValidator.ISSUE_CODE_PREFIX + "RecursiveVariableReference");
+  
+  public final static String RECURSIVE_UDT_REFERENCE = (DefineValidator.ISSUE_CODE_PREFIX + "RecursiveUdtReference");
   
   @Inject
   @Extension
@@ -229,7 +236,7 @@ public class DefineValidator extends AbstractDefineValidator {
   
   @Check
   public void checkType(final Not not) {
-    this.checkExpectedBoolean(not.getExpression(), DefinePackage.Literals.NOT__EXPRESSION);
+    this.checkExpectedBoolean(not.getIdiom(), DefinePackage.Literals.NOT__IDIOM);
   }
   
   @Check
@@ -284,16 +291,16 @@ public class DefineValidator extends AbstractDefineValidator {
   
   @Check
   public void checkType(final Variable v) {
-    Expression _expression = v.getExpression();
-    boolean _tripleNotEquals = (_expression != null);
+    Idiom _idiom = v.getIdiom();
+    boolean _tripleNotEquals = (_idiom != null);
     if (_tripleNotEquals) {
-      Expression _expression_1 = null;
+      Idiom _idiom_1 = null;
       if (v!=null) {
-        _expression_1=v.getExpression();
+        _idiom_1=v.getIdiom();
       }
-      final DefineType actualType = this._defineTypeComputer.typeFor(_expression_1);
+      final DefineType actualType = this._defineTypeComputer.typeFor(_idiom_1);
       final DefineType expectedType = this._defineTypeComputer.typeFor(v.getVariableType());
-      Expression _range = null;
+      Idiom _range = null;
       if (v!=null) {
         _range=v.getRange();
       }
@@ -314,7 +321,7 @@ public class DefineValidator extends AbstractDefineValidator {
         String _plus_2 = (_plus_1 + _string_1);
         String _plus_3 = (_plus_2 + 
           "\'");
-        this.error(_plus_3, v, DefinePackage.eINSTANCE.getVariable_Expression(), DefineValidator.INCOMPATIBLE_TYPES);
+        this.error(_plus_3, v, DefinePackage.eINSTANCE.getVariable_Idiom(), DefineValidator.INCOMPATIBLE_TYPES);
       }
       if (((rangeType != null) && (!Objects.equal(rangeType, actualType)))) {
         String _string_2 = expectedType.toString();
@@ -357,8 +364,8 @@ public class DefineValidator extends AbstractDefineValidator {
   
   @Check
   public void checkNullVariableRefs(final VariableRef varRef) {
-    Expression _expression = varRef.getVariable().getExpression();
-    boolean _tripleEquals = (_expression == null);
+    Idiom _idiom = varRef.getVariable().getIdiom();
+    boolean _tripleEquals = (_idiom == null);
     if (_tripleEquals) {
       String _name = varRef.getVariable().getName();
       String _plus = ("Referred variable \'" + _name);
@@ -378,6 +385,85 @@ public class DefineValidator extends AbstractDefineValidator {
       this.error("Both variables must be variant types.", variable, DefinePackage.eINSTANCE.getVariable_VariantKeyword(), 
         DefineValidator.VARIANT_MISMATCH);
     }
+  }
+  
+  @Check
+  public void checkUdtRefs(final UdtRef udtRef) {
+    EList<Variables> ownUdtVars = udtRef.getUdtVariables();
+    EObject _eContainer = udtRef.getUdtType().eContainer();
+    final EList<Variables> referredUdtVars = ((Udt) _eContainer).getUdtVariables();
+    int count = 0;
+    ownUdtVars.clear();
+    boolean _isEmpty = referredUdtVars.isEmpty();
+    boolean _not = (!_isEmpty);
+    if (_not) {
+      for (final Variables e : referredUdtVars) {
+        {
+          if ((e instanceof Variable)) {
+            ownUdtVars.add(this.assignNewVariable(referredUdtVars, count));
+          } else {
+            if ((e instanceof Udt)) {
+              ownUdtVars.add(this.assignNewUdt(referredUdtVars, count));
+            } else {
+              if ((e instanceof UdtRef)) {
+                this.error("This reference cannot be made because the udt itself contains other references ", udtRef, 
+                  DefinePackage.eINSTANCE.getUdtRef_UdtType(), DefineValidator.RECURSIVE_UDT_REFERENCE);
+              }
+            }
+          }
+          count++;
+        }
+      }
+    }
+  }
+  
+  private Udt assignNewUdt(final Iterable<? extends Variables> referredUdtVars, final int count) {
+    UdtImpl newUdt = new UdtImpl();
+    Variables _get = ((Variables[])Conversions.unwrapArray(referredUdtVars, Variables.class))[count];
+    final Udt childRef = ((Udt) _get);
+    final EList<Variables> childRefVars = childRef.getUdtVariables();
+    int count2 = 0;
+    newUdt.setName(childRef.getName());
+    newUdt.setUdtType(childRef.getUdtType());
+    boolean _isEmpty = childRefVars.isEmpty();
+    boolean _not = (!_isEmpty);
+    if (_not) {
+      for (final Variables e : childRefVars) {
+        {
+          if ((e instanceof Variable)) {
+            newUdt.getUdtVariables().add(this.assignNewVariable(childRefVars, count2));
+          } else {
+            if ((e instanceof Udt)) {
+              newUdt.getUdtVariables().add(this.assignNewUdt(childRefVars, count2));
+            } else {
+              if ((e instanceof UdtRef)) {
+                this.error("This reference cannot be made because the udt itself contains other references ", ((UdtRef) e), DefinePackage.eINSTANCE.getUdtRef_UdtType(), DefineValidator.RECURSIVE_UDT_REFERENCE);
+              }
+            }
+          }
+          count2++;
+        }
+      }
+    }
+    return newUdt;
+  }
+  
+  private Variable assignNewVariable(final Iterable<? extends Variables> referredUdtVars, final int count) {
+    VariableImpl newVariable = new VariableImpl();
+    Variables _get = ((Variables[])Conversions.unwrapArray(referredUdtVars, Variables.class))[count];
+    final Variable variable = ((Variable) _get);
+    newVariable.setName(variable.getName());
+    newVariable.setVariableType(variable.getVariableType());
+    newVariable.setVariantKeyword(variable.isVariantKeyword());
+    newVariable.setNextVariable(variable.isNextVariable());
+    if (((variable.getIdiom() instanceof VariableRef) || (variable.getRange() instanceof VariableRef))) {
+      this.error("This reference cannot be made because a variable contains other references ", 
+        DefinePackage.eINSTANCE.getUdtRef_UdtType(), DefineValidator.RECURSIVE_VARIABLE_REFERENCE);
+    } else {
+      newVariable.setIdiom(variable.getIdiom());
+      newVariable.setRange(variable.getRange());
+    }
+    return newVariable;
   }
   
   private boolean checkVariableTypeAndAddToMap(final Variables e, final HashMultimap<String, Variables> multiMap) {
@@ -438,15 +524,15 @@ public class DefineValidator extends AbstractDefineValidator {
     }
   }
   
-  private void checkExpectedBoolean(final Expression exp, final EReference reference) {
+  private void checkExpectedBoolean(final Idiom exp, final EReference reference) {
     this.checkExpectedType(exp, DefineTypeComputer.BOOL_TYPE, reference);
   }
   
-  private void checkExpectedInt(final Expression exp, final EReference reference) {
+  private void checkExpectedInt(final Idiom exp, final EReference reference) {
     this.checkExpectedType(exp, DefineTypeComputer.INT_TYPE, reference);
   }
   
-  private void checkExpectedType(final Expression exp, final DefineType expectedType, final EReference reference) {
+  private void checkExpectedType(final Idiom exp, final DefineType expectedType, final EReference reference) {
     final DefineType actualType = this.getTypeAndCheckNotNull(exp, reference);
     boolean _notEquals = (!Objects.equal(actualType, expectedType));
     if (_notEquals) {
@@ -454,7 +540,7 @@ public class DefineValidator extends AbstractDefineValidator {
     }
   }
   
-  private DefineType getTypeAndCheckNotNull(final Expression exp, final EReference reference) {
+  private DefineType getTypeAndCheckNotNull(final Idiom exp, final EReference reference) {
     DefineType _typeFor = null;
     if (exp!=null) {
       _typeFor=this._defineTypeComputer.typeFor(exp);
@@ -499,7 +585,14 @@ public class DefineValidator extends AbstractDefineValidator {
     boolean variantKeyword = false;
     for (final Variables e : variables) {
       {
-        if ((commaBeforeVariable && (e instanceof Udt))) {
+        if ((e instanceof Udt)) {
+          boolean _isEmpty = ((Udt)e).getUdtVariables().isEmpty();
+          boolean _not = (!_isEmpty);
+          if (_not) {
+            this.checkCommaSyntaxWithVariables(((Udt)e).getUdtVariables());
+          }
+        }
+        if ((commaBeforeVariable && (!(e instanceof Variable)))) {
           this.error("Invalid comma. Semicolon expected.", ((EObject[])Conversions.unwrapArray(variables, EObject.class))[countOfVariableBefore], 
             DefinePackage.eINSTANCE.getVariable_NextVariable(), DefineValidator.INVALID_COMMA_NOTATION);
         }

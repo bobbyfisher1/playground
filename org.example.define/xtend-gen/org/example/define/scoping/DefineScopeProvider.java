@@ -12,7 +12,7 @@ import org.eclipse.xtext.scoping.Scopes;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.example.define.DefineModelUtil;
 import org.example.define.define.DefinePackage;
-import org.example.define.define.Expression;
+import org.example.define.define.Idiom;
 import org.example.define.define.UdtRef;
 import org.example.define.define.Variable;
 import org.example.define.scoping.AbstractDefineScopeProvider;
@@ -50,8 +50,8 @@ public class DefineScopeProvider extends AbstractDefineScopeProvider {
     if ((context instanceof Variable)) {
       return Scopes.scopeFor(this._defineModelUtil.variablesDefinedBefore(((Variable)context)));
     }
-    if ((context instanceof Expression)) {
-      EObject _eContainer = ((Expression)context).eContainer();
+    if ((context instanceof Idiom)) {
+      EObject _eContainer = ((Idiom)context).eContainer();
       return Scopes.scopeFor(this._defineModelUtil.variablesDefinedBefore(((Variable) _eContainer)));
     }
     return null;

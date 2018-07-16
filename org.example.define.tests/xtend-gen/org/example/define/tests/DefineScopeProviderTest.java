@@ -88,7 +88,7 @@ public class DefineScopeProviderTest {
         final Procedure1<EList<Variables>> _function_1 = (EList<Variables> it_1) -> {
           Variables _get = it_1.get(2);
           final Procedure1<Variable> _function_2 = (Variable it_2) -> {
-            this.assertScope(it_2.getExpression(), DefinePackage.eINSTANCE.getVariableRef_Variable(), "a");
+            this.assertScope(it_2.getIdiom(), DefinePackage.eINSTANCE.getVariableRef_Variable(), "a");
           };
           ObjectExtensions.<Variable>operator_doubleArrow(
             ((Variable) _get), _function_2);
@@ -229,7 +229,7 @@ public class DefineScopeProviderTest {
       Variables _get = this._parseHelper.parse(_builder).getDirection().getOutput().getOutputVariables().get(1);
       final Procedure1<Variable> _function = (Variable it) -> {
         this._validationTestHelper.assertNoErrors(it);
-        this.assertScope(it.getExpression(), DefinePackage.eINSTANCE.getVariableRef_Variable(), "a");
+        this.assertScope(it.getIdiom(), DefinePackage.eINSTANCE.getVariableRef_Variable(), "a");
       };
       ObjectExtensions.<Variable>operator_doubleArrow(
         ((Variable) _get), _function);

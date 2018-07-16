@@ -14,15 +14,10 @@ import org.example.define.define.Udt;
 import org.example.define.define.UdtRef;
 import org.example.define.define.UdtType;
 import org.example.define.define.Variable;
-import org.example.define.define.VariableRef;
 import org.example.define.define.Variables;
 
 @SuppressWarnings("all")
 public class DefineModelUtil {
-  public boolean isVariableDefinedBefore(final VariableRef varRef) {
-    return this.variablesDefinedBefore(varRef.getVariable()).contains(varRef.getVariable());
-  }
-  
   public Set<Variable> variablesDefinedBefore(final Variable variable) {
     final EObject container = variable.eContainer();
     Iterable<Variable> _switchResult = null;

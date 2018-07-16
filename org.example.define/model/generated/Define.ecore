@@ -4,6 +4,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="DefineBlock">
     <eStructuralFeatures xsi:type="ecore:EReference" name="direction" eType="#//DirectionBlock"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="teststeps" upperBound="-1"
+        eType="#//TeststepBlock" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DirectionBlock">
     <eStructuralFeatures xsi:type="ecore:EReference" name="input" eType="#//Input"
@@ -34,9 +36,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="Variable" eSuperTypes="#//Variables">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="variantKeyword" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="variableType" eType="#//BasicType"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="#//Expression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="idiom" eType="#//Idiom"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="range" eType="#//Expression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="range" eType="#//Idiom"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="nextVariable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
@@ -61,70 +63,91 @@
   <eClassifiers xsi:type="ecore:EClass" name="UdtType">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Expression"/>
-  <eClassifiers xsi:type="ecore:EClass" name="EFloat" eSuperTypes="#//Expression">
+  <eClassifiers xsi:type="ecore:EClass" name="Idiom"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EFloat" eSuperTypes="#//Idiom">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="valueOfDecimal" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Or" eSuperTypes="#//Expression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//Expression"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//Expression"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="And" eSuperTypes="#//Expression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//Expression"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//Expression"
+  <eClassifiers xsi:type="ecore:EClass" name="TeststepBlock">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="plcCycle" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assert" eType="#//AssertionBlock"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Equality" eSuperTypes="#//Expression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//Expression"
+  <eClassifiers xsi:type="ecore:EClass" name="AssertionBlock">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="set" eType="#//Set" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assert" eType="#//Assert"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Set">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="setVariables" unique="false"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Assert">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="assertVariables" unique="false"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Or" eSuperTypes="#//Idiom">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//Idiom"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//Idiom"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="And" eSuperTypes="#//Idiom">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//Idiom"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//Idiom"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Equality" eSuperTypes="#//Idiom">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//Idiom"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="op" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//Expression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//Idiom"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Comparison" eSuperTypes="#//Expression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//Expression"
+  <eClassifiers xsi:type="ecore:EClass" name="Comparison" eSuperTypes="#//Idiom">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//Idiom"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="op" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//Expression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//Idiom"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Plus" eSuperTypes="#//Expression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//Expression"
+  <eClassifiers xsi:type="ecore:EClass" name="Plus" eSuperTypes="#//Idiom">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//Idiom"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//Expression"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Minus" eSuperTypes="#//Expression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//Expression"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//Expression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//Idiom"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="MulOrDiv" eSuperTypes="#//Expression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//Expression"
+  <eClassifiers xsi:type="ecore:EClass" name="Minus" eSuperTypes="#//Idiom">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//Idiom"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//Idiom"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MulOrDiv" eSuperTypes="#//Idiom">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//Idiom"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="op" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//Expression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//Idiom"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Not" eSuperTypes="#//Expression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="#//Expression"
+  <eClassifiers xsi:type="ecore:EClass" name="Not" eSuperTypes="#//Idiom">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="idiom" eType="#//Idiom"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="IntConstant" eSuperTypes="#//Expression">
+  <eClassifiers xsi:type="ecore:EClass" name="IntConstant" eSuperTypes="#//Idiom">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="StringConstant" eSuperTypes="#//Expression">
+  <eClassifiers xsi:type="ecore:EClass" name="StringConstant" eSuperTypes="#//Idiom">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BoolConstant" eSuperTypes="#//Expression">
+  <eClassifiers xsi:type="ecore:EClass" name="BoolConstant" eSuperTypes="#//Idiom">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="VariableRef" eSuperTypes="#//Expression">
+  <eClassifiers xsi:type="ecore:EClass" name="VariableRef" eSuperTypes="#//Idiom">
     <eStructuralFeatures xsi:type="ecore:EReference" name="variable" eType="#//Variable"/>
   </eClassifiers>
 </ecore:EPackage>

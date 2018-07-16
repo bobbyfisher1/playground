@@ -3,7 +3,7 @@ grammar org.example.define.Define with org.eclipse.xtext.common.Terminals
 generate define "http://www.example.org/define/Define"
 
 DefineBlock:
-	'define' '{' direction=DirectionBlock '}';
+	'define' '{' direction=DirectionBlock '}' teststeps+=TeststepBlock*;
 
 DirectionBlock:
 	input=Input & inout=Inout? & output=Output;
@@ -22,7 +22,7 @@ Variables:
 
 Variable:
 	({Variable} variantKeyword?='variant'? variableType=BasicType? name=ID
-	('=' expression=Expression ('+/-' range=Expression)?)? (';' | nextVariable?=','));
+	('=' idiom=Idiom ('+/-' range=Idiom)?)? (';' | nextVariable?=','));
 
 Udt:
 	'udt' name=ID '(' udtType=UdtType ')' '{' udtVariables+=Variables* '}';
@@ -36,31 +36,31 @@ enum BasicType:
 UdtType:
 	name=ID;
 
-Expression:
+Idiom:
 	Or;
 
-Or returns Expression:
+Or returns Idiom:
 	And ({Or.left=current} "||" right=And)*;
 
-And returns Expression:
+And returns Idiom:
 	Equality ({And.left=current} "&&" right=Equality)*;
 
-Equality returns Expression:
+Equality returns Idiom:
 	Comparison ({Equality.left=current} op=("==" | "!=") right=Comparison)*;
 
-Comparison returns Expression:
+Comparison returns Idiom:
 	PlusOrMinus ({Comparison.left=current} op=(">=" | "<=" | ">" | "<") right=PlusOrMinus)*;
 
-PlusOrMinus returns Expression:
+PlusOrMinus returns Idiom:
 	MulOrDiv (({Plus.left=current} '+' | {Minus.left=current} '-') right=MulOrDiv)*;
 
-MulOrDiv returns Expression:
+MulOrDiv returns Idiom:
 	Primary ({MulOrDiv.left=current} op=('*' | '/') right=Primary)*;
 
-Primary returns Expression:
-	'(' Expression ')' | {Not} "!" expression=Primary | Atomic;
+Primary returns Idiom:
+	'(' Idiom ')' | {Not} "!" idiom=Primary | Atomic;
 
-Atomic returns Expression:
+Atomic returns Idiom:
 	{IntConstant} value=INT
 	| {StringConstant} value=STRING
 	| {BoolConstant} value=('true' | 'false')
@@ -99,3 +99,37 @@ FloatConstant returns EFloat:
 					LDT
 					DTL
 UDT */
+TeststepBlock:
+	'teststep' '(' plcCycle=INT ',' description=STRING ')' '{' assert=AssertionBlock '}';
+
+AssertionBlock:
+	set=Set & assert=Assert;
+
+Set:
+	name='set' '[' setVariables+=Statement* ']';
+
+Assert:
+	name='assert' '[' assertVariables+=Statement* ']';
+
+Statement:
+	'!';
+	//	variable=[Variables] assignment=Assignment;
+//
+//Assignment returns Statement:
+//	MemberSelection
+//	({Assignment.left=current} '=' right=Statement)?;
+//
+//MemberSelection returns Statement:
+//	TerminalStatement
+//	({MemberSelection.receiver=current} '.' member=[Variables])*;
+//
+//TerminalStatement returns Statement:
+//	{IntConstant} value=INT
+//	| {StringConstant} value=STRING
+//	| {BoolConstant} value=('true' | 'false')
+//	| {VariableRef} variable=[Variable]
+//	| FloatConstant;
+
+
+
+

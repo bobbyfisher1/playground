@@ -17,7 +17,7 @@ import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.example.define.define.BoolConstant;
 import org.example.define.define.DefineBlock;
 import org.example.define.define.EFloat;
-import org.example.define.define.Expression;
+import org.example.define.define.Idiom;
 import org.example.define.define.IntConstant;
 import org.example.define.define.Udt;
 import org.example.define.define.Variable;
@@ -148,8 +148,8 @@ public class DefineParsingTest {
           Variables _get = it_1.get(0);
           final Procedure1<Variable> _function_2 = (Variable it_2) -> {
             Assert.assertEquals(it_2.getName(), "a");
-            Expression _expression = it_2.getExpression();
-            Assert.assertEquals(((IntConstant) _expression).getValue(), 4);
+            Idiom _idiom = it_2.getIdiom();
+            Assert.assertEquals(((IntConstant) _idiom).getValue(), 4);
           };
           ObjectExtensions.<Variable>operator_doubleArrow(((Variable) _get), _function_2);
           Variables _get_1 = it_1.get(1);
@@ -159,8 +159,8 @@ public class DefineParsingTest {
             Variables _get_2 = it_2.getUdtVariables().get(0);
             final Procedure1<Variable> _function_4 = (Variable it_3) -> {
               Assert.assertEquals(it_3.getName(), "b");
-              Expression _expression = it_3.getExpression();
-              Assert.assertEquals(((IntConstant) _expression).getValue(), 39);
+              Idiom _idiom = it_3.getIdiom();
+              Assert.assertEquals(((IntConstant) _idiom).getValue(), 39);
             };
             ObjectExtensions.<Variable>operator_doubleArrow(((Variable) _get_2), _function_4);
           };
@@ -212,8 +212,8 @@ public class DefineParsingTest {
           final Procedure1<Variable> _function_2 = (Variable it_2) -> {
             Assert.assertSame(this._defineTypeComputer.typeFor(it_2.getVariableType()), DefineTypeComputer.INT_TYPE);
             Assert.assertEquals(it_2.getName(), "a");
-            Expression _expression = it_2.getExpression();
-            Assert.assertEquals(((IntConstant) _expression).getValue(), 4);
+            Idiom _idiom = it_2.getIdiom();
+            Assert.assertEquals(((IntConstant) _idiom).getValue(), 4);
           };
           ObjectExtensions.<Variable>operator_doubleArrow(((Variable) _get), _function_2);
           Variables _get_1 = it_1.get(1);
@@ -225,16 +225,16 @@ public class DefineParsingTest {
           final Procedure1<Variable> _function_4 = (Variable it_2) -> {
             Assert.assertSame(this._defineTypeComputer.typeFor(it_2.getVariableType()), DefineTypeComputer.BOOL_TYPE);
             Assert.assertEquals(it_2.getName(), "c");
-            Expression _expression = it_2.getExpression();
-            Assert.assertEquals(((BoolConstant) _expression).getValue(), "false");
+            Idiom _idiom = it_2.getIdiom();
+            Assert.assertEquals(((BoolConstant) _idiom).getValue(), "false");
           };
           ObjectExtensions.<Variable>operator_doubleArrow(((Variable) _get_2), _function_4);
           Variables _get_3 = it_1.get(3);
           final Procedure1<Variable> _function_5 = (Variable it_2) -> {
             Assert.assertSame(this._defineTypeComputer.typeFor(it_2.getVariableType()), DefineTypeComputer.BOOL_TYPE);
             Assert.assertEquals(it_2.getName(), "d");
-            Expression _expression = it_2.getExpression();
-            Assert.assertEquals(((BoolConstant) _expression).getValue(), "true");
+            Idiom _idiom = it_2.getIdiom();
+            Assert.assertEquals(((BoolConstant) _idiom).getValue(), "true");
           };
           ObjectExtensions.<Variable>operator_doubleArrow(((Variable) _get_3), _function_5);
         };
@@ -361,10 +361,10 @@ public class DefineParsingTest {
       final Procedure1<DefineBlock> _function = (DefineBlock it) -> {
         Variables _get = it.getDirection().getInput().getInputVariables().get(0);
         final Procedure1<Variable> _function_1 = (Variable it_1) -> {
-          Expression _expression = it_1.getExpression();
-          Assert.assertEquals(((EFloat) _expression).getValue(), 19);
-          Expression _expression_1 = it_1.getExpression();
-          Assert.assertEquals(((EFloat) _expression_1).getValueOfDecimal(), 5);
+          Idiom _idiom = it_1.getIdiom();
+          Assert.assertEquals(((EFloat) _idiom).getValue(), 19);
+          Idiom _idiom_1 = it_1.getIdiom();
+          Assert.assertEquals(((EFloat) _idiom_1).getValueOfDecimal(), 5);
         };
         ObjectExtensions.<Variable>operator_doubleArrow(((Variable) _get), _function_1);
       };
@@ -392,10 +392,10 @@ public class DefineParsingTest {
       final Procedure1<DefineBlock> _function = (DefineBlock it) -> {
         Variables _get = it.getDirection().getInput().getInputVariables().get(0);
         final Procedure1<Variable> _function_1 = (Variable it_1) -> {
-          Expression _expression = it_1.getExpression();
-          Assert.assertEquals(((EFloat) _expression).getValue(), 19);
-          Expression _expression_1 = it_1.getExpression();
-          Assert.assertEquals(((EFloat) _expression_1).getValueOfDecimal(), 0);
+          Idiom _idiom = it_1.getIdiom();
+          Assert.assertEquals(((EFloat) _idiom).getValue(), 19);
+          Idiom _idiom_1 = it_1.getIdiom();
+          Assert.assertEquals(((EFloat) _idiom_1).getValueOfDecimal(), 0);
         };
         ObjectExtensions.<Variable>operator_doubleArrow(((Variable) _get), _function_1);
       };
@@ -423,10 +423,10 @@ public class DefineParsingTest {
       final Procedure1<DefineBlock> _function = (DefineBlock it) -> {
         Variables _get = it.getDirection().getInput().getInputVariables().get(0);
         final Procedure1<Variable> _function_1 = (Variable it_1) -> {
-          Expression _expression = it_1.getExpression();
-          Assert.assertEquals(((EFloat) _expression).getValue(), 0);
-          Expression _expression_1 = it_1.getExpression();
-          Assert.assertEquals(((EFloat) _expression_1).getValueOfDecimal(), 4);
+          Idiom _idiom = it_1.getIdiom();
+          Assert.assertEquals(((EFloat) _idiom).getValue(), 0);
+          Idiom _idiom_1 = it_1.getIdiom();
+          Assert.assertEquals(((EFloat) _idiom_1).getValueOfDecimal(), 4);
         };
         ObjectExtensions.<Variable>operator_doubleArrow(((Variable) _get), _function_1);
       };
