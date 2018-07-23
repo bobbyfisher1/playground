@@ -336,7 +336,7 @@ class DefineValidator extends AbstractDefineValidator {
 		newVariable.variableType = variable.variableType
 		newVariable.variantKeyword = variable.isVariantKeyword
 		newVariable.nextVariable = variable.isNextVariable
-	
+
 		if ((variable.idiom instanceof VariableRef) || (variable.range instanceof VariableRef)) {
 			error("This reference cannot be made because a variable contains other references ", // udtRef,
 			DefinePackage.eINSTANCE.udtRef_UdtType, RECURSIVE_VARIABLE_REFERENCE)
@@ -344,7 +344,7 @@ class DefineValidator extends AbstractDefineValidator {
 			newVariable.idiom = variable.idiom
 			newVariable.range = variable.range
 		}
-		
+
 		return newVariable
 	}
 

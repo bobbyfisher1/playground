@@ -1673,17 +1673,17 @@ ruleTeststepBlock returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getTeststepBlockAccess().getAssertAssertionBlockParserRuleCall_7_0());
+					newCompositeNode(grammarAccess.getTeststepBlockAccess().getAssertionAssertionBlockParserRuleCall_7_0());
 				}
-				lv_assert_7_0=ruleAssertionBlock
+				lv_assertion_7_0=ruleAssertionBlock
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getTeststepBlockRule());
 					}
 					set(
 						$current,
-						"assert",
-						lv_assert_7_0,
+						"assertion",
+						lv_assertion_7_0,
 						"org.example.define.Define.AssertionBlock");
 					afterParserOrEnumRuleCall();
 				}
@@ -1905,25 +1905,81 @@ ruleAssert returns [EObject current=null]
 ;
 
 // Entry rule entryRuleStatement
-entryRuleStatement returns [String current=null]:
+entryRuleStatement returns [EObject current=null]:
 	{ newCompositeNode(grammarAccess.getStatementRule()); }
 	iv_ruleStatement=ruleStatement
-	{ $current=$iv_ruleStatement.current.getText(); }
+	{ $current=$iv_ruleStatement.current; }
 	EOF;
 
 // Rule Statement
-ruleStatement returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
+ruleStatement returns [EObject current=null]
 @init {
 	enterRule();
 }
 @after {
 	leaveRule();
 }:
-	kw='!'
-	{
-		$current.merge(kw);
-		newLeafNode(kw, grammarAccess.getStatementAccess().getExclamationMarkKeyword());
-	}
+	(
+		(
+			(
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getStatementRule());
+					}
+				}
+				otherlv_0=RULE_ID
+				{
+					newLeafNode(otherlv_0, grammarAccess.getStatementAccess().getVariableVariablesCrossReference_0_0());
+				}
+			)
+		)
+		(
+			otherlv_1='.'
+			{
+				newLeafNode(otherlv_1, grammarAccess.getStatementAccess().getFullStopKeyword_1_0());
+			}
+			(
+				(
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getStatementRule());
+						}
+					}
+					otherlv_2=RULE_ID
+					{
+						newLeafNode(otherlv_2, grammarAccess.getStatementAccess().getMemberVariablesCrossReference_1_1_0());
+					}
+				)
+			)
+		)*
+		otherlv_3='='
+		{
+			newLeafNode(otherlv_3, grammarAccess.getStatementAccess().getEqualsSignKeyword_2());
+		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getStatementAccess().getRightIdiomParserRuleCall_3_0());
+				}
+				lv_right_4_0=ruleIdiom
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getStatementRule());
+					}
+					set(
+						$current,
+						"right",
+						lv_right_4_0,
+						"org.example.define.Define.Idiom");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		otherlv_5=';'
+		{
+			newLeafNode(otherlv_5, grammarAccess.getStatementAccess().getSemicolonKeyword_4());
+		}
+	)
 ;
 
 // Rule BasicType

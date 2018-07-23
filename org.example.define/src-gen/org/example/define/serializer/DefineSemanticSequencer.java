@@ -33,6 +33,7 @@ import org.example.define.define.Not;
 import org.example.define.define.Or;
 import org.example.define.define.Output;
 import org.example.define.define.Plus;
+import org.example.define.define.Statement;
 import org.example.define.define.StringConstant;
 import org.example.define.define.TeststepBlock;
 import org.example.define.define.Udt;
@@ -112,6 +113,9 @@ public class DefineSemanticSequencer extends AbstractDelegatingSemanticSequencer
 				return; 
 			case DefinePackage.SET:
 				sequence_Set(context, (org.example.define.define.Set) semanticObject); 
+				return; 
+			case DefinePackage.STATEMENT:
+				sequence_Statement(context, (Statement) semanticObject); 
 				return; 
 			case DefinePackage.STRING_CONSTANT:
 				sequence_Atomic(context, (StringConstant) semanticObject); 
@@ -650,10 +654,22 @@ public class DefineSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Contexts:
+	 *     Statement returns Statement
+	 *
+	 * Constraint:
+	 *     (variable=[Variables|ID] member+=[Variables|ID]* right=Idiom)
+	 */
+	protected void sequence_Statement(ISerializationContext context, Statement semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     TeststepBlock returns TeststepBlock
 	 *
 	 * Constraint:
-	 *     (plcCycle=INT description=STRING assert=AssertionBlock)
+	 *     (plcCycle=INT description=STRING assertion=AssertionBlock)
 	 */
 	protected void sequence_TeststepBlock(ISerializationContext context, TeststepBlock semanticObject) {
 		if (errorAcceptor != null) {
@@ -661,13 +677,13 @@ public class DefineSemanticSequencer extends AbstractDelegatingSemanticSequencer
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DefinePackage.Literals.TESTSTEP_BLOCK__PLC_CYCLE));
 			if (transientValues.isValueTransient(semanticObject, DefinePackage.Literals.TESTSTEP_BLOCK__DESCRIPTION) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DefinePackage.Literals.TESTSTEP_BLOCK__DESCRIPTION));
-			if (transientValues.isValueTransient(semanticObject, DefinePackage.Literals.TESTSTEP_BLOCK__ASSERT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DefinePackage.Literals.TESTSTEP_BLOCK__ASSERT));
+			if (transientValues.isValueTransient(semanticObject, DefinePackage.Literals.TESTSTEP_BLOCK__ASSERTION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DefinePackage.Literals.TESTSTEP_BLOCK__ASSERTION));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getTeststepBlockAccess().getPlcCycleINTTerminalRuleCall_2_0(), semanticObject.getPlcCycle());
 		feeder.accept(grammarAccess.getTeststepBlockAccess().getDescriptionSTRINGTerminalRuleCall_4_0(), semanticObject.getDescription());
-		feeder.accept(grammarAccess.getTeststepBlockAccess().getAssertAssertionBlockParserRuleCall_7_0(), semanticObject.getAssert());
+		feeder.accept(grammarAccess.getTeststepBlockAccess().getAssertionAssertionBlockParserRuleCall_7_0(), semanticObject.getAssertion());
 		feeder.finish();
 	}
 	

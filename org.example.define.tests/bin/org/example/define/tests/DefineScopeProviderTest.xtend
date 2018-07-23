@@ -56,6 +56,23 @@ class DefineScopeProviderTest {
 		]
 	}
 
+	@Test def void testRefScope() {
+		'''
+			define{
+				input[ 
+					int a;
+					udt b(typeB){}
+					int c=0;
+					udt d(typeD){}
+				]
+				output[]
+			}
+		'''.parse.direction.input => [
+			assertNoErrors
+			assertScope(DefinePackage.eINSTANCE.udtRef_UdtType, "typeB, typeD")
+		]
+	}
+
 	@Test def void testScopeInUdt() {
 		'''
 		define{
@@ -160,24 +177,22 @@ class DefineScopeProviderTest {
 					typeA c;
 				]
 			}
-		'''.parse =>
-		 [assertNoErrors]
-	}
-
-	@Test def void testReferencingVariables2() {
-		'''
-			define{
-				input[]
-				output[ 
-					udt a(typeA){
-						int b;
-					}
-					typeA c.b;
-				]
-			}
 		'''.parse => [assertNoErrors]
 	}
 
+//	@Test def void testReferencingVariables2() {
+//		'''
+//			define{
+//				input[]
+//				output[ 
+//					udt a(typeA){
+//						int b;
+//					}
+//					typeA c.b;
+//				]
+//			}
+//		'''.parse => [assertNoErrors]
+//	}
 	//
 // methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//

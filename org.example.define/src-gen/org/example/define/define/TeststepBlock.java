@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.example.define.define.TeststepBlock#getPlcCycle <em>Plc Cycle</em>}</li>
  *   <li>{@link org.example.define.define.TeststepBlock#getDescription <em>Description</em>}</li>
- *   <li>{@link org.example.define.define.TeststepBlock#getAssert <em>Assert</em>}</li>
+ *   <li>{@link org.example.define.define.TeststepBlock#getAssertion <em>Assertion</em>}</li>
  * </ul>
  *
  * @see org.example.define.define.DefinePackage#getTeststepBlock()
@@ -78,29 +78,29 @@ public interface TeststepBlock extends EObject
   void setDescription(String value);
 
   /**
-   * Returns the value of the '<em><b>Assert</b></em>' containment reference.
+   * Returns the value of the '<em><b>Assertion</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Assert</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Assertion</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Assert</em>' containment reference.
-   * @see #setAssert(AssertionBlock)
-   * @see org.example.define.define.DefinePackage#getTeststepBlock_Assert()
+   * @return the value of the '<em>Assertion</em>' containment reference.
+   * @see #setAssertion(AssertionBlock)
+   * @see org.example.define.define.DefinePackage#getTeststepBlock_Assertion()
    * @model containment="true"
    * @generated
    */
-  AssertionBlock getAssert();
+  AssertionBlock getAssertion();
 
   /**
-   * Sets the value of the '{@link org.example.define.define.TeststepBlock#getAssert <em>Assert</em>}' containment reference.
+   * Sets the value of the '{@link org.example.define.define.TeststepBlock#getAssertion <em>Assertion</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Assert</em>' containment reference.
-   * @see #getAssert()
+   * @param value the new value of the '<em>Assertion</em>' containment reference.
+   * @see #getAssertion()
    * @generated
    */
-  void setAssert(AssertionBlock value);
+  void setAssertion(AssertionBlock value);
 
 } // TeststepBlock

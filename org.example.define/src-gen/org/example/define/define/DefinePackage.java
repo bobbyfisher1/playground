@@ -558,13 +558,13 @@ public interface DefinePackage extends EPackage
   int TESTSTEP_BLOCK__DESCRIPTION = 1;
 
   /**
-   * The feature id for the '<em><b>Assert</b></em>' containment reference.
+   * The feature id for the '<em><b>Assertion</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TESTSTEP_BLOCK__ASSERT = 2;
+  int TESTSTEP_BLOCK__ASSERTION = 2;
 
   /**
    * The number of structural features of the '<em>Teststep Block</em>' class.
@@ -632,7 +632,7 @@ public interface DefinePackage extends EPackage
   int SET__NAME = 0;
 
   /**
-   * The feature id for the '<em><b>Set Variables</b></em>' attribute list.
+   * The feature id for the '<em><b>Set Variables</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -669,7 +669,7 @@ public interface DefinePackage extends EPackage
   int ASSERT__NAME = 0;
 
   /**
-   * The feature id for the '<em><b>Assert Variables</b></em>' attribute list.
+   * The feature id for the '<em><b>Assert Variables</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -687,6 +687,52 @@ public interface DefinePackage extends EPackage
   int ASSERT_FEATURE_COUNT = 2;
 
   /**
+   * The meta object id for the '{@link org.example.define.define.impl.StatementImpl <em>Statement</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.example.define.define.impl.StatementImpl
+   * @see org.example.define.define.impl.DefinePackageImpl#getStatement()
+   * @generated
+   */
+  int STATEMENT = 16;
+
+  /**
+   * The feature id for the '<em><b>Variable</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STATEMENT__VARIABLE = 0;
+
+  /**
+   * The feature id for the '<em><b>Member</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STATEMENT__MEMBER = 1;
+
+  /**
+   * The feature id for the '<em><b>Right</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STATEMENT__RIGHT = 2;
+
+  /**
+   * The number of structural features of the '<em>Statement</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STATEMENT_FEATURE_COUNT = 3;
+
+  /**
    * The meta object id for the '{@link org.example.define.define.impl.OrImpl <em>Or</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -694,7 +740,7 @@ public interface DefinePackage extends EPackage
    * @see org.example.define.define.impl.DefinePackageImpl#getOr()
    * @generated
    */
-  int OR = 16;
+  int OR = 17;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -731,7 +777,7 @@ public interface DefinePackage extends EPackage
    * @see org.example.define.define.impl.DefinePackageImpl#getAnd()
    * @generated
    */
-  int AND = 17;
+  int AND = 18;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -768,7 +814,7 @@ public interface DefinePackage extends EPackage
    * @see org.example.define.define.impl.DefinePackageImpl#getEquality()
    * @generated
    */
-  int EQUALITY = 18;
+  int EQUALITY = 19;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -814,7 +860,7 @@ public interface DefinePackage extends EPackage
    * @see org.example.define.define.impl.DefinePackageImpl#getComparison()
    * @generated
    */
-  int COMPARISON = 19;
+  int COMPARISON = 20;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -860,7 +906,7 @@ public interface DefinePackage extends EPackage
    * @see org.example.define.define.impl.DefinePackageImpl#getPlus()
    * @generated
    */
-  int PLUS = 20;
+  int PLUS = 21;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -897,7 +943,7 @@ public interface DefinePackage extends EPackage
    * @see org.example.define.define.impl.DefinePackageImpl#getMinus()
    * @generated
    */
-  int MINUS = 21;
+  int MINUS = 22;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -934,7 +980,7 @@ public interface DefinePackage extends EPackage
    * @see org.example.define.define.impl.DefinePackageImpl#getMulOrDiv()
    * @generated
    */
-  int MUL_OR_DIV = 22;
+  int MUL_OR_DIV = 23;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -980,7 +1026,7 @@ public interface DefinePackage extends EPackage
    * @see org.example.define.define.impl.DefinePackageImpl#getNot()
    * @generated
    */
-  int NOT = 23;
+  int NOT = 24;
 
   /**
    * The feature id for the '<em><b>Idiom</b></em>' containment reference.
@@ -1008,7 +1054,7 @@ public interface DefinePackage extends EPackage
    * @see org.example.define.define.impl.DefinePackageImpl#getIntConstant()
    * @generated
    */
-  int INT_CONSTANT = 24;
+  int INT_CONSTANT = 25;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1036,7 +1082,7 @@ public interface DefinePackage extends EPackage
    * @see org.example.define.define.impl.DefinePackageImpl#getStringConstant()
    * @generated
    */
-  int STRING_CONSTANT = 25;
+  int STRING_CONSTANT = 26;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1064,7 +1110,7 @@ public interface DefinePackage extends EPackage
    * @see org.example.define.define.impl.DefinePackageImpl#getBoolConstant()
    * @generated
    */
-  int BOOL_CONSTANT = 26;
+  int BOOL_CONSTANT = 27;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1092,7 +1138,7 @@ public interface DefinePackage extends EPackage
    * @see org.example.define.define.impl.DefinePackageImpl#getVariableRef()
    * @generated
    */
-  int VARIABLE_REF = 27;
+  int VARIABLE_REF = 28;
 
   /**
    * The feature id for the '<em><b>Variable</b></em>' reference.
@@ -1120,7 +1166,7 @@ public interface DefinePackage extends EPackage
    * @see org.example.define.define.impl.DefinePackageImpl#getBasicType()
    * @generated
    */
-  int BASIC_TYPE = 28;
+  int BASIC_TYPE = 29;
 
 
   /**
@@ -1540,15 +1586,15 @@ public interface DefinePackage extends EPackage
   EAttribute getTeststepBlock_Description();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.example.define.define.TeststepBlock#getAssert <em>Assert</em>}'.
+   * Returns the meta object for the containment reference '{@link org.example.define.define.TeststepBlock#getAssertion <em>Assertion</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Assert</em>'.
-   * @see org.example.define.define.TeststepBlock#getAssert()
+   * @return the meta object for the containment reference '<em>Assertion</em>'.
+   * @see org.example.define.define.TeststepBlock#getAssertion()
    * @see #getTeststepBlock()
    * @generated
    */
-  EReference getTeststepBlock_Assert();
+  EReference getTeststepBlock_Assertion();
 
   /**
    * Returns the meta object for class '{@link org.example.define.define.AssertionBlock <em>Assertion Block</em>}'.
@@ -1604,15 +1650,15 @@ public interface DefinePackage extends EPackage
   EAttribute getSet_Name();
 
   /**
-   * Returns the meta object for the attribute list '{@link org.example.define.define.Set#getSetVariables <em>Set Variables</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.example.define.define.Set#getSetVariables <em>Set Variables</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Set Variables</em>'.
+   * @return the meta object for the containment reference list '<em>Set Variables</em>'.
    * @see org.example.define.define.Set#getSetVariables()
    * @see #getSet()
    * @generated
    */
-  EAttribute getSet_SetVariables();
+  EReference getSet_SetVariables();
 
   /**
    * Returns the meta object for class '{@link org.example.define.define.Assert <em>Assert</em>}'.
@@ -1636,15 +1682,58 @@ public interface DefinePackage extends EPackage
   EAttribute getAssert_Name();
 
   /**
-   * Returns the meta object for the attribute list '{@link org.example.define.define.Assert#getAssertVariables <em>Assert Variables</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.example.define.define.Assert#getAssertVariables <em>Assert Variables</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Assert Variables</em>'.
+   * @return the meta object for the containment reference list '<em>Assert Variables</em>'.
    * @see org.example.define.define.Assert#getAssertVariables()
    * @see #getAssert()
    * @generated
    */
-  EAttribute getAssert_AssertVariables();
+  EReference getAssert_AssertVariables();
+
+  /**
+   * Returns the meta object for class '{@link org.example.define.define.Statement <em>Statement</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Statement</em>'.
+   * @see org.example.define.define.Statement
+   * @generated
+   */
+  EClass getStatement();
+
+  /**
+   * Returns the meta object for the reference '{@link org.example.define.define.Statement#getVariable <em>Variable</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Variable</em>'.
+   * @see org.example.define.define.Statement#getVariable()
+   * @see #getStatement()
+   * @generated
+   */
+  EReference getStatement_Variable();
+
+  /**
+   * Returns the meta object for the reference list '{@link org.example.define.define.Statement#getMember <em>Member</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Member</em>'.
+   * @see org.example.define.define.Statement#getMember()
+   * @see #getStatement()
+   * @generated
+   */
+  EReference getStatement_Member();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.example.define.define.Statement#getRight <em>Right</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Right</em>'.
+   * @see org.example.define.define.Statement#getRight()
+   * @see #getStatement()
+   * @generated
+   */
+  EReference getStatement_Right();
 
   /**
    * Returns the meta object for class '{@link org.example.define.define.Or <em>Or</em>}'.
@@ -2380,12 +2469,12 @@ public interface DefinePackage extends EPackage
     EAttribute TESTSTEP_BLOCK__DESCRIPTION = eINSTANCE.getTeststepBlock_Description();
 
     /**
-     * The meta object literal for the '<em><b>Assert</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Assertion</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference TESTSTEP_BLOCK__ASSERT = eINSTANCE.getTeststepBlock_Assert();
+    EReference TESTSTEP_BLOCK__ASSERTION = eINSTANCE.getTeststepBlock_Assertion();
 
     /**
      * The meta object literal for the '{@link org.example.define.define.impl.AssertionBlockImpl <em>Assertion Block</em>}' class.
@@ -2432,12 +2521,12 @@ public interface DefinePackage extends EPackage
     EAttribute SET__NAME = eINSTANCE.getSet_Name();
 
     /**
-     * The meta object literal for the '<em><b>Set Variables</b></em>' attribute list feature.
+     * The meta object literal for the '<em><b>Set Variables</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute SET__SET_VARIABLES = eINSTANCE.getSet_SetVariables();
+    EReference SET__SET_VARIABLES = eINSTANCE.getSet_SetVariables();
 
     /**
      * The meta object literal for the '{@link org.example.define.define.impl.AssertImpl <em>Assert</em>}' class.
@@ -2458,12 +2547,46 @@ public interface DefinePackage extends EPackage
     EAttribute ASSERT__NAME = eINSTANCE.getAssert_Name();
 
     /**
-     * The meta object literal for the '<em><b>Assert Variables</b></em>' attribute list feature.
+     * The meta object literal for the '<em><b>Assert Variables</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute ASSERT__ASSERT_VARIABLES = eINSTANCE.getAssert_AssertVariables();
+    EReference ASSERT__ASSERT_VARIABLES = eINSTANCE.getAssert_AssertVariables();
+
+    /**
+     * The meta object literal for the '{@link org.example.define.define.impl.StatementImpl <em>Statement</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.example.define.define.impl.StatementImpl
+     * @see org.example.define.define.impl.DefinePackageImpl#getStatement()
+     * @generated
+     */
+    EClass STATEMENT = eINSTANCE.getStatement();
+
+    /**
+     * The meta object literal for the '<em><b>Variable</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference STATEMENT__VARIABLE = eINSTANCE.getStatement_Variable();
+
+    /**
+     * The meta object literal for the '<em><b>Member</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference STATEMENT__MEMBER = eINSTANCE.getStatement_Member();
+
+    /**
+     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference STATEMENT__RIGHT = eINSTANCE.getStatement_Right();
 
     /**
      * The meta object literal for the '{@link org.example.define.define.impl.OrImpl <em>Or</em>}' class.

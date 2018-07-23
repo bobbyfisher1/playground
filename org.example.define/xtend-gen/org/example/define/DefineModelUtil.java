@@ -63,6 +63,18 @@ public class DefineModelUtil {
     return IterableExtensions.<Variable>toSet(variablesBefore);
   }
   
+  public Iterable<Variable> variablesDefinedBefore(final Input input) {
+    return Iterables.<Variable>filter(input.getInputVariables(), Variable.class);
+  }
+  
+  public Iterable<Variable> variablesDefinedBefore(final Output output) {
+    return Iterables.<Variable>filter(output.getOutputVariables(), Variable.class);
+  }
+  
+  public Iterable<Variable> variablesDefinedBefore(final Inout inout) {
+    return Iterables.<Variable>filter(inout.getInoutVariables(), Variable.class);
+  }
+  
   public Iterable<UdtType> udtTypesDefinedBefore(final UdtRef variable) {
     final EObject container = variable.eContainer();
     Iterable<UdtType> _switchResult = null;
@@ -116,7 +128,34 @@ public class DefineModelUtil {
     if (!_matched) {
       _switchResult = CollectionLiterals.<UdtType>emptyList();
     }
-    final Iterable<UdtType> udtTypesBefore = _switchResult;
-    return udtTypesBefore;
+    return _switchResult;
+  }
+  
+  public Iterable<UdtType> udtTypesDefinedBefore(final Input input) {
+    final Function1<Udt, UdtType> _function = (Udt it) -> {
+      return it.getUdtType();
+    };
+    return IterableExtensions.<Udt, UdtType>map(Iterables.<Udt>filter(input.getInputVariables(), Udt.class), _function);
+  }
+  
+  public Iterable<UdtType> udtTypesDefinedBefore(final Output output) {
+    final Function1<Udt, UdtType> _function = (Udt it) -> {
+      return it.getUdtType();
+    };
+    return IterableExtensions.<Udt, UdtType>map(Iterables.<Udt>filter(output.getOutputVariables(), Udt.class), _function);
+  }
+  
+  public Iterable<UdtType> udtTypesDefinedBefore(final Inout inout) {
+    final Function1<Udt, UdtType> _function = (Udt it) -> {
+      return it.getUdtType();
+    };
+    return IterableExtensions.<Udt, UdtType>map(Iterables.<Udt>filter(inout.getInoutVariables(), Udt.class), _function);
+  }
+  
+  public Iterable<UdtType> udtTypesDefinedBefore(final Udt udt) {
+    final Function1<Udt, UdtType> _function = (Udt it) -> {
+      return it.getUdtType();
+    };
+    return IterableExtensions.<Udt, UdtType>map(Iterables.<Udt>filter(udt.getUdtVariables(), Udt.class), _function);
   }
 }

@@ -64,7 +64,7 @@ public class UdtRefImpl extends VariablesImpl implements UdtRef
    * <!-- end-user-doc -->
    * @generated
    */
-  public UdtRefImpl()
+  protected UdtRefImpl()
   {
     super();
   }

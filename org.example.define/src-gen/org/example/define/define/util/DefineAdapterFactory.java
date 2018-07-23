@@ -156,6 +156,11 @@ public class DefineAdapterFactory extends AdapterFactoryImpl
         return createAssertAdapter();
       }
       @Override
+      public Adapter caseStatement(Statement object)
+      {
+        return createStatementAdapter();
+      }
+      @Override
       public Adapter caseOr(Or object)
       {
         return createOrAdapter();
@@ -473,6 +478,21 @@ public class DefineAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createAssertAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.example.define.define.Statement <em>Statement</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.example.define.define.Statement
+   * @generated
+   */
+  public Adapter createStatementAdapter()
   {
     return null;
   }

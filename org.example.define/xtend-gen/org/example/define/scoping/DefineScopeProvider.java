@@ -4,17 +4,30 @@
 package org.example.define.scoping;
 
 import com.google.common.base.Objects;
+import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
+import java.util.List;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
+import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.example.define.DefineModelUtil;
+import org.example.define.define.Assert;
+import org.example.define.define.DefineBlock;
 import org.example.define.define.DefinePackage;
+import org.example.define.define.DirectionBlock;
 import org.example.define.define.Idiom;
+import org.example.define.define.Inout;
+import org.example.define.define.Input;
+import org.example.define.define.Output;
+import org.example.define.define.Set;
+import org.example.define.define.Udt;
 import org.example.define.define.UdtRef;
 import org.example.define.define.Variable;
+import org.example.define.define.Variables;
 import org.example.define.scoping.AbstractDefineScopeProvider;
 
 /**
@@ -41,23 +54,103 @@ public class DefineScopeProvider extends AbstractDefineScopeProvider {
       if (_equals_1) {
         return this.scopeForVariableRef(context);
       } else {
-        return super.getScope(context, reference);
+        EReference _statement_Variable = DefinePackage.eINSTANCE.getStatement_Variable();
+        boolean _equals_2 = Objects.equal(reference, _statement_Variable);
+        if (_equals_2) {
+          return this.scopeForStatements(context);
+        } else {
+          return super.getScope(context, reference);
+        }
       }
     }
   }
   
-  protected IScope scopeForVariableRef(final EObject context) {
-    if ((context instanceof Variable)) {
-      return Scopes.scopeFor(this._defineModelUtil.variablesDefinedBefore(((Variable)context)));
+  protected IScope scopeForUdtType(final EObject context) {
+    IScope _switchResult = null;
+    boolean _matched = false;
+    if (context instanceof UdtRef) {
+      _matched=true;
+      _switchResult = Scopes.scopeFor(this._defineModelUtil.udtTypesDefinedBefore(((UdtRef)context)));
     }
-    if ((context instanceof Idiom)) {
-      EObject _eContainer = ((Idiom)context).eContainer();
-      return Scopes.scopeFor(this._defineModelUtil.variablesDefinedBefore(((Variable) _eContainer)));
+    if (!_matched) {
+      if (context instanceof Input) {
+        _matched=true;
+        _switchResult = Scopes.scopeFor(this._defineModelUtil.udtTypesDefinedBefore(((Input)context)));
+      }
     }
-    return null;
+    if (!_matched) {
+      if (context instanceof Output) {
+        _matched=true;
+        _switchResult = Scopes.scopeFor(this._defineModelUtil.udtTypesDefinedBefore(((Output)context)));
+      }
+    }
+    if (!_matched) {
+      if (context instanceof Inout) {
+        _matched=true;
+        _switchResult = Scopes.scopeFor(this._defineModelUtil.udtTypesDefinedBefore(((Inout)context)));
+      }
+    }
+    if (!_matched) {
+      if (context instanceof Udt) {
+        _matched=true;
+        _switchResult = Scopes.scopeFor(this._defineModelUtil.udtTypesDefinedBefore(((Udt)context)));
+      }
+    }
+    return _switchResult;
   }
   
-  protected IScope scopeForUdtType(final EObject context) {
-    return Scopes.scopeFor(this._defineModelUtil.udtTypesDefinedBefore(((UdtRef) context)));
+  protected IScope scopeForVariableRef(final EObject context) {
+    IScope _switchResult = null;
+    boolean _matched = false;
+    if (context instanceof Variable) {
+      _matched=true;
+      _switchResult = Scopes.scopeFor(this._defineModelUtil.variablesDefinedBefore(((Variable)context)));
+    }
+    if (!_matched) {
+      if (context instanceof Idiom) {
+        _matched=true;
+        EObject _eContainer = ((Idiom)context).eContainer();
+        _switchResult = Scopes.scopeFor(this._defineModelUtil.variablesDefinedBefore(((Variable) _eContainer)));
+      }
+    }
+    return _switchResult;
+  }
+  
+  protected IScope scopeForStatements(final EObject context) {
+    final EObject defineBlock = context.eContainer().eContainer().eContainer();
+    final EList<Variables> input = ((DefineBlock) defineBlock).getDirection().getInput().getInputVariables();
+    final EList<Variables> output = ((DefineBlock) defineBlock).getDirection().getOutput().getOutputVariables();
+    DirectionBlock _direction = ((DefineBlock) defineBlock).getDirection();
+    Inout _inout = null;
+    if (_direction!=null) {
+      _inout=_direction.getInout();
+    }
+    EList<Variables> _inoutVariables = null;
+    if (_inout!=null) {
+      _inoutVariables=_inout.getInoutVariables();
+    }
+    final EList<Variables> inout = _inoutVariables;
+    List<Variables> scope = CollectionLiterals.<Variables>emptyList();
+    if ((inout != null)) {
+      scope = inout;
+    }
+    IScope _switchResult = null;
+    boolean _matched = false;
+    if (context instanceof Set) {
+      _matched=true;
+      Iterable<Variables> _plus = Iterables.<Variables>concat(input, scope);
+      _switchResult = Scopes.scopeFor(_plus);
+    }
+    if (!_matched) {
+      if (context instanceof Assert) {
+        _matched=true;
+        Iterable<Variables> _plus = Iterables.<Variables>concat(output, scope);
+        _switchResult = Scopes.scopeFor(_plus);
+      }
+    }
+    if (!_matched) {
+      _switchResult = Scopes.scopeFor(CollectionLiterals.<EObject>emptyList());
+    }
+    return _switchResult;
   }
 }

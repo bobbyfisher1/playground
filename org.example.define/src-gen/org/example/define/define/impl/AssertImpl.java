@@ -6,18 +6,22 @@ package org.example.define.define.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EDataTypeEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.example.define.define.Assert;
 import org.example.define.define.DefinePackage;
+import org.example.define.define.Statement;
 
 /**
  * <!-- begin-user-doc -->
@@ -56,14 +60,14 @@ public class AssertImpl extends MinimalEObjectImpl.Container implements Assert
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getAssertVariables() <em>Assert Variables</em>}' attribute list.
+   * The cached value of the '{@link #getAssertVariables() <em>Assert Variables</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getAssertVariables()
    * @generated
    * @ordered
    */
-  protected EList<String> assertVariables;
+  protected EList<Statement> assertVariables;
 
   /**
    * <!-- begin-user-doc -->
@@ -114,13 +118,29 @@ public class AssertImpl extends MinimalEObjectImpl.Container implements Assert
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<String> getAssertVariables()
+  public EList<Statement> getAssertVariables()
   {
     if (assertVariables == null)
     {
-      assertVariables = new EDataTypeEList<String>(String.class, this, DefinePackage.ASSERT__ASSERT_VARIABLES);
+      assertVariables = new EObjectContainmentEList<Statement>(Statement.class, this, DefinePackage.ASSERT__ASSERT_VARIABLES);
     }
     return assertVariables;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case DefinePackage.ASSERT__ASSERT_VARIABLES:
+        return ((InternalEList<?>)getAssertVariables()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -157,7 +177,7 @@ public class AssertImpl extends MinimalEObjectImpl.Container implements Assert
         return;
       case DefinePackage.ASSERT__ASSERT_VARIABLES:
         getAssertVariables().clear();
-        getAssertVariables().addAll((Collection<? extends String>)newValue);
+        getAssertVariables().addAll((Collection<? extends Statement>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -214,8 +234,6 @@ public class AssertImpl extends MinimalEObjectImpl.Container implements Assert
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
-    result.append(", assertVariables: ");
-    result.append(assertVariables);
     result.append(')');
     return result.toString();
   }

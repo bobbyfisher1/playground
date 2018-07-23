@@ -34,6 +34,7 @@ import org.example.define.define.Or;
 import org.example.define.define.Output;
 import org.example.define.define.Plus;
 import org.example.define.define.Set;
+import org.example.define.define.Statement;
 import org.example.define.define.StringConstant;
 import org.example.define.define.TeststepBlock;
 import org.example.define.define.Udt;
@@ -162,6 +163,13 @@ public class DefinePackageImpl extends EPackageImpl implements DefinePackage
    * @generated
    */
   private EClass assertEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass statementEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -712,7 +720,7 @@ public class DefinePackageImpl extends EPackageImpl implements DefinePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getTeststepBlock_Assert()
+  public EReference getTeststepBlock_Assertion()
   {
     return (EReference)teststepBlockEClass.getEStructuralFeatures().get(2);
   }
@@ -772,9 +780,9 @@ public class DefinePackageImpl extends EPackageImpl implements DefinePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getSet_SetVariables()
+  public EReference getSet_SetVariables()
   {
-    return (EAttribute)setEClass.getEStructuralFeatures().get(1);
+    return (EReference)setEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -802,9 +810,49 @@ public class DefinePackageImpl extends EPackageImpl implements DefinePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getAssert_AssertVariables()
+  public EReference getAssert_AssertVariables()
   {
-    return (EAttribute)assertEClass.getEStructuralFeatures().get(1);
+    return (EReference)assertEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getStatement()
+  {
+    return statementEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getStatement_Variable()
+  {
+    return (EReference)statementEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getStatement_Member()
+  {
+    return (EReference)statementEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getStatement_Right()
+  {
+    return (EReference)statementEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -1238,7 +1286,7 @@ public class DefinePackageImpl extends EPackageImpl implements DefinePackage
     teststepBlockEClass = createEClass(TESTSTEP_BLOCK);
     createEAttribute(teststepBlockEClass, TESTSTEP_BLOCK__PLC_CYCLE);
     createEAttribute(teststepBlockEClass, TESTSTEP_BLOCK__DESCRIPTION);
-    createEReference(teststepBlockEClass, TESTSTEP_BLOCK__ASSERT);
+    createEReference(teststepBlockEClass, TESTSTEP_BLOCK__ASSERTION);
 
     assertionBlockEClass = createEClass(ASSERTION_BLOCK);
     createEReference(assertionBlockEClass, ASSERTION_BLOCK__SET);
@@ -1246,11 +1294,16 @@ public class DefinePackageImpl extends EPackageImpl implements DefinePackage
 
     setEClass = createEClass(SET);
     createEAttribute(setEClass, SET__NAME);
-    createEAttribute(setEClass, SET__SET_VARIABLES);
+    createEReference(setEClass, SET__SET_VARIABLES);
 
     assertEClass = createEClass(ASSERT);
     createEAttribute(assertEClass, ASSERT__NAME);
-    createEAttribute(assertEClass, ASSERT__ASSERT_VARIABLES);
+    createEReference(assertEClass, ASSERT__ASSERT_VARIABLES);
+
+    statementEClass = createEClass(STATEMENT);
+    createEReference(statementEClass, STATEMENT__VARIABLE);
+    createEReference(statementEClass, STATEMENT__MEMBER);
+    createEReference(statementEClass, STATEMENT__RIGHT);
 
     orEClass = createEClass(OR);
     createEReference(orEClass, OR__LEFT);
@@ -1400,7 +1453,7 @@ public class DefinePackageImpl extends EPackageImpl implements DefinePackage
     initEClass(teststepBlockEClass, TeststepBlock.class, "TeststepBlock", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getTeststepBlock_PlcCycle(), ecorePackage.getEInt(), "plcCycle", null, 0, 1, TeststepBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getTeststepBlock_Description(), ecorePackage.getEString(), "description", null, 0, 1, TeststepBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getTeststepBlock_Assert(), this.getAssertionBlock(), null, "assert", null, 0, 1, TeststepBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTeststepBlock_Assertion(), this.getAssertionBlock(), null, "assertion", null, 0, 1, TeststepBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(assertionBlockEClass, AssertionBlock.class, "AssertionBlock", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getAssertionBlock_Set(), this.getSet(), null, "set", null, 0, 1, AssertionBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1408,11 +1461,16 @@ public class DefinePackageImpl extends EPackageImpl implements DefinePackage
 
     initEClass(setEClass, Set.class, "Set", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getSet_Name(), ecorePackage.getEString(), "name", null, 0, 1, Set.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getSet_SetVariables(), ecorePackage.getEString(), "setVariables", null, 0, -1, Set.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSet_SetVariables(), this.getStatement(), null, "setVariables", null, 0, -1, Set.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(assertEClass, Assert.class, "Assert", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getAssert_Name(), ecorePackage.getEString(), "name", null, 0, 1, Assert.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getAssert_AssertVariables(), ecorePackage.getEString(), "assertVariables", null, 0, -1, Assert.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAssert_AssertVariables(), this.getStatement(), null, "assertVariables", null, 0, -1, Assert.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(statementEClass, Statement.class, "Statement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getStatement_Variable(), this.getVariables(), null, "variable", null, 0, 1, Statement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getStatement_Member(), this.getVariables(), null, "member", null, 0, -1, Statement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getStatement_Right(), this.getIdiom(), null, "right", null, 0, 1, Statement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(orEClass, Or.class, "Or", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getOr_Left(), this.getIdiom(), null, "left", null, 0, 1, Or.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

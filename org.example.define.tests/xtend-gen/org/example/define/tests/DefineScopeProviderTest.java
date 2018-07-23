@@ -20,6 +20,7 @@ import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.example.define.define.DefineBlock;
 import org.example.define.define.DefinePackage;
+import org.example.define.define.Input;
 import org.example.define.define.Udt;
 import org.example.define.define.UdtRef;
 import org.example.define.define.Variable;
@@ -102,6 +103,46 @@ public class DefineScopeProviderTest {
         ObjectExtensions.<EList<Variables>>operator_doubleArrow(_inputVariables, _function_1);
       };
       ObjectExtensions.<DefineBlock>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void testRefScope() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("define{");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("input[ ");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("int a;");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("udt b(typeB){}");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("int c=0;");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("udt d(typeD){}");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("output[]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      Input _input = this._parseHelper.parse(_builder).getDirection().getInput();
+      final Procedure1<Input> _function = (Input it) -> {
+        this._validationTestHelper.assertNoErrors(it);
+        this.assertScope(it, DefinePackage.eINSTANCE.getUdtRef_UdtType(), "typeB, typeD");
+      };
+      ObjectExtensions.<Input>operator_doubleArrow(_input, _function);
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
@@ -365,45 +406,6 @@ public class DefineScopeProviderTest {
       _builder.newLine();
       _builder.append("\t\t");
       _builder.append("typeA c;");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("]");
-      _builder.newLine();
-      _builder.append("}");
-      _builder.newLine();
-      DefineBlock _parse = this._parseHelper.parse(_builder);
-      final Procedure1<DefineBlock> _function = (DefineBlock it) -> {
-        this._validationTestHelper.assertNoErrors(it);
-      };
-      ObjectExtensions.<DefineBlock>operator_doubleArrow(_parse, _function);
-    } catch (Throwable _e) {
-      throw Exceptions.sneakyThrow(_e);
-    }
-  }
-  
-  @Test
-  public void testReferencingVariables2() {
-    try {
-      StringConcatenation _builder = new StringConcatenation();
-      _builder.append("define{");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("input[]");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("output[ ");
-      _builder.newLine();
-      _builder.append("\t\t");
-      _builder.append("udt a(typeA){");
-      _builder.newLine();
-      _builder.append("\t\t\t");
-      _builder.append("int b;");
-      _builder.newLine();
-      _builder.append("\t\t");
-      _builder.append("}");
-      _builder.newLine();
-      _builder.append("\t\t");
-      _builder.append("typeA c.b;");
       _builder.newLine();
       _builder.append("\t");
       _builder.append("]");

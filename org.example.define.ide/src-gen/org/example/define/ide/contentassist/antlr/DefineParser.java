@@ -74,6 +74,8 @@ public class DefineParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTeststepBlockAccess().getGroup(), "rule__TeststepBlock__Group__0");
 					put(grammarAccess.getSetAccess().getGroup(), "rule__Set__Group__0");
 					put(grammarAccess.getAssertAccess().getGroup(), "rule__Assert__Group__0");
+					put(grammarAccess.getStatementAccess().getGroup(), "rule__Statement__Group__0");
+					put(grammarAccess.getStatementAccess().getGroup_1(), "rule__Statement__Group_1__0");
 					put(grammarAccess.getDefineBlockAccess().getDirectionAssignment_2(), "rule__DefineBlock__DirectionAssignment_2");
 					put(grammarAccess.getDefineBlockAccess().getTeststepsAssignment_4(), "rule__DefineBlock__TeststepsAssignment_4");
 					put(grammarAccess.getDirectionBlockAccess().getInputAssignment_0(), "rule__DirectionBlock__InputAssignment_0");
@@ -116,13 +118,16 @@ public class DefineParser extends AbstractContentAssistParser {
 					put(grammarAccess.getFloatConstantAccess().getValueOfDecimalAssignment_3(), "rule__FloatConstant__ValueOfDecimalAssignment_3");
 					put(grammarAccess.getTeststepBlockAccess().getPlcCycleAssignment_2(), "rule__TeststepBlock__PlcCycleAssignment_2");
 					put(grammarAccess.getTeststepBlockAccess().getDescriptionAssignment_4(), "rule__TeststepBlock__DescriptionAssignment_4");
-					put(grammarAccess.getTeststepBlockAccess().getAssertAssignment_7(), "rule__TeststepBlock__AssertAssignment_7");
+					put(grammarAccess.getTeststepBlockAccess().getAssertionAssignment_7(), "rule__TeststepBlock__AssertionAssignment_7");
 					put(grammarAccess.getAssertionBlockAccess().getSetAssignment_0(), "rule__AssertionBlock__SetAssignment_0");
 					put(grammarAccess.getAssertionBlockAccess().getAssertAssignment_1(), "rule__AssertionBlock__AssertAssignment_1");
 					put(grammarAccess.getSetAccess().getNameAssignment_0(), "rule__Set__NameAssignment_0");
 					put(grammarAccess.getSetAccess().getSetVariablesAssignment_2(), "rule__Set__SetVariablesAssignment_2");
 					put(grammarAccess.getAssertAccess().getNameAssignment_0(), "rule__Assert__NameAssignment_0");
 					put(grammarAccess.getAssertAccess().getAssertVariablesAssignment_2(), "rule__Assert__AssertVariablesAssignment_2");
+					put(grammarAccess.getStatementAccess().getVariableAssignment_0(), "rule__Statement__VariableAssignment_0");
+					put(grammarAccess.getStatementAccess().getMemberAssignment_1_1(), "rule__Statement__MemberAssignment_1_1");
+					put(grammarAccess.getStatementAccess().getRightAssignment_3(), "rule__Statement__RightAssignment_3");
 					put(grammarAccess.getDirectionBlockAccess().getUnorderedGroup(), "rule__DirectionBlock__UnorderedGroup");
 					put(grammarAccess.getAssertionBlockAccess().getUnorderedGroup(), "rule__AssertionBlock__UnorderedGroup");
 				}

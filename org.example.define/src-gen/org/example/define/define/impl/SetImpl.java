@@ -6,18 +6,22 @@ package org.example.define.define.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EDataTypeEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.example.define.define.DefinePackage;
 import org.example.define.define.Set;
+import org.example.define.define.Statement;
 
 /**
  * <!-- begin-user-doc -->
@@ -56,14 +60,14 @@ public class SetImpl extends MinimalEObjectImpl.Container implements Set
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getSetVariables() <em>Set Variables</em>}' attribute list.
+   * The cached value of the '{@link #getSetVariables() <em>Set Variables</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getSetVariables()
    * @generated
    * @ordered
    */
-  protected EList<String> setVariables;
+  protected EList<Statement> setVariables;
 
   /**
    * <!-- begin-user-doc -->
@@ -114,13 +118,29 @@ public class SetImpl extends MinimalEObjectImpl.Container implements Set
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<String> getSetVariables()
+  public EList<Statement> getSetVariables()
   {
     if (setVariables == null)
     {
-      setVariables = new EDataTypeEList<String>(String.class, this, DefinePackage.SET__SET_VARIABLES);
+      setVariables = new EObjectContainmentEList<Statement>(Statement.class, this, DefinePackage.SET__SET_VARIABLES);
     }
     return setVariables;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case DefinePackage.SET__SET_VARIABLES:
+        return ((InternalEList<?>)getSetVariables()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -157,7 +177,7 @@ public class SetImpl extends MinimalEObjectImpl.Container implements Set
         return;
       case DefinePackage.SET__SET_VARIABLES:
         getSetVariables().clear();
-        getSetVariables().addAll((Collection<? extends String>)newValue);
+        getSetVariables().addAll((Collection<? extends Statement>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -214,8 +234,6 @@ public class SetImpl extends MinimalEObjectImpl.Container implements Set
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
-    result.append(", setVariables: ");
-    result.append(setVariables);
     result.append(')');
     return result.toString();
   }

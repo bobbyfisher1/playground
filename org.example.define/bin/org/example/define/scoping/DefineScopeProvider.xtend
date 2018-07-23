@@ -4,15 +4,24 @@
 package org.example.define.scoping
 
 import com.google.inject.Inject
+import java.util.List
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
 import org.example.define.DefineModelUtil
+import org.example.define.define.Assert
+import org.example.define.define.DefineBlock
 import org.example.define.define.DefinePackage
 import org.example.define.define.Idiom
+import org.example.define.define.Inout
+import org.example.define.define.Input
+import org.example.define.define.Output
+import org.example.define.define.Set
+import org.example.define.define.Udt
 import org.example.define.define.UdtRef
 import org.example.define.define.Variable
+import org.example.define.define.Variables
 
 /**
  * This class contains custom scoping description.
@@ -29,19 +38,54 @@ class DefineScopeProvider extends AbstractDefineScopeProvider {
 			return scopeForUdtType(context)
 		} else if (reference == DefinePackage.eINSTANCE.variableRef_Variable) {
 			return scopeForVariableRef(context)
+		} else if (reference == DefinePackage.eINSTANCE.statement_Variable) {
+			return scopeForStatements(context)
 		} else
 			return super.getScope(context, reference)
 	}
 
-	def protected IScope scopeForVariableRef(EObject context) {
-		if (context instanceof Variable)
-			return Scopes.scopeFor(context.variablesDefinedBefore)
-		if (context instanceof Idiom) {
-			return Scopes.scopeFor((context.eContainer as Variable).variablesDefinedBefore)
+	def protected IScope scopeForUdtType(EObject context) {
+		return switch (context) {
+			UdtRef:
+				Scopes.scopeFor(context.udtTypesDefinedBefore)
+			Input:
+				Scopes.scopeFor(context.udtTypesDefinedBefore)
+			Output:
+				Scopes.scopeFor(context.udtTypesDefinedBefore)
+			Inout:
+				Scopes.scopeFor(context.udtTypesDefinedBefore)
+			Udt:
+				Scopes.scopeFor(context.udtTypesDefinedBefore)
 		}
 	}
 
-	def protected IScope scopeForUdtType(EObject context) {
-		return Scopes.scopeFor((context as UdtRef).udtTypesDefinedBefore)
+	def protected IScope scopeForVariableRef(EObject context) {
+		return switch (context) {
+			Variable:
+				Scopes.scopeFor(context.variablesDefinedBefore)
+			Idiom:
+				Scopes.scopeFor((context.eContainer as Variable).variablesDefinedBefore)
+		}
+	}
+
+	def protected IScope scopeForStatements(EObject context) {//context is Set
+		val defineBlock = context.eContainer.eContainer.eContainer
+		
+		val input = (defineBlock as DefineBlock).direction.input.inputVariables
+		val output = (defineBlock as DefineBlock).direction.output.outputVariables
+		val inout = (defineBlock as DefineBlock).direction?.inout?.inoutVariables
+
+		var List<Variables> scope = emptyList
+		if (inout !== null)
+			scope = inout
+
+		return switch (context) {
+			Set:
+				Scopes.scopeFor(input + scope)
+			Assert:
+				Scopes.scopeFor(output + scope)
+			default:
+				Scopes.scopeFor(emptyList)
+		}
 	}
 }

@@ -26,7 +26,7 @@ import org.example.define.define.TeststepBlock;
  * <ul>
  *   <li>{@link org.example.define.define.impl.TeststepBlockImpl#getPlcCycle <em>Plc Cycle</em>}</li>
  *   <li>{@link org.example.define.define.impl.TeststepBlockImpl#getDescription <em>Description</em>}</li>
- *   <li>{@link org.example.define.define.impl.TeststepBlockImpl#getAssert <em>Assert</em>}</li>
+ *   <li>{@link org.example.define.define.impl.TeststepBlockImpl#getAssertion <em>Assertion</em>}</li>
  * </ul>
  *
  * @generated
@@ -74,14 +74,14 @@ public class TeststepBlockImpl extends MinimalEObjectImpl.Container implements T
   protected String description = DESCRIPTION_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getAssert() <em>Assert</em>}' containment reference.
+   * The cached value of the '{@link #getAssertion() <em>Assertion</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getAssert()
+   * @see #getAssertion()
    * @generated
    * @ordered
    */
-  protected AssertionBlock assert_;
+  protected AssertionBlock assertion;
 
   /**
    * <!-- begin-user-doc -->
@@ -155,9 +155,9 @@ public class TeststepBlockImpl extends MinimalEObjectImpl.Container implements T
    * <!-- end-user-doc -->
    * @generated
    */
-  public AssertionBlock getAssert()
+  public AssertionBlock getAssertion()
   {
-    return assert_;
+    return assertion;
   }
 
   /**
@@ -165,13 +165,13 @@ public class TeststepBlockImpl extends MinimalEObjectImpl.Container implements T
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetAssert(AssertionBlock newAssert, NotificationChain msgs)
+  public NotificationChain basicSetAssertion(AssertionBlock newAssertion, NotificationChain msgs)
   {
-    AssertionBlock oldAssert = assert_;
-    assert_ = newAssert;
+    AssertionBlock oldAssertion = assertion;
+    assertion = newAssertion;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DefinePackage.TESTSTEP_BLOCK__ASSERT, oldAssert, newAssert);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DefinePackage.TESTSTEP_BLOCK__ASSERTION, oldAssertion, newAssertion);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -182,20 +182,20 @@ public class TeststepBlockImpl extends MinimalEObjectImpl.Container implements T
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setAssert(AssertionBlock newAssert)
+  public void setAssertion(AssertionBlock newAssertion)
   {
-    if (newAssert != assert_)
+    if (newAssertion != assertion)
     {
       NotificationChain msgs = null;
-      if (assert_ != null)
-        msgs = ((InternalEObject)assert_).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DefinePackage.TESTSTEP_BLOCK__ASSERT, null, msgs);
-      if (newAssert != null)
-        msgs = ((InternalEObject)newAssert).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DefinePackage.TESTSTEP_BLOCK__ASSERT, null, msgs);
-      msgs = basicSetAssert(newAssert, msgs);
+      if (assertion != null)
+        msgs = ((InternalEObject)assertion).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DefinePackage.TESTSTEP_BLOCK__ASSERTION, null, msgs);
+      if (newAssertion != null)
+        msgs = ((InternalEObject)newAssertion).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DefinePackage.TESTSTEP_BLOCK__ASSERTION, null, msgs);
+      msgs = basicSetAssertion(newAssertion, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DefinePackage.TESTSTEP_BLOCK__ASSERT, newAssert, newAssert));
+      eNotify(new ENotificationImpl(this, Notification.SET, DefinePackage.TESTSTEP_BLOCK__ASSERTION, newAssertion, newAssertion));
   }
 
   /**
@@ -208,8 +208,8 @@ public class TeststepBlockImpl extends MinimalEObjectImpl.Container implements T
   {
     switch (featureID)
     {
-      case DefinePackage.TESTSTEP_BLOCK__ASSERT:
-        return basicSetAssert(null, msgs);
+      case DefinePackage.TESTSTEP_BLOCK__ASSERTION:
+        return basicSetAssertion(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -228,8 +228,8 @@ public class TeststepBlockImpl extends MinimalEObjectImpl.Container implements T
         return getPlcCycle();
       case DefinePackage.TESTSTEP_BLOCK__DESCRIPTION:
         return getDescription();
-      case DefinePackage.TESTSTEP_BLOCK__ASSERT:
-        return getAssert();
+      case DefinePackage.TESTSTEP_BLOCK__ASSERTION:
+        return getAssertion();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -250,8 +250,8 @@ public class TeststepBlockImpl extends MinimalEObjectImpl.Container implements T
       case DefinePackage.TESTSTEP_BLOCK__DESCRIPTION:
         setDescription((String)newValue);
         return;
-      case DefinePackage.TESTSTEP_BLOCK__ASSERT:
-        setAssert((AssertionBlock)newValue);
+      case DefinePackage.TESTSTEP_BLOCK__ASSERTION:
+        setAssertion((AssertionBlock)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -273,8 +273,8 @@ public class TeststepBlockImpl extends MinimalEObjectImpl.Container implements T
       case DefinePackage.TESTSTEP_BLOCK__DESCRIPTION:
         setDescription(DESCRIPTION_EDEFAULT);
         return;
-      case DefinePackage.TESTSTEP_BLOCK__ASSERT:
-        setAssert((AssertionBlock)null);
+      case DefinePackage.TESTSTEP_BLOCK__ASSERTION:
+        setAssertion((AssertionBlock)null);
         return;
     }
     super.eUnset(featureID);
@@ -294,8 +294,8 @@ public class TeststepBlockImpl extends MinimalEObjectImpl.Container implements T
         return plcCycle != PLC_CYCLE_EDEFAULT;
       case DefinePackage.TESTSTEP_BLOCK__DESCRIPTION:
         return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-      case DefinePackage.TESTSTEP_BLOCK__ASSERT:
-        return assert_ != null;
+      case DefinePackage.TESTSTEP_BLOCK__ASSERTION:
+        return assertion != null;
     }
     return super.eIsSet(featureID);
   }

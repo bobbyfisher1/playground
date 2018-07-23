@@ -12,7 +12,6 @@ class DefineModelUtil {
 //	def isVariableDefinedBefore(VariableRef varRef) {
 //		varRef.variable.variablesDefinedBefore.contains(varRef.variable)
 //	}
-
 	def variablesDefinedBefore(Variable variable) {
 		val container = variable.eContainer
 		val variablesBefore = switch (container) {
@@ -30,9 +29,21 @@ class DefineModelUtil {
 		return variablesBefore.toSet
 	}
 
+	def variablesDefinedBefore(Input input) {
+		input.inputVariables.filter(Variable)
+	}
+
+	def variablesDefinedBefore(Output output) {
+		output.outputVariables.filter(Variable)
+	}
+
+	def variablesDefinedBefore(Inout inout) {
+		inout.inoutVariables.filter(Variable)
+	}
+
 	def udtTypesDefinedBefore(UdtRef variable) {
 		val container = variable.eContainer
-		val udtTypesBefore = switch (container) {
+		return switch (container) {
 			Output:
 				container.outputVariables.takeWhile[it != variable].filter(Udt).map[udtType]
 			Inout:
@@ -44,6 +55,23 @@ class DefineModelUtil {
 			default:
 				emptyList
 		}
-		return udtTypesBefore
+
+	}
+
+	// The following four scopes need to be limited by the validator to allow only the udtTypes which are defined before.
+	def udtTypesDefinedBefore(Input input) {
+		return input.inputVariables.filter(Udt).map[udtType]
+	}
+
+	def udtTypesDefinedBefore(Output output) {
+		return output.outputVariables.filter(Udt).map[udtType]
+	}
+
+	def udtTypesDefinedBefore(Inout inout) {
+		return inout.inoutVariables.filter(Udt).map[udtType]
+	}
+
+	def udtTypesDefinedBefore(Udt udt) {
+		return udt.udtVariables.filter(Udt).map[udtType]
 	}
 }

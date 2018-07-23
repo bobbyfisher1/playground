@@ -82,6 +82,7 @@ public class DefineFactoryImpl extends EFactoryImpl implements DefineFactory
       case DefinePackage.ASSERTION_BLOCK: return createAssertionBlock();
       case DefinePackage.SET: return createSet();
       case DefinePackage.ASSERT: return createAssert();
+      case DefinePackage.STATEMENT: return createStatement();
       case DefinePackage.OR: return createOr();
       case DefinePackage.AND: return createAnd();
       case DefinePackage.EQUALITY: return createEquality();
@@ -307,6 +308,17 @@ public class DefineFactoryImpl extends EFactoryImpl implements DefineFactory
   {
     AssertImpl assert_ = new AssertImpl();
     return assert_;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Statement createStatement()
+  {
+    StatementImpl statement = new StatementImpl();
+    return statement;
   }
 
   /**

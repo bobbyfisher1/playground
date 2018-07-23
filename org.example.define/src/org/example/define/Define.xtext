@@ -58,7 +58,9 @@ MulOrDiv returns Idiom:
 	Primary ({MulOrDiv.left=current} op=('*' | '/') right=Primary)*;
 
 Primary returns Idiom:
-	'(' Idiom ')' | {Not} "!" idiom=Primary | Atomic;
+	'(' Idiom ')'
+	| {Not} "!" idiom=Primary
+	| Atomic;
 
 Atomic returns Idiom:
 	{IntConstant} value=INT
@@ -100,7 +102,7 @@ FloatConstant returns EFloat:
 					DTL
 UDT */
 TeststepBlock:
-	'teststep' '(' plcCycle=INT ',' description=STRING ')' '{' assert=AssertionBlock '}';
+	'teststep' '(' plcCycle=INT ',' description=STRING ')' '{' assertion=AssertionBlock '}';
 
 AssertionBlock:
 	set=Set & assert=Assert;
@@ -112,23 +114,12 @@ Assert:
 	name='assert' '[' assertVariables+=Statement* ']';
 
 Statement:
-	'!';
-	//	variable=[Variables] assignment=Assignment;
-//
-//Assignment returns Statement:
-//	MemberSelection
-//	({Assignment.left=current} '=' right=Statement)?;
-//
-//MemberSelection returns Statement:
-//	TerminalStatement
-//	({MemberSelection.receiver=current} '.' member=[Variables])*;
-//
-//TerminalStatement returns Statement:
-//	{IntConstant} value=INT
-//	| {StringConstant} value=STRING
-//	| {BoolConstant} value=('true' | 'false')
-//	| {VariableRef} variable=[Variable]
-//	| FloatConstant;
+	variable=[Variables] ('.' member+=[Variables])* '=' right=Idiom ';';
+//{Statement}junk+=ID*;
+
+
+  
+
 
 
 

@@ -3,8 +3,9 @@
  */
 package org.example.define.services;
 
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import java.util.List;
-
 import org.eclipse.xtext.Action;
 import org.eclipse.xtext.Alternatives;
 import org.eclipse.xtext.Assignment;
@@ -20,11 +21,9 @@ import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.TerminalRule;
 import org.eclipse.xtext.UnorderedGroup;
 import org.eclipse.xtext.common.services.TerminalsGrammarAccess;
+import org.eclipse.xtext.service.AbstractElementFinder.AbstractEnumRuleElementFinder;
 import org.eclipse.xtext.service.AbstractElementFinder.AbstractGrammarElementFinder;
 import org.eclipse.xtext.service.GrammarProvider;
-
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
 
 @Singleton
 public class DefineGrammarAccess extends AbstractGrammarElementFinder {
@@ -733,7 +732,9 @@ public class DefineGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cAtomicParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
 		//Primary Idiom:
-		//	'(' Idiom ')' | {Not} "!" idiom=Primary | Atomic;
+		//	'(' Idiom ')'
+		//	| {Not} "!" idiom=Primary
+		//	| Atomic;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//'(' Idiom ')' | {Not} "!" idiom=Primary | Atomic
@@ -910,8 +911,8 @@ public class DefineGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cDescriptionSTRINGTerminalRuleCall_4_0 = (RuleCall)cDescriptionAssignment_4.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		private final Keyword cLeftCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
-		private final Assignment cAssertAssignment_7 = (Assignment)cGroup.eContents().get(7);
-		private final RuleCall cAssertAssertionBlockParserRuleCall_7_0 = (RuleCall)cAssertAssignment_7.eContents().get(0);
+		private final Assignment cAssertionAssignment_7 = (Assignment)cGroup.eContents().get(7);
+		private final RuleCall cAssertionAssertionBlockParserRuleCall_7_0 = (RuleCall)cAssertionAssignment_7.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
 		///*	<listed_datatypes_in_S7UintTest_Editor>
@@ -944,10 +945,10 @@ public class DefineGrammarAccess extends AbstractGrammarElementFinder {
 		//					LDT
 		//					DTL
 		//UDT */ TeststepBlock:
-		//	'teststep' '(' plcCycle=INT ',' description=STRING ')' '{' assert=AssertionBlock '}';
+		//	'teststep' '(' plcCycle=INT ',' description=STRING ')' '{' assertion=AssertionBlock '}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'teststep' '(' plcCycle=INT ',' description=STRING ')' '{' assert=AssertionBlock '}'
+		//'teststep' '(' plcCycle=INT ',' description=STRING ')' '{' assertion=AssertionBlock '}'
 		public Group getGroup() { return cGroup; }
 		
 		//'teststep'
@@ -977,11 +978,11 @@ public class DefineGrammarAccess extends AbstractGrammarElementFinder {
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_6() { return cLeftCurlyBracketKeyword_6; }
 		
-		//assert=AssertionBlock
-		public Assignment getAssertAssignment_7() { return cAssertAssignment_7; }
+		//assertion=AssertionBlock
+		public Assignment getAssertionAssignment_7() { return cAssertionAssignment_7; }
 		
 		//AssertionBlock
-		public RuleCall getAssertAssertionBlockParserRuleCall_7_0() { return cAssertAssertionBlockParserRuleCall_7_0; }
+		public RuleCall getAssertionAssertionBlockParserRuleCall_7_0() { return cAssertionAssertionBlockParserRuleCall_7_0; }
 		
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_8() { return cRightCurlyBracketKeyword_8; }
@@ -1085,14 +1086,62 @@ public class DefineGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	public class StatementElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.define.Define.Statement");
-		private final Keyword cExclamationMarkKeyword = (Keyword)rule.eContents().get(1);
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cVariableAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final CrossReference cVariableVariablesCrossReference_0_0 = (CrossReference)cVariableAssignment_0.eContents().get(0);
+		private final RuleCall cVariableVariablesIDTerminalRuleCall_0_0_1 = (RuleCall)cVariableVariablesCrossReference_0_0.eContents().get(1);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Keyword cFullStopKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Assignment cMemberAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final CrossReference cMemberVariablesCrossReference_1_1_0 = (CrossReference)cMemberAssignment_1_1.eContents().get(0);
+		private final RuleCall cMemberVariablesIDTerminalRuleCall_1_1_0_1 = (RuleCall)cMemberVariablesCrossReference_1_1_0.eContents().get(1);
+		private final Keyword cEqualsSignKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cRightAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cRightIdiomParserRuleCall_3_0 = (RuleCall)cRightAssignment_3.eContents().get(0);
+		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//Statement:
-		//	'!';
+		//	variable=[Variables] ('.' member+=[Variables])* '=' right=Idiom ';';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'!'
-		public Keyword getExclamationMarkKeyword() { return cExclamationMarkKeyword; }
+		//variable=[Variables] ('.' member+=[Variables])* '=' right=Idiom ';'
+		public Group getGroup() { return cGroup; }
+		
+		//variable=[Variables]
+		public Assignment getVariableAssignment_0() { return cVariableAssignment_0; }
+		
+		//[Variables]
+		public CrossReference getVariableVariablesCrossReference_0_0() { return cVariableVariablesCrossReference_0_0; }
+		
+		//ID
+		public RuleCall getVariableVariablesIDTerminalRuleCall_0_0_1() { return cVariableVariablesIDTerminalRuleCall_0_0_1; }
+		
+		//('.' member+=[Variables])*
+		public Group getGroup_1() { return cGroup_1; }
+		
+		//'.'
+		public Keyword getFullStopKeyword_1_0() { return cFullStopKeyword_1_0; }
+		
+		//member+=[Variables]
+		public Assignment getMemberAssignment_1_1() { return cMemberAssignment_1_1; }
+		
+		//[Variables]
+		public CrossReference getMemberVariablesCrossReference_1_1_0() { return cMemberVariablesCrossReference_1_1_0; }
+		
+		//ID
+		public RuleCall getMemberVariablesIDTerminalRuleCall_1_1_0_1() { return cMemberVariablesIDTerminalRuleCall_1_1_0_1; }
+		
+		//'='
+		public Keyword getEqualsSignKeyword_2() { return cEqualsSignKeyword_2; }
+		
+		//right=Idiom
+		public Assignment getRightAssignment_3() { return cRightAssignment_3; }
+		
+		//Idiom
+		public RuleCall getRightIdiomParserRuleCall_3_0() { return cRightIdiomParserRuleCall_3_0; }
+		
+		//';'
+		public Keyword getSemicolonKeyword_4() { return cSemicolonKeyword_4; }
 	}
 	
 	public class BasicTypeElements extends AbstractEnumRuleElementFinder {
@@ -1420,7 +1469,9 @@ public class DefineGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Primary Idiom:
-	//	'(' Idiom ')' | {Not} "!" idiom=Primary | Atomic;
+	//	'(' Idiom ')'
+	//	| {Not} "!" idiom=Primary
+	//	| Atomic;
 	public PrimaryElements getPrimaryAccess() {
 		return pPrimary;
 	}
@@ -1481,7 +1532,7 @@ public class DefineGrammarAccess extends AbstractGrammarElementFinder {
 	//					LDT
 	//					DTL
 	//UDT */ TeststepBlock:
-	//	'teststep' '(' plcCycle=INT ',' description=STRING ')' '{' assert=AssertionBlock '}';
+	//	'teststep' '(' plcCycle=INT ',' description=STRING ')' '{' assertion=AssertionBlock '}';
 	public TeststepBlockElements getTeststepBlockAccess() {
 		return pTeststepBlock;
 	}
@@ -1521,7 +1572,7 @@ public class DefineGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Statement:
-	//	'!';
+	//	variable=[Variables] ('.' member+=[Variables])* '=' right=Idiom ';';
 	public StatementElements getStatementAccess() {
 		return pStatement;
 	}
