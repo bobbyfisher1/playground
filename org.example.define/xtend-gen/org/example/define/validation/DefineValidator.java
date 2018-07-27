@@ -18,6 +18,7 @@ import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.example.define.define.And;
 import org.example.define.define.BasicType;
+import org.example.define.define.Cascade;
 import org.example.define.define.Comparison;
 import org.example.define.define.DefinePackage;
 import org.example.define.define.DirectionBlock;
@@ -29,6 +30,7 @@ import org.example.define.define.MulOrDiv;
 import org.example.define.define.Not;
 import org.example.define.define.Or;
 import org.example.define.define.Plus;
+import org.example.define.define.Statement;
 import org.example.define.define.Udt;
 import org.example.define.define.UdtRef;
 import org.example.define.define.Variable;
@@ -417,6 +419,21 @@ public class DefineValidator extends AbstractDefineValidator {
           }
           count++;
         }
+      }
+    }
+  }
+  
+  @Check
+  public void checkUdtStatements(final Statement statement) {
+    if (((!(statement.getVariable() instanceof Variable)) && statement.getCascade().isEmpty())) {
+      this.error("Only variables can be assigned to values", statement, DefinePackage.eINSTANCE.getStatement_Variable(), 
+        DefineValidator.MISSING_UDT_REFERENCE);
+    }
+    final EList<Cascade> cascade = statement.getCascade();
+    for (final Cascade c : cascade) {
+      if (((!(c.getUdtVar() instanceof Variable)) && (c == IterableExtensions.<Cascade>last(cascade)))) {
+        this.error("Only variables can be assigned to values", statement, DefinePackage.eINSTANCE.getStatement_Cascade(), 
+          DefineValidator.MISSING_UDT_REFERENCE);
       }
     }
   }

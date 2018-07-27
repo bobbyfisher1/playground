@@ -20,6 +20,7 @@ import org.example.define.define.MulOrDiv
 import org.example.define.define.Not
 import org.example.define.define.Or
 import org.example.define.define.Plus
+import org.example.define.define.Statement
 import org.example.define.define.Udt
 import org.example.define.define.UdtRef
 import org.example.define.define.Variable
@@ -301,12 +302,21 @@ class DefineValidator extends AbstractDefineValidator {
 		}
 	}
 
-//	@Check def void checkUdtStatements(Statement statement) {
-//		if (!(statement.variable instanceof Variable) && statement.cascade.empty) {
-//			error("Only variables can be assigned to values", statement, DefinePackage.eINSTANCE.statement_Variable,
-//				MISSING_UDT_REFERENCE)
-//		}
-//	}
+	@Check def void checkUdtStatements(Statement statement) {
+		if (!(statement.variable instanceof Variable) && statement.cascade.empty) {
+			error("Only variables can be assigned to values", statement, DefinePackage.eINSTANCE.statement_Variable,
+				MISSING_UDT_REFERENCE)
+		}
+
+		val cascade = statement.cascade
+
+		for (c : cascade) {
+			if (!(c.udtVar instanceof Variable) && c === cascade.last) {
+				error("Only variables can be assigned to values", statement, DefinePackage.eINSTANCE.statement_Cascade,
+					MISSING_UDT_REFERENCE)
+			}
+		}
+	}
 
 	/*@Check def void checkMultipleStatementsSetBlock(Set sets) {
 	 * 	val set = sets.setVariables

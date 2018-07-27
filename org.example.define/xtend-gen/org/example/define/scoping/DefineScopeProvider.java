@@ -152,6 +152,58 @@ public class DefineScopeProvider extends AbstractDefineScopeProvider {
     return _xblockexpression;
   }
   
+  protected IScope scopeForUdtStatements(final EObject context) {
+    EObject _eContainer = context.eContainer();
+    final EList<Cascade> cascade = ((Statement) _eContainer).getCascade();
+    final Integer number = this.getNumber(context);
+    Cascade _head = IterableExtensions.<Cascade>head(cascade);
+    boolean _tripleEquals = (context == _head);
+    if (_tripleEquals) {
+      return this.firstPosition(context);
+    } else {
+      final int pos = ((number).intValue() - 1);
+      final Variables penultimate = cascade.get(pos).getUdtVar();
+      if ((penultimate instanceof Udt)) {
+        return Scopes.scopeFor(((Udt)penultimate).getUdtVariables());
+      } else {
+        if ((penultimate instanceof UdtRef)) {
+          EObject _eContainer_1 = ((UdtRef)penultimate).getUdtType().eContainer();
+          return Scopes.scopeFor(((Udt) _eContainer_1).getUdtVariables());
+        }
+      }
+    }
+    return null;
+  }
+  
+  public Integer getNumber(final EObject context) {
+    EObject _eContainer = context.eContainer();
+    final EList<Cascade> cascade = ((Statement) _eContainer).getCascade();
+    int num = 0;
+    for (final Cascade c : cascade) {
+      {
+        if ((c == context)) {
+          return Integer.valueOf(num);
+        }
+        num++;
+      }
+    }
+    return null;
+  }
+  
+  protected IScope firstPosition(final EObject context) {
+    EObject _eContainer = context.eContainer();
+    final Variables variable = ((Statement) _eContainer).getVariable();
+    if ((variable instanceof Udt)) {
+      return Scopes.scopeFor(((Udt)variable).getUdtVariables());
+    } else {
+      if ((variable instanceof UdtRef)) {
+        EObject _eContainer_1 = ((UdtRef)variable).getUdtType().eContainer();
+        return Scopes.scopeFor(((Udt) _eContainer_1).getUdtVariables());
+      }
+    }
+    return null;
+  }
+  
   protected EObject getDefineBlock(final EObject context) {
     EObject _xblockexpression = null;
     {
@@ -185,55 +237,5 @@ public class DefineScopeProvider extends AbstractDefineScopeProvider {
       }
     }
     return _switchResult;
-  }
-  
-  protected IScope scopeForUdtStatements(final EObject context) {
-    EObject _eContainer = context.eContainer();
-    final EList<Cascade> cascade = ((Statement) _eContainer).getCascade();
-    for (final Cascade c : cascade) {
-      Cascade _head = IterableExtensions.<Cascade>head(cascade);
-      boolean _tripleEquals = (c == _head);
-      if (_tripleEquals) {
-        return this.firstPosition(context);
-      } else {
-        Cascade _last = IterableExtensions.<Cascade>last(cascade);
-        boolean _tripleNotEquals = (c != _last);
-        if (_tripleNotEquals) {
-          int _size = cascade.size();
-          final int pos = (_size - 2);
-          final Variables penultimate = cascade.get(pos).getUdtVar();
-          if ((penultimate instanceof Udt)) {
-            return Scopes.scopeFor(((Udt)penultimate).getUdtVariables());
-          } else {
-            if ((penultimate instanceof UdtRef)) {
-              EObject _eContainer_1 = ((UdtRef)penultimate).getUdtType().eContainer();
-              return Scopes.scopeFor(((Udt) _eContainer_1).getUdtVariables());
-            }
-          }
-        } else {
-          Cascade _last_1 = IterableExtensions.<Cascade>last(cascade);
-          boolean _tripleEquals_1 = (c == _last_1);
-          if (_tripleEquals_1) {
-          } else {
-            return IScope.NULLSCOPE;
-          }
-        }
-      }
-    }
-    return null;
-  }
-  
-  protected IScope firstPosition(final EObject context) {
-    EObject _eContainer = context.eContainer();
-    final Variables variable = ((Statement) _eContainer).getVariable();
-    if ((variable instanceof Udt)) {
-      return Scopes.scopeFor(((Udt)variable).getUdtVariables());
-    } else {
-      if ((variable instanceof UdtRef)) {
-        EObject _eContainer_1 = ((UdtRef)variable).getUdtType().eContainer();
-        return Scopes.scopeFor(((Udt) _eContainer_1).getUdtVariables());
-      }
-    }
-    return null;
   }
 }

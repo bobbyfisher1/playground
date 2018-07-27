@@ -345,6 +345,28 @@ class DefineValidatorTest {
 		]
 	}
 
+	@Test def void testMissingUdtReferenceInCascade() {
+		'''
+			define{
+				input[ 
+					udt a(typeA){
+						udt b(typeB){
+							int c;
+						}
+					}
+			]
+				output[]
+			}
+			teststep(0,""){
+				set[ a.b = 0; ]
+				assert[]
+			}
+		'''.parse => [
+			assertError(DefinePackage.eINSTANCE.statement, DefineValidator.MISSING_UDT_REFERENCE)
+			1.assertEquals(validate.size)
+		]
+	}
+
 	//
 // methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//
