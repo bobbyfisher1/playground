@@ -18,7 +18,8 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.example.define.define.Statement#getVariable <em>Variable</em>}</li>
  *   <li>{@link org.example.define.define.Statement#getCascade <em>Cascade</em>}</li>
- *   <li>{@link org.example.define.define.Statement#getRight <em>Right</em>}</li>
+ *   <li>{@link org.example.define.define.Statement#getIdiom <em>Idiom</em>}</li>
+ *   <li>{@link org.example.define.define.Statement#getRange <em>Range</em>}</li>
  * </ul>
  *
  * @see org.example.define.define.DefinePackage#getStatement()
@@ -70,29 +71,55 @@ public interface Statement extends EObject
   EList<Cascade> getCascade();
 
   /**
-   * Returns the value of the '<em><b>Right</b></em>' containment reference.
+   * Returns the value of the '<em><b>Idiom</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Right</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Idiom</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Right</em>' containment reference.
-   * @see #setRight(Idiom)
-   * @see org.example.define.define.DefinePackage#getStatement_Right()
+   * @return the value of the '<em>Idiom</em>' containment reference.
+   * @see #setIdiom(Idiom)
+   * @see org.example.define.define.DefinePackage#getStatement_Idiom()
    * @model containment="true"
    * @generated
    */
-  Idiom getRight();
+  Idiom getIdiom();
 
   /**
-   * Sets the value of the '{@link org.example.define.define.Statement#getRight <em>Right</em>}' containment reference.
+   * Sets the value of the '{@link org.example.define.define.Statement#getIdiom <em>Idiom</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Right</em>' containment reference.
-   * @see #getRight()
+   * @param value the new value of the '<em>Idiom</em>' containment reference.
+   * @see #getIdiom()
    * @generated
    */
-  void setRight(Idiom value);
+  void setIdiom(Idiom value);
+
+  /**
+   * Returns the value of the '<em><b>Range</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Range</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Range</em>' containment reference.
+   * @see #setRange(Idiom)
+   * @see org.example.define.define.DefinePackage#getStatement_Range()
+   * @model containment="true"
+   * @generated
+   */
+  Idiom getRange();
+
+  /**
+   * Sets the value of the '{@link org.example.define.define.Statement#getRange <em>Range</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Range</em>' containment reference.
+   * @see #getRange()
+   * @generated
+   */
+  void setRange(Idiom value);
 
 } // Statement

@@ -4983,27 +4983,30 @@ public class InternalDefineParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleStatement"
-    // InternalDefine.g:1915:1: ruleStatement returns [EObject current=null] : ( ( (otherlv_0= RULE_ID ) ) ( (lv_cascade_1_0= ruleCascade ) )* otherlv_2= '=' ( (lv_right_3_0= ruleIdiom ) ) otherlv_4= ';' ) ;
+    // InternalDefine.g:1915:1: ruleStatement returns [EObject current=null] : ( ( (otherlv_0= RULE_ID ) ) ( (lv_cascade_1_0= ruleCascade ) )* otherlv_2= '=' ( (lv_idiom_3_0= ruleIdiom ) ) (otherlv_4= '+/-' ( (lv_range_5_0= ruleIdiom ) ) )? otherlv_6= ';' ) ;
     public final EObject ruleStatement() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_0=null;
         Token otherlv_2=null;
         Token otherlv_4=null;
+        Token otherlv_6=null;
         EObject lv_cascade_1_0 = null;
 
-        EObject lv_right_3_0 = null;
+        EObject lv_idiom_3_0 = null;
+
+        EObject lv_range_5_0 = null;
 
 
 
         	enterRule();
 
         try {
-            // InternalDefine.g:1921:2: ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_cascade_1_0= ruleCascade ) )* otherlv_2= '=' ( (lv_right_3_0= ruleIdiom ) ) otherlv_4= ';' ) )
-            // InternalDefine.g:1922:2: ( ( (otherlv_0= RULE_ID ) ) ( (lv_cascade_1_0= ruleCascade ) )* otherlv_2= '=' ( (lv_right_3_0= ruleIdiom ) ) otherlv_4= ';' )
+            // InternalDefine.g:1921:2: ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_cascade_1_0= ruleCascade ) )* otherlv_2= '=' ( (lv_idiom_3_0= ruleIdiom ) ) (otherlv_4= '+/-' ( (lv_range_5_0= ruleIdiom ) ) )? otherlv_6= ';' ) )
+            // InternalDefine.g:1922:2: ( ( (otherlv_0= RULE_ID ) ) ( (lv_cascade_1_0= ruleCascade ) )* otherlv_2= '=' ( (lv_idiom_3_0= ruleIdiom ) ) (otherlv_4= '+/-' ( (lv_range_5_0= ruleIdiom ) ) )? otherlv_6= ';' )
             {
-            // InternalDefine.g:1922:2: ( ( (otherlv_0= RULE_ID ) ) ( (lv_cascade_1_0= ruleCascade ) )* otherlv_2= '=' ( (lv_right_3_0= ruleIdiom ) ) otherlv_4= ';' )
-            // InternalDefine.g:1923:3: ( (otherlv_0= RULE_ID ) ) ( (lv_cascade_1_0= ruleCascade ) )* otherlv_2= '=' ( (lv_right_3_0= ruleIdiom ) ) otherlv_4= ';'
+            // InternalDefine.g:1922:2: ( ( (otherlv_0= RULE_ID ) ) ( (lv_cascade_1_0= ruleCascade ) )* otherlv_2= '=' ( (lv_idiom_3_0= ruleIdiom ) ) (otherlv_4= '+/-' ( (lv_range_5_0= ruleIdiom ) ) )? otherlv_6= ';' )
+            // InternalDefine.g:1923:3: ( (otherlv_0= RULE_ID ) ) ( (lv_cascade_1_0= ruleCascade ) )* otherlv_2= '=' ( (lv_idiom_3_0= ruleIdiom ) ) (otherlv_4= '+/-' ( (lv_range_5_0= ruleIdiom ) ) )? otherlv_6= ';'
             {
             // InternalDefine.g:1923:3: ( (otherlv_0= RULE_ID ) )
             // InternalDefine.g:1924:4: (otherlv_0= RULE_ID )
@@ -5079,17 +5082,17 @@ public class InternalDefineParser extends AbstractInternalAntlrParser {
 
             			newLeafNode(otherlv_2, grammarAccess.getStatementAccess().getEqualsSignKeyword_2());
             		
-            // InternalDefine.g:1959:3: ( (lv_right_3_0= ruleIdiom ) )
-            // InternalDefine.g:1960:4: (lv_right_3_0= ruleIdiom )
+            // InternalDefine.g:1959:3: ( (lv_idiom_3_0= ruleIdiom ) )
+            // InternalDefine.g:1960:4: (lv_idiom_3_0= ruleIdiom )
             {
-            // InternalDefine.g:1960:4: (lv_right_3_0= ruleIdiom )
-            // InternalDefine.g:1961:5: lv_right_3_0= ruleIdiom
+            // InternalDefine.g:1960:4: (lv_idiom_3_0= ruleIdiom )
+            // InternalDefine.g:1961:5: lv_idiom_3_0= ruleIdiom
             {
 
-            					newCompositeNode(grammarAccess.getStatementAccess().getRightIdiomParserRuleCall_3_0());
+            					newCompositeNode(grammarAccess.getStatementAccess().getIdiomIdiomParserRuleCall_3_0());
             				
             pushFollow(FOLLOW_34);
-            lv_right_3_0=ruleIdiom();
+            lv_idiom_3_0=ruleIdiom();
 
             state._fsp--;
 
@@ -5099,8 +5102,8 @@ public class InternalDefineParser extends AbstractInternalAntlrParser {
             					}
             					set(
             						current,
-            						"right",
-            						lv_right_3_0,
+            						"idiom",
+            						lv_idiom_3_0,
             						"org.example.define.Define.Idiom");
             					afterParserOrEnumRuleCall();
             				
@@ -5110,9 +5113,61 @@ public class InternalDefineParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_4=(Token)match(input,22,FOLLOW_2); 
+            // InternalDefine.g:1978:3: (otherlv_4= '+/-' ( (lv_range_5_0= ruleIdiom ) ) )?
+            int alt31=2;
+            int LA31_0 = input.LA(1);
 
-            			newLeafNode(otherlv_4, grammarAccess.getStatementAccess().getSemicolonKeyword_4());
+            if ( (LA31_0==21) ) {
+                alt31=1;
+            }
+            switch (alt31) {
+                case 1 :
+                    // InternalDefine.g:1979:4: otherlv_4= '+/-' ( (lv_range_5_0= ruleIdiom ) )
+                    {
+                    otherlv_4=(Token)match(input,21,FOLLOW_13); 
+
+                    				newLeafNode(otherlv_4, grammarAccess.getStatementAccess().getPlusSignSolidusHyphenMinusKeyword_4_0());
+                    			
+                    // InternalDefine.g:1983:4: ( (lv_range_5_0= ruleIdiom ) )
+                    // InternalDefine.g:1984:5: (lv_range_5_0= ruleIdiom )
+                    {
+                    // InternalDefine.g:1984:5: (lv_range_5_0= ruleIdiom )
+                    // InternalDefine.g:1985:6: lv_range_5_0= ruleIdiom
+                    {
+
+                    						newCompositeNode(grammarAccess.getStatementAccess().getRangeIdiomParserRuleCall_4_1_0());
+                    					
+                    pushFollow(FOLLOW_35);
+                    lv_range_5_0=ruleIdiom();
+
+                    state._fsp--;
+
+
+                    						if (current==null) {
+                    							current = createModelElementForParent(grammarAccess.getStatementRule());
+                    						}
+                    						set(
+                    							current,
+                    							"range",
+                    							lv_range_5_0,
+                    							"org.example.define.Define.Idiom");
+                    						afterParserOrEnumRuleCall();
+                    					
+
+                    }
+
+
+                    }
+
+
+                    }
+                    break;
+
+            }
+
+            otherlv_6=(Token)match(input,22,FOLLOW_2); 
+
+            			newLeafNode(otherlv_6, grammarAccess.getStatementAccess().getSemicolonKeyword_5());
             		
 
             }
@@ -5137,7 +5192,7 @@ public class InternalDefineParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleCascade"
-    // InternalDefine.g:1986:1: entryRuleCascade returns [EObject current=null] : iv_ruleCascade= ruleCascade EOF ;
+    // InternalDefine.g:2011:1: entryRuleCascade returns [EObject current=null] : iv_ruleCascade= ruleCascade EOF ;
     public final EObject entryRuleCascade() throws RecognitionException {
         EObject current = null;
 
@@ -5145,8 +5200,8 @@ public class InternalDefineParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDefine.g:1986:48: (iv_ruleCascade= ruleCascade EOF )
-            // InternalDefine.g:1987:2: iv_ruleCascade= ruleCascade EOF
+            // InternalDefine.g:2011:48: (iv_ruleCascade= ruleCascade EOF )
+            // InternalDefine.g:2012:2: iv_ruleCascade= ruleCascade EOF
             {
              newCompositeNode(grammarAccess.getCascadeRule()); 
             pushFollow(FOLLOW_1);
@@ -5173,7 +5228,7 @@ public class InternalDefineParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleCascade"
-    // InternalDefine.g:1993:1: ruleCascade returns [EObject current=null] : (otherlv_0= '.' ( (otherlv_1= RULE_ID ) ) ) ;
+    // InternalDefine.g:2018:1: ruleCascade returns [EObject current=null] : (otherlv_0= '.' ( (otherlv_1= RULE_ID ) ) ) ;
     public final EObject ruleCascade() throws RecognitionException {
         EObject current = null;
 
@@ -5184,21 +5239,21 @@ public class InternalDefineParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalDefine.g:1999:2: ( (otherlv_0= '.' ( (otherlv_1= RULE_ID ) ) ) )
-            // InternalDefine.g:2000:2: (otherlv_0= '.' ( (otherlv_1= RULE_ID ) ) )
+            // InternalDefine.g:2024:2: ( (otherlv_0= '.' ( (otherlv_1= RULE_ID ) ) ) )
+            // InternalDefine.g:2025:2: (otherlv_0= '.' ( (otherlv_1= RULE_ID ) ) )
             {
-            // InternalDefine.g:2000:2: (otherlv_0= '.' ( (otherlv_1= RULE_ID ) ) )
-            // InternalDefine.g:2001:3: otherlv_0= '.' ( (otherlv_1= RULE_ID ) )
+            // InternalDefine.g:2025:2: (otherlv_0= '.' ( (otherlv_1= RULE_ID ) ) )
+            // InternalDefine.g:2026:3: otherlv_0= '.' ( (otherlv_1= RULE_ID ) )
             {
             otherlv_0=(Token)match(input,42,FOLLOW_11); 
 
             			newLeafNode(otherlv_0, grammarAccess.getCascadeAccess().getFullStopKeyword_0());
             		
-            // InternalDefine.g:2005:3: ( (otherlv_1= RULE_ID ) )
-            // InternalDefine.g:2006:4: (otherlv_1= RULE_ID )
+            // InternalDefine.g:2030:3: ( (otherlv_1= RULE_ID ) )
+            // InternalDefine.g:2031:4: (otherlv_1= RULE_ID )
             {
-            // InternalDefine.g:2006:4: (otherlv_1= RULE_ID )
-            // InternalDefine.g:2007:5: otherlv_1= RULE_ID
+            // InternalDefine.g:2031:4: (otherlv_1= RULE_ID )
+            // InternalDefine.g:2032:5: otherlv_1= RULE_ID
             {
 
             					if (current==null) {
@@ -5238,7 +5293,7 @@ public class InternalDefineParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleBasicType"
-    // InternalDefine.g:2022:1: ruleBasicType returns [Enumerator current=null] : ( (enumLiteral_0= 'null' ) | (enumLiteral_1= 'int' ) | (enumLiteral_2= 'bool' ) | (enumLiteral_3= 'float' ) | (enumLiteral_4= 'string' ) ) ;
+    // InternalDefine.g:2047:1: ruleBasicType returns [Enumerator current=null] : ( (enumLiteral_0= 'null' ) | (enumLiteral_1= 'int' ) | (enumLiteral_2= 'bool' ) | (enumLiteral_3= 'float' ) | (enumLiteral_4= 'string' ) ) ;
     public final Enumerator ruleBasicType() throws RecognitionException {
         Enumerator current = null;
 
@@ -5252,50 +5307,50 @@ public class InternalDefineParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalDefine.g:2028:2: ( ( (enumLiteral_0= 'null' ) | (enumLiteral_1= 'int' ) | (enumLiteral_2= 'bool' ) | (enumLiteral_3= 'float' ) | (enumLiteral_4= 'string' ) ) )
-            // InternalDefine.g:2029:2: ( (enumLiteral_0= 'null' ) | (enumLiteral_1= 'int' ) | (enumLiteral_2= 'bool' ) | (enumLiteral_3= 'float' ) | (enumLiteral_4= 'string' ) )
+            // InternalDefine.g:2053:2: ( ( (enumLiteral_0= 'null' ) | (enumLiteral_1= 'int' ) | (enumLiteral_2= 'bool' ) | (enumLiteral_3= 'float' ) | (enumLiteral_4= 'string' ) ) )
+            // InternalDefine.g:2054:2: ( (enumLiteral_0= 'null' ) | (enumLiteral_1= 'int' ) | (enumLiteral_2= 'bool' ) | (enumLiteral_3= 'float' ) | (enumLiteral_4= 'string' ) )
             {
-            // InternalDefine.g:2029:2: ( (enumLiteral_0= 'null' ) | (enumLiteral_1= 'int' ) | (enumLiteral_2= 'bool' ) | (enumLiteral_3= 'float' ) | (enumLiteral_4= 'string' ) )
-            int alt31=5;
+            // InternalDefine.g:2054:2: ( (enumLiteral_0= 'null' ) | (enumLiteral_1= 'int' ) | (enumLiteral_2= 'bool' ) | (enumLiteral_3= 'float' ) | (enumLiteral_4= 'string' ) )
+            int alt32=5;
             switch ( input.LA(1) ) {
             case 46:
                 {
-                alt31=1;
+                alt32=1;
                 }
                 break;
             case 47:
                 {
-                alt31=2;
+                alt32=2;
                 }
                 break;
             case 48:
                 {
-                alt31=3;
+                alt32=3;
                 }
                 break;
             case 49:
                 {
-                alt31=4;
+                alt32=4;
                 }
                 break;
             case 50:
                 {
-                alt31=5;
+                alt32=5;
                 }
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("", 31, 0, input);
+                    new NoViableAltException("", 32, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt31) {
+            switch (alt32) {
                 case 1 :
-                    // InternalDefine.g:2030:3: (enumLiteral_0= 'null' )
+                    // InternalDefine.g:2055:3: (enumLiteral_0= 'null' )
                     {
-                    // InternalDefine.g:2030:3: (enumLiteral_0= 'null' )
-                    // InternalDefine.g:2031:4: enumLiteral_0= 'null'
+                    // InternalDefine.g:2055:3: (enumLiteral_0= 'null' )
+                    // InternalDefine.g:2056:4: enumLiteral_0= 'null'
                     {
                     enumLiteral_0=(Token)match(input,46,FOLLOW_2); 
 
@@ -5309,10 +5364,10 @@ public class InternalDefineParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalDefine.g:2038:3: (enumLiteral_1= 'int' )
+                    // InternalDefine.g:2063:3: (enumLiteral_1= 'int' )
                     {
-                    // InternalDefine.g:2038:3: (enumLiteral_1= 'int' )
-                    // InternalDefine.g:2039:4: enumLiteral_1= 'int'
+                    // InternalDefine.g:2063:3: (enumLiteral_1= 'int' )
+                    // InternalDefine.g:2064:4: enumLiteral_1= 'int'
                     {
                     enumLiteral_1=(Token)match(input,47,FOLLOW_2); 
 
@@ -5326,10 +5381,10 @@ public class InternalDefineParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalDefine.g:2046:3: (enumLiteral_2= 'bool' )
+                    // InternalDefine.g:2071:3: (enumLiteral_2= 'bool' )
                     {
-                    // InternalDefine.g:2046:3: (enumLiteral_2= 'bool' )
-                    // InternalDefine.g:2047:4: enumLiteral_2= 'bool'
+                    // InternalDefine.g:2071:3: (enumLiteral_2= 'bool' )
+                    // InternalDefine.g:2072:4: enumLiteral_2= 'bool'
                     {
                     enumLiteral_2=(Token)match(input,48,FOLLOW_2); 
 
@@ -5343,10 +5398,10 @@ public class InternalDefineParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // InternalDefine.g:2054:3: (enumLiteral_3= 'float' )
+                    // InternalDefine.g:2079:3: (enumLiteral_3= 'float' )
                     {
-                    // InternalDefine.g:2054:3: (enumLiteral_3= 'float' )
-                    // InternalDefine.g:2055:4: enumLiteral_3= 'float'
+                    // InternalDefine.g:2079:3: (enumLiteral_3= 'float' )
+                    // InternalDefine.g:2080:4: enumLiteral_3= 'float'
                     {
                     enumLiteral_3=(Token)match(input,49,FOLLOW_2); 
 
@@ -5360,10 +5415,10 @@ public class InternalDefineParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-                    // InternalDefine.g:2062:3: (enumLiteral_4= 'string' )
+                    // InternalDefine.g:2087:3: (enumLiteral_4= 'string' )
                     {
-                    // InternalDefine.g:2062:3: (enumLiteral_4= 'string' )
-                    // InternalDefine.g:2063:4: enumLiteral_4= 'string'
+                    // InternalDefine.g:2087:3: (enumLiteral_4= 'string' )
+                    // InternalDefine.g:2088:4: enumLiteral_4= 'string'
                     {
                     enumLiteral_4=(Token)match(input,50,FOLLOW_2); 
 
@@ -5435,6 +5490,7 @@ public class InternalDefineParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_31 = new BitSet(new long[]{0x0000300000000002L});
     public static final BitSet FOLLOW_32 = new BitSet(new long[]{0x0000000000010010L});
     public static final BitSet FOLLOW_33 = new BitSet(new long[]{0x0000040000100000L});
-    public static final BitSet FOLLOW_34 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_34 = new BitSet(new long[]{0x0000000000600000L});
+    public static final BitSet FOLLOW_35 = new BitSet(new long[]{0x0000000000400000L});
 
 }

@@ -732,6 +732,66 @@ public class DefineValidatorTest {
     }
   }
   
+  @Test
+  public void testWrongStatementType() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("teststep(0 ,\"don\'t forget the string\") {");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("set[ ]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("assert[a = true;]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      final String teststep = _builder.toString();
+      DefineBlock _parse = this._parseHelper.parse((((this.start + "int a;") + this.end) + teststep));
+      final Procedure1<DefineBlock> _function = (DefineBlock it) -> {
+        this._validationTestHelper.assertError(it, DefinePackage.eINSTANCE.getStatement(), DefineValidator.INCOMPATIBLE_TYPES);
+      };
+      ObjectExtensions.<DefineBlock>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void testWrongStatementType2() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("teststep(0 ,\"don\'t forget the string\") {");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("set[ ]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("assert[a.b = true;]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      final String teststep = _builder.toString();
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("udt a(typeA){");
+      _builder_1.newLine();
+      _builder_1.append("\t");
+      _builder_1.append("int b;");
+      _builder_1.newLine();
+      _builder_1.append("}");
+      _builder_1.newLine();
+      String _plus = (this.start + _builder_1);
+      String _plus_1 = (_plus + this.end);
+      DefineBlock _parse = this._parseHelper.parse((_plus_1 + teststep));
+      final Procedure1<DefineBlock> _function = (DefineBlock it) -> {
+        this._validationTestHelper.assertError(it, DefinePackage.eINSTANCE.getStatement(), DefineValidator.INCOMPATIBLE_TYPES);
+      };
+      ObjectExtensions.<DefineBlock>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
   private void assertWrongType(final String text) {
     try {
       this._validationTestHelper.assertError(this._parseHelper.parse(text), DefinePackage.eINSTANCE.getVariable(), DefineValidator.INCOMPATIBLE_TYPES);

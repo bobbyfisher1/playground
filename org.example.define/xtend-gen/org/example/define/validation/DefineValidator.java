@@ -296,19 +296,19 @@ public class DefineValidator extends AbstractDefineValidator {
   }
   
   @Check
-  public void checkType(final Variable v) {
-    Idiom _idiom = v.getIdiom();
+  public void checkType(final Variable variable) {
+    Idiom _idiom = variable.getIdiom();
     boolean _tripleNotEquals = (_idiom != null);
     if (_tripleNotEquals) {
+      final DefineType expectedType = this._defineTypeComputer.typeFor(variable.getVariableType());
       Idiom _idiom_1 = null;
-      if (v!=null) {
-        _idiom_1=v.getIdiom();
+      if (variable!=null) {
+        _idiom_1=variable.getIdiom();
       }
       final DefineType actualType = this._defineTypeComputer.typeFor(_idiom_1);
-      final DefineType expectedType = this._defineTypeComputer.typeFor(v.getVariableType());
       Idiom _range = null;
-      if (v!=null) {
-        _range=v.getRange();
+      if (variable!=null) {
+        _range=variable.getRange();
       }
       DefineType _typeFor = null;
       if (_range!=null) {
@@ -327,9 +327,9 @@ public class DefineValidator extends AbstractDefineValidator {
         String _plus_2 = (_plus_1 + _string_1);
         String _plus_3 = (_plus_2 + 
           "\'");
-        this.error(_plus_3, v, DefinePackage.eINSTANCE.getVariable_Idiom(), DefineValidator.INCOMPATIBLE_TYPES);
+        this.error(_plus_3, variable, DefinePackage.eINSTANCE.getVariable_Idiom(), DefineValidator.INCOMPATIBLE_TYPES);
       }
-      if (((rangeType != null) && (!Objects.equal(rangeType, actualType)))) {
+      if (((rangeType != null) && (!Objects.equal(rangeType, expectedType)))) {
         String _string_2 = expectedType.toString();
         String _plus_4 = ("Incompatible types. Expected \'" + _string_2);
         String _plus_5 = (_plus_4 + "\' but was \'");
@@ -337,8 +337,66 @@ public class DefineValidator extends AbstractDefineValidator {
         String _plus_6 = (_plus_5 + _string_3);
         String _plus_7 = (_plus_6 + 
           "\'");
-        this.error(_plus_7, v, DefinePackage.eINSTANCE.getVariable_Range(), DefineValidator.INCOMPATIBLE_TYPES);
+        this.error(_plus_7, variable, DefinePackage.eINSTANCE.getVariable_Range(), DefineValidator.INCOMPATIBLE_TYPES);
       }
+    }
+  }
+  
+  @Check
+  public void checkType(final Statement statement) {
+    final EList<Cascade> cascade = statement.getCascade();
+    final Variables variable = statement.getVariable();
+    Cascade _last = null;
+    if (cascade!=null) {
+      _last=IterableExtensions.<Cascade>last(cascade);
+    }
+    Variables _udtVar = null;
+    if (_last!=null) {
+      _udtVar=_last.getUdtVar();
+    }
+    final Variables last = _udtVar;
+    final DefineType actualType = this._defineTypeComputer.typeFor(statement.getIdiom());
+    Idiom _range = null;
+    if (statement!=null) {
+      _range=statement.getRange();
+    }
+    DefineType _typeFor = null;
+    if (_range!=null) {
+      _typeFor=this._defineTypeComputer.typeFor(_range);
+    }
+    final DefineType rangeType = _typeFor;
+    BasicType expectedType = BasicType.NULL;
+    if ((variable instanceof Variable)) {
+      expectedType = ((Variable) variable).getVariableType();
+      this.compareTypesAndThrowError(statement, actualType, expectedType, rangeType);
+    } else {
+      if ((last instanceof Variable)) {
+        expectedType = ((Variable)last).getVariableType();
+        this.compareTypesAndThrowError(statement, actualType, expectedType, rangeType);
+      }
+    }
+  }
+  
+  private void compareTypesAndThrowError(final Statement statement, final DefineType actualType, final BasicType expectedType, final DefineType rangeType) {
+    DefineType _typeFor = this._defineTypeComputer.typeFor(expectedType);
+    boolean _notEquals = (!Objects.equal(actualType, _typeFor));
+    if (_notEquals) {
+      String _string = expectedType.toString();
+      String _plus = ("Incompatible types. Expected \'" + _string);
+      String _plus_1 = (_plus + "\' but was \'");
+      String _string_1 = actualType.toString();
+      String _plus_2 = (_plus_1 + _string_1);
+      String _plus_3 = (_plus_2 + "\'");
+      this.error(_plus_3, statement, DefinePackage.eINSTANCE.getStatement_Idiom(), DefineValidator.INCOMPATIBLE_TYPES);
+    }
+    if (((rangeType != null) && (!Objects.equal(rangeType, this._defineTypeComputer.typeFor(expectedType))))) {
+      String _string_2 = expectedType.toString();
+      String _plus_4 = ("Incompatible types. Expected \'" + _string_2);
+      String _plus_5 = (_plus_4 + "\' but was \'");
+      String _string_3 = rangeType.toString();
+      String _plus_6 = (_plus_5 + _string_3);
+      String _plus_7 = (_plus_6 + "\'");
+      this.error(_plus_7, statement, DefinePackage.eINSTANCE.getStatement_Range(), DefineValidator.INCOMPATIBLE_TYPES);
     }
   }
   

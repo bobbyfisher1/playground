@@ -2175,11 +2175,11 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
                 {
                 int LA1_2 = input.LA(2);
 
-                if ( (LA1_2==RULE_ID) ) {
-                    alt1=3;
-                }
-                else if ( (LA1_2==11||LA1_2==32||LA1_2==44) ) {
+                if ( (LA1_2==11||LA1_2==32||LA1_2==44) ) {
                     alt1=1;
+                }
+                else if ( (LA1_2==RULE_ID) ) {
+                    alt1=3;
                 }
                 else {
                     NoViableAltException nvae =
@@ -12333,31 +12333,31 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Statement__Group__3__Impl"
-    // InternalDefine.g:3997:1: rule__Statement__Group__3__Impl : ( ( rule__Statement__RightAssignment_3 ) ) ;
+    // InternalDefine.g:3997:1: rule__Statement__Group__3__Impl : ( ( rule__Statement__IdiomAssignment_3 ) ) ;
     public final void rule__Statement__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4001:1: ( ( ( rule__Statement__RightAssignment_3 ) ) )
-            // InternalDefine.g:4002:1: ( ( rule__Statement__RightAssignment_3 ) )
+            // InternalDefine.g:4001:1: ( ( ( rule__Statement__IdiomAssignment_3 ) ) )
+            // InternalDefine.g:4002:1: ( ( rule__Statement__IdiomAssignment_3 ) )
             {
-            // InternalDefine.g:4002:1: ( ( rule__Statement__RightAssignment_3 ) )
-            // InternalDefine.g:4003:2: ( rule__Statement__RightAssignment_3 )
+            // InternalDefine.g:4002:1: ( ( rule__Statement__IdiomAssignment_3 ) )
+            // InternalDefine.g:4003:2: ( rule__Statement__IdiomAssignment_3 )
             {
-             before(grammarAccess.getStatementAccess().getRightAssignment_3()); 
-            // InternalDefine.g:4004:2: ( rule__Statement__RightAssignment_3 )
-            // InternalDefine.g:4004:3: rule__Statement__RightAssignment_3
+             before(grammarAccess.getStatementAccess().getIdiomAssignment_3()); 
+            // InternalDefine.g:4004:2: ( rule__Statement__IdiomAssignment_3 )
+            // InternalDefine.g:4004:3: rule__Statement__IdiomAssignment_3
             {
             pushFollow(FOLLOW_2);
-            rule__Statement__RightAssignment_3();
+            rule__Statement__IdiomAssignment_3();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getStatementAccess().getRightAssignment_3()); 
+             after(grammarAccess.getStatementAccess().getIdiomAssignment_3()); 
 
             }
 
@@ -12380,17 +12380,22 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Statement__Group__4"
-    // InternalDefine.g:4012:1: rule__Statement__Group__4 : rule__Statement__Group__4__Impl ;
+    // InternalDefine.g:4012:1: rule__Statement__Group__4 : rule__Statement__Group__4__Impl rule__Statement__Group__5 ;
     public final void rule__Statement__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4016:1: ( rule__Statement__Group__4__Impl )
-            // InternalDefine.g:4017:2: rule__Statement__Group__4__Impl
+            // InternalDefine.g:4016:1: ( rule__Statement__Group__4__Impl rule__Statement__Group__5 )
+            // InternalDefine.g:4017:2: rule__Statement__Group__4__Impl rule__Statement__Group__5
             {
-            pushFollow(FOLLOW_2);
+            pushFollow(FOLLOW_44);
             rule__Statement__Group__4__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_2);
+            rule__Statement__Group__5();
 
             state._fsp--;
 
@@ -12413,21 +12418,42 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Statement__Group__4__Impl"
-    // InternalDefine.g:4023:1: rule__Statement__Group__4__Impl : ( ';' ) ;
+    // InternalDefine.g:4024:1: rule__Statement__Group__4__Impl : ( ( rule__Statement__Group_4__0 )? ) ;
     public final void rule__Statement__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4027:1: ( ( ';' ) )
-            // InternalDefine.g:4028:1: ( ';' )
+            // InternalDefine.g:4028:1: ( ( ( rule__Statement__Group_4__0 )? ) )
+            // InternalDefine.g:4029:1: ( ( rule__Statement__Group_4__0 )? )
             {
-            // InternalDefine.g:4028:1: ( ';' )
-            // InternalDefine.g:4029:2: ';'
+            // InternalDefine.g:4029:1: ( ( rule__Statement__Group_4__0 )? )
+            // InternalDefine.g:4030:2: ( rule__Statement__Group_4__0 )?
             {
-             before(grammarAccess.getStatementAccess().getSemicolonKeyword_4()); 
-            match(input,11,FOLLOW_2); 
-             after(grammarAccess.getStatementAccess().getSemicolonKeyword_4()); 
+             before(grammarAccess.getStatementAccess().getGroup_4()); 
+            // InternalDefine.g:4031:2: ( rule__Statement__Group_4__0 )?
+            int alt30=2;
+            int LA30_0 = input.LA(1);
+
+            if ( (LA30_0==33) ) {
+                alt30=1;
+            }
+            switch (alt30) {
+                case 1 :
+                    // InternalDefine.g:4031:3: rule__Statement__Group_4__0
+                    {
+                    pushFollow(FOLLOW_2);
+                    rule__Statement__Group_4__0();
+
+                    state._fsp--;
+
+
+                    }
+                    break;
+
+            }
+
+             after(grammarAccess.getStatementAccess().getGroup_4()); 
 
             }
 
@@ -12449,15 +12475,240 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__Statement__Group__4__Impl"
 
 
+    // $ANTLR start "rule__Statement__Group__5"
+    // InternalDefine.g:4039:1: rule__Statement__Group__5 : rule__Statement__Group__5__Impl ;
+    public final void rule__Statement__Group__5() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalDefine.g:4043:1: ( rule__Statement__Group__5__Impl )
+            // InternalDefine.g:4044:2: rule__Statement__Group__5__Impl
+            {
+            pushFollow(FOLLOW_2);
+            rule__Statement__Group__5__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Statement__Group__5"
+
+
+    // $ANTLR start "rule__Statement__Group__5__Impl"
+    // InternalDefine.g:4050:1: rule__Statement__Group__5__Impl : ( ';' ) ;
+    public final void rule__Statement__Group__5__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalDefine.g:4054:1: ( ( ';' ) )
+            // InternalDefine.g:4055:1: ( ';' )
+            {
+            // InternalDefine.g:4055:1: ( ';' )
+            // InternalDefine.g:4056:2: ';'
+            {
+             before(grammarAccess.getStatementAccess().getSemicolonKeyword_5()); 
+            match(input,11,FOLLOW_2); 
+             after(grammarAccess.getStatementAccess().getSemicolonKeyword_5()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Statement__Group__5__Impl"
+
+
+    // $ANTLR start "rule__Statement__Group_4__0"
+    // InternalDefine.g:4066:1: rule__Statement__Group_4__0 : rule__Statement__Group_4__0__Impl rule__Statement__Group_4__1 ;
+    public final void rule__Statement__Group_4__0() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalDefine.g:4070:1: ( rule__Statement__Group_4__0__Impl rule__Statement__Group_4__1 )
+            // InternalDefine.g:4071:2: rule__Statement__Group_4__0__Impl rule__Statement__Group_4__1
+            {
+            pushFollow(FOLLOW_13);
+            rule__Statement__Group_4__0__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_2);
+            rule__Statement__Group_4__1();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Statement__Group_4__0"
+
+
+    // $ANTLR start "rule__Statement__Group_4__0__Impl"
+    // InternalDefine.g:4078:1: rule__Statement__Group_4__0__Impl : ( '+/-' ) ;
+    public final void rule__Statement__Group_4__0__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalDefine.g:4082:1: ( ( '+/-' ) )
+            // InternalDefine.g:4083:1: ( '+/-' )
+            {
+            // InternalDefine.g:4083:1: ( '+/-' )
+            // InternalDefine.g:4084:2: '+/-'
+            {
+             before(grammarAccess.getStatementAccess().getPlusSignSolidusHyphenMinusKeyword_4_0()); 
+            match(input,33,FOLLOW_2); 
+             after(grammarAccess.getStatementAccess().getPlusSignSolidusHyphenMinusKeyword_4_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Statement__Group_4__0__Impl"
+
+
+    // $ANTLR start "rule__Statement__Group_4__1"
+    // InternalDefine.g:4093:1: rule__Statement__Group_4__1 : rule__Statement__Group_4__1__Impl ;
+    public final void rule__Statement__Group_4__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalDefine.g:4097:1: ( rule__Statement__Group_4__1__Impl )
+            // InternalDefine.g:4098:2: rule__Statement__Group_4__1__Impl
+            {
+            pushFollow(FOLLOW_2);
+            rule__Statement__Group_4__1__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Statement__Group_4__1"
+
+
+    // $ANTLR start "rule__Statement__Group_4__1__Impl"
+    // InternalDefine.g:4104:1: rule__Statement__Group_4__1__Impl : ( ( rule__Statement__RangeAssignment_4_1 ) ) ;
+    public final void rule__Statement__Group_4__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalDefine.g:4108:1: ( ( ( rule__Statement__RangeAssignment_4_1 ) ) )
+            // InternalDefine.g:4109:1: ( ( rule__Statement__RangeAssignment_4_1 ) )
+            {
+            // InternalDefine.g:4109:1: ( ( rule__Statement__RangeAssignment_4_1 ) )
+            // InternalDefine.g:4110:2: ( rule__Statement__RangeAssignment_4_1 )
+            {
+             before(grammarAccess.getStatementAccess().getRangeAssignment_4_1()); 
+            // InternalDefine.g:4111:2: ( rule__Statement__RangeAssignment_4_1 )
+            // InternalDefine.g:4111:3: rule__Statement__RangeAssignment_4_1
+            {
+            pushFollow(FOLLOW_2);
+            rule__Statement__RangeAssignment_4_1();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getStatementAccess().getRangeAssignment_4_1()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Statement__Group_4__1__Impl"
+
+
     // $ANTLR start "rule__Cascade__Group__0"
-    // InternalDefine.g:4039:1: rule__Cascade__Group__0 : rule__Cascade__Group__0__Impl rule__Cascade__Group__1 ;
+    // InternalDefine.g:4120:1: rule__Cascade__Group__0 : rule__Cascade__Group__0__Impl rule__Cascade__Group__1 ;
     public final void rule__Cascade__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4043:1: ( rule__Cascade__Group__0__Impl rule__Cascade__Group__1 )
-            // InternalDefine.g:4044:2: rule__Cascade__Group__0__Impl rule__Cascade__Group__1
+            // InternalDefine.g:4124:1: ( rule__Cascade__Group__0__Impl rule__Cascade__Group__1 )
+            // InternalDefine.g:4125:2: rule__Cascade__Group__0__Impl rule__Cascade__Group__1
             {
             pushFollow(FOLLOW_15);
             rule__Cascade__Group__0__Impl();
@@ -12488,17 +12739,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Cascade__Group__0__Impl"
-    // InternalDefine.g:4051:1: rule__Cascade__Group__0__Impl : ( '.' ) ;
+    // InternalDefine.g:4132:1: rule__Cascade__Group__0__Impl : ( '.' ) ;
     public final void rule__Cascade__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4055:1: ( ( '.' ) )
-            // InternalDefine.g:4056:1: ( '.' )
+            // InternalDefine.g:4136:1: ( ( '.' ) )
+            // InternalDefine.g:4137:1: ( '.' )
             {
-            // InternalDefine.g:4056:1: ( '.' )
-            // InternalDefine.g:4057:2: '.'
+            // InternalDefine.g:4137:1: ( '.' )
+            // InternalDefine.g:4138:2: '.'
             {
              before(grammarAccess.getCascadeAccess().getFullStopKeyword_0()); 
             match(input,42,FOLLOW_2); 
@@ -12525,14 +12776,14 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Cascade__Group__1"
-    // InternalDefine.g:4066:1: rule__Cascade__Group__1 : rule__Cascade__Group__1__Impl ;
+    // InternalDefine.g:4147:1: rule__Cascade__Group__1 : rule__Cascade__Group__1__Impl ;
     public final void rule__Cascade__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4070:1: ( rule__Cascade__Group__1__Impl )
-            // InternalDefine.g:4071:2: rule__Cascade__Group__1__Impl
+            // InternalDefine.g:4151:1: ( rule__Cascade__Group__1__Impl )
+            // InternalDefine.g:4152:2: rule__Cascade__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Cascade__Group__1__Impl();
@@ -12558,21 +12809,21 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Cascade__Group__1__Impl"
-    // InternalDefine.g:4077:1: rule__Cascade__Group__1__Impl : ( ( rule__Cascade__UdtVarAssignment_1 ) ) ;
+    // InternalDefine.g:4158:1: rule__Cascade__Group__1__Impl : ( ( rule__Cascade__UdtVarAssignment_1 ) ) ;
     public final void rule__Cascade__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4081:1: ( ( ( rule__Cascade__UdtVarAssignment_1 ) ) )
-            // InternalDefine.g:4082:1: ( ( rule__Cascade__UdtVarAssignment_1 ) )
+            // InternalDefine.g:4162:1: ( ( ( rule__Cascade__UdtVarAssignment_1 ) ) )
+            // InternalDefine.g:4163:1: ( ( rule__Cascade__UdtVarAssignment_1 ) )
             {
-            // InternalDefine.g:4082:1: ( ( rule__Cascade__UdtVarAssignment_1 ) )
-            // InternalDefine.g:4083:2: ( rule__Cascade__UdtVarAssignment_1 )
+            // InternalDefine.g:4163:1: ( ( rule__Cascade__UdtVarAssignment_1 ) )
+            // InternalDefine.g:4164:2: ( rule__Cascade__UdtVarAssignment_1 )
             {
              before(grammarAccess.getCascadeAccess().getUdtVarAssignment_1()); 
-            // InternalDefine.g:4084:2: ( rule__Cascade__UdtVarAssignment_1 )
-            // InternalDefine.g:4084:3: rule__Cascade__UdtVarAssignment_1
+            // InternalDefine.g:4165:2: ( rule__Cascade__UdtVarAssignment_1 )
+            // InternalDefine.g:4165:3: rule__Cascade__UdtVarAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__Cascade__UdtVarAssignment_1();
@@ -12605,15 +12856,15 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DirectionBlock__UnorderedGroup"
-    // InternalDefine.g:4093:1: rule__DirectionBlock__UnorderedGroup : rule__DirectionBlock__UnorderedGroup__0 {...}?;
+    // InternalDefine.g:4174:1: rule__DirectionBlock__UnorderedGroup : rule__DirectionBlock__UnorderedGroup__0 {...}?;
     public final void rule__DirectionBlock__UnorderedGroup() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         		getUnorderedGroupHelper().enter(grammarAccess.getDirectionBlockAccess().getUnorderedGroup());
         	
         try {
-            // InternalDefine.g:4098:1: ( rule__DirectionBlock__UnorderedGroup__0 {...}?)
-            // InternalDefine.g:4099:2: rule__DirectionBlock__UnorderedGroup__0 {...}?
+            // InternalDefine.g:4179:1: ( rule__DirectionBlock__UnorderedGroup__0 {...}?)
+            // InternalDefine.g:4180:2: rule__DirectionBlock__UnorderedGroup__0 {...}?
             {
             pushFollow(FOLLOW_2);
             rule__DirectionBlock__UnorderedGroup__0();
@@ -12643,47 +12894,47 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DirectionBlock__UnorderedGroup__Impl"
-    // InternalDefine.g:4107:1: rule__DirectionBlock__UnorderedGroup__Impl : ( ({...}? => ( ( ( rule__DirectionBlock__InputAssignment_0 ) ) ) ) | ({...}? => ( ( ( rule__DirectionBlock__InoutAssignment_1 ) ) ) ) | ({...}? => ( ( ( rule__DirectionBlock__OutputAssignment_2 ) ) ) ) ) ;
+    // InternalDefine.g:4188:1: rule__DirectionBlock__UnorderedGroup__Impl : ( ({...}? => ( ( ( rule__DirectionBlock__InputAssignment_0 ) ) ) ) | ({...}? => ( ( ( rule__DirectionBlock__InoutAssignment_1 ) ) ) ) | ({...}? => ( ( ( rule__DirectionBlock__OutputAssignment_2 ) ) ) ) ) ;
     public final void rule__DirectionBlock__UnorderedGroup__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         		boolean selected = false;
         	
         try {
-            // InternalDefine.g:4112:1: ( ( ({...}? => ( ( ( rule__DirectionBlock__InputAssignment_0 ) ) ) ) | ({...}? => ( ( ( rule__DirectionBlock__InoutAssignment_1 ) ) ) ) | ({...}? => ( ( ( rule__DirectionBlock__OutputAssignment_2 ) ) ) ) ) )
-            // InternalDefine.g:4113:3: ( ({...}? => ( ( ( rule__DirectionBlock__InputAssignment_0 ) ) ) ) | ({...}? => ( ( ( rule__DirectionBlock__InoutAssignment_1 ) ) ) ) | ({...}? => ( ( ( rule__DirectionBlock__OutputAssignment_2 ) ) ) ) )
+            // InternalDefine.g:4193:1: ( ( ({...}? => ( ( ( rule__DirectionBlock__InputAssignment_0 ) ) ) ) | ({...}? => ( ( ( rule__DirectionBlock__InoutAssignment_1 ) ) ) ) | ({...}? => ( ( ( rule__DirectionBlock__OutputAssignment_2 ) ) ) ) ) )
+            // InternalDefine.g:4194:3: ( ({...}? => ( ( ( rule__DirectionBlock__InputAssignment_0 ) ) ) ) | ({...}? => ( ( ( rule__DirectionBlock__InoutAssignment_1 ) ) ) ) | ({...}? => ( ( ( rule__DirectionBlock__OutputAssignment_2 ) ) ) ) )
             {
-            // InternalDefine.g:4113:3: ( ({...}? => ( ( ( rule__DirectionBlock__InputAssignment_0 ) ) ) ) | ({...}? => ( ( ( rule__DirectionBlock__InoutAssignment_1 ) ) ) ) | ({...}? => ( ( ( rule__DirectionBlock__OutputAssignment_2 ) ) ) ) )
-            int alt30=3;
-            int LA30_0 = input.LA(1);
+            // InternalDefine.g:4194:3: ( ({...}? => ( ( ( rule__DirectionBlock__InputAssignment_0 ) ) ) ) | ({...}? => ( ( ( rule__DirectionBlock__InoutAssignment_1 ) ) ) ) | ({...}? => ( ( ( rule__DirectionBlock__OutputAssignment_2 ) ) ) ) )
+            int alt31=3;
+            int LA31_0 = input.LA(1);
 
-            if ( LA30_0 == 45 && getUnorderedGroupHelper().canSelect(grammarAccess.getDirectionBlockAccess().getUnorderedGroup(), 0) ) {
-                alt30=1;
+            if ( LA31_0 == 45 && getUnorderedGroupHelper().canSelect(grammarAccess.getDirectionBlockAccess().getUnorderedGroup(), 0) ) {
+                alt31=1;
             }
-            else if ( LA30_0 == 47 && getUnorderedGroupHelper().canSelect(grammarAccess.getDirectionBlockAccess().getUnorderedGroup(), 1) ) {
-                alt30=2;
+            else if ( LA31_0 == 47 && getUnorderedGroupHelper().canSelect(grammarAccess.getDirectionBlockAccess().getUnorderedGroup(), 1) ) {
+                alt31=2;
             }
-            else if ( LA30_0 == 46 && getUnorderedGroupHelper().canSelect(grammarAccess.getDirectionBlockAccess().getUnorderedGroup(), 2) ) {
-                alt30=3;
+            else if ( LA31_0 == 46 && getUnorderedGroupHelper().canSelect(grammarAccess.getDirectionBlockAccess().getUnorderedGroup(), 2) ) {
+                alt31=3;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 30, 0, input);
+                    new NoViableAltException("", 31, 0, input);
 
                 throw nvae;
             }
-            switch (alt30) {
+            switch (alt31) {
                 case 1 :
-                    // InternalDefine.g:4114:3: ({...}? => ( ( ( rule__DirectionBlock__InputAssignment_0 ) ) ) )
+                    // InternalDefine.g:4195:3: ({...}? => ( ( ( rule__DirectionBlock__InputAssignment_0 ) ) ) )
                     {
-                    // InternalDefine.g:4114:3: ({...}? => ( ( ( rule__DirectionBlock__InputAssignment_0 ) ) ) )
-                    // InternalDefine.g:4115:4: {...}? => ( ( ( rule__DirectionBlock__InputAssignment_0 ) ) )
+                    // InternalDefine.g:4195:3: ({...}? => ( ( ( rule__DirectionBlock__InputAssignment_0 ) ) ) )
+                    // InternalDefine.g:4196:4: {...}? => ( ( ( rule__DirectionBlock__InputAssignment_0 ) ) )
                     {
                     if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getDirectionBlockAccess().getUnorderedGroup(), 0) ) {
                         throw new FailedPredicateException(input, "rule__DirectionBlock__UnorderedGroup__Impl", "getUnorderedGroupHelper().canSelect(grammarAccess.getDirectionBlockAccess().getUnorderedGroup(), 0)");
                     }
-                    // InternalDefine.g:4115:108: ( ( ( rule__DirectionBlock__InputAssignment_0 ) ) )
-                    // InternalDefine.g:4116:5: ( ( rule__DirectionBlock__InputAssignment_0 ) )
+                    // InternalDefine.g:4196:108: ( ( ( rule__DirectionBlock__InputAssignment_0 ) ) )
+                    // InternalDefine.g:4197:5: ( ( rule__DirectionBlock__InputAssignment_0 ) )
                     {
 
                     					getUnorderedGroupHelper().select(grammarAccess.getDirectionBlockAccess().getUnorderedGroup(), 0);
@@ -12691,12 +12942,12 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
                     					selected = true;
                     				
-                    // InternalDefine.g:4122:5: ( ( rule__DirectionBlock__InputAssignment_0 ) )
-                    // InternalDefine.g:4123:6: ( rule__DirectionBlock__InputAssignment_0 )
+                    // InternalDefine.g:4203:5: ( ( rule__DirectionBlock__InputAssignment_0 ) )
+                    // InternalDefine.g:4204:6: ( rule__DirectionBlock__InputAssignment_0 )
                     {
                      before(grammarAccess.getDirectionBlockAccess().getInputAssignment_0()); 
-                    // InternalDefine.g:4124:6: ( rule__DirectionBlock__InputAssignment_0 )
-                    // InternalDefine.g:4124:7: rule__DirectionBlock__InputAssignment_0
+                    // InternalDefine.g:4205:6: ( rule__DirectionBlock__InputAssignment_0 )
+                    // InternalDefine.g:4205:7: rule__DirectionBlock__InputAssignment_0
                     {
                     pushFollow(FOLLOW_2);
                     rule__DirectionBlock__InputAssignment_0();
@@ -12720,16 +12971,16 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // InternalDefine.g:4129:3: ({...}? => ( ( ( rule__DirectionBlock__InoutAssignment_1 ) ) ) )
+                    // InternalDefine.g:4210:3: ({...}? => ( ( ( rule__DirectionBlock__InoutAssignment_1 ) ) ) )
                     {
-                    // InternalDefine.g:4129:3: ({...}? => ( ( ( rule__DirectionBlock__InoutAssignment_1 ) ) ) )
-                    // InternalDefine.g:4130:4: {...}? => ( ( ( rule__DirectionBlock__InoutAssignment_1 ) ) )
+                    // InternalDefine.g:4210:3: ({...}? => ( ( ( rule__DirectionBlock__InoutAssignment_1 ) ) ) )
+                    // InternalDefine.g:4211:4: {...}? => ( ( ( rule__DirectionBlock__InoutAssignment_1 ) ) )
                     {
                     if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getDirectionBlockAccess().getUnorderedGroup(), 1) ) {
                         throw new FailedPredicateException(input, "rule__DirectionBlock__UnorderedGroup__Impl", "getUnorderedGroupHelper().canSelect(grammarAccess.getDirectionBlockAccess().getUnorderedGroup(), 1)");
                     }
-                    // InternalDefine.g:4130:108: ( ( ( rule__DirectionBlock__InoutAssignment_1 ) ) )
-                    // InternalDefine.g:4131:5: ( ( rule__DirectionBlock__InoutAssignment_1 ) )
+                    // InternalDefine.g:4211:108: ( ( ( rule__DirectionBlock__InoutAssignment_1 ) ) )
+                    // InternalDefine.g:4212:5: ( ( rule__DirectionBlock__InoutAssignment_1 ) )
                     {
 
                     					getUnorderedGroupHelper().select(grammarAccess.getDirectionBlockAccess().getUnorderedGroup(), 1);
@@ -12737,12 +12988,12 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
                     					selected = true;
                     				
-                    // InternalDefine.g:4137:5: ( ( rule__DirectionBlock__InoutAssignment_1 ) )
-                    // InternalDefine.g:4138:6: ( rule__DirectionBlock__InoutAssignment_1 )
+                    // InternalDefine.g:4218:5: ( ( rule__DirectionBlock__InoutAssignment_1 ) )
+                    // InternalDefine.g:4219:6: ( rule__DirectionBlock__InoutAssignment_1 )
                     {
                      before(grammarAccess.getDirectionBlockAccess().getInoutAssignment_1()); 
-                    // InternalDefine.g:4139:6: ( rule__DirectionBlock__InoutAssignment_1 )
-                    // InternalDefine.g:4139:7: rule__DirectionBlock__InoutAssignment_1
+                    // InternalDefine.g:4220:6: ( rule__DirectionBlock__InoutAssignment_1 )
+                    // InternalDefine.g:4220:7: rule__DirectionBlock__InoutAssignment_1
                     {
                     pushFollow(FOLLOW_2);
                     rule__DirectionBlock__InoutAssignment_1();
@@ -12766,16 +13017,16 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 3 :
-                    // InternalDefine.g:4144:3: ({...}? => ( ( ( rule__DirectionBlock__OutputAssignment_2 ) ) ) )
+                    // InternalDefine.g:4225:3: ({...}? => ( ( ( rule__DirectionBlock__OutputAssignment_2 ) ) ) )
                     {
-                    // InternalDefine.g:4144:3: ({...}? => ( ( ( rule__DirectionBlock__OutputAssignment_2 ) ) ) )
-                    // InternalDefine.g:4145:4: {...}? => ( ( ( rule__DirectionBlock__OutputAssignment_2 ) ) )
+                    // InternalDefine.g:4225:3: ({...}? => ( ( ( rule__DirectionBlock__OutputAssignment_2 ) ) ) )
+                    // InternalDefine.g:4226:4: {...}? => ( ( ( rule__DirectionBlock__OutputAssignment_2 ) ) )
                     {
                     if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getDirectionBlockAccess().getUnorderedGroup(), 2) ) {
                         throw new FailedPredicateException(input, "rule__DirectionBlock__UnorderedGroup__Impl", "getUnorderedGroupHelper().canSelect(grammarAccess.getDirectionBlockAccess().getUnorderedGroup(), 2)");
                     }
-                    // InternalDefine.g:4145:108: ( ( ( rule__DirectionBlock__OutputAssignment_2 ) ) )
-                    // InternalDefine.g:4146:5: ( ( rule__DirectionBlock__OutputAssignment_2 ) )
+                    // InternalDefine.g:4226:108: ( ( ( rule__DirectionBlock__OutputAssignment_2 ) ) )
+                    // InternalDefine.g:4227:5: ( ( rule__DirectionBlock__OutputAssignment_2 ) )
                     {
 
                     					getUnorderedGroupHelper().select(grammarAccess.getDirectionBlockAccess().getUnorderedGroup(), 2);
@@ -12783,12 +13034,12 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
                     					selected = true;
                     				
-                    // InternalDefine.g:4152:5: ( ( rule__DirectionBlock__OutputAssignment_2 ) )
-                    // InternalDefine.g:4153:6: ( rule__DirectionBlock__OutputAssignment_2 )
+                    // InternalDefine.g:4233:5: ( ( rule__DirectionBlock__OutputAssignment_2 ) )
+                    // InternalDefine.g:4234:6: ( rule__DirectionBlock__OutputAssignment_2 )
                     {
                      before(grammarAccess.getDirectionBlockAccess().getOutputAssignment_2()); 
-                    // InternalDefine.g:4154:6: ( rule__DirectionBlock__OutputAssignment_2 )
-                    // InternalDefine.g:4154:7: rule__DirectionBlock__OutputAssignment_2
+                    // InternalDefine.g:4235:6: ( rule__DirectionBlock__OutputAssignment_2 )
+                    // InternalDefine.g:4235:7: rule__DirectionBlock__OutputAssignment_2
                     {
                     pushFollow(FOLLOW_2);
                     rule__DirectionBlock__OutputAssignment_2();
@@ -12835,36 +13086,36 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DirectionBlock__UnorderedGroup__0"
-    // InternalDefine.g:4167:1: rule__DirectionBlock__UnorderedGroup__0 : rule__DirectionBlock__UnorderedGroup__Impl ( rule__DirectionBlock__UnorderedGroup__1 )? ;
+    // InternalDefine.g:4248:1: rule__DirectionBlock__UnorderedGroup__0 : rule__DirectionBlock__UnorderedGroup__Impl ( rule__DirectionBlock__UnorderedGroup__1 )? ;
     public final void rule__DirectionBlock__UnorderedGroup__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4171:1: ( rule__DirectionBlock__UnorderedGroup__Impl ( rule__DirectionBlock__UnorderedGroup__1 )? )
-            // InternalDefine.g:4172:2: rule__DirectionBlock__UnorderedGroup__Impl ( rule__DirectionBlock__UnorderedGroup__1 )?
+            // InternalDefine.g:4252:1: ( rule__DirectionBlock__UnorderedGroup__Impl ( rule__DirectionBlock__UnorderedGroup__1 )? )
+            // InternalDefine.g:4253:2: rule__DirectionBlock__UnorderedGroup__Impl ( rule__DirectionBlock__UnorderedGroup__1 )?
             {
             pushFollow(FOLLOW_45);
             rule__DirectionBlock__UnorderedGroup__Impl();
 
             state._fsp--;
 
-            // InternalDefine.g:4173:2: ( rule__DirectionBlock__UnorderedGroup__1 )?
-            int alt31=2;
-            int LA31_0 = input.LA(1);
+            // InternalDefine.g:4254:2: ( rule__DirectionBlock__UnorderedGroup__1 )?
+            int alt32=2;
+            int LA32_0 = input.LA(1);
 
-            if ( LA31_0 == 45 && getUnorderedGroupHelper().canSelect(grammarAccess.getDirectionBlockAccess().getUnorderedGroup(), 0) ) {
-                alt31=1;
+            if ( LA32_0 == 45 && getUnorderedGroupHelper().canSelect(grammarAccess.getDirectionBlockAccess().getUnorderedGroup(), 0) ) {
+                alt32=1;
             }
-            else if ( LA31_0 == 47 && getUnorderedGroupHelper().canSelect(grammarAccess.getDirectionBlockAccess().getUnorderedGroup(), 1) ) {
-                alt31=1;
+            else if ( LA32_0 == 47 && getUnorderedGroupHelper().canSelect(grammarAccess.getDirectionBlockAccess().getUnorderedGroup(), 1) ) {
+                alt32=1;
             }
-            else if ( LA31_0 == 46 && getUnorderedGroupHelper().canSelect(grammarAccess.getDirectionBlockAccess().getUnorderedGroup(), 2) ) {
-                alt31=1;
+            else if ( LA32_0 == 46 && getUnorderedGroupHelper().canSelect(grammarAccess.getDirectionBlockAccess().getUnorderedGroup(), 2) ) {
+                alt32=1;
             }
-            switch (alt31) {
+            switch (alt32) {
                 case 1 :
-                    // InternalDefine.g:4173:2: rule__DirectionBlock__UnorderedGroup__1
+                    // InternalDefine.g:4254:2: rule__DirectionBlock__UnorderedGroup__1
                     {
                     pushFollow(FOLLOW_2);
                     rule__DirectionBlock__UnorderedGroup__1();
@@ -12896,36 +13147,36 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DirectionBlock__UnorderedGroup__1"
-    // InternalDefine.g:4179:1: rule__DirectionBlock__UnorderedGroup__1 : rule__DirectionBlock__UnorderedGroup__Impl ( rule__DirectionBlock__UnorderedGroup__2 )? ;
+    // InternalDefine.g:4260:1: rule__DirectionBlock__UnorderedGroup__1 : rule__DirectionBlock__UnorderedGroup__Impl ( rule__DirectionBlock__UnorderedGroup__2 )? ;
     public final void rule__DirectionBlock__UnorderedGroup__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4183:1: ( rule__DirectionBlock__UnorderedGroup__Impl ( rule__DirectionBlock__UnorderedGroup__2 )? )
-            // InternalDefine.g:4184:2: rule__DirectionBlock__UnorderedGroup__Impl ( rule__DirectionBlock__UnorderedGroup__2 )?
+            // InternalDefine.g:4264:1: ( rule__DirectionBlock__UnorderedGroup__Impl ( rule__DirectionBlock__UnorderedGroup__2 )? )
+            // InternalDefine.g:4265:2: rule__DirectionBlock__UnorderedGroup__Impl ( rule__DirectionBlock__UnorderedGroup__2 )?
             {
             pushFollow(FOLLOW_45);
             rule__DirectionBlock__UnorderedGroup__Impl();
 
             state._fsp--;
 
-            // InternalDefine.g:4185:2: ( rule__DirectionBlock__UnorderedGroup__2 )?
-            int alt32=2;
-            int LA32_0 = input.LA(1);
+            // InternalDefine.g:4266:2: ( rule__DirectionBlock__UnorderedGroup__2 )?
+            int alt33=2;
+            int LA33_0 = input.LA(1);
 
-            if ( LA32_0 == 45 && getUnorderedGroupHelper().canSelect(grammarAccess.getDirectionBlockAccess().getUnorderedGroup(), 0) ) {
-                alt32=1;
+            if ( LA33_0 == 45 && getUnorderedGroupHelper().canSelect(grammarAccess.getDirectionBlockAccess().getUnorderedGroup(), 0) ) {
+                alt33=1;
             }
-            else if ( LA32_0 == 47 && getUnorderedGroupHelper().canSelect(grammarAccess.getDirectionBlockAccess().getUnorderedGroup(), 1) ) {
-                alt32=1;
+            else if ( LA33_0 == 47 && getUnorderedGroupHelper().canSelect(grammarAccess.getDirectionBlockAccess().getUnorderedGroup(), 1) ) {
+                alt33=1;
             }
-            else if ( LA32_0 == 46 && getUnorderedGroupHelper().canSelect(grammarAccess.getDirectionBlockAccess().getUnorderedGroup(), 2) ) {
-                alt32=1;
+            else if ( LA33_0 == 46 && getUnorderedGroupHelper().canSelect(grammarAccess.getDirectionBlockAccess().getUnorderedGroup(), 2) ) {
+                alt33=1;
             }
-            switch (alt32) {
+            switch (alt33) {
                 case 1 :
-                    // InternalDefine.g:4185:2: rule__DirectionBlock__UnorderedGroup__2
+                    // InternalDefine.g:4266:2: rule__DirectionBlock__UnorderedGroup__2
                     {
                     pushFollow(FOLLOW_2);
                     rule__DirectionBlock__UnorderedGroup__2();
@@ -12957,14 +13208,14 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DirectionBlock__UnorderedGroup__2"
-    // InternalDefine.g:4191:1: rule__DirectionBlock__UnorderedGroup__2 : rule__DirectionBlock__UnorderedGroup__Impl ;
+    // InternalDefine.g:4272:1: rule__DirectionBlock__UnorderedGroup__2 : rule__DirectionBlock__UnorderedGroup__Impl ;
     public final void rule__DirectionBlock__UnorderedGroup__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4195:1: ( rule__DirectionBlock__UnorderedGroup__Impl )
-            // InternalDefine.g:4196:2: rule__DirectionBlock__UnorderedGroup__Impl
+            // InternalDefine.g:4276:1: ( rule__DirectionBlock__UnorderedGroup__Impl )
+            // InternalDefine.g:4277:2: rule__DirectionBlock__UnorderedGroup__Impl
             {
             pushFollow(FOLLOW_2);
             rule__DirectionBlock__UnorderedGroup__Impl();
@@ -12990,15 +13241,15 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AssertionBlock__UnorderedGroup"
-    // InternalDefine.g:4203:1: rule__AssertionBlock__UnorderedGroup : rule__AssertionBlock__UnorderedGroup__0 {...}?;
+    // InternalDefine.g:4284:1: rule__AssertionBlock__UnorderedGroup : rule__AssertionBlock__UnorderedGroup__0 {...}?;
     public final void rule__AssertionBlock__UnorderedGroup() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         		getUnorderedGroupHelper().enter(grammarAccess.getAssertionBlockAccess().getUnorderedGroup());
         	
         try {
-            // InternalDefine.g:4208:1: ( rule__AssertionBlock__UnorderedGroup__0 {...}?)
-            // InternalDefine.g:4209:2: rule__AssertionBlock__UnorderedGroup__0 {...}?
+            // InternalDefine.g:4289:1: ( rule__AssertionBlock__UnorderedGroup__0 {...}?)
+            // InternalDefine.g:4290:2: rule__AssertionBlock__UnorderedGroup__0 {...}?
             {
             pushFollow(FOLLOW_2);
             rule__AssertionBlock__UnorderedGroup__0();
@@ -13028,44 +13279,44 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AssertionBlock__UnorderedGroup__Impl"
-    // InternalDefine.g:4217:1: rule__AssertionBlock__UnorderedGroup__Impl : ( ({...}? => ( ( ( rule__AssertionBlock__SetAssignment_0 ) ) ) ) | ({...}? => ( ( ( rule__AssertionBlock__AssertAssignment_1 ) ) ) ) ) ;
+    // InternalDefine.g:4298:1: rule__AssertionBlock__UnorderedGroup__Impl : ( ({...}? => ( ( ( rule__AssertionBlock__SetAssignment_0 ) ) ) ) | ({...}? => ( ( ( rule__AssertionBlock__AssertAssignment_1 ) ) ) ) ) ;
     public final void rule__AssertionBlock__UnorderedGroup__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         		boolean selected = false;
         	
         try {
-            // InternalDefine.g:4222:1: ( ( ({...}? => ( ( ( rule__AssertionBlock__SetAssignment_0 ) ) ) ) | ({...}? => ( ( ( rule__AssertionBlock__AssertAssignment_1 ) ) ) ) ) )
-            // InternalDefine.g:4223:3: ( ({...}? => ( ( ( rule__AssertionBlock__SetAssignment_0 ) ) ) ) | ({...}? => ( ( ( rule__AssertionBlock__AssertAssignment_1 ) ) ) ) )
+            // InternalDefine.g:4303:1: ( ( ({...}? => ( ( ( rule__AssertionBlock__SetAssignment_0 ) ) ) ) | ({...}? => ( ( ( rule__AssertionBlock__AssertAssignment_1 ) ) ) ) ) )
+            // InternalDefine.g:4304:3: ( ({...}? => ( ( ( rule__AssertionBlock__SetAssignment_0 ) ) ) ) | ({...}? => ( ( ( rule__AssertionBlock__AssertAssignment_1 ) ) ) ) )
             {
-            // InternalDefine.g:4223:3: ( ({...}? => ( ( ( rule__AssertionBlock__SetAssignment_0 ) ) ) ) | ({...}? => ( ( ( rule__AssertionBlock__AssertAssignment_1 ) ) ) ) )
-            int alt33=2;
-            int LA33_0 = input.LA(1);
+            // InternalDefine.g:4304:3: ( ({...}? => ( ( ( rule__AssertionBlock__SetAssignment_0 ) ) ) ) | ({...}? => ( ( ( rule__AssertionBlock__AssertAssignment_1 ) ) ) ) )
+            int alt34=2;
+            int LA34_0 = input.LA(1);
 
-            if ( LA33_0 == 49 && getUnorderedGroupHelper().canSelect(grammarAccess.getAssertionBlockAccess().getUnorderedGroup(), 0) ) {
-                alt33=1;
+            if ( LA34_0 == 49 && getUnorderedGroupHelper().canSelect(grammarAccess.getAssertionBlockAccess().getUnorderedGroup(), 0) ) {
+                alt34=1;
             }
-            else if ( LA33_0 == 50 && getUnorderedGroupHelper().canSelect(grammarAccess.getAssertionBlockAccess().getUnorderedGroup(), 1) ) {
-                alt33=2;
+            else if ( LA34_0 == 50 && getUnorderedGroupHelper().canSelect(grammarAccess.getAssertionBlockAccess().getUnorderedGroup(), 1) ) {
+                alt34=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 33, 0, input);
+                    new NoViableAltException("", 34, 0, input);
 
                 throw nvae;
             }
-            switch (alt33) {
+            switch (alt34) {
                 case 1 :
-                    // InternalDefine.g:4224:3: ({...}? => ( ( ( rule__AssertionBlock__SetAssignment_0 ) ) ) )
+                    // InternalDefine.g:4305:3: ({...}? => ( ( ( rule__AssertionBlock__SetAssignment_0 ) ) ) )
                     {
-                    // InternalDefine.g:4224:3: ({...}? => ( ( ( rule__AssertionBlock__SetAssignment_0 ) ) ) )
-                    // InternalDefine.g:4225:4: {...}? => ( ( ( rule__AssertionBlock__SetAssignment_0 ) ) )
+                    // InternalDefine.g:4305:3: ({...}? => ( ( ( rule__AssertionBlock__SetAssignment_0 ) ) ) )
+                    // InternalDefine.g:4306:4: {...}? => ( ( ( rule__AssertionBlock__SetAssignment_0 ) ) )
                     {
                     if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getAssertionBlockAccess().getUnorderedGroup(), 0) ) {
                         throw new FailedPredicateException(input, "rule__AssertionBlock__UnorderedGroup__Impl", "getUnorderedGroupHelper().canSelect(grammarAccess.getAssertionBlockAccess().getUnorderedGroup(), 0)");
                     }
-                    // InternalDefine.g:4225:108: ( ( ( rule__AssertionBlock__SetAssignment_0 ) ) )
-                    // InternalDefine.g:4226:5: ( ( rule__AssertionBlock__SetAssignment_0 ) )
+                    // InternalDefine.g:4306:108: ( ( ( rule__AssertionBlock__SetAssignment_0 ) ) )
+                    // InternalDefine.g:4307:5: ( ( rule__AssertionBlock__SetAssignment_0 ) )
                     {
 
                     					getUnorderedGroupHelper().select(grammarAccess.getAssertionBlockAccess().getUnorderedGroup(), 0);
@@ -13073,12 +13324,12 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
                     					selected = true;
                     				
-                    // InternalDefine.g:4232:5: ( ( rule__AssertionBlock__SetAssignment_0 ) )
-                    // InternalDefine.g:4233:6: ( rule__AssertionBlock__SetAssignment_0 )
+                    // InternalDefine.g:4313:5: ( ( rule__AssertionBlock__SetAssignment_0 ) )
+                    // InternalDefine.g:4314:6: ( rule__AssertionBlock__SetAssignment_0 )
                     {
                      before(grammarAccess.getAssertionBlockAccess().getSetAssignment_0()); 
-                    // InternalDefine.g:4234:6: ( rule__AssertionBlock__SetAssignment_0 )
-                    // InternalDefine.g:4234:7: rule__AssertionBlock__SetAssignment_0
+                    // InternalDefine.g:4315:6: ( rule__AssertionBlock__SetAssignment_0 )
+                    // InternalDefine.g:4315:7: rule__AssertionBlock__SetAssignment_0
                     {
                     pushFollow(FOLLOW_2);
                     rule__AssertionBlock__SetAssignment_0();
@@ -13102,16 +13353,16 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // InternalDefine.g:4239:3: ({...}? => ( ( ( rule__AssertionBlock__AssertAssignment_1 ) ) ) )
+                    // InternalDefine.g:4320:3: ({...}? => ( ( ( rule__AssertionBlock__AssertAssignment_1 ) ) ) )
                     {
-                    // InternalDefine.g:4239:3: ({...}? => ( ( ( rule__AssertionBlock__AssertAssignment_1 ) ) ) )
-                    // InternalDefine.g:4240:4: {...}? => ( ( ( rule__AssertionBlock__AssertAssignment_1 ) ) )
+                    // InternalDefine.g:4320:3: ({...}? => ( ( ( rule__AssertionBlock__AssertAssignment_1 ) ) ) )
+                    // InternalDefine.g:4321:4: {...}? => ( ( ( rule__AssertionBlock__AssertAssignment_1 ) ) )
                     {
                     if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getAssertionBlockAccess().getUnorderedGroup(), 1) ) {
                         throw new FailedPredicateException(input, "rule__AssertionBlock__UnorderedGroup__Impl", "getUnorderedGroupHelper().canSelect(grammarAccess.getAssertionBlockAccess().getUnorderedGroup(), 1)");
                     }
-                    // InternalDefine.g:4240:108: ( ( ( rule__AssertionBlock__AssertAssignment_1 ) ) )
-                    // InternalDefine.g:4241:5: ( ( rule__AssertionBlock__AssertAssignment_1 ) )
+                    // InternalDefine.g:4321:108: ( ( ( rule__AssertionBlock__AssertAssignment_1 ) ) )
+                    // InternalDefine.g:4322:5: ( ( rule__AssertionBlock__AssertAssignment_1 ) )
                     {
 
                     					getUnorderedGroupHelper().select(grammarAccess.getAssertionBlockAccess().getUnorderedGroup(), 1);
@@ -13119,12 +13370,12 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
                     					selected = true;
                     				
-                    // InternalDefine.g:4247:5: ( ( rule__AssertionBlock__AssertAssignment_1 ) )
-                    // InternalDefine.g:4248:6: ( rule__AssertionBlock__AssertAssignment_1 )
+                    // InternalDefine.g:4328:5: ( ( rule__AssertionBlock__AssertAssignment_1 ) )
+                    // InternalDefine.g:4329:6: ( rule__AssertionBlock__AssertAssignment_1 )
                     {
                      before(grammarAccess.getAssertionBlockAccess().getAssertAssignment_1()); 
-                    // InternalDefine.g:4249:6: ( rule__AssertionBlock__AssertAssignment_1 )
-                    // InternalDefine.g:4249:7: rule__AssertionBlock__AssertAssignment_1
+                    // InternalDefine.g:4330:6: ( rule__AssertionBlock__AssertAssignment_1 )
+                    // InternalDefine.g:4330:7: rule__AssertionBlock__AssertAssignment_1
                     {
                     pushFollow(FOLLOW_2);
                     rule__AssertionBlock__AssertAssignment_1();
@@ -13171,33 +13422,33 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AssertionBlock__UnorderedGroup__0"
-    // InternalDefine.g:4262:1: rule__AssertionBlock__UnorderedGroup__0 : rule__AssertionBlock__UnorderedGroup__Impl ( rule__AssertionBlock__UnorderedGroup__1 )? ;
+    // InternalDefine.g:4343:1: rule__AssertionBlock__UnorderedGroup__0 : rule__AssertionBlock__UnorderedGroup__Impl ( rule__AssertionBlock__UnorderedGroup__1 )? ;
     public final void rule__AssertionBlock__UnorderedGroup__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4266:1: ( rule__AssertionBlock__UnorderedGroup__Impl ( rule__AssertionBlock__UnorderedGroup__1 )? )
-            // InternalDefine.g:4267:2: rule__AssertionBlock__UnorderedGroup__Impl ( rule__AssertionBlock__UnorderedGroup__1 )?
+            // InternalDefine.g:4347:1: ( rule__AssertionBlock__UnorderedGroup__Impl ( rule__AssertionBlock__UnorderedGroup__1 )? )
+            // InternalDefine.g:4348:2: rule__AssertionBlock__UnorderedGroup__Impl ( rule__AssertionBlock__UnorderedGroup__1 )?
             {
             pushFollow(FOLLOW_46);
             rule__AssertionBlock__UnorderedGroup__Impl();
 
             state._fsp--;
 
-            // InternalDefine.g:4268:2: ( rule__AssertionBlock__UnorderedGroup__1 )?
-            int alt34=2;
-            int LA34_0 = input.LA(1);
+            // InternalDefine.g:4349:2: ( rule__AssertionBlock__UnorderedGroup__1 )?
+            int alt35=2;
+            int LA35_0 = input.LA(1);
 
-            if ( LA34_0 == 49 && getUnorderedGroupHelper().canSelect(grammarAccess.getAssertionBlockAccess().getUnorderedGroup(), 0) ) {
-                alt34=1;
+            if ( LA35_0 == 49 && getUnorderedGroupHelper().canSelect(grammarAccess.getAssertionBlockAccess().getUnorderedGroup(), 0) ) {
+                alt35=1;
             }
-            else if ( LA34_0 == 50 && getUnorderedGroupHelper().canSelect(grammarAccess.getAssertionBlockAccess().getUnorderedGroup(), 1) ) {
-                alt34=1;
+            else if ( LA35_0 == 50 && getUnorderedGroupHelper().canSelect(grammarAccess.getAssertionBlockAccess().getUnorderedGroup(), 1) ) {
+                alt35=1;
             }
-            switch (alt34) {
+            switch (alt35) {
                 case 1 :
-                    // InternalDefine.g:4268:2: rule__AssertionBlock__UnorderedGroup__1
+                    // InternalDefine.g:4349:2: rule__AssertionBlock__UnorderedGroup__1
                     {
                     pushFollow(FOLLOW_2);
                     rule__AssertionBlock__UnorderedGroup__1();
@@ -13229,14 +13480,14 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AssertionBlock__UnorderedGroup__1"
-    // InternalDefine.g:4274:1: rule__AssertionBlock__UnorderedGroup__1 : rule__AssertionBlock__UnorderedGroup__Impl ;
+    // InternalDefine.g:4355:1: rule__AssertionBlock__UnorderedGroup__1 : rule__AssertionBlock__UnorderedGroup__Impl ;
     public final void rule__AssertionBlock__UnorderedGroup__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4278:1: ( rule__AssertionBlock__UnorderedGroup__Impl )
-            // InternalDefine.g:4279:2: rule__AssertionBlock__UnorderedGroup__Impl
+            // InternalDefine.g:4359:1: ( rule__AssertionBlock__UnorderedGroup__Impl )
+            // InternalDefine.g:4360:2: rule__AssertionBlock__UnorderedGroup__Impl
             {
             pushFollow(FOLLOW_2);
             rule__AssertionBlock__UnorderedGroup__Impl();
@@ -13262,17 +13513,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DefineBlock__DirectionAssignment_2"
-    // InternalDefine.g:4286:1: rule__DefineBlock__DirectionAssignment_2 : ( ruleDirectionBlock ) ;
+    // InternalDefine.g:4367:1: rule__DefineBlock__DirectionAssignment_2 : ( ruleDirectionBlock ) ;
     public final void rule__DefineBlock__DirectionAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4290:1: ( ( ruleDirectionBlock ) )
-            // InternalDefine.g:4291:2: ( ruleDirectionBlock )
+            // InternalDefine.g:4371:1: ( ( ruleDirectionBlock ) )
+            // InternalDefine.g:4372:2: ( ruleDirectionBlock )
             {
-            // InternalDefine.g:4291:2: ( ruleDirectionBlock )
-            // InternalDefine.g:4292:3: ruleDirectionBlock
+            // InternalDefine.g:4372:2: ( ruleDirectionBlock )
+            // InternalDefine.g:4373:3: ruleDirectionBlock
             {
              before(grammarAccess.getDefineBlockAccess().getDirectionDirectionBlockParserRuleCall_2_0()); 
             pushFollow(FOLLOW_2);
@@ -13303,17 +13554,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DefineBlock__TeststepsAssignment_4"
-    // InternalDefine.g:4301:1: rule__DefineBlock__TeststepsAssignment_4 : ( ruleTeststepBlock ) ;
+    // InternalDefine.g:4382:1: rule__DefineBlock__TeststepsAssignment_4 : ( ruleTeststepBlock ) ;
     public final void rule__DefineBlock__TeststepsAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4305:1: ( ( ruleTeststepBlock ) )
-            // InternalDefine.g:4306:2: ( ruleTeststepBlock )
+            // InternalDefine.g:4386:1: ( ( ruleTeststepBlock ) )
+            // InternalDefine.g:4387:2: ( ruleTeststepBlock )
             {
-            // InternalDefine.g:4306:2: ( ruleTeststepBlock )
-            // InternalDefine.g:4307:3: ruleTeststepBlock
+            // InternalDefine.g:4387:2: ( ruleTeststepBlock )
+            // InternalDefine.g:4388:3: ruleTeststepBlock
             {
              before(grammarAccess.getDefineBlockAccess().getTeststepsTeststepBlockParserRuleCall_4_0()); 
             pushFollow(FOLLOW_2);
@@ -13344,17 +13595,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DirectionBlock__InputAssignment_0"
-    // InternalDefine.g:4316:1: rule__DirectionBlock__InputAssignment_0 : ( ruleInput ) ;
+    // InternalDefine.g:4397:1: rule__DirectionBlock__InputAssignment_0 : ( ruleInput ) ;
     public final void rule__DirectionBlock__InputAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4320:1: ( ( ruleInput ) )
-            // InternalDefine.g:4321:2: ( ruleInput )
+            // InternalDefine.g:4401:1: ( ( ruleInput ) )
+            // InternalDefine.g:4402:2: ( ruleInput )
             {
-            // InternalDefine.g:4321:2: ( ruleInput )
-            // InternalDefine.g:4322:3: ruleInput
+            // InternalDefine.g:4402:2: ( ruleInput )
+            // InternalDefine.g:4403:3: ruleInput
             {
              before(grammarAccess.getDirectionBlockAccess().getInputInputParserRuleCall_0_0()); 
             pushFollow(FOLLOW_2);
@@ -13385,17 +13636,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DirectionBlock__InoutAssignment_1"
-    // InternalDefine.g:4331:1: rule__DirectionBlock__InoutAssignment_1 : ( ruleInout ) ;
+    // InternalDefine.g:4412:1: rule__DirectionBlock__InoutAssignment_1 : ( ruleInout ) ;
     public final void rule__DirectionBlock__InoutAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4335:1: ( ( ruleInout ) )
-            // InternalDefine.g:4336:2: ( ruleInout )
+            // InternalDefine.g:4416:1: ( ( ruleInout ) )
+            // InternalDefine.g:4417:2: ( ruleInout )
             {
-            // InternalDefine.g:4336:2: ( ruleInout )
-            // InternalDefine.g:4337:3: ruleInout
+            // InternalDefine.g:4417:2: ( ruleInout )
+            // InternalDefine.g:4418:3: ruleInout
             {
              before(grammarAccess.getDirectionBlockAccess().getInoutInoutParserRuleCall_1_0()); 
             pushFollow(FOLLOW_2);
@@ -13426,17 +13677,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DirectionBlock__OutputAssignment_2"
-    // InternalDefine.g:4346:1: rule__DirectionBlock__OutputAssignment_2 : ( ruleOutput ) ;
+    // InternalDefine.g:4427:1: rule__DirectionBlock__OutputAssignment_2 : ( ruleOutput ) ;
     public final void rule__DirectionBlock__OutputAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4350:1: ( ( ruleOutput ) )
-            // InternalDefine.g:4351:2: ( ruleOutput )
+            // InternalDefine.g:4431:1: ( ( ruleOutput ) )
+            // InternalDefine.g:4432:2: ( ruleOutput )
             {
-            // InternalDefine.g:4351:2: ( ruleOutput )
-            // InternalDefine.g:4352:3: ruleOutput
+            // InternalDefine.g:4432:2: ( ruleOutput )
+            // InternalDefine.g:4433:3: ruleOutput
             {
              before(grammarAccess.getDirectionBlockAccess().getOutputOutputParserRuleCall_2_0()); 
             pushFollow(FOLLOW_2);
@@ -13467,21 +13718,21 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__NameAssignment_0"
-    // InternalDefine.g:4361:1: rule__Input__NameAssignment_0 : ( ( 'input' ) ) ;
+    // InternalDefine.g:4442:1: rule__Input__NameAssignment_0 : ( ( 'input' ) ) ;
     public final void rule__Input__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4365:1: ( ( ( 'input' ) ) )
-            // InternalDefine.g:4366:2: ( ( 'input' ) )
+            // InternalDefine.g:4446:1: ( ( ( 'input' ) ) )
+            // InternalDefine.g:4447:2: ( ( 'input' ) )
             {
-            // InternalDefine.g:4366:2: ( ( 'input' ) )
-            // InternalDefine.g:4367:3: ( 'input' )
+            // InternalDefine.g:4447:2: ( ( 'input' ) )
+            // InternalDefine.g:4448:3: ( 'input' )
             {
              before(grammarAccess.getInputAccess().getNameInputKeyword_0_0()); 
-            // InternalDefine.g:4368:3: ( 'input' )
-            // InternalDefine.g:4369:4: 'input'
+            // InternalDefine.g:4449:3: ( 'input' )
+            // InternalDefine.g:4450:4: 'input'
             {
              before(grammarAccess.getInputAccess().getNameInputKeyword_0_0()); 
             match(input,45,FOLLOW_2); 
@@ -13512,17 +13763,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__InputVariablesAssignment_2"
-    // InternalDefine.g:4380:1: rule__Input__InputVariablesAssignment_2 : ( ruleVariables ) ;
+    // InternalDefine.g:4461:1: rule__Input__InputVariablesAssignment_2 : ( ruleVariables ) ;
     public final void rule__Input__InputVariablesAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4384:1: ( ( ruleVariables ) )
-            // InternalDefine.g:4385:2: ( ruleVariables )
+            // InternalDefine.g:4465:1: ( ( ruleVariables ) )
+            // InternalDefine.g:4466:2: ( ruleVariables )
             {
-            // InternalDefine.g:4385:2: ( ruleVariables )
-            // InternalDefine.g:4386:3: ruleVariables
+            // InternalDefine.g:4466:2: ( ruleVariables )
+            // InternalDefine.g:4467:3: ruleVariables
             {
              before(grammarAccess.getInputAccess().getInputVariablesVariablesParserRuleCall_2_0()); 
             pushFollow(FOLLOW_2);
@@ -13553,21 +13804,21 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Output__NameAssignment_0"
-    // InternalDefine.g:4395:1: rule__Output__NameAssignment_0 : ( ( 'output' ) ) ;
+    // InternalDefine.g:4476:1: rule__Output__NameAssignment_0 : ( ( 'output' ) ) ;
     public final void rule__Output__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4399:1: ( ( ( 'output' ) ) )
-            // InternalDefine.g:4400:2: ( ( 'output' ) )
+            // InternalDefine.g:4480:1: ( ( ( 'output' ) ) )
+            // InternalDefine.g:4481:2: ( ( 'output' ) )
             {
-            // InternalDefine.g:4400:2: ( ( 'output' ) )
-            // InternalDefine.g:4401:3: ( 'output' )
+            // InternalDefine.g:4481:2: ( ( 'output' ) )
+            // InternalDefine.g:4482:3: ( 'output' )
             {
              before(grammarAccess.getOutputAccess().getNameOutputKeyword_0_0()); 
-            // InternalDefine.g:4402:3: ( 'output' )
-            // InternalDefine.g:4403:4: 'output'
+            // InternalDefine.g:4483:3: ( 'output' )
+            // InternalDefine.g:4484:4: 'output'
             {
              before(grammarAccess.getOutputAccess().getNameOutputKeyword_0_0()); 
             match(input,46,FOLLOW_2); 
@@ -13598,17 +13849,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Output__OutputVariablesAssignment_2"
-    // InternalDefine.g:4414:1: rule__Output__OutputVariablesAssignment_2 : ( ruleVariables ) ;
+    // InternalDefine.g:4495:1: rule__Output__OutputVariablesAssignment_2 : ( ruleVariables ) ;
     public final void rule__Output__OutputVariablesAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4418:1: ( ( ruleVariables ) )
-            // InternalDefine.g:4419:2: ( ruleVariables )
+            // InternalDefine.g:4499:1: ( ( ruleVariables ) )
+            // InternalDefine.g:4500:2: ( ruleVariables )
             {
-            // InternalDefine.g:4419:2: ( ruleVariables )
-            // InternalDefine.g:4420:3: ruleVariables
+            // InternalDefine.g:4500:2: ( ruleVariables )
+            // InternalDefine.g:4501:3: ruleVariables
             {
              before(grammarAccess.getOutputAccess().getOutputVariablesVariablesParserRuleCall_2_0()); 
             pushFollow(FOLLOW_2);
@@ -13639,21 +13890,21 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Inout__NameAssignment_0"
-    // InternalDefine.g:4429:1: rule__Inout__NameAssignment_0 : ( ( 'inout' ) ) ;
+    // InternalDefine.g:4510:1: rule__Inout__NameAssignment_0 : ( ( 'inout' ) ) ;
     public final void rule__Inout__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4433:1: ( ( ( 'inout' ) ) )
-            // InternalDefine.g:4434:2: ( ( 'inout' ) )
+            // InternalDefine.g:4514:1: ( ( ( 'inout' ) ) )
+            // InternalDefine.g:4515:2: ( ( 'inout' ) )
             {
-            // InternalDefine.g:4434:2: ( ( 'inout' ) )
-            // InternalDefine.g:4435:3: ( 'inout' )
+            // InternalDefine.g:4515:2: ( ( 'inout' ) )
+            // InternalDefine.g:4516:3: ( 'inout' )
             {
              before(grammarAccess.getInoutAccess().getNameInoutKeyword_0_0()); 
-            // InternalDefine.g:4436:3: ( 'inout' )
-            // InternalDefine.g:4437:4: 'inout'
+            // InternalDefine.g:4517:3: ( 'inout' )
+            // InternalDefine.g:4518:4: 'inout'
             {
              before(grammarAccess.getInoutAccess().getNameInoutKeyword_0_0()); 
             match(input,47,FOLLOW_2); 
@@ -13684,17 +13935,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Inout__InoutVariablesAssignment_2"
-    // InternalDefine.g:4448:1: rule__Inout__InoutVariablesAssignment_2 : ( ruleVariables ) ;
+    // InternalDefine.g:4529:1: rule__Inout__InoutVariablesAssignment_2 : ( ruleVariables ) ;
     public final void rule__Inout__InoutVariablesAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4452:1: ( ( ruleVariables ) )
-            // InternalDefine.g:4453:2: ( ruleVariables )
+            // InternalDefine.g:4533:1: ( ( ruleVariables ) )
+            // InternalDefine.g:4534:2: ( ruleVariables )
             {
-            // InternalDefine.g:4453:2: ( ruleVariables )
-            // InternalDefine.g:4454:3: ruleVariables
+            // InternalDefine.g:4534:2: ( ruleVariables )
+            // InternalDefine.g:4535:3: ruleVariables
             {
              before(grammarAccess.getInoutAccess().getInoutVariablesVariablesParserRuleCall_2_0()); 
             pushFollow(FOLLOW_2);
@@ -13725,21 +13976,21 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Variable__VariantKeywordAssignment_1"
-    // InternalDefine.g:4463:1: rule__Variable__VariantKeywordAssignment_1 : ( ( 'variant' ) ) ;
+    // InternalDefine.g:4544:1: rule__Variable__VariantKeywordAssignment_1 : ( ( 'variant' ) ) ;
     public final void rule__Variable__VariantKeywordAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4467:1: ( ( ( 'variant' ) ) )
-            // InternalDefine.g:4468:2: ( ( 'variant' ) )
+            // InternalDefine.g:4548:1: ( ( ( 'variant' ) ) )
+            // InternalDefine.g:4549:2: ( ( 'variant' ) )
             {
-            // InternalDefine.g:4468:2: ( ( 'variant' ) )
-            // InternalDefine.g:4469:3: ( 'variant' )
+            // InternalDefine.g:4549:2: ( ( 'variant' ) )
+            // InternalDefine.g:4550:3: ( 'variant' )
             {
              before(grammarAccess.getVariableAccess().getVariantKeywordVariantKeyword_1_0()); 
-            // InternalDefine.g:4470:3: ( 'variant' )
-            // InternalDefine.g:4471:4: 'variant'
+            // InternalDefine.g:4551:3: ( 'variant' )
+            // InternalDefine.g:4552:4: 'variant'
             {
              before(grammarAccess.getVariableAccess().getVariantKeywordVariantKeyword_1_0()); 
             match(input,48,FOLLOW_2); 
@@ -13770,17 +14021,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Variable__VariableTypeAssignment_2"
-    // InternalDefine.g:4482:1: rule__Variable__VariableTypeAssignment_2 : ( ruleBasicType ) ;
+    // InternalDefine.g:4563:1: rule__Variable__VariableTypeAssignment_2 : ( ruleBasicType ) ;
     public final void rule__Variable__VariableTypeAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4486:1: ( ( ruleBasicType ) )
-            // InternalDefine.g:4487:2: ( ruleBasicType )
+            // InternalDefine.g:4567:1: ( ( ruleBasicType ) )
+            // InternalDefine.g:4568:2: ( ruleBasicType )
             {
-            // InternalDefine.g:4487:2: ( ruleBasicType )
-            // InternalDefine.g:4488:3: ruleBasicType
+            // InternalDefine.g:4568:2: ( ruleBasicType )
+            // InternalDefine.g:4569:3: ruleBasicType
             {
              before(grammarAccess.getVariableAccess().getVariableTypeBasicTypeEnumRuleCall_2_0()); 
             pushFollow(FOLLOW_2);
@@ -13811,17 +14062,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Variable__NameAssignment_3"
-    // InternalDefine.g:4497:1: rule__Variable__NameAssignment_3 : ( RULE_ID ) ;
+    // InternalDefine.g:4578:1: rule__Variable__NameAssignment_3 : ( RULE_ID ) ;
     public final void rule__Variable__NameAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4501:1: ( ( RULE_ID ) )
-            // InternalDefine.g:4502:2: ( RULE_ID )
+            // InternalDefine.g:4582:1: ( ( RULE_ID ) )
+            // InternalDefine.g:4583:2: ( RULE_ID )
             {
-            // InternalDefine.g:4502:2: ( RULE_ID )
-            // InternalDefine.g:4503:3: RULE_ID
+            // InternalDefine.g:4583:2: ( RULE_ID )
+            // InternalDefine.g:4584:3: RULE_ID
             {
              before(grammarAccess.getVariableAccess().getNameIDTerminalRuleCall_3_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -13848,17 +14099,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Variable__IdiomAssignment_4_1"
-    // InternalDefine.g:4512:1: rule__Variable__IdiomAssignment_4_1 : ( ruleIdiom ) ;
+    // InternalDefine.g:4593:1: rule__Variable__IdiomAssignment_4_1 : ( ruleIdiom ) ;
     public final void rule__Variable__IdiomAssignment_4_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4516:1: ( ( ruleIdiom ) )
-            // InternalDefine.g:4517:2: ( ruleIdiom )
+            // InternalDefine.g:4597:1: ( ( ruleIdiom ) )
+            // InternalDefine.g:4598:2: ( ruleIdiom )
             {
-            // InternalDefine.g:4517:2: ( ruleIdiom )
-            // InternalDefine.g:4518:3: ruleIdiom
+            // InternalDefine.g:4598:2: ( ruleIdiom )
+            // InternalDefine.g:4599:3: ruleIdiom
             {
              before(grammarAccess.getVariableAccess().getIdiomIdiomParserRuleCall_4_1_0()); 
             pushFollow(FOLLOW_2);
@@ -13889,17 +14140,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Variable__RangeAssignment_4_2_1"
-    // InternalDefine.g:4527:1: rule__Variable__RangeAssignment_4_2_1 : ( ruleIdiom ) ;
+    // InternalDefine.g:4608:1: rule__Variable__RangeAssignment_4_2_1 : ( ruleIdiom ) ;
     public final void rule__Variable__RangeAssignment_4_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4531:1: ( ( ruleIdiom ) )
-            // InternalDefine.g:4532:2: ( ruleIdiom )
+            // InternalDefine.g:4612:1: ( ( ruleIdiom ) )
+            // InternalDefine.g:4613:2: ( ruleIdiom )
             {
-            // InternalDefine.g:4532:2: ( ruleIdiom )
-            // InternalDefine.g:4533:3: ruleIdiom
+            // InternalDefine.g:4613:2: ( ruleIdiom )
+            // InternalDefine.g:4614:3: ruleIdiom
             {
              before(grammarAccess.getVariableAccess().getRangeIdiomParserRuleCall_4_2_1_0()); 
             pushFollow(FOLLOW_2);
@@ -13930,21 +14181,21 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Variable__NextVariableAssignment_5_1"
-    // InternalDefine.g:4542:1: rule__Variable__NextVariableAssignment_5_1 : ( ( ',' ) ) ;
+    // InternalDefine.g:4623:1: rule__Variable__NextVariableAssignment_5_1 : ( ( ',' ) ) ;
     public final void rule__Variable__NextVariableAssignment_5_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4546:1: ( ( ( ',' ) ) )
-            // InternalDefine.g:4547:2: ( ( ',' ) )
+            // InternalDefine.g:4627:1: ( ( ( ',' ) ) )
+            // InternalDefine.g:4628:2: ( ( ',' ) )
             {
-            // InternalDefine.g:4547:2: ( ( ',' ) )
-            // InternalDefine.g:4548:3: ( ',' )
+            // InternalDefine.g:4628:2: ( ( ',' ) )
+            // InternalDefine.g:4629:3: ( ',' )
             {
              before(grammarAccess.getVariableAccess().getNextVariableCommaKeyword_5_1_0()); 
-            // InternalDefine.g:4549:3: ( ',' )
-            // InternalDefine.g:4550:4: ','
+            // InternalDefine.g:4630:3: ( ',' )
+            // InternalDefine.g:4631:4: ','
             {
              before(grammarAccess.getVariableAccess().getNextVariableCommaKeyword_5_1_0()); 
             match(input,44,FOLLOW_2); 
@@ -13975,17 +14226,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Udt__NameAssignment_1"
-    // InternalDefine.g:4561:1: rule__Udt__NameAssignment_1 : ( RULE_ID ) ;
+    // InternalDefine.g:4642:1: rule__Udt__NameAssignment_1 : ( RULE_ID ) ;
     public final void rule__Udt__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4565:1: ( ( RULE_ID ) )
-            // InternalDefine.g:4566:2: ( RULE_ID )
+            // InternalDefine.g:4646:1: ( ( RULE_ID ) )
+            // InternalDefine.g:4647:2: ( RULE_ID )
             {
-            // InternalDefine.g:4566:2: ( RULE_ID )
-            // InternalDefine.g:4567:3: RULE_ID
+            // InternalDefine.g:4647:2: ( RULE_ID )
+            // InternalDefine.g:4648:3: RULE_ID
             {
              before(grammarAccess.getUdtAccess().getNameIDTerminalRuleCall_1_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -14012,17 +14263,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Udt__UdtTypeAssignment_3"
-    // InternalDefine.g:4576:1: rule__Udt__UdtTypeAssignment_3 : ( ruleUdtType ) ;
+    // InternalDefine.g:4657:1: rule__Udt__UdtTypeAssignment_3 : ( ruleUdtType ) ;
     public final void rule__Udt__UdtTypeAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4580:1: ( ( ruleUdtType ) )
-            // InternalDefine.g:4581:2: ( ruleUdtType )
+            // InternalDefine.g:4661:1: ( ( ruleUdtType ) )
+            // InternalDefine.g:4662:2: ( ruleUdtType )
             {
-            // InternalDefine.g:4581:2: ( ruleUdtType )
-            // InternalDefine.g:4582:3: ruleUdtType
+            // InternalDefine.g:4662:2: ( ruleUdtType )
+            // InternalDefine.g:4663:3: ruleUdtType
             {
              before(grammarAccess.getUdtAccess().getUdtTypeUdtTypeParserRuleCall_3_0()); 
             pushFollow(FOLLOW_2);
@@ -14053,17 +14304,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Udt__UdtVariablesAssignment_6"
-    // InternalDefine.g:4591:1: rule__Udt__UdtVariablesAssignment_6 : ( ruleVariables ) ;
+    // InternalDefine.g:4672:1: rule__Udt__UdtVariablesAssignment_6 : ( ruleVariables ) ;
     public final void rule__Udt__UdtVariablesAssignment_6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4595:1: ( ( ruleVariables ) )
-            // InternalDefine.g:4596:2: ( ruleVariables )
+            // InternalDefine.g:4676:1: ( ( ruleVariables ) )
+            // InternalDefine.g:4677:2: ( ruleVariables )
             {
-            // InternalDefine.g:4596:2: ( ruleVariables )
-            // InternalDefine.g:4597:3: ruleVariables
+            // InternalDefine.g:4677:2: ( ruleVariables )
+            // InternalDefine.g:4678:3: ruleVariables
             {
              before(grammarAccess.getUdtAccess().getUdtVariablesVariablesParserRuleCall_6_0()); 
             pushFollow(FOLLOW_2);
@@ -14094,21 +14345,21 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__UdtRef__UdtTypeAssignment_0"
-    // InternalDefine.g:4606:1: rule__UdtRef__UdtTypeAssignment_0 : ( ( RULE_ID ) ) ;
+    // InternalDefine.g:4687:1: rule__UdtRef__UdtTypeAssignment_0 : ( ( RULE_ID ) ) ;
     public final void rule__UdtRef__UdtTypeAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4610:1: ( ( ( RULE_ID ) ) )
-            // InternalDefine.g:4611:2: ( ( RULE_ID ) )
+            // InternalDefine.g:4691:1: ( ( ( RULE_ID ) ) )
+            // InternalDefine.g:4692:2: ( ( RULE_ID ) )
             {
-            // InternalDefine.g:4611:2: ( ( RULE_ID ) )
-            // InternalDefine.g:4612:3: ( RULE_ID )
+            // InternalDefine.g:4692:2: ( ( RULE_ID ) )
+            // InternalDefine.g:4693:3: ( RULE_ID )
             {
              before(grammarAccess.getUdtRefAccess().getUdtTypeUdtTypeCrossReference_0_0()); 
-            // InternalDefine.g:4613:3: ( RULE_ID )
-            // InternalDefine.g:4614:4: RULE_ID
+            // InternalDefine.g:4694:3: ( RULE_ID )
+            // InternalDefine.g:4695:4: RULE_ID
             {
              before(grammarAccess.getUdtRefAccess().getUdtTypeUdtTypeIDTerminalRuleCall_0_0_1()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -14139,17 +14390,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__UdtRef__NameAssignment_1"
-    // InternalDefine.g:4625:1: rule__UdtRef__NameAssignment_1 : ( RULE_ID ) ;
+    // InternalDefine.g:4706:1: rule__UdtRef__NameAssignment_1 : ( RULE_ID ) ;
     public final void rule__UdtRef__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4629:1: ( ( RULE_ID ) )
-            // InternalDefine.g:4630:2: ( RULE_ID )
+            // InternalDefine.g:4710:1: ( ( RULE_ID ) )
+            // InternalDefine.g:4711:2: ( RULE_ID )
             {
-            // InternalDefine.g:4630:2: ( RULE_ID )
-            // InternalDefine.g:4631:3: RULE_ID
+            // InternalDefine.g:4711:2: ( RULE_ID )
+            // InternalDefine.g:4712:3: RULE_ID
             {
              before(grammarAccess.getUdtRefAccess().getNameIDTerminalRuleCall_1_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -14176,17 +14427,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__UdtRef__UdtVariablesAssignment_2"
-    // InternalDefine.g:4640:1: rule__UdtRef__UdtVariablesAssignment_2 : ( ruleVariables ) ;
+    // InternalDefine.g:4721:1: rule__UdtRef__UdtVariablesAssignment_2 : ( ruleVariables ) ;
     public final void rule__UdtRef__UdtVariablesAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4644:1: ( ( ruleVariables ) )
-            // InternalDefine.g:4645:2: ( ruleVariables )
+            // InternalDefine.g:4725:1: ( ( ruleVariables ) )
+            // InternalDefine.g:4726:2: ( ruleVariables )
             {
-            // InternalDefine.g:4645:2: ( ruleVariables )
-            // InternalDefine.g:4646:3: ruleVariables
+            // InternalDefine.g:4726:2: ( ruleVariables )
+            // InternalDefine.g:4727:3: ruleVariables
             {
              before(grammarAccess.getUdtRefAccess().getUdtVariablesVariablesParserRuleCall_2_0()); 
             pushFollow(FOLLOW_2);
@@ -14217,17 +14468,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__UdtType__NameAssignment"
-    // InternalDefine.g:4655:1: rule__UdtType__NameAssignment : ( RULE_ID ) ;
+    // InternalDefine.g:4736:1: rule__UdtType__NameAssignment : ( RULE_ID ) ;
     public final void rule__UdtType__NameAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4659:1: ( ( RULE_ID ) )
-            // InternalDefine.g:4660:2: ( RULE_ID )
+            // InternalDefine.g:4740:1: ( ( RULE_ID ) )
+            // InternalDefine.g:4741:2: ( RULE_ID )
             {
-            // InternalDefine.g:4660:2: ( RULE_ID )
-            // InternalDefine.g:4661:3: RULE_ID
+            // InternalDefine.g:4741:2: ( RULE_ID )
+            // InternalDefine.g:4742:3: RULE_ID
             {
              before(grammarAccess.getUdtTypeAccess().getNameIDTerminalRuleCall_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -14254,17 +14505,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Or__RightAssignment_1_2"
-    // InternalDefine.g:4670:1: rule__Or__RightAssignment_1_2 : ( ruleAnd ) ;
+    // InternalDefine.g:4751:1: rule__Or__RightAssignment_1_2 : ( ruleAnd ) ;
     public final void rule__Or__RightAssignment_1_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4674:1: ( ( ruleAnd ) )
-            // InternalDefine.g:4675:2: ( ruleAnd )
+            // InternalDefine.g:4755:1: ( ( ruleAnd ) )
+            // InternalDefine.g:4756:2: ( ruleAnd )
             {
-            // InternalDefine.g:4675:2: ( ruleAnd )
-            // InternalDefine.g:4676:3: ruleAnd
+            // InternalDefine.g:4756:2: ( ruleAnd )
+            // InternalDefine.g:4757:3: ruleAnd
             {
              before(grammarAccess.getOrAccess().getRightAndParserRuleCall_1_2_0()); 
             pushFollow(FOLLOW_2);
@@ -14295,17 +14546,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__And__RightAssignment_1_2"
-    // InternalDefine.g:4685:1: rule__And__RightAssignment_1_2 : ( ruleEquality ) ;
+    // InternalDefine.g:4766:1: rule__And__RightAssignment_1_2 : ( ruleEquality ) ;
     public final void rule__And__RightAssignment_1_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4689:1: ( ( ruleEquality ) )
-            // InternalDefine.g:4690:2: ( ruleEquality )
+            // InternalDefine.g:4770:1: ( ( ruleEquality ) )
+            // InternalDefine.g:4771:2: ( ruleEquality )
             {
-            // InternalDefine.g:4690:2: ( ruleEquality )
-            // InternalDefine.g:4691:3: ruleEquality
+            // InternalDefine.g:4771:2: ( ruleEquality )
+            // InternalDefine.g:4772:3: ruleEquality
             {
              before(grammarAccess.getAndAccess().getRightEqualityParserRuleCall_1_2_0()); 
             pushFollow(FOLLOW_2);
@@ -14336,21 +14587,21 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Equality__OpAssignment_1_1"
-    // InternalDefine.g:4700:1: rule__Equality__OpAssignment_1_1 : ( ( rule__Equality__OpAlternatives_1_1_0 ) ) ;
+    // InternalDefine.g:4781:1: rule__Equality__OpAssignment_1_1 : ( ( rule__Equality__OpAlternatives_1_1_0 ) ) ;
     public final void rule__Equality__OpAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4704:1: ( ( ( rule__Equality__OpAlternatives_1_1_0 ) ) )
-            // InternalDefine.g:4705:2: ( ( rule__Equality__OpAlternatives_1_1_0 ) )
+            // InternalDefine.g:4785:1: ( ( ( rule__Equality__OpAlternatives_1_1_0 ) ) )
+            // InternalDefine.g:4786:2: ( ( rule__Equality__OpAlternatives_1_1_0 ) )
             {
-            // InternalDefine.g:4705:2: ( ( rule__Equality__OpAlternatives_1_1_0 ) )
-            // InternalDefine.g:4706:3: ( rule__Equality__OpAlternatives_1_1_0 )
+            // InternalDefine.g:4786:2: ( ( rule__Equality__OpAlternatives_1_1_0 ) )
+            // InternalDefine.g:4787:3: ( rule__Equality__OpAlternatives_1_1_0 )
             {
              before(grammarAccess.getEqualityAccess().getOpAlternatives_1_1_0()); 
-            // InternalDefine.g:4707:3: ( rule__Equality__OpAlternatives_1_1_0 )
-            // InternalDefine.g:4707:4: rule__Equality__OpAlternatives_1_1_0
+            // InternalDefine.g:4788:3: ( rule__Equality__OpAlternatives_1_1_0 )
+            // InternalDefine.g:4788:4: rule__Equality__OpAlternatives_1_1_0
             {
             pushFollow(FOLLOW_2);
             rule__Equality__OpAlternatives_1_1_0();
@@ -14383,17 +14634,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Equality__RightAssignment_1_2"
-    // InternalDefine.g:4715:1: rule__Equality__RightAssignment_1_2 : ( ruleComparison ) ;
+    // InternalDefine.g:4796:1: rule__Equality__RightAssignment_1_2 : ( ruleComparison ) ;
     public final void rule__Equality__RightAssignment_1_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4719:1: ( ( ruleComparison ) )
-            // InternalDefine.g:4720:2: ( ruleComparison )
+            // InternalDefine.g:4800:1: ( ( ruleComparison ) )
+            // InternalDefine.g:4801:2: ( ruleComparison )
             {
-            // InternalDefine.g:4720:2: ( ruleComparison )
-            // InternalDefine.g:4721:3: ruleComparison
+            // InternalDefine.g:4801:2: ( ruleComparison )
+            // InternalDefine.g:4802:3: ruleComparison
             {
              before(grammarAccess.getEqualityAccess().getRightComparisonParserRuleCall_1_2_0()); 
             pushFollow(FOLLOW_2);
@@ -14424,21 +14675,21 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Comparison__OpAssignment_1_1"
-    // InternalDefine.g:4730:1: rule__Comparison__OpAssignment_1_1 : ( ( rule__Comparison__OpAlternatives_1_1_0 ) ) ;
+    // InternalDefine.g:4811:1: rule__Comparison__OpAssignment_1_1 : ( ( rule__Comparison__OpAlternatives_1_1_0 ) ) ;
     public final void rule__Comparison__OpAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4734:1: ( ( ( rule__Comparison__OpAlternatives_1_1_0 ) ) )
-            // InternalDefine.g:4735:2: ( ( rule__Comparison__OpAlternatives_1_1_0 ) )
+            // InternalDefine.g:4815:1: ( ( ( rule__Comparison__OpAlternatives_1_1_0 ) ) )
+            // InternalDefine.g:4816:2: ( ( rule__Comparison__OpAlternatives_1_1_0 ) )
             {
-            // InternalDefine.g:4735:2: ( ( rule__Comparison__OpAlternatives_1_1_0 ) )
-            // InternalDefine.g:4736:3: ( rule__Comparison__OpAlternatives_1_1_0 )
+            // InternalDefine.g:4816:2: ( ( rule__Comparison__OpAlternatives_1_1_0 ) )
+            // InternalDefine.g:4817:3: ( rule__Comparison__OpAlternatives_1_1_0 )
             {
              before(grammarAccess.getComparisonAccess().getOpAlternatives_1_1_0()); 
-            // InternalDefine.g:4737:3: ( rule__Comparison__OpAlternatives_1_1_0 )
-            // InternalDefine.g:4737:4: rule__Comparison__OpAlternatives_1_1_0
+            // InternalDefine.g:4818:3: ( rule__Comparison__OpAlternatives_1_1_0 )
+            // InternalDefine.g:4818:4: rule__Comparison__OpAlternatives_1_1_0
             {
             pushFollow(FOLLOW_2);
             rule__Comparison__OpAlternatives_1_1_0();
@@ -14471,17 +14722,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Comparison__RightAssignment_1_2"
-    // InternalDefine.g:4745:1: rule__Comparison__RightAssignment_1_2 : ( rulePlusOrMinus ) ;
+    // InternalDefine.g:4826:1: rule__Comparison__RightAssignment_1_2 : ( rulePlusOrMinus ) ;
     public final void rule__Comparison__RightAssignment_1_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4749:1: ( ( rulePlusOrMinus ) )
-            // InternalDefine.g:4750:2: ( rulePlusOrMinus )
+            // InternalDefine.g:4830:1: ( ( rulePlusOrMinus ) )
+            // InternalDefine.g:4831:2: ( rulePlusOrMinus )
             {
-            // InternalDefine.g:4750:2: ( rulePlusOrMinus )
-            // InternalDefine.g:4751:3: rulePlusOrMinus
+            // InternalDefine.g:4831:2: ( rulePlusOrMinus )
+            // InternalDefine.g:4832:3: rulePlusOrMinus
             {
              before(grammarAccess.getComparisonAccess().getRightPlusOrMinusParserRuleCall_1_2_0()); 
             pushFollow(FOLLOW_2);
@@ -14512,17 +14763,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PlusOrMinus__RightAssignment_1_1"
-    // InternalDefine.g:4760:1: rule__PlusOrMinus__RightAssignment_1_1 : ( ruleMulOrDiv ) ;
+    // InternalDefine.g:4841:1: rule__PlusOrMinus__RightAssignment_1_1 : ( ruleMulOrDiv ) ;
     public final void rule__PlusOrMinus__RightAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4764:1: ( ( ruleMulOrDiv ) )
-            // InternalDefine.g:4765:2: ( ruleMulOrDiv )
+            // InternalDefine.g:4845:1: ( ( ruleMulOrDiv ) )
+            // InternalDefine.g:4846:2: ( ruleMulOrDiv )
             {
-            // InternalDefine.g:4765:2: ( ruleMulOrDiv )
-            // InternalDefine.g:4766:3: ruleMulOrDiv
+            // InternalDefine.g:4846:2: ( ruleMulOrDiv )
+            // InternalDefine.g:4847:3: ruleMulOrDiv
             {
              before(grammarAccess.getPlusOrMinusAccess().getRightMulOrDivParserRuleCall_1_1_0()); 
             pushFollow(FOLLOW_2);
@@ -14553,21 +14804,21 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__MulOrDiv__OpAssignment_1_1"
-    // InternalDefine.g:4775:1: rule__MulOrDiv__OpAssignment_1_1 : ( ( rule__MulOrDiv__OpAlternatives_1_1_0 ) ) ;
+    // InternalDefine.g:4856:1: rule__MulOrDiv__OpAssignment_1_1 : ( ( rule__MulOrDiv__OpAlternatives_1_1_0 ) ) ;
     public final void rule__MulOrDiv__OpAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4779:1: ( ( ( rule__MulOrDiv__OpAlternatives_1_1_0 ) ) )
-            // InternalDefine.g:4780:2: ( ( rule__MulOrDiv__OpAlternatives_1_1_0 ) )
+            // InternalDefine.g:4860:1: ( ( ( rule__MulOrDiv__OpAlternatives_1_1_0 ) ) )
+            // InternalDefine.g:4861:2: ( ( rule__MulOrDiv__OpAlternatives_1_1_0 ) )
             {
-            // InternalDefine.g:4780:2: ( ( rule__MulOrDiv__OpAlternatives_1_1_0 ) )
-            // InternalDefine.g:4781:3: ( rule__MulOrDiv__OpAlternatives_1_1_0 )
+            // InternalDefine.g:4861:2: ( ( rule__MulOrDiv__OpAlternatives_1_1_0 ) )
+            // InternalDefine.g:4862:3: ( rule__MulOrDiv__OpAlternatives_1_1_0 )
             {
              before(grammarAccess.getMulOrDivAccess().getOpAlternatives_1_1_0()); 
-            // InternalDefine.g:4782:3: ( rule__MulOrDiv__OpAlternatives_1_1_0 )
-            // InternalDefine.g:4782:4: rule__MulOrDiv__OpAlternatives_1_1_0
+            // InternalDefine.g:4863:3: ( rule__MulOrDiv__OpAlternatives_1_1_0 )
+            // InternalDefine.g:4863:4: rule__MulOrDiv__OpAlternatives_1_1_0
             {
             pushFollow(FOLLOW_2);
             rule__MulOrDiv__OpAlternatives_1_1_0();
@@ -14600,17 +14851,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__MulOrDiv__RightAssignment_1_2"
-    // InternalDefine.g:4790:1: rule__MulOrDiv__RightAssignment_1_2 : ( rulePrimary ) ;
+    // InternalDefine.g:4871:1: rule__MulOrDiv__RightAssignment_1_2 : ( rulePrimary ) ;
     public final void rule__MulOrDiv__RightAssignment_1_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4794:1: ( ( rulePrimary ) )
-            // InternalDefine.g:4795:2: ( rulePrimary )
+            // InternalDefine.g:4875:1: ( ( rulePrimary ) )
+            // InternalDefine.g:4876:2: ( rulePrimary )
             {
-            // InternalDefine.g:4795:2: ( rulePrimary )
-            // InternalDefine.g:4796:3: rulePrimary
+            // InternalDefine.g:4876:2: ( rulePrimary )
+            // InternalDefine.g:4877:3: rulePrimary
             {
              before(grammarAccess.getMulOrDivAccess().getRightPrimaryParserRuleCall_1_2_0()); 
             pushFollow(FOLLOW_2);
@@ -14641,17 +14892,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Primary__IdiomAssignment_1_2"
-    // InternalDefine.g:4805:1: rule__Primary__IdiomAssignment_1_2 : ( rulePrimary ) ;
+    // InternalDefine.g:4886:1: rule__Primary__IdiomAssignment_1_2 : ( rulePrimary ) ;
     public final void rule__Primary__IdiomAssignment_1_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4809:1: ( ( rulePrimary ) )
-            // InternalDefine.g:4810:2: ( rulePrimary )
+            // InternalDefine.g:4890:1: ( ( rulePrimary ) )
+            // InternalDefine.g:4891:2: ( rulePrimary )
             {
-            // InternalDefine.g:4810:2: ( rulePrimary )
-            // InternalDefine.g:4811:3: rulePrimary
+            // InternalDefine.g:4891:2: ( rulePrimary )
+            // InternalDefine.g:4892:3: rulePrimary
             {
              before(grammarAccess.getPrimaryAccess().getIdiomPrimaryParserRuleCall_1_2_0()); 
             pushFollow(FOLLOW_2);
@@ -14682,17 +14933,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Atomic__ValueAssignment_0_1"
-    // InternalDefine.g:4820:1: rule__Atomic__ValueAssignment_0_1 : ( RULE_INT ) ;
+    // InternalDefine.g:4901:1: rule__Atomic__ValueAssignment_0_1 : ( RULE_INT ) ;
     public final void rule__Atomic__ValueAssignment_0_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4824:1: ( ( RULE_INT ) )
-            // InternalDefine.g:4825:2: ( RULE_INT )
+            // InternalDefine.g:4905:1: ( ( RULE_INT ) )
+            // InternalDefine.g:4906:2: ( RULE_INT )
             {
-            // InternalDefine.g:4825:2: ( RULE_INT )
-            // InternalDefine.g:4826:3: RULE_INT
+            // InternalDefine.g:4906:2: ( RULE_INT )
+            // InternalDefine.g:4907:3: RULE_INT
             {
              before(grammarAccess.getAtomicAccess().getValueINTTerminalRuleCall_0_1_0()); 
             match(input,RULE_INT,FOLLOW_2); 
@@ -14719,17 +14970,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Atomic__ValueAssignment_1_1"
-    // InternalDefine.g:4835:1: rule__Atomic__ValueAssignment_1_1 : ( RULE_STRING ) ;
+    // InternalDefine.g:4916:1: rule__Atomic__ValueAssignment_1_1 : ( RULE_STRING ) ;
     public final void rule__Atomic__ValueAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4839:1: ( ( RULE_STRING ) )
-            // InternalDefine.g:4840:2: ( RULE_STRING )
+            // InternalDefine.g:4920:1: ( ( RULE_STRING ) )
+            // InternalDefine.g:4921:2: ( RULE_STRING )
             {
-            // InternalDefine.g:4840:2: ( RULE_STRING )
-            // InternalDefine.g:4841:3: RULE_STRING
+            // InternalDefine.g:4921:2: ( RULE_STRING )
+            // InternalDefine.g:4922:3: RULE_STRING
             {
              before(grammarAccess.getAtomicAccess().getValueSTRINGTerminalRuleCall_1_1_0()); 
             match(input,RULE_STRING,FOLLOW_2); 
@@ -14756,21 +15007,21 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Atomic__ValueAssignment_2_1"
-    // InternalDefine.g:4850:1: rule__Atomic__ValueAssignment_2_1 : ( ( rule__Atomic__ValueAlternatives_2_1_0 ) ) ;
+    // InternalDefine.g:4931:1: rule__Atomic__ValueAssignment_2_1 : ( ( rule__Atomic__ValueAlternatives_2_1_0 ) ) ;
     public final void rule__Atomic__ValueAssignment_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4854:1: ( ( ( rule__Atomic__ValueAlternatives_2_1_0 ) ) )
-            // InternalDefine.g:4855:2: ( ( rule__Atomic__ValueAlternatives_2_1_0 ) )
+            // InternalDefine.g:4935:1: ( ( ( rule__Atomic__ValueAlternatives_2_1_0 ) ) )
+            // InternalDefine.g:4936:2: ( ( rule__Atomic__ValueAlternatives_2_1_0 ) )
             {
-            // InternalDefine.g:4855:2: ( ( rule__Atomic__ValueAlternatives_2_1_0 ) )
-            // InternalDefine.g:4856:3: ( rule__Atomic__ValueAlternatives_2_1_0 )
+            // InternalDefine.g:4936:2: ( ( rule__Atomic__ValueAlternatives_2_1_0 ) )
+            // InternalDefine.g:4937:3: ( rule__Atomic__ValueAlternatives_2_1_0 )
             {
              before(grammarAccess.getAtomicAccess().getValueAlternatives_2_1_0()); 
-            // InternalDefine.g:4857:3: ( rule__Atomic__ValueAlternatives_2_1_0 )
-            // InternalDefine.g:4857:4: rule__Atomic__ValueAlternatives_2_1_0
+            // InternalDefine.g:4938:3: ( rule__Atomic__ValueAlternatives_2_1_0 )
+            // InternalDefine.g:4938:4: rule__Atomic__ValueAlternatives_2_1_0
             {
             pushFollow(FOLLOW_2);
             rule__Atomic__ValueAlternatives_2_1_0();
@@ -14803,21 +15054,21 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Atomic__VariableAssignment_3_1"
-    // InternalDefine.g:4865:1: rule__Atomic__VariableAssignment_3_1 : ( ( RULE_ID ) ) ;
+    // InternalDefine.g:4946:1: rule__Atomic__VariableAssignment_3_1 : ( ( RULE_ID ) ) ;
     public final void rule__Atomic__VariableAssignment_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4869:1: ( ( ( RULE_ID ) ) )
-            // InternalDefine.g:4870:2: ( ( RULE_ID ) )
+            // InternalDefine.g:4950:1: ( ( ( RULE_ID ) ) )
+            // InternalDefine.g:4951:2: ( ( RULE_ID ) )
             {
-            // InternalDefine.g:4870:2: ( ( RULE_ID ) )
-            // InternalDefine.g:4871:3: ( RULE_ID )
+            // InternalDefine.g:4951:2: ( ( RULE_ID ) )
+            // InternalDefine.g:4952:3: ( RULE_ID )
             {
              before(grammarAccess.getAtomicAccess().getVariableVariableCrossReference_3_1_0()); 
-            // InternalDefine.g:4872:3: ( RULE_ID )
-            // InternalDefine.g:4873:4: RULE_ID
+            // InternalDefine.g:4953:3: ( RULE_ID )
+            // InternalDefine.g:4954:4: RULE_ID
             {
              before(grammarAccess.getAtomicAccess().getVariableVariableIDTerminalRuleCall_3_1_0_1()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -14848,17 +15099,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__FloatConstant__ValueAssignment_1"
-    // InternalDefine.g:4884:1: rule__FloatConstant__ValueAssignment_1 : ( RULE_INT ) ;
+    // InternalDefine.g:4965:1: rule__FloatConstant__ValueAssignment_1 : ( RULE_INT ) ;
     public final void rule__FloatConstant__ValueAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4888:1: ( ( RULE_INT ) )
-            // InternalDefine.g:4889:2: ( RULE_INT )
+            // InternalDefine.g:4969:1: ( ( RULE_INT ) )
+            // InternalDefine.g:4970:2: ( RULE_INT )
             {
-            // InternalDefine.g:4889:2: ( RULE_INT )
-            // InternalDefine.g:4890:3: RULE_INT
+            // InternalDefine.g:4970:2: ( RULE_INT )
+            // InternalDefine.g:4971:3: RULE_INT
             {
              before(grammarAccess.getFloatConstantAccess().getValueINTTerminalRuleCall_1_0()); 
             match(input,RULE_INT,FOLLOW_2); 
@@ -14885,17 +15136,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__FloatConstant__ValueOfDecimalAssignment_3"
-    // InternalDefine.g:4899:1: rule__FloatConstant__ValueOfDecimalAssignment_3 : ( RULE_INT ) ;
+    // InternalDefine.g:4980:1: rule__FloatConstant__ValueOfDecimalAssignment_3 : ( RULE_INT ) ;
     public final void rule__FloatConstant__ValueOfDecimalAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4903:1: ( ( RULE_INT ) )
-            // InternalDefine.g:4904:2: ( RULE_INT )
+            // InternalDefine.g:4984:1: ( ( RULE_INT ) )
+            // InternalDefine.g:4985:2: ( RULE_INT )
             {
-            // InternalDefine.g:4904:2: ( RULE_INT )
-            // InternalDefine.g:4905:3: RULE_INT
+            // InternalDefine.g:4985:2: ( RULE_INT )
+            // InternalDefine.g:4986:3: RULE_INT
             {
              before(grammarAccess.getFloatConstantAccess().getValueOfDecimalINTTerminalRuleCall_3_0()); 
             match(input,RULE_INT,FOLLOW_2); 
@@ -14922,17 +15173,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TeststepBlock__PlcCycleAssignment_2"
-    // InternalDefine.g:4914:1: rule__TeststepBlock__PlcCycleAssignment_2 : ( RULE_INT ) ;
+    // InternalDefine.g:4995:1: rule__TeststepBlock__PlcCycleAssignment_2 : ( RULE_INT ) ;
     public final void rule__TeststepBlock__PlcCycleAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4918:1: ( ( RULE_INT ) )
-            // InternalDefine.g:4919:2: ( RULE_INT )
+            // InternalDefine.g:4999:1: ( ( RULE_INT ) )
+            // InternalDefine.g:5000:2: ( RULE_INT )
             {
-            // InternalDefine.g:4919:2: ( RULE_INT )
-            // InternalDefine.g:4920:3: RULE_INT
+            // InternalDefine.g:5000:2: ( RULE_INT )
+            // InternalDefine.g:5001:3: RULE_INT
             {
              before(grammarAccess.getTeststepBlockAccess().getPlcCycleINTTerminalRuleCall_2_0()); 
             match(input,RULE_INT,FOLLOW_2); 
@@ -14959,17 +15210,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TeststepBlock__DescriptionAssignment_4"
-    // InternalDefine.g:4929:1: rule__TeststepBlock__DescriptionAssignment_4 : ( RULE_STRING ) ;
+    // InternalDefine.g:5010:1: rule__TeststepBlock__DescriptionAssignment_4 : ( RULE_STRING ) ;
     public final void rule__TeststepBlock__DescriptionAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4933:1: ( ( RULE_STRING ) )
-            // InternalDefine.g:4934:2: ( RULE_STRING )
+            // InternalDefine.g:5014:1: ( ( RULE_STRING ) )
+            // InternalDefine.g:5015:2: ( RULE_STRING )
             {
-            // InternalDefine.g:4934:2: ( RULE_STRING )
-            // InternalDefine.g:4935:3: RULE_STRING
+            // InternalDefine.g:5015:2: ( RULE_STRING )
+            // InternalDefine.g:5016:3: RULE_STRING
             {
              before(grammarAccess.getTeststepBlockAccess().getDescriptionSTRINGTerminalRuleCall_4_0()); 
             match(input,RULE_STRING,FOLLOW_2); 
@@ -14996,17 +15247,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TeststepBlock__AssertionAssignment_7"
-    // InternalDefine.g:4944:1: rule__TeststepBlock__AssertionAssignment_7 : ( ruleAssertionBlock ) ;
+    // InternalDefine.g:5025:1: rule__TeststepBlock__AssertionAssignment_7 : ( ruleAssertionBlock ) ;
     public final void rule__TeststepBlock__AssertionAssignment_7() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4948:1: ( ( ruleAssertionBlock ) )
-            // InternalDefine.g:4949:2: ( ruleAssertionBlock )
+            // InternalDefine.g:5029:1: ( ( ruleAssertionBlock ) )
+            // InternalDefine.g:5030:2: ( ruleAssertionBlock )
             {
-            // InternalDefine.g:4949:2: ( ruleAssertionBlock )
-            // InternalDefine.g:4950:3: ruleAssertionBlock
+            // InternalDefine.g:5030:2: ( ruleAssertionBlock )
+            // InternalDefine.g:5031:3: ruleAssertionBlock
             {
              before(grammarAccess.getTeststepBlockAccess().getAssertionAssertionBlockParserRuleCall_7_0()); 
             pushFollow(FOLLOW_2);
@@ -15037,17 +15288,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AssertionBlock__SetAssignment_0"
-    // InternalDefine.g:4959:1: rule__AssertionBlock__SetAssignment_0 : ( ruleSet ) ;
+    // InternalDefine.g:5040:1: rule__AssertionBlock__SetAssignment_0 : ( ruleSet ) ;
     public final void rule__AssertionBlock__SetAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4963:1: ( ( ruleSet ) )
-            // InternalDefine.g:4964:2: ( ruleSet )
+            // InternalDefine.g:5044:1: ( ( ruleSet ) )
+            // InternalDefine.g:5045:2: ( ruleSet )
             {
-            // InternalDefine.g:4964:2: ( ruleSet )
-            // InternalDefine.g:4965:3: ruleSet
+            // InternalDefine.g:5045:2: ( ruleSet )
+            // InternalDefine.g:5046:3: ruleSet
             {
              before(grammarAccess.getAssertionBlockAccess().getSetSetParserRuleCall_0_0()); 
             pushFollow(FOLLOW_2);
@@ -15078,17 +15329,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AssertionBlock__AssertAssignment_1"
-    // InternalDefine.g:4974:1: rule__AssertionBlock__AssertAssignment_1 : ( ruleAssert ) ;
+    // InternalDefine.g:5055:1: rule__AssertionBlock__AssertAssignment_1 : ( ruleAssert ) ;
     public final void rule__AssertionBlock__AssertAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4978:1: ( ( ruleAssert ) )
-            // InternalDefine.g:4979:2: ( ruleAssert )
+            // InternalDefine.g:5059:1: ( ( ruleAssert ) )
+            // InternalDefine.g:5060:2: ( ruleAssert )
             {
-            // InternalDefine.g:4979:2: ( ruleAssert )
-            // InternalDefine.g:4980:3: ruleAssert
+            // InternalDefine.g:5060:2: ( ruleAssert )
+            // InternalDefine.g:5061:3: ruleAssert
             {
              before(grammarAccess.getAssertionBlockAccess().getAssertAssertParserRuleCall_1_0()); 
             pushFollow(FOLLOW_2);
@@ -15119,21 +15370,21 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Set__NameAssignment_0"
-    // InternalDefine.g:4989:1: rule__Set__NameAssignment_0 : ( ( 'set' ) ) ;
+    // InternalDefine.g:5070:1: rule__Set__NameAssignment_0 : ( ( 'set' ) ) ;
     public final void rule__Set__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:4993:1: ( ( ( 'set' ) ) )
-            // InternalDefine.g:4994:2: ( ( 'set' ) )
+            // InternalDefine.g:5074:1: ( ( ( 'set' ) ) )
+            // InternalDefine.g:5075:2: ( ( 'set' ) )
             {
-            // InternalDefine.g:4994:2: ( ( 'set' ) )
-            // InternalDefine.g:4995:3: ( 'set' )
+            // InternalDefine.g:5075:2: ( ( 'set' ) )
+            // InternalDefine.g:5076:3: ( 'set' )
             {
              before(grammarAccess.getSetAccess().getNameSetKeyword_0_0()); 
-            // InternalDefine.g:4996:3: ( 'set' )
-            // InternalDefine.g:4997:4: 'set'
+            // InternalDefine.g:5077:3: ( 'set' )
+            // InternalDefine.g:5078:4: 'set'
             {
              before(grammarAccess.getSetAccess().getNameSetKeyword_0_0()); 
             match(input,49,FOLLOW_2); 
@@ -15164,17 +15415,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Set__SetVariablesAssignment_2"
-    // InternalDefine.g:5008:1: rule__Set__SetVariablesAssignment_2 : ( ruleStatement ) ;
+    // InternalDefine.g:5089:1: rule__Set__SetVariablesAssignment_2 : ( ruleStatement ) ;
     public final void rule__Set__SetVariablesAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:5012:1: ( ( ruleStatement ) )
-            // InternalDefine.g:5013:2: ( ruleStatement )
+            // InternalDefine.g:5093:1: ( ( ruleStatement ) )
+            // InternalDefine.g:5094:2: ( ruleStatement )
             {
-            // InternalDefine.g:5013:2: ( ruleStatement )
-            // InternalDefine.g:5014:3: ruleStatement
+            // InternalDefine.g:5094:2: ( ruleStatement )
+            // InternalDefine.g:5095:3: ruleStatement
             {
              before(grammarAccess.getSetAccess().getSetVariablesStatementParserRuleCall_2_0()); 
             pushFollow(FOLLOW_2);
@@ -15205,21 +15456,21 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Assert__NameAssignment_0"
-    // InternalDefine.g:5023:1: rule__Assert__NameAssignment_0 : ( ( 'assert' ) ) ;
+    // InternalDefine.g:5104:1: rule__Assert__NameAssignment_0 : ( ( 'assert' ) ) ;
     public final void rule__Assert__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:5027:1: ( ( ( 'assert' ) ) )
-            // InternalDefine.g:5028:2: ( ( 'assert' ) )
+            // InternalDefine.g:5108:1: ( ( ( 'assert' ) ) )
+            // InternalDefine.g:5109:2: ( ( 'assert' ) )
             {
-            // InternalDefine.g:5028:2: ( ( 'assert' ) )
-            // InternalDefine.g:5029:3: ( 'assert' )
+            // InternalDefine.g:5109:2: ( ( 'assert' ) )
+            // InternalDefine.g:5110:3: ( 'assert' )
             {
              before(grammarAccess.getAssertAccess().getNameAssertKeyword_0_0()); 
-            // InternalDefine.g:5030:3: ( 'assert' )
-            // InternalDefine.g:5031:4: 'assert'
+            // InternalDefine.g:5111:3: ( 'assert' )
+            // InternalDefine.g:5112:4: 'assert'
             {
              before(grammarAccess.getAssertAccess().getNameAssertKeyword_0_0()); 
             match(input,50,FOLLOW_2); 
@@ -15250,17 +15501,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Assert__AssertVariablesAssignment_2"
-    // InternalDefine.g:5042:1: rule__Assert__AssertVariablesAssignment_2 : ( ruleStatement ) ;
+    // InternalDefine.g:5123:1: rule__Assert__AssertVariablesAssignment_2 : ( ruleStatement ) ;
     public final void rule__Assert__AssertVariablesAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:5046:1: ( ( ruleStatement ) )
-            // InternalDefine.g:5047:2: ( ruleStatement )
+            // InternalDefine.g:5127:1: ( ( ruleStatement ) )
+            // InternalDefine.g:5128:2: ( ruleStatement )
             {
-            // InternalDefine.g:5047:2: ( ruleStatement )
-            // InternalDefine.g:5048:3: ruleStatement
+            // InternalDefine.g:5128:2: ( ruleStatement )
+            // InternalDefine.g:5129:3: ruleStatement
             {
              before(grammarAccess.getAssertAccess().getAssertVariablesStatementParserRuleCall_2_0()); 
             pushFollow(FOLLOW_2);
@@ -15291,21 +15542,21 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Statement__VariableAssignment_0"
-    // InternalDefine.g:5057:1: rule__Statement__VariableAssignment_0 : ( ( RULE_ID ) ) ;
+    // InternalDefine.g:5138:1: rule__Statement__VariableAssignment_0 : ( ( RULE_ID ) ) ;
     public final void rule__Statement__VariableAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:5061:1: ( ( ( RULE_ID ) ) )
-            // InternalDefine.g:5062:2: ( ( RULE_ID ) )
+            // InternalDefine.g:5142:1: ( ( ( RULE_ID ) ) )
+            // InternalDefine.g:5143:2: ( ( RULE_ID ) )
             {
-            // InternalDefine.g:5062:2: ( ( RULE_ID ) )
-            // InternalDefine.g:5063:3: ( RULE_ID )
+            // InternalDefine.g:5143:2: ( ( RULE_ID ) )
+            // InternalDefine.g:5144:3: ( RULE_ID )
             {
              before(grammarAccess.getStatementAccess().getVariableVariablesCrossReference_0_0()); 
-            // InternalDefine.g:5064:3: ( RULE_ID )
-            // InternalDefine.g:5065:4: RULE_ID
+            // InternalDefine.g:5145:3: ( RULE_ID )
+            // InternalDefine.g:5146:4: RULE_ID
             {
              before(grammarAccess.getStatementAccess().getVariableVariablesIDTerminalRuleCall_0_0_1()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -15336,17 +15587,17 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Statement__CascadeAssignment_1"
-    // InternalDefine.g:5076:1: rule__Statement__CascadeAssignment_1 : ( ruleCascade ) ;
+    // InternalDefine.g:5157:1: rule__Statement__CascadeAssignment_1 : ( ruleCascade ) ;
     public final void rule__Statement__CascadeAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:5080:1: ( ( ruleCascade ) )
-            // InternalDefine.g:5081:2: ( ruleCascade )
+            // InternalDefine.g:5161:1: ( ( ruleCascade ) )
+            // InternalDefine.g:5162:2: ( ruleCascade )
             {
-            // InternalDefine.g:5081:2: ( ruleCascade )
-            // InternalDefine.g:5082:3: ruleCascade
+            // InternalDefine.g:5162:2: ( ruleCascade )
+            // InternalDefine.g:5163:3: ruleCascade
             {
              before(grammarAccess.getStatementAccess().getCascadeCascadeParserRuleCall_1_0()); 
             pushFollow(FOLLOW_2);
@@ -15376,26 +15627,26 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__Statement__CascadeAssignment_1"
 
 
-    // $ANTLR start "rule__Statement__RightAssignment_3"
-    // InternalDefine.g:5091:1: rule__Statement__RightAssignment_3 : ( ruleIdiom ) ;
-    public final void rule__Statement__RightAssignment_3() throws RecognitionException {
+    // $ANTLR start "rule__Statement__IdiomAssignment_3"
+    // InternalDefine.g:5172:1: rule__Statement__IdiomAssignment_3 : ( ruleIdiom ) ;
+    public final void rule__Statement__IdiomAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:5095:1: ( ( ruleIdiom ) )
-            // InternalDefine.g:5096:2: ( ruleIdiom )
+            // InternalDefine.g:5176:1: ( ( ruleIdiom ) )
+            // InternalDefine.g:5177:2: ( ruleIdiom )
             {
-            // InternalDefine.g:5096:2: ( ruleIdiom )
-            // InternalDefine.g:5097:3: ruleIdiom
+            // InternalDefine.g:5177:2: ( ruleIdiom )
+            // InternalDefine.g:5178:3: ruleIdiom
             {
-             before(grammarAccess.getStatementAccess().getRightIdiomParserRuleCall_3_0()); 
+             before(grammarAccess.getStatementAccess().getIdiomIdiomParserRuleCall_3_0()); 
             pushFollow(FOLLOW_2);
             ruleIdiom();
 
             state._fsp--;
 
-             after(grammarAccess.getStatementAccess().getRightIdiomParserRuleCall_3_0()); 
+             after(grammarAccess.getStatementAccess().getIdiomIdiomParserRuleCall_3_0()); 
 
             }
 
@@ -15414,25 +15665,66 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__Statement__RightAssignment_3"
+    // $ANTLR end "rule__Statement__IdiomAssignment_3"
+
+
+    // $ANTLR start "rule__Statement__RangeAssignment_4_1"
+    // InternalDefine.g:5187:1: rule__Statement__RangeAssignment_4_1 : ( ruleIdiom ) ;
+    public final void rule__Statement__RangeAssignment_4_1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalDefine.g:5191:1: ( ( ruleIdiom ) )
+            // InternalDefine.g:5192:2: ( ruleIdiom )
+            {
+            // InternalDefine.g:5192:2: ( ruleIdiom )
+            // InternalDefine.g:5193:3: ruleIdiom
+            {
+             before(grammarAccess.getStatementAccess().getRangeIdiomParserRuleCall_4_1_0()); 
+            pushFollow(FOLLOW_2);
+            ruleIdiom();
+
+            state._fsp--;
+
+             after(grammarAccess.getStatementAccess().getRangeIdiomParserRuleCall_4_1_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Statement__RangeAssignment_4_1"
 
 
     // $ANTLR start "rule__Cascade__UdtVarAssignment_1"
-    // InternalDefine.g:5106:1: rule__Cascade__UdtVarAssignment_1 : ( ( RULE_ID ) ) ;
+    // InternalDefine.g:5202:1: rule__Cascade__UdtVarAssignment_1 : ( ( RULE_ID ) ) ;
     public final void rule__Cascade__UdtVarAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalDefine.g:5110:1: ( ( ( RULE_ID ) ) )
-            // InternalDefine.g:5111:2: ( ( RULE_ID ) )
+            // InternalDefine.g:5206:1: ( ( ( RULE_ID ) ) )
+            // InternalDefine.g:5207:2: ( ( RULE_ID ) )
             {
-            // InternalDefine.g:5111:2: ( ( RULE_ID ) )
-            // InternalDefine.g:5112:3: ( RULE_ID )
+            // InternalDefine.g:5207:2: ( ( RULE_ID ) )
+            // InternalDefine.g:5208:3: ( RULE_ID )
             {
              before(grammarAccess.getCascadeAccess().getUdtVarVariablesCrossReference_1_0()); 
-            // InternalDefine.g:5113:3: ( RULE_ID )
-            // InternalDefine.g:5114:4: RULE_ID
+            // InternalDefine.g:5209:3: ( RULE_ID )
+            // InternalDefine.g:5210:4: RULE_ID
             {
              before(grammarAccess.getCascadeAccess().getUdtVarVariablesIDTerminalRuleCall_1_0_1()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -15509,7 +15801,7 @@ public class InternalDefineParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_41 = new BitSet(new long[]{0x0000000000000012L});
     public static final BitSet FOLLOW_42 = new BitSet(new long[]{0x0000040100000000L});
     public static final BitSet FOLLOW_43 = new BitSet(new long[]{0x0000040000000002L});
-    public static final BitSet FOLLOW_44 = new BitSet(new long[]{0x0000000000000800L});
+    public static final BitSet FOLLOW_44 = new BitSet(new long[]{0x0000000200000800L});
     public static final BitSet FOLLOW_45 = new BitSet(new long[]{0x0000E00000000002L});
     public static final BitSet FOLLOW_46 = new BitSet(new long[]{0x0006000000000002L});
 

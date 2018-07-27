@@ -35,7 +35,8 @@ import org.example.define.define.Variables;
  * <ul>
  *   <li>{@link org.example.define.define.impl.StatementImpl#getVariable <em>Variable</em>}</li>
  *   <li>{@link org.example.define.define.impl.StatementImpl#getCascade <em>Cascade</em>}</li>
- *   <li>{@link org.example.define.define.impl.StatementImpl#getRight <em>Right</em>}</li>
+ *   <li>{@link org.example.define.define.impl.StatementImpl#getIdiom <em>Idiom</em>}</li>
+ *   <li>{@link org.example.define.define.impl.StatementImpl#getRange <em>Range</em>}</li>
  * </ul>
  *
  * @generated
@@ -63,14 +64,24 @@ public class StatementImpl extends MinimalEObjectImpl.Container implements State
   protected EList<Cascade> cascade;
 
   /**
-   * The cached value of the '{@link #getRight() <em>Right</em>}' containment reference.
+   * The cached value of the '{@link #getIdiom() <em>Idiom</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getRight()
+   * @see #getIdiom()
    * @generated
    * @ordered
    */
-  protected Idiom right;
+  protected Idiom idiom;
+
+  /**
+   * The cached value of the '{@link #getRange() <em>Range</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getRange()
+   * @generated
+   * @ordered
+   */
+  protected Idiom range;
 
   /**
    * <!-- begin-user-doc -->
@@ -155,9 +166,9 @@ public class StatementImpl extends MinimalEObjectImpl.Container implements State
    * <!-- end-user-doc -->
    * @generated
    */
-  public Idiom getRight()
+  public Idiom getIdiom()
   {
-    return right;
+    return idiom;
   }
 
   /**
@@ -165,13 +176,13 @@ public class StatementImpl extends MinimalEObjectImpl.Container implements State
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetRight(Idiom newRight, NotificationChain msgs)
+  public NotificationChain basicSetIdiom(Idiom newIdiom, NotificationChain msgs)
   {
-    Idiom oldRight = right;
-    right = newRight;
+    Idiom oldIdiom = idiom;
+    idiom = newIdiom;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DefinePackage.STATEMENT__RIGHT, oldRight, newRight);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DefinePackage.STATEMENT__IDIOM, oldIdiom, newIdiom);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -182,20 +193,68 @@ public class StatementImpl extends MinimalEObjectImpl.Container implements State
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setRight(Idiom newRight)
+  public void setIdiom(Idiom newIdiom)
   {
-    if (newRight != right)
+    if (newIdiom != idiom)
     {
       NotificationChain msgs = null;
-      if (right != null)
-        msgs = ((InternalEObject)right).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DefinePackage.STATEMENT__RIGHT, null, msgs);
-      if (newRight != null)
-        msgs = ((InternalEObject)newRight).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DefinePackage.STATEMENT__RIGHT, null, msgs);
-      msgs = basicSetRight(newRight, msgs);
+      if (idiom != null)
+        msgs = ((InternalEObject)idiom).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DefinePackage.STATEMENT__IDIOM, null, msgs);
+      if (newIdiom != null)
+        msgs = ((InternalEObject)newIdiom).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DefinePackage.STATEMENT__IDIOM, null, msgs);
+      msgs = basicSetIdiom(newIdiom, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DefinePackage.STATEMENT__RIGHT, newRight, newRight));
+      eNotify(new ENotificationImpl(this, Notification.SET, DefinePackage.STATEMENT__IDIOM, newIdiom, newIdiom));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Idiom getRange()
+  {
+    return range;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetRange(Idiom newRange, NotificationChain msgs)
+  {
+    Idiom oldRange = range;
+    range = newRange;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DefinePackage.STATEMENT__RANGE, oldRange, newRange);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setRange(Idiom newRange)
+  {
+    if (newRange != range)
+    {
+      NotificationChain msgs = null;
+      if (range != null)
+        msgs = ((InternalEObject)range).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DefinePackage.STATEMENT__RANGE, null, msgs);
+      if (newRange != null)
+        msgs = ((InternalEObject)newRange).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DefinePackage.STATEMENT__RANGE, null, msgs);
+      msgs = basicSetRange(newRange, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DefinePackage.STATEMENT__RANGE, newRange, newRange));
   }
 
   /**
@@ -210,8 +269,10 @@ public class StatementImpl extends MinimalEObjectImpl.Container implements State
     {
       case DefinePackage.STATEMENT__CASCADE:
         return ((InternalEList<?>)getCascade()).basicRemove(otherEnd, msgs);
-      case DefinePackage.STATEMENT__RIGHT:
-        return basicSetRight(null, msgs);
+      case DefinePackage.STATEMENT__IDIOM:
+        return basicSetIdiom(null, msgs);
+      case DefinePackage.STATEMENT__RANGE:
+        return basicSetRange(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -231,8 +292,10 @@ public class StatementImpl extends MinimalEObjectImpl.Container implements State
         return basicGetVariable();
       case DefinePackage.STATEMENT__CASCADE:
         return getCascade();
-      case DefinePackage.STATEMENT__RIGHT:
-        return getRight();
+      case DefinePackage.STATEMENT__IDIOM:
+        return getIdiom();
+      case DefinePackage.STATEMENT__RANGE:
+        return getRange();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -255,8 +318,11 @@ public class StatementImpl extends MinimalEObjectImpl.Container implements State
         getCascade().clear();
         getCascade().addAll((Collection<? extends Cascade>)newValue);
         return;
-      case DefinePackage.STATEMENT__RIGHT:
-        setRight((Idiom)newValue);
+      case DefinePackage.STATEMENT__IDIOM:
+        setIdiom((Idiom)newValue);
+        return;
+      case DefinePackage.STATEMENT__RANGE:
+        setRange((Idiom)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -278,8 +344,11 @@ public class StatementImpl extends MinimalEObjectImpl.Container implements State
       case DefinePackage.STATEMENT__CASCADE:
         getCascade().clear();
         return;
-      case DefinePackage.STATEMENT__RIGHT:
-        setRight((Idiom)null);
+      case DefinePackage.STATEMENT__IDIOM:
+        setIdiom((Idiom)null);
+        return;
+      case DefinePackage.STATEMENT__RANGE:
+        setRange((Idiom)null);
         return;
     }
     super.eUnset(featureID);
@@ -299,8 +368,10 @@ public class StatementImpl extends MinimalEObjectImpl.Container implements State
         return variable != null;
       case DefinePackage.STATEMENT__CASCADE:
         return cascade != null && !cascade.isEmpty();
-      case DefinePackage.STATEMENT__RIGHT:
-        return right != null;
+      case DefinePackage.STATEMENT__IDIOM:
+        return idiom != null;
+      case DefinePackage.STATEMENT__RANGE:
+        return range != null;
     }
     return super.eIsSet(featureID);
   }

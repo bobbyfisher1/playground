@@ -230,24 +230,53 @@ class DefineValidator extends AbstractDefineValidator {
 		}
 	}
 
-	@Check def checkType(Variable v) {
-		if ( /*v.udt === null &&*/ v.idiom !== null) {
-			val actualType = v?.idiom.typeFor
-			val expectedType = v.variableType.typeFor
-			val rangeType = v?.range?.typeFor
+	@Check def checkType(Variable variable) {
+		if (variable.idiom !== null) {
+			val expectedType = variable.variableType.typeFor
+			val actualType = variable?.idiom.typeFor
+			val rangeType = variable?.range?.typeFor
 
 			if (expectedType === null || actualType === null)
 				return;
 
 			if (expectedType != actualType)
 				error("Incompatible types. Expected '" + expectedType.toString + "' but was '" + actualType.toString +
-					"'", v, DefinePackage.eINSTANCE.variable_Idiom, INCOMPATIBLE_TYPES)
+					"'", variable, DefinePackage.eINSTANCE.variable_Idiom, INCOMPATIBLE_TYPES)
 
-			if (rangeType !== null && rangeType != actualType)
+			if (rangeType !== null && rangeType != expectedType)
 				error("Incompatible types. Expected '" + expectedType.toString + "' but was '" + rangeType.toString +
-					"'", v, DefinePackage.eINSTANCE.variable_Range, INCOMPATIBLE_TYPES)
+					"'", variable, DefinePackage.eINSTANCE.variable_Range, INCOMPATIBLE_TYPES)
 
 		}
+	}
+
+	@Check def checkType(Statement statement) {
+
+		val cascade = statement.cascade
+		val variable = statement.variable
+		val last = cascade?.last?.udtVar
+
+		val actualType = statement.idiom.typeFor
+		val rangeType = statement?.range?.typeFor
+		var expectedType = BasicType.NULL
+
+		if (variable instanceof Variable) {
+			expectedType = (variable as Variable).variableType
+			compareTypesAndThrowError(statement, actualType, expectedType, rangeType)
+		} else if (last instanceof Variable) {
+			expectedType = last.variableType
+			compareTypesAndThrowError(statement, actualType, expectedType, rangeType)
+		}
+	}
+
+	def private void compareTypesAndThrowError(Statement statement, DefineType actualType, BasicType expectedType,
+		DefineType rangeType) {
+		if (actualType != expectedType.typeFor)
+			error("Incompatible types. Expected '" + expectedType.toString + "' but was '" + actualType.toString + "'",
+				statement, DefinePackage.eINSTANCE.statement_Idiom, INCOMPATIBLE_TYPES)
+		if (rangeType !== null && rangeType != expectedType.typeFor)
+			error("Incompatible types. Expected '" + expectedType.toString + "' but was '" + rangeType.toString + "'",
+				statement, DefinePackage.eINSTANCE.statement_Range, INCOMPATIBLE_TYPES)
 	}
 
 	@Check def void checkCommaSyntaxIO(DirectionBlock directionblock) {

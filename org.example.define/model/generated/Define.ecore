@@ -93,7 +93,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="variable" eType="#//Variables"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cascade" upperBound="-1"
         eType="#//Cascade" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//Idiom"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="idiom" eType="#//Idiom"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="range" eType="#//Idiom"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Cascade">

@@ -679,7 +679,7 @@ public class DefineSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *     Statement returns Statement
 	 *
 	 * Constraint:
-	 *     (variable=[Variables|ID] cascade+=Cascade* right=Idiom)
+	 *     (variable=[Variables|ID] cascade+=Cascade* idiom=Idiom range=Idiom?)
 	 */
 	protected void sequence_Statement(ISerializationContext context, Statement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

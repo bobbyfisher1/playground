@@ -114,14 +114,8 @@ Assert:
 	name='assert' '[' assertVariables+=Statement* ']';
 
 Statement:
-//	 variable=[Variables|QualifiedName] '=' right=Idiom ';';
-	variable=[Variables] cascade+=Cascade* '=' right=Idiom ';';
-	/*
- * datatype rule which returns a string
- * because it does not contain any assignments
-//QualifiedName:
-//	ID ('.' ID)*;
- */
+	variable=[Variables] cascade+=Cascade* '=' idiom=Idiom ('+/-' range=Idiom)? ';';
+
 Cascade:
 	'.' udtVar=[Variables];
 

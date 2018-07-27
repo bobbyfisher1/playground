@@ -75,6 +75,7 @@ public class DefineParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getSetAccess().getGroup(), "rule__Set__Group__0");
 			builder.put(grammarAccess.getAssertAccess().getGroup(), "rule__Assert__Group__0");
 			builder.put(grammarAccess.getStatementAccess().getGroup(), "rule__Statement__Group__0");
+			builder.put(grammarAccess.getStatementAccess().getGroup_4(), "rule__Statement__Group_4__0");
 			builder.put(grammarAccess.getCascadeAccess().getGroup(), "rule__Cascade__Group__0");
 			builder.put(grammarAccess.getDefineBlockAccess().getDirectionAssignment_2(), "rule__DefineBlock__DirectionAssignment_2");
 			builder.put(grammarAccess.getDefineBlockAccess().getTeststepsAssignment_4(), "rule__DefineBlock__TeststepsAssignment_4");
@@ -127,7 +128,8 @@ public class DefineParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getAssertAccess().getAssertVariablesAssignment_2(), "rule__Assert__AssertVariablesAssignment_2");
 			builder.put(grammarAccess.getStatementAccess().getVariableAssignment_0(), "rule__Statement__VariableAssignment_0");
 			builder.put(grammarAccess.getStatementAccess().getCascadeAssignment_1(), "rule__Statement__CascadeAssignment_1");
-			builder.put(grammarAccess.getStatementAccess().getRightAssignment_3(), "rule__Statement__RightAssignment_3");
+			builder.put(grammarAccess.getStatementAccess().getIdiomAssignment_3(), "rule__Statement__IdiomAssignment_3");
+			builder.put(grammarAccess.getStatementAccess().getRangeAssignment_4_1(), "rule__Statement__RangeAssignment_4_1");
 			builder.put(grammarAccess.getCascadeAccess().getUdtVarAssignment_1(), "rule__Cascade__UdtVarAssignment_1");
 			builder.put(grammarAccess.getDirectionBlockAccess().getUnorderedGroup(), "rule__DirectionBlock__UnorderedGroup");
 			builder.put(grammarAccess.getAssertionBlockAccess().getUnorderedGroup(), "rule__AssertionBlock__UnorderedGroup");

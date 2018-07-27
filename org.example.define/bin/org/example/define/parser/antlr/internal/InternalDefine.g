@@ -1959,25 +1959,50 @@ ruleStatement returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getStatementAccess().getRightIdiomParserRuleCall_3_0());
+					newCompositeNode(grammarAccess.getStatementAccess().getIdiomIdiomParserRuleCall_3_0());
 				}
-				lv_right_3_0=ruleIdiom
+				lv_idiom_3_0=ruleIdiom
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getStatementRule());
 					}
 					set(
 						$current,
-						"right",
-						lv_right_3_0,
+						"idiom",
+						lv_idiom_3_0,
 						"org.example.define.Define.Idiom");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)
-		otherlv_4=';'
+		(
+			otherlv_4='+/-'
+			{
+				newLeafNode(otherlv_4, grammarAccess.getStatementAccess().getPlusSignSolidusHyphenMinusKeyword_4_0());
+			}
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getStatementAccess().getRangeIdiomParserRuleCall_4_1_0());
+					}
+					lv_range_5_0=ruleIdiom
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getStatementRule());
+						}
+						set(
+							$current,
+							"range",
+							lv_range_5_0,
+							"org.example.define.Define.Idiom");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+		)?
+		otherlv_6=';'
 		{
-			newLeafNode(otherlv_4, grammarAccess.getStatementAccess().getSemicolonKeyword_4());
+			newLeafNode(otherlv_6, grammarAccess.getStatementAccess().getSemicolonKeyword_5());
 		}
 	)
 ;

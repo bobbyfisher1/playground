@@ -367,6 +367,35 @@ class DefineValidatorTest {
 		]
 	}
 
+	@Test def void testWrongStatementType() {
+		val teststep = '''
+			teststep(0 ,"don't forget the string") {
+				set[ ]
+				assert[a = true;]
+			}
+		'''
+		(start + "int a;" + end + teststep).parse => [
+			assertError(DefinePackage.eINSTANCE.statement, DefineValidator.INCOMPATIBLE_TYPES)
+		]
+	}
+
+	@Test def void testWrongStatementType2() {
+		val teststep = '''
+			teststep(0 ,"don't forget the string") {
+				set[ ]
+				assert[a.b = true;]
+			}
+		'''
+		(start + '''
+			udt a(typeA){
+				int b;
+			}
+		''' + end + teststep
+		).parse => [
+			assertError(DefinePackage.eINSTANCE.statement, DefineValidator.INCOMPATIBLE_TYPES)
+		]
+	}
+
 	//
 // methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//

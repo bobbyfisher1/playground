@@ -715,13 +715,22 @@ public interface DefinePackage extends EPackage
   int STATEMENT__CASCADE = 1;
 
   /**
-   * The feature id for the '<em><b>Right</b></em>' containment reference.
+   * The feature id for the '<em><b>Idiom</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int STATEMENT__RIGHT = 2;
+  int STATEMENT__IDIOM = 2;
+
+  /**
+   * The feature id for the '<em><b>Range</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STATEMENT__RANGE = 3;
 
   /**
    * The number of structural features of the '<em>Statement</em>' class.
@@ -730,7 +739,7 @@ public interface DefinePackage extends EPackage
    * @generated
    * @ordered
    */
-  int STATEMENT_FEATURE_COUNT = 3;
+  int STATEMENT_FEATURE_COUNT = 4;
 
   /**
    * The meta object id for the '{@link org.example.define.define.impl.CascadeImpl <em>Cascade</em>}' class.
@@ -1753,15 +1762,26 @@ public interface DefinePackage extends EPackage
   EReference getStatement_Cascade();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.example.define.define.Statement#getRight <em>Right</em>}'.
+   * Returns the meta object for the containment reference '{@link org.example.define.define.Statement#getIdiom <em>Idiom</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Right</em>'.
-   * @see org.example.define.define.Statement#getRight()
+   * @return the meta object for the containment reference '<em>Idiom</em>'.
+   * @see org.example.define.define.Statement#getIdiom()
    * @see #getStatement()
    * @generated
    */
-  EReference getStatement_Right();
+  EReference getStatement_Idiom();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.example.define.define.Statement#getRange <em>Range</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Range</em>'.
+   * @see org.example.define.define.Statement#getRange()
+   * @see #getStatement()
+   * @generated
+   */
+  EReference getStatement_Range();
 
   /**
    * Returns the meta object for class '{@link org.example.define.define.Cascade <em>Cascade</em>}'.
@@ -2630,12 +2650,20 @@ public interface DefinePackage extends EPackage
     EReference STATEMENT__CASCADE = eINSTANCE.getStatement_Cascade();
 
     /**
-     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Idiom</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference STATEMENT__RIGHT = eINSTANCE.getStatement_Right();
+    EReference STATEMENT__IDIOM = eINSTANCE.getStatement_Idiom();
+
+    /**
+     * The meta object literal for the '<em><b>Range</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference STATEMENT__RANGE = eINSTANCE.getStatement_Range();
 
     /**
      * The meta object literal for the '{@link org.example.define.define.impl.CascadeImpl <em>Cascade</em>}' class.
