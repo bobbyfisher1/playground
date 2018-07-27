@@ -46,7 +46,7 @@ class DefineValidator extends AbstractDefineValidator {
 	public static val VARIANT_MISMATCH = ISSUE_CODE_PREFIX + "VariantMismatch"
 	public static val RECURSIVE_VARIABLE_REFERENCE = ISSUE_CODE_PREFIX + "RecursiveVariableReference"
 	public static val RECURSIVE_UDT_REFERENCE = ISSUE_CODE_PREFIX + "RecursiveUdtReference"
-	public static val MULTIPLE_STATEMENT_ASSIGNMENT = ISSUE_CODE_PREFIX + "MultipleStatementAssignment"
+//	public static val MULTIPLE_STATEMENT_ASSIGNMENT = ISSUE_CODE_PREFIX + "MultipleStatementAssignment"
 	public static val MISSING_UDT_REFERENCE = ISSUE_CODE_PREFIX + "MissingUdtReference"
 
 	@Inject extension DefineTypeComputer
@@ -507,10 +507,10 @@ class DefineValidator extends AbstractDefineValidator {
 		var countOfVariableBefore = 0
 		var commaBeforeVariable = false;
 		var helpingVariableType = BasicType.NULL
-//		var inferUdtType = false
 		var variantKeyword = false
-		//
+
 		for (e : variables) {
+
 			if (e instanceof Udt) {
 				if (!e.udtVariables.empty)
 					checkCommaSyntaxWithVariables(e.udtVariables)
@@ -522,7 +522,8 @@ class DefineValidator extends AbstractDefineValidator {
 					DefinePackage.eINSTANCE.variable_NextVariable, INVALID_COMMA_NOTATION)
 			}
 
-			if (e instanceof Variable) { // e is of type variable and not udt	//
+			if (e instanceof Variable) {
+				//
 				if ((count - countOfVariableBefore) > 1) {
 					// this checks the case if there's a udt type between a comma and the expected inferred type
 					commaBeforeVariable = false
@@ -533,31 +534,23 @@ class DefineValidator extends AbstractDefineValidator {
 						error("Missing variable type", e, DefinePackage.eINSTANCE.variable_VariableType,
 							MISSING_VARIABLE_TYPE);
 					}
-//					if (e.variableType !== BasicType.NULL && e.udtType !== null) {
-//						error("Multiple type definition", e, DefinePackage.eINSTANCE.variable_VariableType,
-//							MULTIPLE_TYPE_DEFINITION)
-//					}
-				} // else if there was a comma before the variable
+				} //
+				// else if there was a comma before the variable
 				else {
 					// assign inferred type 								
-//					if (!inferUdtType && e.udtType === null) { // basicType
 					if (e.variableType === BasicType.NULL) {
 						e.variableType = helpingVariableType
-					} // defined type after a comma
-					else {
-						error("Multiple type definition", e, DefinePackage.eINSTANCE.variable_VariableType,
-							MULTIPLE_TYPE_DEFINITION)
+					} else {
+						if (helpingVariableType !== e.variableType)
+							error("Multiple type definition", e, DefinePackage.eINSTANCE.variable_VariableType,
+								MULTIPLE_TYPE_DEFINITION)
 					}
-//					}
-//					 else if (inferUdtType) { // udtType
-//						if (e.udtType === null)
-//							e.udtType = (variables.get(countOfVariableBefore) as Variable).udtType
-//						else
-//							error("Multiple type definition", e, DefinePackage.eINSTANCE.variable_UdtType,
-//								MULTIPLE_TYPE_DEFINITION)
-//					}
-					// assign variantKeyword
-					e.variantKeyword = variantKeyword
+					if (e.variantKeyword && !variantKeyword)
+						error("Invalid variant keyword", e, DefinePackage.eINSTANCE.variable_VariantKeyword,
+							INVALID_VARIANT_KEYWORD)
+					else
+						// assign variantKeyword
+						e.variantKeyword = variantKeyword
 				}
 // for the immediate next variable
 				if (e.nextVariable) { // comma at the end instead of semicolon
@@ -565,21 +558,14 @@ class DefineValidator extends AbstractDefineValidator {
 					countOfVariableBefore = count;
 
 					// the type must be handed over to the next variable
-//					if (e.udtType === null) {
 					helpingVariableType = e.variableType
-//						inferUdtType = false
-//					} else {
-////						inferUdtType = true
-//						helpingVariableType = BasicType.NULL
-//					}
-				// the variant as well					
-//					variantKeyword = e.variantKeyword
+
 				} else {
 					commaBeforeVariable = false
 					helpingVariableType = null
-//					inferUdtType = false
-//					variantKeyword = false
+
 				}
+				// the variant as well	
 				variantKeyword = e.variantKeyword
 			}
 			count++

@@ -72,8 +72,6 @@ public class DefineValidator extends AbstractDefineValidator {
   
   public final static String RECURSIVE_UDT_REFERENCE = (DefineValidator.ISSUE_CODE_PREFIX + "RecursiveUdtReference");
   
-  public final static String MULTIPLE_STATEMENT_ASSIGNMENT = (DefineValidator.ISSUE_CODE_PREFIX + "MultipleStatementAssignment");
-  
   public final static String MISSING_UDT_REFERENCE = (DefineValidator.ISSUE_CODE_PREFIX + "MissingUdtReference");
   
   @Inject
@@ -713,10 +711,19 @@ public class DefineValidator extends AbstractDefineValidator {
             if (_tripleEquals_1) {
               ((Variable)e).setVariableType(helpingVariableType);
             } else {
-              this.error("Multiple type definition", e, DefinePackage.eINSTANCE.getVariable_VariableType(), 
-                DefineValidator.MULTIPLE_TYPE_DEFINITION);
+              BasicType _variableType_2 = ((Variable)e).getVariableType();
+              boolean _tripleNotEquals = (helpingVariableType != _variableType_2);
+              if (_tripleNotEquals) {
+                this.error("Multiple type definition", e, DefinePackage.eINSTANCE.getVariable_VariableType(), 
+                  DefineValidator.MULTIPLE_TYPE_DEFINITION);
+              }
             }
-            ((Variable)e).setVariantKeyword(variantKeyword);
+            if ((((Variable)e).isVariantKeyword() && (!variantKeyword))) {
+              this.error("Invalid variant keyword", e, DefinePackage.eINSTANCE.getVariable_VariantKeyword(), 
+                DefineValidator.INVALID_VARIANT_KEYWORD);
+            } else {
+              ((Variable)e).setVariantKeyword(variantKeyword);
+            }
           }
           boolean _isNextVariable = ((Variable)e).isNextVariable();
           if (_isNextVariable) {
