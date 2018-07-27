@@ -70,6 +70,10 @@ public class DefineValidator extends AbstractDefineValidator {
   
   public final static String RECURSIVE_UDT_REFERENCE = (DefineValidator.ISSUE_CODE_PREFIX + "RecursiveUdtReference");
   
+  public final static String MULTIPLE_STATEMENT_ASSIGNMENT = (DefineValidator.ISSUE_CODE_PREFIX + "MultipleStatementAssignment");
+  
+  public final static String MISSING_UDT_REFERENCE = (DefineValidator.ISSUE_CODE_PREFIX + "MissingUdtReference");
+  
   @Inject
   @Extension
   private DefineTypeComputer _defineTypeComputer;
@@ -417,6 +421,31 @@ public class DefineValidator extends AbstractDefineValidator {
     }
   }
   
+  /**
+   * @Check def void checkMultipleStatementsSetBlock(Set sets) {
+   * 	val set = sets.setVariables
+   * 	val multiMap = HashMultimap.create()
+   * 
+   * 	// add all variables to the map
+   * 	for (e : set) {
+   * 		multiMap.put(e.variable, e)
+   * 	}
+   * 
+   * 	// check for duplicates
+   * 	for (entry : multiMap.asMap.entrySet) {
+   * 		val duplicates = entry.value
+   * 		if (duplicates.size > 1) {
+   * 			for (d : duplicates)
+   * 				error(
+   * 					"Multiple variable name '" + d.variable + "'",
+   * 					d,
+   * 					DefinePackage.eINSTANCE.variables_Name,
+   * 					DefineValidator.MULTIPLE_STATEMENT_ASSIGNMENT
+   * 				)
+   * 		}
+   * 	}
+   * }
+   */
   private Udt assignNewUdt(final Iterable<? extends Variables> referredUdtVars, final int count) {
     UdtImpl newUdt = new UdtImpl();
     Variables _get = ((Variables[])Conversions.unwrapArray(referredUdtVars, Variables.class))[count];

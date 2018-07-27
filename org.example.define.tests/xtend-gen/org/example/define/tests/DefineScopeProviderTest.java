@@ -384,7 +384,7 @@ public class DefineScopeProviderTest {
   }
   
   @Test
-  public void testReferencingVariables() {
+  public void testReferencingUdts() {
     try {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("define{");

@@ -117,7 +117,6 @@ class DefineScopeProviderTest {
 		'''.parse.direction.output.outputVariables.get(1) as Variable => [
 			assertNoErrors
 			idiom.assertScope(DefinePackage.eINSTANCE.variableRef_Variable, "a")
-
 		]
 	}
 
@@ -166,7 +165,7 @@ class DefineScopeProviderTest {
 		]
 	}
 
-	@Test def void testReferencingVariables() {
+	@Test def void testReferencingUdts() {
 		'''
 			define{
 				input[]

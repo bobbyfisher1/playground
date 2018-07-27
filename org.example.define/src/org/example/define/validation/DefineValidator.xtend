@@ -45,6 +45,8 @@ class DefineValidator extends AbstractDefineValidator {
 	public static val VARIANT_MISMATCH = ISSUE_CODE_PREFIX + "VariantMismatch"
 	public static val RECURSIVE_VARIABLE_REFERENCE = ISSUE_CODE_PREFIX + "RecursiveVariableReference"
 	public static val RECURSIVE_UDT_REFERENCE = ISSUE_CODE_PREFIX + "RecursiveUdtReference"
+	public static val MULTIPLE_STATEMENT_ASSIGNMENT = ISSUE_CODE_PREFIX + "MultipleStatementAssignment"
+	public static val MISSING_UDT_REFERENCE = ISSUE_CODE_PREFIX + "MissingUdtReference"
 
 	@Inject extension DefineTypeComputer
 
@@ -299,6 +301,36 @@ class DefineValidator extends AbstractDefineValidator {
 		}
 	}
 
+//	@Check def void checkUdtStatements(Statement statement) {
+//		if (!(statement.variable instanceof Variable) && statement.cascade.empty) {
+//			error("Only variables can be assigned to values", statement, DefinePackage.eINSTANCE.statement_Variable,
+//				MISSING_UDT_REFERENCE)
+//		}
+//	}
+
+	/*@Check def void checkMultipleStatementsSetBlock(Set sets) {
+	 * 	val set = sets.setVariables
+	 * 	val multiMap = HashMultimap.create()
+
+	 * 	// add all variables to the map
+	 * 	for (e : set) {
+	 * 		multiMap.put(e.variable, e)
+	 * 	}
+
+	 * 	// check for duplicates
+	 * 	for (entry : multiMap.asMap.entrySet) {
+	 * 		val duplicates = entry.value
+	 * 		if (duplicates.size > 1) {
+	 * 			for (d : duplicates)
+	 * 				error(
+	 * 					"Multiple variable name '" + d.variable + "'",
+	 * 					d,
+	 * 					DefinePackage.eINSTANCE.variables_Name,
+	 * 					DefineValidator.MULTIPLE_STATEMENT_ASSIGNMENT
+	 * 				)
+	 * 		}
+	 * 	}
+	 }*/
 //
 // methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //

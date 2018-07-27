@@ -14,8 +14,10 @@ import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Extension;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.example.define.DefineModelUtil;
 import org.example.define.define.Assert;
+import org.example.define.define.Cascade;
 import org.example.define.define.DefineBlock;
 import org.example.define.define.DefinePackage;
 import org.example.define.define.DirectionBlock;
@@ -24,6 +26,7 @@ import org.example.define.define.Inout;
 import org.example.define.define.Input;
 import org.example.define.define.Output;
 import org.example.define.define.Set;
+import org.example.define.define.Statement;
 import org.example.define.define.Udt;
 import org.example.define.define.UdtRef;
 import org.example.define.define.Variable;
@@ -59,7 +62,13 @@ public class DefineScopeProvider extends AbstractDefineScopeProvider {
         if (_equals_2) {
           return this.scopeForStatements(context);
         } else {
-          return super.getScope(context, reference);
+          EReference _cascade_UdtVar = DefinePackage.eINSTANCE.getCascade_UdtVar();
+          boolean _equals_3 = Objects.equal(reference, _cascade_UdtVar);
+          if (_equals_3) {
+            return this.scopeForUdtStatements(context);
+          } else {
+            return super.getScope(context, reference);
+          }
         }
       }
     }
@@ -117,40 +126,114 @@ public class DefineScopeProvider extends AbstractDefineScopeProvider {
   }
   
   protected IScope scopeForStatements(final EObject context) {
-    final EObject defineBlock = context.eContainer().eContainer().eContainer();
-    final EList<Variables> input = ((DefineBlock) defineBlock).getDirection().getInput().getInputVariables();
-    final EList<Variables> output = ((DefineBlock) defineBlock).getDirection().getOutput().getOutputVariables();
-    DirectionBlock _direction = ((DefineBlock) defineBlock).getDirection();
-    Inout _inout = null;
-    if (_direction!=null) {
-      _inout=_direction.getInout();
+    IScope _xblockexpression = null;
+    {
+      EObject defineBlock = this.getDefineBlock(context);
+      final Input input = ((DefineBlock) defineBlock).getDirection().getInput();
+      final Output output = ((DefineBlock) defineBlock).getDirection().getOutput();
+      DirectionBlock _direction = ((DefineBlock) defineBlock).getDirection();
+      Inout _inout = null;
+      if (_direction!=null) {
+        _inout=_direction.getInout();
+      }
+      final Inout inout = _inout;
+      List<Variables> inoutScope = CollectionLiterals.<Variables>emptyList();
+      if ((inout != null)) {
+        inoutScope = inout.getInoutVariables();
+      }
+      IScope _xifexpression = null;
+      if ((context instanceof Statement)) {
+        _xifexpression = this.statementScope(((Statement)context).eContainer(), input, output, inoutScope);
+      } else {
+        _xifexpression = this.statementScope(context, input, output, inoutScope);
+      }
+      _xblockexpression = _xifexpression;
     }
-    EList<Variables> _inoutVariables = null;
-    if (_inout!=null) {
-      _inoutVariables=_inout.getInoutVariables();
+    return _xblockexpression;
+  }
+  
+  protected EObject getDefineBlock(final EObject context) {
+    EObject _xblockexpression = null;
+    {
+      final EObject container = context.eContainer();
+      EObject _xifexpression = null;
+      if ((container instanceof DefineBlock)) {
+        return container;
+      } else {
+        _xifexpression = this.getDefineBlock(container);
+      }
+      _xblockexpression = _xifexpression;
     }
-    final EList<Variables> inout = _inoutVariables;
-    List<Variables> scope = CollectionLiterals.<Variables>emptyList();
-    if ((inout != null)) {
-      scope = inout;
-    }
+    return _xblockexpression;
+  }
+  
+  protected IScope statementScope(final EObject context, final Input inputs, final Output outputs, final List<Variables> inoutScope) {
+    EList<Variables> input = inputs.getInputVariables();
+    EList<Variables> output = outputs.getOutputVariables();
     IScope _switchResult = null;
     boolean _matched = false;
     if (context instanceof Set) {
       _matched=true;
-      Iterable<Variables> _plus = Iterables.<Variables>concat(input, scope);
+      Iterable<Variables> _plus = Iterables.<Variables>concat(input, inoutScope);
       _switchResult = Scopes.scopeFor(_plus);
     }
     if (!_matched) {
       if (context instanceof Assert) {
         _matched=true;
-        Iterable<Variables> _plus = Iterables.<Variables>concat(output, scope);
+        Iterable<Variables> _plus = Iterables.<Variables>concat(output, inoutScope);
         _switchResult = Scopes.scopeFor(_plus);
       }
     }
-    if (!_matched) {
-      _switchResult = Scopes.scopeFor(CollectionLiterals.<EObject>emptyList());
-    }
     return _switchResult;
+  }
+  
+  protected IScope scopeForUdtStatements(final EObject context) {
+    EObject _eContainer = context.eContainer();
+    final EList<Cascade> cascade = ((Statement) _eContainer).getCascade();
+    for (final Cascade c : cascade) {
+      Cascade _head = IterableExtensions.<Cascade>head(cascade);
+      boolean _tripleEquals = (c == _head);
+      if (_tripleEquals) {
+        return this.firstPosition(context);
+      } else {
+        Cascade _last = IterableExtensions.<Cascade>last(cascade);
+        boolean _tripleNotEquals = (c != _last);
+        if (_tripleNotEquals) {
+          int _size = cascade.size();
+          final int pos = (_size - 2);
+          final Variables penultimate = cascade.get(pos).getUdtVar();
+          if ((penultimate instanceof Udt)) {
+            return Scopes.scopeFor(((Udt)penultimate).getUdtVariables());
+          } else {
+            if ((penultimate instanceof UdtRef)) {
+              EObject _eContainer_1 = ((UdtRef)penultimate).getUdtType().eContainer();
+              return Scopes.scopeFor(((Udt) _eContainer_1).getUdtVariables());
+            }
+          }
+        } else {
+          Cascade _last_1 = IterableExtensions.<Cascade>last(cascade);
+          boolean _tripleEquals_1 = (c == _last_1);
+          if (_tripleEquals_1) {
+          } else {
+            return IScope.NULLSCOPE;
+          }
+        }
+      }
+    }
+    return null;
+  }
+  
+  protected IScope firstPosition(final EObject context) {
+    EObject _eContainer = context.eContainer();
+    final Variables variable = ((Statement) _eContainer).getVariable();
+    if ((variable instanceof Udt)) {
+      return Scopes.scopeFor(((Udt)variable).getUdtVariables());
+    } else {
+      if ((variable instanceof UdtRef)) {
+        EObject _eContainer_1 = ((UdtRef)variable).getUdtType().eContainer();
+        return Scopes.scopeFor(((Udt) _eContainer_1).getUdtVariables());
+      }
+    }
+    return null;
   }
 }

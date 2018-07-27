@@ -481,7 +481,7 @@ public class DefineValidatorTest {
   }
   
   @Test
-  public void test0UdtTypeRef() {
+  public void testUdtTypeRef() {
     try {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("udt a(typeA){");
@@ -577,6 +577,102 @@ public class DefineValidatorTest {
       DefineBlock _parse = this._parseHelper.parse(_builder);
       final Procedure1<DefineBlock> _function = (DefineBlock it) -> {
         this._validationTestHelper.assertError(it, DefinePackage.eINSTANCE.getUdt(), DefineValidator.MULTIPLE_UDT_TYPE);
+        Assert.assertEquals(2, this._validationTestHelper.validate(it).size());
+      };
+      ObjectExtensions.<DefineBlock>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void testMissingUdtReference() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("define{");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("input[ ");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("udt a(typeA){");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("int b;");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("output[]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("teststep(0,\"\"){");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("set[ a = 0; ]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("assert[]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      DefineBlock _parse = this._parseHelper.parse(_builder);
+      final Procedure1<DefineBlock> _function = (DefineBlock it) -> {
+        this._validationTestHelper.assertError(it, DefinePackage.eINSTANCE.getStatement(), DefineValidator.MISSING_UDT_REFERENCE);
+        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
+      };
+      ObjectExtensions.<DefineBlock>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void testMissingUdtRefReference() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("define{");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("input[ ");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("udt a(typeA){");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("int b;");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("typeA xyz;");
+      _builder.newLine();
+      _builder.append("]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("output[]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("teststep(0,\"\"){");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("set[ xyz = 0; ]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("assert[]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      DefineBlock _parse = this._parseHelper.parse(_builder);
+      final Procedure1<DefineBlock> _function = (DefineBlock it) -> {
+        this._validationTestHelper.assertError(it, DefinePackage.eINSTANCE.getStatement(), DefineValidator.MISSING_UDT_REFERENCE);
+        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
       };
       ObjectExtensions.<DefineBlock>operator_doubleArrow(_parse, _function);
     } catch (Throwable _e) {

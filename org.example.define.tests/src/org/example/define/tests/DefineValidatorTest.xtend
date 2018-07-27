@@ -258,7 +258,7 @@ class DefineValidatorTest {
 		]
 	}
 
-	@Test def void test0UdtTypeRef() {
+	@Test def void testUdtTypeRef() {
 		val text = '''
 			udt a(typeA){
 				int x = 99 +/- 1;
@@ -300,6 +300,48 @@ class DefineValidatorTest {
 			}
 		'''.parse => [
 			assertError(DefinePackage.eINSTANCE.udt, DefineValidator.MULTIPLE_UDT_TYPE)
+			2.assertEquals(validate.size)
+		]
+	}
+
+	@Test def void testMissingUdtReference() {
+		'''
+			define{
+				input[ 
+					udt a(typeA){
+						int b;
+					}
+			]
+				output[]
+			}
+			teststep(0,""){
+				set[ a = 0; ]
+				assert[]
+			}
+		'''.parse => [
+			assertError(DefinePackage.eINSTANCE.statement, DefineValidator.MISSING_UDT_REFERENCE)
+			1.assertEquals(validate.size)
+		]
+	}
+
+	@Test def void testMissingUdtRefReference() {
+		'''
+			define{
+				input[ 
+					udt a(typeA){
+						int b;
+					}
+					typeA xyz;
+			]
+				output[]
+			}
+			teststep(0,""){
+				set[ xyz = 0; ]
+				assert[]
+			}
+		'''.parse => [
+			assertError(DefinePackage.eINSTANCE.statement, DefineValidator.MISSING_UDT_REFERENCE)
+			1.assertEquals(validate.size)
 		]
 	}
 

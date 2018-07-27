@@ -18,6 +18,7 @@ import org.example.define.define.Inout
 import org.example.define.define.Input
 import org.example.define.define.Output
 import org.example.define.define.Set
+import org.example.define.define.Statement
 import org.example.define.define.Udt
 import org.example.define.define.UdtRef
 import org.example.define.define.Variable
@@ -34,16 +35,21 @@ class DefineScopeProvider extends AbstractDefineScopeProvider {
 	@Inject extension DefineModelUtil
 
 	override getScope(EObject context, EReference reference) {
-		if (reference == DefinePackage.eINSTANCE.udtRef_UdtType) {
+		if (reference == DefinePackage.eINSTANCE.udtRef_UdtType)
 			return scopeForUdtType(context)
-		} else if (reference == DefinePackage.eINSTANCE.variableRef_Variable) {
+		else if (reference == DefinePackage.eINSTANCE.variableRef_Variable)
 			return scopeForVariableRef(context)
-		} else if (reference == DefinePackage.eINSTANCE.statement_Variable) {
+		else if (reference == DefinePackage.eINSTANCE.statement_Variable)
 			return scopeForStatements(context)
-		} else
+		else if (reference == DefinePackage.eINSTANCE.cascade_UdtVar)
+			return scopeForUdtStatements(context)
+		else
 			return super.getScope(context, reference)
 	}
 
+//
+// direct scope methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//
 	def protected IScope scopeForUdtType(EObject context) {
 		return switch (context) {
 			UdtRef:
@@ -68,24 +74,71 @@ class DefineScopeProvider extends AbstractDefineScopeProvider {
 		}
 	}
 
-	def protected IScope scopeForStatements(EObject context) {//context is Set
-		val defineBlock = context.eContainer.eContainer.eContainer
-		
-		val input = (defineBlock as DefineBlock).direction.input.inputVariables
-		val output = (defineBlock as DefineBlock).direction.output.outputVariables
-		val inout = (defineBlock as DefineBlock).direction?.inout?.inoutVariables
+	def protected IScope scopeForStatements(EObject context) {
+		var defineBlock = getDefineBlock(context)
 
-		var List<Variables> scope = emptyList
+		val input = (defineBlock as DefineBlock).direction.input
+		val output = (defineBlock as DefineBlock).direction.output
+		val inout = (defineBlock as DefineBlock).direction?.inout
+
+		var List<Variables> inoutScope = emptyList
 		if (inout !== null)
-			scope = inout
+			inoutScope = inout.inoutVariables
+
+		if (context instanceof Statement)
+			statementScope(context.eContainer, input, output, inoutScope)
+		else
+			statementScope(context, input, output, inoutScope)
+	}
+
+//
+// methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//
+	def protected EObject getDefineBlock(EObject context) {
+		val container = context.eContainer
+		if (container instanceof DefineBlock)
+			return container
+		else
+			getDefineBlock(container)
+	}
+
+	def protected IScope statementScope(EObject context, Input inputs, Output outputs, List<Variables> inoutScope) {
+		var input = inputs.inputVariables
+		var output = outputs.outputVariables
 
 		return switch (context) {
 			Set:
-				Scopes.scopeFor(input + scope)
+				Scopes.scopeFor(input + inoutScope)
 			Assert:
-				Scopes.scopeFor(output + scope)
-			default:
-				Scopes.scopeFor(emptyList)
+				Scopes.scopeFor(output + inoutScope)
 		}
+	}
+
+	def protected IScope scopeForUdtStatements(EObject context) { // context is the specific cascade
+		val cascade = (context.eContainer as Statement).cascade
+		for (c : cascade) {
+
+			if (c === cascade.head)
+				return firstPosition(context) // use case: the statement was of an Udt or UdtRef.  First position 
+			else if (c !== cascade.last) { // higher position
+				val pos = cascade.size - 2
+				val penultimate = cascade.get(pos).udtVar
+				if (penultimate instanceof Udt)
+					return Scopes.scopeFor(penultimate.udtVariables)
+				else if (penultimate instanceof UdtRef)
+					return Scopes.scopeFor((penultimate.udtType.eContainer as Udt).udtVariables)
+			} else if (c === cascade.last) {
+			} else
+				return IScope.NULLSCOPE
+		}
+	}
+
+	def protected IScope firstPosition(EObject context) { // context is cascade
+		val variable = (context.eContainer as Statement).variable
+
+		if (variable instanceof Udt)
+			return Scopes.scopeFor(variable.udtVariables)
+		else if (variable instanceof UdtRef) // This is so called backtracking. The original Udt which the UdtRef was pointing to is scoped. 
+			return Scopes.scopeFor((variable.udtType.eContainer as Udt).udtVariables)
 	}
 }

@@ -218,4 +218,33 @@ class DefineParsingTest {
 			}
 		'''.parse => [assertNoErrors]
 	}
+
+	@Test def void testAccessingVariables3() {
+		'''
+			define{
+						input[
+							int a= 4;
+						]
+						output[]
+			}
+		'''.parse => [
+			assertNoErrors
+			direction.input.inputVariables => [
+				(get(0) as Variable) => [
+					variableType.typeFor.assertSame(INT_TYPE)
+					name.assertEquals('a')
+					(idiom as IntConstant).value.assertEquals(4)
+				]
+			]
+		]
+	}
 }
+
+
+
+
+
+
+
+
+
