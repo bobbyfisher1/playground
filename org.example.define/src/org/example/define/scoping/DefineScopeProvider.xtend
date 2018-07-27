@@ -104,8 +104,7 @@ class DefineScopeProvider extends AbstractDefineScopeProvider {
 				return Scopes.scopeFor(penultimate.udtVariables)
 			else if (penultimate instanceof UdtRef)
 				return Scopes.scopeFor((penultimate.udtType.eContainer as Udt).udtVariables)
-		} // else
-		// return IScope.NULLSCOPE
+		} 
 	}
 
 //
@@ -127,7 +126,7 @@ class DefineScopeProvider extends AbstractDefineScopeProvider {
 
 		if (variable instanceof Udt)
 			return Scopes.scopeFor(variable.udtVariables)
-		else if (variable instanceof UdtRef) // This is so called backtracking. The original Udt which the UdtRef was pointing to is scoped. 
+		else if (variable instanceof UdtRef) // Backtrack the original Udt to which the UdtRef was pointing to. 
 			return Scopes.scopeFor((variable.udtType.eContainer as Udt).udtVariables)
 	}
 

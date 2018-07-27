@@ -368,35 +368,12 @@ public class DefineValidator extends AbstractDefineValidator {
     BasicType expectedType = BasicType.NULL;
     if ((variable instanceof Variable)) {
       expectedType = ((Variable) variable).getVariableType();
-      this.compareTypesAndThrowError(statement, actualType, expectedType, rangeType);
+      this.compareTypesAndCallError(statement, actualType, expectedType, rangeType);
     } else {
       if ((last instanceof Variable)) {
         expectedType = ((Variable)last).getVariableType();
-        this.compareTypesAndThrowError(statement, actualType, expectedType, rangeType);
+        this.compareTypesAndCallError(statement, actualType, expectedType, rangeType);
       }
-    }
-  }
-  
-  private void compareTypesAndThrowError(final Statement statement, final DefineType actualType, final BasicType expectedType, final DefineType rangeType) {
-    DefineType _typeFor = this._defineTypeComputer.typeFor(expectedType);
-    boolean _notEquals = (!Objects.equal(actualType, _typeFor));
-    if (_notEquals) {
-      String _string = expectedType.toString();
-      String _plus = ("Incompatible types. Expected \'" + _string);
-      String _plus_1 = (_plus + "\' but was \'");
-      String _string_1 = actualType.toString();
-      String _plus_2 = (_plus_1 + _string_1);
-      String _plus_3 = (_plus_2 + "\'");
-      this.error(_plus_3, statement, DefinePackage.eINSTANCE.getStatement_Idiom(), DefineValidator.INCOMPATIBLE_TYPES);
-    }
-    if (((rangeType != null) && (!Objects.equal(rangeType, this._defineTypeComputer.typeFor(expectedType))))) {
-      String _string_2 = expectedType.toString();
-      String _plus_4 = ("Incompatible types. Expected \'" + _string_2);
-      String _plus_5 = (_plus_4 + "\' but was \'");
-      String _string_3 = rangeType.toString();
-      String _plus_6 = (_plus_5 + _string_3);
-      String _plus_7 = (_plus_6 + "\'");
-      this.error(_plus_7, statement, DefinePackage.eINSTANCE.getStatement_Range(), DefineValidator.INCOMPATIBLE_TYPES);
     }
   }
   
@@ -521,6 +498,29 @@ public class DefineValidator extends AbstractDefineValidator {
    * 	}
    * }
    */
+  private void compareTypesAndCallError(final Statement statement, final DefineType actualType, final BasicType expectedType, final DefineType rangeType) {
+    DefineType _typeFor = this._defineTypeComputer.typeFor(expectedType);
+    boolean _notEquals = (!Objects.equal(actualType, _typeFor));
+    if (_notEquals) {
+      String _string = expectedType.toString();
+      String _plus = ("Incompatible types. Expected \'" + _string);
+      String _plus_1 = (_plus + "\' but was \'");
+      String _string_1 = actualType.toString();
+      String _plus_2 = (_plus_1 + _string_1);
+      String _plus_3 = (_plus_2 + "\'");
+      this.error(_plus_3, statement, DefinePackage.eINSTANCE.getStatement_Idiom(), DefineValidator.INCOMPATIBLE_TYPES);
+    }
+    if (((rangeType != null) && (!Objects.equal(rangeType, this._defineTypeComputer.typeFor(expectedType))))) {
+      String _string_2 = expectedType.toString();
+      String _plus_4 = ("Incompatible types. Expected \'" + _string_2);
+      String _plus_5 = (_plus_4 + "\' but was \'");
+      String _string_3 = rangeType.toString();
+      String _plus_6 = (_plus_5 + _string_3);
+      String _plus_7 = (_plus_6 + "\'");
+      this.error(_plus_7, statement, DefinePackage.eINSTANCE.getStatement_Range(), DefineValidator.INCOMPATIBLE_TYPES);
+    }
+  }
+  
   private Udt assignNewUdt(final Iterable<? extends Variables> referredUdtVars, final int count) {
     UdtImpl newUdt = new UdtImpl();
     Variables _get = ((Variables[])Conversions.unwrapArray(referredUdtVars, Variables.class))[count];
@@ -570,18 +570,14 @@ public class DefineValidator extends AbstractDefineValidator {
     return newVariable;
   }
   
-  private boolean checkVariableTypeAndAddToMap(final Variables e, final HashMultimap<String, Variables> multiMap) {
-    boolean _xifexpression = false;
+  private void checkVariableTypeAndAddToMap(final Variables e, final HashMultimap<String, Variables> multiMap) {
     if ((e instanceof Udt)) {
-      _xifexpression = multiMap.put(((Udt)e).getName(), e);
+      multiMap.put(((Udt)e).getName(), e);
     } else {
-      boolean _xifexpression_1 = false;
       if ((e instanceof Variable)) {
-        _xifexpression_1 = multiMap.put(((Variable)e).getName(), e);
+        multiMap.put(((Variable)e).getName(), e);
       }
-      _xifexpression = _xifexpression_1;
     }
-    return _xifexpression;
   }
   
   private void checkAllVariableNamesInUdtScope(final Udt udt) {
@@ -670,7 +666,7 @@ public class DefineValidator extends AbstractDefineValidator {
     }
   }
   
-  public void checkNoDuplicateUdtTypes(final Udt udt) {
+  private void checkNoDuplicateUdtTypes(final Udt udt) {
     HashMultimap<String, Udt> multiMap = HashMultimap.<String, Udt>create();
     final EList<Variables> udts = udt.getUdtVariables();
     for (final Variables e : udts) {

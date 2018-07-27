@@ -183,37 +183,37 @@ class DefineValidator extends AbstractDefineValidator {
 		}
 	}
 
-	@Check def checkType(Not not) {
+	@Check def void checkType(Not not) {
 		checkExpectedBoolean(not.idiom, DefinePackage.Literals.NOT__IDIOM)
 	}
 
-	@Check def checkType(And and) {
+	@Check def void checkType(And and) {
 		checkExpectedBoolean(and.left, DefinePackage.Literals.AND__LEFT)
 		checkExpectedBoolean(and.right, DefinePackage.Literals.AND__RIGHT)
 	}
 
-	@Check def checkType(Or or) {
+	@Check def void checkType(Or or) {
 		checkExpectedBoolean(or.left, DefinePackage.Literals.OR__LEFT)
 		checkExpectedBoolean(or.right, DefinePackage.Literals.OR__RIGHT)
 	}
 
-	@Check def checkType(Minus minus) {
+	@Check def void checkType(Minus minus) {
 		checkExpectedInt(minus.left, DefinePackage.Literals.MINUS__LEFT)
 		checkExpectedInt(minus.right, DefinePackage.Literals.MINUS__RIGHT)
 	}
 
-	@Check def checkType(MulOrDiv mulOrDiv) {
+	@Check def void checkType(MulOrDiv mulOrDiv) {
 		checkExpectedInt(mulOrDiv.left, DefinePackage.Literals.MUL_OR_DIV__LEFT)
 		checkExpectedInt(mulOrDiv.right, DefinePackage.Literals.MUL_OR_DIV__RIGHT)
 	}
 
-	@Check def checkType(Equality equality) {
+	@Check def void checkType(Equality equality) {
 		val leftType = getTypeAndCheckNotNull(equality.left, DefinePackage.Literals.EQUALITY__LEFT)
 		val rightType = getTypeAndCheckNotNull(equality.right, DefinePackage.Literals.EQUALITY__RIGHT)
 		checkExpectedSameType(leftType, rightType)
 	}
 
-	@Check def checkType(Comparison comparison) {
+	@Check def void checkType(Comparison comparison) {
 		val leftType = getTypeAndCheckNotNull(comparison.left, DefinePackage.Literals.COMPARISON__LEFT)
 		val rightType = getTypeAndCheckNotNull(comparison.right, DefinePackage.Literals.COMPARISON__RIGHT)
 		checkExpectedSameType(leftType, rightType)
@@ -221,7 +221,7 @@ class DefineValidator extends AbstractDefineValidator {
 		checkNotBoolean(rightType, DefinePackage.Literals.COMPARISON__RIGHT)
 	}
 
-	@Check def checkType(Plus plus) {
+	@Check def void checkType(Plus plus) {
 		val leftType = getTypeAndCheckNotNull(plus.left, DefinePackage.Literals.PLUS__LEFT)
 		val rightType = getTypeAndCheckNotNull(plus.right, DefinePackage.Literals.PLUS__RIGHT)
 		if (leftType.isIntType || rightType.isIntType || (!leftType.isStringType && !rightType.isStringType)) {
@@ -230,7 +230,7 @@ class DefineValidator extends AbstractDefineValidator {
 		}
 	}
 
-	@Check def checkType(Variable variable) {
+	@Check def void checkType(Variable variable) {
 		if (variable.idiom !== null) {
 			val expectedType = variable.variableType.typeFor
 			val actualType = variable?.idiom.typeFor
@@ -250,7 +250,7 @@ class DefineValidator extends AbstractDefineValidator {
 		}
 	}
 
-	@Check def checkType(Statement statement) {
+	@Check def void checkType(Statement statement) {
 
 		val cascade = statement.cascade
 		val variable = statement.variable
@@ -262,21 +262,11 @@ class DefineValidator extends AbstractDefineValidator {
 
 		if (variable instanceof Variable) {
 			expectedType = (variable as Variable).variableType
-			compareTypesAndThrowError(statement, actualType, expectedType, rangeType)
+			compareTypesAndCallError(statement, actualType, expectedType, rangeType)
 		} else if (last instanceof Variable) {
 			expectedType = last.variableType
-			compareTypesAndThrowError(statement, actualType, expectedType, rangeType)
+			compareTypesAndCallError(statement, actualType, expectedType, rangeType)
 		}
-	}
-
-	def private void compareTypesAndThrowError(Statement statement, DefineType actualType, BasicType expectedType,
-		DefineType rangeType) {
-		if (actualType != expectedType.typeFor)
-			error("Incompatible types. Expected '" + expectedType.toString + "' but was '" + actualType.toString + "'",
-				statement, DefinePackage.eINSTANCE.statement_Idiom, INCOMPATIBLE_TYPES)
-		if (rangeType !== null && rangeType != expectedType.typeFor)
-			error("Incompatible types. Expected '" + expectedType.toString + "' but was '" + rangeType.toString + "'",
-				statement, DefinePackage.eINSTANCE.statement_Range, INCOMPATIBLE_TYPES)
 	}
 
 	@Check def void checkCommaSyntaxIO(DirectionBlock directionblock) {
@@ -373,6 +363,16 @@ class DefineValidator extends AbstractDefineValidator {
 //
 // methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //
+	def private void compareTypesAndCallError(Statement statement, DefineType actualType, BasicType expectedType,
+		DefineType rangeType) {
+		if (actualType != expectedType.typeFor)
+			error("Incompatible types. Expected '" + expectedType.toString + "' but was '" + actualType.toString + "'",
+				statement, DefinePackage.eINSTANCE.statement_Idiom, INCOMPATIBLE_TYPES)
+		if (rangeType !== null && rangeType != expectedType.typeFor)
+			error("Incompatible types. Expected '" + expectedType.toString + "' but was '" + rangeType.toString + "'",
+				statement, DefinePackage.eINSTANCE.statement_Range, INCOMPATIBLE_TYPES)
+	}
+
 	def private Udt assignNewUdt(Iterable<? extends Variables> referredUdtVars, int count) {
 		var newUdt = new UdtImpl
 		val childRef = (referredUdtVars.get(count) as Udt)
@@ -419,7 +419,7 @@ class DefineValidator extends AbstractDefineValidator {
 		return newVariable
 	}
 
-	def private checkVariableTypeAndAddToMap(
+	def private void checkVariableTypeAndAddToMap(
 		Variables e,
 		HashMultimap<String, Variables> multiMap
 	) {
@@ -448,7 +448,7 @@ class DefineValidator extends AbstractDefineValidator {
 		}
 	}
 
-	def private checkVariableTypeAndCallError(Variables e) {
+	def private void checkVariableTypeAndCallError(Variables e) {
 		if (e instanceof Udt)
 			error("Multiple variable name '" + e.name + "'", e, DefinePackage.eINSTANCE.variables_Name,
 				DefineValidator.MULTIPLE_UDT_DECLARATION)
@@ -457,15 +457,15 @@ class DefineValidator extends AbstractDefineValidator {
 				DefineValidator.MULTIPLE_VARIABLE_DECLARATION)
 	}
 
-	def private checkExpectedBoolean(Idiom exp, EReference reference) {
+	def private void checkExpectedBoolean(Idiom exp, EReference reference) {
 		checkExpectedType(exp, DefineTypeComputer.BOOL_TYPE, reference)
 	}
 
-	def private checkExpectedInt(Idiom exp, EReference reference) {
+	def private void checkExpectedInt(Idiom exp, EReference reference) {
 		checkExpectedType(exp, DefineTypeComputer.INT_TYPE, reference)
 	}
 
-	def private checkExpectedType(Idiom exp, DefineType expectedType, EReference reference) {
+	def private void checkExpectedType(Idiom exp, DefineType expectedType, EReference reference) {
 		val actualType = getTypeAndCheckNotNull(exp, reference)
 		if (actualType != expectedType)
 			error("expected " + expectedType + " type, but was " + actualType, reference, TYPE_MISMATCH)
@@ -478,18 +478,18 @@ class DefineValidator extends AbstractDefineValidator {
 		return type;
 	}
 
-	def private checkExpectedSameType(DefineType left, DefineType right) {
+	def private void checkExpectedSameType(DefineType left, DefineType right) {
 		if (right !== null && left !== null && right != left)
 			error("expected the same type, but was " + left + ", " + right,
 				DefinePackage.Literals.EQUALITY.EIDAttribute, TYPE_MISMATCH)
 	}
 
-	def private checkNotBoolean(DefineType type, EReference reference) {
+	def private void checkNotBoolean(DefineType type, EReference reference) {
 		if (type.isBoolType)
 			error("cannot be boolean", reference, TYPE_MISMATCH)
 	}
 
-	def void checkNoDuplicateUdtTypes(Udt udt) {
+	def private void checkNoDuplicateUdtTypes(Udt udt) {
 		var multiMap = HashMultimap.create
 		val udts = udt.udtVariables
 
