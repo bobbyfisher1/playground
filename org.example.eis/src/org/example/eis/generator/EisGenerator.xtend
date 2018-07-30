@@ -3,10 +3,17 @@
  */
 package org.example.eis.generator
 
+import com.google.inject.Inject
+import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
+import org.example.eis.eis.DefineBlock
+import org.example.eis.eis.EisModel
+import org.example.eis.eis.Variable
+import org.example.eis.eis.Variables
+import org.example.eis.interpreter.EisInterpreter
 
 /**
  * Generates code from your model files on save.
@@ -15,11 +22,76 @@ import org.eclipse.xtext.generator.IGeneratorContext
  */
 class EisGenerator extends AbstractGenerator {
 
+	@Inject extension EisInterpreter
+
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
-//		fsa.generateFile('greetings.txt', 'People to greet: ' + 
-//			resource.allContents
-//				.filter(Greeting)
-//				.map[name]
-//				.join(', '))
+		val model = resource.allContents.toIterable.filter(EisModel).head
+		fsa.generateFile('''«model.plc_name»_Testfixture.xml''', model.compile)
 	}
+
+	def CharSequence compile(EisModel model) {
+		var testcaseID = 0
+		'''
+			<?xml version="1.0" encoding="utf-8"?>
+			<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+				<TiaProjectName>«model.project_name»</TiaProjectName>
+				<PlcName>«model.plc_name»</PlcName>
+				<Author>«model.author_name»</Author>
+				<TestCases>
+			«FOR testcases : model.testcases»
+					«val testblock = testcases?.testblock»
+							<TestCase ID="«testcaseID++»"«IF testblock !== null» TestActive="«testblock.testActive.value»" Blockname="«testcases.testcase_name»" Blocktype="«testblock.blockType.value»" Description="«testblock.description»"«ENDIF»>
+					«IF testblock?.define !== null»
+				«testblock.define.generateTeststeps»
+					«ENDIF»
+							</TestCase>
+			«ENDFOR»
+				</TestCases>
+			</TestFixture>
+		'''
+	}
+	
+//
+// methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//
+	def CharSequence generateTeststeps(DefineBlock define){
+		val inputs = define.direction.input.inputVariables
+//		val outputs = define.direction.output.outputVariables
+//		val inouts = define.direction?.inout?.inoutVariables
+						
+		'''
+						<Teststeps>
+							<Teststep PlcCycle ="0" Description="Template">
+								<Inputs>
+								</Inputs>
+								<Outputs>
+			«IF inputs.empty»
+			«ENDIF»
+								</Outputs>
+							</Teststep>
+						</Teststeps>
+		'''
+	}
+
+	//	  usage of direction:	Input, Output, InOut	 
+	def CharSequence compileIn(EList<Variables> variables, String direction) {			
+			'''
+			«FOR e : variables»
+			«IF e instanceof Variable»
+			<Element xsi:type="Input" Name="«e.name»" Datatype="«e.variableType.toString»" Direction="«direction»" Value="«e.idiom.interpret.toString»" />
+			«ENDIF»
+			«ENDFOR»
+			'''
+	}
+	
+	def CharSequence compileOut(EList<Variables> variables, String direction) {			
+			'''
+			«FOR e : variables»
+			«IF e instanceof Variable»
+			<Element xsi:type="Ouput" Name="«e.name»" Datatype="«e.variableType.toString»" Direction="«direction»" Expect="«e.idiom.interpret.toString»" Range="«e?.range»" />
+			«ENDIF»
+			«ENDFOR»
+			'''
+	}
+
 }

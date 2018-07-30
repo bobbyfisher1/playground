@@ -3,22 +3,13 @@
  */
 package org.example.define.ui.contentassist
 
-import org.eclipse.emf.ecore.EObject
-import org.eclipse.xtext.Assignment
-import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext
-import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
-import org.example.define.define.Inout
-import org.example.define.define.Input
-import org.example.define.define.Output
-import org.example.define.define.Udt
-
 /**
  * See https://www.eclipse.org/Xtext/documentation/304_ide_concepts.html#content-assist
  * on how to customize the content assistant.
  */
 class DefineProposalProvider extends AbstractDefineProposalProvider {
 
-	override completeVariable_VariableType(EObject model, Assignment assignment, ContentAssistContext context,
+	/*override completeVariable_VariableType(EObject model, Assignment assignment, ContentAssistContext context,
 		ICompletionProposalAcceptor acceptor) {
 		// The content assist should work as expected.
 		super.completeVariable_VariableType(model, assignment, context, acceptor)
@@ -35,5 +26,5 @@ class DefineProposalProvider extends AbstractDefineProposalProvider {
 				model.udtVariables.filter(Udt).map[udtType]
 		for (e : udtTypes)
 			acceptor.accept(createCompletionProposal(e.name, e.name + " - UdtType", null, context))
-	}
+	}*/
 }

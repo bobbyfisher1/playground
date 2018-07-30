@@ -14,6 +14,9 @@ class DefineOutlineTest extends AbstractOutlineTest {
 		"org.example.define.Define"
 	}
 
+//
+// tests -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//
 	@Test def void testBasicOutline() {
 		'''
 			define{
@@ -23,9 +26,9 @@ class DefineOutlineTest extends AbstractOutlineTest {
 			}
 		'''.assertAllLabels(
 			'''
-			input
-			output
-			inout
+				input
+				output
+				inout
 			'''
 		)
 	}
@@ -38,9 +41,9 @@ class DefineOutlineTest extends AbstractOutlineTest {
 			}
 		'''.assertAllLabels(
 			'''
-			input
-			  a : int
-			output
+				input
+				  a : int
+				output
 			'''
 		)
 	}

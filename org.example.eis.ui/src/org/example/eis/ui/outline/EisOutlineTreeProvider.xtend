@@ -5,9 +5,12 @@ package org.example.eis.ui.outline
 
 import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider
 import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode
-import org.example.eis.eis.DefineBlock
-import org.example.eis.eis.Udt
-import org.example.eis.eis.UdtRef
+import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode
+import org.example.eis.eis.AssertionBlock
+import org.example.eis.eis.EisModel
+import org.example.eis.eis.Testcase
+import org.example.eis.eis.TeststepBlock
+import org.example.eis.eis.Variable
 import org.example.eis.eis.Variables
 
 /**
@@ -17,39 +20,45 @@ import org.example.eis.eis.Variables
  */
 class EisOutlineTreeProvider extends DefaultOutlineTreeProvider {
 	def _isLeaf(Variables v) {
-		if (v instanceof Udt)
-			false
-		else if (v instanceof UdtRef)
-			false
-		else
+		if (v instanceof Variable)
 			true
+		else
+			false
 	}
 
-	def _createChildren(DocumentRootNode outlineNode, DefineBlock defineBlock) {
-		val in = defineBlock.direction.input
-		val out = defineBlock.direction.output
+	def _isLeaf(TeststepBlock t) { true }
 
-		createNode(outlineNode, in)
-		createNode(outlineNode, out)
+	def _isLeaf(AssertionBlock a) { true }
 
-		if (defineBlock.direction.inout !== null) {
-			val inout = defineBlock.direction.inout
-			createNode(outlineNode, inout)
-		}
+	def _createChildren(DocumentRootNode outlineNode, EisModel eisModel) {
+		val testcases = eisModel.testcases
 
-//		for (e : in.inputVariables) {
-//			if (e instanceof Udt) {
-//				for (f : e.udtVariables) {
-//					_createNode(Udt, f)
-//				}
-//			}
-//		}
+		for (e : testcases)
+			createNode(outlineNode, e)
 	}
 
-//	def _createUdtChildren(Abstract) {
-//		if (variable.udt !== null)
-//			for (e : variable.udt.udtVariables) {
-//				_createNode(variable, e)
-//			}
+	def _createChildren(EObjectNode testcaseNode, Testcase testcase) {
+		val direction = testcase?.testblock?.define?.direction
+		val teststeps = testcase?.testblock?.define?.teststeps
+
+		testcaseNode.createChildren(direction)
+
+		for (e : teststeps)
+			testcaseNode.createChildren(e)
+	}
+
+//	def _createChildren(EObjectNode setNode, Set set) {
+//		for (e : set.setVariables)
+//			setNode.createChildren(e)
+//	}
+//
+//	def _createChildren(EObjectNode assertNode, Assert assert) {
+//		for (e : assert.assertVariables)
+//			assertNode.createChildren(e)
+//	}
+//
+//	def _createChildren(EObjectNode udtNode, Udt udt) {
+//		for (e : udt.udtVariables)
+//			udtNode.createChildren(e)
 //	}
 }

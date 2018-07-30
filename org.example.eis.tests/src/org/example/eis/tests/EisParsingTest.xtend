@@ -26,7 +26,7 @@ import static extension org.junit.Assert.*
 @InjectWith(EisInjectorProvider)
 class EisParsingTest {
 	@Inject extension ParseHelper<EisModel>
-	@Inject extension ValidationTestHelper;
+	@Inject extension ValidationTestHelper
 	@Inject extension DefineTypeComputer
 
 //

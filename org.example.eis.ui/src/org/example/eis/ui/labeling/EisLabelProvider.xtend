@@ -6,6 +6,17 @@ package org.example.eis.ui.labeling
 import com.google.inject.Inject
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider
+import org.example.eis.eis.AssertionBlock
+import org.example.eis.eis.Cascade
+import org.example.eis.eis.Inout
+import org.example.eis.eis.Input
+import org.example.eis.eis.Output
+import org.example.eis.eis.Statement
+import org.example.eis.eis.TeststepBlock
+import org.example.eis.eis.Udt
+import org.example.eis.eis.UdtRef
+import org.example.eis.eis.Variable
+import org.example.eis.eis.Variables
 
 /**
  * Provides labels for EObjects.
@@ -13,19 +24,54 @@ import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider
  * See https://www.eclipse.org/Xtext/documentation/304_ide_concepts.html#label-provider
  */
 class EisLabelProvider extends DefaultEObjectLabelProvider {
+	@Inject extension TypeRepresentation
 
 	@Inject
 	new(AdapterFactoryLabelProvider delegate) {
 		super(delegate);
 	}
 
-	// Labels and icons can be computed like this:
-	
-//	def text(Greeting ele) {
-//		'A greeting to ' + ele.name
-//	}
-//
-//	def image(Greeting ele) {
-//		'Greeting.gif'
-//	}
+	def text(Input i) { "input" }
+
+	def text(Output o) { "output" }
+
+	def text(Inout io) { "inout" }
+
+	def text(Variables v) {
+		if (v instanceof Variable)
+			v.name + " : " + v.trueVariableType
+		else if (v instanceof Udt)
+			"udt " + v.name + " of type " + v.udtType.name
+		else if (v instanceof UdtRef)
+			"udt " + v.name + " of type " + v.udtType.name
+	}
+
+	def text(AssertionBlock aBlock) {
+		val plcCycle = (aBlock.eContainer as TeststepBlock).plcCycle
+		val description = (aBlock.eContainer as TeststepBlock).description
+
+		return "teststep " + plcCycle + "   " + description
+	}
+
+	def text(Statement st) {
+		var name = st.variable.toString
+		if (!st.cascade.empty)
+			for (c : st.cascade)
+				name += c
+
+		return name + ' = ' + st.idiom.toString + ' +/- ' + st?.range.toString ?: ''
+	}
+
+	def text(Cascade cascade) {
+		val statement = cascade.eContainer
+		var name = (statement as Statement).variable.toString
+
+		if (statement instanceof Statement) {
+			if (!statement.cascade.empty)
+				for (c : statement.cascade)
+					name += c
+
+			return name + ' = ' + statement.idiom.toString + ' +/- ' + statement?.range.toString ?: ''
+		}
+	}
 }

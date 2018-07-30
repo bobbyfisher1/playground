@@ -3,10 +3,26 @@
  */
 package org.example.eis.generator;
 
+import com.google.common.collect.Iterables;
+import com.google.inject.Inject;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.generator.AbstractGenerator;
 import org.eclipse.xtext.generator.IFileSystemAccess2;
 import org.eclipse.xtext.generator.IGeneratorContext;
+import org.eclipse.xtext.xbase.lib.Extension;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.IteratorExtensions;
+import org.example.eis.eis.DefineBlock;
+import org.example.eis.eis.EisModel;
+import org.example.eis.eis.Idiom;
+import org.example.eis.eis.Testblock;
+import org.example.eis.eis.Testcase;
+import org.example.eis.eis.Variable;
+import org.example.eis.eis.Variables;
+import org.example.eis.interpreter.EisInterpreter;
 
 /**
  * Generates code from your model files on save.
@@ -15,7 +31,204 @@ import org.eclipse.xtext.generator.IGeneratorContext;
  */
 @SuppressWarnings("all")
 public class EisGenerator extends AbstractGenerator {
+  @Inject
+  @Extension
+  private EisInterpreter _eisInterpreter;
+  
   @Override
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
+    final EisModel model = IterableExtensions.<EisModel>head(Iterables.<EisModel>filter(IteratorExtensions.<EObject>toIterable(resource.getAllContents()), EisModel.class));
+    StringConcatenation _builder = new StringConcatenation();
+    String _plc_name = model.getPlc_name();
+    _builder.append(_plc_name);
+    _builder.append("_Testfixture.xml");
+    fsa.generateFile(_builder.toString(), this.compile(model));
+  }
+  
+  public CharSequence compile(final EisModel model) {
+    CharSequence _xblockexpression = null;
+    {
+      int testcaseID = 0;
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+      _builder.newLine();
+      _builder.append("<TestFixture xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("<TiaProjectName>");
+      String _project_name = model.getProject_name();
+      _builder.append(_project_name, "\t");
+      _builder.append("</TiaProjectName>");
+      _builder.newLineIfNotEmpty();
+      _builder.append("\t");
+      _builder.append("<PlcName>");
+      String _plc_name = model.getPlc_name();
+      _builder.append(_plc_name, "\t");
+      _builder.append("</PlcName>");
+      _builder.newLineIfNotEmpty();
+      _builder.append("\t");
+      _builder.append("<Author>");
+      String _author_name = model.getAuthor_name();
+      _builder.append(_author_name, "\t");
+      _builder.append("</Author>");
+      _builder.newLineIfNotEmpty();
+      _builder.append("\t");
+      _builder.append("<TestCases>");
+      _builder.newLine();
+      {
+        EList<Testcase> _testcases = model.getTestcases();
+        for(final Testcase testcases : _testcases) {
+          Testblock _testblock = null;
+          if (testcases!=null) {
+            _testblock=testcases.getTestblock();
+          }
+          final Testblock testblock = _testblock;
+          _builder.newLineIfNotEmpty();
+          _builder.append("\t\t");
+          _builder.append("<TestCase ID=\"");
+          int _plusPlus = testcaseID++;
+          _builder.append(_plusPlus, "\t\t");
+          _builder.append("\"");
+          {
+            if ((testblock != null)) {
+              _builder.append(" TestActive=\"");
+              String _value = testblock.getTestActive().getValue();
+              _builder.append(_value, "\t\t");
+              _builder.append("\" Blockname=\"");
+              String _testcase_name = testcases.getTestcase_name();
+              _builder.append(_testcase_name, "\t\t");
+              _builder.append("\" Blocktype=\"");
+              String _value_1 = testblock.getBlockType().getValue();
+              _builder.append(_value_1, "\t\t");
+              _builder.append("\" Description=\"");
+              String _description = testblock.getDescription();
+              _builder.append(_description, "\t\t");
+              _builder.append("\"");
+            }
+          }
+          _builder.append(">");
+          _builder.newLineIfNotEmpty();
+          {
+            DefineBlock _define = null;
+            if (testblock!=null) {
+              _define=testblock.getDefine();
+            }
+            boolean _tripleNotEquals = (_define != null);
+            if (_tripleNotEquals) {
+              CharSequence _generateTeststeps = this.generateTeststeps(testblock.getDefine());
+              _builder.append(_generateTeststeps);
+              _builder.newLineIfNotEmpty();
+            }
+          }
+          _builder.append("\t\t");
+          _builder.append("</TestCase>");
+          _builder.newLine();
+        }
+      }
+      _builder.append("\t");
+      _builder.append("</TestCases>");
+      _builder.newLine();
+      _builder.append("</TestFixture>");
+      _builder.newLine();
+      _xblockexpression = _builder;
+    }
+    return _xblockexpression;
+  }
+  
+  public CharSequence generateTeststeps(final DefineBlock define) {
+    CharSequence _xblockexpression = null;
+    {
+      final EList<Variables> inputs = define.getDirection().getInput().getInputVariables();
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("\t\t\t");
+      _builder.append("<Teststeps>");
+      _builder.newLine();
+      _builder.append("\t\t\t\t");
+      _builder.append("<Teststep PlcCycle =\"0\" Description=\"Template\">");
+      _builder.newLine();
+      _builder.append("\t\t\t\t\t");
+      _builder.append("<Inputs>");
+      _builder.newLine();
+      _builder.append("\t\t\t\t\t");
+      _builder.append("</Inputs>");
+      _builder.newLine();
+      _builder.append("\t\t\t\t\t");
+      _builder.append("<Outputs>");
+      _builder.newLine();
+      {
+        boolean _isEmpty = inputs.isEmpty();
+        if (_isEmpty) {
+        }
+      }
+      _builder.append("\t\t\t\t\t");
+      _builder.append("</Outputs>");
+      _builder.newLine();
+      _builder.append("\t\t\t\t");
+      _builder.append("</Teststep>");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("</Teststeps>");
+      _builder.newLine();
+      _xblockexpression = _builder;
+    }
+    return _xblockexpression;
+  }
+  
+  public CharSequence compileIn(final EList<Variables> variables, final String direction) {
+    StringConcatenation _builder = new StringConcatenation();
+    {
+      for(final Variables e : variables) {
+        {
+          if ((e instanceof Variable)) {
+            _builder.append("<Element xsi:type=\"Input\" Name=\"");
+            String _name = ((Variable)e).getName();
+            _builder.append(_name);
+            _builder.append("\" Datatype=\"");
+            String _string = ((Variable)e).getVariableType().toString();
+            _builder.append(_string);
+            _builder.append("\" Direction=\"");
+            _builder.append(direction);
+            _builder.append("\" Value=\"");
+            String _string_1 = this._eisInterpreter.interpret(((Variable)e).getIdiom()).toString();
+            _builder.append(_string_1);
+            _builder.append("\" />");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+      }
+    }
+    return _builder;
+  }
+  
+  public CharSequence compileOut(final EList<Variables> variables, final String direction) {
+    StringConcatenation _builder = new StringConcatenation();
+    {
+      for(final Variables e : variables) {
+        {
+          if ((e instanceof Variable)) {
+            _builder.append("<Element xsi:type=\"Ouput\" Name=\"");
+            String _name = ((Variable)e).getName();
+            _builder.append(_name);
+            _builder.append("\" Datatype=\"");
+            String _string = ((Variable)e).getVariableType().toString();
+            _builder.append(_string);
+            _builder.append("\" Direction=\"");
+            _builder.append(direction);
+            _builder.append("\" Expect=\"");
+            String _string_1 = this._eisInterpreter.interpret(((Variable)e).getIdiom()).toString();
+            _builder.append(_string_1);
+            _builder.append("\" Range=\"");
+            Idiom _range = null;
+            if (((Variable)e)!=null) {
+              _range=((Variable)e).getRange();
+            }
+            _builder.append(_range);
+            _builder.append("\" />");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+      }
+    }
+    return _builder;
   }
 }

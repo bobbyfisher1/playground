@@ -3,14 +3,18 @@
  */
 package org.example.eis.ui.outline;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
 import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode;
+import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
+import org.example.eis.eis.AssertionBlock;
 import org.example.eis.eis.DefineBlock;
-import org.example.eis.eis.Inout;
-import org.example.eis.eis.Input;
-import org.example.eis.eis.Output;
-import org.example.eis.eis.Udt;
-import org.example.eis.eis.UdtRef;
+import org.example.eis.eis.DirectionBlock;
+import org.example.eis.eis.EisModel;
+import org.example.eis.eis.Testblock;
+import org.example.eis.eis.Testcase;
+import org.example.eis.eis.TeststepBlock;
+import org.example.eis.eis.Variable;
 import org.example.eis.eis.Variables;
 
 /**
@@ -22,30 +26,59 @@ import org.example.eis.eis.Variables;
 public class EisOutlineTreeProvider extends DefaultOutlineTreeProvider {
   public boolean _isLeaf(final Variables v) {
     boolean _xifexpression = false;
-    if ((v instanceof Udt)) {
-      _xifexpression = false;
+    if ((v instanceof Variable)) {
+      _xifexpression = true;
     } else {
-      boolean _xifexpression_1 = false;
-      if ((v instanceof UdtRef)) {
-        _xifexpression_1 = false;
-      } else {
-        _xifexpression_1 = true;
-      }
-      _xifexpression = _xifexpression_1;
+      _xifexpression = false;
     }
     return _xifexpression;
   }
   
-  public void _createChildren(final DocumentRootNode outlineNode, final DefineBlock defineBlock) {
-    final Input in = defineBlock.getDirection().getInput();
-    final Output out = defineBlock.getDirection().getOutput();
-    this.createNode(outlineNode, in);
-    this.createNode(outlineNode, out);
-    Inout _inout = defineBlock.getDirection().getInout();
-    boolean _tripleNotEquals = (_inout != null);
-    if (_tripleNotEquals) {
-      final Inout inout = defineBlock.getDirection().getInout();
-      this.createNode(outlineNode, inout);
+  public boolean _isLeaf(final TeststepBlock t) {
+    return true;
+  }
+  
+  public boolean _isLeaf(final AssertionBlock a) {
+    return true;
+  }
+  
+  public void _createChildren(final DocumentRootNode outlineNode, final EisModel eisModel) {
+    final EList<Testcase> testcases = eisModel.getTestcases();
+    for (final Testcase e : testcases) {
+      this.createNode(outlineNode, e);
+    }
+  }
+  
+  public void _createChildren(final EObjectNode testcaseNode, final Testcase testcase) {
+    Testblock _testblock = null;
+    if (testcase!=null) {
+      _testblock=testcase.getTestblock();
+    }
+    DefineBlock _define = null;
+    if (_testblock!=null) {
+      _define=_testblock.getDefine();
+    }
+    DirectionBlock _direction = null;
+    if (_define!=null) {
+      _direction=_define.getDirection();
+    }
+    final DirectionBlock direction = _direction;
+    Testblock _testblock_1 = null;
+    if (testcase!=null) {
+      _testblock_1=testcase.getTestblock();
+    }
+    DefineBlock _define_1 = null;
+    if (_testblock_1!=null) {
+      _define_1=_testblock_1.getDefine();
+    }
+    EList<TeststepBlock> _teststeps = null;
+    if (_define_1!=null) {
+      _teststeps=_define_1.getTeststeps();
+    }
+    final EList<TeststepBlock> teststeps = _teststeps;
+    this.createChildren(testcaseNode, direction);
+    for (final TeststepBlock e : teststeps) {
+      this.createChildren(testcaseNode, e);
     }
   }
 }
