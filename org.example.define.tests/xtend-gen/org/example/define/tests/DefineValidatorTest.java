@@ -792,6 +792,115 @@ public class DefineValidatorTest {
     }
   }
   
+  @Test
+  public void testMultipleStatementsSetBlock() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("define{");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("input[");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("udt a(typeA){");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("int b;");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("int c;");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("output[]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("teststep(0,\"\"){");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("set[");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("a.b = 0;");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("a.b = 0;");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("c = 0;");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("c = 0;");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("assert[]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      DefineBlock _parse = this._parseHelper.parse(_builder);
+      final Procedure1<DefineBlock> _function = (DefineBlock it) -> {
+        this._validationTestHelper.assertError(it, DefinePackage.eINSTANCE.getStatement(), DefineValidator.MULTIPLE_STATEMENT_ASSIGNMENT);
+        Assert.assertEquals(6, this._validationTestHelper.validate(it).size());
+      };
+      ObjectExtensions.<DefineBlock>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void testMultipleStatementsAssertBlock() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("define{");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("input[]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("output[ int a; ]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("teststep(0,\"\"){");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("assert[");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("a = 0;");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("a = 0;");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("set[]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      DefineBlock _parse = this._parseHelper.parse(_builder);
+      final Procedure1<DefineBlock> _function = (DefineBlock it) -> {
+        this._validationTestHelper.assertError(it, DefinePackage.eINSTANCE.getStatement(), DefineValidator.MULTIPLE_STATEMENT_ASSIGNMENT);
+        Assert.assertEquals(2, this._validationTestHelper.validate(it).size());
+      };
+      ObjectExtensions.<DefineBlock>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
   private void assertWrongType(final String text) {
     try {
       this._validationTestHelper.assertError(this._parseHelper.parse(text), DefinePackage.eINSTANCE.getVariable(), DefineValidator.INCOMPATIBLE_TYPES);

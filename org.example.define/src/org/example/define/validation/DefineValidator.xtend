@@ -8,6 +8,7 @@ import com.google.inject.Inject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.validation.Check
 import org.example.define.define.And
+import org.example.define.define.Assert
 import org.example.define.define.BasicType
 import org.example.define.define.Comparison
 import org.example.define.define.DefinePackage
@@ -20,6 +21,7 @@ import org.example.define.define.MulOrDiv
 import org.example.define.define.Not
 import org.example.define.define.Or
 import org.example.define.define.Plus
+import org.example.define.define.Set
 import org.example.define.define.Statement
 import org.example.define.define.Udt
 import org.example.define.define.UdtRef
@@ -46,7 +48,7 @@ class DefineValidator extends AbstractDefineValidator {
 	public static val VARIANT_MISMATCH = ISSUE_CODE_PREFIX + "VariantMismatch"
 	public static val RECURSIVE_VARIABLE_REFERENCE = ISSUE_CODE_PREFIX + "RecursiveVariableReference"
 	public static val RECURSIVE_UDT_REFERENCE = ISSUE_CODE_PREFIX + "RecursiveUdtReference"
-//	public static val MULTIPLE_STATEMENT_ASSIGNMENT = ISSUE_CODE_PREFIX + "MultipleStatementAssignment"
+	public static val MULTIPLE_STATEMENT_ASSIGNMENT = ISSUE_CODE_PREFIX + "MultipleStatementAssignment"
 	public static val MISSING_UDT_REFERENCE = ISSUE_CODE_PREFIX + "MissingUdtReference"
 
 	@Inject extension DefineTypeComputer
@@ -337,29 +339,78 @@ class DefineValidator extends AbstractDefineValidator {
 		}
 	}
 
-	/*@Check def void checkMultipleStatementsSetBlock(Set sets) {
-	 * 	val set = sets.setVariables
-	 * 	val multiMap = HashMultimap.create()
+	@Check def void checkMultipleStatementsSetBlock(Set sets) {
+		val set = sets.setVariables
+		val multiMap = HashMultimap.create()
+		var name = set?.head?.variable?.toString
 
-	 * 	// add all variables to the map
-	 * 	for (e : set) {
-	 * 		multiMap.put(e.variable, e)
-	 * 	}
+		// add all variables to the map
+		for (e : set) {
+			if (e.cascade.empty)
+				multiMap.put(e.variable, e)
+			else {
+				name = e.variable.toString
+				for (c : e.cascade)
+					name += c.udtVar.toString
+				multiMap.put(name, e)
+			}
+		}
 
-	 * 	// check for duplicates
-	 * 	for (entry : multiMap.asMap.entrySet) {
-	 * 		val duplicates = entry.value
-	 * 		if (duplicates.size > 1) {
-	 * 			for (d : duplicates)
-	 * 				error(
-	 * 					"Multiple variable name '" + d.variable + "'",
-	 * 					d,
-	 * 					DefinePackage.eINSTANCE.variables_Name,
-	 * 					DefineValidator.MULTIPLE_STATEMENT_ASSIGNMENT
-	 * 				)
-	 * 		}
-	 * 	}
-	 }*/
+		// check for duplicates
+		for (entry : multiMap.asMap.entrySet) {
+			val duplicates = entry.value
+			if (duplicates.size > 1) {
+				for (d : duplicates) {
+					if (d.cascade.empty)
+						error("Multiple variable assignment", d, DefinePackage.eINSTANCE.statement_Variable,
+							MULTIPLE_STATEMENT_ASSIGNMENT)
+					else {
+						error("Multiple variable assignment", d, DefinePackage.eINSTANCE.statement_Variable,
+							MULTIPLE_STATEMENT_ASSIGNMENT)
+						error("Multiple variable assignment", d, DefinePackage.eINSTANCE.statement_Cascade,
+							MULTIPLE_STATEMENT_ASSIGNMENT)
+					}
+				}
+			}
+		}
+	}
+
+	@Check def void checkMultipleStatementsAssertBlock(Assert asserts) {
+		val assert = asserts.assertVariables
+		val multiMap = HashMultimap.create()
+		var name = assert?.head?.variable?.toString
+
+		// add all variables to the map
+		for (e : assert) {
+			if (e.cascade.empty)
+				multiMap.put(e.variable, e)
+			else {
+				name = e.variable.toString
+				for (c : e.cascade)
+					name += c.udtVar.toString
+				multiMap.put(name, e)
+			}
+		}
+
+		// check for duplicates
+		for (entry : multiMap.asMap.entrySet) {
+			val duplicates = entry.value
+			if (duplicates.size > 1) {
+				for (d : duplicates) {
+					if (d.cascade.empty)
+						error("Multiple variable assignment", d, DefinePackage.eINSTANCE.statement_Variable,
+							DefineValidator.MULTIPLE_STATEMENT_ASSIGNMENT)
+					else {
+						error("Multiple variable assignment", d, DefinePackage.eINSTANCE.statement_Variable,
+							MULTIPLE_STATEMENT_ASSIGNMENT)
+						error("Multiple variable assignment", d, DefinePackage.eINSTANCE.statement_Cascade,
+							MULTIPLE_STATEMENT_ASSIGNMENT)
+					}
+				}
+			}
+		}
+	}
+
 //
 // methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //
@@ -438,7 +489,7 @@ class DefineValidator extends AbstractDefineValidator {
 			if (e instanceof Udt)
 				e.checkAllVariableNamesInUdtScope
 		}
-// check for duplicates
+		// check for duplicates
 		for (entry : newMultimap.asMap.entrySet) {
 			val duplicates = entry.value
 			if (duplicates.size > 1) {

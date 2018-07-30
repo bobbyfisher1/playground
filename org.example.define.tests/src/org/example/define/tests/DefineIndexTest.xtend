@@ -18,8 +18,11 @@ import static extension org.junit.Assert.*
 class DefineIndexTest {
 	@Inject extension ParseHelper<DefineBlock>
 	@Inject extension DefineIndex
-	@Inject extension ValidationTestHelper;
+	@Inject extension ValidationTestHelper
 
+//
+// tests -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//
 	@Test def void testExportedEObjectDescriptions() {
 		'''
 			define{

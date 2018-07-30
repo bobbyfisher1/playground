@@ -17,6 +17,7 @@ import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.example.define.define.And;
+import org.example.define.define.Assert;
 import org.example.define.define.BasicType;
 import org.example.define.define.Cascade;
 import org.example.define.define.Comparison;
@@ -71,6 +72,8 @@ public class DefineValidator extends AbstractDefineValidator {
   public final static String RECURSIVE_VARIABLE_REFERENCE = (DefineValidator.ISSUE_CODE_PREFIX + "RecursiveVariableReference");
   
   public final static String RECURSIVE_UDT_REFERENCE = (DefineValidator.ISSUE_CODE_PREFIX + "RecursiveUdtReference");
+  
+  public final static String MULTIPLE_STATEMENT_ASSIGNMENT = (DefineValidator.ISSUE_CODE_PREFIX + "MultipleStatementAssignment");
   
   public final static String MISSING_UDT_REFERENCE = (DefineValidator.ISSUE_CODE_PREFIX + "MissingUdtReference");
   
@@ -471,31 +474,118 @@ public class DefineValidator extends AbstractDefineValidator {
     }
   }
   
-  /**
-   * @Check def void checkMultipleStatementsSetBlock(Set sets) {
-   * 	val set = sets.setVariables
-   * 	val multiMap = HashMultimap.create()
-   * 
-   * 	// add all variables to the map
-   * 	for (e : set) {
-   * 		multiMap.put(e.variable, e)
-   * 	}
-   * 
-   * 	// check for duplicates
-   * 	for (entry : multiMap.asMap.entrySet) {
-   * 		val duplicates = entry.value
-   * 		if (duplicates.size > 1) {
-   * 			for (d : duplicates)
-   * 				error(
-   * 					"Multiple variable name '" + d.variable + "'",
-   * 					d,
-   * 					DefinePackage.eINSTANCE.variables_Name,
-   * 					DefineValidator.MULTIPLE_STATEMENT_ASSIGNMENT
-   * 				)
-   * 		}
-   * 	}
-   * }
-   */
+  @Check
+  public void checkMultipleStatementsSetBlock(final org.example.define.define.Set sets) {
+    final EList<Statement> set = sets.getSetVariables();
+    final HashMultimap<Object, Statement> multiMap = HashMultimap.<Object, Statement>create();
+    Statement _head = null;
+    if (set!=null) {
+      _head=IterableExtensions.<Statement>head(set);
+    }
+    Variables _variable = null;
+    if (_head!=null) {
+      _variable=_head.getVariable();
+    }
+    String _string = null;
+    if (_variable!=null) {
+      _string=_variable.toString();
+    }
+    String name = _string;
+    for (final Statement e : set) {
+      boolean _isEmpty = e.getCascade().isEmpty();
+      if (_isEmpty) {
+        multiMap.put(e.getVariable(), e);
+      } else {
+        name = e.getVariable().toString();
+        EList<Cascade> _cascade = e.getCascade();
+        for (final Cascade c : _cascade) {
+          String _name = name;
+          String _string_1 = c.getUdtVar().toString();
+          name = (_name + _string_1);
+        }
+        multiMap.put(name, e);
+      }
+    }
+    Set<Map.Entry<Object, Collection<Statement>>> _entrySet = multiMap.asMap().entrySet();
+    for (final Map.Entry<Object, Collection<Statement>> entry : _entrySet) {
+      {
+        final Collection<Statement> duplicates = entry.getValue();
+        int _size = duplicates.size();
+        boolean _greaterThan = (_size > 1);
+        if (_greaterThan) {
+          for (final Statement d : duplicates) {
+            boolean _isEmpty_1 = d.getCascade().isEmpty();
+            if (_isEmpty_1) {
+              this.error("Multiple variable assignment", d, DefinePackage.eINSTANCE.getStatement_Variable(), 
+                DefineValidator.MULTIPLE_STATEMENT_ASSIGNMENT);
+            } else {
+              this.error("Multiple variable assignment", d, DefinePackage.eINSTANCE.getStatement_Variable(), 
+                DefineValidator.MULTIPLE_STATEMENT_ASSIGNMENT);
+              this.error("Multiple variable assignment", d, DefinePackage.eINSTANCE.getStatement_Cascade(), 
+                DefineValidator.MULTIPLE_STATEMENT_ASSIGNMENT);
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  @Check
+  public void checkMultipleStatementsAssertBlock(final Assert asserts) {
+    final EList<Statement> assert_ = asserts.getAssertVariables();
+    final HashMultimap<Object, Statement> multiMap = HashMultimap.<Object, Statement>create();
+    Statement _head = null;
+    if (assert_!=null) {
+      _head=IterableExtensions.<Statement>head(assert_);
+    }
+    Variables _variable = null;
+    if (_head!=null) {
+      _variable=_head.getVariable();
+    }
+    String _string = null;
+    if (_variable!=null) {
+      _string=_variable.toString();
+    }
+    String name = _string;
+    for (final Statement e : assert_) {
+      boolean _isEmpty = e.getCascade().isEmpty();
+      if (_isEmpty) {
+        multiMap.put(e.getVariable(), e);
+      } else {
+        name = e.getVariable().toString();
+        EList<Cascade> _cascade = e.getCascade();
+        for (final Cascade c : _cascade) {
+          String _name = name;
+          String _string_1 = c.getUdtVar().toString();
+          name = (_name + _string_1);
+        }
+        multiMap.put(name, e);
+      }
+    }
+    Set<Map.Entry<Object, Collection<Statement>>> _entrySet = multiMap.asMap().entrySet();
+    for (final Map.Entry<Object, Collection<Statement>> entry : _entrySet) {
+      {
+        final Collection<Statement> duplicates = entry.getValue();
+        int _size = duplicates.size();
+        boolean _greaterThan = (_size > 1);
+        if (_greaterThan) {
+          for (final Statement d : duplicates) {
+            boolean _isEmpty_1 = d.getCascade().isEmpty();
+            if (_isEmpty_1) {
+              this.error("Multiple variable assignment", d, DefinePackage.eINSTANCE.getStatement_Variable(), 
+                DefineValidator.MULTIPLE_STATEMENT_ASSIGNMENT);
+            } else {
+              this.error("Multiple variable assignment", d, DefinePackage.eINSTANCE.getStatement_Variable(), 
+                DefineValidator.MULTIPLE_STATEMENT_ASSIGNMENT);
+              this.error("Multiple variable assignment", d, DefinePackage.eINSTANCE.getStatement_Cascade(), 
+                DefineValidator.MULTIPLE_STATEMENT_ASSIGNMENT);
+            }
+          }
+        }
+      }
+    }
+  }
+  
   private void compareTypesAndCallError(final Statement statement, final DefineType actualType, final BasicType expectedType, final DefineType rangeType) {
     DefineType _typeFor = this._defineTypeComputer.typeFor(expectedType);
     boolean _notEquals = (!Objects.equal(actualType, _typeFor));

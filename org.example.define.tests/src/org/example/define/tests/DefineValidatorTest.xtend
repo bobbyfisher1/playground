@@ -27,13 +27,16 @@ class DefineValidatorTest {
 	@Inject extension ValidationTestHelper
 	@Inject extension DefineTypeComputer
 
+	//
+// variables -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+	//
 	val start = '''
 		define{
 			input[]
 			output[	
 	'''
 	val end = "]}"
-//	-------------------------------------------------
+
 	val startWithVariable = '''
 	define{
 		input[]
@@ -393,6 +396,51 @@ class DefineValidatorTest {
 		''' + end + teststep
 		).parse => [
 			assertError(DefinePackage.eINSTANCE.statement, DefineValidator.INCOMPATIBLE_TYPES)
+		]
+	}
+
+	@Test def void testMultipleStatementsSetBlock() {
+		'''
+			define{
+				input[
+					udt a(typeA){
+						int b;
+					}
+					int c;
+				]
+				output[]
+			}
+			teststep(0,""){
+				set[
+						a.b = 0;
+						a.b = 0;
+						c = 0;
+						c = 0;
+				]
+				assert[]
+			}
+		'''.parse => [
+			assertError(DefinePackage.eINSTANCE.statement, DefineValidator.MULTIPLE_STATEMENT_ASSIGNMENT)
+			6.assertEquals(validate.size)
+		]
+	}
+
+	@Test def void testMultipleStatementsAssertBlock() {
+		'''
+			define{
+				input[]
+				output[ int a; ]
+			}
+			teststep(0,""){
+				assert[
+						a = 0;
+						a = 0;
+				]
+				set[]
+			}
+		'''.parse => [
+			assertError(DefinePackage.eINSTANCE.statement, DefineValidator.MULTIPLE_STATEMENT_ASSIGNMENT)
+			2.assertEquals(validate.size)
 		]
 	}
 

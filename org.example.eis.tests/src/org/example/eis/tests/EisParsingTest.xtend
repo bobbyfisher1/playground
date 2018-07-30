@@ -8,9 +8,17 @@ import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.eclipse.xtext.testing.util.ParseHelper
 import org.eclipse.xtext.testing.validation.ValidationTestHelper
+import org.example.eis.eis.BoolConstant
+import org.example.eis.eis.EFloat
 import org.example.eis.eis.EisModel
+import org.example.eis.eis.IntConstant
+import org.example.eis.eis.Udt
+import org.example.eis.eis.Variable
+import org.example.eis.typing.DefineTypeComputer
 import org.junit.Test
 import org.junit.runner.RunWith
+
+import static org.example.eis.typing.DefineTypeComputer.*
 
 import static extension org.junit.Assert.*
 
@@ -19,20 +27,27 @@ import static extension org.junit.Assert.*
 class EisParsingTest {
 	@Inject extension ParseHelper<EisModel>
 	@Inject extension ValidationTestHelper;
+	@Inject extension DefineTypeComputer
 
+//
+// variables -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//
+	val beginning = '''	
+		project = "abckdjh";
+		plcname = "d383";
+		author 	= "name two";
+		testcase Blockname{
+			testActive = false;
+			blockType = FC;
+			description = "";
+	'''
+	val ending = "}"
+
+//
+// tests -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//
 	@Test def void testFixedProgramBeginning_noErrors() {
-		'''	
-			project = "abckdjh";
-			plcname = "d383";
-			author 	= "name two";
-			testcase Blockname{	
-				testActive = false;
-				blockType = FC;
-				description = "";
-				define
-				teststep
-			}
-		'''.parse.assertNoErrors
+		(beginning + ending).parse.assertNoErrors
 	}
 
 	@Test def void testAccessingProgrammBeginning_noErrors() {
@@ -47,4 +62,210 @@ class EisParsingTest {
 		]
 	}
 
+	@Test def void testDefineStructure() {
+		(beginning + '''	
+			define{
+				input[
+					int a= 4; int b = 0 +/- 3;
+					bool Int=true;
+					//float f = 5;
+					int x; variant int y; udt z(atype){}
+				]
+				inout[
+					udt Rain(typeRain){ 
+						int d = 90;
+						udt Sun(typeSun){
+							int e = 10;
+						}
+					}
+				]
+				output[ 
+					variant int Train;
+				]
+				
+			}
+		''' + ending).parse.assertNoErrors
+	}
+
+	@Test def void testAccessingVariables() {
+		(beginning + '''
+			define{
+						input[ 
+							int a= 4;
+							udt Dido(typeDido){ int b = 39; }
+							variant int Train;
+						]
+						inout[]
+						output[bool x,y,z;]
+			}
+		''' + ending).parse => [
+			assertNoErrors
+			testcases.head.testblock.define.direction.input.inputVariables => [
+				(get(0) as Variable) => [
+//					variableType.typeFor.assertSame(INT_TYPE)
+					name.assertEquals('a')
+					(idiom as IntConstant).value.assertEquals(4)
+				]
+				(get(1) as Udt) => [
+					name.assertEquals('Dido')
+					udtType.name.assertEquals('typeDido')
+					(udtVariables.get(0) as Variable) => [
+//						variableType.typeFor.assertSame(INT_TYPE)
+						name.assertEquals('b')
+						(idiom as IntConstant).value.assertEquals(39)
+					]
+				]
+				(get(2) as Variable) => [
+					name.assertEquals('Train')
+//					variableType.typeFor.assertSame(INT_TYPE)
+					variantKeyword.assertEquals(true)
+				]
+			]
+		]
+	}
+
+	@Test def void testAccessingVariables2() {
+		(beginning + '''
+			define{
+						input[ 
+							int a = 4 ;int b; bool c = false;
+							bool d=true;
+						]
+						output[]
+			}
+		''' + ending).parse => [
+			assertNoErrors
+			testcases.head.testblock.define.direction.input.inputVariables => [
+				(get(0) as Variable) => [
+					variableType.typeFor.assertSame(INT_TYPE)
+					// .assertEquals(IntType)
+					name.assertEquals('a')
+					(idiom as IntConstant).value.assertEquals(4)
+				]
+				get(1) => [name.assertEquals('b')]
+				(get(2) as Variable) => [
+					variableType.typeFor.assertSame(BOOL_TYPE)
+					// assertEquals('bool')
+					name.assertEquals('c')
+					(idiom as BoolConstant).value.assertEquals('false')
+				]
+				(get(3) as Variable) => [
+					variableType.typeFor.assertSame(BOOL_TYPE)
+					// .assertEquals('bool')
+					name.assertEquals('d')
+					(idiom as BoolConstant).value.assertEquals('true')
+				]
+			]
+		]
+	}
+
+	@Test def void testAccessingCascadeOfVariables() {
+		(beginning + '''
+			define{
+				input[]
+				output[
+					int a;
+					/*int b=9;
+					bool c;
+					bool d=false;
+					int e=1;
+					udt One(typeOne){
+						
+						udt Two(typeTwo){
+							int aaaa; 
+							variant bool TwoAndAHalf;
+							variant int Three;
+						}
+					}*/
+				]
+			}
+		''' + ending).parse.assertNoErrors()
+	}
+
+	@Test def void testUnorderedGroup() {
+		(beginning + '''
+		define{		
+			output[] input[] inout[]
+		}''' + ending).parse.assertNoErrors();
+	}
+
+	@Test def void testOutputRangeDeclaration() {
+		(beginning + '''
+			define {
+				input [ ]
+				output [ int a = 4  +/-  9; ]
+			}
+		''' + ending).parse.assertNoErrors()
+	}
+
+	@Test def void testDecimal() {
+		(beginning + '''
+			define{
+				input[ float a = 19.5; ]
+				output[]
+			}
+		''' + ending).parse => [
+			(testcases.head.testblock.define.direction.input.inputVariables.get(0) as Variable) => [
+				(idiom as EFloat).value.assertEquals(19)
+				(idiom as EFloat).valueOfDecimal.assertEquals(5)
+			]
+		]
+	}
+
+	@Test def void testDecimal2() {
+		(beginning + '''
+			define{
+				input[ float a = 19.; ]
+				output[]
+			}
+		''' + ending).parse => [
+			(testcases.head.testblock.define.direction.input.inputVariables.get(0) as Variable) => [
+				(idiom as EFloat).value.assertEquals(19)
+				(idiom as EFloat).valueOfDecimal.assertEquals(0)
+			]
+		]
+	}
+
+	@Test def void testDecimal3() {
+		(beginning + '''
+			define{
+				input[ float a = 0.4; ]
+				output[]
+			}
+		''' + ending).parse => [
+			(testcases.head.testblock.define.direction.input.inputVariables.get(0) as Variable) => [
+				(idiom as EFloat).value.assertEquals(0)
+				(idiom as EFloat).valueOfDecimal.assertEquals(4)
+			]
+		]
+	}
+
+	@Test def void testVariables() {
+		(beginning + '''
+			define{
+				input[ int a=14; ]
+				output[]
+			}
+		''' + ending).parse => [assertNoErrors]
+	}
+
+	@Test def void testAccessingVariables3() {
+		(beginning + '''
+			define{
+						input[
+							int a= 4;
+						]
+						output[]
+			}
+		''' + ending).parse => [
+			assertNoErrors
+			testcases.head.testblock.define.direction.input.inputVariables => [
+				(get(0) as Variable) => [
+					variableType.typeFor.assertSame(INT_TYPE)
+					name.assertEquals('a')
+					(idiom as IntConstant).value.assertEquals(4)
+				]
+			]
+		]
+	}
 }

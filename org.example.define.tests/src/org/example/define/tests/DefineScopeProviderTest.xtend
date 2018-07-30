@@ -24,7 +24,6 @@ import static extension org.junit.Assert.*
 class DefineScopeProviderTest {
 	@Inject extension ParseHelper<DefineBlock>
 	@Inject extension ValidationTestHelper;
-
 	@Inject extension IScopeProvider
 
 	//

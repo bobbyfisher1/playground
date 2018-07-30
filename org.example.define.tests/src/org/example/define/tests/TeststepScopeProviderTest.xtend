@@ -19,10 +19,12 @@ import static extension org.junit.Assert.*
 @InjectWith(DefineInjectorProvider)
 class TeststepScopeProviderTest {
 	@Inject extension ParseHelper<DefineBlock>
-	@Inject extension ValidationTestHelper;
-
+	@Inject extension ValidationTestHelper
 	@Inject extension IScopeProvider
 
+//
+// variables -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//
 	val define = "define{"
 	val output = "output[]"
 	val input = "input[]"

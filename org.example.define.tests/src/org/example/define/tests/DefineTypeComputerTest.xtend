@@ -22,6 +22,9 @@ class DefineTypeComputerTest {
 	@Inject extension ParseHelper<DefineBlock>
 	@Inject extension DefineTypeComputer
 
+//
+// variables -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//
 	val start = '''
 	define{
 		input[]
