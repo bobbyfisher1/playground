@@ -952,6 +952,201 @@ public class EisValidatorTest {
     }
   }
   
+  @Test
+  public void testInvalidRangeOnBoolean() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("define{");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("input[  ]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("output[bool a = true +/- false;]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      String _plus = (this.beginning + _builder);
+      EisModel _parse = this._parseHelper.parse((_plus + this.ending));
+      final Procedure1<EisModel> _function = (EisModel it) -> {
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getVariable(), EisValidator.INVALID_RANGE_DEFINITION);
+        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void testInvalidRangeOnBooleanStatement() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("define{");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("input[  ]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("output[bool a;]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("teststep(0,\"\"){");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("set[  ]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("assert[a = true +/- false;]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      String _plus = (this.beginning + _builder);
+      EisModel _parse = this._parseHelper.parse((_plus + this.ending));
+      final Procedure1<EisModel> _function = (EisModel it) -> {
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getStatement(), EisValidator.INVALID_RANGE_DEFINITION);
+        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void testInvalidRangeOnInput() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("define{");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("input[ int a = 0 +/- 5; ]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("output[]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      String _plus = (this.beginning + _builder);
+      EisModel _parse = this._parseHelper.parse((_plus + this.ending));
+      final Procedure1<EisModel> _function = (EisModel it) -> {
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getVariable(), EisValidator.INVALID_RANGE_DEFINITION);
+        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void testInvalidRangeOnInput2() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("define{");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("input[ int a;]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("output[]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("teststep(0,\"\"){");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("set[ a = 2 +/- 3;]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("assert[]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      String _plus = (this.beginning + _builder);
+      EisModel _parse = this._parseHelper.parse((_plus + this.ending));
+      final Procedure1<EisModel> _function = (EisModel it) -> {
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getStatement(), EisValidator.INVALID_RANGE_DEFINITION);
+        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void testMultiplePlcCycles() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("define{");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("input[]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("output[]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("teststep(0,\"one\"){");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("set[]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("assert[]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("teststep(0,\"one\"){");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("set[]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("assert[]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      String _plus = (this.beginning + _builder);
+      EisModel _parse = this._parseHelper.parse((_plus + this.ending));
+      final Procedure1<EisModel> _function = (EisModel it) -> {
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getTeststepBlock(), EisValidator.MULTIPLE_PLCCYCLE);
+        Assert.assertEquals(2, this._validationTestHelper.validate(it).size());
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void testMultipleTestcaseNames() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("project = \"\";");
+      _builder.newLine();
+      _builder.append("plcname = \"\";");
+      _builder.newLine();
+      _builder.append("author \t= \"\";");
+      _builder.newLine();
+      _builder.append("testcase Blockname{}");
+      _builder.newLine();
+      _builder.append("testcase Blockname{}");
+      _builder.newLine();
+      EisModel _parse = this._parseHelper.parse(_builder);
+      final Procedure1<EisModel> _function = (EisModel it) -> {
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getTestcase(), EisValidator.MULTIPLE_TESTCASE_NAME);
+        Assert.assertEquals(2, this._validationTestHelper.validate(it).size());
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
   private void assertWrongType(final String text) {
     try {
       this._validationTestHelper.assertError(this._parseHelper.parse(text), EisPackage.eINSTANCE.getVariable(), EisValidator.INCOMPATIBLE_TYPES);

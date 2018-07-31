@@ -25,7 +25,6 @@ class EisDescriptionLabelProvider extends DefaultDescriptionLabelProvider {
 //	@Inject new(AdapterFactoryLabelProvider delegate) {
 //		super(delegate);
 //	}
-
 	def text(Input i) { "input" }
 
 	def text(Output o) { "output" }
@@ -42,7 +41,4 @@ class EisDescriptionLabelProvider extends DefaultDescriptionLabelProvider {
 
 	}
 
-//	def image(Greeting ele) {
-//		'Greeting.gif'
-//	}
 }

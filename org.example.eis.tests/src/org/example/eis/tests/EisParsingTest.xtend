@@ -66,7 +66,7 @@ class EisParsingTest {
 		(beginning + '''	
 			define{
 				input[
-					int a= 4; int b = 0 +/- 3;
+					int a= 4; int b = 0;
 					bool Int=true;
 					//float f = 5;
 					int x; variant int y; udt z(atype){}

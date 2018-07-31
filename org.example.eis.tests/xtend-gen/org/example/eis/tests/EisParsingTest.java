@@ -114,7 +114,7 @@ public class EisParsingTest {
       _builder.append("input[");
       _builder.newLine();
       _builder.append("\t\t");
-      _builder.append("int a= 4; int b = 0 +/- 3;");
+      _builder.append("int a= 4; int b = 0;");
       _builder.newLine();
       _builder.append("\t\t");
       _builder.append("bool Int=true;");

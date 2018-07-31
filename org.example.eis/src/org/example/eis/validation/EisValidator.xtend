@@ -5,17 +5,21 @@ package org.example.eis.validation
 
 import com.google.common.collect.HashMultimap
 import com.google.inject.Inject
+import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.validation.Check
 import org.example.eis.eis.And
 import org.example.eis.eis.Assert
 import org.example.eis.eis.BasicType
 import org.example.eis.eis.Comparison
+import org.example.eis.eis.DefineBlock
 import org.example.eis.eis.DirectionBlock
+import org.example.eis.eis.EisModel
 import org.example.eis.eis.EisPackage
 import org.example.eis.eis.Equality
 import org.example.eis.eis.Idiom
 import org.example.eis.eis.Inout
+import org.example.eis.eis.Input
 import org.example.eis.eis.Minus
 import org.example.eis.eis.MulOrDiv
 import org.example.eis.eis.Not
@@ -50,6 +54,9 @@ class EisValidator extends AbstractEisValidator {
 	public static val RECURSIVE_UDT_REFERENCE = ISSUE_CODE_PREFIX + "RecursiveUdtReference"
 	public static val MULTIPLE_STATEMENT_ASSIGNMENT = ISSUE_CODE_PREFIX + "MultipleStatementAssignment"
 	public static val MISSING_UDT_REFERENCE = ISSUE_CODE_PREFIX + "MissingUdtReference"
+	public static val INVALID_RANGE_DEFINITION = ISSUE_CODE_PREFIX + "InvalidRangeDefinition"
+	public static val MULTIPLE_PLCCYCLE = ISSUE_CODE_PREFIX + "MultiplePlcCycle"
+	public static val MULTIPLE_TESTCASE_NAME = ISSUE_CODE_PREFIX + "MultipleTestcaseName"
 
 	@Inject extension DefineTypeComputer
 
@@ -241,7 +248,7 @@ class EisValidator extends AbstractEisValidator {
 			if (expectedType === null || actualType === null)
 				return;
 
-			if (expectedType != actualType)
+			if (expectedType !== actualType)
 				error("Incompatible types. Expected '" + expectedType.toString + "' but was '" + actualType.toString +
 					"'", variable, EisPackage.eINSTANCE.variable_Idiom, INCOMPATIBLE_TYPES)
 
@@ -253,7 +260,6 @@ class EisValidator extends AbstractEisValidator {
 	}
 
 	@Check def void checkType(Statement statement) {
-
 		val cascade = statement.cascade
 		val variable = statement.variable
 		val last = cascade?.last?.udtVar
@@ -264,10 +270,17 @@ class EisValidator extends AbstractEisValidator {
 
 		if (variable instanceof Variable) {
 			expectedType = (variable as Variable).variableType
-			compareTypesAndCallError(statement, actualType, expectedType, rangeType)
+			compareTypesAndCallErrorOnMismatch(statement, actualType, expectedType, rangeType)
+			if (expectedType === BasicType.BOOL && rangeType !== null)
+				error("The range feature is not permitted to boolean types", statement,
+					EisPackage.eINSTANCE.statement_Range, INVALID_RANGE_DEFINITION)
+
 		} else if (last instanceof Variable) {
 			expectedType = last.variableType
-			compareTypesAndCallError(statement, actualType, expectedType, rangeType)
+			compareTypesAndCallErrorOnMismatch(statement, actualType, expectedType, rangeType)
+			if (expectedType === BasicType.BOOL && rangeType !== null)
+				error("The range feature is not permitted to boolean types", statement,
+					EisPackage.eINSTANCE.statement_Range, INVALID_RANGE_DEFINITION)
 		}
 	}
 
@@ -411,9 +424,72 @@ class EisValidator extends AbstractEisValidator {
 		}
 	}
 
+	@Check def void checkRangeOperator(Variable variable) {
+		if (variable.range !== null) {
+			val type = variable.variableType
+			if (type === BasicType.BOOL)
+				error("The range feature is not permitted to boolean types", variable,
+					EisPackage.eINSTANCE.variable_Range, INVALID_RANGE_DEFINITION)
+			val direction = variable.getDirectionBlock
+			if (direction instanceof Input)
+				error("The range feature is not permitted to input variables", variable,
+					EisPackage.eINSTANCE.variable_Range, INVALID_RANGE_DEFINITION)
+		}
+	}
+
+	@Check def void checkRangeOperator(Set set) {
+		val sets = set.setVariables
+		for (statement : sets)
+			if (statement.range !== null)
+				error("The range feature is not permitted to input variables", statement,
+					EisPackage.eINSTANCE.statement_Range, INVALID_RANGE_DEFINITION)
+	}
+
+	@Check def void checkUniquePlcCycles(DefineBlock define) {
+		var multiMap = HashMultimap.create
+		// add all udtTypes of input to the multimap
+		for (e : define?.teststeps)
+			multiMap.put(e.plcCycle, e)
+
+		// check for duplicates
+		for (entry : multiMap.asMap.entrySet) {
+			val duplicates = entry.value
+			if (duplicates.size > 1) {
+				for (d : duplicates)
+					error("Multiple plcCycle", d, EisPackage.eINSTANCE.teststepBlock_PlcCycle,
+						EisValidator.MULTIPLE_PLCCYCLE)
+			}
+		}
+	}
+
+	@Check def void checkUniqueTestcaseNames(EisModel model) {
+		var multiMap = HashMultimap.create
+		// add all udtTypes of input to the multimap
+		for (e : model?.testcases)
+			multiMap.put(e.testcase_name, e)
+
+		// check for duplicates
+		for (entry : multiMap.asMap.entrySet) {
+			val duplicates = entry.value
+			if (duplicates.size > 1) {
+				for (d : duplicates)
+					error("Multiple plcCycle", d, EisPackage.eINSTANCE.testcase_Testcase_name,
+						EisValidator.MULTIPLE_TESTCASE_NAME)
+			}
+		}
+	}
+
 //
 // methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //
+	def EObject getDirectionBlock(EObject context) {
+		val container = context.eContainer
+		if (container instanceof DirectionBlock)
+			return context
+		else
+			container.directionBlock
+	}
+
 	def private void checkVariableTypeAndAddToMap(
 		Variables e,
 		HashMultimap<String, Variables> multiMap
@@ -496,8 +572,8 @@ class EisValidator extends AbstractEisValidator {
 			error("cannot be boolean", reference, TYPE_MISMATCH)
 	}
 
-	def private void compareTypesAndCallError(Statement statement, DefineType actualType, BasicType expectedType,
-		DefineType rangeType) {
+	def private void compareTypesAndCallErrorOnMismatch(Statement statement, DefineType actualType,
+		BasicType expectedType, DefineType rangeType) {
 		if (actualType != expectedType.typeFor)
 			error("Incompatible types. Expected '" + expectedType.toString + "' but was '" + actualType.toString + "'",
 				statement, EisPackage.eINSTANCE.statement_Idiom, INCOMPATIBLE_TYPES)

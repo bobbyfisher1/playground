@@ -1,8 +1,9 @@
-todo: 
+todo:		 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-*	forbid range on bool types
-*	range only on assert block
-* forbid teststeps with the same numbers and testcases with the same name
+*	forbid range on bool types																													CHECK
+*	allow range only on assert and output blocks																				CHECK 
+* forbid teststeps with the same numbers 																							CHECK
+* forbid testcases with the same name																								CHECK
 
 * iterate all teststeps derived from assertion blocks
 * find a way to check from which direction block a statement was made

@@ -21,17 +21,22 @@ import org.example.eis.eis.Assert;
 import org.example.eis.eis.BasicType;
 import org.example.eis.eis.Cascade;
 import org.example.eis.eis.Comparison;
+import org.example.eis.eis.DefineBlock;
 import org.example.eis.eis.DirectionBlock;
+import org.example.eis.eis.EisModel;
 import org.example.eis.eis.EisPackage;
 import org.example.eis.eis.Equality;
 import org.example.eis.eis.Idiom;
 import org.example.eis.eis.Inout;
+import org.example.eis.eis.Input;
 import org.example.eis.eis.Minus;
 import org.example.eis.eis.MulOrDiv;
 import org.example.eis.eis.Not;
 import org.example.eis.eis.Or;
 import org.example.eis.eis.Plus;
 import org.example.eis.eis.Statement;
+import org.example.eis.eis.Testcase;
+import org.example.eis.eis.TeststepBlock;
 import org.example.eis.eis.Udt;
 import org.example.eis.eis.UdtRef;
 import org.example.eis.eis.Variable;
@@ -76,6 +81,12 @@ public class EisValidator extends AbstractEisValidator {
   public final static String MULTIPLE_STATEMENT_ASSIGNMENT = (EisValidator.ISSUE_CODE_PREFIX + "MultipleStatementAssignment");
   
   public final static String MISSING_UDT_REFERENCE = (EisValidator.ISSUE_CODE_PREFIX + "MissingUdtReference");
+  
+  public final static String INVALID_RANGE_DEFINITION = (EisValidator.ISSUE_CODE_PREFIX + "InvalidRangeDefinition");
+  
+  public final static String MULTIPLE_PLCCYCLE = (EisValidator.ISSUE_CODE_PREFIX + "MultiplePlcCycle");
+  
+  public final static String MULTIPLE_TESTCASE_NAME = (EisValidator.ISSUE_CODE_PREFIX + "MultipleTestcaseName");
   
   @Inject
   @Extension
@@ -319,8 +330,7 @@ public class EisValidator extends AbstractEisValidator {
       if (((expectedType == null) || (actualType == null))) {
         return;
       }
-      boolean _notEquals = (!Objects.equal(expectedType, actualType));
-      if (_notEquals) {
+      if ((expectedType != actualType)) {
         String _string = expectedType.toString();
         String _plus = ("Incompatible types. Expected \'" + _string);
         String _plus_1 = (_plus + "\' but was \'");
@@ -369,11 +379,19 @@ public class EisValidator extends AbstractEisValidator {
     BasicType expectedType = BasicType.NULL;
     if ((variable instanceof Variable)) {
       expectedType = ((Variable) variable).getVariableType();
-      this.compareTypesAndCallError(statement, actualType, expectedType, rangeType);
+      this.compareTypesAndCallErrorOnMismatch(statement, actualType, expectedType, rangeType);
+      if (((expectedType == BasicType.BOOL) && (rangeType != null))) {
+        this.error("The range feature is not permitted to boolean types", statement, 
+          EisPackage.eINSTANCE.getStatement_Range(), EisValidator.INVALID_RANGE_DEFINITION);
+      }
     } else {
       if ((last instanceof Variable)) {
         expectedType = ((Variable)last).getVariableType();
-        this.compareTypesAndCallError(statement, actualType, expectedType, rangeType);
+        this.compareTypesAndCallErrorOnMismatch(statement, actualType, expectedType, rangeType);
+        if (((expectedType == BasicType.BOOL) && (rangeType != null))) {
+          this.error("The range feature is not permitted to boolean types", statement, 
+            EisPackage.eINSTANCE.getStatement_Range(), EisValidator.INVALID_RANGE_DEFINITION);
+        }
       }
     }
   }
@@ -586,6 +604,104 @@ public class EisValidator extends AbstractEisValidator {
     }
   }
   
+  @Check
+  public void checkRangeOperator(final Variable variable) {
+    Idiom _range = variable.getRange();
+    boolean _tripleNotEquals = (_range != null);
+    if (_tripleNotEquals) {
+      final BasicType type = variable.getVariableType();
+      if ((type == BasicType.BOOL)) {
+        this.error("The range feature is not permitted to boolean types", variable, 
+          EisPackage.eINSTANCE.getVariable_Range(), EisValidator.INVALID_RANGE_DEFINITION);
+      }
+      final EObject direction = this.getDirectionBlock(variable);
+      if ((direction instanceof Input)) {
+        this.error("The range feature is not permitted to input variables", variable, 
+          EisPackage.eINSTANCE.getVariable_Range(), EisValidator.INVALID_RANGE_DEFINITION);
+      }
+    }
+  }
+  
+  @Check
+  public void checkRangeOperator(final org.example.eis.eis.Set set) {
+    final EList<Statement> sets = set.getSetVariables();
+    for (final Statement statement : sets) {
+      Idiom _range = statement.getRange();
+      boolean _tripleNotEquals = (_range != null);
+      if (_tripleNotEquals) {
+        this.error("The range feature is not permitted to input variables", statement, 
+          EisPackage.eINSTANCE.getStatement_Range(), EisValidator.INVALID_RANGE_DEFINITION);
+      }
+    }
+  }
+  
+  @Check
+  public void checkUniquePlcCycles(final DefineBlock define) {
+    HashMultimap<Integer, TeststepBlock> multiMap = HashMultimap.<Integer, TeststepBlock>create();
+    EList<TeststepBlock> _teststeps = null;
+    if (define!=null) {
+      _teststeps=define.getTeststeps();
+    }
+    for (final TeststepBlock e : _teststeps) {
+      multiMap.put(Integer.valueOf(e.getPlcCycle()), e);
+    }
+    Set<Map.Entry<Integer, Collection<TeststepBlock>>> _entrySet = multiMap.asMap().entrySet();
+    for (final Map.Entry<Integer, Collection<TeststepBlock>> entry : _entrySet) {
+      {
+        final Collection<TeststepBlock> duplicates = entry.getValue();
+        int _size = duplicates.size();
+        boolean _greaterThan = (_size > 1);
+        if (_greaterThan) {
+          for (final TeststepBlock d : duplicates) {
+            this.error("Multiple plcCycle", d, EisPackage.eINSTANCE.getTeststepBlock_PlcCycle(), 
+              EisValidator.MULTIPLE_PLCCYCLE);
+          }
+        }
+      }
+    }
+  }
+  
+  @Check
+  public void checkUniqueTestcaseNames(final EisModel model) {
+    HashMultimap<String, Testcase> multiMap = HashMultimap.<String, Testcase>create();
+    EList<Testcase> _testcases = null;
+    if (model!=null) {
+      _testcases=model.getTestcases();
+    }
+    for (final Testcase e : _testcases) {
+      multiMap.put(e.getTestcase_name(), e);
+    }
+    Set<Map.Entry<String, Collection<Testcase>>> _entrySet = multiMap.asMap().entrySet();
+    for (final Map.Entry<String, Collection<Testcase>> entry : _entrySet) {
+      {
+        final Collection<Testcase> duplicates = entry.getValue();
+        int _size = duplicates.size();
+        boolean _greaterThan = (_size > 1);
+        if (_greaterThan) {
+          for (final Testcase d : duplicates) {
+            this.error("Multiple plcCycle", d, EisPackage.eINSTANCE.getTestcase_Testcase_name(), 
+              EisValidator.MULTIPLE_TESTCASE_NAME);
+          }
+        }
+      }
+    }
+  }
+  
+  public EObject getDirectionBlock(final EObject context) {
+    EObject _xblockexpression = null;
+    {
+      final EObject container = context.eContainer();
+      EObject _xifexpression = null;
+      if ((container instanceof DirectionBlock)) {
+        return context;
+      } else {
+        _xifexpression = this.getDirectionBlock(container);
+      }
+      _xblockexpression = _xifexpression;
+    }
+    return _xblockexpression;
+  }
+  
   private void checkVariableTypeAndAddToMap(final Variables e, final HashMultimap<String, Variables> multiMap) {
     if ((e instanceof Udt)) {
       multiMap.put(((Udt)e).getName(), e);
@@ -693,7 +809,7 @@ public class EisValidator extends AbstractEisValidator {
     }
   }
   
-  private void compareTypesAndCallError(final Statement statement, final DefineType actualType, final BasicType expectedType, final DefineType rangeType) {
+  private void compareTypesAndCallErrorOnMismatch(final Statement statement, final DefineType actualType, final BasicType expectedType, final DefineType rangeType) {
     DefineType _typeFor = this._defineTypeComputer.typeFor(expectedType);
     boolean _notEquals = (!Objects.equal(actualType, _typeFor));
     if (_notEquals) {

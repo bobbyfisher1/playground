@@ -454,9 +454,98 @@ class EisValidatorTest {
 		]
 	}
 
+	@Test def void testInvalidRangeOnBoolean() {
+		(beginning + '''
+			define{
+				input[  ]
+				output[bool a = true +/- false;]
+			}
+		''' + ending).parse => [
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.INVALID_RANGE_DEFINITION)
+			1.assertEquals(validate.size)
+		]
+	}
+
+	@Test def void testInvalidRangeOnBooleanStatement() {
+		(beginning + '''
+			define{
+				input[  ]
+				output[bool a;]
+			}
+			teststep(0,""){
+				set[  ]
+				assert[a = true +/- false;]
+			}
+		''' + ending).parse => [
+			assertError(EisPackage.eINSTANCE.statement, EisValidator.INVALID_RANGE_DEFINITION)
+			1.assertEquals(validate.size)
+		]
+	}
+
+	@Test def void testInvalidRangeOnInput() {
+		(beginning + '''
+			define{
+				input[ int a = 0 +/- 5; ]
+				output[]
+			}
+		''' + ending).parse => [
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.INVALID_RANGE_DEFINITION)
+			1.assertEquals(validate.size)
+		]
+	}
+
+	@Test def void testInvalidRangeOnInput2() {
+		(beginning + '''
+			define{
+				input[ int a;]
+				output[]
+			}
+			teststep(0,""){
+				set[ a = 2 +/- 3;]
+				assert[]
+			}
+		''' + ending).parse => [
+			assertError(EisPackage.eINSTANCE.statement, EisValidator.INVALID_RANGE_DEFINITION)
+			1.assertEquals(validate.size)
+		]
+	}
+
+	@Test def void testMultiplePlcCycles() {
+		(beginning + '''
+			define{
+				input[]
+				output[]
+			}
+			teststep(0,"one"){
+				set[]
+				assert[]
+			}
+			teststep(0,"one"){
+				set[]
+				assert[]
+			}
+		''' + ending).parse => [
+			assertError(EisPackage.eINSTANCE.teststepBlock, EisValidator.MULTIPLE_PLCCYCLE)
+			2.assertEquals(validate.size)
+		]
+	}
+
+	@Test def void testMultipleTestcaseNames() {
+		'''
+			project = "";
+			plcname = "";
+			author 	= "";
+			testcase Blockname{}
+			testcase Blockname{}
+		'''.parse => [
+			assertError(EisPackage.eINSTANCE.testcase, EisValidator.MULTIPLE_TESTCASE_NAME)
+			2.assertEquals(validate.size)
+		]
+	}
+
 //
 // methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-	//
+//
 	def private void assertWrongType(String text) {
 		text.parse.assertError(EisPackage.eINSTANCE.variable, EisValidator.INCOMPATIBLE_TYPES)
 	}
