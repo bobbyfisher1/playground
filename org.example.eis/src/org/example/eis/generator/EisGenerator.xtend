@@ -73,13 +73,13 @@ class EisGenerator extends AbstractGenerator {
 		
 		// add all variables to maps with default values if undefined
 		if(!inputs.empty)
-			inputMap.generateMap(inputs)
+			inputMap.generateMap(inputs, '')
 		if(!outputs.empty)
-			outputMap.generateMultimap(outputs)
+			outputMap.generateMultimap(outputs,'')
 		if(inouts !== null){
 			if(!inouts.empty){										
-				inputMap.generateMap(inouts)
-				outputMap.generateMultimap(inouts)
+				inputMap.generateMap(inouts, '')
+				outputMap.generateMultimap(inouts,'')
 			}
 		}
 		
@@ -95,7 +95,7 @@ class EisGenerator extends AbstractGenerator {
 «setMap.clear»
 «setMap.putAll(inputMap)»
 «setMap.overwrite(e)»
-«setMap.compileIn(e)»
+«setMap.compileIn(inputs,'')»
 							</Inputs>
 							«ENDIF»
 							«IF !assert.assertVariables.empty»
@@ -113,50 +113,66 @@ class EisGenerator extends AbstractGenerator {
 		'''
 	}
 	
-	def CharSequence compileIn(HashMap<Object, Object> setMap, TeststepBlock teststep) {
-		var charSeq =""
- 		val set = teststep.assertion.set
-			
-		for(statement : set.setVariables){
-			val variable = statement.variable
-			val direction = variable.directionBlock
-			val cascade = statement.cascade
-			val last = cascade?.last?.udtVar				
-				
-			if(variable instanceof Variable){
+	//	don't forget the variant
+	// Inout should be InOut in Direction field					
+	def CharSequence compileIn(HashMap<Object, Object> setMap, EList<Variables> variables, String name2) {
+		var charSeq = ""
+		var name = name2
+					
+		for(variable : variables) {
+			if(variable instanceof Variable) {
+				name += variable.name
+				val value = setMap.get(name).toString
+					
 				charSeq += 	"						"  //6 TABS 
-				charSeq += 	'''<Element xsi:type="Input" Name="«variable.name»" Datatype="«variable.variableType.toString»" Direction="«direction.toString»" Value="«statement.idiom.interpret.toString»" />'''
+				charSeq += 	'''<Element xsi:type="Input" Name="«name»" Datatype="«variable.variableType.toString»" Direction="«variable.directionBlock.toString»" Value="«value»" Variant="«variable.variantKeyword.toString»" />'''
 				charSeq += 	'''
 										'''//newline				
-			}	
-			else if(last instanceof Variable){}
+			} else if(variable instanceof Udt){
+				name += variable.name + '.'
+				setMap.compileIn(variables, name)
+			} else if (variable instanceof UdtRef){
+				name += variable.name + '.'
+				setMap.compileIn(variables, name)
+			}
+			
 		}
 		return charSeq
 	}
 	
-	def void generateMap(HashMap<Object, Object> map, EList<Variables> variables) {
+	def void generateMap(HashMap<Object, Object> map, EList<Variables> variables, String name2) {
+		var name = name2
 		for(variable : variables){
 			if(variable instanceof Variable){
-					map.put(variable.name, variable?.idiom?.interpret?.toString ?: variable.defaultValue)					
+					name += variable.name
+					map.put(name, variable?.idiom?.interpret?.toString ?: variable.defaultValue)
+					name = ""					
 			} else if(variable instanceof Udt) {
-				map.generateMap(variable.udtVariables)
+				name += variable.name + '.'
+				map.generateMap(variable.udtVariables, name)
 			} else if(variable instanceof UdtRef){
-				map.generateMap(variable.udtVariables)
+				name += variable.name + '.'
+				map.generateMap(variable.udtVariables, name)
 			}
 		}
 	}
 	
-	def void generateMultimap(HashMultimap<Object, Object> multiMap, EList<Variables> variables) {		
+	def void generateMultimap(HashMultimap<Object, Object> multiMap, EList<Variables> variables, String name2) {
+		var name = name2		
 		for(variable : variables){
 			var List<String> list = new ArrayList<String>
 			if(variable instanceof Variable){
 				list.add(variable?.idiom?.interpret?.toString ?: variable.defaultValue)
-				list.add(variable?.range?.interpret?.toString ?: variable.defaultValue)								
-				multiMap.put(variable.name, list)
+				list.add(variable?.range?.interpret?.toString ?: variable.defaultValue)
+				name += variable.name
+				multiMap.put(name, list)
+				name = ''
 			} else if(variable instanceof Udt){
-				multiMap.generateMultimap(variable.udtVariables)
+				name += variable.name + '.'
+				multiMap.generateMultimap(variable.udtVariables, name)
 			} else if(variable instanceof UdtRef){
-				multiMap.generateMultimap(variable.udtVariables)
+				name += variable.name + '.'
+				multiMap.generateMultimap(variable.udtVariables, name)
 			}
 		}
 	}
@@ -169,15 +185,50 @@ class EisGenerator extends AbstractGenerator {
 		else if(type.isStringType)	return ""
 	}
 	
-	def void overwrite(HashMap<Object, Object> map, TeststepBlock block) {
+	def void overwrite(HashMap<Object, Object> setMap, TeststepBlock teststep) {
+		val statements = teststep.assertion.set.setVariables
+		var name = ""
 		
+		for (e : statements) {
+			name = e.variable.name.toString			
+			if (!e.cascade.empty){
+				for (c : e.cascade)
+					name += '.' + c.udtVar.name.toString
+			}
+			
+			if(setMap.containsKey(name))
+				setMap.replace(name,e.idiom.interpret.toString	)
+		}
 	}
 	
-	def void overwrite(HashMultimap<Object, Object> multiMap, TeststepBlock block) {}
+	def void overwrite(HashMultimap<Object, Object> assertMultiMap, TeststepBlock teststep) {
+		val statements = teststep.assertion.assert.assertVariables
+						
+		for (e : statements) {
+			var List<String> list = new ArrayList<String>	
+			var name = e.variable.name.toString			
+			
+			if (!e.cascade.empty){
+				for (c : e.cascade)
+					name += '.' + c.udtVar.name.toString
+			}
+			
+			if(assertMultiMap.containsKey(name)) {
+				list.add(e.idiom.interpret.toString)
+				
+				if(e.cascade.empty)
+					list.add(e?.range?.interpret?.toString ?: (e.variable as Variable).defaultValue)
+				else
+					list.add(e?.range?.interpret?.toString ?: (e.cascade.last.udtVar as Variable).defaultValue) 			
+		
+				assertMultiMap.replaceValues(name,list)			
+			}
+		}
+	}
 	
 	def CharSequence compileOut(HashMultimap<Object, Object> assertMap, TeststepBlock teststep) {}
 
-	def EObject directionBlock(EObject context) {
+	def EObject directionBlock(EObject context) { // context is variable to begin with
 		val container = context.eContainer
 		if (container instanceof DirectionBlock)
 			return context //returns Input, Output, InOut and not the container

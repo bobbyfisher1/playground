@@ -551,37 +551,26 @@ public class EisValidator extends AbstractEisValidator {
   @Check
   public void checkMultipleStatementsAssertBlock(final Assert asserts) {
     final EList<Statement> assert_ = asserts.getAssertVariables();
-    final HashMultimap<Object, Statement> multiMap = HashMultimap.<Object, Statement>create();
-    Statement _head = null;
-    if (assert_!=null) {
-      _head=IterableExtensions.<Statement>head(assert_);
-    }
-    Variables _variable = null;
-    if (_head!=null) {
-      _variable=_head.getVariable();
-    }
-    String _string = null;
-    if (_variable!=null) {
-      _string=_variable.toString();
-    }
-    String name = _string;
+    final HashMultimap<String, Statement> multiMap = HashMultimap.<String, Statement>create();
+    String name = "";
     for (final Statement e : assert_) {
       boolean _isEmpty = e.getCascade().isEmpty();
       if (_isEmpty) {
-        multiMap.put(e.getVariable(), e);
+        multiMap.put(e.getVariable().getName(), e);
       } else {
-        name = e.getVariable().toString();
+        name = e.getVariable().getName().toString();
         EList<Cascade> _cascade = e.getCascade();
         for (final Cascade c : _cascade) {
           String _name = name;
-          String _string_1 = c.getUdtVar().toString();
-          name = (_name + _string_1);
+          String _string = c.getUdtVar().getName().toString();
+          String _plus = ("." + _string);
+          name = (_name + _plus);
         }
         multiMap.put(name, e);
       }
     }
-    Set<Map.Entry<Object, Collection<Statement>>> _entrySet = multiMap.asMap().entrySet();
-    for (final Map.Entry<Object, Collection<Statement>> entry : _entrySet) {
+    Set<Map.Entry<String, Collection<Statement>>> _entrySet = multiMap.asMap().entrySet();
+    for (final Map.Entry<String, Collection<Statement>> entry : _entrySet) {
       {
         final Collection<Statement> duplicates = entry.getValue();
         int _size = duplicates.size();

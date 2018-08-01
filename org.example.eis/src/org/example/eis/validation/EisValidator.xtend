@@ -391,16 +391,16 @@ class EisValidator extends AbstractEisValidator {
 	@Check def void checkMultipleStatementsAssertBlock(Assert asserts) {
 		val assert = asserts.assertVariables
 		val multiMap = HashMultimap.create()
-		var name = assert?.head?.variable?.toString
+		var name = ""
 
 		// add all variables to the map
 		for (e : assert) {
 			if (e.cascade.empty)
-				multiMap.put(e.variable, e)
+				multiMap.put(e.variable.name, e)
 			else {
-				name = e.variable.toString
+				name = e.variable.name.toString
 				for (c : e.cascade)
-					name += c.udtVar.toString
+					name += '.' + c.udtVar.name.toString
 				multiMap.put(name, e)
 			}
 		}

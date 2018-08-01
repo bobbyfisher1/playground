@@ -127,8 +127,28 @@ class EisGeneratorTest {
 	@Test def void testDefineBlock() {
 		(beginning + '''
 			define{
-				input[]
-				output[]
+				input[ 
+					int a;
+					udt b(B){
+						bool b;
+					} 
+				]
+				output[	
+					int c;
+					udt d(D){
+						bool d;
+					}
+				]
+			}
+			teststep(0, ""){
+				set[ 
+					a = 49; 
+					b.b = true;
+				]
+				assert[
+					c = 210 +/- 49;
+					d.d = true;
+				]
 			}
 		''' + ending ) => [
 			parse.assertNoErrors

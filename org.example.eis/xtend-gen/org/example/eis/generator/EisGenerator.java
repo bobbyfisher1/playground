@@ -176,19 +176,19 @@ public class EisGenerator extends AbstractGenerator {
     boolean _isEmpty = inputs.isEmpty();
     boolean _not = (!_isEmpty);
     if (_not) {
-      this.generateMap(inputMap, inputs);
+      this.generateMap(inputMap, inputs, "");
     }
     boolean _isEmpty_1 = outputs.isEmpty();
     boolean _not_1 = (!_isEmpty_1);
     if (_not_1) {
-      this.generateMultimap(outputMap, outputs);
+      this.generateMultimap(outputMap, outputs, "");
     }
     if ((inouts != null)) {
       boolean _isEmpty_2 = inouts.isEmpty();
       boolean _not_2 = (!_isEmpty_2);
       if (_not_2) {
-        this.generateMap(inputMap, inouts);
-        this.generateMultimap(outputMap, inouts);
+        this.generateMap(inputMap, inouts, "");
+        this.generateMultimap(outputMap, inouts, "");
       }
     }
     StringConcatenation _builder = new StringConcatenation();
@@ -227,7 +227,7 @@ public class EisGenerator extends AbstractGenerator {
                 _builder.newLineIfNotEmpty();
                 this.overwrite(setMap, e);
                 _builder.newLineIfNotEmpty();
-                CharSequence _compileIn = this.compileIn(setMap, e);
+                CharSequence _compileIn = this.compileIn(setMap, inputs, "");
                 _builder.append(_compileIn);
                 _builder.newLineIfNotEmpty();
                 _builder.append("\t\t\t\t\t");
@@ -270,48 +270,51 @@ public class EisGenerator extends AbstractGenerator {
     return _builder;
   }
   
-  public CharSequence compileIn(final HashMap<Object, Object> setMap, final TeststepBlock teststep) {
+  public CharSequence compileIn(final HashMap<Object, Object> setMap, final EList<Variables> variables, final String name2) {
     String charSeq = "";
-    final Set set = teststep.getAssertion().getSet();
-    EList<Statement> _setVariables = set.getSetVariables();
-    for (final Statement statement : _setVariables) {
-      {
-        final Variables variable = statement.getVariable();
-        final EObject direction = this.directionBlock(variable);
-        final EList<Cascade> cascade = statement.getCascade();
-        Cascade _last = null;
-        if (cascade!=null) {
-          _last=IterableExtensions.<Cascade>last(cascade);
-        }
-        Variables _udtVar = null;
-        if (_last!=null) {
-          _udtVar=_last.getUdtVar();
-        }
-        final Variables last = _udtVar;
-        if ((variable instanceof Variable)) {
-          String _charSeq = charSeq;
-          charSeq = (_charSeq + "\t\t\t\t\t\t");
-          String _charSeq_1 = charSeq;
-          StringConcatenation _builder = new StringConcatenation();
-          _builder.append("<Element xsi:type=\"Input\" Name=\"");
-          String _name = ((Variable)variable).getName();
-          _builder.append(_name);
-          _builder.append("\" Datatype=\"");
-          String _string = ((Variable)variable).getVariableType().toString();
-          _builder.append(_string);
-          _builder.append("\" Direction=\"");
-          String _string_1 = direction.toString();
-          _builder.append(_string_1);
-          _builder.append("\" Value=\"");
-          String _string_2 = this._eisInterpreter.interpret(statement.getIdiom()).toString();
-          _builder.append(_string_2);
-          _builder.append("\" />");
-          charSeq = (_charSeq_1 + _builder);
-          String _charSeq_2 = charSeq;
-          StringConcatenation _builder_1 = new StringConcatenation();
-          charSeq = (_charSeq_2 + _builder_1);
+    String name = name2;
+    for (final Variables variable : variables) {
+      if ((variable instanceof Variable)) {
+        String _name = name;
+        String _name_1 = ((Variable)variable).getName();
+        name = (_name + _name_1);
+        final String value = setMap.get(name).toString();
+        String _charSeq = charSeq;
+        charSeq = (_charSeq + "\t\t\t\t\t\t");
+        String _charSeq_1 = charSeq;
+        StringConcatenation _builder = new StringConcatenation();
+        _builder.append("<Element xsi:type=\"Input\" Name=\"");
+        _builder.append(name);
+        _builder.append("\" Datatype=\"");
+        String _string = ((Variable)variable).getVariableType().toString();
+        _builder.append(_string);
+        _builder.append("\" Direction=\"");
+        String _string_1 = this.directionBlock(variable).toString();
+        _builder.append(_string_1);
+        _builder.append("\" Value=\"");
+        _builder.append(value);
+        _builder.append("\" Variant=\"");
+        String _string_2 = Boolean.valueOf(((Variable)variable).isVariantKeyword()).toString();
+        _builder.append(_string_2);
+        _builder.append("\" />");
+        charSeq = (_charSeq_1 + _builder);
+        String _charSeq_2 = charSeq;
+        StringConcatenation _builder_1 = new StringConcatenation();
+        charSeq = (_charSeq_2 + _builder_1);
+      } else {
+        if ((variable instanceof Udt)) {
+          String _name_2 = name;
+          String _name_3 = ((Udt)variable).getName();
+          String _plus = (_name_3 + ".");
+          name = (_name_2 + _plus);
+          this.compileIn(setMap, variables, name);
         } else {
-          if ((last instanceof Variable)) {
+          if ((variable instanceof UdtRef)) {
+            String _name_4 = name;
+            String _name_5 = ((UdtRef)variable).getName();
+            String _plus_1 = (_name_5 + ".");
+            name = (_name_4 + _plus_1);
+            this.compileIn(setMap, variables, name);
           }
         }
       }
@@ -319,10 +322,13 @@ public class EisGenerator extends AbstractGenerator {
     return charSeq;
   }
   
-  public void generateMap(final HashMap<Object, Object> map, final EList<Variables> variables) {
+  public void generateMap(final HashMap<Object, Object> map, final EList<Variables> variables, final String name2) {
+    String name = name2;
     for (final Variables variable : variables) {
       if ((variable instanceof Variable)) {
-        String _name = ((Variable)variable).getName();
+        String _name = name;
+        String _name_1 = ((Variable)variable).getName();
+        name = (_name + _name_1);
         String _elvis = null;
         Idiom _idiom = null;
         if (((Variable)variable)!=null) {
@@ -342,20 +348,30 @@ public class EisGenerator extends AbstractGenerator {
           String _defaultValue = this.defaultValue(((Variable)variable));
           _elvis = _defaultValue;
         }
-        map.put(_name, _elvis);
+        map.put(name, _elvis);
+        name = "";
       } else {
         if ((variable instanceof Udt)) {
-          this.generateMap(map, ((Udt)variable).getUdtVariables());
+          String _name_2 = name;
+          String _name_3 = ((Udt)variable).getName();
+          String _plus = (_name_3 + ".");
+          name = (_name_2 + _plus);
+          this.generateMap(map, ((Udt)variable).getUdtVariables(), name);
         } else {
           if ((variable instanceof UdtRef)) {
-            this.generateMap(map, ((UdtRef)variable).getUdtVariables());
+            String _name_4 = name;
+            String _name_5 = ((UdtRef)variable).getName();
+            String _plus_1 = (_name_5 + ".");
+            name = (_name_4 + _plus_1);
+            this.generateMap(map, ((UdtRef)variable).getUdtVariables(), name);
           }
         }
       }
     }
   }
   
-  public void generateMultimap(final HashMultimap<Object, Object> multiMap, final EList<Variables> variables) {
+  public void generateMultimap(final HashMultimap<Object, Object> multiMap, final EList<Variables> variables, final String name2) {
+    String name = name2;
     for (final Variables variable : variables) {
       {
         List<String> list = new ArrayList<String>();
@@ -400,13 +416,25 @@ public class EisGenerator extends AbstractGenerator {
             _elvis_1 = _defaultValue_1;
           }
           list.add(_elvis_1);
-          multiMap.put(((Variable)variable).getName(), list);
+          String _name = name;
+          String _name_1 = ((Variable)variable).getName();
+          name = (_name + _name_1);
+          multiMap.put(name, list);
+          name = "";
         } else {
           if ((variable instanceof Udt)) {
-            this.generateMultimap(multiMap, ((Udt)variable).getUdtVariables());
+            String _name_2 = name;
+            String _name_3 = ((Udt)variable).getName();
+            String _plus = (_name_3 + ".");
+            name = (_name_2 + _plus);
+            this.generateMultimap(multiMap, ((Udt)variable).getUdtVariables(), name);
           } else {
             if ((variable instanceof UdtRef)) {
-              this.generateMultimap(multiMap, ((UdtRef)variable).getUdtVariables());
+              String _name_4 = name;
+              String _name_5 = ((UdtRef)variable).getName();
+              String _plus_1 = (_name_5 + ".");
+              name = (_name_4 + _plus_1);
+              this.generateMultimap(multiMap, ((UdtRef)variable).getUdtVariables(), name);
             }
           }
         }
@@ -433,10 +461,101 @@ public class EisGenerator extends AbstractGenerator {
     return null;
   }
   
-  public void overwrite(final HashMap<Object, Object> map, final TeststepBlock block) {
+  public void overwrite(final HashMap<Object, Object> setMap, final TeststepBlock teststep) {
+    final EList<Statement> statements = teststep.getAssertion().getSet().getSetVariables();
+    String name = "";
+    for (final Statement e : statements) {
+      {
+        name = e.getVariable().getName().toString();
+        boolean _isEmpty = e.getCascade().isEmpty();
+        boolean _not = (!_isEmpty);
+        if (_not) {
+          EList<Cascade> _cascade = e.getCascade();
+          for (final Cascade c : _cascade) {
+            String _name = name;
+            String _string = c.getUdtVar().getName().toString();
+            String _plus = ("." + _string);
+            name = (_name + _plus);
+          }
+        }
+        boolean _containsKey = setMap.containsKey(name);
+        if (_containsKey) {
+          setMap.replace(name, this._eisInterpreter.interpret(e.getIdiom()).toString());
+        }
+      }
+    }
   }
   
-  public void overwrite(final HashMultimap<Object, Object> multiMap, final TeststepBlock block) {
+  public void overwrite(final HashMultimap<Object, Object> assertMultiMap, final TeststepBlock teststep) {
+    final EList<Statement> statements = teststep.getAssertion().getAssert().getAssertVariables();
+    for (final Statement e : statements) {
+      {
+        List<String> list = new ArrayList<String>();
+        String name = e.getVariable().getName().toString();
+        boolean _isEmpty = e.getCascade().isEmpty();
+        boolean _not = (!_isEmpty);
+        if (_not) {
+          EList<Cascade> _cascade = e.getCascade();
+          for (final Cascade c : _cascade) {
+            String _name = name;
+            String _string = c.getUdtVar().getName().toString();
+            String _plus = ("." + _string);
+            name = (_name + _plus);
+          }
+        }
+        boolean _containsKey = assertMultiMap.containsKey(name);
+        if (_containsKey) {
+          list.add(this._eisInterpreter.interpret(e.getIdiom()).toString());
+          boolean _isEmpty_1 = e.getCascade().isEmpty();
+          if (_isEmpty_1) {
+            String _elvis = null;
+            Idiom _range = null;
+            if (e!=null) {
+              _range=e.getRange();
+            }
+            Object _interpret = null;
+            if (_range!=null) {
+              _interpret=this._eisInterpreter.interpret(_range);
+            }
+            String _string_1 = null;
+            if (_interpret!=null) {
+              _string_1=_interpret.toString();
+            }
+            if (_string_1 != null) {
+              _elvis = _string_1;
+            } else {
+              Variables _variable = e.getVariable();
+              String _defaultValue = this.defaultValue(((Variable) _variable));
+              _elvis = _defaultValue;
+            }
+            list.add(_elvis);
+          } else {
+            String _elvis_1 = null;
+            Idiom _range_1 = null;
+            if (e!=null) {
+              _range_1=e.getRange();
+            }
+            Object _interpret_1 = null;
+            if (_range_1!=null) {
+              _interpret_1=this._eisInterpreter.interpret(_range_1);
+            }
+            String _string_2 = null;
+            if (_interpret_1!=null) {
+              _string_2=_interpret_1.toString();
+            }
+            if (_string_2 != null) {
+              _elvis_1 = _string_2;
+            } else {
+              Variables _udtVar = IterableExtensions.<Cascade>last(e.getCascade()).getUdtVar();
+              String _defaultValue_1 = this.defaultValue(((Variable) _udtVar));
+              _elvis_1 = _defaultValue_1;
+            }
+            list.add(_elvis_1);
+          }
+          assertMultiMap.replaceValues(name, list);
+        }
+      }
+    }
   }
   
   public CharSequence compileOut(final HashMultimap<Object, Object> assertMap, final TeststepBlock teststep) {
