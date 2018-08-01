@@ -18,7 +18,7 @@ import org.example.eis.eis.EisModel
 import org.example.eis.eis.EisPackage
 import org.example.eis.eis.Equality
 import org.example.eis.eis.Idiom
-import org.example.eis.eis.Inout
+import org.example.eis.eis.InOut
 import org.example.eis.eis.Input
 import org.example.eis.eis.Minus
 import org.example.eis.eis.MulOrDiv
@@ -91,7 +91,7 @@ class EisValidator extends AbstractEisValidator {
 		}
 	}
 
-	@Check def void checkNoDuplicateVariablesIOInout(DirectionBlock directionblock) {
+	@Check def void checkNoDuplicateVariablesIOInOut(DirectionBlock directionblock) {
 		val in = directionblock.input.inputVariables
 		val out = directionblock.output.outputVariables
 		val inout = directionblock.inout.inoutVariables
@@ -155,7 +155,7 @@ class EisValidator extends AbstractEisValidator {
 		}
 	}
 
-	@Check def void checkNoDuplicateUdtTypesIOInout(DirectionBlock directionblock) {
+	@Check def void checkNoDuplicateUdtTypesIOInOut(DirectionBlock directionblock) {
 		var multiMap = HashMultimap.create
 		val in = directionblock.input.inputVariables
 		val out = directionblock.output.outputVariables
@@ -295,7 +295,7 @@ class EisValidator extends AbstractEisValidator {
 		}
 	}
 
-	@Check def void checkCommaSyntaxIOInout(Inout inouts) {
+	@Check def void checkCommaSyntaxIOInOut(InOut inouts) {
 		val inout = inouts.inoutVariables
 		if (!inout.empty) {
 			checkCommaSyntaxWithVariables(inout)

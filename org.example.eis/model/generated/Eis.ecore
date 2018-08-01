@@ -37,7 +37,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="DirectionBlock">
     <eStructuralFeatures xsi:type="ecore:EReference" name="input" eType="#//Input"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="inout" eType="#//Inout"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inout" eType="#//InOut"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="output" eType="#//Output"
         containment="true"/>
@@ -52,7 +52,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="outputVariables" upperBound="-1"
         eType="#//Variables" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Inout">
+  <eClassifiers xsi:type="ecore:EClass" name="InOut">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="inoutVariables" upperBound="-1"
         eType="#//Variables" containment="true"/>

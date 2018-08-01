@@ -29,7 +29,7 @@ DefineBlock:
 	'define' '{' direction=DirectionBlock '}' teststeps+=TeststepBlock*;
 
 DirectionBlock:
-	input=Input & inout=Inout? & output=Output;
+	input=Input & inout=InOut? & output=Output;
 
 Input:
 	name='input' '[' inputVariables+=Variables* ']';
@@ -37,7 +37,7 @@ Input:
 Output:
 	name='output' '[' outputVariables+=Variables* ']';
 
-Inout:
+InOut:
 	name='inout' '[' inoutVariables+=Variables* ']';
 
 Variables:

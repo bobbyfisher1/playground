@@ -14,7 +14,7 @@ import org.example.eis.eis.Assert
 import org.example.eis.eis.DefineBlock
 import org.example.eis.eis.EisPackage
 import org.example.eis.eis.Idiom
-import org.example.eis.eis.Inout
+import org.example.eis.eis.InOut
 import org.example.eis.eis.Input
 import org.example.eis.eis.Output
 import org.example.eis.eis.Set
@@ -57,7 +57,7 @@ class EisScopeProvider extends AbstractEisScopeProvider {
 				Scopes.scopeFor(context.udtTypesDefinedBefore)
 			Output:
 				Scopes.scopeFor(context.udtTypesDefinedBefore)
-			Inout:
+			InOut:
 				Scopes.scopeFor(context.udtTypesDefinedBefore)
 			Udt:
 				Scopes.scopeFor(context.udtTypesDefinedBefore)

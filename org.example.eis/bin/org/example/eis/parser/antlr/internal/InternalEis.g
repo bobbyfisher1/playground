@@ -601,9 +601,9 @@ ruleDirectionBlock returns [EObject current=null]
 				}
 							({true}?=>((
 								{
-									newCompositeNode(grammarAccess.getDirectionBlockAccess().getInoutInoutParserRuleCall_1_0());
+									newCompositeNode(grammarAccess.getDirectionBlockAccess().getInoutInOutParserRuleCall_1_0());
 								}
-								lv_inout_2_0=ruleInout
+								lv_inout_2_0=ruleInOut
 								{
 									if ($current==null) {
 										$current = createModelElementForParent(grammarAccess.getDirectionBlockRule());
@@ -612,7 +612,7 @@ ruleDirectionBlock returns [EObject current=null]
 										$current,
 										"inout",
 										lv_inout_2_0,
-										"org.example.eis.Eis.Inout");
+										"org.example.eis.Eis.InOut");
 									afterParserOrEnumRuleCall();
 								}
 							)
@@ -780,15 +780,15 @@ ruleOutput returns [EObject current=null]
 	)
 ;
 
-// Entry rule entryRuleInout
-entryRuleInout returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getInoutRule()); }
-	iv_ruleInout=ruleInout
-	{ $current=$iv_ruleInout.current; }
+// Entry rule entryRuleInOut
+entryRuleInOut returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getInOutRule()); }
+	iv_ruleInOut=ruleInOut
+	{ $current=$iv_ruleInOut.current; }
 	EOF;
 
-// Rule Inout
-ruleInout returns [EObject current=null]
+// Rule InOut
+ruleInOut returns [EObject current=null]
 @init {
 	enterRule();
 }
@@ -800,11 +800,11 @@ ruleInout returns [EObject current=null]
 			(
 				lv_name_0_0='inout'
 				{
-					newLeafNode(lv_name_0_0, grammarAccess.getInoutAccess().getNameInoutKeyword_0_0());
+					newLeafNode(lv_name_0_0, grammarAccess.getInOutAccess().getNameInoutKeyword_0_0());
 				}
 				{
 					if ($current==null) {
-						$current = createModelElement(grammarAccess.getInoutRule());
+						$current = createModelElement(grammarAccess.getInOutRule());
 					}
 					setWithLastConsumed($current, "name", lv_name_0_0, "inout");
 				}
@@ -812,17 +812,17 @@ ruleInout returns [EObject current=null]
 		)
 		otherlv_1='['
 		{
-			newLeafNode(otherlv_1, grammarAccess.getInoutAccess().getLeftSquareBracketKeyword_1());
+			newLeafNode(otherlv_1, grammarAccess.getInOutAccess().getLeftSquareBracketKeyword_1());
 		}
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getInoutAccess().getInoutVariablesVariablesParserRuleCall_2_0());
+					newCompositeNode(grammarAccess.getInOutAccess().getInoutVariablesVariablesParserRuleCall_2_0());
 				}
 				lv_inoutVariables_2_0=ruleVariables
 				{
 					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getInoutRule());
+						$current = createModelElementForParent(grammarAccess.getInOutRule());
 					}
 					add(
 						$current,
@@ -835,7 +835,7 @@ ruleInout returns [EObject current=null]
 		)*
 		otherlv_3=']'
 		{
-			newLeafNode(otherlv_3, grammarAccess.getInoutAccess().getRightSquareBracketKeyword_3());
+			newLeafNode(otherlv_3, grammarAccess.getInOutAccess().getRightSquareBracketKeyword_3());
 		}
 	)
 ;

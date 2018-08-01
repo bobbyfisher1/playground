@@ -438,14 +438,14 @@ public interface EisPackage extends EPackage
   int OUTPUT_FEATURE_COUNT = 2;
 
   /**
-   * The meta object id for the '{@link org.example.eis.eis.impl.InoutImpl <em>Inout</em>}' class.
+   * The meta object id for the '{@link org.example.eis.eis.impl.InOutImpl <em>In Out</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.example.eis.eis.impl.InoutImpl
-   * @see org.example.eis.eis.impl.EisPackageImpl#getInout()
+   * @see org.example.eis.eis.impl.InOutImpl
+   * @see org.example.eis.eis.impl.EisPackageImpl#getInOut()
    * @generated
    */
-  int INOUT = 9;
+  int IN_OUT = 9;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -454,7 +454,7 @@ public interface EisPackage extends EPackage
    * @generated
    * @ordered
    */
-  int INOUT__NAME = 0;
+  int IN_OUT__NAME = 0;
 
   /**
    * The feature id for the '<em><b>Inout Variables</b></em>' containment reference list.
@@ -463,16 +463,16 @@ public interface EisPackage extends EPackage
    * @generated
    * @ordered
    */
-  int INOUT__INOUT_VARIABLES = 1;
+  int IN_OUT__INOUT_VARIABLES = 1;
 
   /**
-   * The number of structural features of the '<em>Inout</em>' class.
+   * The number of structural features of the '<em>In Out</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int INOUT_FEATURE_COUNT = 2;
+  int IN_OUT_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link org.example.eis.eis.impl.VariablesImpl <em>Variables</em>}' class.
@@ -1703,36 +1703,36 @@ public interface EisPackage extends EPackage
   EReference getOutput_OutputVariables();
 
   /**
-   * Returns the meta object for class '{@link org.example.eis.eis.Inout <em>Inout</em>}'.
+   * Returns the meta object for class '{@link org.example.eis.eis.InOut <em>In Out</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Inout</em>'.
-   * @see org.example.eis.eis.Inout
+   * @return the meta object for class '<em>In Out</em>'.
+   * @see org.example.eis.eis.InOut
    * @generated
    */
-  EClass getInout();
+  EClass getInOut();
 
   /**
-   * Returns the meta object for the attribute '{@link org.example.eis.eis.Inout#getName <em>Name</em>}'.
+   * Returns the meta object for the attribute '{@link org.example.eis.eis.InOut#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.example.eis.eis.Inout#getName()
-   * @see #getInout()
+   * @see org.example.eis.eis.InOut#getName()
+   * @see #getInOut()
    * @generated
    */
-  EAttribute getInout_Name();
+  EAttribute getInOut_Name();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.example.eis.eis.Inout#getInoutVariables <em>Inout Variables</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.example.eis.eis.InOut#getInoutVariables <em>Inout Variables</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Inout Variables</em>'.
-   * @see org.example.eis.eis.Inout#getInoutVariables()
-   * @see #getInout()
+   * @see org.example.eis.eis.InOut#getInoutVariables()
+   * @see #getInOut()
    * @generated
    */
-  EReference getInout_InoutVariables();
+  EReference getInOut_InoutVariables();
 
   /**
    * Returns the meta object for class '{@link org.example.eis.eis.Variables <em>Variables</em>}'.
@@ -2794,14 +2794,14 @@ public interface EisPackage extends EPackage
     EReference OUTPUT__OUTPUT_VARIABLES = eINSTANCE.getOutput_OutputVariables();
 
     /**
-     * The meta object literal for the '{@link org.example.eis.eis.impl.InoutImpl <em>Inout</em>}' class.
+     * The meta object literal for the '{@link org.example.eis.eis.impl.InOutImpl <em>In Out</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.example.eis.eis.impl.InoutImpl
-     * @see org.example.eis.eis.impl.EisPackageImpl#getInout()
+     * @see org.example.eis.eis.impl.InOutImpl
+     * @see org.example.eis.eis.impl.EisPackageImpl#getInOut()
      * @generated
      */
-    EClass INOUT = eINSTANCE.getInout();
+    EClass IN_OUT = eINSTANCE.getInOut();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -2809,7 +2809,7 @@ public interface EisPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute INOUT__NAME = eINSTANCE.getInout_Name();
+    EAttribute IN_OUT__NAME = eINSTANCE.getInOut_Name();
 
     /**
      * The meta object literal for the '<em><b>Inout Variables</b></em>' containment reference list feature.
@@ -2817,7 +2817,7 @@ public interface EisPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference INOUT__INOUT_VARIABLES = eINSTANCE.getInout_InoutVariables();
+    EReference IN_OUT__INOUT_VARIABLES = eINSTANCE.getInOut_InoutVariables();
 
     /**
      * The meta object literal for the '{@link org.example.eis.eis.impl.VariablesImpl <em>Variables</em>}' class.

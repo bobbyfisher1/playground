@@ -1,6 +1,6 @@
 package org.example.eis
 
-import org.example.eis.eis.Inout
+import org.example.eis.eis.InOut
 import org.example.eis.eis.Input
 import org.example.eis.eis.Output
 import org.example.eis.eis.Udt
@@ -13,7 +13,7 @@ class EisModelUtil {
 		val variablesBefore = switch (container) {
 			Output:
 				container.outputVariables.takeWhile[it != variable].filter(Variable)
-			Inout:
+			InOut:
 				container.inoutVariables.takeWhile[it != variable].filter(Variable)
 			Input:
 				container.inputVariables.takeWhile[it != variable].filter(Variable)
@@ -33,7 +33,7 @@ class EisModelUtil {
 		output.outputVariables.filter(Variable)
 	}
 
-	def variablesDefinedBefore(Inout inout) {
+	def variablesDefinedBefore(InOut inout) {
 		inout.inoutVariables.filter(Variable)
 	}
 
@@ -42,7 +42,7 @@ class EisModelUtil {
 		return switch (container) {
 			Output:
 				container.outputVariables.takeWhile[it != variable].filter(Udt).map[udtType]
-			Inout:
+			InOut:
 				container.inoutVariables.takeWhile[it != variable].filter(Udt).map[udtType]
 			Input:
 				container.inputVariables.takeWhile[it != variable].filter(Udt).map[udtType]
@@ -62,7 +62,7 @@ class EisModelUtil {
 		return output.outputVariables.filter(Udt).map[udtType]
 	}
 
-	def udtTypesDefinedBefore(Inout inout) {
+	def udtTypesDefinedBefore(InOut inout) {
 		return inout.inoutVariables.filter(Udt).map[udtType]
 	}
 

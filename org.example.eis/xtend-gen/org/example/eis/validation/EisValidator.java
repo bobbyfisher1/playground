@@ -27,7 +27,7 @@ import org.example.eis.eis.EisModel;
 import org.example.eis.eis.EisPackage;
 import org.example.eis.eis.Equality;
 import org.example.eis.eis.Idiom;
-import org.example.eis.eis.Inout;
+import org.example.eis.eis.InOut;
 import org.example.eis.eis.Input;
 import org.example.eis.eis.Minus;
 import org.example.eis.eis.MulOrDiv;
@@ -129,7 +129,7 @@ public class EisValidator extends AbstractEisValidator {
   }
   
   @Check
-  public void checkNoDuplicateVariablesIOInout(final DirectionBlock directionblock) {
+  public void checkNoDuplicateVariablesIOInOut(final DirectionBlock directionblock) {
     final EList<Variables> in = directionblock.getInput().getInputVariables();
     final EList<Variables> out = directionblock.getOutput().getOutputVariables();
     final EList<Variables> inout = directionblock.getInout().getInoutVariables();
@@ -210,7 +210,7 @@ public class EisValidator extends AbstractEisValidator {
   }
   
   @Check
-  public void checkNoDuplicateUdtTypesIOInout(final DirectionBlock directionblock) {
+  public void checkNoDuplicateUdtTypesIOInOut(final DirectionBlock directionblock) {
     HashMultimap<String, Udt> multiMap = HashMultimap.<String, Udt>create();
     final EList<Variables> in = directionblock.getInput().getInputVariables();
     final EList<Variables> out = directionblock.getOutput().getOutputVariables();
@@ -413,7 +413,7 @@ public class EisValidator extends AbstractEisValidator {
   }
   
   @Check
-  public void checkCommaSyntaxIOInout(final Inout inouts) {
+  public void checkCommaSyntaxIOInOut(final InOut inouts) {
     final EList<Variables> inout = inouts.getInoutVariables();
     boolean _isEmpty = inout.isEmpty();
     boolean _not = (!_isEmpty);

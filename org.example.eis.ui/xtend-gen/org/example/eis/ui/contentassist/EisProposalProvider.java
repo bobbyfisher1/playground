@@ -10,7 +10,7 @@ import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
-import org.example.eis.eis.Inout;
+import org.example.eis.eis.InOut;
 import org.example.eis.eis.Input;
 import org.example.eis.eis.Output;
 import org.example.eis.eis.Udt;
@@ -34,11 +34,11 @@ public class EisProposalProvider extends AbstractEisProposalProvider {
       _xifexpression = IterableExtensions.<Udt, UdtType>map(Iterables.<Udt>filter(((Input)model).getInputVariables(), Udt.class), _function);
     } else {
       Iterable<UdtType> _xifexpression_1 = null;
-      if ((model instanceof Inout)) {
+      if ((model instanceof InOut)) {
         final Function1<Udt, UdtType> _function_1 = (Udt it) -> {
           return it.getUdtType();
         };
-        _xifexpression_1 = IterableExtensions.<Udt, UdtType>map(Iterables.<Udt>filter(((Inout)model).getInoutVariables(), Udt.class), _function_1);
+        _xifexpression_1 = IterableExtensions.<Udt, UdtType>map(Iterables.<Udt>filter(((InOut)model).getInoutVariables(), Udt.class), _function_1);
       } else {
         Iterable<UdtType> _xifexpression_2 = null;
         if ((model instanceof Output)) {

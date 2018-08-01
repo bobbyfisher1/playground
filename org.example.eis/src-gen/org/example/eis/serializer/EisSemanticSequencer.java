@@ -27,7 +27,7 @@ import org.example.eis.eis.EFloat;
 import org.example.eis.eis.EisModel;
 import org.example.eis.eis.EisPackage;
 import org.example.eis.eis.Equality;
-import org.example.eis.eis.Inout;
+import org.example.eis.eis.InOut;
 import org.example.eis.eis.Input;
 import org.example.eis.eis.IntConstant;
 import org.example.eis.eis.Minus;
@@ -120,8 +120,8 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case EisPackage.EQUALITY:
 				sequence_Equality(context, (Equality) semanticObject); 
 				return; 
-			case EisPackage.INOUT:
-				sequence_Inout(context, (Inout) semanticObject); 
+			case EisPackage.IN_OUT:
+				sequence_InOut(context, (InOut) semanticObject); 
 				return; 
 			case EisPackage.INPUT:
 				sequence_Input(context, (Input) semanticObject); 
@@ -455,7 +455,7 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     DirectionBlock returns DirectionBlock
 	 *
 	 * Constraint:
-	 *     (input=Input | inout=Inout | output=Output)+
+	 *     (input=Input | inout=InOut | output=Output)+
 	 */
 	protected void sequence_DirectionBlock(ISerializationContext context, DirectionBlock semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -539,12 +539,12 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     Inout returns Inout
+	 *     InOut returns InOut
 	 *
 	 * Constraint:
 	 *     (name='inout' inoutVariables+=Variables*)
 	 */
-	protected void sequence_Inout(ISerializationContext context, Inout semanticObject) {
+	protected void sequence_InOut(ISerializationContext context, InOut semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

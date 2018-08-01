@@ -49,7 +49,7 @@ public class EisParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getDefineBlockAccess().getGroup(), "rule__DefineBlock__Group__0");
 			builder.put(grammarAccess.getInputAccess().getGroup(), "rule__Input__Group__0");
 			builder.put(grammarAccess.getOutputAccess().getGroup(), "rule__Output__Group__0");
-			builder.put(grammarAccess.getInoutAccess().getGroup(), "rule__Inout__Group__0");
+			builder.put(grammarAccess.getInOutAccess().getGroup(), "rule__InOut__Group__0");
 			builder.put(grammarAccess.getVariableAccess().getGroup(), "rule__Variable__Group__0");
 			builder.put(grammarAccess.getVariableAccess().getGroup_4(), "rule__Variable__Group_4__0");
 			builder.put(grammarAccess.getVariableAccess().getGroup_4_2(), "rule__Variable__Group_4_2__0");
@@ -103,8 +103,8 @@ public class EisParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getInputAccess().getInputVariablesAssignment_2(), "rule__Input__InputVariablesAssignment_2");
 			builder.put(grammarAccess.getOutputAccess().getNameAssignment_0(), "rule__Output__NameAssignment_0");
 			builder.put(grammarAccess.getOutputAccess().getOutputVariablesAssignment_2(), "rule__Output__OutputVariablesAssignment_2");
-			builder.put(grammarAccess.getInoutAccess().getNameAssignment_0(), "rule__Inout__NameAssignment_0");
-			builder.put(grammarAccess.getInoutAccess().getInoutVariablesAssignment_2(), "rule__Inout__InoutVariablesAssignment_2");
+			builder.put(grammarAccess.getInOutAccess().getNameAssignment_0(), "rule__InOut__NameAssignment_0");
+			builder.put(grammarAccess.getInOutAccess().getInoutVariablesAssignment_2(), "rule__InOut__InoutVariablesAssignment_2");
 			builder.put(grammarAccess.getVariableAccess().getVariantKeywordAssignment_1(), "rule__Variable__VariantKeywordAssignment_1");
 			builder.put(grammarAccess.getVariableAccess().getVariableTypeAssignment_2(), "rule__Variable__VariableTypeAssignment_2");
 			builder.put(grammarAccess.getVariableAccess().getNameAssignment_3(), "rule__Variable__NameAssignment_3");

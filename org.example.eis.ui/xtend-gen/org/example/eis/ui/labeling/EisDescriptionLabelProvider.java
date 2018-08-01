@@ -6,7 +6,7 @@ package org.example.eis.ui.labeling;
 import javax.inject.Inject;
 import org.eclipse.xtext.ui.label.DefaultDescriptionLabelProvider;
 import org.eclipse.xtext.xbase.lib.Extension;
-import org.example.eis.eis.Inout;
+import org.example.eis.eis.InOut;
 import org.example.eis.eis.Input;
 import org.example.eis.eis.Output;
 import org.example.eis.eis.Udt;
@@ -34,7 +34,7 @@ public class EisDescriptionLabelProvider extends DefaultDescriptionLabelProvider
     return "output";
   }
   
-  public String text(final Inout io) {
+  public String text(final InOut io) {
     return "inout";
   }
   

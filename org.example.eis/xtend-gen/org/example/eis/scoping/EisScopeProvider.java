@@ -22,7 +22,7 @@ import org.example.eis.eis.DefineBlock;
 import org.example.eis.eis.DirectionBlock;
 import org.example.eis.eis.EisPackage;
 import org.example.eis.eis.Idiom;
-import org.example.eis.eis.Inout;
+import org.example.eis.eis.InOut;
 import org.example.eis.eis.Input;
 import org.example.eis.eis.Output;
 import org.example.eis.eis.Set;
@@ -94,9 +94,9 @@ public class EisScopeProvider extends AbstractEisScopeProvider {
       }
     }
     if (!_matched) {
-      if (context instanceof Inout) {
+      if (context instanceof InOut) {
         _matched=true;
-        _switchResult = Scopes.scopeFor(this._eisModelUtil.udtTypesDefinedBefore(((Inout)context)));
+        _switchResult = Scopes.scopeFor(this._eisModelUtil.udtTypesDefinedBefore(((InOut)context)));
       }
     }
     if (!_matched) {
@@ -132,11 +132,11 @@ public class EisScopeProvider extends AbstractEisScopeProvider {
       final Input input = ((DefineBlock) defineBlock).getDirection().getInput();
       final Output output = ((DefineBlock) defineBlock).getDirection().getOutput();
       DirectionBlock _direction = ((DefineBlock) defineBlock).getDirection();
-      Inout _inout = null;
+      InOut _inout = null;
       if (_direction!=null) {
         _inout=_direction.getInout();
       }
-      final Inout inout = _inout;
+      final InOut inout = _inout;
       List<Variables> inoutScope = CollectionLiterals.<Variables>emptyList();
       if ((inout != null)) {
         inoutScope = inout.getInoutVariables();

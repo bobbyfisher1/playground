@@ -17,7 +17,9 @@ import org.eclipse.xtext.generator.IGeneratorContext
 import org.example.eis.eis.DefineBlock
 import org.example.eis.eis.DirectionBlock
 import org.example.eis.eis.EisModel
+import org.example.eis.eis.InOut
 import org.example.eis.eis.Input
+import org.example.eis.eis.Output
 import org.example.eis.eis.TeststepBlock
 import org.example.eis.eis.Udt
 import org.example.eis.eis.UdtRef
@@ -70,6 +72,7 @@ class EisGenerator extends AbstractGenerator {
 		val outputMap =  HashMultimap.create()		// key: name, value: [idiom, range]
 		var setMap = new HashMap
 		var assertMap =  HashMultimap.create()
+		val fourTabs = "				"
 		
 		// add all variables to maps with default values if undefined
 		if(!inputs.empty)
@@ -87,72 +90,114 @@ class EisGenerator extends AbstractGenerator {
 		«IF !steps.empty»		
 					<Teststeps>
 		«FOR e : steps»
-		«val set = e.assertion.set»
-		«val assert = e.assertion.assert»
-						<Teststep PlcCycle ="«e.plcCycle»" Description="«e.description»">
-							«IF !set.setVariables.empty»
-							<Inputs>
+						«fourTabs»<Teststep PlcCycle ="«e.plcCycle»" Description="«e.description»">
+											<Inputs>
 «setMap.clear»
 «setMap.putAll(inputMap)»
 «setMap.overwrite(e)»
-«setMap.compileIn(inputs,'')»
-							</Inputs>
-							«ENDIF»
-							«IF !assert.assertVariables.empty»
-							<Outputs>
+«setMap.compileIn(inputs,'',"						"  /*6 TABS*/)»
+«IF inouts !== null»«setMap.compileIn(inouts,'',"						"  /*6 TABS*/)»«ENDIF»
+											</Inputs>
+											<Outputs>
 «assertMap.clear»
-«assertMap.putAll(outputMap)»
+«IF assertMap.putAll(outputMap)»«ENDIF»
 «assertMap.overwrite(e)»
 «assertMap.compileOut(e)»
-							</Outputs>
-							«ENDIF»
-						</Teststep>
+											</Outputs>
+										</Teststep>
 		«ENDFOR»
 					</Teststeps>
 		«ENDIF»
 		'''
 	}
-	
-	//	don't forget the variant
-	// Inout should be InOut in Direction field					
-	def CharSequence compileIn(HashMap<Object, Object> setMap, EList<Variables> variables, String name2) {
+				
+	def CharSequence compileIn(HashMap<Object, Object> setMap, EList<Variables> variables, String _qualifiedName, String _indent) {
 		var charSeq = ""
-		var name = name2
-					
+		var qualifiedName = _qualifiedName
+		var indent = _indent
+		val tab = "	"
+		
 		for(variable : variables) {
 			if(variable instanceof Variable) {
-				name += variable.name
-				val value = setMap.get(name).toString
-					
-				charSeq += 	"						"  //6 TABS 
-				charSeq += 	'''<Element xsi:type="Input" Name="«name»" Datatype="«variable.variableType.toString»" Direction="«variable.directionBlock.toString»" Value="«value»" Variant="«variable.variantKeyword.toString»" />'''
-				charSeq += 	'''
-										'''//newline				
-			} else if(variable instanceof Udt){
-				name += variable.name + '.'
-				setMap.compileIn(variables, name)
-			} else if (variable instanceof UdtRef){
-				name += variable.name + '.'
-				setMap.compileIn(variables, name)
-			}
-			
+//				qualifiedName += variable.name
+				val value = setMap.get(qualifiedName + variable.name).toString
+				
+				charSeq += indent +	'''<Element xsi:type="Input" Name="«variable.name»" Datatype="«variable.variableType.toString»" Direction="«variable.directionBlock»" Value="«value»" Variant="«variable.variantKeyword.toString»" />
+				'''//newline here is very important
+//				qualifiedName = ""	
+			} else if(variable instanceof Udt)	
+				charSeq += buildUdt(setMap, qualifiedName, indent, variable, tab) 
+			 else if (variable instanceof UdtRef)				
+				charSeq += buildUdtRef(setMap,qualifiedName,indent, variable,tab)					
 		}
 		return charSeq
 	}
 	
-	def void generateMap(HashMap<Object, Object> map, EList<Variables> variables, String name2) {
-		var name = name2
+	def CharSequence buildUdt(HashMap<Object, Object> setMap, String _qualifiedName, String indent, Udt variable, String tab) {
+		var charSeq = ""
+		var qualifiedName = _qualifiedName // + variable.name
+		
+		charSeq += indent
+		charSeq += '''<Element xsi: type="InputUDT" Name="«variable.name»" Datatype="«variable.udtType.name»" Direction="«variable.directionBlock»">
+		'''//newline
+				
+//		qualifiedName += '.'			
+				
+		val indentPlus = indent + tab //indent++ 
+		charSeq += indentPlus + '''<Elements>
+		''' //newline
+				
+		val indentPlusPlus = indentPlus + tab //indent++
+		charSeq += setMap.compileIn(variable.udtVariables, qualifiedName + variable.name + '.', indentPlusPlus)
+								
+		charSeq += indentPlus + '''</Elements>
+		'''//newline
+				
+		charSeq += indent + '''</Element>
+		'''//newline
+		
+		return charSeq
+	}
+	
+	def CharSequence buildUdtRef(HashMap<Object, Object> setMap, String _qualifiedName, String indent, UdtRef variable, String tab) {
+		var charSeq = ""
+		var qualifiedName = _qualifiedName //+ variable.name
+		
+		charSeq += indent
+		charSeq += '''<Element xsi: type="InputUDT" Name="«variable.name»" Datatype="«variable.udtType.toString»" Direction="«variable.directionBlock»">
+		'''//newline
+		
+//		qualifiedName += '.'					
+				
+		val indentPlus = indent + tab //indent++ 
+		charSeq += indentPlus + '''<Elements>
+		''' //newline
+				
+		val indentPlusPlus = indentPlus + tab //indent++
+		charSeq += setMap.compileIn(variable.udtVariables, qualifiedName + variable.name + '.', indentPlusPlus)
+								
+		charSeq += indentPlus + '''</Elements>
+		'''//newline
+				
+		charSeq += indent + '''</Element>
+		'''//newline
+		
+		return charSeq
+	}
+	
+	def void generateMap(HashMap<Object, Object> map, EList<Variables> variables, String _name) {
+		var name = _name
 		for(variable : variables){
 			if(variable instanceof Variable){
-					name += variable.name
-					map.put(name, variable?.idiom?.interpret?.toString ?: variable.defaultValue)
-					name = ""					
+//					name += variable.name
+					map.put(name + variable.name, variable?.idiom?.interpret?.toString ?: variable.defaultValue)
+//					name = ""					
 			} else if(variable instanceof Udt) {
-				name += variable.name + '.'
-				map.generateMap(variable.udtVariables, name)
+//				name += variable.name + '.'
+				map.generateMap(variable.udtVariables, name + variable.name + '.')
 			} else if(variable instanceof UdtRef){
-				name += variable.name + '.'
-				map.generateMap(variable.udtVariables, name)
+//				name += variable.name + '.'
+				map.generateMap(variable.udtVariables, name + variable.name + '.')
 			}
 		}
 	}
@@ -228,11 +273,15 @@ class EisGenerator extends AbstractGenerator {
 	
 	def CharSequence compileOut(HashMultimap<Object, Object> assertMap, TeststepBlock teststep) {}
 
-	def EObject directionBlock(EObject context) { // context is variable to begin with
+	def String directionBlock(EObject context) { // context is variable to begin with
 		val container = context.eContainer
-		if (container instanceof DirectionBlock)
-			return context //returns Input, Output, InOut and not the container
-		else
+		if (container instanceof DirectionBlock){
+			return switch(context){
+				Input: "Input"
+				Output: "Output"
+				InOut: "InOut"
+			}
+		} else
 			container.directionBlock
 	}
 	

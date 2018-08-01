@@ -124,31 +124,22 @@ class EisGeneratorTest {
 		]
 	}
 
-	@Test def void testDefineBlock() {
+	@Test def void testDefineBlockWithVariables() {
 		(beginning + '''
 			define{
 				input[ 
-					int a;
-					udt b(B){
-						bool b;
-					} 
+					variant int a;
+					bool b;
 				]
-				output[	
-					int c;
-					udt d(D){
-						bool d;
-					}
-				]
+				output[	]
+				inout[  ]
 			}
 			teststep(0, ""){
 				set[ 
-					a = 49; 
-					b.b = true;
+					b = true; 
+					a = 12; 
 				]
-				assert[
-					c = 210 +/- 49;
-					d.d = true;
-				]
+				assert[]
 			}
 		''' + ending ) => [
 			parse.assertNoErrors
@@ -161,6 +152,16 @@ class EisGeneratorTest {
 					<Author>author</Author>
 					<TestCases>
 						<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
+							<Teststeps>
+								<Teststep PlcCycle ="0" Description="">
+									<Inputs>
+										<Element xsi:type="Input" Name="a" Datatype="int" Direction="Input" Value="12" Variant="true" />
+										<Element xsi:type="Input" Name="b" Datatype="bool" Direction="Input" Value="true" Variant="false" />
+									</Inputs>
+									<Outputs>
+									</Outputs>
+								</Teststep>
+							</Teststeps>
 						</TestCase>
 					</TestCases>
 				</TestFixture>
@@ -168,4 +169,182 @@ class EisGeneratorTest {
 		]
 	}
 
+	@Test def void testDefineBlockWithUdts() {
+		(beginning + '''
+			define{
+				input[ 
+					udt a(typeA){
+						int b;
+					}
+				]
+				output[	]
+				inout[  ]
+			}
+			teststep(0, ""){
+				set[ 
+					a.b = 43;
+				]
+				assert[]
+			}
+		''' + ending ) => [
+			parse.assertNoErrors
+			assertCompilesTo(
+		'''
+				<?xml version="1.0" encoding="utf-8"?>
+				<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+					<TiaProjectName>project</TiaProjectName>
+					<PlcName>plcname</PlcName>
+					<Author>author</Author>
+					<TestCases>
+						<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
+							<Teststeps>
+								<Teststep PlcCycle ="0" Description="">
+									<Inputs>
+										<Element xsi: type="InputUDT" Name="a" Datatype="typeA" Direction="Input">
+											<Elements>
+												<Element xsi:type="Input" Name="b" Datatype="int" Direction="Input" Value="43" Variant="false" />
+											</Elements>
+										</Element>
+									</Inputs>
+									<Outputs>
+									</Outputs>
+								</Teststep>
+							</Teststeps>
+						</TestCase>
+					</TestCases>
+				</TestFixture>
+			''')
+		]
+	}
+
+	@Test def void testDefineBlockWithUdtsAndInOuts() {
+		(beginning + '''
+			define{
+				input[ ]
+				output[	]
+				inout[ int a; ]
+			}
+			teststep(0, ""){
+				set[ 
+					a = 43;
+				]
+				assert[]
+			}
+		''' + ending ) => [
+			parse.assertNoErrors
+			assertCompilesTo(
+		'''
+				<?xml version="1.0" encoding="utf-8"?>
+				<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+					<TiaProjectName>project</TiaProjectName>
+					<PlcName>plcname</PlcName>
+					<Author>author</Author>
+					<TestCases>
+						<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
+							<Teststeps>
+								<Teststep PlcCycle ="0" Description="">
+								</Teststep>
+							</Teststeps>
+						</TestCase>
+					</TestCases>
+				</TestFixture>
+			''')
+		]
+	}
+
+	@Test def void testDefineBlockWithCrazyUdts() {
+		(beginning + '''
+			define{
+				input[ 
+					udt z(allovertheplace){
+						string one = "zero";
+						udt a(typeA){
+							int b;
+							udt c(typeC){
+								bool d;
+							}
+						}
+					}
+				]
+				output[	]
+				//inout[  ]
+			}
+			teststep(0, ""){
+				set[]
+				assert[]
+			}
+			teststep(1, ""){
+				set[ 
+					z.a.b = 1;
+					z.a.c.d = true;
+					z.one = "one";
+				]
+				assert[]
+			}
+		''' + ending ) => [
+			parse.assertNoErrors
+			assertCompilesTo(
+		'''
+				<?xml version="1.0" encoding="utf-8"?>
+				<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+					<TiaProjectName>project</TiaProjectName>
+					<PlcName>plcname</PlcName>
+					<Author>author</Author>
+					<TestCases>
+						<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
+							<Teststeps>
+								<Teststep PlcCycle ="0" Description="">
+								</Teststep>
+							</Teststeps>
+						</TestCase>
+					</TestCases>
+				</TestFixture>
+			''')
+		]
+	}
+
+	@Test def void testAbgespeckt() {
+		(beginning + '''
+			define{
+				inout[ 
+					udt a(typeA){
+						int b;
+					}
+					int c;
+				]
+				output[	]
+				input[  ]
+			}
+			teststep(0, ""){
+				set[]
+				assert[]
+			}
+			teststep(1, ""){
+				set[ 
+					a.b = 33;
+					c = 3;
+				]
+				assert[]
+			}
+		''' + ending ) => [
+			parse.assertNoErrors
+			assertCompilesTo(
+		'''
+				<?xml version="1.0" encoding="utf-8"?>
+				<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+					<TiaProjectName>project</TiaProjectName>
+					<PlcName>plcname</PlcName>
+					<Author>author</Author>
+					<TestCases>
+						<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
+							<Teststeps>
+								<Teststep PlcCycle ="0" Description="">
+								</Teststep>
+							</Teststeps>
+						</TestCase>
+					</TestCases>
+				</TestFixture>
+			''')
+		]
+	}
 }

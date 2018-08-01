@@ -137,10 +137,10 @@ public class EisSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case EisPackage.INOUT:
+      case EisPackage.IN_OUT:
       {
-        Inout inout = (Inout)theEObject;
-        T result = caseInout(inout);
+        InOut inOut = (InOut)theEObject;
+        T result = caseInOut(inOut);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -476,17 +476,17 @@ public class EisSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Inout</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>In Out</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Inout</em>'.
+   * @return the result of interpreting the object as an instance of '<em>In Out</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseInout(Inout object)
+  public T caseInOut(InOut object)
   {
     return null;
   }

@@ -60,12 +60,12 @@ public interface DirectionBlock extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Inout</em>' containment reference.
-   * @see #setInout(Inout)
+   * @see #setInout(InOut)
    * @see org.example.eis.eis.EisPackage#getDirectionBlock_Inout()
    * @model containment="true"
    * @generated
    */
-  Inout getInout();
+  InOut getInout();
 
   /**
    * Sets the value of the '{@link org.example.eis.eis.DirectionBlock#getInout <em>Inout</em>}' containment reference.
@@ -75,7 +75,7 @@ public interface DirectionBlock extends EObject
    * @see #getInout()
    * @generated
    */
-  void setInout(Inout value);
+  void setInout(InOut value);
 
   /**
    * Returns the value of the '<em><b>Output</b></em>' containment reference.

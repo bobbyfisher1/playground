@@ -328,15 +328,15 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cInputAssignment_0 = (Assignment)cUnorderedGroup.eContents().get(0);
 		private final RuleCall cInputInputParserRuleCall_0_0 = (RuleCall)cInputAssignment_0.eContents().get(0);
 		private final Assignment cInoutAssignment_1 = (Assignment)cUnorderedGroup.eContents().get(1);
-		private final RuleCall cInoutInoutParserRuleCall_1_0 = (RuleCall)cInoutAssignment_1.eContents().get(0);
+		private final RuleCall cInoutInOutParserRuleCall_1_0 = (RuleCall)cInoutAssignment_1.eContents().get(0);
 		private final Assignment cOutputAssignment_2 = (Assignment)cUnorderedGroup.eContents().get(2);
 		private final RuleCall cOutputOutputParserRuleCall_2_0 = (RuleCall)cOutputAssignment_2.eContents().get(0);
 		
 		//DirectionBlock:
-		//	input=Input & inout=Inout? & output=Output;
+		//	input=Input & inout=InOut? & output=Output;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//input=Input & inout=Inout? & output=Output
+		//input=Input & inout=InOut? & output=Output
 		public UnorderedGroup getUnorderedGroup() { return cUnorderedGroup; }
 		
 		//input=Input
@@ -345,11 +345,11 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		//Input
 		public RuleCall getInputInputParserRuleCall_0_0() { return cInputInputParserRuleCall_0_0; }
 		
-		//inout=Inout?
+		//inout=InOut?
 		public Assignment getInoutAssignment_1() { return cInoutAssignment_1; }
 		
-		//Inout
-		public RuleCall getInoutInoutParserRuleCall_1_0() { return cInoutInoutParserRuleCall_1_0; }
+		//InOut
+		public RuleCall getInoutInOutParserRuleCall_1_0() { return cInoutInOutParserRuleCall_1_0; }
 		
 		//output=Output
 		public Assignment getOutputAssignment_2() { return cOutputAssignment_2; }
@@ -427,8 +427,8 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		//']'
 		public Keyword getRightSquareBracketKeyword_3() { return cRightSquareBracketKeyword_3; }
 	}
-	public class InoutElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.Inout");
+	public class InOutElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.InOut");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final Keyword cNameInoutKeyword_0_0 = (Keyword)cNameAssignment_0.eContents().get(0);
@@ -437,7 +437,7 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cInoutVariablesVariablesParserRuleCall_2_0 = (RuleCall)cInoutVariablesAssignment_2.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
-		//Inout:
+		//InOut:
 		//	name='inout' '[' inoutVariables+=Variables* ']';
 		@Override public ParserRule getRule() { return rule; }
 		
@@ -1491,7 +1491,7 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	private final DirectionBlockElements pDirectionBlock;
 	private final InputElements pInput;
 	private final OutputElements pOutput;
-	private final InoutElements pInout;
+	private final InOutElements pInOut;
 	private final VariablesElements pVariables;
 	private final VariableElements pVariable;
 	private final UdtElements pUdt;
@@ -1533,7 +1533,7 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		this.pDirectionBlock = new DirectionBlockElements();
 		this.pInput = new InputElements();
 		this.pOutput = new OutputElements();
-		this.pInout = new InoutElements();
+		this.pInOut = new InOutElements();
 		this.pVariables = new VariablesElements();
 		this.pVariable = new VariableElements();
 		this.pUdt = new UdtElements();
@@ -1654,7 +1654,7 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//DirectionBlock:
-	//	input=Input & inout=Inout? & output=Output;
+	//	input=Input & inout=InOut? & output=Output;
 	public DirectionBlockElements getDirectionBlockAccess() {
 		return pDirectionBlock;
 	}
@@ -1683,14 +1683,14 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		return getOutputAccess().getRule();
 	}
 	
-	//Inout:
+	//InOut:
 	//	name='inout' '[' inoutVariables+=Variables* ']';
-	public InoutElements getInoutAccess() {
-		return pInout;
+	public InOutElements getInOutAccess() {
+		return pInOut;
 	}
 	
-	public ParserRule getInoutRule() {
-		return getInoutAccess().getRule();
+	public ParserRule getInOutRule() {
+		return getInOutAccess().getRule();
 	}
 	
 	//Variables:

@@ -810,20 +810,20 @@ public class InternalEisParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "ruleOutput"
 
 
-    // $ANTLR start "entryRuleInout"
-    // InternalEis.g:278:1: entryRuleInout : ruleInout EOF ;
-    public final void entryRuleInout() throws RecognitionException {
+    // $ANTLR start "entryRuleInOut"
+    // InternalEis.g:278:1: entryRuleInOut : ruleInOut EOF ;
+    public final void entryRuleInOut() throws RecognitionException {
         try {
-            // InternalEis.g:279:1: ( ruleInout EOF )
-            // InternalEis.g:280:1: ruleInout EOF
+            // InternalEis.g:279:1: ( ruleInOut EOF )
+            // InternalEis.g:280:1: ruleInOut EOF
             {
-             before(grammarAccess.getInoutRule()); 
+             before(grammarAccess.getInOutRule()); 
             pushFollow(FOLLOW_1);
-            ruleInout();
+            ruleInOut();
 
             state._fsp--;
 
-             after(grammarAccess.getInoutRule()); 
+             after(grammarAccess.getInOutRule()); 
             match(input,EOF,FOLLOW_2); 
 
             }
@@ -837,35 +837,35 @@ public class InternalEisParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "entryRuleInout"
+    // $ANTLR end "entryRuleInOut"
 
 
-    // $ANTLR start "ruleInout"
-    // InternalEis.g:287:1: ruleInout : ( ( rule__Inout__Group__0 ) ) ;
-    public final void ruleInout() throws RecognitionException {
+    // $ANTLR start "ruleInOut"
+    // InternalEis.g:287:1: ruleInOut : ( ( rule__InOut__Group__0 ) ) ;
+    public final void ruleInOut() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalEis.g:291:2: ( ( ( rule__Inout__Group__0 ) ) )
-            // InternalEis.g:292:2: ( ( rule__Inout__Group__0 ) )
+            // InternalEis.g:291:2: ( ( ( rule__InOut__Group__0 ) ) )
+            // InternalEis.g:292:2: ( ( rule__InOut__Group__0 ) )
             {
-            // InternalEis.g:292:2: ( ( rule__Inout__Group__0 ) )
-            // InternalEis.g:293:3: ( rule__Inout__Group__0 )
+            // InternalEis.g:292:2: ( ( rule__InOut__Group__0 ) )
+            // InternalEis.g:293:3: ( rule__InOut__Group__0 )
             {
-             before(grammarAccess.getInoutAccess().getGroup()); 
-            // InternalEis.g:294:3: ( rule__Inout__Group__0 )
-            // InternalEis.g:294:4: rule__Inout__Group__0
+             before(grammarAccess.getInOutAccess().getGroup()); 
+            // InternalEis.g:294:3: ( rule__InOut__Group__0 )
+            // InternalEis.g:294:4: rule__InOut__Group__0
             {
             pushFollow(FOLLOW_2);
-            rule__Inout__Group__0();
+            rule__InOut__Group__0();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getInoutAccess().getGroup()); 
+             after(grammarAccess.getInOutAccess().getGroup()); 
 
             }
 
@@ -884,7 +884,7 @@ public class InternalEisParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "ruleInout"
+    // $ANTLR end "ruleInOut"
 
 
     // $ANTLR start "entryRuleVariables"
@@ -7312,23 +7312,23 @@ public class InternalEisParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__Output__Group__3__Impl"
 
 
-    // $ANTLR start "rule__Inout__Group__0"
-    // InternalEis.g:2343:1: rule__Inout__Group__0 : rule__Inout__Group__0__Impl rule__Inout__Group__1 ;
-    public final void rule__Inout__Group__0() throws RecognitionException {
+    // $ANTLR start "rule__InOut__Group__0"
+    // InternalEis.g:2343:1: rule__InOut__Group__0 : rule__InOut__Group__0__Impl rule__InOut__Group__1 ;
+    public final void rule__InOut__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalEis.g:2347:1: ( rule__Inout__Group__0__Impl rule__Inout__Group__1 )
-            // InternalEis.g:2348:2: rule__Inout__Group__0__Impl rule__Inout__Group__1
+            // InternalEis.g:2347:1: ( rule__InOut__Group__0__Impl rule__InOut__Group__1 )
+            // InternalEis.g:2348:2: rule__InOut__Group__0__Impl rule__InOut__Group__1
             {
             pushFollow(FOLLOW_22);
-            rule__Inout__Group__0__Impl();
+            rule__InOut__Group__0__Impl();
 
             state._fsp--;
 
             pushFollow(FOLLOW_2);
-            rule__Inout__Group__1();
+            rule__InOut__Group__1();
 
             state._fsp--;
 
@@ -7347,35 +7347,35 @@ public class InternalEisParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__Inout__Group__0"
+    // $ANTLR end "rule__InOut__Group__0"
 
 
-    // $ANTLR start "rule__Inout__Group__0__Impl"
-    // InternalEis.g:2355:1: rule__Inout__Group__0__Impl : ( ( rule__Inout__NameAssignment_0 ) ) ;
-    public final void rule__Inout__Group__0__Impl() throws RecognitionException {
+    // $ANTLR start "rule__InOut__Group__0__Impl"
+    // InternalEis.g:2355:1: rule__InOut__Group__0__Impl : ( ( rule__InOut__NameAssignment_0 ) ) ;
+    public final void rule__InOut__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalEis.g:2359:1: ( ( ( rule__Inout__NameAssignment_0 ) ) )
-            // InternalEis.g:2360:1: ( ( rule__Inout__NameAssignment_0 ) )
+            // InternalEis.g:2359:1: ( ( ( rule__InOut__NameAssignment_0 ) ) )
+            // InternalEis.g:2360:1: ( ( rule__InOut__NameAssignment_0 ) )
             {
-            // InternalEis.g:2360:1: ( ( rule__Inout__NameAssignment_0 ) )
-            // InternalEis.g:2361:2: ( rule__Inout__NameAssignment_0 )
+            // InternalEis.g:2360:1: ( ( rule__InOut__NameAssignment_0 ) )
+            // InternalEis.g:2361:2: ( rule__InOut__NameAssignment_0 )
             {
-             before(grammarAccess.getInoutAccess().getNameAssignment_0()); 
-            // InternalEis.g:2362:2: ( rule__Inout__NameAssignment_0 )
-            // InternalEis.g:2362:3: rule__Inout__NameAssignment_0
+             before(grammarAccess.getInOutAccess().getNameAssignment_0()); 
+            // InternalEis.g:2362:2: ( rule__InOut__NameAssignment_0 )
+            // InternalEis.g:2362:3: rule__InOut__NameAssignment_0
             {
             pushFollow(FOLLOW_2);
-            rule__Inout__NameAssignment_0();
+            rule__InOut__NameAssignment_0();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getInoutAccess().getNameAssignment_0()); 
+             after(grammarAccess.getInOutAccess().getNameAssignment_0()); 
 
             }
 
@@ -7394,26 +7394,26 @@ public class InternalEisParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__Inout__Group__0__Impl"
+    // $ANTLR end "rule__InOut__Group__0__Impl"
 
 
-    // $ANTLR start "rule__Inout__Group__1"
-    // InternalEis.g:2370:1: rule__Inout__Group__1 : rule__Inout__Group__1__Impl rule__Inout__Group__2 ;
-    public final void rule__Inout__Group__1() throws RecognitionException {
+    // $ANTLR start "rule__InOut__Group__1"
+    // InternalEis.g:2370:1: rule__InOut__Group__1 : rule__InOut__Group__1__Impl rule__InOut__Group__2 ;
+    public final void rule__InOut__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalEis.g:2374:1: ( rule__Inout__Group__1__Impl rule__Inout__Group__2 )
-            // InternalEis.g:2375:2: rule__Inout__Group__1__Impl rule__Inout__Group__2
+            // InternalEis.g:2374:1: ( rule__InOut__Group__1__Impl rule__InOut__Group__2 )
+            // InternalEis.g:2375:2: rule__InOut__Group__1__Impl rule__InOut__Group__2
             {
             pushFollow(FOLLOW_23);
-            rule__Inout__Group__1__Impl();
+            rule__InOut__Group__1__Impl();
 
             state._fsp--;
 
             pushFollow(FOLLOW_2);
-            rule__Inout__Group__2();
+            rule__InOut__Group__2();
 
             state._fsp--;
 
@@ -7432,12 +7432,12 @@ public class InternalEisParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__Inout__Group__1"
+    // $ANTLR end "rule__InOut__Group__1"
 
 
-    // $ANTLR start "rule__Inout__Group__1__Impl"
-    // InternalEis.g:2382:1: rule__Inout__Group__1__Impl : ( '[' ) ;
-    public final void rule__Inout__Group__1__Impl() throws RecognitionException {
+    // $ANTLR start "rule__InOut__Group__1__Impl"
+    // InternalEis.g:2382:1: rule__InOut__Group__1__Impl : ( '[' ) ;
+    public final void rule__InOut__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -7448,9 +7448,9 @@ public class InternalEisParser extends AbstractInternalContentAssistParser {
             // InternalEis.g:2387:1: ( '[' )
             // InternalEis.g:2388:2: '['
             {
-             before(grammarAccess.getInoutAccess().getLeftSquareBracketKeyword_1()); 
+             before(grammarAccess.getInOutAccess().getLeftSquareBracketKeyword_1()); 
             match(input,40,FOLLOW_2); 
-             after(grammarAccess.getInoutAccess().getLeftSquareBracketKeyword_1()); 
+             after(grammarAccess.getInOutAccess().getLeftSquareBracketKeyword_1()); 
 
             }
 
@@ -7469,26 +7469,26 @@ public class InternalEisParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__Inout__Group__1__Impl"
+    // $ANTLR end "rule__InOut__Group__1__Impl"
 
 
-    // $ANTLR start "rule__Inout__Group__2"
-    // InternalEis.g:2397:1: rule__Inout__Group__2 : rule__Inout__Group__2__Impl rule__Inout__Group__3 ;
-    public final void rule__Inout__Group__2() throws RecognitionException {
+    // $ANTLR start "rule__InOut__Group__2"
+    // InternalEis.g:2397:1: rule__InOut__Group__2 : rule__InOut__Group__2__Impl rule__InOut__Group__3 ;
+    public final void rule__InOut__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalEis.g:2401:1: ( rule__Inout__Group__2__Impl rule__Inout__Group__3 )
-            // InternalEis.g:2402:2: rule__Inout__Group__2__Impl rule__Inout__Group__3
+            // InternalEis.g:2401:1: ( rule__InOut__Group__2__Impl rule__InOut__Group__3 )
+            // InternalEis.g:2402:2: rule__InOut__Group__2__Impl rule__InOut__Group__3
             {
             pushFollow(FOLLOW_23);
-            rule__Inout__Group__2__Impl();
+            rule__InOut__Group__2__Impl();
 
             state._fsp--;
 
             pushFollow(FOLLOW_2);
-            rule__Inout__Group__3();
+            rule__InOut__Group__3();
 
             state._fsp--;
 
@@ -7507,24 +7507,24 @@ public class InternalEisParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__Inout__Group__2"
+    // $ANTLR end "rule__InOut__Group__2"
 
 
-    // $ANTLR start "rule__Inout__Group__2__Impl"
-    // InternalEis.g:2409:1: rule__Inout__Group__2__Impl : ( ( rule__Inout__InoutVariablesAssignment_2 )* ) ;
-    public final void rule__Inout__Group__2__Impl() throws RecognitionException {
+    // $ANTLR start "rule__InOut__Group__2__Impl"
+    // InternalEis.g:2409:1: rule__InOut__Group__2__Impl : ( ( rule__InOut__InoutVariablesAssignment_2 )* ) ;
+    public final void rule__InOut__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalEis.g:2413:1: ( ( ( rule__Inout__InoutVariablesAssignment_2 )* ) )
-            // InternalEis.g:2414:1: ( ( rule__Inout__InoutVariablesAssignment_2 )* )
+            // InternalEis.g:2413:1: ( ( ( rule__InOut__InoutVariablesAssignment_2 )* ) )
+            // InternalEis.g:2414:1: ( ( rule__InOut__InoutVariablesAssignment_2 )* )
             {
-            // InternalEis.g:2414:1: ( ( rule__Inout__InoutVariablesAssignment_2 )* )
-            // InternalEis.g:2415:2: ( rule__Inout__InoutVariablesAssignment_2 )*
+            // InternalEis.g:2414:1: ( ( rule__InOut__InoutVariablesAssignment_2 )* )
+            // InternalEis.g:2415:2: ( rule__InOut__InoutVariablesAssignment_2 )*
             {
-             before(grammarAccess.getInoutAccess().getInoutVariablesAssignment_2()); 
-            // InternalEis.g:2416:2: ( rule__Inout__InoutVariablesAssignment_2 )*
+             before(grammarAccess.getInOutAccess().getInoutVariablesAssignment_2()); 
+            // InternalEis.g:2416:2: ( rule__InOut__InoutVariablesAssignment_2 )*
             loop19:
             do {
                 int alt19=2;
@@ -7537,10 +7537,10 @@ public class InternalEisParser extends AbstractInternalContentAssistParser {
 
                 switch (alt19) {
             	case 1 :
-            	    // InternalEis.g:2416:3: rule__Inout__InoutVariablesAssignment_2
+            	    // InternalEis.g:2416:3: rule__InOut__InoutVariablesAssignment_2
             	    {
             	    pushFollow(FOLLOW_24);
-            	    rule__Inout__InoutVariablesAssignment_2();
+            	    rule__InOut__InoutVariablesAssignment_2();
 
             	    state._fsp--;
 
@@ -7553,7 +7553,7 @@ public class InternalEisParser extends AbstractInternalContentAssistParser {
                 }
             } while (true);
 
-             after(grammarAccess.getInoutAccess().getInoutVariablesAssignment_2()); 
+             after(grammarAccess.getInOutAccess().getInoutVariablesAssignment_2()); 
 
             }
 
@@ -7572,21 +7572,21 @@ public class InternalEisParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__Inout__Group__2__Impl"
+    // $ANTLR end "rule__InOut__Group__2__Impl"
 
 
-    // $ANTLR start "rule__Inout__Group__3"
-    // InternalEis.g:2424:1: rule__Inout__Group__3 : rule__Inout__Group__3__Impl ;
-    public final void rule__Inout__Group__3() throws RecognitionException {
+    // $ANTLR start "rule__InOut__Group__3"
+    // InternalEis.g:2424:1: rule__InOut__Group__3 : rule__InOut__Group__3__Impl ;
+    public final void rule__InOut__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalEis.g:2428:1: ( rule__Inout__Group__3__Impl )
-            // InternalEis.g:2429:2: rule__Inout__Group__3__Impl
+            // InternalEis.g:2428:1: ( rule__InOut__Group__3__Impl )
+            // InternalEis.g:2429:2: rule__InOut__Group__3__Impl
             {
             pushFollow(FOLLOW_2);
-            rule__Inout__Group__3__Impl();
+            rule__InOut__Group__3__Impl();
 
             state._fsp--;
 
@@ -7605,12 +7605,12 @@ public class InternalEisParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__Inout__Group__3"
+    // $ANTLR end "rule__InOut__Group__3"
 
 
-    // $ANTLR start "rule__Inout__Group__3__Impl"
-    // InternalEis.g:2435:1: rule__Inout__Group__3__Impl : ( ']' ) ;
-    public final void rule__Inout__Group__3__Impl() throws RecognitionException {
+    // $ANTLR start "rule__InOut__Group__3__Impl"
+    // InternalEis.g:2435:1: rule__InOut__Group__3__Impl : ( ']' ) ;
+    public final void rule__InOut__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -7621,9 +7621,9 @@ public class InternalEisParser extends AbstractInternalContentAssistParser {
             // InternalEis.g:2440:1: ( ']' )
             // InternalEis.g:2441:2: ']'
             {
-             before(grammarAccess.getInoutAccess().getRightSquareBracketKeyword_3()); 
+             before(grammarAccess.getInOutAccess().getRightSquareBracketKeyword_3()); 
             match(input,41,FOLLOW_2); 
-             after(grammarAccess.getInoutAccess().getRightSquareBracketKeyword_3()); 
+             after(grammarAccess.getInOutAccess().getRightSquareBracketKeyword_3()); 
 
             }
 
@@ -7642,7 +7642,7 @@ public class InternalEisParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__Inout__Group__3__Impl"
+    // $ANTLR end "rule__InOut__Group__3__Impl"
 
 
     // $ANTLR start "rule__Variable__Group__0"
@@ -17106,25 +17106,25 @@ public class InternalEisParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DirectionBlock__InoutAssignment_1"
-    // InternalEis.g:5596:1: rule__DirectionBlock__InoutAssignment_1 : ( ruleInout ) ;
+    // InternalEis.g:5596:1: rule__DirectionBlock__InoutAssignment_1 : ( ruleInOut ) ;
     public final void rule__DirectionBlock__InoutAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalEis.g:5600:1: ( ( ruleInout ) )
-            // InternalEis.g:5601:2: ( ruleInout )
+            // InternalEis.g:5600:1: ( ( ruleInOut ) )
+            // InternalEis.g:5601:2: ( ruleInOut )
             {
-            // InternalEis.g:5601:2: ( ruleInout )
-            // InternalEis.g:5602:3: ruleInout
+            // InternalEis.g:5601:2: ( ruleInOut )
+            // InternalEis.g:5602:3: ruleInOut
             {
-             before(grammarAccess.getDirectionBlockAccess().getInoutInoutParserRuleCall_1_0()); 
+             before(grammarAccess.getDirectionBlockAccess().getInoutInOutParserRuleCall_1_0()); 
             pushFollow(FOLLOW_2);
-            ruleInout();
+            ruleInOut();
 
             state._fsp--;
 
-             after(grammarAccess.getDirectionBlockAccess().getInoutInoutParserRuleCall_1_0()); 
+             after(grammarAccess.getDirectionBlockAccess().getInoutInOutParserRuleCall_1_0()); 
 
             }
 
@@ -17359,9 +17359,9 @@ public class InternalEisParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__Output__OutputVariablesAssignment_2"
 
 
-    // $ANTLR start "rule__Inout__NameAssignment_0"
-    // InternalEis.g:5694:1: rule__Inout__NameAssignment_0 : ( ( 'inout' ) ) ;
-    public final void rule__Inout__NameAssignment_0() throws RecognitionException {
+    // $ANTLR start "rule__InOut__NameAssignment_0"
+    // InternalEis.g:5694:1: rule__InOut__NameAssignment_0 : ( ( 'inout' ) ) ;
+    public final void rule__InOut__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -17372,17 +17372,17 @@ public class InternalEisParser extends AbstractInternalContentAssistParser {
             // InternalEis.g:5699:2: ( ( 'inout' ) )
             // InternalEis.g:5700:3: ( 'inout' )
             {
-             before(grammarAccess.getInoutAccess().getNameInoutKeyword_0_0()); 
+             before(grammarAccess.getInOutAccess().getNameInoutKeyword_0_0()); 
             // InternalEis.g:5701:3: ( 'inout' )
             // InternalEis.g:5702:4: 'inout'
             {
-             before(grammarAccess.getInoutAccess().getNameInoutKeyword_0_0()); 
+             before(grammarAccess.getInOutAccess().getNameInoutKeyword_0_0()); 
             match(input,56,FOLLOW_2); 
-             after(grammarAccess.getInoutAccess().getNameInoutKeyword_0_0()); 
+             after(grammarAccess.getInOutAccess().getNameInoutKeyword_0_0()); 
 
             }
 
-             after(grammarAccess.getInoutAccess().getNameInoutKeyword_0_0()); 
+             after(grammarAccess.getInOutAccess().getNameInoutKeyword_0_0()); 
 
             }
 
@@ -17401,12 +17401,12 @@ public class InternalEisParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__Inout__NameAssignment_0"
+    // $ANTLR end "rule__InOut__NameAssignment_0"
 
 
-    // $ANTLR start "rule__Inout__InoutVariablesAssignment_2"
-    // InternalEis.g:5713:1: rule__Inout__InoutVariablesAssignment_2 : ( ruleVariables ) ;
-    public final void rule__Inout__InoutVariablesAssignment_2() throws RecognitionException {
+    // $ANTLR start "rule__InOut__InoutVariablesAssignment_2"
+    // InternalEis.g:5713:1: rule__InOut__InoutVariablesAssignment_2 : ( ruleVariables ) ;
+    public final void rule__InOut__InoutVariablesAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -17417,13 +17417,13 @@ public class InternalEisParser extends AbstractInternalContentAssistParser {
             // InternalEis.g:5718:2: ( ruleVariables )
             // InternalEis.g:5719:3: ruleVariables
             {
-             before(grammarAccess.getInoutAccess().getInoutVariablesVariablesParserRuleCall_2_0()); 
+             before(grammarAccess.getInOutAccess().getInoutVariablesVariablesParserRuleCall_2_0()); 
             pushFollow(FOLLOW_2);
             ruleVariables();
 
             state._fsp--;
 
-             after(grammarAccess.getInoutAccess().getInoutVariablesVariablesParserRuleCall_2_0()); 
+             after(grammarAccess.getInOutAccess().getInoutVariablesVariablesParserRuleCall_2_0()); 
 
             }
 
@@ -17442,7 +17442,7 @@ public class InternalEisParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__Inout__InoutVariablesAssignment_2"
+    // $ANTLR end "rule__InOut__InoutVariablesAssignment_2"
 
 
     // $ANTLR start "rule__Variable__VariantKeywordAssignment_1"

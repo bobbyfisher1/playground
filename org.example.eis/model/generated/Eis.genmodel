@@ -52,9 +52,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//Output/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eis.ecore#//Output/outputVariables"/>
     </genClasses>
-    <genClasses ecoreClass="Eis.ecore#//Inout">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//Inout/name"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eis.ecore#//Inout/inoutVariables"/>
+    <genClasses ecoreClass="Eis.ecore#//InOut">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//InOut/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eis.ecore#//InOut/inoutVariables"/>
     </genClasses>
     <genClasses ecoreClass="Eis.ecore#//Variables">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//Variables/name"/>
