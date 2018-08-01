@@ -16,6 +16,7 @@ class EisGeneratorTest {
 	@Inject extension ParseHelper<EisModel>
 	@Inject extension ValidationTestHelper
 	@Inject extension CompilationTestHelper
+
 //
 // variables -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //
@@ -33,6 +34,30 @@ class EisGeneratorTest {
 //
 // tests -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //
+	@Test def void testEmptiness() {
+		'''
+			project = "project";
+			plcname = "plcname";
+			author 	= "author";
+			testcase Testcase{}
+		''' => [
+			parse.assertNoErrors
+			assertCompilesTo(
+		'''
+				<?xml version="1.0" encoding="utf-8"?>
+				<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+					<TiaProjectName>project</TiaProjectName>
+					<PlcName>plcname</PlcName>
+					<Author>author</Author>
+					<TestCases>
+						<TestCase ID="0">
+						</TestCase>
+					</TestCases>
+				</TestFixture>
+			''')
+		]
+	}
+
 	@Test def void testBeginning() {
 		(beginning + ending) => [
 			parse.assertNoErrors
@@ -92,14 +117,6 @@ class EisGeneratorTest {
 					<Author>author</Author>
 					<TestCases>
 						<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
-							<Teststeps>
-								<Teststep PlcCycle ="0" Description="Template">
-									<Inputs>
-									</Inputs>
-									<Outputs>
-									</Outputs>
-								</Teststep>
-							</Teststeps>
 						</TestCase>
 					</TestCases>
 				</TestFixture>
@@ -124,14 +141,6 @@ class EisGeneratorTest {
 					<Author>author</Author>
 					<TestCases>
 						<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
-							<Teststeps>
-								<Teststep PlcCycle ="0" Description="Template">
-									<Inputs>
-									</Inputs>
-									<Outputs>
-									</Outputs>
-								</Teststep>
-							</Teststeps>
 						</TestCase>
 					</TestCases>
 				</TestFixture>

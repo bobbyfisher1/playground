@@ -60,6 +60,56 @@ public class EisGeneratorTest {
   private final String ending = "}";
   
   @Test
+  public void testEmptiness() {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("project = \"project\";");
+    _builder.newLine();
+    _builder.append("plcname = \"plcname\";");
+    _builder.newLine();
+    _builder.append("author \t= \"author\";");
+    _builder.newLine();
+    _builder.append("testcase Testcase{}");
+    _builder.newLine();
+    final Procedure1<String> _function = (String it) -> {
+      try {
+        this._validationTestHelper.assertNoErrors(this._parseHelper.parse(it));
+        StringConcatenation _builder_1 = new StringConcatenation();
+        _builder_1.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+        _builder_1.newLine();
+        _builder_1.append("<TestFixture xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">");
+        _builder_1.newLine();
+        _builder_1.append("\t");
+        _builder_1.append("<TiaProjectName>project</TiaProjectName>");
+        _builder_1.newLine();
+        _builder_1.append("\t");
+        _builder_1.append("<PlcName>plcname</PlcName>");
+        _builder_1.newLine();
+        _builder_1.append("\t");
+        _builder_1.append("<Author>author</Author>");
+        _builder_1.newLine();
+        _builder_1.append("\t");
+        _builder_1.append("<TestCases>");
+        _builder_1.newLine();
+        _builder_1.append("\t\t");
+        _builder_1.append("<TestCase ID=\"0\">");
+        _builder_1.newLine();
+        _builder_1.append("\t\t");
+        _builder_1.append("</TestCase>");
+        _builder_1.newLine();
+        _builder_1.append("\t");
+        _builder_1.append("</TestCases>");
+        _builder_1.newLine();
+        _builder_1.append("</TestFixture>");
+        _builder_1.newLine();
+        this._compilationTestHelper.assertCompilesTo(it, _builder_1);
+      } catch (Throwable _e) {
+        throw Exceptions.sneakyThrow(_e);
+      }
+    };
+    ObjectExtensions.<String>operator_doubleArrow(_builder.toString(), _function);
+  }
+  
+  @Test
   public void testBeginning() {
     final Procedure1<String> _function = (String it) -> {
       try {
@@ -191,30 +241,6 @@ public class EisGeneratorTest {
         _builder_1.append("\t\t");
         _builder_1.append("<TestCase ID=\"0\" TestActive=\"false\" Blockname=\"Testcase\" Blocktype=\"FC\" Description=\"description\">");
         _builder_1.newLine();
-        _builder_1.append("\t\t\t");
-        _builder_1.append("<Teststeps>");
-        _builder_1.newLine();
-        _builder_1.append("\t\t\t\t");
-        _builder_1.append("<Teststep PlcCycle =\"0\" Description=\"Template\">");
-        _builder_1.newLine();
-        _builder_1.append("\t\t\t\t\t");
-        _builder_1.append("<Inputs>");
-        _builder_1.newLine();
-        _builder_1.append("\t\t\t\t\t");
-        _builder_1.append("</Inputs>");
-        _builder_1.newLine();
-        _builder_1.append("\t\t\t\t\t");
-        _builder_1.append("<Outputs>");
-        _builder_1.newLine();
-        _builder_1.append("\t\t\t\t\t");
-        _builder_1.append("</Outputs>");
-        _builder_1.newLine();
-        _builder_1.append("\t\t\t\t");
-        _builder_1.append("</Teststep>");
-        _builder_1.newLine();
-        _builder_1.append("\t\t\t");
-        _builder_1.append("</Teststeps>");
-        _builder_1.newLine();
         _builder_1.append("\t\t");
         _builder_1.append("</TestCase>");
         _builder_1.newLine();
@@ -268,30 +294,6 @@ public class EisGeneratorTest {
         _builder_1.newLine();
         _builder_1.append("\t\t");
         _builder_1.append("<TestCase ID=\"0\" TestActive=\"false\" Blockname=\"Testcase\" Blocktype=\"FC\" Description=\"description\">");
-        _builder_1.newLine();
-        _builder_1.append("\t\t\t");
-        _builder_1.append("<Teststeps>");
-        _builder_1.newLine();
-        _builder_1.append("\t\t\t\t");
-        _builder_1.append("<Teststep PlcCycle =\"0\" Description=\"Template\">");
-        _builder_1.newLine();
-        _builder_1.append("\t\t\t\t\t");
-        _builder_1.append("<Inputs>");
-        _builder_1.newLine();
-        _builder_1.append("\t\t\t\t\t");
-        _builder_1.append("</Inputs>");
-        _builder_1.newLine();
-        _builder_1.append("\t\t\t\t\t");
-        _builder_1.append("<Outputs>");
-        _builder_1.newLine();
-        _builder_1.append("\t\t\t\t\t");
-        _builder_1.append("</Outputs>");
-        _builder_1.newLine();
-        _builder_1.append("\t\t\t\t");
-        _builder_1.append("</Teststep>");
-        _builder_1.newLine();
-        _builder_1.append("\t\t\t");
-        _builder_1.append("</Teststeps>");
         _builder_1.newLine();
         _builder_1.append("\t\t");
         _builder_1.append("</TestCase>");

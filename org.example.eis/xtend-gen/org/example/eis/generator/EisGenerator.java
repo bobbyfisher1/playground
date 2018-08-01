@@ -3,8 +3,12 @@
  */
 package org.example.eis.generator;
 
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -13,27 +17,39 @@ import org.eclipse.xtext.generator.AbstractGenerator;
 import org.eclipse.xtext.generator.IFileSystemAccess2;
 import org.eclipse.xtext.generator.IGeneratorContext;
 import org.eclipse.xtext.xbase.lib.Extension;
+import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.IteratorExtensions;
+import org.example.eis.eis.Assert;
+import org.example.eis.eis.Cascade;
 import org.example.eis.eis.DefineBlock;
+import org.example.eis.eis.DirectionBlock;
 import org.example.eis.eis.EisModel;
 import org.example.eis.eis.Idiom;
+import org.example.eis.eis.Inout;
+import org.example.eis.eis.Input;
+import org.example.eis.eis.Set;
+import org.example.eis.eis.Statement;
 import org.example.eis.eis.Testblock;
 import org.example.eis.eis.Testcase;
+import org.example.eis.eis.TeststepBlock;
+import org.example.eis.eis.Udt;
+import org.example.eis.eis.UdtRef;
 import org.example.eis.eis.Variable;
 import org.example.eis.eis.Variables;
 import org.example.eis.interpreter.EisInterpreter;
+import org.example.eis.typing.DefineType;
+import org.example.eis.typing.DefineTypeComputer;
 
-/**
- * Generates code from your model files on save.
- * 
- * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#code-generation
- */
 @SuppressWarnings("all")
 public class EisGenerator extends AbstractGenerator {
   @Inject
   @Extension
   private EisInterpreter _eisInterpreter;
+  
+  @Inject
+  @Extension
+  private DefineTypeComputer _defineTypeComputer;
   
   @Override
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
@@ -115,8 +131,8 @@ public class EisGenerator extends AbstractGenerator {
             }
             boolean _tripleNotEquals = (_define != null);
             if (_tripleNotEquals) {
-              CharSequence _generateTeststeps = this.generateTeststeps(testblock.getDefine());
-              _builder.append(_generateTeststeps);
+              CharSequence _compileTeststeps = this.compileTeststeps(testblock.getDefine());
+              _builder.append(_compileTeststeps);
               _builder.newLineIfNotEmpty();
             }
           }
@@ -135,100 +151,353 @@ public class EisGenerator extends AbstractGenerator {
     return _xblockexpression;
   }
   
-  public CharSequence generateTeststeps(final DefineBlock define) {
-    CharSequence _xblockexpression = null;
+  public CharSequence compileTeststeps(final DefineBlock define) {
+    EList<TeststepBlock> _teststeps = null;
+    if (define!=null) {
+      _teststeps=define.getTeststeps();
+    }
+    final EList<TeststepBlock> steps = _teststeps;
+    final EList<Variables> inputs = define.getDirection().getInput().getInputVariables();
+    DirectionBlock _direction = define.getDirection();
+    Inout _inout = null;
+    if (_direction!=null) {
+      _inout=_direction.getInout();
+    }
+    EList<Variables> _inoutVariables = null;
+    if (_inout!=null) {
+      _inoutVariables=_inout.getInoutVariables();
+    }
+    final EList<Variables> inouts = _inoutVariables;
+    final EList<Variables> outputs = define.getDirection().getOutput().getOutputVariables();
+    final HashMap<Object, Object> inputMap = new HashMap<Object, Object>();
+    final HashMultimap<Object, Object> outputMap = HashMultimap.<Object, Object>create();
+    HashMap<Object, Object> setMap = new HashMap<Object, Object>();
+    HashMultimap<Object, Object> assertMap = HashMultimap.<Object, Object>create();
+    boolean _isEmpty = inputs.isEmpty();
+    boolean _not = (!_isEmpty);
+    if (_not) {
+      this.generateMap(inputMap, inputs);
+    }
+    boolean _isEmpty_1 = outputs.isEmpty();
+    boolean _not_1 = (!_isEmpty_1);
+    if (_not_1) {
+      this.generateMultimap(outputMap, outputs);
+    }
+    if ((inouts != null)) {
+      boolean _isEmpty_2 = inouts.isEmpty();
+      boolean _not_2 = (!_isEmpty_2);
+      if (_not_2) {
+        this.generateMap(inputMap, inouts);
+        this.generateMultimap(outputMap, inouts);
+      }
+    }
+    StringConcatenation _builder = new StringConcatenation();
     {
-      final EList<Variables> inputs = define.getDirection().getInput().getInputVariables();
-      StringConcatenation _builder = new StringConcatenation();
-      _builder.append("\t\t\t");
-      _builder.append("<Teststeps>");
-      _builder.newLine();
-      _builder.append("\t\t\t\t");
-      _builder.append("<Teststep PlcCycle =\"0\" Description=\"Template\">");
-      _builder.newLine();
-      _builder.append("\t\t\t\t\t");
-      _builder.append("<Inputs>");
-      _builder.newLine();
-      _builder.append("\t\t\t\t\t");
-      _builder.append("</Inputs>");
-      _builder.newLine();
-      _builder.append("\t\t\t\t\t");
-      _builder.append("<Outputs>");
-      _builder.newLine();
+      boolean _isEmpty_3 = steps.isEmpty();
+      boolean _not_3 = (!_isEmpty_3);
+      if (_not_3) {
+        _builder.append("\t\t\t");
+        _builder.append("<Teststeps>");
+        _builder.newLine();
+        {
+          for(final TeststepBlock e : steps) {
+            final Set set = e.getAssertion().getSet();
+            _builder.newLineIfNotEmpty();
+            final Assert assert_ = e.getAssertion().getAssert();
+            _builder.newLineIfNotEmpty();
+            _builder.append("\t\t\t\t");
+            _builder.append("<Teststep PlcCycle =\"");
+            int _plcCycle = e.getPlcCycle();
+            _builder.append(_plcCycle, "\t\t\t\t");
+            _builder.append("\" Description=\"");
+            String _description = e.getDescription();
+            _builder.append(_description, "\t\t\t\t");
+            _builder.append("\">");
+            _builder.newLineIfNotEmpty();
+            {
+              boolean _isEmpty_4 = set.getSetVariables().isEmpty();
+              boolean _not_4 = (!_isEmpty_4);
+              if (_not_4) {
+                _builder.append("\t\t\t\t\t");
+                _builder.append("<Inputs>");
+                _builder.newLine();
+                setMap.clear();
+                _builder.newLineIfNotEmpty();
+                setMap.putAll(inputMap);
+                _builder.newLineIfNotEmpty();
+                this.overwrite(setMap, e);
+                _builder.newLineIfNotEmpty();
+                CharSequence _compileIn = this.compileIn(setMap, e);
+                _builder.append(_compileIn);
+                _builder.newLineIfNotEmpty();
+                _builder.append("\t\t\t\t\t");
+                _builder.append("</Inputs>");
+                _builder.newLine();
+              }
+            }
+            {
+              boolean _isEmpty_5 = assert_.getAssertVariables().isEmpty();
+              boolean _not_5 = (!_isEmpty_5);
+              if (_not_5) {
+                _builder.append("\t\t\t\t\t");
+                _builder.append("<Outputs>");
+                _builder.newLine();
+                assertMap.clear();
+                _builder.newLineIfNotEmpty();
+                boolean _putAll = assertMap.putAll(outputMap);
+                _builder.append(_putAll);
+                _builder.newLineIfNotEmpty();
+                this.overwrite(assertMap, e);
+                _builder.newLineIfNotEmpty();
+                CharSequence _compileOut = this.compileOut(assertMap, e);
+                _builder.append(_compileOut);
+                _builder.newLineIfNotEmpty();
+                _builder.append("\t\t\t\t\t");
+                _builder.append("</Outputs>");
+                _builder.newLine();
+              }
+            }
+            _builder.append("\t\t\t\t");
+            _builder.append("</Teststep>");
+            _builder.newLine();
+          }
+        }
+        _builder.append("\t\t\t");
+        _builder.append("</Teststeps>");
+        _builder.newLine();
+      }
+    }
+    return _builder;
+  }
+  
+  public CharSequence compileIn(final HashMap<Object, Object> setMap, final TeststepBlock teststep) {
+    String charSeq = "";
+    final Set set = teststep.getAssertion().getSet();
+    EList<Statement> _setVariables = set.getSetVariables();
+    for (final Statement statement : _setVariables) {
       {
-        boolean _isEmpty = inputs.isEmpty();
-        if (_isEmpty) {
+        final Variables variable = statement.getVariable();
+        final EObject direction = this.directionBlock(variable);
+        final EList<Cascade> cascade = statement.getCascade();
+        Cascade _last = null;
+        if (cascade!=null) {
+          _last=IterableExtensions.<Cascade>last(cascade);
+        }
+        Variables _udtVar = null;
+        if (_last!=null) {
+          _udtVar=_last.getUdtVar();
+        }
+        final Variables last = _udtVar;
+        if ((variable instanceof Variable)) {
+          String _charSeq = charSeq;
+          charSeq = (_charSeq + "\t\t\t\t\t\t");
+          String _charSeq_1 = charSeq;
+          StringConcatenation _builder = new StringConcatenation();
+          _builder.append("<Element xsi:type=\"Input\" Name=\"");
+          String _name = ((Variable)variable).getName();
+          _builder.append(_name);
+          _builder.append("\" Datatype=\"");
+          String _string = ((Variable)variable).getVariableType().toString();
+          _builder.append(_string);
+          _builder.append("\" Direction=\"");
+          String _string_1 = direction.toString();
+          _builder.append(_string_1);
+          _builder.append("\" Value=\"");
+          String _string_2 = this._eisInterpreter.interpret(statement.getIdiom()).toString();
+          _builder.append(_string_2);
+          _builder.append("\" />");
+          charSeq = (_charSeq_1 + _builder);
+          String _charSeq_2 = charSeq;
+          StringConcatenation _builder_1 = new StringConcatenation();
+          charSeq = (_charSeq_2 + _builder_1);
+        } else {
+          if ((last instanceof Variable)) {
+          }
         }
       }
-      _builder.append("\t\t\t\t\t");
-      _builder.append("</Outputs>");
-      _builder.newLine();
-      _builder.append("\t\t\t\t");
-      _builder.append("</Teststep>");
-      _builder.newLine();
-      _builder.append("\t\t\t");
-      _builder.append("</Teststeps>");
-      _builder.newLine();
-      _xblockexpression = _builder;
+    }
+    return charSeq;
+  }
+  
+  public void generateMap(final HashMap<Object, Object> map, final EList<Variables> variables) {
+    for (final Variables variable : variables) {
+      if ((variable instanceof Variable)) {
+        String _name = ((Variable)variable).getName();
+        String _elvis = null;
+        Idiom _idiom = null;
+        if (((Variable)variable)!=null) {
+          _idiom=((Variable)variable).getIdiom();
+        }
+        Object _interpret = null;
+        if (_idiom!=null) {
+          _interpret=this._eisInterpreter.interpret(_idiom);
+        }
+        String _string = null;
+        if (_interpret!=null) {
+          _string=_interpret.toString();
+        }
+        if (_string != null) {
+          _elvis = _string;
+        } else {
+          String _defaultValue = this.defaultValue(((Variable)variable));
+          _elvis = _defaultValue;
+        }
+        map.put(_name, _elvis);
+      } else {
+        if ((variable instanceof Udt)) {
+          this.generateMap(map, ((Udt)variable).getUdtVariables());
+        } else {
+          if ((variable instanceof UdtRef)) {
+            this.generateMap(map, ((UdtRef)variable).getUdtVariables());
+          }
+        }
+      }
+    }
+  }
+  
+  public void generateMultimap(final HashMultimap<Object, Object> multiMap, final EList<Variables> variables) {
+    for (final Variables variable : variables) {
+      {
+        List<String> list = new ArrayList<String>();
+        if ((variable instanceof Variable)) {
+          String _elvis = null;
+          Idiom _idiom = null;
+          if (((Variable)variable)!=null) {
+            _idiom=((Variable)variable).getIdiom();
+          }
+          Object _interpret = null;
+          if (_idiom!=null) {
+            _interpret=this._eisInterpreter.interpret(_idiom);
+          }
+          String _string = null;
+          if (_interpret!=null) {
+            _string=_interpret.toString();
+          }
+          if (_string != null) {
+            _elvis = _string;
+          } else {
+            String _defaultValue = this.defaultValue(((Variable)variable));
+            _elvis = _defaultValue;
+          }
+          list.add(_elvis);
+          String _elvis_1 = null;
+          Idiom _range = null;
+          if (((Variable)variable)!=null) {
+            _range=((Variable)variable).getRange();
+          }
+          Object _interpret_1 = null;
+          if (_range!=null) {
+            _interpret_1=this._eisInterpreter.interpret(_range);
+          }
+          String _string_1 = null;
+          if (_interpret_1!=null) {
+            _string_1=_interpret_1.toString();
+          }
+          if (_string_1 != null) {
+            _elvis_1 = _string_1;
+          } else {
+            String _defaultValue_1 = this.defaultValue(((Variable)variable));
+            _elvis_1 = _defaultValue_1;
+          }
+          list.add(_elvis_1);
+          multiMap.put(((Variable)variable).getName(), list);
+        } else {
+          if ((variable instanceof Udt)) {
+            this.generateMultimap(multiMap, ((Udt)variable).getUdtVariables());
+          } else {
+            if ((variable instanceof UdtRef)) {
+              this.generateMultimap(multiMap, ((UdtRef)variable).getUdtVariables());
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  public String defaultValue(final Variable variable) {
+    final DefineType type = this._defineTypeComputer.typeFor(variable.getVariableType());
+    boolean _isBoolType = this._defineTypeComputer.isBoolType(type);
+    if (_isBoolType) {
+      return "false";
+    } else {
+      boolean _isIntType = this._defineTypeComputer.isIntType(type);
+      if (_isIntType) {
+        return "0";
+      } else {
+        boolean _isStringType = this._defineTypeComputer.isStringType(type);
+        if (_isStringType) {
+          return "";
+        }
+      }
+    }
+    return null;
+  }
+  
+  public void overwrite(final HashMap<Object, Object> map, final TeststepBlock block) {
+  }
+  
+  public void overwrite(final HashMultimap<Object, Object> multiMap, final TeststepBlock block) {
+  }
+  
+  public CharSequence compileOut(final HashMultimap<Object, Object> assertMap, final TeststepBlock teststep) {
+    return null;
+  }
+  
+  public EObject directionBlock(final EObject context) {
+    EObject _xblockexpression = null;
+    {
+      final EObject container = context.eContainer();
+      EObject _xifexpression = null;
+      if ((container instanceof DirectionBlock)) {
+        return context;
+      } else {
+        _xifexpression = this.directionBlock(container);
+      }
+      _xblockexpression = _xifexpression;
     }
     return _xblockexpression;
   }
   
-  public CharSequence compileIn(final EList<Variables> variables, final String direction) {
-    StringConcatenation _builder = new StringConcatenation();
-    {
-      for(final Variables e : variables) {
-        {
-          if ((e instanceof Variable)) {
-            _builder.append("<Element xsi:type=\"Input\" Name=\"");
-            String _name = ((Variable)e).getName();
-            _builder.append(_name);
-            _builder.append("\" Datatype=\"");
-            String _string = ((Variable)e).getVariableType().toString();
-            _builder.append(_string);
-            _builder.append("\" Direction=\"");
-            _builder.append(direction);
-            _builder.append("\" Value=\"");
-            String _string_1 = this._eisInterpreter.interpret(((Variable)e).getIdiom()).toString();
-            _builder.append(_string_1);
-            _builder.append("\" />");
-            _builder.newLineIfNotEmpty();
-          }
+  public void funWithMaps(final Input inputs) {
+    final HashMap<String, Object> defaultMap = new HashMap<String, Object>();
+    final HashMap<String, Object> rangeMap = new HashMap<String, Object>();
+    EList<Variables> _inputVariables = inputs.getInputVariables();
+    for (final Variables in : _inputVariables) {
+      if ((in instanceof Variable)) {
+        String _name = ((Variable)in).getName();
+        Idiom _idiom = null;
+        if (((Variable)in)!=null) {
+          _idiom=((Variable)in).getIdiom();
         }
+        Object _interpret = null;
+        if (_idiom!=null) {
+          _interpret=this._eisInterpreter.interpret(_idiom);
+        }
+        defaultMap.put(_name, _interpret);
+        String _name_1 = ((Variable)in).getName();
+        Idiom _range = null;
+        if (((Variable)in)!=null) {
+          _range=((Variable)in).getRange();
+        }
+        Object _interpret_1 = null;
+        if (_range!=null) {
+          _interpret_1=this._eisInterpreter.interpret(_range);
+        }
+        rangeMap.put(_name_1, _interpret_1);
       }
     }
-    return _builder;
-  }
-  
-  public CharSequence compileOut(final EList<Variables> variables, final String direction) {
-    StringConcatenation _builder = new StringConcatenation();
-    {
-      for(final Variables e : variables) {
-        {
-          if ((e instanceof Variable)) {
-            _builder.append("<Element xsi:type=\"Ouput\" Name=\"");
-            String _name = ((Variable)e).getName();
-            _builder.append(_name);
-            _builder.append("\" Datatype=\"");
-            String _string = ((Variable)e).getVariableType().toString();
-            _builder.append(_string);
-            _builder.append("\" Direction=\"");
-            _builder.append(direction);
-            _builder.append("\" Expect=\"");
-            String _string_1 = this._eisInterpreter.interpret(((Variable)e).getIdiom()).toString();
-            _builder.append(_string_1);
-            _builder.append("\" Range=\"");
-            Idiom _range = null;
-            if (((Variable)e)!=null) {
-              _range=((Variable)e).getRange();
-            }
-            _builder.append(_range);
-            _builder.append("\" />");
-            _builder.newLineIfNotEmpty();
-          }
-        }
-      }
+    HashMap<String, Object> newMap = new HashMap<String, Object>(defaultMap);
+    Variables _last = IterableExtensions.<Variables>last(inputs.getInputVariables());
+    Idiom _range_1 = null;
+    if (((Variable) _last)!=null) {
+      _range_1=((Variable) _last).getRange();
     }
-    return _builder;
+    Object _interpret_2 = null;
+    if (_range_1!=null) {
+      _interpret_2=this._eisInterpreter.interpret(_range_1);
+    }
+    newMap.replace("a", _interpret_2);
+    InputOutput.<String>println("kawabunga");
+    InputOutput.println();
   }
 }

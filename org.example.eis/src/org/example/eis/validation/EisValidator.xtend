@@ -426,12 +426,11 @@ class EisValidator extends AbstractEisValidator {
 
 	@Check def void checkRangeOperator(Variable variable) {
 		if (variable.range !== null) {
-			val type = variable.variableType
-			if (type === BasicType.BOOL)
+			if (variable.variableType === BasicType.BOOL)
 				error("The range feature is not permitted to boolean types", variable,
 					EisPackage.eINSTANCE.variable_Range, INVALID_RANGE_DEFINITION)
-			val direction = variable.getDirectionBlock
-			if (direction instanceof Input)
+
+			if (variable.directionBlock instanceof Input)
 				error("The range feature is not permitted to input variables", variable,
 					EisPackage.eINSTANCE.variable_Range, INVALID_RANGE_DEFINITION)
 		}
@@ -482,7 +481,7 @@ class EisValidator extends AbstractEisValidator {
 //
 // methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //
-	def EObject getDirectionBlock(EObject context) {
+	def EObject directionBlock(EObject context) {
 		val container = context.eContainer
 		if (container instanceof DirectionBlock)
 			return context

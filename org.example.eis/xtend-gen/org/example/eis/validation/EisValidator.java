@@ -609,13 +609,14 @@ public class EisValidator extends AbstractEisValidator {
     Idiom _range = variable.getRange();
     boolean _tripleNotEquals = (_range != null);
     if (_tripleNotEquals) {
-      final BasicType type = variable.getVariableType();
-      if ((type == BasicType.BOOL)) {
+      BasicType _variableType = variable.getVariableType();
+      boolean _tripleEquals = (_variableType == BasicType.BOOL);
+      if (_tripleEquals) {
         this.error("The range feature is not permitted to boolean types", variable, 
           EisPackage.eINSTANCE.getVariable_Range(), EisValidator.INVALID_RANGE_DEFINITION);
       }
-      final EObject direction = this.getDirectionBlock(variable);
-      if ((direction instanceof Input)) {
+      EObject _directionBlock = this.directionBlock(variable);
+      if ((_directionBlock instanceof Input)) {
         this.error("The range feature is not permitted to input variables", variable, 
           EisPackage.eINSTANCE.getVariable_Range(), EisValidator.INVALID_RANGE_DEFINITION);
       }
@@ -687,7 +688,7 @@ public class EisValidator extends AbstractEisValidator {
     }
   }
   
-  public EObject getDirectionBlock(final EObject context) {
+  public EObject directionBlock(final EObject context) {
     EObject _xblockexpression = null;
     {
       final EObject container = context.eContainer();
@@ -695,7 +696,7 @@ public class EisValidator extends AbstractEisValidator {
       if ((container instanceof DirectionBlock)) {
         return context;
       } else {
-        _xifexpression = this.getDirectionBlock(container);
+        _xifexpression = this.directionBlock(container);
       }
       _xblockexpression = _xifexpression;
     }
