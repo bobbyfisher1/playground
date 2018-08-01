@@ -17,7 +17,6 @@ import org.eclipse.xtext.generator.AbstractGenerator;
 import org.eclipse.xtext.generator.IFileSystemAccess2;
 import org.eclipse.xtext.generator.IGeneratorContext;
 import org.eclipse.xtext.xbase.lib.Extension;
-import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.IteratorExtensions;
 import org.example.eis.eis.Cascade;
@@ -60,7 +59,7 @@ public class EisGenerator extends AbstractGenerator {
     fsa.generateFile(_builder.toString(), this.compile(model));
   }
   
-  public CharSequence compile(final EisModel model) {
+  private CharSequence compile(final EisModel model) {
     CharSequence _xblockexpression = null;
     {
       int testcaseID = 0;
@@ -150,7 +149,7 @@ public class EisGenerator extends AbstractGenerator {
     return _xblockexpression;
   }
   
-  public CharSequence compileTeststeps(final DefineBlock define) {
+  private CharSequence compileTeststeps(final DefineBlock define) {
     EList<TeststepBlock> _teststeps = null;
     if (define!=null) {
       _teststeps=define.getTeststeps();
@@ -263,7 +262,7 @@ public class EisGenerator extends AbstractGenerator {
     return _builder;
   }
   
-  public CharSequence compileIn(final HashMap<Object, Object> setMap, final EList<Variables> variables, final String _qualifiedName, final String _indent) {
+  private CharSequence compileIn(final HashMap<Object, Object> setMap, final EList<Variables> variables, final String _qualifiedName, final String _indent) {
     String charSeq = "";
     String qualifiedName = _qualifiedName;
     String indent = _indent;
@@ -310,7 +309,7 @@ public class EisGenerator extends AbstractGenerator {
     return charSeq;
   }
   
-  public CharSequence buildUdt(final HashMap<Object, Object> setMap, final String _qualifiedName, final String indent, final Udt variable, final String tab) {
+  private CharSequence buildUdt(final HashMap<Object, Object> setMap, final String _qualifiedName, final String indent, final Udt variable, final String tab) {
     String charSeq = "";
     String qualifiedName = _qualifiedName;
     String _charSeq = charSeq;
@@ -359,7 +358,7 @@ public class EisGenerator extends AbstractGenerator {
     return charSeq;
   }
   
-  public CharSequence buildUdtRef(final HashMap<Object, Object> setMap, final String _qualifiedName, final String indent, final UdtRef variable, final String tab) {
+  private CharSequence buildUdtRef(final HashMap<Object, Object> setMap, final String _qualifiedName, final String indent, final UdtRef variable, final String tab) {
     String charSeq = "";
     String qualifiedName = _qualifiedName;
     String _charSeq = charSeq;
@@ -408,7 +407,7 @@ public class EisGenerator extends AbstractGenerator {
     return charSeq;
   }
   
-  public void generateMap(final HashMap<Object, Object> map, final EList<Variables> variables, final String _name) {
+  private void generateMap(final HashMap<Object, Object> map, final EList<Variables> variables, final String _name) {
     String name = _name;
     for (final Variables variable : variables) {
       if ((variable instanceof Variable)) {
@@ -454,7 +453,7 @@ public class EisGenerator extends AbstractGenerator {
     }
   }
   
-  public void generateMultimap(final HashMultimap<Object, Object> multiMap, final EList<Variables> variables, final String name2) {
+  private void generateMultimap(final HashMultimap<Object, Object> multiMap, final EList<Variables> variables, final String name2) {
     String name = name2;
     for (final Variables variable : variables) {
       {
@@ -526,7 +525,7 @@ public class EisGenerator extends AbstractGenerator {
     }
   }
   
-  public String defaultValue(final Variable variable) {
+  private String defaultValue(final Variable variable) {
     final DefineType type = this._defineTypeComputer.typeFor(variable.getVariableType());
     boolean _isBoolType = this._defineTypeComputer.isBoolType(type);
     if (_isBoolType) {
@@ -545,7 +544,7 @@ public class EisGenerator extends AbstractGenerator {
     return null;
   }
   
-  public void overwrite(final HashMap<Object, Object> setMap, final TeststepBlock teststep) {
+  private void overwrite(final HashMap<Object, Object> setMap, final TeststepBlock teststep) {
     final EList<Statement> statements = teststep.getAssertion().getSet().getSetVariables();
     String name = "";
     for (final Statement e : statements) {
@@ -570,7 +569,7 @@ public class EisGenerator extends AbstractGenerator {
     }
   }
   
-  public void overwrite(final HashMultimap<Object, Object> assertMultiMap, final TeststepBlock teststep) {
+  private void overwrite(final HashMultimap<Object, Object> assertMultiMap, final TeststepBlock teststep) {
     final EList<Statement> statements = teststep.getAssertion().getAssert().getAssertVariables();
     for (final Statement e : statements) {
       {
@@ -642,11 +641,11 @@ public class EisGenerator extends AbstractGenerator {
     }
   }
   
-  public CharSequence compileOut(final HashMultimap<Object, Object> assertMap, final TeststepBlock teststep) {
+  private CharSequence compileOut(final HashMultimap<Object, Object> assertMap, final TeststepBlock teststep) {
     return null;
   }
   
-  public String directionBlock(final EObject context) {
+  private String directionBlock(final EObject context) {
     String _xblockexpression = null;
     {
       final EObject container = context.eContainer();
@@ -677,48 +676,5 @@ public class EisGenerator extends AbstractGenerator {
       _xblockexpression = _xifexpression;
     }
     return _xblockexpression;
-  }
-  
-  public void funWithMaps(final Input inputs) {
-    final HashMap<String, Object> defaultMap = new HashMap<String, Object>();
-    final HashMap<String, Object> rangeMap = new HashMap<String, Object>();
-    EList<Variables> _inputVariables = inputs.getInputVariables();
-    for (final Variables in : _inputVariables) {
-      if ((in instanceof Variable)) {
-        String _name = ((Variable)in).getName();
-        Idiom _idiom = null;
-        if (((Variable)in)!=null) {
-          _idiom=((Variable)in).getIdiom();
-        }
-        Object _interpret = null;
-        if (_idiom!=null) {
-          _interpret=this._eisInterpreter.interpret(_idiom);
-        }
-        defaultMap.put(_name, _interpret);
-        String _name_1 = ((Variable)in).getName();
-        Idiom _range = null;
-        if (((Variable)in)!=null) {
-          _range=((Variable)in).getRange();
-        }
-        Object _interpret_1 = null;
-        if (_range!=null) {
-          _interpret_1=this._eisInterpreter.interpret(_range);
-        }
-        rangeMap.put(_name_1, _interpret_1);
-      }
-    }
-    HashMap<String, Object> newMap = new HashMap<String, Object>(defaultMap);
-    Variables _last = IterableExtensions.<Variables>last(inputs.getInputVariables());
-    Idiom _range_1 = null;
-    if (((Variable) _last)!=null) {
-      _range_1=((Variable) _last).getRange();
-    }
-    Object _interpret_2 = null;
-    if (_range_1!=null) {
-      _interpret_2=this._eisInterpreter.interpret(_range_1);
-    }
-    newMap.replace("a", _interpret_2);
-    InputOutput.<String>println("kawabunga");
-    InputOutput.println();
   }
 }

@@ -243,6 +243,11 @@ class EisGeneratorTest {
 						<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
 							<Teststeps>
 								<Teststep PlcCycle ="0" Description="">
+									<Inputs>
+										<Element xsi:type="Input" Name="a" Datatype="int" Direction="InOut" Value="43" Variant="false" />
+									</Inputs>
+									<Outputs>
+									</Outputs>
 								</Teststep>
 							</Teststeps>
 						</TestCase>
@@ -294,6 +299,46 @@ class EisGeneratorTest {
 						<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
 							<Teststeps>
 								<Teststep PlcCycle ="0" Description="">
+									<Inputs>
+										<Element xsi: type="InputUDT" Name="z" Datatype="allovertheplace" Direction="Input">
+											<Elements>
+												<Element xsi:type="Input" Name="one" Datatype="string" Direction="Input" Value="zero" Variant="false" />
+												<Element xsi: type="InputUDT" Name="a" Datatype="typeA" Direction="Input">
+													<Elements>
+														<Element xsi:type="Input" Name="b" Datatype="int" Direction="Input" Value="0" Variant="false" />
+														<Element xsi: type="InputUDT" Name="c" Datatype="typeC" Direction="Input">
+															<Elements>
+																<Element xsi:type="Input" Name="d" Datatype="bool" Direction="Input" Value="false" Variant="false" />
+															</Elements>
+														</Element>
+													</Elements>
+												</Element>
+											</Elements>
+										</Element>
+									</Inputs>
+									<Outputs>
+									</Outputs>
+								</Teststep>
+								<Teststep PlcCycle ="1" Description="">
+									<Inputs>
+										<Element xsi: type="InputUDT" Name="z" Datatype="allovertheplace" Direction="Input">
+											<Elements>
+												<Element xsi:type="Input" Name="one" Datatype="string" Direction="Input" Value="one" Variant="false" />
+												<Element xsi: type="InputUDT" Name="a" Datatype="typeA" Direction="Input">
+													<Elements>
+														<Element xsi:type="Input" Name="b" Datatype="int" Direction="Input" Value="1" Variant="false" />
+														<Element xsi: type="InputUDT" Name="c" Datatype="typeC" Direction="Input">
+															<Elements>
+																<Element xsi:type="Input" Name="d" Datatype="bool" Direction="Input" Value="true" Variant="false" />
+															</Elements>
+														</Element>
+													</Elements>
+												</Element>
+											</Elements>
+										</Element>
+									</Inputs>
+									<Outputs>
+									</Outputs>
 								</Teststep>
 							</Teststeps>
 						</TestCase>
@@ -315,10 +360,6 @@ class EisGeneratorTest {
 				output[	]
 				input[  ]
 			}
-			teststep(0, ""){
-				set[]
-				assert[]
-			}
 			teststep(1, ""){
 				set[ 
 					a.b = 33;
@@ -338,7 +379,17 @@ class EisGeneratorTest {
 					<TestCases>
 						<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
 							<Teststeps>
-								<Teststep PlcCycle ="0" Description="">
+								<Teststep PlcCycle ="1" Description="">
+									<Inputs>
+										<Element xsi: type="InputUDT" Name="a" Datatype="typeA" Direction="InOut">
+											<Elements>
+												<Element xsi:type="Input" Name="b" Datatype="int" Direction="InOut" Value="33" Variant="false" />
+											</Elements>
+										</Element>
+										<Element xsi:type="Input" Name="c" Datatype="int" Direction="InOut" Value="3" Variant="false" />
+									</Inputs>
+									<Outputs>
+									</Outputs>
 								</Teststep>
 							</Teststeps>
 						</TestCase>
