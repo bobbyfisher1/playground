@@ -3,11 +3,8 @@
  */
 package org.example.eis.generator
 
-import com.google.common.collect.HashMultimap
 import com.google.inject.Inject
-import java.util.ArrayList
 import java.util.HashMap
-import java.util.List
 import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.resource.Resource
@@ -33,13 +30,15 @@ class EisGenerator extends AbstractGenerator {
 	@Inject extension EisInterpreter
 	@Inject extension DefineTypeComputer
 	
+	
+	
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		val model = resource.allContents.toIterable.filter(EisModel).head
 		fsa.generateFile('''«model.plc_name»_Testfixture.xml''', model.compile)
 	}
 	
 //
-// methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+// generation methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //
 	def private CharSequence compile(EisModel model) {
 		var testcaseID = 0
@@ -68,54 +67,71 @@ class EisGenerator extends AbstractGenerator {
 		val inputs = define.direction.input.inputVariables
 		val inouts = define.direction?.inout?.inoutVariables
 		val outputs = define.direction.output.outputVariables
-		val inputMap = new HashMap							// key: name, value: idiom
-		val outputMap =  HashMultimap.create()		// key: name, value: [idiom, range]
+		
+		val inputMap = new HashMap					// key: name, value: idiom
+		val outputIdiomMap =  new HashMap		// key: name, value: idiom
+		val outputRangeMap = new HashMap	// key: name, value: range
+		
 		var setMap = new HashMap
-		var assertMap =  HashMultimap.create()
-		val fourTabs = "				"
+		var assertIdiomMap =  new HashMap
+		var assertRangeMap = new HashMap
+		
+		val oneTab = "	"
+		val twoTabs = oneTab + oneTab
+		val fourTabs = twoTabs + twoTabs
+		val fiveTabs = fourTabs + oneTab
+		val sixTabs = fourTabs + twoTabs
 		
 		// add all variables to maps with default values if undefined
 		if(!inputs.empty)
 			inputMap.generateMap(inputs, '')
-		if(!outputs.empty)
-			outputMap.generateMultimap(outputs,'')
+		if(!outputs.empty){
+			outputIdiomMap.generateMap(outputs,'')
+			outputRangeMap.generateRangeMap(outputs, '')	
+		}
 		if(inouts !== null){
 			if(!inouts.empty){										
 				inputMap.generateMap(inouts, '')
-				outputMap.generateMultimap(inouts,'')
+				outputIdiomMap.generateMap(inouts,'')
+				outputRangeMap.generateRangeMap(inouts, '')
 			}
 		}
 		
-		return '''
+		val multiLineString = '''
 		«IF !steps.empty»		
-					<Teststeps>
+		«oneTab + twoTabs»<Teststeps>
 		«FOR e : steps»
-						«fourTabs»<Teststep PlcCycle ="«e.plcCycle»" Description="«e.description»">
-											<Inputs>
-«setMap.clear»
-«setMap.putAll(inputMap)»
-«setMap.overwrite(e)»
-«setMap.compileIn(inputs,'',"						"  /*6 TABS*/)»
-«IF inouts !== null»«setMap.compileIn(inouts,'',"						"  /*6 TABS*/)»«ENDIF»
-											</Inputs>
-											<Outputs>
-«assertMap.clear»
-«IF assertMap.putAll(outputMap)»«ENDIF»
-«assertMap.overwrite(e)»
-«assertMap.compileOut(e)»
-											</Outputs>
-										</Teststep>
+		«fourTabs»<Teststep PlcCycle ="«e.plcCycle»" Description="«e.description»">
+		«fiveTabs»<Inputs>
+		«setMap.clear»
+		«setMap.putAll(inputMap)»
+		«setMap.overwriteInput(e)»
+		«inputs.compileIn(setMap,'', sixTabs)»
+		«IF inouts !== null»«inouts.compileIn(setMap,'', sixTabs)»«ENDIF»
+		«fiveTabs»</Inputs>
+		«fiveTabs»<Outputs>
+		«assertIdiomMap.clear»
+		«assertRangeMap.clear»
+		«assertIdiomMap.putAll(outputIdiomMap)»
+		«assertRangeMap.putAll(outputRangeMap)»
+		«assertIdiomMap.overwriteOutputIdiom(e)»
+		«assertRangeMap.overwriteOutputRange(e)»
+		«outputs.compileOut(assertIdiomMap, assertRangeMap, '', sixTabs)»
+		«IF inouts !== null»«inouts.compileOut(assertIdiomMap, assertRangeMap,'', sixTabs)»«ENDIF»
+		«fiveTabs»</Outputs>
+		«fourTabs»</Teststep>
 		«ENDFOR»
-					</Teststeps>
+		«oneTab + twoTabs»</Teststeps>
 		«ENDIF»
 		'''
+		
+		return multiLineString
 	}
 				
-	def private CharSequence compileIn(HashMap<Object, Object> setMap, EList<Variables> variables, String _qualifiedName, String _indent) {
+	def private CharSequence compileIn(EList<Variables> variables, HashMap<Object, Object> setMap,  String _qualifiedName, String _indent) {
 		var charSeq = ""
 		var qualifiedName = _qualifiedName
 		var indent = _indent
-		val tab = "	"
 		
 		for(variable : variables) {
 			if(variable instanceof Variable) {
@@ -124,16 +140,17 @@ class EisGenerator extends AbstractGenerator {
 				charSeq += indent +	'''<Element xsi:type="Input" Name="«variable.name»" Datatype="«variable.variableType.toString»" Direction="«variable.directionBlock»" Value="«value»" Variant="«variable.variantKeyword.toString»" />
 				'''//newline
 			} else if(variable instanceof Udt)	
-				charSeq += buildUdt(setMap, qualifiedName, indent, variable, tab) 
+				charSeq += buildUdt(setMap, qualifiedName, indent, variable) 
 			 else if (variable instanceof UdtRef)				
-				charSeq += buildUdtRef(setMap,qualifiedName,indent, variable,tab)					
+				charSeq += buildUdtRef(setMap,qualifiedName,indent, variable)					
 		}
 		return charSeq
 	}
 	
-	def private CharSequence buildUdt(HashMap<Object, Object> setMap, String _qualifiedName, String indent, Udt variable, String tab) {
+	def private CharSequence buildUdt(HashMap<Object, Object> setMap, String _qualifiedName, String indent, Udt variable) {
 		var charSeq = ""
 		var qualifiedName = _qualifiedName 
+		val tab = "	"
 		
 		charSeq += indent
 		charSeq += '''<Element xsi: type="InputUDT" Name="«variable.name»" Datatype="«variable.udtType.name»" Direction="«variable.directionBlock»">
@@ -144,7 +161,7 @@ class EisGenerator extends AbstractGenerator {
 		''' //newline
 				
 		val indentPlusPlus = indentPlus + tab //indent++
-		charSeq += setMap.compileIn(variable.udtVariables, qualifiedName + variable.name + '.', indentPlusPlus)
+		charSeq += variable.udtVariables.compileIn(setMap, qualifiedName + variable.name + '.', indentPlusPlus)
 								
 		charSeq += indentPlus + '''</Elements>
 		'''//newline
@@ -155,12 +172,13 @@ class EisGenerator extends AbstractGenerator {
 		return charSeq
 	}
 	
-	def private CharSequence buildUdtRef(HashMap<Object, Object> setMap, String _qualifiedName, String indent, UdtRef variable, String tab) {
+	def private CharSequence buildUdtRef(HashMap<Object, Object> setMap, String _qualifiedName, String indent, UdtRef variable) {
 		var charSeq = ""
 		var qualifiedName = _qualifiedName 
+		val tab = "	"
 		
 		charSeq += indent
-		charSeq += '''<Element xsi: type="InputUDT" Name="«variable.name»" Datatype="«variable.udtType.toString»" Direction="«variable.directionBlock»">
+		charSeq += '''<Element xsi: type="InputUDT" Name="«variable.name»" Datatype="«variable.udtType.name.toString»" Direction="«variable.directionBlock»">
 		'''//newline		
 				
 		val indentPlus = indent + tab //indent++ 
@@ -168,7 +186,7 @@ class EisGenerator extends AbstractGenerator {
 		''' //newline
 				
 		val indentPlusPlus = indentPlus + tab //indent++
-		charSeq += setMap.compileIn(variable.udtVariables, qualifiedName + variable.name + '.', indentPlusPlus)
+		charSeq += variable.udtVariables.compileIn(setMap, qualifiedName + variable.name + '.', indentPlusPlus)
 								
 		charSeq += indentPlus + '''</Elements>
 		'''//newline
@@ -179,6 +197,81 @@ class EisGenerator extends AbstractGenerator {
 		return charSeq
 	}
 	
+	def private CharSequence compileOut(EList <Variables> variables, HashMap<Object, Object> idiomMap,HashMap<Object, Object> rangeMap , String _qualifiedName, String _indent) {
+		var charSeq = ""
+		var qualifiedName = _qualifiedName
+		var indent = _indent
+		
+		
+		for (variable : variables) {
+			if (variable instanceof Variable) {
+				val idiom = idiomMap.get(qualifiedName + variable.name).toString
+				val range = rangeMap.get(qualifiedName + variable.name).toString
+					
+				charSeq +=	indent + '''<Element xsi:type="Output" Name="«variable.name»" Datatype="«variable.variableType.toString»" Direction="«variable.directionBlock»" Expect="«idiom»" Range="«range»" Variant="«variable.variantKeyword.toString»" />
+				''' // newline
+					
+			} else if (variable instanceof Udt)
+				charSeq += buildUdt(variable, idiomMap, rangeMap, qualifiedName, indent)
+			else if (variable instanceof UdtRef)
+				charSeq += buildUdtRef(variable, idiomMap, rangeMap, qualifiedName, indent)
+		}
+		return charSeq
+	}
+		
+	def private CharSequence buildUdt(Udt variable, HashMap<Object, Object> idiomMap, HashMap<Object, Object> rangeMap, String _qualifiedName, String indent) {
+		var charSeq = ""
+		var qualifiedName = _qualifiedName 
+		val tab = "	"
+		
+		charSeq += indent
+		charSeq += '''<Element xsi: type="OutputUDT" Name="«variable.name»" Datatype="«variable.udtType.name»" Direction="«variable.directionBlock»">
+		'''//newline				
+				
+		val indentPlus = indent + tab //indent++ 
+		charSeq += indentPlus + '''<Elements>
+		''' //newline
+				
+		val indentPlusPlus = indentPlus + tab //indent++
+		charSeq += variable.udtVariables.compileOut(idiomMap, rangeMap, qualifiedName + variable.name + '.', indentPlusPlus)
+								
+		charSeq += indentPlus + '''</Elements>
+		'''//newline
+				
+		charSeq += indent + '''</Element>
+		'''//newline
+		
+		return charSeq
+	}
+	
+	def private CharSequence buildUdtRef(UdtRef variable, HashMap<Object, Object> idiomMap, HashMap<Object, Object> rangeMap, String _qualifiedName, String indent) {
+		var charSeq = ""
+		var qualifiedName = _qualifiedName 
+		val tab = "	"
+		
+		charSeq += indent
+		charSeq += '''<Element xsi: type="OutputUDT" Name="«variable.name»" Datatype="«variable.udtType.name.toString»" Direction="«variable.directionBlock»">
+		'''//newline		
+				
+		val indentPlus = indent + tab //indent++ 
+		charSeq += indentPlus + '''<Elements>
+		''' //newline
+				
+		val indentPlusPlus = indentPlus + tab //indent++
+		charSeq += variable.udtVariables.compileOut(idiomMap, rangeMap, qualifiedName + variable.name + '.', indentPlusPlus)
+								
+		charSeq += indentPlus + '''</Elements>
+		'''//newline
+				
+		charSeq += indent + '''</Element>
+		'''//newline
+		
+		return charSeq
+	}
+	
+//
+// methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//	
 	def private void generateMap(HashMap<Object, Object> map, EList<Variables> variables, String _name) {
 		var name = _name
 		for(variable : variables){
@@ -191,35 +284,28 @@ class EisGenerator extends AbstractGenerator {
 		}
 	}
 	
-	def private void generateMultimap(HashMultimap<Object, Object> multiMap, EList<Variables> variables, String name2) {
-		var name = name2		
+	def private void generateRangeMap(HashMap<Object, Object> map, EList<Variables> variables, String _name) {
+		var name = _name
 		for(variable : variables){
-			var List<String> list = new ArrayList<String>
-			if(variable instanceof Variable){
-				list.add(variable?.idiom?.interpret?.toString ?: variable.defaultValue)
-				list.add(variable?.range?.interpret?.toString ?: variable.defaultValue)
-				name += variable.name
-				multiMap.put(name, list)
-				name = ''
-			} else if(variable instanceof Udt){
-				name += variable.name + '.'
-				multiMap.generateMultimap(variable.udtVariables, name)
-			} else if(variable instanceof UdtRef){
-				name += variable.name + '.'
-				multiMap.generateMultimap(variable.udtVariables, name)
-			}
+			if(variable instanceof Variable)
+				map.put(name + variable.name, variable?.range?.interpret?.toString ?: variable.defaultValue)
+			 else if(variable instanceof Udt) 
+				map.generateRangeMap(variable.udtVariables, name + variable.name + '.')
+			 else if(variable instanceof UdtRef)
+				map.generateRangeMap(variable.udtVariables, name + variable.name + '.')			
 		}
 	}
 
 	def private String defaultValue(Variable variable) {
 		val type = variable.variableType.typeFor
-		
-		if(type.isBoolType)				return "false"		 
-		else if(type.isIntType)			return "0"
-		else if(type.isStringType)	return ""
+		switch type{
+			case type.isBoolType:		return "false"	
+			case type.isIntType:			return "0"			
+			case type.isStringType:	return ""
+		}
 	}
 	
-	def private void overwrite(HashMap<Object, Object> setMap, TeststepBlock teststep) {
+	def private void overwriteInput(HashMap<Object, Object> setMap, TeststepBlock teststep) {
 		val statements = teststep.assertion.set.setVariables
 		var name = ""
 		
@@ -235,33 +321,40 @@ class EisGenerator extends AbstractGenerator {
 		}
 	}
 	
-	def private void overwrite(HashMultimap<Object, Object> assertMultiMap, TeststepBlock teststep) {
+	def private void overwriteOutputIdiom(HashMap<Object, Object> idiomMap, TeststepBlock teststep) {
 		val statements = teststep.assertion.assert.assertVariables
-						
+		var name = ""
+		
 		for (e : statements) {
-			var List<String> list = new ArrayList<String>	
-			var name = e.variable.name.toString			
-			
+			name = e.variable.name.toString			
 			if (!e.cascade.empty){
 				for (c : e.cascade)
 					name += '.' + c.udtVar.name.toString
 			}
 			
-			if(assertMultiMap.containsKey(name)) {
-				list.add(e.idiom.interpret.toString)
-				
-				if(e.cascade.empty)
-					list.add(e?.range?.interpret?.toString ?: (e.variable as Variable).defaultValue)
-				else
-					list.add(e?.range?.interpret?.toString ?: (e.cascade.last.udtVar as Variable).defaultValue) 			
+			if(idiomMap.containsKey(name))
+				idiomMap.replace(name,e.idiom.interpret.toString	)
+		}
+	}
+	
+	def private void overwriteOutputRange(HashMap<Object, Object> rangeMap, TeststepBlock teststep) {
+		val statements = teststep.assertion.assert.assertVariables
+		var name = ""
 		
-				assertMultiMap.replaceValues(name,list)			
+		for (e : statements) {
+			if(e?.range !== null){
+				name = e.variable.name.toString			
+				if (!e.cascade.empty){
+					for (c : e.cascade)
+						name += '.' + c.udtVar.name.toString
+				}
+			
+				if(rangeMap.containsKey(name))
+					rangeMap.replace(name,e?.range?.interpret?.toString	)
 			}
 		}
 	}
 	
-	def private CharSequence compileOut(HashMultimap<Object, Object> assertMap, TeststepBlock teststep) {}
-
 	def private String directionBlock(EObject context) { // context is variable to begin with
 		val container = context.eContainer
 		if (container instanceof DirectionBlock){

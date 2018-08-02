@@ -291,7 +291,7 @@ class EisValidatorTest {
 				input[]
 				output[ 
 					udt a(typeA){
-						int x;
+						string x = 'pretender' +/- 'what';
 						udt y(typeY){}
 						typeY z;
 					}
@@ -466,6 +466,18 @@ class EisValidatorTest {
 		]
 	}
 
+	@Test def void testInvalidRangeOnString() {
+		(beginning + '''
+			define{
+				input[  ]
+				output[string a = "one" +/- "two";]
+			}
+		''' + ending).parse => [
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.INVALID_RANGE_DEFINITION)
+			1.assertEquals(validate.size)
+		]
+	}
+
 	@Test def void testInvalidRangeOnBooleanStatement() {
 		(beginning + '''
 			define{
@@ -475,6 +487,22 @@ class EisValidatorTest {
 			teststep(0,""){
 				set[  ]
 				assert[a = true +/- false;]
+			}
+		''' + ending).parse => [
+			assertError(EisPackage.eINSTANCE.statement, EisValidator.INVALID_RANGE_DEFINITION)
+			1.assertEquals(validate.size)
+		]
+	}
+
+	@Test def void testInvalidRangeOnStringStatement() {
+		(beginning + '''
+			define{
+				input[  ]
+				output[ string a;]
+			}
+			teststep(0,""){
+				set[  ]
+				assert[a = "one" +/- "two";]
 			}
 		''' + ending).parse => [
 			assertError(EisPackage.eINSTANCE.statement, EisValidator.INVALID_RANGE_DEFINITION)

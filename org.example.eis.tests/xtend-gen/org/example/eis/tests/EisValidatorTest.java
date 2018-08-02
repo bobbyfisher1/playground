@@ -565,7 +565,7 @@ public class EisValidatorTest {
       _builder.append("udt a(typeA){");
       _builder.newLine();
       _builder.append("\t\t\t");
-      _builder.append("int x;");
+      _builder.append("string x = \'pretender\' +/- \'what\';");
       _builder.newLine();
       _builder.append("\t\t\t");
       _builder.append("udt y(typeY){}");
@@ -979,6 +979,32 @@ public class EisValidatorTest {
   }
   
   @Test
+  public void testInvalidRangeOnString() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("define{");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("input[  ]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("output[string a = \"one\" +/- \"two\";]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      String _plus = (this.beginning + _builder);
+      EisModel _parse = this._parseHelper.parse((_plus + this.ending));
+      final Procedure1<EisModel> _function = (EisModel it) -> {
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getVariable(), EisValidator.INVALID_RANGE_DEFINITION);
+        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
   public void testInvalidRangeOnBooleanStatement() {
     try {
       StringConcatenation _builder = new StringConcatenation();
@@ -999,6 +1025,42 @@ public class EisValidatorTest {
       _builder.newLine();
       _builder.append("\t");
       _builder.append("assert[a = true +/- false;]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      String _plus = (this.beginning + _builder);
+      EisModel _parse = this._parseHelper.parse((_plus + this.ending));
+      final Procedure1<EisModel> _function = (EisModel it) -> {
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getStatement(), EisValidator.INVALID_RANGE_DEFINITION);
+        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void testInvalidRangeOnStringStatement() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("define{");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("input[  ]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("output[ string a;]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("teststep(0,\"\"){");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("set[  ]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("assert[a = \"one\" +/- \"two\";]");
       _builder.newLine();
       _builder.append("}");
       _builder.newLine();

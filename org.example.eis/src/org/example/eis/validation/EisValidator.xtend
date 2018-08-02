@@ -11,6 +11,7 @@ import org.eclipse.xtext.validation.Check
 import org.example.eis.eis.And
 import org.example.eis.eis.Assert
 import org.example.eis.eis.BasicType
+import org.example.eis.eis.BoolConstant
 import org.example.eis.eis.Comparison
 import org.example.eis.eis.DefineBlock
 import org.example.eis.eis.DirectionBlock
@@ -20,6 +21,7 @@ import org.example.eis.eis.Equality
 import org.example.eis.eis.Idiom
 import org.example.eis.eis.InOut
 import org.example.eis.eis.Input
+import org.example.eis.eis.IntConstant
 import org.example.eis.eis.Minus
 import org.example.eis.eis.MulOrDiv
 import org.example.eis.eis.Not
@@ -27,13 +29,18 @@ import org.example.eis.eis.Or
 import org.example.eis.eis.Plus
 import org.example.eis.eis.Set
 import org.example.eis.eis.Statement
+import org.example.eis.eis.StringConstant
 import org.example.eis.eis.Udt
 import org.example.eis.eis.UdtRef
 import org.example.eis.eis.Variable
 import org.example.eis.eis.VariableRef
 import org.example.eis.eis.Variables
+import org.example.eis.eis.impl.BoolConstantImpl
+import org.example.eis.eis.impl.IntConstantImpl
+import org.example.eis.eis.impl.StringConstantImpl
 import org.example.eis.eis.impl.UdtImpl
 import org.example.eis.eis.impl.VariableImpl
+import org.example.eis.interpreter.EisInterpreter
 import org.example.eis.typing.DefineType
 import org.example.eis.typing.DefineTypeComputer
 
@@ -59,6 +66,7 @@ class EisValidator extends AbstractEisValidator {
 	public static val MULTIPLE_TESTCASE_NAME = ISSUE_CODE_PREFIX + "MultipleTestcaseName"
 
 	@Inject extension DefineTypeComputer
+	@Inject extension EisInterpreter
 
 //
 // checks -----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -271,16 +279,27 @@ class EisValidator extends AbstractEisValidator {
 		if (variable instanceof Variable) {
 			expectedType = (variable as Variable).variableType
 			compareTypesAndCallErrorOnMismatch(statement, actualType, expectedType, rangeType)
-			if (expectedType === BasicType.BOOL && rangeType !== null)
-				error("The range feature is not permitted to boolean types", statement,
-					EisPackage.eINSTANCE.statement_Range, INVALID_RANGE_DEFINITION)
+			if (rangeType !== null) {
+				if (expectedType === BasicType.BOOL)
+					error("The range feature is not permitted to boolean types", statement,
+						EisPackage.eINSTANCE.statement_Range, INVALID_RANGE_DEFINITION)
 
+				if (expectedType === BasicType.STRINGTYP)
+					error("The range feature is not permitted to string types", statement,
+						EisPackage.eINSTANCE.statement_Range, INVALID_RANGE_DEFINITION)
+			}
 		} else if (last instanceof Variable) {
 			expectedType = last.variableType
 			compareTypesAndCallErrorOnMismatch(statement, actualType, expectedType, rangeType)
-			if (expectedType === BasicType.BOOL && rangeType !== null)
-				error("The range feature is not permitted to boolean types", statement,
-					EisPackage.eINSTANCE.statement_Range, INVALID_RANGE_DEFINITION)
+			if (rangeType !== null) {
+				if (expectedType === BasicType.BOOL)
+					error("The range feature is not permitted to boolean types", statement,
+						EisPackage.eINSTANCE.statement_Range, INVALID_RANGE_DEFINITION)
+
+				if (expectedType === BasicType.STRINGTYP)
+					error("The range feature is not permitted to string types", statement,
+						EisPackage.eINSTANCE.statement_Range, INVALID_RANGE_DEFINITION)
+			}
 		}
 	}
 
@@ -428,6 +447,10 @@ class EisValidator extends AbstractEisValidator {
 		if (variable.range !== null) {
 			if (variable.variableType === BasicType.BOOL)
 				error("The range feature is not permitted to boolean types", variable,
+					EisPackage.eINSTANCE.variable_Range, INVALID_RANGE_DEFINITION)
+
+			if (variable.variableType === BasicType.STRINGTYP)
+				error("The range feature is not permitted to string types", variable,
 					EisPackage.eINSTANCE.variable_Range, INVALID_RANGE_DEFINITION)
 
 			if (variable.directionBlock instanceof Input)
@@ -671,8 +694,39 @@ class EisValidator extends AbstractEisValidator {
 			error("This reference cannot be made because a variable contains other references ", // udtRef,
 			EisPackage.eINSTANCE.udtRef_UdtType, RECURSIVE_VARIABLE_REFERENCE)
 		} else {
-			newVariable.idiom = variable.idiom
-			newVariable.range = variable.range
+			val type = newVariable.variableType.typeFor
+
+			if (variable?.idiom !== null)
+				switch type {
+					case type.isStringType: {
+						newVariable.idiom = new StringConstantImpl;
+						(newVariable.idiom as StringConstant).value = variable?.idiom?.interpret?.toString
+					}
+					case type.isBoolType: {
+						newVariable.idiom = new BoolConstantImpl;
+						(newVariable.idiom as BoolConstant).value = variable?.idiom?.interpret?.toString
+					}
+					case type.isIntType: {
+						newVariable.idiom = new IntConstantImpl;
+						(newVariable.idiom as IntConstant).value = variable?.idiom?.interpret as Integer
+					}
+				}
+
+			if (variable?.range !== null)
+				switch type {
+					case type.isStringType: {
+						newVariable.range = new StringConstantImpl;
+						(newVariable.range as StringConstant).value = variable?.range?.interpret?.toString
+					}
+					case type.isBoolType: {
+						newVariable.range = new BoolConstantImpl;
+						(newVariable.range as BoolConstant).value = variable?.range?.interpret?.toString
+					}
+					case type.isIntType: {
+						newVariable.range = new IntConstantImpl;
+						(newVariable.range as IntConstant).value = (variable?.range?.interpret as Integer)
+					}
+				}
 		}
 
 		return newVariable

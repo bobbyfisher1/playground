@@ -19,6 +19,7 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.example.eis.eis.And;
 import org.example.eis.eis.Assert;
 import org.example.eis.eis.BasicType;
+import org.example.eis.eis.BoolConstant;
 import org.example.eis.eis.Cascade;
 import org.example.eis.eis.Comparison;
 import org.example.eis.eis.DefineBlock;
@@ -29,12 +30,14 @@ import org.example.eis.eis.Equality;
 import org.example.eis.eis.Idiom;
 import org.example.eis.eis.InOut;
 import org.example.eis.eis.Input;
+import org.example.eis.eis.IntConstant;
 import org.example.eis.eis.Minus;
 import org.example.eis.eis.MulOrDiv;
 import org.example.eis.eis.Not;
 import org.example.eis.eis.Or;
 import org.example.eis.eis.Plus;
 import org.example.eis.eis.Statement;
+import org.example.eis.eis.StringConstant;
 import org.example.eis.eis.Testcase;
 import org.example.eis.eis.TeststepBlock;
 import org.example.eis.eis.Udt;
@@ -42,8 +45,12 @@ import org.example.eis.eis.UdtRef;
 import org.example.eis.eis.Variable;
 import org.example.eis.eis.VariableRef;
 import org.example.eis.eis.Variables;
+import org.example.eis.eis.impl.BoolConstantImpl;
+import org.example.eis.eis.impl.IntConstantImpl;
+import org.example.eis.eis.impl.StringConstantImpl;
 import org.example.eis.eis.impl.UdtImpl;
 import org.example.eis.eis.impl.VariableImpl;
+import org.example.eis.interpreter.EisInterpreter;
 import org.example.eis.typing.DefineType;
 import org.example.eis.typing.DefineTypeComputer;
 import org.example.eis.validation.AbstractEisValidator;
@@ -91,6 +98,10 @@ public class EisValidator extends AbstractEisValidator {
   @Inject
   @Extension
   private DefineTypeComputer _defineTypeComputer;
+  
+  @Inject
+  @Extension
+  private EisInterpreter _eisInterpreter;
   
   @Check
   public void checkNoDuplicateVariablesIO(final DirectionBlock directionblock) {
@@ -380,17 +391,29 @@ public class EisValidator extends AbstractEisValidator {
     if ((variable instanceof Variable)) {
       expectedType = ((Variable) variable).getVariableType();
       this.compareTypesAndCallErrorOnMismatch(statement, actualType, expectedType, rangeType);
-      if (((expectedType == BasicType.BOOL) && (rangeType != null))) {
-        this.error("The range feature is not permitted to boolean types", statement, 
-          EisPackage.eINSTANCE.getStatement_Range(), EisValidator.INVALID_RANGE_DEFINITION);
+      if ((rangeType != null)) {
+        if ((expectedType == BasicType.BOOL)) {
+          this.error("The range feature is not permitted to boolean types", statement, 
+            EisPackage.eINSTANCE.getStatement_Range(), EisValidator.INVALID_RANGE_DEFINITION);
+        }
+        if ((expectedType == BasicType.STRINGTYP)) {
+          this.error("The range feature is not permitted to string types", statement, 
+            EisPackage.eINSTANCE.getStatement_Range(), EisValidator.INVALID_RANGE_DEFINITION);
+        }
       }
     } else {
       if ((last instanceof Variable)) {
         expectedType = ((Variable)last).getVariableType();
         this.compareTypesAndCallErrorOnMismatch(statement, actualType, expectedType, rangeType);
-        if (((expectedType == BasicType.BOOL) && (rangeType != null))) {
-          this.error("The range feature is not permitted to boolean types", statement, 
-            EisPackage.eINSTANCE.getStatement_Range(), EisValidator.INVALID_RANGE_DEFINITION);
+        if ((rangeType != null)) {
+          if ((expectedType == BasicType.BOOL)) {
+            this.error("The range feature is not permitted to boolean types", statement, 
+              EisPackage.eINSTANCE.getStatement_Range(), EisValidator.INVALID_RANGE_DEFINITION);
+          }
+          if ((expectedType == BasicType.STRINGTYP)) {
+            this.error("The range feature is not permitted to string types", statement, 
+              EisPackage.eINSTANCE.getStatement_Range(), EisValidator.INVALID_RANGE_DEFINITION);
+          }
         }
       }
     }
@@ -602,6 +625,12 @@ public class EisValidator extends AbstractEisValidator {
       boolean _tripleEquals = (_variableType == BasicType.BOOL);
       if (_tripleEquals) {
         this.error("The range feature is not permitted to boolean types", variable, 
+          EisPackage.eINSTANCE.getVariable_Range(), EisValidator.INVALID_RANGE_DEFINITION);
+      }
+      BasicType _variableType_1 = variable.getVariableType();
+      boolean _tripleEquals_1 = (_variableType_1 == BasicType.STRINGTYP);
+      if (_tripleEquals_1) {
+        this.error("The range feature is not permitted to string types", variable, 
           EisPackage.eINSTANCE.getVariable_Range(), EisValidator.INVALID_RANGE_DEFINITION);
       }
       EObject _directionBlock = this.directionBlock(variable);
@@ -908,8 +937,143 @@ public class EisValidator extends AbstractEisValidator {
       this.error("This reference cannot be made because a variable contains other references ", 
         EisPackage.eINSTANCE.getUdtRef_UdtType(), EisValidator.RECURSIVE_VARIABLE_REFERENCE);
     } else {
-      newVariable.setIdiom(variable.getIdiom());
-      newVariable.setRange(variable.getRange());
+      final DefineType type = this._defineTypeComputer.typeFor(newVariable.getVariableType());
+      Idiom _idiom = null;
+      if (variable!=null) {
+        _idiom=variable.getIdiom();
+      }
+      boolean _tripleNotEquals = (_idiom != null);
+      if (_tripleNotEquals) {
+        boolean _matched = false;
+        boolean _isStringType = this._defineTypeComputer.isStringType(type);
+        if (_isStringType) {
+          _matched=true;
+          StringConstantImpl _stringConstantImpl = new StringConstantImpl();
+          newVariable.setIdiom(_stringConstantImpl);
+          Idiom _idiom_1 = newVariable.getIdiom();
+          Idiom _idiom_2 = null;
+          if (variable!=null) {
+            _idiom_2=variable.getIdiom();
+          }
+          Object _interpret = null;
+          if (_idiom_2!=null) {
+            _interpret=this._eisInterpreter.interpret(_idiom_2);
+          }
+          String _string = null;
+          if (_interpret!=null) {
+            _string=_interpret.toString();
+          }
+          ((StringConstant) _idiom_1).setValue(_string);
+        }
+        if (!_matched) {
+          boolean _isBoolType = this._defineTypeComputer.isBoolType(type);
+          if (_isBoolType) {
+            _matched=true;
+            BoolConstantImpl _boolConstantImpl = new BoolConstantImpl();
+            newVariable.setIdiom(_boolConstantImpl);
+            Idiom _idiom_3 = newVariable.getIdiom();
+            Idiom _idiom_4 = null;
+            if (variable!=null) {
+              _idiom_4=variable.getIdiom();
+            }
+            Object _interpret_1 = null;
+            if (_idiom_4!=null) {
+              _interpret_1=this._eisInterpreter.interpret(_idiom_4);
+            }
+            String _string_1 = null;
+            if (_interpret_1!=null) {
+              _string_1=_interpret_1.toString();
+            }
+            ((BoolConstant) _idiom_3).setValue(_string_1);
+          }
+        }
+        if (!_matched) {
+          boolean _isIntType = this._defineTypeComputer.isIntType(type);
+          if (_isIntType) {
+            _matched=true;
+            IntConstantImpl _intConstantImpl = new IntConstantImpl();
+            newVariable.setIdiom(_intConstantImpl);
+            Idiom _idiom_5 = newVariable.getIdiom();
+            Idiom _idiom_6 = null;
+            if (variable!=null) {
+              _idiom_6=variable.getIdiom();
+            }
+            Object _interpret_2 = null;
+            if (_idiom_6!=null) {
+              _interpret_2=this._eisInterpreter.interpret(_idiom_6);
+            }
+            ((IntConstant) _idiom_5).setValue((((Integer) _interpret_2)).intValue());
+          }
+        }
+      }
+      Idiom _range = null;
+      if (variable!=null) {
+        _range=variable.getRange();
+      }
+      boolean _tripleNotEquals_1 = (_range != null);
+      if (_tripleNotEquals_1) {
+        boolean _matched_1 = false;
+        boolean _isStringType_1 = this._defineTypeComputer.isStringType(type);
+        if (_isStringType_1) {
+          _matched_1=true;
+          StringConstantImpl _stringConstantImpl_1 = new StringConstantImpl();
+          newVariable.setRange(_stringConstantImpl_1);
+          Idiom _range_1 = newVariable.getRange();
+          Idiom _range_2 = null;
+          if (variable!=null) {
+            _range_2=variable.getRange();
+          }
+          Object _interpret_3 = null;
+          if (_range_2!=null) {
+            _interpret_3=this._eisInterpreter.interpret(_range_2);
+          }
+          String _string_2 = null;
+          if (_interpret_3!=null) {
+            _string_2=_interpret_3.toString();
+          }
+          ((StringConstant) _range_1).setValue(_string_2);
+        }
+        if (!_matched_1) {
+          boolean _isBoolType_1 = this._defineTypeComputer.isBoolType(type);
+          if (_isBoolType_1) {
+            _matched_1=true;
+            BoolConstantImpl _boolConstantImpl_1 = new BoolConstantImpl();
+            newVariable.setRange(_boolConstantImpl_1);
+            Idiom _range_3 = newVariable.getRange();
+            Idiom _range_4 = null;
+            if (variable!=null) {
+              _range_4=variable.getRange();
+            }
+            Object _interpret_4 = null;
+            if (_range_4!=null) {
+              _interpret_4=this._eisInterpreter.interpret(_range_4);
+            }
+            String _string_3 = null;
+            if (_interpret_4!=null) {
+              _string_3=_interpret_4.toString();
+            }
+            ((BoolConstant) _range_3).setValue(_string_3);
+          }
+        }
+        if (!_matched_1) {
+          boolean _isIntType_1 = this._defineTypeComputer.isIntType(type);
+          if (_isIntType_1) {
+            _matched_1=true;
+            IntConstantImpl _intConstantImpl_1 = new IntConstantImpl();
+            newVariable.setRange(_intConstantImpl_1);
+            Idiom _range_5 = newVariable.getRange();
+            Idiom _range_6 = null;
+            if (variable!=null) {
+              _range_6=variable.getRange();
+            }
+            Object _interpret_5 = null;
+            if (_range_6!=null) {
+              _interpret_5=this._eisInterpreter.interpret(_range_6);
+            }
+            ((IntConstant) _range_5).setValue((((Integer) _interpret_5)).intValue());
+          }
+        }
+      }
     }
     return newVariable;
   }

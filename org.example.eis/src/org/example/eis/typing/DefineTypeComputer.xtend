@@ -72,7 +72,7 @@ class DefineTypeComputer {
 
 	def dispatch DefineType typeFor(VariableRef varRef) {
 		return varRef.variable.idiom?.typeFor
-
 	}
 
+	
 }
