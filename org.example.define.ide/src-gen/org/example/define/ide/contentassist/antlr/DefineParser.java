@@ -76,6 +76,8 @@ public class DefineParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAssertAccess().getGroup(), "rule__Assert__Group__0");
 					put(grammarAccess.getStatementAccess().getGroup(), "rule__Statement__Group__0");
 					put(grammarAccess.getStatementAccess().getGroup_1(), "rule__Statement__Group_1__0");
+					put(grammarAccess.getQualifiedNameAccess().getGroup(), "rule__QualifiedName__Group__0");
+					put(grammarAccess.getQualifiedNameAccess().getGroup_1(), "rule__QualifiedName__Group_1__0");
 					put(grammarAccess.getDefineBlockAccess().getDirectionAssignment_2(), "rule__DefineBlock__DirectionAssignment_2");
 					put(grammarAccess.getDefineBlockAccess().getTeststepsAssignment_4(), "rule__DefineBlock__TeststepsAssignment_4");
 					put(grammarAccess.getDirectionBlockAccess().getInputAssignment_0(), "rule__DirectionBlock__InputAssignment_0");

@@ -114,8 +114,12 @@ Assert:
 	name='assert' '[' assertVariables+=Statement* ']';
 
 Statement:
-	variable=[Variables] ('.' member+=[Variables])* '=' right=Idiom ';';
-//{Statement}junk+=ID*;
+	variable=[Variables|QualifiedName] ('.' member+=[Variables])* '=' right=Idiom ';';
+
+QualifiedName: //look at Sven's presentation (20th minute)
+	ID ('.' ID)*;
+
+	
 
 
   

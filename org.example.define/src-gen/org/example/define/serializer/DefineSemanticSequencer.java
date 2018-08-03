@@ -657,7 +657,7 @@ public class DefineSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *     Statement returns Statement
 	 *
 	 * Constraint:
-	 *     (variable=[Variables|ID] member+=[Variables|ID]* right=Idiom)
+	 *     (variable=[Variables|QualifiedName] member+=[Variables|ID]* right=Idiom)
 	 */
 	protected void sequence_Statement(ISerializationContext context, Statement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

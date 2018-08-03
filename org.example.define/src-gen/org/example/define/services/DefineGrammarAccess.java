@@ -1089,7 +1089,7 @@ public class DefineGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cVariableAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final CrossReference cVariableVariablesCrossReference_0_0 = (CrossReference)cVariableAssignment_0.eContents().get(0);
-		private final RuleCall cVariableVariablesIDTerminalRuleCall_0_0_1 = (RuleCall)cVariableVariablesCrossReference_0_0.eContents().get(1);
+		private final RuleCall cVariableVariablesQualifiedNameParserRuleCall_0_0_1 = (RuleCall)cVariableVariablesCrossReference_0_0.eContents().get(1);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Keyword cFullStopKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
 		private final Assignment cMemberAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
@@ -1101,20 +1101,20 @@ public class DefineGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//Statement:
-		//	variable=[Variables] ('.' member+=[Variables])* '=' right=Idiom ';';
+		//	variable=[Variables|QualifiedName] ('.' member+=[Variables])* '=' right=Idiom ';';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//variable=[Variables] ('.' member+=[Variables])* '=' right=Idiom ';'
+		//variable=[Variables|QualifiedName] ('.' member+=[Variables])* '=' right=Idiom ';'
 		public Group getGroup() { return cGroup; }
 		
-		//variable=[Variables]
+		//variable=[Variables|QualifiedName]
 		public Assignment getVariableAssignment_0() { return cVariableAssignment_0; }
 		
-		//[Variables]
+		//[Variables|QualifiedName]
 		public CrossReference getVariableVariablesCrossReference_0_0() { return cVariableVariablesCrossReference_0_0; }
 		
-		//ID
-		public RuleCall getVariableVariablesIDTerminalRuleCall_0_0_1() { return cVariableVariablesIDTerminalRuleCall_0_0_1; }
+		//QualifiedName
+		public RuleCall getVariableVariablesQualifiedNameParserRuleCall_0_0_1() { return cVariableVariablesQualifiedNameParserRuleCall_0_0_1; }
 		
 		//('.' member+=[Variables])*
 		public Group getGroup_1() { return cGroup_1; }
@@ -1142,6 +1142,33 @@ public class DefineGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//';'
 		public Keyword getSemicolonKeyword_4() { return cSemicolonKeyword_4; }
+	}
+	public class QualifiedNameElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.define.Define.QualifiedName");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final RuleCall cIDTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Keyword cFullStopKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
+		
+		//QualifiedName:
+		//	ID ('.' ID)*;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//ID ('.' ID)*
+		public Group getGroup() { return cGroup; }
+		
+		//ID
+		public RuleCall getIDTerminalRuleCall_0() { return cIDTerminalRuleCall_0; }
+		
+		//('.' ID)*
+		public Group getGroup_1() { return cGroup_1; }
+		
+		//'.'
+		public Keyword getFullStopKeyword_1_0() { return cFullStopKeyword_1_0; }
+		
+		//ID
+		public RuleCall getIDTerminalRuleCall_1_1() { return cIDTerminalRuleCall_1_1; }
 	}
 	
 	public class BasicTypeElements extends AbstractEnumRuleElementFinder {
@@ -1222,6 +1249,7 @@ public class DefineGrammarAccess extends AbstractGrammarElementFinder {
 	private final SetElements pSet;
 	private final AssertElements pAssert;
 	private final StatementElements pStatement;
+	private final QualifiedNameElements pQualifiedName;
 	
 	private final Grammar grammar;
 	
@@ -1258,6 +1286,7 @@ public class DefineGrammarAccess extends AbstractGrammarElementFinder {
 		this.pSet = new SetElements();
 		this.pAssert = new AssertElements();
 		this.pStatement = new StatementElements();
+		this.pQualifiedName = new QualifiedNameElements();
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -1572,13 +1601,23 @@ public class DefineGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Statement:
-	//	variable=[Variables] ('.' member+=[Variables])* '=' right=Idiom ';';
+	//	variable=[Variables|QualifiedName] ('.' member+=[Variables])* '=' right=Idiom ';';
 	public StatementElements getStatementAccess() {
 		return pStatement;
 	}
 	
 	public ParserRule getStatementRule() {
 		return getStatementAccess().getRule();
+	}
+	
+	//QualifiedName:
+	//	ID ('.' ID)*;
+	public QualifiedNameElements getQualifiedNameAccess() {
+		return pQualifiedName;
+	}
+	
+	public ParserRule getQualifiedNameRule() {
+		return getQualifiedNameAccess().getRule();
 	}
 	
 	//terminal ID:

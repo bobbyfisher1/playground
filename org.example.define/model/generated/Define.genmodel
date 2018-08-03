@@ -81,7 +81,6 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Define.ecore#//Statement/variable"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Define.ecore#//Statement/member"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Define.ecore#//Statement/right"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Define.ecore#//Statement/junk"/>
     </genClasses>
     <genClasses ecoreClass="Define.ecore#//Or">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Define.ecore#//Or/left"/>
