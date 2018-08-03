@@ -137,7 +137,7 @@ class EisGenerator extends AbstractGenerator {
 			if(variable instanceof Variable) {
 				val value = setMap.get(qualifiedName + variable.name).toString
 				
-				charSeq += indent +	'''<Element xsi:type="Input" Name="«variable.name»" Datatype="«variable.variableType.toString»" Direction="«variable.directionBlock»" Value="«value»" Variant="«variable.variantKeyword.toString»" />
+				charSeq += indent +	'''<Element xsi:type="Input" Name="«variable.name»" Datatype="«variable.variableType.toString.toFirstUpper»" Direction="«variable.directionBlock»" Value="«value»" Variant="«variable.variantKeyword.toString»" />
 				'''//newline
 			} else if(variable instanceof Udt)	
 				charSeq += buildUdt(setMap, qualifiedName, indent, variable) 
@@ -208,7 +208,7 @@ class EisGenerator extends AbstractGenerator {
 				val idiom = idiomMap.get(qualifiedName + variable.name).toString
 				val range = rangeMap.get(qualifiedName + variable.name).toString
 					
-				charSeq +=	indent + '''<Element xsi:type="Output" Name="«variable.name»" Datatype="«variable.variableType.toString»" Direction="«variable.directionBlock»" Expect="«idiom»" Range="«range»" Variant="«variable.variantKeyword.toString»" />
+				charSeq +=	indent + '''<Element xsi:type="Output" Name="«variable.name»" Datatype="«variable.variableType.toString.toFirstUpper»" Direction="«variable.directionBlock»" Expect="«idiom»" Range="«range»" Variant="«variable.variantKeyword.toString»" />
 				''' // newline
 					
 			} else if (variable instanceof Udt)
@@ -288,7 +288,7 @@ class EisGenerator extends AbstractGenerator {
 		var name = _name
 		for(variable : variables){
 			if(variable instanceof Variable)
-				map.put(name + variable.name, variable?.range?.interpret?.toString ?: variable.defaultValue)
+				map.put(name + variable.name, variable?.range?.interpret?.toString ?: variable.defaultRange)
 			 else if(variable instanceof Udt) 
 				map.generateRangeMap(variable.udtVariables, name + variable.name + '.')
 			 else if(variable instanceof UdtRef)
@@ -299,8 +299,17 @@ class EisGenerator extends AbstractGenerator {
 	def private String defaultValue(Variable variable) {
 		val type = variable.variableType.typeFor
 		switch type{
-			case type.isBoolType:		return "false"	
-			case type.isIntType:			return "0"			
+			case type.isBoolType:	return "false"	
+			case type.isIntType:	return "0"			
+			case type.isStringType:	return ""
+		}
+	}
+	
+	def private String defaultRange(Variable variable) {
+		val type = variable.variableType.typeFor
+		switch type{
+			case type.isBoolType:	return ""	
+			case type.isIntType:	return "0"			
 			case type.isStringType:	return ""
 		}
 	}

@@ -336,10 +336,10 @@ public class EisGeneratorTest {
         _builder_1.append("<Inputs>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"a\" Datatype=\"int\" Direction=\"Input\" Value=\"12\" Variant=\"true\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"a\" Datatype=\"Int\" Direction=\"Input\" Value=\"12\" Variant=\"true\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"bool\" Direction=\"Input\" Value=\"true\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"Bool\" Direction=\"Input\" Value=\"true\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t");
         _builder_1.append("</Inputs>");
@@ -457,7 +457,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Elements>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"int\" Direction=\"Input\" Value=\"43\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"Int\" Direction=\"Input\" Value=\"43\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t");
         _builder_1.append("</Elements>");
@@ -563,7 +563,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Inputs>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"a\" Datatype=\"int\" Direction=\"InOut\" Value=\"43\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"a\" Datatype=\"Int\" Direction=\"InOut\" Value=\"43\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t");
         _builder_1.append("</Inputs>");
@@ -572,7 +572,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Outputs>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Output\" Name=\"a\" Datatype=\"int\" Direction=\"InOut\" Expect=\"100043\" Range=\"2\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Output\" Name=\"a\" Datatype=\"Int\" Direction=\"InOut\" Expect=\"100043\" Range=\"2\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t");
         _builder_1.append("</Outputs>");
@@ -715,7 +715,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Elements>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"one\" Datatype=\"string\" Direction=\"Input\" Value=\"zero\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"one\" Datatype=\"String\" Direction=\"Input\" Value=\"zero\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t");
         _builder_1.append("<Element xsi: type=\"InputUDT\" Name=\"a\" Datatype=\"typeA\" Direction=\"Input\">");
@@ -724,7 +724,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Elements>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"int\" Direction=\"Input\" Value=\"0\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"Int\" Direction=\"Input\" Value=\"0\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t\t\t");
         _builder_1.append("<Element xsi: type=\"InputUDT\" Name=\"c\" Datatype=\"typeC\" Direction=\"Input\">");
@@ -733,7 +733,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Elements>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"d\" Datatype=\"bool\" Direction=\"Input\" Value=\"false\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"d\" Datatype=\"Bool\" Direction=\"Input\" Value=\"false\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t\t\t\t");
         _builder_1.append("</Elements>");
@@ -778,7 +778,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Elements>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"one\" Datatype=\"string\" Direction=\"Input\" Value=\"one\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"one\" Datatype=\"String\" Direction=\"Input\" Value=\"one\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t");
         _builder_1.append("<Element xsi: type=\"InputUDT\" Name=\"a\" Datatype=\"typeA\" Direction=\"Input\">");
@@ -787,7 +787,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Elements>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"int\" Direction=\"Input\" Value=\"1\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"Int\" Direction=\"Input\" Value=\"1\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t\t\t");
         _builder_1.append("<Element xsi: type=\"InputUDT\" Name=\"c\" Datatype=\"typeC\" Direction=\"Input\">");
@@ -796,7 +796,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Elements>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"d\" Datatype=\"bool\" Direction=\"Input\" Value=\"true\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"d\" Datatype=\"Bool\" Direction=\"Input\" Value=\"true\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t\t\t\t");
         _builder_1.append("</Elements>");
@@ -938,7 +938,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Elements>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"int\" Direction=\"InOut\" Value=\"33\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"Int\" Direction=\"InOut\" Value=\"33\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t");
         _builder_1.append("</Elements>");
@@ -947,7 +947,7 @@ public class EisGeneratorTest {
         _builder_1.append("</Element>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"c\" Datatype=\"int\" Direction=\"InOut\" Value=\"3\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"c\" Datatype=\"Int\" Direction=\"InOut\" Value=\"3\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t");
         _builder_1.append("</Inputs>");
@@ -962,7 +962,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Elements>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Output\" Name=\"b\" Datatype=\"int\" Direction=\"InOut\" Expect=\"0\" Range=\"0\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Output\" Name=\"b\" Datatype=\"Int\" Direction=\"InOut\" Expect=\"0\" Range=\"0\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t");
         _builder_1.append("</Elements>");
@@ -971,7 +971,7 @@ public class EisGeneratorTest {
         _builder_1.append("</Element>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Output\" Name=\"c\" Datatype=\"int\" Direction=\"InOut\" Expect=\"0\" Range=\"0\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Output\" Name=\"c\" Datatype=\"Int\" Direction=\"InOut\" Expect=\"0\" Range=\"0\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t");
         _builder_1.append("</Outputs>");
@@ -1110,7 +1110,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Elements>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"bb\" Datatype=\"int\" Direction=\"Input\" Value=\"33\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"bb\" Datatype=\"Int\" Direction=\"Input\" Value=\"33\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t");
         _builder_1.append("</Elements>");
@@ -1119,7 +1119,7 @@ public class EisGeneratorTest {
         _builder_1.append("</Element>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"cc\" Datatype=\"int\" Direction=\"Input\" Value=\"66\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"cc\" Datatype=\"Int\" Direction=\"Input\" Value=\"66\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
         _builder_1.append("<Element xsi: type=\"InputUDT\" Name=\"a\" Datatype=\"typeA\" Direction=\"InOut\">");
@@ -1128,7 +1128,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Elements>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"int\" Direction=\"InOut\" Value=\"3\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"Int\" Direction=\"InOut\" Value=\"3\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t");
         _builder_1.append("</Elements>");
@@ -1137,7 +1137,7 @@ public class EisGeneratorTest {
         _builder_1.append("</Element>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"c\" Datatype=\"int\" Direction=\"InOut\" Value=\"6\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"c\" Datatype=\"Int\" Direction=\"InOut\" Value=\"6\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t");
         _builder_1.append("</Inputs>");
@@ -1152,7 +1152,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Elements>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Output\" Name=\"b\" Datatype=\"int\" Direction=\"InOut\" Expect=\"0\" Range=\"0\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Output\" Name=\"b\" Datatype=\"Int\" Direction=\"InOut\" Expect=\"0\" Range=\"0\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t");
         _builder_1.append("</Elements>");
@@ -1161,7 +1161,7 @@ public class EisGeneratorTest {
         _builder_1.append("</Element>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Output\" Name=\"c\" Datatype=\"int\" Direction=\"InOut\" Expect=\"0\" Range=\"0\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Output\" Name=\"c\" Datatype=\"Int\" Direction=\"InOut\" Expect=\"0\" Range=\"0\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t");
         _builder_1.append("</Outputs>");
@@ -1280,7 +1280,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Elements>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"int\" Direction=\"Input\" Value=\"46\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"Int\" Direction=\"Input\" Value=\"46\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t");
         _builder_1.append("</Elements>");
@@ -1289,7 +1289,7 @@ public class EisGeneratorTest {
         _builder_1.append("</Element>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"c\" Datatype=\"int\" Direction=\"Input\" Value=\"2\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"c\" Datatype=\"Int\" Direction=\"Input\" Value=\"2\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t");
         _builder_1.append("</Inputs>");
@@ -1316,7 +1316,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Elements>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"int\" Direction=\"Input\" Value=\"3\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"Int\" Direction=\"Input\" Value=\"3\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t");
         _builder_1.append("</Elements>");
@@ -1325,7 +1325,7 @@ public class EisGeneratorTest {
         _builder_1.append("</Element>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"c\" Datatype=\"int\" Direction=\"Input\" Value=\"6\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"c\" Datatype=\"Int\" Direction=\"Input\" Value=\"6\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t");
         _builder_1.append("</Inputs>");
@@ -1352,7 +1352,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Elements>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"int\" Direction=\"Input\" Value=\"46\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"Int\" Direction=\"Input\" Value=\"46\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t");
         _builder_1.append("</Elements>");
@@ -1361,7 +1361,7 @@ public class EisGeneratorTest {
         _builder_1.append("</Element>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"c\" Datatype=\"int\" Direction=\"Input\" Value=\"2\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"c\" Datatype=\"Int\" Direction=\"Input\" Value=\"2\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t");
         _builder_1.append("</Inputs>");
@@ -1492,13 +1492,13 @@ public class EisGeneratorTest {
         _builder_1.append("<Inputs>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"x\" Datatype=\"bool\" Direction=\"Input\" Value=\"false\" Variant=\"true\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"x\" Datatype=\"Bool\" Direction=\"Input\" Value=\"false\" Variant=\"true\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"y\" Datatype=\"bool\" Direction=\"Input\" Value=\"false\" Variant=\"true\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"y\" Datatype=\"Bool\" Direction=\"Input\" Value=\"false\" Variant=\"true\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"z\" Datatype=\"bool\" Direction=\"Input\" Value=\"false\" Variant=\"true\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"z\" Datatype=\"Bool\" Direction=\"Input\" Value=\"false\" Variant=\"true\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
         _builder_1.append("<Element xsi: type=\"InputUDT\" Name=\"a\" Datatype=\"typeA\" Direction=\"InOut\">");
@@ -1507,7 +1507,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Elements>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"int\" Direction=\"InOut\" Value=\"46\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"Int\" Direction=\"InOut\" Value=\"46\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t");
         _builder_1.append("</Elements>");
@@ -1516,7 +1516,7 @@ public class EisGeneratorTest {
         _builder_1.append("</Element>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"c\" Datatype=\"int\" Direction=\"InOut\" Value=\"2\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"c\" Datatype=\"Int\" Direction=\"InOut\" Value=\"2\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t");
         _builder_1.append("</Inputs>");
@@ -1531,7 +1531,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Elements>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Output\" Name=\"b\" Datatype=\"int\" Direction=\"InOut\" Expect=\"46\" Range=\"0\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Output\" Name=\"b\" Datatype=\"Int\" Direction=\"InOut\" Expect=\"46\" Range=\"0\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t");
         _builder_1.append("</Elements>");
@@ -1540,7 +1540,7 @@ public class EisGeneratorTest {
         _builder_1.append("</Element>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Output\" Name=\"c\" Datatype=\"int\" Direction=\"InOut\" Expect=\"2\" Range=\"0\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Output\" Name=\"c\" Datatype=\"Int\" Direction=\"InOut\" Expect=\"2\" Range=\"0\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t");
         _builder_1.append("</Outputs>");
@@ -1555,13 +1555,13 @@ public class EisGeneratorTest {
         _builder_1.append("<Inputs>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"x\" Datatype=\"bool\" Direction=\"Input\" Value=\"true\" Variant=\"true\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"x\" Datatype=\"Bool\" Direction=\"Input\" Value=\"true\" Variant=\"true\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"y\" Datatype=\"bool\" Direction=\"Input\" Value=\"true\" Variant=\"true\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"y\" Datatype=\"Bool\" Direction=\"Input\" Value=\"true\" Variant=\"true\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"z\" Datatype=\"bool\" Direction=\"Input\" Value=\"true\" Variant=\"true\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"z\" Datatype=\"Bool\" Direction=\"Input\" Value=\"true\" Variant=\"true\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
         _builder_1.append("<Element xsi: type=\"InputUDT\" Name=\"a\" Datatype=\"typeA\" Direction=\"InOut\">");
@@ -1570,7 +1570,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Elements>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"int\" Direction=\"InOut\" Value=\"3\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"Int\" Direction=\"InOut\" Value=\"3\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t");
         _builder_1.append("</Elements>");
@@ -1579,7 +1579,7 @@ public class EisGeneratorTest {
         _builder_1.append("</Element>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"c\" Datatype=\"int\" Direction=\"InOut\" Value=\"6\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"c\" Datatype=\"Int\" Direction=\"InOut\" Value=\"6\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t");
         _builder_1.append("</Inputs>");
@@ -1594,7 +1594,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Elements>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Output\" Name=\"b\" Datatype=\"int\" Direction=\"InOut\" Expect=\"46\" Range=\"0\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Output\" Name=\"b\" Datatype=\"Int\" Direction=\"InOut\" Expect=\"46\" Range=\"0\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t");
         _builder_1.append("</Elements>");
@@ -1603,7 +1603,7 @@ public class EisGeneratorTest {
         _builder_1.append("</Element>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Output\" Name=\"c\" Datatype=\"int\" Direction=\"InOut\" Expect=\"2\" Range=\"0\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Output\" Name=\"c\" Datatype=\"Int\" Direction=\"InOut\" Expect=\"2\" Range=\"0\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t");
         _builder_1.append("</Outputs>");
@@ -1618,13 +1618,13 @@ public class EisGeneratorTest {
         _builder_1.append("<Inputs>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"x\" Datatype=\"bool\" Direction=\"Input\" Value=\"false\" Variant=\"true\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"x\" Datatype=\"Bool\" Direction=\"Input\" Value=\"false\" Variant=\"true\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"y\" Datatype=\"bool\" Direction=\"Input\" Value=\"false\" Variant=\"true\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"y\" Datatype=\"Bool\" Direction=\"Input\" Value=\"false\" Variant=\"true\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"z\" Datatype=\"bool\" Direction=\"Input\" Value=\"false\" Variant=\"true\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"z\" Datatype=\"Bool\" Direction=\"Input\" Value=\"false\" Variant=\"true\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
         _builder_1.append("<Element xsi: type=\"InputUDT\" Name=\"a\" Datatype=\"typeA\" Direction=\"InOut\">");
@@ -1633,7 +1633,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Elements>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"int\" Direction=\"InOut\" Value=\"46\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"Int\" Direction=\"InOut\" Value=\"46\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t");
         _builder_1.append("</Elements>");
@@ -1642,7 +1642,7 @@ public class EisGeneratorTest {
         _builder_1.append("</Element>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"c\" Datatype=\"int\" Direction=\"InOut\" Value=\"2\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"c\" Datatype=\"Int\" Direction=\"InOut\" Value=\"2\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t");
         _builder_1.append("</Inputs>");
@@ -1657,7 +1657,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Elements>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Output\" Name=\"b\" Datatype=\"int\" Direction=\"InOut\" Expect=\"46\" Range=\"0\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Output\" Name=\"b\" Datatype=\"Int\" Direction=\"InOut\" Expect=\"46\" Range=\"0\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t");
         _builder_1.append("</Elements>");
@@ -1666,7 +1666,7 @@ public class EisGeneratorTest {
         _builder_1.append("</Element>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Output\" Name=\"c\" Datatype=\"int\" Direction=\"InOut\" Expect=\"2\" Range=\"0\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Output\" Name=\"c\" Datatype=\"Int\" Direction=\"InOut\" Expect=\"2\" Range=\"0\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t");
         _builder_1.append("</Outputs>");
@@ -1770,7 +1770,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Elements>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"int\" Direction=\"Input\" Value=\"22\" Variant=\"true\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"Int\" Direction=\"Input\" Value=\"22\" Variant=\"true\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t");
         _builder_1.append("</Elements>");
@@ -1785,7 +1785,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Elements>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"int\" Direction=\"Input\" Value=\"22\" Variant=\"true\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"Int\" Direction=\"Input\" Value=\"22\" Variant=\"true\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t");
         _builder_1.append("</Elements>");
@@ -1818,7 +1818,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Elements>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"int\" Direction=\"Input\" Value=\"22\" Variant=\"true\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"Int\" Direction=\"Input\" Value=\"22\" Variant=\"true\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t");
         _builder_1.append("</Elements>");
@@ -1833,7 +1833,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Elements>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"int\" Direction=\"Input\" Value=\"44\" Variant=\"true\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"Int\" Direction=\"Input\" Value=\"44\" Variant=\"true\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t");
         _builder_1.append("</Elements>");
@@ -1866,7 +1866,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Elements>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"int\" Direction=\"Input\" Value=\"22\" Variant=\"true\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"Int\" Direction=\"Input\" Value=\"22\" Variant=\"true\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t");
         _builder_1.append("</Elements>");
@@ -1881,7 +1881,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Elements>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"int\" Direction=\"Input\" Value=\"22\" Variant=\"true\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"Int\" Direction=\"Input\" Value=\"22\" Variant=\"true\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t");
         _builder_1.append("</Elements>");
@@ -2002,10 +2002,10 @@ public class EisGeneratorTest {
         _builder_1.append("<Outputs>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Output\" Name=\"a\" Datatype=\"int\" Direction=\"Output\" Expect=\"12\" Range=\"0\" Variant=\"true\" />");
+        _builder_1.append("<Element xsi:type=\"Output\" Name=\"a\" Datatype=\"Int\" Direction=\"Output\" Expect=\"12\" Range=\"0\" Variant=\"true\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Output\" Name=\"b\" Datatype=\"bool\" Direction=\"Output\" Expect=\"true\" Range=\"false\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Output\" Name=\"b\" Datatype=\"Bool\" Direction=\"Output\" Expect=\"true\" Range=\"\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t");
         _builder_1.append("</Outputs>");
@@ -2144,7 +2144,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Elements>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"int\" Direction=\"InOut\" Value=\"0\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"b\" Datatype=\"Int\" Direction=\"InOut\" Value=\"0\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t");
         _builder_1.append("</Elements>");
@@ -2153,7 +2153,7 @@ public class EisGeneratorTest {
         _builder_1.append("</Element>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"c\" Datatype=\"int\" Direction=\"InOut\" Value=\"0\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"c\" Datatype=\"Int\" Direction=\"InOut\" Value=\"0\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t");
         _builder_1.append("</Inputs>");
@@ -2168,7 +2168,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Elements>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Output\" Name=\"bb\" Datatype=\"int\" Direction=\"Output\" Expect=\"33\" Range=\"0\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Output\" Name=\"bb\" Datatype=\"Int\" Direction=\"Output\" Expect=\"33\" Range=\"0\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t");
         _builder_1.append("</Elements>");
@@ -2177,7 +2177,7 @@ public class EisGeneratorTest {
         _builder_1.append("</Element>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Output\" Name=\"cc\" Datatype=\"int\" Direction=\"Output\" Expect=\"66\" Range=\"0\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Output\" Name=\"cc\" Datatype=\"Int\" Direction=\"Output\" Expect=\"66\" Range=\"0\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
         _builder_1.append("<Element xsi: type=\"OutputUDT\" Name=\"a\" Datatype=\"typeA\" Direction=\"InOut\">");
@@ -2186,7 +2186,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Elements>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Output\" Name=\"b\" Datatype=\"int\" Direction=\"InOut\" Expect=\"3\" Range=\"0\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Output\" Name=\"b\" Datatype=\"Int\" Direction=\"InOut\" Expect=\"3\" Range=\"0\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t");
         _builder_1.append("</Elements>");
@@ -2195,7 +2195,7 @@ public class EisGeneratorTest {
         _builder_1.append("</Element>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Output\" Name=\"c\" Datatype=\"int\" Direction=\"InOut\" Expect=\"6\" Range=\"0\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Output\" Name=\"c\" Datatype=\"Int\" Direction=\"InOut\" Expect=\"6\" Range=\"0\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t");
         _builder_1.append("</Outputs>");
@@ -2234,7 +2234,7 @@ public class EisGeneratorTest {
     _builder.append("output[ int b = 2 +/- 3;]");
     _builder.newLine();
     _builder.append("\t");
-    _builder.append("inout[ int d = 4 +/- 5;]");
+    _builder.append("inout[ int d = 4 +/- 5; bool c;]");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
@@ -2283,10 +2283,13 @@ public class EisGeneratorTest {
         _builder_1.append("<Inputs>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"a\" Datatype=\"int\" Direction=\"Input\" Value=\"1\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"a\" Datatype=\"Int\" Direction=\"Input\" Value=\"1\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"d\" Datatype=\"int\" Direction=\"InOut\" Value=\"4\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"d\" Datatype=\"Int\" Direction=\"InOut\" Value=\"4\" Variant=\"false\" />");
+        _builder_1.newLine();
+        _builder_1.append("\t\t\t\t\t\t");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"c\" Datatype=\"Bool\" Direction=\"InOut\" Value=\"false\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t");
         _builder_1.append("</Inputs>");
@@ -2295,10 +2298,13 @@ public class EisGeneratorTest {
         _builder_1.append("<Outputs>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Output\" Name=\"b\" Datatype=\"int\" Direction=\"Output\" Expect=\"2\" Range=\"3\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Output\" Name=\"b\" Datatype=\"Int\" Direction=\"Output\" Expect=\"2\" Range=\"3\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Output\" Name=\"d\" Datatype=\"int\" Direction=\"InOut\" Expect=\"4\" Range=\"5\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Output\" Name=\"d\" Datatype=\"Int\" Direction=\"InOut\" Expect=\"4\" Range=\"5\" Variant=\"false\" />");
+        _builder_1.newLine();
+        _builder_1.append("\t\t\t\t\t\t");
+        _builder_1.append("<Element xsi:type=\"Output\" Name=\"c\" Datatype=\"Bool\" Direction=\"InOut\" Expect=\"false\" Range=\"\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t");
         _builder_1.append("</Outputs>");

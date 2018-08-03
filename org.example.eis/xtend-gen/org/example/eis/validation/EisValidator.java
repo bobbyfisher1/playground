@@ -28,6 +28,7 @@ import org.example.eis.eis.EisModel;
 import org.example.eis.eis.EisPackage;
 import org.example.eis.eis.Equality;
 import org.example.eis.eis.Idiom;
+import org.example.eis.eis.InOut;
 import org.example.eis.eis.Input;
 import org.example.eis.eis.IntConstant;
 import org.example.eis.eis.Minus;
@@ -140,11 +141,47 @@ public class EisValidator extends AbstractEisValidator {
   
   @Check
   public void checkNoDuplicateVariablesIOInOut(final DirectionBlock directionblock) {
-    throw new Error("Unresolved compilation problems:"
-      + "\nThe method or field inout is undefined for the type DirectionBlock"
-      + "\ninoutVariables cannot be resolved"
-      + "\ncheckVariableTypeAndAddToMap cannot be resolved"
-      + "\ncheckAllVariableNamesInUdtScope cannot be resolved");
+    final EList<Variables> in = directionblock.getInput().getInputVariables();
+    final EList<Variables> out = directionblock.getOutput().getOutputVariables();
+    final EList<Variables> inout = directionblock.getInout().getInoutVariables();
+    final HashMultimap<String, Variables> multiMap = HashMultimap.<String, Variables>create();
+    for (final Variables e : in) {
+      {
+        this.checkVariableTypeAndAddToMap(e, multiMap);
+        if ((e instanceof Udt)) {
+          this.checkAllVariableNamesInUdtScope(((Udt)e));
+        }
+      }
+    }
+    for (final Variables e_1 : out) {
+      {
+        this.checkVariableTypeAndAddToMap(e_1, multiMap);
+        if ((e_1 instanceof Udt)) {
+          this.checkAllVariableNamesInUdtScope(((Udt)e_1));
+        }
+      }
+    }
+    for (final Variables e_2 : inout) {
+      {
+        this.checkVariableTypeAndAddToMap(e_2, multiMap);
+        if ((e_2 instanceof Udt)) {
+          this.checkAllVariableNamesInUdtScope(((Udt)e_2));
+        }
+      }
+    }
+    Set<Map.Entry<String, Collection<Variables>>> _entrySet = multiMap.asMap().entrySet();
+    for (final Map.Entry<String, Collection<Variables>> entry : _entrySet) {
+      {
+        final Collection<Variables> duplicates = entry.getValue();
+        int _size = duplicates.size();
+        boolean _greaterThan = (_size > 1);
+        if (_greaterThan) {
+          for (final Variables d : duplicates) {
+            this.checkVariableTypeAndCallError(d);
+          }
+        }
+      }
+    }
   }
   
   @Check
@@ -185,13 +222,45 @@ public class EisValidator extends AbstractEisValidator {
   
   @Check
   public void checkNoDuplicateUdtTypesIOInOut(final DirectionBlock directionblock) {
-    throw new Error("Unresolved compilation problems:"
-      + "\nThe method or field inout is undefined for the type DirectionBlock"
-      + "\nType mismatch: cannot convert from Object to EObject"
-      + "\ninoutVariables cannot be resolved"
-      + "\nudtType cannot be resolved"
-      + "\nname cannot be resolved"
-      + "\ncheckNoDuplicateUdtTypes cannot be resolved");
+    HashMultimap<String, Udt> multiMap = HashMultimap.<String, Udt>create();
+    final EList<Variables> in = directionblock.getInput().getInputVariables();
+    final EList<Variables> out = directionblock.getOutput().getOutputVariables();
+    final EList<Variables> inout = directionblock.getInout().getInoutVariables();
+    for (final Variables e : in) {
+      if ((e instanceof Udt)) {
+        multiMap.put(((Udt)e).getUdtType().getName(), ((Udt)e));
+        this.checkNoDuplicateUdtTypes(((Udt)e));
+      }
+    }
+    for (final Variables e_1 : out) {
+      if ((e_1 instanceof Udt)) {
+        multiMap.put(((Udt)e_1).getUdtType().getName(), ((Udt)e_1));
+        this.checkNoDuplicateUdtTypes(((Udt)e_1));
+      }
+    }
+    for (final Variables e_2 : inout) {
+      if ((e_2 instanceof Udt)) {
+        multiMap.put(((Udt)e_2).getUdtType().getName(), ((Udt)e_2));
+        this.checkNoDuplicateUdtTypes(((Udt)e_2));
+      }
+    }
+    Set<Map.Entry<String, Collection<Udt>>> _entrySet = multiMap.asMap().entrySet();
+    for (final Map.Entry<String, Collection<Udt>> entry : _entrySet) {
+      {
+        final Collection<Udt> duplicates = entry.getValue();
+        int _size = duplicates.size();
+        boolean _greaterThan = (_size > 1);
+        if (_greaterThan) {
+          for (final Udt d : duplicates) {
+            String _name = ((Udt) d).getUdtType().getName();
+            String _plus = ("Multiple udtType \'" + _name);
+            String _plus_1 = (_plus + "\'");
+            this.error(_plus_1, d, EisPackage.eINSTANCE.getUdt_UdtType(), 
+              EisValidator.MULTIPLE_UDT_TYPE);
+          }
+        }
+      }
+    }
   }
   
   @Check
@@ -367,11 +436,13 @@ public class EisValidator extends AbstractEisValidator {
   }
   
   @Check
-  public void checkCommaSyntaxIOInOut(final /* InOut */Object inouts) {
-    throw new Error("Unresolved compilation problems:"
-      + "\ninoutVariables cannot be resolved"
-      + "\nempty cannot be resolved"
-      + "\n! cannot be resolved");
+  public void checkCommaSyntaxIOInOut(final InOut inouts) {
+    final EList<Variables> inout = inouts.getInoutVariables();
+    boolean _isEmpty = inout.isEmpty();
+    boolean _not = (!_isEmpty);
+    if (_not) {
+      this.checkCommaSyntaxWithVariables(inout);
+    }
   }
   
   @Check

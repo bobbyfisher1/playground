@@ -12,14 +12,17 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
+import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.example.eis.EisModelUtil;
 import org.example.eis.eis.Assert;
 import org.example.eis.eis.Cascade;
 import org.example.eis.eis.DefineBlock;
+import org.example.eis.eis.DirectionBlock;
 import org.example.eis.eis.EisPackage;
 import org.example.eis.eis.Idiom;
+import org.example.eis.eis.InOut;
 import org.example.eis.eis.Input;
 import org.example.eis.eis.Output;
 import org.example.eis.eis.Set;
@@ -72,10 +75,37 @@ public class EisScopeProvider extends AbstractEisScopeProvider {
   }
   
   protected IScope scopeForUdtType(final EObject context) {
-    throw new Error("Unresolved compilation problems:"
-      + "\nInOut cannot be resolved to a type."
-      + "\nUnreachable code: The case can never match. It is already handled by a previous condition."
-      + "\nThe method udtTypesDefinedBefore(InOut) from the type EisModelUtil refers to the missing type Object");
+    IScope _switchResult = null;
+    boolean _matched = false;
+    if (context instanceof UdtRef) {
+      _matched=true;
+      _switchResult = Scopes.scopeFor(this._eisModelUtil.udtTypesDefinedBefore(((UdtRef)context)));
+    }
+    if (!_matched) {
+      if (context instanceof Input) {
+        _matched=true;
+        _switchResult = Scopes.scopeFor(this._eisModelUtil.udtTypesDefinedBefore(((Input)context)));
+      }
+    }
+    if (!_matched) {
+      if (context instanceof Output) {
+        _matched=true;
+        _switchResult = Scopes.scopeFor(this._eisModelUtil.udtTypesDefinedBefore(((Output)context)));
+      }
+    }
+    if (!_matched) {
+      if (context instanceof InOut) {
+        _matched=true;
+        _switchResult = Scopes.scopeFor(this._eisModelUtil.udtTypesDefinedBefore(((InOut)context)));
+      }
+    }
+    if (!_matched) {
+      if (context instanceof Udt) {
+        _matched=true;
+        _switchResult = Scopes.scopeFor(this._eisModelUtil.udtTypesDefinedBefore(((Udt)context)));
+      }
+    }
+    return _switchResult;
   }
   
   protected IScope scopeForVariableRef(final EObject context) {
@@ -96,10 +126,30 @@ public class EisScopeProvider extends AbstractEisScopeProvider {
   }
   
   protected IScope scopeForStatements(final EObject context) {
-    throw new Error("Unresolved compilation problems:"
-      + "\nThe method or field inout is undefined for the type DirectionBlock"
-      + "\n!== cannot be resolved"
-      + "\ninoutVariables cannot be resolved");
+    IScope _xblockexpression = null;
+    {
+      EObject defineBlock = this.getDefineBlock(context);
+      final Input input = ((DefineBlock) defineBlock).getDirection().getInput();
+      final Output output = ((DefineBlock) defineBlock).getDirection().getOutput();
+      DirectionBlock _direction = ((DefineBlock) defineBlock).getDirection();
+      InOut _inout = null;
+      if (_direction!=null) {
+        _inout=_direction.getInout();
+      }
+      final InOut inout = _inout;
+      List<Variables> inoutScope = CollectionLiterals.<Variables>emptyList();
+      if ((inout != null)) {
+        inoutScope = inout.getInoutVariables();
+      }
+      IScope _xifexpression = null;
+      if ((context instanceof Statement)) {
+        _xifexpression = this.statementScope(((Statement)context).eContainer(), input, output, inoutScope);
+      } else {
+        _xifexpression = this.statementScope(context, input, output, inoutScope);
+      }
+      _xblockexpression = _xifexpression;
+    }
+    return _xblockexpression;
   }
   
   protected IScope scopeForUdtStatements(final EObject context) {

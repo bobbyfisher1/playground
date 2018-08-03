@@ -12,6 +12,7 @@ import org.eclipse.xtext.xbase.lib.Extension;
 import org.example.eis.eis.AssertionBlock;
 import org.example.eis.eis.Cascade;
 import org.example.eis.eis.Idiom;
+import org.example.eis.eis.InOut;
 import org.example.eis.eis.Input;
 import org.example.eis.eis.Output;
 import org.example.eis.eis.Statement;
@@ -46,7 +47,7 @@ public class EisLabelProvider extends DefaultEObjectLabelProvider {
     return "output";
   }
   
-  public String text(final /* InOut */Object io) {
+  public String text(final InOut io) {
     return "inout";
   }
   

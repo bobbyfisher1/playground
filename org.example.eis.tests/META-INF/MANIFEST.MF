@@ -10,7 +10,7 @@ Require-Bundle: org.example.eis,
  org.junit;bundle-version="4.12.0",
  org.eclipse.xtext.testing,
  org.eclipse.xtext.xbase.testing,
- org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
+ org.eclipse.xtext.xbase.lib;bundle-version="2.12.0",
  org.eclipse.jdt.core;bundle-version="3.13.102"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.example.eis.tests;x-internal=true

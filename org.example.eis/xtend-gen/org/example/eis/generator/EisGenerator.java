@@ -16,10 +16,15 @@ import org.eclipse.xtext.generator.IGeneratorContext;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.IteratorExtensions;
+import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.example.eis.eis.Cascade;
 import org.example.eis.eis.DefineBlock;
+import org.example.eis.eis.DirectionBlock;
 import org.example.eis.eis.EisModel;
 import org.example.eis.eis.Idiom;
+import org.example.eis.eis.InOut;
+import org.example.eis.eis.Input;
+import org.example.eis.eis.Output;
 import org.example.eis.eis.Statement;
 import org.example.eis.eis.Testblock;
 import org.example.eis.eis.Testcase;
@@ -143,16 +148,135 @@ public class EisGenerator extends AbstractGenerator {
   }
   
   private CharSequence compileTeststeps(final DefineBlock define) {
-    throw new Error("Unresolved compilation problems:"
-      + "\nThe method or field inout is undefined for the type DirectionBlock"
-      + "\ninoutVariables cannot be resolved"
-      + "\n!== cannot be resolved"
-      + "\nempty cannot be resolved"
-      + "\n! cannot be resolved"
-      + "\n!== cannot be resolved"
-      + "\ncompileIn cannot be resolved"
-      + "\n!== cannot be resolved"
-      + "\ncompileOut cannot be resolved");
+    EList<TeststepBlock> _teststeps = null;
+    if (define!=null) {
+      _teststeps=define.getTeststeps();
+    }
+    final EList<TeststepBlock> steps = _teststeps;
+    final EList<Variables> inputs = define.getDirection().getInput().getInputVariables();
+    DirectionBlock _direction = define.getDirection();
+    InOut _inout = null;
+    if (_direction!=null) {
+      _inout=_direction.getInout();
+    }
+    EList<Variables> _inoutVariables = null;
+    if (_inout!=null) {
+      _inoutVariables=_inout.getInoutVariables();
+    }
+    final EList<Variables> inouts = _inoutVariables;
+    final EList<Variables> outputs = define.getDirection().getOutput().getOutputVariables();
+    final HashMap<Object, Object> inputMap = new HashMap<Object, Object>();
+    final HashMap<Object, Object> outputIdiomMap = new HashMap<Object, Object>();
+    final HashMap<Object, Object> outputRangeMap = new HashMap<Object, Object>();
+    HashMap<Object, Object> setMap = new HashMap<Object, Object>();
+    HashMap<Object, Object> assertIdiomMap = new HashMap<Object, Object>();
+    HashMap<Object, Object> assertRangeMap = new HashMap<Object, Object>();
+    final String oneTab = "\t";
+    final String twoTabs = (oneTab + oneTab);
+    final String fourTabs = (twoTabs + twoTabs);
+    final String fiveTabs = (fourTabs + oneTab);
+    final String sixTabs = (fourTabs + twoTabs);
+    boolean _isEmpty = inputs.isEmpty();
+    boolean _not = (!_isEmpty);
+    if (_not) {
+      this.generateMap(inputMap, inputs, "");
+    }
+    boolean _isEmpty_1 = outputs.isEmpty();
+    boolean _not_1 = (!_isEmpty_1);
+    if (_not_1) {
+      this.generateMap(outputIdiomMap, outputs, "");
+      this.generateRangeMap(outputRangeMap, outputs, "");
+    }
+    if ((inouts != null)) {
+      boolean _isEmpty_2 = inouts.isEmpty();
+      boolean _not_2 = (!_isEmpty_2);
+      if (_not_2) {
+        this.generateMap(inputMap, inouts, "");
+        this.generateMap(outputIdiomMap, inouts, "");
+        this.generateRangeMap(outputRangeMap, inouts, "");
+      }
+    }
+    StringConcatenation _builder = new StringConcatenation();
+    {
+      boolean _isEmpty_3 = steps.isEmpty();
+      boolean _not_3 = (!_isEmpty_3);
+      if (_not_3) {
+        _builder.append((oneTab + twoTabs));
+        _builder.append("<Teststeps>");
+        _builder.newLineIfNotEmpty();
+        {
+          for(final TeststepBlock e : steps) {
+            _builder.append(fourTabs);
+            _builder.append("<Teststep PlcCycle =\"");
+            int _plcCycle = e.getPlcCycle();
+            _builder.append(_plcCycle);
+            _builder.append("\" Description=\"");
+            String _description = e.getDescription();
+            _builder.append(_description);
+            _builder.append("\">");
+            _builder.newLineIfNotEmpty();
+            _builder.append(fiveTabs);
+            _builder.append("<Inputs>");
+            _builder.newLineIfNotEmpty();
+            setMap.clear();
+            _builder.newLineIfNotEmpty();
+            setMap.putAll(inputMap);
+            _builder.newLineIfNotEmpty();
+            this.overwriteInput(setMap, e);
+            _builder.newLineIfNotEmpty();
+            CharSequence _compileIn = this.compileIn(inputs, setMap, "", sixTabs);
+            _builder.append(_compileIn);
+            _builder.newLineIfNotEmpty();
+            {
+              if ((inouts != null)) {
+                CharSequence _compileIn_1 = this.compileIn(inouts, setMap, "", sixTabs);
+                _builder.append(_compileIn_1);
+              }
+            }
+            _builder.newLineIfNotEmpty();
+            _builder.append(fiveTabs);
+            _builder.append("</Inputs>");
+            _builder.newLineIfNotEmpty();
+            _builder.append(fiveTabs);
+            _builder.append("<Outputs>");
+            _builder.newLineIfNotEmpty();
+            assertIdiomMap.clear();
+            _builder.newLineIfNotEmpty();
+            assertRangeMap.clear();
+            _builder.newLineIfNotEmpty();
+            assertIdiomMap.putAll(outputIdiomMap);
+            _builder.newLineIfNotEmpty();
+            assertRangeMap.putAll(outputRangeMap);
+            _builder.newLineIfNotEmpty();
+            this.overwriteOutputIdiom(assertIdiomMap, e);
+            _builder.newLineIfNotEmpty();
+            this.overwriteOutputRange(assertRangeMap, e);
+            _builder.newLineIfNotEmpty();
+            CharSequence _compileOut = this.compileOut(outputs, assertIdiomMap, assertRangeMap, "", sixTabs);
+            _builder.append(_compileOut);
+            _builder.newLineIfNotEmpty();
+            {
+              if ((inouts != null)) {
+                CharSequence _compileOut_1 = this.compileOut(inouts, assertIdiomMap, assertRangeMap, "", sixTabs);
+                _builder.append(_compileOut_1);
+              }
+            }
+            _builder.newLineIfNotEmpty();
+            _builder.append(fiveTabs);
+            _builder.append("</Outputs>");
+            _builder.newLineIfNotEmpty();
+            _builder.append(fourTabs);
+            _builder.append("</Teststep>");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+        _builder.append((oneTab + twoTabs));
+        _builder.append("</Teststeps>");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    final String multiLineString = _builder.toString();
+    return multiLineString;
   }
   
   private CharSequence compileIn(final EList<Variables> variables, final HashMap<Object, Object> setMap, final String _qualifiedName, final String _indent) {
@@ -170,16 +294,16 @@ public class EisGenerator extends AbstractGenerator {
         String _name_1 = ((Variable)variable).getName();
         _builder.append(_name_1);
         _builder.append("\" Datatype=\"");
-        String _string = ((Variable)variable).getVariableType().toString();
-        _builder.append(_string);
+        String _firstUpper = StringExtensions.toFirstUpper(((Variable)variable).getVariableType().toString());
+        _builder.append(_firstUpper);
         _builder.append("\" Direction=\"");
         String _directionBlock = this.directionBlock(variable);
         _builder.append(_directionBlock);
         _builder.append("\" Value=\"");
         _builder.append(value);
         _builder.append("\" Variant=\"");
-        String _string_1 = Boolean.valueOf(((Variable)variable).isVariantKeyword()).toString();
-        _builder.append(_string_1);
+        String _string = Boolean.valueOf(((Variable)variable).isVariantKeyword()).toString();
+        _builder.append(_string);
         _builder.append("\" />");
         _builder.newLineIfNotEmpty();
         String _plus_1 = (indent + _builder);
@@ -319,8 +443,8 @@ public class EisGenerator extends AbstractGenerator {
         String _name_2 = ((Variable)variable).getName();
         _builder.append(_name_2);
         _builder.append("\" Datatype=\"");
-        String _string = ((Variable)variable).getVariableType().toString();
-        _builder.append(_string);
+        String _firstUpper = StringExtensions.toFirstUpper(((Variable)variable).getVariableType().toString());
+        _builder.append(_firstUpper);
         _builder.append("\" Direction=\"");
         String _directionBlock = this.directionBlock(variable);
         _builder.append(_directionBlock);
@@ -329,8 +453,8 @@ public class EisGenerator extends AbstractGenerator {
         _builder.append("\" Range=\"");
         _builder.append(range);
         _builder.append("\" Variant=\"");
-        String _string_1 = Boolean.valueOf(((Variable)variable).isVariantKeyword()).toString();
-        _builder.append(_string_1);
+        String _string = Boolean.valueOf(((Variable)variable).isVariantKeyword()).toString();
+        _builder.append(_string);
         _builder.append("\" />");
         _builder.newLineIfNotEmpty();
         String _plus_2 = (indent + _builder);
@@ -520,8 +644,8 @@ public class EisGenerator extends AbstractGenerator {
         if (_string != null) {
           _elvis = _string;
         } else {
-          String _defaultValue = this.defaultValue(((Variable)variable));
-          _elvis = _defaultValue;
+          String _defaultRange = this.defaultRange(((Variable)variable));
+          _elvis = _defaultRange;
         }
         map.put(_plus, _elvis);
       } else {
@@ -551,6 +675,31 @@ public class EisGenerator extends AbstractGenerator {
     if (_isBoolType) {
       _matched=true;
       return "false";
+    }
+    if (!_matched) {
+      boolean _isIntType = this._defineTypeComputer.isIntType(type);
+      if (_isIntType) {
+        _matched=true;
+        return "0";
+      }
+    }
+    if (!_matched) {
+      boolean _isStringType = this._defineTypeComputer.isStringType(type);
+      if (_isStringType) {
+        _matched=true;
+        return "";
+      }
+    }
+    return null;
+  }
+  
+  private String defaultRange(final Variable variable) {
+    final DefineType type = this._defineTypeComputer.typeFor(variable.getVariableType());
+    boolean _matched = false;
+    boolean _isBoolType = this._defineTypeComputer.isBoolType(type);
+    if (_isBoolType) {
+      _matched=true;
+      return "";
     }
     if (!_matched) {
       boolean _isIntType = this._defineTypeComputer.isIntType(type);
@@ -662,8 +811,35 @@ public class EisGenerator extends AbstractGenerator {
   }
   
   private String directionBlock(final EObject context) {
-    throw new Error("Unresolved compilation problems:"
-      + "\nInOut cannot be resolved to a type."
-      + "\nUnreachable code: The case can never match. It is already handled by a previous condition.");
+    String _xblockexpression = null;
+    {
+      final EObject container = context.eContainer();
+      String _xifexpression = null;
+      if ((container instanceof DirectionBlock)) {
+        String _switchResult = null;
+        boolean _matched = false;
+        if (context instanceof Input) {
+          _matched=true;
+          _switchResult = "Input";
+        }
+        if (!_matched) {
+          if (context instanceof Output) {
+            _matched=true;
+            _switchResult = "Output";
+          }
+        }
+        if (!_matched) {
+          if (context instanceof InOut) {
+            _matched=true;
+            _switchResult = "InOut";
+          }
+        }
+        return _switchResult;
+      } else {
+        _xifexpression = this.directionBlock(container);
+      }
+      _xblockexpression = _xifexpression;
+    }
+    return _xblockexpression;
   }
 }
