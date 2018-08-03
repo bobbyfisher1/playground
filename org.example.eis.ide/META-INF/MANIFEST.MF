@@ -1,4 +1,5 @@
 Manifest-Version: 1.0
+Automatic-Module-Name: org.example.eis.ide
 Bundle-ManifestVersion: 2
 Bundle-Name: org.example.eis.ide
 Bundle-Vendor: My Company
@@ -12,5 +13,4 @@ Require-Bundle: org.example.eis,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.example.eis.ide.contentassist.antlr,
  org.example.eis.ide.contentassist.antlr.internal
-Automatic-Module-Name: org.example.eis.ide
 

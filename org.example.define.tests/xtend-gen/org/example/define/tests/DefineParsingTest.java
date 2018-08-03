@@ -459,4 +459,46 @@ public class DefineParsingTest {
       throw Exceptions.sneakyThrow(_e);
     }
   }
+  
+  @Test
+  public void testAccessingVariables3() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("define{");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("input[");
+      _builder.newLine();
+      _builder.append("\t\t\t\t");
+      _builder.append("int a= 4;");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("]");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("output[]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      DefineBlock _parse = this._parseHelper.parse(_builder);
+      final Procedure1<DefineBlock> _function = (DefineBlock it) -> {
+        this._validationTestHelper.assertNoErrors(it);
+        EList<Variables> _inputVariables = it.getDirection().getInput().getInputVariables();
+        final Procedure1<EList<Variables>> _function_1 = (EList<Variables> it_1) -> {
+          Variables _get = it_1.get(0);
+          final Procedure1<Variable> _function_2 = (Variable it_2) -> {
+            Assert.assertSame(this._defineTypeComputer.typeFor(it_2.getVariableType()), DefineTypeComputer.INT_TYPE);
+            Assert.assertEquals(it_2.getName(), "a");
+            Idiom _idiom = it_2.getIdiom();
+            Assert.assertEquals(((IntConstant) _idiom).getValue(), 4);
+          };
+          ObjectExtensions.<Variable>operator_doubleArrow(((Variable) _get), _function_2);
+        };
+        ObjectExtensions.<EList<Variables>>operator_doubleArrow(_inputVariables, _function_1);
+      };
+      ObjectExtensions.<DefineBlock>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
 }

@@ -6,35 +6,163 @@ EisModel:
 	'project' '=' project_name=STRING ';' //ID or STRING?
 	'plcname' '=' plc_name=STRING ';'
 	'author' '=' author_name=STRING ';'
-	testcases+=Testcase*
-;
+	testcases+=Testcase*;
 
 Testcase:
 	"testcase" testcase_name=ID '{'
-		testblock=Testblock?
-	'}'
-;
+	testblock=Testblock?
+	'}';
 
 Testblock:
-	'testActive' 	'=' testActive=BoolConstant ';'
-	'blockType'  	'=' blockType=BlockConstant ';' 
-	'description'	'=' description=STRING ';'
-	DefineBlock
-	TeststepBlock
-;
+	'testActive' '=' testActive=BoolConstant ';'
+	'blockType' '=' blockType=BlockConstant ';'
+	'description' '=' description=STRING ';'
+	define=DefineBlock?;
 
 BoolConstant:
-	value=('true' | 'false')
-;
+	value=('true' | 'false');
+
 BlockConstant:
-	value=('FC' | 'FB')
-;
+	value=('FC' | 'FB');
 
 DefineBlock:
-	'define'
-;
+	'define' '{' direction=DirectionBlock '}' teststeps+=TeststepBlock*;
 
+DirectionBlock:
+	input=Input & inout=InOut? & output=Output;
+
+Input:
+	name='input' '[' inputVariables+=Variables* ']';
+
+Output:
+	name='output' '[' outputVariables+=Variables* ']';
+
+InOut:
+	name='inout' '[' inoutVariables+=Variables* ']';
+
+Variables:
+	Variable | Udt | UdtRef;
+
+Variable:
+	({Variable} variantKeyword?='variant'? variableType=BasicType? name=ID
+	('=' idiom=Idiom ('+/-' range=Idiom)?)? (';' | nextVariable?=','));
+
+Udt:
+	'udt' name=ID '(' udtType=UdtType ')' '{' udtVariables+=Variables* '}';
+
+UdtRef:
+	udtType=[UdtType] name=ID udtVariables+=Variables* ';';
+
+enum BasicType:
+	NULL='null' | INT='int' | BOOL='bool' | FLOAT='float' | STRINGTYP='string';
+
+UdtType:
+	name=ID;
+
+Idiom:
+	Or;
+
+Or returns Idiom:
+	And ({Or.left=current} "||" right=And)*;
+
+And returns Idiom:
+	Equality ({And.left=current} "&&" right=Equality)*;
+
+Equality returns Idiom:
+	Comparison ({Equality.left=current} op=("==" | "!=") right=Comparison)*;
+
+Comparison returns Idiom:
+	PlusOrMinus ({Comparison.left=current} op=(">=" | "<=" | ">" | "<") right=PlusOrMinus)*;
+
+PlusOrMinus returns Idiom:
+	MulOrDiv (({Plus.left=current} '+' | {Minus.left=current} '-') right=MulOrDiv)*;
+
+MulOrDiv returns Idiom:
+	Primary ({MulOrDiv.left=current} op=('*' | '/') right=Primary)*;
+
+Primary returns Idiom:
+	'(' Idiom ')'
+	| {Not} "!" idiom=Primary
+	| Atomic;
+
+Atomic returns Idiom:
+	{IntConstant} value=INT
+	| {StringConstant} value=STRING
+	| {BoolConstant} value=('true' | 'false')
+	| {VariableRef} variable=[Variable]
+	| FloatConstant;
+
+FloatConstant returns EFloat:
+	{EFloat} value=INT '.' valueOfDecimal=INT;
+	/*	<listed_datatypes_in_S7UintTest_Editor>
+					Bool
+					Byte
+					Word
+					DWord
+					LWord
+					SInt
+					Int
+					DInt
+					LInt
+					USInt
+					UInt
+					UDInt
+					ULInt
+					Real
+					LReal
+					Char
+					WChar
+					String
+					WString
+					S5Time
+					Time
+					LTime
+					Date
+					Tod
+					LTod
+					DT
+					LDT
+					DTL
+UDT */
 TeststepBlock:
-	'teststep'
-;
+	'teststep' '(' plcCycle=INT ',' description=STRING ')' '{' assertion=AssertionBlock '}';
 
+AssertionBlock:
+	set=Set & assert=Assert;
+
+Set:
+	name='set' '[' setVariables+=Statement* ']';
+
+Assert:
+	name='assert' '[' assertVariables+=Statement* ']';
+
+Statement:
+	variable=[Variables] cascade+=Cascade* '=' idiom=Idiom ('+/-' range=Idiom)? ';';
+
+Cascade:
+	'.' udtVar=[Variables];
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

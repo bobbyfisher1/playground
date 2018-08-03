@@ -17,7 +17,9 @@ import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.example.define.define.And;
+import org.example.define.define.Assert;
 import org.example.define.define.BasicType;
+import org.example.define.define.Cascade;
 import org.example.define.define.Comparison;
 import org.example.define.define.DefinePackage;
 import org.example.define.define.DirectionBlock;
@@ -29,6 +31,7 @@ import org.example.define.define.MulOrDiv;
 import org.example.define.define.Not;
 import org.example.define.define.Or;
 import org.example.define.define.Plus;
+import org.example.define.define.Statement;
 import org.example.define.define.Udt;
 import org.example.define.define.UdtRef;
 import org.example.define.define.Variable;
@@ -69,6 +72,10 @@ public class DefineValidator extends AbstractDefineValidator {
   public final static String RECURSIVE_VARIABLE_REFERENCE = (DefineValidator.ISSUE_CODE_PREFIX + "RecursiveVariableReference");
   
   public final static String RECURSIVE_UDT_REFERENCE = (DefineValidator.ISSUE_CODE_PREFIX + "RecursiveUdtReference");
+  
+  public final static String MULTIPLE_STATEMENT_ASSIGNMENT = (DefineValidator.ISSUE_CODE_PREFIX + "MultipleStatementAssignment");
+  
+  public final static String MISSING_UDT_REFERENCE = (DefineValidator.ISSUE_CODE_PREFIX + "MissingUdtReference");
   
   @Inject
   @Extension
@@ -290,19 +297,19 @@ public class DefineValidator extends AbstractDefineValidator {
   }
   
   @Check
-  public void checkType(final Variable v) {
-    Idiom _idiom = v.getIdiom();
+  public void checkType(final Variable variable) {
+    Idiom _idiom = variable.getIdiom();
     boolean _tripleNotEquals = (_idiom != null);
     if (_tripleNotEquals) {
+      final DefineType expectedType = this._defineTypeComputer.typeFor(variable.getVariableType());
       Idiom _idiom_1 = null;
-      if (v!=null) {
-        _idiom_1=v.getIdiom();
+      if (variable!=null) {
+        _idiom_1=variable.getIdiom();
       }
       final DefineType actualType = this._defineTypeComputer.typeFor(_idiom_1);
-      final DefineType expectedType = this._defineTypeComputer.typeFor(v.getVariableType());
       Idiom _range = null;
-      if (v!=null) {
-        _range=v.getRange();
+      if (variable!=null) {
+        _range=variable.getRange();
       }
       DefineType _typeFor = null;
       if (_range!=null) {
@@ -321,9 +328,9 @@ public class DefineValidator extends AbstractDefineValidator {
         String _plus_2 = (_plus_1 + _string_1);
         String _plus_3 = (_plus_2 + 
           "\'");
-        this.error(_plus_3, v, DefinePackage.eINSTANCE.getVariable_Idiom(), DefineValidator.INCOMPATIBLE_TYPES);
+        this.error(_plus_3, variable, DefinePackage.eINSTANCE.getVariable_Idiom(), DefineValidator.INCOMPATIBLE_TYPES);
       }
-      if (((rangeType != null) && (!Objects.equal(rangeType, actualType)))) {
+      if (((rangeType != null) && (!Objects.equal(rangeType, expectedType)))) {
         String _string_2 = expectedType.toString();
         String _plus_4 = ("Incompatible types. Expected \'" + _string_2);
         String _plus_5 = (_plus_4 + "\' but was \'");
@@ -331,7 +338,42 @@ public class DefineValidator extends AbstractDefineValidator {
         String _plus_6 = (_plus_5 + _string_3);
         String _plus_7 = (_plus_6 + 
           "\'");
-        this.error(_plus_7, v, DefinePackage.eINSTANCE.getVariable_Range(), DefineValidator.INCOMPATIBLE_TYPES);
+        this.error(_plus_7, variable, DefinePackage.eINSTANCE.getVariable_Range(), DefineValidator.INCOMPATIBLE_TYPES);
+      }
+    }
+  }
+  
+  @Check
+  public void checkType(final Statement statement) {
+    final EList<Cascade> cascade = statement.getCascade();
+    final Variables variable = statement.getVariable();
+    Cascade _last = null;
+    if (cascade!=null) {
+      _last=IterableExtensions.<Cascade>last(cascade);
+    }
+    Variables _udtVar = null;
+    if (_last!=null) {
+      _udtVar=_last.getUdtVar();
+    }
+    final Variables last = _udtVar;
+    final DefineType actualType = this._defineTypeComputer.typeFor(statement.getIdiom());
+    Idiom _range = null;
+    if (statement!=null) {
+      _range=statement.getRange();
+    }
+    DefineType _typeFor = null;
+    if (_range!=null) {
+      _typeFor=this._defineTypeComputer.typeFor(_range);
+    }
+    final DefineType rangeType = _typeFor;
+    BasicType expectedType = BasicType.NULL;
+    if ((variable instanceof Variable)) {
+      expectedType = ((Variable) variable).getVariableType();
+      this.compareTypesAndCallError(statement, actualType, expectedType, rangeType);
+    } else {
+      if ((last instanceof Variable)) {
+        expectedType = ((Variable)last).getVariableType();
+        this.compareTypesAndCallError(statement, actualType, expectedType, rangeType);
       }
     }
   }
@@ -417,6 +459,156 @@ public class DefineValidator extends AbstractDefineValidator {
     }
   }
   
+  @Check
+  public void checkUdtStatements(final Statement statement) {
+    if (((!(statement.getVariable() instanceof Variable)) && statement.getCascade().isEmpty())) {
+      this.error("Only variables can be assigned to values", statement, DefinePackage.eINSTANCE.getStatement_Variable(), 
+        DefineValidator.MISSING_UDT_REFERENCE);
+    }
+    final EList<Cascade> cascade = statement.getCascade();
+    for (final Cascade c : cascade) {
+      if (((!(c.getUdtVar() instanceof Variable)) && (c == IterableExtensions.<Cascade>last(cascade)))) {
+        this.error("Only variables can be assigned to values", statement, DefinePackage.eINSTANCE.getStatement_Cascade(), 
+          DefineValidator.MISSING_UDT_REFERENCE);
+      }
+    }
+  }
+  
+  @Check
+  public void checkMultipleStatementsSetBlock(final org.example.define.define.Set sets) {
+    final EList<Statement> set = sets.getSetVariables();
+    final HashMultimap<Object, Statement> multiMap = HashMultimap.<Object, Statement>create();
+    Statement _head = null;
+    if (set!=null) {
+      _head=IterableExtensions.<Statement>head(set);
+    }
+    Variables _variable = null;
+    if (_head!=null) {
+      _variable=_head.getVariable();
+    }
+    String _string = null;
+    if (_variable!=null) {
+      _string=_variable.toString();
+    }
+    String name = _string;
+    for (final Statement e : set) {
+      boolean _isEmpty = e.getCascade().isEmpty();
+      if (_isEmpty) {
+        multiMap.put(e.getVariable(), e);
+      } else {
+        name = e.getVariable().toString();
+        EList<Cascade> _cascade = e.getCascade();
+        for (final Cascade c : _cascade) {
+          String _name = name;
+          String _string_1 = c.getUdtVar().toString();
+          name = (_name + _string_1);
+        }
+        multiMap.put(name, e);
+      }
+    }
+    Set<Map.Entry<Object, Collection<Statement>>> _entrySet = multiMap.asMap().entrySet();
+    for (final Map.Entry<Object, Collection<Statement>> entry : _entrySet) {
+      {
+        final Collection<Statement> duplicates = entry.getValue();
+        int _size = duplicates.size();
+        boolean _greaterThan = (_size > 1);
+        if (_greaterThan) {
+          for (final Statement d : duplicates) {
+            boolean _isEmpty_1 = d.getCascade().isEmpty();
+            if (_isEmpty_1) {
+              this.error("Multiple variable assignment", d, DefinePackage.eINSTANCE.getStatement_Variable(), 
+                DefineValidator.MULTIPLE_STATEMENT_ASSIGNMENT);
+            } else {
+              this.error("Multiple variable assignment", d, DefinePackage.eINSTANCE.getStatement_Variable(), 
+                DefineValidator.MULTIPLE_STATEMENT_ASSIGNMENT);
+              this.error("Multiple variable assignment", d, DefinePackage.eINSTANCE.getStatement_Cascade(), 
+                DefineValidator.MULTIPLE_STATEMENT_ASSIGNMENT);
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  @Check
+  public void checkMultipleStatementsAssertBlock(final Assert asserts) {
+    final EList<Statement> assert_ = asserts.getAssertVariables();
+    final HashMultimap<Object, Statement> multiMap = HashMultimap.<Object, Statement>create();
+    Statement _head = null;
+    if (assert_!=null) {
+      _head=IterableExtensions.<Statement>head(assert_);
+    }
+    Variables _variable = null;
+    if (_head!=null) {
+      _variable=_head.getVariable();
+    }
+    String _string = null;
+    if (_variable!=null) {
+      _string=_variable.toString();
+    }
+    String name = _string;
+    for (final Statement e : assert_) {
+      boolean _isEmpty = e.getCascade().isEmpty();
+      if (_isEmpty) {
+        multiMap.put(e.getVariable(), e);
+      } else {
+        name = e.getVariable().toString();
+        EList<Cascade> _cascade = e.getCascade();
+        for (final Cascade c : _cascade) {
+          String _name = name;
+          String _string_1 = c.getUdtVar().toString();
+          name = (_name + _string_1);
+        }
+        multiMap.put(name, e);
+      }
+    }
+    Set<Map.Entry<Object, Collection<Statement>>> _entrySet = multiMap.asMap().entrySet();
+    for (final Map.Entry<Object, Collection<Statement>> entry : _entrySet) {
+      {
+        final Collection<Statement> duplicates = entry.getValue();
+        int _size = duplicates.size();
+        boolean _greaterThan = (_size > 1);
+        if (_greaterThan) {
+          for (final Statement d : duplicates) {
+            boolean _isEmpty_1 = d.getCascade().isEmpty();
+            if (_isEmpty_1) {
+              this.error("Multiple variable assignment", d, DefinePackage.eINSTANCE.getStatement_Variable(), 
+                DefineValidator.MULTIPLE_STATEMENT_ASSIGNMENT);
+            } else {
+              this.error("Multiple variable assignment", d, DefinePackage.eINSTANCE.getStatement_Variable(), 
+                DefineValidator.MULTIPLE_STATEMENT_ASSIGNMENT);
+              this.error("Multiple variable assignment", d, DefinePackage.eINSTANCE.getStatement_Cascade(), 
+                DefineValidator.MULTIPLE_STATEMENT_ASSIGNMENT);
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  private void compareTypesAndCallError(final Statement statement, final DefineType actualType, final BasicType expectedType, final DefineType rangeType) {
+    DefineType _typeFor = this._defineTypeComputer.typeFor(expectedType);
+    boolean _notEquals = (!Objects.equal(actualType, _typeFor));
+    if (_notEquals) {
+      String _string = expectedType.toString();
+      String _plus = ("Incompatible types. Expected \'" + _string);
+      String _plus_1 = (_plus + "\' but was \'");
+      String _string_1 = actualType.toString();
+      String _plus_2 = (_plus_1 + _string_1);
+      String _plus_3 = (_plus_2 + "\'");
+      this.error(_plus_3, statement, DefinePackage.eINSTANCE.getStatement_Idiom(), DefineValidator.INCOMPATIBLE_TYPES);
+    }
+    if (((rangeType != null) && (!Objects.equal(rangeType, this._defineTypeComputer.typeFor(expectedType))))) {
+      String _string_2 = expectedType.toString();
+      String _plus_4 = ("Incompatible types. Expected \'" + _string_2);
+      String _plus_5 = (_plus_4 + "\' but was \'");
+      String _string_3 = rangeType.toString();
+      String _plus_6 = (_plus_5 + _string_3);
+      String _plus_7 = (_plus_6 + "\'");
+      this.error(_plus_7, statement, DefinePackage.eINSTANCE.getStatement_Range(), DefineValidator.INCOMPATIBLE_TYPES);
+    }
+  }
+  
   private Udt assignNewUdt(final Iterable<? extends Variables> referredUdtVars, final int count) {
     UdtImpl newUdt = new UdtImpl();
     Variables _get = ((Variables[])Conversions.unwrapArray(referredUdtVars, Variables.class))[count];
@@ -466,18 +658,14 @@ public class DefineValidator extends AbstractDefineValidator {
     return newVariable;
   }
   
-  private boolean checkVariableTypeAndAddToMap(final Variables e, final HashMultimap<String, Variables> multiMap) {
-    boolean _xifexpression = false;
+  private void checkVariableTypeAndAddToMap(final Variables e, final HashMultimap<String, Variables> multiMap) {
     if ((e instanceof Udt)) {
-      _xifexpression = multiMap.put(((Udt)e).getName(), e);
+      multiMap.put(((Udt)e).getName(), e);
     } else {
-      boolean _xifexpression_1 = false;
       if ((e instanceof Variable)) {
-        _xifexpression_1 = multiMap.put(((Variable)e).getName(), e);
+        multiMap.put(((Variable)e).getName(), e);
       }
-      _xifexpression = _xifexpression_1;
     }
-    return _xifexpression;
   }
   
   private void checkAllVariableNamesInUdtScope(final Udt udt) {
@@ -566,7 +754,7 @@ public class DefineValidator extends AbstractDefineValidator {
     }
   }
   
-  public void checkNoDuplicateUdtTypes(final Udt udt) {
+  private void checkNoDuplicateUdtTypes(final Udt udt) {
     HashMultimap<String, Udt> multiMap = HashMultimap.<String, Udt>create();
     final EList<Variables> udts = udt.getUdtVariables();
     for (final Variables e : udts) {
@@ -613,10 +801,19 @@ public class DefineValidator extends AbstractDefineValidator {
             if (_tripleEquals_1) {
               ((Variable)e).setVariableType(helpingVariableType);
             } else {
-              this.error("Multiple type definition", e, DefinePackage.eINSTANCE.getVariable_VariableType(), 
-                DefineValidator.MULTIPLE_TYPE_DEFINITION);
+              BasicType _variableType_2 = ((Variable)e).getVariableType();
+              boolean _tripleNotEquals = (helpingVariableType != _variableType_2);
+              if (_tripleNotEquals) {
+                this.error("Multiple type definition", e, DefinePackage.eINSTANCE.getVariable_VariableType(), 
+                  DefineValidator.MULTIPLE_TYPE_DEFINITION);
+              }
             }
-            ((Variable)e).setVariantKeyword(variantKeyword);
+            if ((((Variable)e).isVariantKeyword() && (!variantKeyword))) {
+              this.error("Invalid variant keyword", e, DefinePackage.eINSTANCE.getVariable_VariantKeyword(), 
+                DefineValidator.INVALID_VARIANT_KEYWORD);
+            } else {
+              ((Variable)e).setVariantKeyword(variantKeyword);
+            }
           }
           boolean _isNextVariable = ((Variable)e).isNextVariable();
           if (_isNextVariable) {

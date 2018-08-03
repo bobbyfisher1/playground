@@ -27,13 +27,16 @@ class DefineValidatorTest {
 	@Inject extension ValidationTestHelper
 	@Inject extension DefineTypeComputer
 
+	//
+// variables -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+	//
 	val start = '''
 		define{
 			input[]
 			output[	
 	'''
 	val end = "]}"
-//	-------------------------------------------------
+
 	val startWithVariable = '''
 	define{
 		input[]
@@ -258,7 +261,7 @@ class DefineValidatorTest {
 		]
 	}
 
-	@Test def void test0UdtTypeRef() {
+	@Test def void testUdtTypeRef() {
 		val text = '''
 			udt a(typeA){
 				int x = 99 +/- 1;
@@ -300,6 +303,144 @@ class DefineValidatorTest {
 			}
 		'''.parse => [
 			assertError(DefinePackage.eINSTANCE.udt, DefineValidator.MULTIPLE_UDT_TYPE)
+			2.assertEquals(validate.size)
+		]
+	}
+
+	@Test def void testMissingUdtReference() {
+		'''
+			define{
+				input[ 
+					udt a(typeA){
+						int b;
+					}
+			]
+				output[]
+			}
+			teststep(0,""){
+				set[ a = 0; ]
+				assert[]
+			}
+		'''.parse => [
+			assertError(DefinePackage.eINSTANCE.statement, DefineValidator.MISSING_UDT_REFERENCE)
+			1.assertEquals(validate.size)
+		]
+	}
+
+	@Test def void testMissingUdtRefReference() {
+		'''
+			define{
+				input[ 
+					udt a(typeA){
+						int b;
+					}
+					typeA xyz;
+			]
+				output[]
+			}
+			teststep(0,""){
+				set[ xyz = 0; ]
+				assert[]
+			}
+		'''.parse => [
+			assertError(DefinePackage.eINSTANCE.statement, DefineValidator.MISSING_UDT_REFERENCE)
+			1.assertEquals(validate.size)
+		]
+	}
+
+	@Test def void testMissingUdtReferenceInCascade() {
+		'''
+			define{
+				input[ 
+					udt a(typeA){
+						udt b(typeB){
+							int c;
+						}
+					}
+			]
+				output[]
+			}
+			teststep(0,""){
+				set[ a.b = 0; ]
+				assert[]
+			}
+		'''.parse => [
+			assertError(DefinePackage.eINSTANCE.statement, DefineValidator.MISSING_UDT_REFERENCE)
+			1.assertEquals(validate.size)
+		]
+	}
+
+	@Test def void testWrongStatementType() {
+		val teststep = '''
+			teststep(0 ,"don't forget the string") {
+				set[ ]
+				assert[a = true;]
+			}
+		'''
+		(start + "int a;" + end + teststep).parse => [
+			assertError(DefinePackage.eINSTANCE.statement, DefineValidator.INCOMPATIBLE_TYPES)
+		]
+	}
+
+	@Test def void testWrongStatementType2() {
+		val teststep = '''
+			teststep(0 ,"don't forget the string") {
+				set[ ]
+				assert[a.b = true;]
+			}
+		'''
+		(start + '''
+			udt a(typeA){
+				int b;
+			}
+		''' + end + teststep
+		).parse => [
+			assertError(DefinePackage.eINSTANCE.statement, DefineValidator.INCOMPATIBLE_TYPES)
+		]
+	}
+
+	@Test def void testMultipleStatementsSetBlock() {
+		'''
+			define{
+				input[
+					udt a(typeA){
+						int b;
+					}
+					int c;
+				]
+				output[]
+			}
+			teststep(0,""){
+				set[
+						a.b = 0;
+						a.b = 0;
+						c = 0;
+						c = 0;
+				]
+				assert[]
+			}
+		'''.parse => [
+			assertError(DefinePackage.eINSTANCE.statement, DefineValidator.MULTIPLE_STATEMENT_ASSIGNMENT)
+			6.assertEquals(validate.size)
+		]
+	}
+
+	@Test def void testMultipleStatementsAssertBlock() {
+		'''
+			define{
+				input[]
+				output[ int a; ]
+			}
+			teststep(0,""){
+				assert[
+						a = 0;
+						a = 0;
+				]
+				set[]
+			}
+		'''.parse => [
+			assertError(DefinePackage.eINSTANCE.statement, DefineValidator.MULTIPLE_STATEMENT_ASSIGNMENT)
+			2.assertEquals(validate.size)
 		]
 	}
 

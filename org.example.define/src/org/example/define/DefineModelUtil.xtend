@@ -9,9 +9,6 @@ import org.example.define.define.Variable
 
 class DefineModelUtil {
 
-//	def isVariableDefinedBefore(VariableRef varRef) {
-//		varRef.variable.variablesDefinedBefore.contains(varRef.variable)
-//	}
 	def variablesDefinedBefore(Variable variable) {
 		val container = variable.eContainer
 		val variablesBefore = switch (container) {
@@ -55,7 +52,6 @@ class DefineModelUtil {
 			default:
 				emptyList
 		}
-
 	}
 
 	// The following four scopes need to be limited by the validator to allow only the udtTypes which are defined before.

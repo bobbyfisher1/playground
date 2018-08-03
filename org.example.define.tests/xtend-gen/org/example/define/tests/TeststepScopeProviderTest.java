@@ -49,7 +49,7 @@ public class TeststepScopeProviderTest {
   
   private final String input = "input[]";
   
-  private final String end = new Function0<String>() {
+  private final String teststep = new Function0<String>() {
     public String apply() {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("}");
@@ -73,7 +73,7 @@ public class TeststepScopeProviderTest {
   @Test
   public void testSetReference() {
     try {
-      Set _set = IterableExtensions.<TeststepBlock>head(this._parseHelper.parse((((this.define + this.output) + "input[int a, b;]") + this.end)).getTeststeps()).getAssertion().getSet();
+      Set _set = IterableExtensions.<TeststepBlock>head(this._parseHelper.parse((((this.define + this.output) + "input[int a, b;]") + this.teststep)).getTeststeps()).getAssertion().getSet();
       final Procedure1<Set> _function = (Set it) -> {
         this._validationTestHelper.assertNoErrors(it);
         this.assertScope(it, DefinePackage.eINSTANCE.getStatement_Variable(), "a, b");
@@ -87,7 +87,7 @@ public class TeststepScopeProviderTest {
   @Test
   public void testAssertReference() {
     try {
-      Assert _assert = IterableExtensions.<TeststepBlock>head(this._parseHelper.parse((((this.define + this.input) + "output[int a, b;]") + this.end)).getTeststeps()).getAssertion().getAssert();
+      Assert _assert = IterableExtensions.<TeststepBlock>head(this._parseHelper.parse((((this.define + this.input) + "output[int a, b;]") + this.teststep)).getTeststeps()).getAssertion().getAssert();
       final Procedure1<Assert> _function = (Assert it) -> {
         this._validationTestHelper.assertNoErrors(it);
         this.assertScope(it, DefinePackage.eINSTANCE.getStatement_Variable(), "a, b");
@@ -101,7 +101,7 @@ public class TeststepScopeProviderTest {
   @Test
   public void testSetReferenceInout() {
     try {
-      Set _set = IterableExtensions.<TeststepBlock>head(this._parseHelper.parse(((((this.define + this.input) + this.output) + "inout[int a, b;]") + this.end)).getTeststeps()).getAssertion().getSet();
+      Set _set = IterableExtensions.<TeststepBlock>head(this._parseHelper.parse(((((this.define + this.input) + this.output) + "inout[int a, b;]") + this.teststep)).getTeststeps()).getAssertion().getSet();
       final Procedure1<Set> _function = (Set it) -> {
         this._validationTestHelper.assertNoErrors(it);
         this.assertScope(it, DefinePackage.eINSTANCE.getStatement_Variable(), "a, b");
@@ -115,12 +115,218 @@ public class TeststepScopeProviderTest {
   @Test
   public void testAssertReferenceInout() {
     try {
-      Assert _assert = IterableExtensions.<TeststepBlock>head(this._parseHelper.parse(((((this.define + this.input) + this.output) + "inout[int a, b;]") + this.end)).getTeststeps()).getAssertion().getAssert();
+      Assert _assert = IterableExtensions.<TeststepBlock>head(this._parseHelper.parse(((((this.define + this.input) + this.output) + "inout[int a, b;]") + this.teststep)).getTeststeps()).getAssertion().getAssert();
       final Procedure1<Assert> _function = (Assert it) -> {
         this._validationTestHelper.assertNoErrors(it);
         this.assertScope(it, DefinePackage.eINSTANCE.getStatement_Variable(), "a, b");
       };
       ObjectExtensions.<Assert>operator_doubleArrow(_assert, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void testSettingVariables() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("teststep(0,\"\"){");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("assert[]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("set[ a = 3; ]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      final String teststep = _builder.toString();
+      DefineBlock _parse = this._parseHelper.parse(((((this.define + "input[ int a; ]") + this.output) + "}") + teststep));
+      final Procedure1<DefineBlock> _function = (DefineBlock it) -> {
+        this._validationTestHelper.assertNoErrors(it);
+      };
+      ObjectExtensions.<DefineBlock>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void testMultipleStatements() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("teststep(0,\"\"){");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("assert[]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("set[ ");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("a = 3;");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("//a = 4;");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      final String teststep = _builder.toString();
+      DefineBlock _parse = this._parseHelper.parse(((((this.define + "input[ int a; ]") + this.output) + "}") + teststep));
+      final Procedure1<DefineBlock> _function = (DefineBlock it) -> {
+        this._validationTestHelper.assertNoErrors(it);
+      };
+      ObjectExtensions.<DefineBlock>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void testUdtStatements() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("define{");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("input[");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("udt a(typeA){");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("int b = 0;");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("}\t");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("output[]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("teststep(0,\"\"){");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("assert[]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("set[ a.b = 3; ]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      DefineBlock _parse = this._parseHelper.parse(_builder);
+      final Procedure1<DefineBlock> _function = (DefineBlock it) -> {
+        this._validationTestHelper.assertNoErrors(it);
+      };
+      ObjectExtensions.<DefineBlock>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void testUdtRefStatements() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("define{");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("input[");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("udt a(typeA){");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("int b = 0;");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("}\t");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("typeA xyz;");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("output[]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("teststep(0,\"\"){");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("assert[]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("set[ xyz.b = 3; ]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      DefineBlock _parse = this._parseHelper.parse(_builder);
+      final Procedure1<DefineBlock> _function = (DefineBlock it) -> {
+        this._validationTestHelper.assertNoErrors(it);
+      };
+      ObjectExtensions.<DefineBlock>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void testRecursiveUdtStatements() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("define{");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("input[");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("udt a(typeA){");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("udt b(typeB){");
+      _builder.newLine();
+      _builder.append("\t\t\t\t");
+      _builder.append("int c;");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("output[]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("teststep(0,\"\"){");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("assert[]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("set[ a.b.c = 3; ]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      DefineBlock _parse = this._parseHelper.parse(_builder);
+      final Procedure1<DefineBlock> _function = (DefineBlock it) -> {
+        this._validationTestHelper.assertNoErrors(it);
+      };
+      ObjectExtensions.<DefineBlock>operator_doubleArrow(_parse, _function);
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }

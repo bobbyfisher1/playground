@@ -24,7 +24,6 @@ import static extension org.junit.Assert.*
 class DefineScopeProviderTest {
 	@Inject extension ParseHelper<DefineBlock>
 	@Inject extension ValidationTestHelper;
-
 	@Inject extension IScopeProvider
 
 	//
@@ -117,7 +116,6 @@ class DefineScopeProviderTest {
 		'''.parse.direction.output.outputVariables.get(1) as Variable => [
 			assertNoErrors
 			idiom.assertScope(DefinePackage.eINSTANCE.variableRef_Variable, "a")
-
 		]
 	}
 
@@ -166,7 +164,7 @@ class DefineScopeProviderTest {
 		]
 	}
 
-	@Test def void testReferencingVariables() {
+	@Test def void testReferencingUdts() {
 		'''
 			define{
 				input[]
