@@ -19,6 +19,7 @@ import org.example.eis.eis.MulOrDiv;
 import org.example.eis.eis.Not;
 import org.example.eis.eis.Or;
 import org.example.eis.eis.Plus;
+import org.example.eis.eis.RealConstant;
 import org.example.eis.eis.StringConstant;
 import org.example.eis.eis.Variable;
 import org.example.eis.eis.VariableRef;
@@ -38,7 +39,7 @@ public class EisInterpreter {
     boolean _matched = false;
     if (e instanceof IntConstant) {
       _matched=true;
-      _switchResult = Integer.valueOf(((IntConstant)e).getValue());
+      _switchResult = ((IntConstant)e).getValue();
     }
     if (!_matched) {
       if (e instanceof BoolConstant) {
@@ -50,6 +51,12 @@ public class EisInterpreter {
       if (e instanceof StringConstant) {
         _matched=true;
         _switchResult = ((StringConstant)e).getValue();
+      }
+    }
+    if (!_matched) {
+      if (e instanceof RealConstant) {
+        _matched=true;
+        _switchResult = Float.valueOf(((RealConstant)e).getValue());
       }
     }
     if (!_matched) {

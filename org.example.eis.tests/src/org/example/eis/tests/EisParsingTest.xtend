@@ -9,9 +9,9 @@ import org.eclipse.xtext.testing.XtextRunner
 import org.eclipse.xtext.testing.util.ParseHelper
 import org.eclipse.xtext.testing.validation.ValidationTestHelper
 import org.example.eis.eis.BoolConstant
-import org.example.eis.eis.EFloat
 import org.example.eis.eis.EisModel
 import org.example.eis.eis.IntConstant
+import org.example.eis.eis.RealConstant
 import org.example.eis.eis.Udt
 import org.example.eis.eis.Variable
 import org.example.eis.typing.DefineTypeComputer
@@ -68,7 +68,6 @@ class EisParsingTest {
 				input[
 					int a= 4; int b = 0;
 					bool Int=true;
-					//float f = 5;
 					int x; variant int y; udt z(atype){}
 				]
 				inout[
@@ -102,7 +101,7 @@ class EisParsingTest {
 			assertNoErrors
 			testcases.head.testblock.define.direction.input.inputVariables => [
 				(get(0) as Variable) => [
-//					variableType.typeFor.assertSame(INT_TYPE)
+					variableType.typeFor.assertSame(INT_TYPE)
 					name.assertEquals('a')
 					(idiom as IntConstant).value.assertEquals(4)
 				]
@@ -110,14 +109,14 @@ class EisParsingTest {
 					name.assertEquals('Dido')
 					udtType.name.assertEquals('typeDido')
 					(udtVariables.get(0) as Variable) => [
-//						variableType.typeFor.assertSame(INT_TYPE)
+						variableType.typeFor.assertSame(INT_TYPE)
 						name.assertEquals('b')
 						(idiom as IntConstant).value.assertEquals(39)
 					]
 				]
 				(get(2) as Variable) => [
 					name.assertEquals('Train')
-//					variableType.typeFor.assertSame(INT_TYPE)
+					variableType.typeFor.assertSame(INT_TYPE)
 					variantKeyword.assertEquals(true)
 				]
 			]
@@ -201,27 +200,12 @@ class EisParsingTest {
 	@Test def void testDecimal() {
 		(beginning + '''
 			define{
-				input[ float a = 19.5; ]
+				input[ real a = 19.001; ]
 				output[]
 			}
 		''' + ending).parse => [
 			(testcases.head.testblock.define.direction.input.inputVariables.get(0) as Variable) => [
-				(idiom as EFloat).value.assertEquals(19)
-				(idiom as EFloat).valueOfDecimal.assertEquals(5)
-			]
-		]
-	}
-
-	@Test def void testDecimal2() {
-		(beginning + '''
-			define{
-				input[ float a = 19.; ]
-				output[]
-			}
-		''' + ending).parse => [
-			(testcases.head.testblock.define.direction.input.inputVariables.get(0) as Variable) => [
-				(idiom as EFloat).value.assertEquals(19)
-				(idiom as EFloat).valueOfDecimal.assertEquals(0)
+				(idiom as RealConstant).value.assertEquals(19.001, 0.000001)
 			]
 		]
 	}
@@ -229,13 +213,13 @@ class EisParsingTest {
 	@Test def void testDecimal3() {
 		(beginning + '''
 			define{
-				input[ float a = 0.4; ]
+				input[ real a = 0.4; ]
 				output[]
 			}
 		''' + ending).parse => [
 			(testcases.head.testblock.define.direction.input.inputVariables.get(0) as Variable) => [
-				(idiom as EFloat).value.assertEquals(0)
-				(idiom as EFloat).valueOfDecimal.assertEquals(4)
+				(idiom as RealConstant).value.assertEquals(0.4, 0.000001)
+
 			]
 		]
 	}

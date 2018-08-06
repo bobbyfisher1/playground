@@ -13,12 +13,14 @@ import org.example.eis.eis.MulOrDiv;
 import org.example.eis.eis.Not;
 import org.example.eis.eis.Or;
 import org.example.eis.eis.Plus;
+import org.example.eis.eis.RealConstant;
 import org.example.eis.eis.StringConstant;
 import org.example.eis.eis.VariableRef;
 import org.example.eis.typing.BoolType;
 import org.example.eis.typing.DefineType;
 import org.example.eis.typing.IntType;
 import org.example.eis.typing.NullType;
+import org.example.eis.typing.RealType;
 import org.example.eis.typing.StringType;
 
 @SuppressWarnings("all")
@@ -31,6 +33,8 @@ public class DefineTypeComputer {
   
   public final static NullType NULL_TYPE = new NullType();
   
+  public final static RealType REAL_TYPE = new RealType();
+  
   public boolean isStringType(final DefineType type) {
     return (type == DefineTypeComputer.STRING_TYPE);
   }
@@ -41,6 +45,10 @@ public class DefineTypeComputer {
   
   public boolean isBoolType(final DefineType type) {
     return (type == DefineTypeComputer.BOOL_TYPE);
+  }
+  
+  public boolean isRealType(final DefineType type) {
+    return (type == DefineTypeComputer.REAL_TYPE);
   }
   
   protected DefineType _typeFor(final Idiom i) {
@@ -60,6 +68,12 @@ public class DefineTypeComputer {
       if (i instanceof BoolConstant) {
         _matched=true;
         _switchResult = DefineTypeComputer.BOOL_TYPE;
+      }
+    }
+    if (!_matched) {
+      if (i instanceof RealConstant) {
+        _matched=true;
+        _switchResult = DefineTypeComputer.REAL_TYPE;
       }
     }
     if (!_matched) {
@@ -126,7 +140,13 @@ public class DefineTypeComputer {
           if ((t == "string")) {
             _xifexpression_2 = DefineTypeComputer.STRING_TYPE;
           } else {
-            _xifexpression_2 = DefineTypeComputer.NULL_TYPE;
+            DefineType _xifexpression_3 = null;
+            if ((t == "real")) {
+              _xifexpression_3 = DefineTypeComputer.REAL_TYPE;
+            } else {
+              _xifexpression_3 = DefineTypeComputer.NULL_TYPE;
+            }
+            _xifexpression_2 = _xifexpression_3;
           }
           _xifexpression_1 = _xifexpression_2;
         }

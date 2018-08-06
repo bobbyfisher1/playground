@@ -302,6 +302,7 @@ class EisGenerator extends AbstractGenerator {
 			case type.isBoolType:	return "false"	
 			case type.isIntType:	return "0"			
 			case type.isStringType:	return ""
+			case type.isRealType: return "0.0"
 		}
 	}
 	

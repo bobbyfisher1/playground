@@ -592,7 +592,7 @@ class EisValidatorTest {
 
 			/*AVA 
 			 * The method indexOf(name) is tricky here.
-			 * As the variable is called 'a' the  first letter 'a' will be sought. Yet this letter already occurs in the variable's datatype 'float'.
+			 * As the variable is called 'a' the  first letter 'a' will be sought. Yet this letter already occurs in the variable's datatype 'real'.
 			 * This causes a problem
 			 * */
 			assertError(

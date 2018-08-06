@@ -13,6 +13,7 @@ import org.example.eis.eis.MulOrDiv
 import org.example.eis.eis.Not
 import org.example.eis.eis.Or
 import org.example.eis.eis.Plus
+import org.example.eis.eis.RealConstant
 import org.example.eis.eis.StringConstant
 import org.example.eis.eis.Variable
 import org.example.eis.eis.VariableRef
@@ -29,6 +30,8 @@ class EisInterpreter {
 			BoolConstant:
 				Boolean.parseBoolean(e.value)
 			StringConstant:
+				e.value
+			RealConstant:
 				e.value
 			Not:
 				!(e.idiom.interpret as Boolean)

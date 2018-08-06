@@ -17,10 +17,10 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.example.eis.eis.BoolConstant;
-import org.example.eis.eis.EFloat;
 import org.example.eis.eis.EisModel;
 import org.example.eis.eis.Idiom;
 import org.example.eis.eis.IntConstant;
+import org.example.eis.eis.RealConstant;
 import org.example.eis.eis.Testcase;
 import org.example.eis.eis.Udt;
 import org.example.eis.eis.Variable;
@@ -120,9 +120,6 @@ public class EisParsingTest {
       _builder.append("bool Int=true;");
       _builder.newLine();
       _builder.append("\t\t");
-      _builder.append("//float f = 5;");
-      _builder.newLine();
-      _builder.append("\t\t");
       _builder.append("int x; variant int y; udt z(atype){}");
       _builder.newLine();
       _builder.append("\t");
@@ -209,6 +206,7 @@ public class EisParsingTest {
         final Procedure1<EList<Variables>> _function_1 = (EList<Variables> it_1) -> {
           Variables _get = it_1.get(0);
           final Procedure1<Variable> _function_2 = (Variable it_2) -> {
+            Assert.assertSame(this._defineTypeComputer.typeFor(it_2.getVariableType()), DefineTypeComputer.INT_TYPE);
             Assert.assertEquals(it_2.getName(), "a");
             Idiom _idiom = it_2.getIdiom();
             Assert.assertEquals(((IntConstant) _idiom).getValue(), 4);
@@ -220,6 +218,7 @@ public class EisParsingTest {
             Assert.assertEquals(it_2.getUdtType().getName(), "typeDido");
             Variables _get_2 = it_2.getUdtVariables().get(0);
             final Procedure1<Variable> _function_4 = (Variable it_3) -> {
+              Assert.assertSame(this._defineTypeComputer.typeFor(it_3.getVariableType()), DefineTypeComputer.INT_TYPE);
               Assert.assertEquals(it_3.getName(), "b");
               Idiom _idiom = it_3.getIdiom();
               Assert.assertEquals(((IntConstant) _idiom).getValue(), 39);
@@ -230,6 +229,7 @@ public class EisParsingTest {
           Variables _get_2 = it_1.get(2);
           final Procedure1<Variable> _function_4 = (Variable it_2) -> {
             Assert.assertEquals(it_2.getName(), "Train");
+            Assert.assertSame(this._defineTypeComputer.typeFor(it_2.getVariableType()), DefineTypeComputer.INT_TYPE);
             Assert.assertEquals(Boolean.valueOf(it_2.isVariantKeyword()), Boolean.valueOf(true));
           };
           ObjectExtensions.<Variable>operator_doubleArrow(((Variable) _get_2), _function_4);
@@ -416,7 +416,7 @@ public class EisParsingTest {
       _builder.append("define{");
       _builder.newLine();
       _builder.append("\t");
-      _builder.append("input[ float a = 19.5; ]");
+      _builder.append("input[ real a = 19.001; ]");
       _builder.newLine();
       _builder.append("\t");
       _builder.append("output[]");
@@ -429,41 +429,7 @@ public class EisParsingTest {
         Variables _get = IterableExtensions.<Testcase>head(it.getTestcases()).getTestblock().getDefine().getDirection().getInput().getInputVariables().get(0);
         final Procedure1<Variable> _function_1 = (Variable it_1) -> {
           Idiom _idiom = it_1.getIdiom();
-          Assert.assertEquals(((EFloat) _idiom).getValue(), 19);
-          Idiom _idiom_1 = it_1.getIdiom();
-          Assert.assertEquals(((EFloat) _idiom_1).getValueOfDecimal(), 5);
-        };
-        ObjectExtensions.<Variable>operator_doubleArrow(((Variable) _get), _function_1);
-      };
-      ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
-    } catch (Throwable _e) {
-      throw Exceptions.sneakyThrow(_e);
-    }
-  }
-  
-  @Test
-  public void testDecimal2() {
-    try {
-      StringConcatenation _builder = new StringConcatenation();
-      _builder.append("define{");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("input[ float a = 19.; ]");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("output[]");
-      _builder.newLine();
-      _builder.append("}");
-      _builder.newLine();
-      String _plus = (this.beginning + _builder);
-      EisModel _parse = this._parseHelper.parse((_plus + this.ending));
-      final Procedure1<EisModel> _function = (EisModel it) -> {
-        Variables _get = IterableExtensions.<Testcase>head(it.getTestcases()).getTestblock().getDefine().getDirection().getInput().getInputVariables().get(0);
-        final Procedure1<Variable> _function_1 = (Variable it_1) -> {
-          Idiom _idiom = it_1.getIdiom();
-          Assert.assertEquals(((EFloat) _idiom).getValue(), 19);
-          Idiom _idiom_1 = it_1.getIdiom();
-          Assert.assertEquals(((EFloat) _idiom_1).getValueOfDecimal(), 0);
+          Assert.assertEquals(((RealConstant) _idiom).getValue(), 19.001, 0.000001);
         };
         ObjectExtensions.<Variable>operator_doubleArrow(((Variable) _get), _function_1);
       };
@@ -480,7 +446,7 @@ public class EisParsingTest {
       _builder.append("define{");
       _builder.newLine();
       _builder.append("\t");
-      _builder.append("input[ float a = 0.4; ]");
+      _builder.append("input[ real a = 0.4; ]");
       _builder.newLine();
       _builder.append("\t");
       _builder.append("output[]");
@@ -493,9 +459,7 @@ public class EisParsingTest {
         Variables _get = IterableExtensions.<Testcase>head(it.getTestcases()).getTestblock().getDefine().getDirection().getInput().getInputVariables().get(0);
         final Procedure1<Variable> _function_1 = (Variable it_1) -> {
           Idiom _idiom = it_1.getIdiom();
-          Assert.assertEquals(((EFloat) _idiom).getValue(), 0);
-          Idiom _idiom_1 = it_1.getIdiom();
-          Assert.assertEquals(((EFloat) _idiom_1).getValueOfDecimal(), 4);
+          Assert.assertEquals(((RealConstant) _idiom).getValue(), 0.4, 0.000001);
         };
         ObjectExtensions.<Variable>operator_doubleArrow(((Variable) _get), _function_1);
       };

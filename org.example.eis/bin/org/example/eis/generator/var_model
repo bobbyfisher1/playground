@@ -1,29 +1,15 @@
 todo:		 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-*	forbid range on bool types																													CHECK
-*	allow range only on assert and output blocks																				CHECK 
-* forbid teststeps with the same numbers 																							CHECK
-* forbid testcases with the same name																								CHECK
-
-* iterate all teststeps derived from assertion blocks																		no
-* find a way to check from which direction block a statement was made								CHECK
-* maybe a quickfix to generate a teststep(0, "template")																maybe not
-
-
-* replicate the xml structure from the define block 
-* write a function that sets the variables to a default status at the beginning and between teststeps, as some teststeps needn't assign each variable
-   try using a map which stores the default value to each variable name -> defaultMap
-* write a function that assigns the idiom in the statement to the actual reffered variable if it is specified
-   overwrite defaultMap -> tempMap
-* read tempMap and build xml structure from there	
 
 !!! int a = 0, b = a + 1; // THIS DOESN'T WORK !!!
 
+* When an inout variable is declared in inout block, in the xml, it is shown on both inputs and outpus.
 
-
-* Kevin: is this okay? It would make my life easier ...
-	When an inout variable is declared in inout block, in the xml, it is shown on both inputs and outpus.
-
+* signed integers, floats and whatnot: 
+		How are they shown in the xml? 
+		e.g. "Value=-13"
+		
+* are hex values allowed?		 
 
 --------------------------------------------------------INPUTS--------------------------------------------------------------------------------------------------------------------------------
 VAR:

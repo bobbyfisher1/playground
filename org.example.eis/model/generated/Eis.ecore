@@ -82,19 +82,15 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="BasicType">
     <eLiterals name="NULL" literal="null"/>
-    <eLiterals name="INT" value="1" literal="int"/>
+    <eLiterals name="INTCONSTANT" value="1" literal="int"/>
     <eLiterals name="BOOL" value="2" literal="bool"/>
-    <eLiterals name="FLOAT" value="3" literal="float"/>
+    <eLiterals name="REAL" value="3" literal="real"/>
     <eLiterals name="STRINGTYP" value="4" literal="string"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UdtType">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Idiom"/>
-  <eClassifiers xsi:type="ecore:EClass" name="EFloat" eSuperTypes="#//Idiom">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="valueOfDecimal" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TeststepBlock">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="plcCycle" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -185,5 +181,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VariableRef" eSuperTypes="#//Idiom">
     <eStructuralFeatures xsi:type="ecore:EReference" name="variable" eType="#//Variable"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RealConstant" eSuperTypes="#//Idiom">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
   </eClassifiers>
 </ecore:EPackage>

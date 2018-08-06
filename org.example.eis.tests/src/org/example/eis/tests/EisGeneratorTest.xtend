@@ -898,4 +898,80 @@ class EisGeneratorTest {
 			)
 		]
 	}
+
+	@Test def void testReal() {
+		(beginning + '''
+			define{
+				input[real a = -1.019; ]
+				output[]
+			}
+			teststep(0, ""){
+				set[]
+				assert[]
+			}
+		''' + ending ) => [
+			parse.assertNoErrors
+			assertCompilesTo(
+				'''
+					<?xml version="1.0" encoding="utf-8"?>
+					<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+						<TiaProjectName>project</TiaProjectName>
+						<PlcName>plcname</PlcName>
+						<Author>author</Author>
+						<TestCases>
+							<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
+								<Teststeps>
+									<Teststep PlcCycle ="0" Description="">
+										<Inputs>
+											<Element xsi:type="Input" Name="a" Datatype="Real" Direction="Input" Value="-1.019" Variant="false" />
+										</Inputs>
+										<Outputs>
+										</Outputs>
+									</Teststep>
+								</Teststeps>
+							</TestCase>
+						</TestCases>
+					</TestFixture>
+				'''
+			)
+		]
+	}
+
+	@Test def void testSignedInt() {
+		(beginning + '''
+			define{
+				input[int a = -1; ]
+				output[]
+			}
+			teststep(0, ""){
+				set[]
+				assert[]
+			}
+		''' + ending ) => [
+			parse.assertNoErrors
+			assertCompilesTo(
+				'''
+					<?xml version="1.0" encoding="utf-8"?>
+					<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+						<TiaProjectName>project</TiaProjectName>
+						<PlcName>plcname</PlcName>
+						<Author>author</Author>
+						<TestCases>
+							<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
+								<Teststeps>
+									<Teststep PlcCycle ="0" Description="">
+										<Inputs>
+											<Element xsi:type="Input" Name="a" Datatype="Int" Direction="Input" Value="-1" Variant="false" />
+										</Inputs>
+										<Outputs>
+										</Outputs>
+									</Teststep>
+								</Teststeps>
+							</TestCase>
+						</TestCases>
+					</TestFixture>
+				'''
+			)
+		]
+	}
 }

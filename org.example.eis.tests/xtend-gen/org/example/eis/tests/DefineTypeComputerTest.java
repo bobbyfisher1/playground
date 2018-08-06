@@ -5,10 +5,13 @@ import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
 import org.eclipse.xtext.testing.util.ParseHelper;
+import org.eclipse.xtext.testing.validation.ValidationTestHelper;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Functions.Function0;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.ObjectExtensions;
+import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.example.eis.eis.EisModel;
 import org.example.eis.eis.Testcase;
 import org.example.eis.eis.Variable;
@@ -27,6 +30,10 @@ public class DefineTypeComputerTest {
   @Inject
   @Extension
   private ParseHelper<EisModel> _parseHelper;
+  
+  @Inject
+  @Extension
+  private ValidationTestHelper _validationTestHelper;
   
   @Inject
   @Extension
@@ -133,6 +140,40 @@ public class DefineTypeComputerTest {
   @Test
   public void testNotIsBool() {
     Assert.assertFalse(this._defineTypeComputer.isBoolType(DefineTypeComputer.INT_TYPE));
+  }
+  
+  @Test
+  public void testReal() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("real a = -1.01;");
+      _builder.newLine();
+      final String real = _builder.toString();
+      EisModel _parse = this._parseHelper.parse(((this.start + real) + this.end));
+      final Procedure1<EisModel> _function = (EisModel it) -> {
+        this._validationTestHelper.assertNoErrors(it);
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void testInt() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("int a = -1;");
+      _builder.newLine();
+      final String real = _builder.toString();
+      EisModel _parse = this._parseHelper.parse(((this.start + real) + this.end));
+      final Procedure1<EisModel> _function = (EisModel it) -> {
+        this._validationTestHelper.assertNoErrors(it);
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
   }
   
   private void assertSameType(final String text, final DefineType expectedType) {

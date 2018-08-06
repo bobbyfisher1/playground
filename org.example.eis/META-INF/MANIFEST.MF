@@ -27,5 +27,6 @@ Export-Package: org.example.eis,
  org.example.eis.serializer,
  org.example.eis.services,
  org.example.eis.typing,
- org.example.eis.validation
+ org.example.eis.validation,
+ org.example.eis.formatting2
 Import-Package: org.apache.log4j

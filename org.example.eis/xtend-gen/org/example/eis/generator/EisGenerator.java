@@ -690,6 +690,13 @@ public class EisGenerator extends AbstractGenerator {
         return "";
       }
     }
+    if (!_matched) {
+      boolean _isRealType = this._defineTypeComputer.isRealType(type);
+      if (_isRealType) {
+        _matched=true;
+        return "0.0";
+      }
+    }
     return null;
   }
   

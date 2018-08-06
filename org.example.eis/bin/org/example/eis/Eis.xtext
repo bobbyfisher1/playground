@@ -1,9 +1,10 @@
 grammar org.example.eis.Eis with org.eclipse.xtext.common.Terminals
 
+import 'http://www.eclipse.org/emf/2002/Ecore'
 generate eis "http://www.example.org/eis/Eis"
 
 EisModel:
-	'project' '=' project_name=STRING ';' //ID or STRING?
+	'project' '=' project_name=STRING ';'
 	'plcname' '=' plc_name=STRING ';'
 	'author' '=' author_name=STRING ';'
 	testcases+=Testcase*;
@@ -54,7 +55,7 @@ UdtRef:
 	udtType=[UdtType] name=ID udtVariables+=Variables* ';';
 
 enum BasicType:
-	NULL='null' | INT='int' | BOOL='bool' | FLOAT='float' | STRINGTYP='string';
+	NULL='null' | INTCONSTANT='int' | BOOL='bool' | REAL='real' | STRINGTYP='string';
 
 UdtType:
 	name=ID;
@@ -88,12 +89,10 @@ Primary returns Idiom:
 Atomic returns Idiom:
 	{IntConstant} value=INT
 	| {StringConstant} value=STRING
-	| {BoolConstant} value=('true' | 'false')
+	| BoolConstant
 	| {VariableRef} variable=[Variable]
-	| FloatConstant;
+	| {RealConstant} value=REAL;
 
-FloatConstant returns EFloat:
-	{EFloat} value=INT '.' valueOfDecimal=INT;
 	/*	<listed_datatypes_in_S7UintTest_Editor>
 					Bool
 					Byte
@@ -141,16 +140,16 @@ Statement:
 
 Cascade:
 	'.' udtVar=[Variables];
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+terminal fragment DIGIT:
+	'0'..'9';
+
+@Override
+terminal INT returns EInt:
+	'-'? ('0'..'9')+;
+terminal REAL returns EFloat:
+	INT '.' DIGIT+;
+
 	
 	
 	

@@ -12,6 +12,7 @@ import org.example.eis.eis.MulOrDiv
 import org.example.eis.eis.Not
 import org.example.eis.eis.Or
 import org.example.eis.eis.Plus
+import org.example.eis.eis.RealConstant
 import org.example.eis.eis.StringConstant
 import org.example.eis.eis.VariableRef
 
@@ -20,6 +21,7 @@ class DefineTypeComputer {
 	public static val INT_TYPE = new IntType
 	public static val BOOL_TYPE = new BoolType
 	public static val NULL_TYPE = new NullType
+	public static val REAL_TYPE = new RealType
 
 	def isStringType(DefineType type) {
 		type === STRING_TYPE
@@ -33,11 +35,16 @@ class DefineTypeComputer {
 		type === BOOL_TYPE
 	}
 
+	def isRealType(DefineType type) {
+		type === REAL_TYPE
+	}
+
 	def dispatch DefineType typeFor(Idiom i) {
 		switch (i) {
 			StringConstant: STRING_TYPE
 			IntConstant: INT_TYPE
 			BoolConstant: BOOL_TYPE
+			RealConstant: REAL_TYPE
 			Not: BOOL_TYPE
 			MulOrDiv: INT_TYPE
 			Minus: INT_TYPE
@@ -57,6 +64,8 @@ class DefineTypeComputer {
 			BOOL_TYPE;
 		} else if (t === 'string') {
 			STRING_TYPE
+		} else if (t === 'real') {
+			REAL_TYPE
 		} else
 			NULL_TYPE
 	}
@@ -74,5 +83,4 @@ class DefineTypeComputer {
 		return varRef.variable.idiom?.typeFor
 	}
 
-	
 }

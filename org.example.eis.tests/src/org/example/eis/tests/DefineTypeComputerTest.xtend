@@ -4,6 +4,7 @@ import com.google.inject.Inject
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.eclipse.xtext.testing.util.ParseHelper
+import org.eclipse.xtext.testing.validation.ValidationTestHelper
 import org.example.eis.eis.EisModel
 import org.example.eis.eis.Variable
 import org.example.eis.typing.DefineType
@@ -12,12 +13,14 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 import static org.example.eis.typing.DefineTypeComputer.*
+
 import static extension org.junit.Assert.*
 
 @RunWith(XtextRunner)
 @InjectWith(EisInjectorProvider)
 class DefineTypeComputerTest {
 	@Inject extension ParseHelper<EisModel>
+	@Inject extension ValidationTestHelper
 	@Inject extension DefineTypeComputer
 
 //
@@ -87,6 +90,24 @@ class DefineTypeComputerTest {
 	@Test def void testNotIsString() { (DefineTypeComputer.INT_TYPE).isStringType.assertFalse }
 
 	@Test def void testNotIsBool() { (DefineTypeComputer.INT_TYPE).isBoolType.assertFalse }
+
+	@Test def void testReal() {
+		val real = '''
+			real a = -1.01;
+		'''
+		(start + real + end).parse => [
+			assertNoErrors
+		]
+	}
+
+	@Test def void testInt() {
+		val real = '''
+			int a = -1;
+		'''
+		(start + real + end).parse => [
+			assertNoErrors
+		]
+	}
 
 	//
 // methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------

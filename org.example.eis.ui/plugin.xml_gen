@@ -249,6 +249,15 @@
 		<super type="org.eclipse.xtext.ui.check.expensive"/>
 		<persistent value="true"/>
 	</extension>
+	<extension point="org.eclipse.ui.preferencePages">
+		<page
+			category="org.example.eis.Eis"
+			class="org.example.eis.ui.EisExecutableExtensionFactory:org.eclipse.xtext.ui.validation.ValidatorPreferencePage"
+			id="org.example.eis.Eis.validator.preferencePage"
+			name="Errors/Warnings">
+			<keywordReference id="org.example.eis.ui.keyword_Eis"/>
+		</page>
+	</extension>
 	<extension point="org.eclipse.xtext.builder.participant">
 		<participant
 			class="org.example.eis.ui.EisExecutableExtensionFactory:org.eclipse.xtext.builder.IXtextBuilderParticipant"
@@ -397,12 +406,18 @@
 			class="org.example.eis.ui.EisExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
 			extensions="eis">
 		</viewer>
+		<contentTypeBinding
+			contentTypeId="org.example.eis.Eis.contenttype"
+			contentViewerId="org.example.eis.Eis.compare.contentViewers" />
 	</extension>
 	<extension point="org.eclipse.compare.contentMergeViewers">
 		<viewer id="org.example.eis.Eis.compare.contentMergeViewers"
 			class="org.example.eis.ui.EisExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
 			extensions="eis" label="Eis Compare">
 		</viewer>
+		<contentTypeBinding
+			contentTypeId="org.example.eis.Eis.contenttype"
+			contentMergeViewerId="org.example.eis.Eis.compare.contentMergeViewers" />
 	</extension>
 	<extension point="org.eclipse.ui.editors.documentProviders">
 		<provider id="org.example.eis.Eis.editors.documentProviders"

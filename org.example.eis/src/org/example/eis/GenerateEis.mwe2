@@ -6,7 +6,7 @@ import org.eclipse.xtext.xtext.generator.model.project.*
 var rootPath = ".."
 
 Workflow {
-	
+
 	component = XtextGenerator {
 		configuration = {
 			project = StandardProjectConfig {
@@ -32,12 +32,15 @@ Workflow {
 		language = StandardLanguage {
 			name = "org.example.eis.Eis"
 			fileExtensions = "eis"
-
 			serializer = {
 				generateStub = false
 			}
 			validator = {
-				// composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
+			// composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
+			}
+			formatter = {
+				generateStub = true
+				generateXtendStub = true
 			}
 		}
 	}
