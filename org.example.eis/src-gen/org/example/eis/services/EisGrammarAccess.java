@@ -1044,16 +1044,37 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cRealConstantAction_4_0 = (Action)cGroup_4.eContents().get(0);
 		private final Assignment cValueAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
 		private final RuleCall cValueREALTerminalRuleCall_4_1_0 = (RuleCall)cValueAssignment_4_1.eContents().get(0);
+		private final Group cGroup_5 = (Group)cAlternatives.eContents().get(5);
+		private final Action cByteConstantAction_5_0 = (Action)cGroup_5.eContents().get(0);
+		private final Assignment cValueAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
+		private final RuleCall cValueBYTETerminalRuleCall_5_1_0 = (RuleCall)cValueAssignment_5_1.eContents().get(0);
+		private final Group cGroup_6 = (Group)cAlternatives.eContents().get(6);
+		private final Action cWordConstantAction_6_0 = (Action)cGroup_6.eContents().get(0);
+		private final Assignment cValueAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
+		private final RuleCall cValueWORDTerminalRuleCall_6_1_0 = (RuleCall)cValueAssignment_6_1.eContents().get(0);
+		private final Group cGroup_7 = (Group)cAlternatives.eContents().get(7);
+		private final Action cDWordConstantAction_7_0 = (Action)cGroup_7.eContents().get(0);
+		private final Assignment cValueAssignment_7_1 = (Assignment)cGroup_7.eContents().get(1);
+		private final RuleCall cValueDWORDTerminalRuleCall_7_1_0 = (RuleCall)cValueAssignment_7_1.eContents().get(0);
+		private final Group cGroup_8 = (Group)cAlternatives.eContents().get(8);
+		private final Action cLWordConstantAction_8_0 = (Action)cGroup_8.eContents().get(0);
+		private final Assignment cValueAssignment_8_1 = (Assignment)cGroup_8.eContents().get(1);
+		private final RuleCall cValueLWORDTerminalRuleCall_8_1_0 = (RuleCall)cValueAssignment_8_1.eContents().get(0);
 		
 		//Atomic Idiom:
 		//	{IntConstant} value=INT
 		//	| {StringConstant} value=STRING
 		//	| BoolConstant
-		//	| {VariableRef} variable=[Variable] | {RealConstant} value=REAL;
+		//	| {VariableRef} variable=[Variable] | {RealConstant} value=REAL
+		//	| {ByteConstant} value=BYTE
+		//	| {WordConstant} value=WORD
+		//	| {DWordConstant} value=DWORD
+		//	| {LWordConstant} value=LWORD;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{IntConstant} value=INT | {StringConstant} value=STRING | BoolConstant | {VariableRef} variable=[Variable] |
-		//{RealConstant} value=REAL
+		//{RealConstant} value=REAL | {ByteConstant} value=BYTE | {WordConstant} value=WORD | {DWordConstant} value=DWORD |
+		//{LWordConstant} value=LWORD
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//{IntConstant} value=INT
@@ -1109,6 +1130,54 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//REAL
 		public RuleCall getValueREALTerminalRuleCall_4_1_0() { return cValueREALTerminalRuleCall_4_1_0; }
+		
+		//{ByteConstant} value=BYTE
+		public Group getGroup_5() { return cGroup_5; }
+		
+		//{ByteConstant}
+		public Action getByteConstantAction_5_0() { return cByteConstantAction_5_0; }
+		
+		//value=BYTE
+		public Assignment getValueAssignment_5_1() { return cValueAssignment_5_1; }
+		
+		//BYTE
+		public RuleCall getValueBYTETerminalRuleCall_5_1_0() { return cValueBYTETerminalRuleCall_5_1_0; }
+		
+		//{WordConstant} value=WORD
+		public Group getGroup_6() { return cGroup_6; }
+		
+		//{WordConstant}
+		public Action getWordConstantAction_6_0() { return cWordConstantAction_6_0; }
+		
+		//value=WORD
+		public Assignment getValueAssignment_6_1() { return cValueAssignment_6_1; }
+		
+		//WORD
+		public RuleCall getValueWORDTerminalRuleCall_6_1_0() { return cValueWORDTerminalRuleCall_6_1_0; }
+		
+		//{DWordConstant} value=DWORD
+		public Group getGroup_7() { return cGroup_7; }
+		
+		//{DWordConstant}
+		public Action getDWordConstantAction_7_0() { return cDWordConstantAction_7_0; }
+		
+		//value=DWORD
+		public Assignment getValueAssignment_7_1() { return cValueAssignment_7_1; }
+		
+		//DWORD
+		public RuleCall getValueDWORDTerminalRuleCall_7_1_0() { return cValueDWORDTerminalRuleCall_7_1_0; }
+		
+		//{LWordConstant} value=LWORD
+		public Group getGroup_8() { return cGroup_8; }
+		
+		//{LWordConstant}
+		public Action getLWordConstantAction_8_0() { return cLWordConstantAction_8_0; }
+		
+		//value=LWORD
+		public Assignment getValueAssignment_8_1() { return cValueAssignment_8_1; }
+		
+		//LWORD
+		public RuleCall getValueLWORDTerminalRuleCall_8_1_0() { return cValueLWORDTerminalRuleCall_8_1_0; }
 	}
 	public class TeststepBlockElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.TeststepBlock");
@@ -1399,12 +1468,29 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cREALRealKeyword_3_0 = (Keyword)cREALEnumLiteralDeclaration_3.eContents().get(0);
 		private final EnumLiteralDeclaration cSTRINGTYPEnumLiteralDeclaration_4 = (EnumLiteralDeclaration)cAlternatives.eContents().get(4);
 		private final Keyword cSTRINGTYPStringKeyword_4_0 = (Keyword)cSTRINGTYPEnumLiteralDeclaration_4.eContents().get(0);
+		private final EnumLiteralDeclaration cBYTEEnumLiteralDeclaration_5 = (EnumLiteralDeclaration)cAlternatives.eContents().get(5);
+		private final Keyword cBYTEByteKeyword_5_0 = (Keyword)cBYTEEnumLiteralDeclaration_5.eContents().get(0);
+		private final EnumLiteralDeclaration cWORDEnumLiteralDeclaration_6 = (EnumLiteralDeclaration)cAlternatives.eContents().get(6);
+		private final Keyword cWORDWordKeyword_6_0 = (Keyword)cWORDEnumLiteralDeclaration_6.eContents().get(0);
+		private final EnumLiteralDeclaration cDWORDEnumLiteralDeclaration_7 = (EnumLiteralDeclaration)cAlternatives.eContents().get(7);
+		private final Keyword cDWORDDwordKeyword_7_0 = (Keyword)cDWORDEnumLiteralDeclaration_7.eContents().get(0);
+		private final EnumLiteralDeclaration cLWORDEnumLiteralDeclaration_8 = (EnumLiteralDeclaration)cAlternatives.eContents().get(8);
+		private final Keyword cLWORDLwordKeyword_8_0 = (Keyword)cLWORDEnumLiteralDeclaration_8.eContents().get(0);
 		
 		//enum BasicType:
-		//	NULL='null' | INTCONSTANT='int' | BOOL='bool' | REAL='real' | STRINGTYP='string';
+		//	NULL='null'
+		//	| INTCONSTANT='int'
+		//	| BOOL='bool'
+		//	| REAL='real'
+		//	| STRINGTYP='string'
+		//	| BYTE="byte"
+		//	| WORD="word"
+		//	| DWORD="dword"
+		//	| LWORD="lword";
 		public EnumRule getRule() { return rule; }
 		
-		//NULL='null' | INTCONSTANT='int' | BOOL='bool' | REAL='real' | STRINGTYP='string'
+		//NULL='null' | INTCONSTANT='int' | BOOL='bool' | REAL='real' | STRINGTYP='string' | BYTE="byte" | WORD="word" |
+		//DWORD="dword" | LWORD="lword"
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//NULL='null'
@@ -1436,6 +1522,30 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//'string'
 		public Keyword getSTRINGTYPStringKeyword_4_0() { return cSTRINGTYPStringKeyword_4_0; }
+		
+		//BYTE="byte"
+		public EnumLiteralDeclaration getBYTEEnumLiteralDeclaration_5() { return cBYTEEnumLiteralDeclaration_5; }
+		
+		//"byte"
+		public Keyword getBYTEByteKeyword_5_0() { return cBYTEByteKeyword_5_0; }
+		
+		//WORD="word"
+		public EnumLiteralDeclaration getWORDEnumLiteralDeclaration_6() { return cWORDEnumLiteralDeclaration_6; }
+		
+		//"word"
+		public Keyword getWORDWordKeyword_6_0() { return cWORDWordKeyword_6_0; }
+		
+		//DWORD="dword"
+		public EnumLiteralDeclaration getDWORDEnumLiteralDeclaration_7() { return cDWORDEnumLiteralDeclaration_7; }
+		
+		//"dword"
+		public Keyword getDWORDDwordKeyword_7_0() { return cDWORDDwordKeyword_7_0; }
+		
+		//LWORD="lword"
+		public EnumLiteralDeclaration getLWORDEnumLiteralDeclaration_8() { return cLWORDEnumLiteralDeclaration_8; }
+		
+		//"lword"
+		public Keyword getLWORDLwordKeyword_8_0() { return cLWORDLwordKeyword_8_0; }
 	}
 	
 	private final EisModelElements pEisModel;
@@ -1463,15 +1573,20 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	private final MulOrDivElements pMulOrDiv;
 	private final PrimaryElements pPrimary;
 	private final AtomicElements pAtomic;
-	private final TerminalRule tDIGIT;
-	private final TerminalRule tINT;
-	private final TerminalRule tREAL;
 	private final TeststepBlockElements pTeststepBlock;
 	private final AssertionBlockElements pAssertionBlock;
 	private final SetElements pSet;
 	private final AssertElements pAssert;
 	private final StatementElements pStatement;
 	private final CascadeElements pCascade;
+	private final TerminalRule tDIGIT;
+	private final TerminalRule tHEXDIGIT;
+	private final TerminalRule tBYTE;
+	private final TerminalRule tWORD;
+	private final TerminalRule tDWORD;
+	private final TerminalRule tLWORD;
+	private final TerminalRule tINT;
+	private final TerminalRule tREAL;
 	
 	private final Grammar grammar;
 	
@@ -1507,15 +1622,20 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		this.pMulOrDiv = new MulOrDivElements();
 		this.pPrimary = new PrimaryElements();
 		this.pAtomic = new AtomicElements();
-		this.tDIGIT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.DIGIT");
-		this.tINT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.INT");
-		this.tREAL = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.REAL");
 		this.pTeststepBlock = new TeststepBlockElements();
 		this.pAssertionBlock = new AssertionBlockElements();
 		this.pSet = new SetElements();
 		this.pAssert = new AssertElements();
 		this.pStatement = new StatementElements();
 		this.pCascade = new CascadeElements();
+		this.tDIGIT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.DIGIT");
+		this.tHEXDIGIT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.HEXDIGIT");
+		this.tBYTE = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.BYTE");
+		this.tWORD = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.WORD");
+		this.tDWORD = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.DWORD");
+		this.tLWORD = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.LWORD");
+		this.tINT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.INT");
+		this.tREAL = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.REAL");
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -1695,7 +1815,15 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//enum BasicType:
-	//	NULL='null' | INTCONSTANT='int' | BOOL='bool' | REAL='real' | STRINGTYP='string';
+	//	NULL='null'
+	//	| INTCONSTANT='int'
+	//	| BOOL='bool'
+	//	| REAL='real'
+	//	| STRINGTYP='string'
+	//	| BYTE="byte"
+	//	| WORD="word"
+	//	| DWORD="dword"
+	//	| LWORD="lword";
 	public BasicTypeElements getBasicTypeAccess() {
 		return eBasicType;
 	}
@@ -1800,32 +1928,17 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	//	{IntConstant} value=INT
 	//	| {StringConstant} value=STRING
 	//	| BoolConstant
-	//	| {VariableRef} variable=[Variable] | {RealConstant} value=REAL;
+	//	| {VariableRef} variable=[Variable] | {RealConstant} value=REAL
+	//	| {ByteConstant} value=BYTE
+	//	| {WordConstant} value=WORD
+	//	| {DWordConstant} value=DWORD
+	//	| {LWordConstant} value=LWORD;
 	public AtomicElements getAtomicAccess() {
 		return pAtomic;
 	}
 	
 	public ParserRule getAtomicRule() {
 		return getAtomicAccess().getRule();
-	}
-	
-	//terminal fragment DIGIT:
-	//	'0'..'9';
-	public TerminalRule getDIGITRule() {
-		return tDIGIT;
-	}
-	
-	//@Override
-	//terminal INT returns EInt:
-	//	'-'? '0'..'9'+;
-	public TerminalRule getINTRule() {
-		return tINT;
-	}
-	
-	//terminal REAL returns EFloat:
-	//	INT '.' DIGIT+;
-	public TerminalRule getREALRule() {
-		return tREAL;
 	}
 	
 	///*	<listed_datatypes_in_S7UintTest_Editor>
@@ -1915,6 +2028,59 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getCascadeRule() {
 		return getCascadeAccess().getRule();
+	}
+	
+	//terminal fragment DIGIT:
+	//	'0'..'9';
+	public TerminalRule getDIGITRule() {
+		return tDIGIT;
+	}
+	
+	//terminal fragment HEXDIGIT:
+	//	DIGIT | 'a'..'f' | 'A'..'F';
+	public TerminalRule getHEXDIGITRule() {
+		return tHEXDIGIT;
+	}
+	
+	//terminal BYTE:
+	//	'16#' HEXDIGIT HEXDIGIT;
+	public TerminalRule getBYTERule() {
+		return tBYTE;
+	}
+	
+	//terminal WORD:
+	//	'16#' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT;
+	public TerminalRule getWORDRule() {
+		return tWORD;
+	}
+	
+	//terminal DWORD:
+	//	'16#' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT
+	//	'_' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT;
+	public TerminalRule getDWORDRule() {
+		return tDWORD;
+	}
+	
+	//terminal LWORD:
+	//	'16#' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT
+	//	'_' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT
+	//	'_' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT
+	//	'_' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT;
+	public TerminalRule getLWORDRule() {
+		return tLWORD;
+	}
+	
+	//@Override
+	//terminal INT returns EInt:
+	//	'-'? '0'..'9'+;
+	public TerminalRule getINTRule() {
+		return tINT;
+	}
+	
+	//terminal REAL returns EFloat:
+	//	INT '.' DIGIT+;
+	public TerminalRule getREALRule() {
+		return tREAL;
 	}
 	
 	//terminal ID:

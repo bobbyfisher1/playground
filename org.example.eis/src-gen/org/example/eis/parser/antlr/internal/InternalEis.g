@@ -1934,6 +1934,118 @@ ruleAtomic returns [EObject current=null]
 				)
 			)
 		)
+		    |
+		(
+			(
+				{
+					$current = forceCreateModelElement(
+						grammarAccess.getAtomicAccess().getByteConstantAction_5_0(),
+						$current);
+				}
+			)
+			(
+				(
+					lv_value_10_0=RULE_BYTE
+					{
+						newLeafNode(lv_value_10_0, grammarAccess.getAtomicAccess().getValueBYTETerminalRuleCall_5_1_0());
+					}
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getAtomicRule());
+						}
+						setWithLastConsumed(
+							$current,
+							"value",
+							lv_value_10_0,
+							"org.example.eis.Eis.BYTE");
+					}
+				)
+			)
+		)
+		    |
+		(
+			(
+				{
+					$current = forceCreateModelElement(
+						grammarAccess.getAtomicAccess().getWordConstantAction_6_0(),
+						$current);
+				}
+			)
+			(
+				(
+					lv_value_12_0=RULE_WORD
+					{
+						newLeafNode(lv_value_12_0, grammarAccess.getAtomicAccess().getValueWORDTerminalRuleCall_6_1_0());
+					}
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getAtomicRule());
+						}
+						setWithLastConsumed(
+							$current,
+							"value",
+							lv_value_12_0,
+							"org.example.eis.Eis.WORD");
+					}
+				)
+			)
+		)
+		    |
+		(
+			(
+				{
+					$current = forceCreateModelElement(
+						grammarAccess.getAtomicAccess().getDWordConstantAction_7_0(),
+						$current);
+				}
+			)
+			(
+				(
+					lv_value_14_0=RULE_DWORD
+					{
+						newLeafNode(lv_value_14_0, grammarAccess.getAtomicAccess().getValueDWORDTerminalRuleCall_7_1_0());
+					}
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getAtomicRule());
+						}
+						setWithLastConsumed(
+							$current,
+							"value",
+							lv_value_14_0,
+							"org.example.eis.Eis.DWORD");
+					}
+				)
+			)
+		)
+		    |
+		(
+			(
+				{
+					$current = forceCreateModelElement(
+						grammarAccess.getAtomicAccess().getLWordConstantAction_8_0(),
+						$current);
+				}
+			)
+			(
+				(
+					lv_value_16_0=RULE_LWORD
+					{
+						newLeafNode(lv_value_16_0, grammarAccess.getAtomicAccess().getValueLWORDTerminalRuleCall_8_1_0());
+					}
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getAtomicRule());
+						}
+						setWithLastConsumed(
+							$current,
+							"value",
+							lv_value_16_0,
+							"org.example.eis.Eis.LWORD");
+					}
+				)
+			)
+		)
 	)
 ;
 
@@ -2430,10 +2542,52 @@ ruleBasicType returns [Enumerator current=null]
 				newLeafNode(enumLiteral_4, grammarAccess.getBasicTypeAccess().getSTRINGTYPEnumLiteralDeclaration_4());
 			}
 		)
+		    |
+		(
+			enumLiteral_5='byte'
+			{
+				$current = grammarAccess.getBasicTypeAccess().getBYTEEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_5, grammarAccess.getBasicTypeAccess().getBYTEEnumLiteralDeclaration_5());
+			}
+		)
+		    |
+		(
+			enumLiteral_6='word'
+			{
+				$current = grammarAccess.getBasicTypeAccess().getWORDEnumLiteralDeclaration_6().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_6, grammarAccess.getBasicTypeAccess().getWORDEnumLiteralDeclaration_6());
+			}
+		)
+		    |
+		(
+			enumLiteral_7='dword'
+			{
+				$current = grammarAccess.getBasicTypeAccess().getDWORDEnumLiteralDeclaration_7().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_7, grammarAccess.getBasicTypeAccess().getDWORDEnumLiteralDeclaration_7());
+			}
+		)
+		    |
+		(
+			enumLiteral_8='lword'
+			{
+				$current = grammarAccess.getBasicTypeAccess().getLWORDEnumLiteralDeclaration_8().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_8, grammarAccess.getBasicTypeAccess().getLWORDEnumLiteralDeclaration_8());
+			}
+		)
 	)
 ;
 
 fragment RULE_DIGIT : '0'..'9';
+
+fragment RULE_HEXDIGIT : (RULE_DIGIT|'a'..'f'|'A'..'F');
+
+RULE_BYTE : '16#' RULE_HEXDIGIT RULE_HEXDIGIT;
+
+RULE_WORD : '16#' RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT;
+
+RULE_DWORD : '16#' RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT '_' RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT;
+
+RULE_LWORD : '16#' RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT '_' RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT '_' RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT '_' RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT;
 
 RULE_INT : '-'? ('0'..'9')+;
 

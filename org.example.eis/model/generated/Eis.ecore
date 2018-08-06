@@ -86,6 +86,10 @@
     <eLiterals name="BOOL" value="2" literal="bool"/>
     <eLiterals name="REAL" value="3" literal="real"/>
     <eLiterals name="STRINGTYP" value="4" literal="string"/>
+    <eLiterals name="BYTE" value="5" literal="byte"/>
+    <eLiterals name="WORD" value="6" literal="word"/>
+    <eLiterals name="DWORD" value="7" literal="dword"/>
+    <eLiterals name="LWORD" value="8" literal="lword"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UdtType">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -184,5 +188,17 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RealConstant" eSuperTypes="#//Idiom">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ByteConstant" eSuperTypes="#//Idiom">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="WordConstant" eSuperTypes="#//Idiom">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DWordConstant" eSuperTypes="#//Idiom">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LWordConstant" eSuperTypes="#//Idiom">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
 </ecore:EPackage>

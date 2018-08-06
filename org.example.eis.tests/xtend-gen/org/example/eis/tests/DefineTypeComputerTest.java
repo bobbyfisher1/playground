@@ -143,6 +143,23 @@ public class DefineTypeComputerTest {
   }
   
   @Test
+  public void testInt() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("int a = -1;");
+      _builder.newLine();
+      final String real = _builder.toString();
+      EisModel _parse = this._parseHelper.parse(((this.start + real) + this.end));
+      final Procedure1<EisModel> _function = (EisModel it) -> {
+        this._validationTestHelper.assertNoErrors(it);
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
   public void testReal() {
     try {
       StringConcatenation _builder = new StringConcatenation();
@@ -160,10 +177,61 @@ public class DefineTypeComputerTest {
   }
   
   @Test
-  public void testInt() {
+  public void testByte() {
     try {
       StringConcatenation _builder = new StringConcatenation();
-      _builder.append("int a = -1;");
+      _builder.append("byte a = 16#aa;");
+      _builder.newLine();
+      final String real = _builder.toString();
+      EisModel _parse = this._parseHelper.parse(((this.start + real) + this.end));
+      final Procedure1<EisModel> _function = (EisModel it) -> {
+        this._validationTestHelper.assertNoErrors(it);
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void testWord() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("word a = 16#aaaa;");
+      _builder.newLine();
+      final String real = _builder.toString();
+      EisModel _parse = this._parseHelper.parse(((this.start + real) + this.end));
+      final Procedure1<EisModel> _function = (EisModel it) -> {
+        this._validationTestHelper.assertNoErrors(it);
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void testDWord() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("dword a = 16#aaaa_aaaa;");
+      _builder.newLine();
+      final String real = _builder.toString();
+      EisModel _parse = this._parseHelper.parse(((this.start + real) + this.end));
+      final Procedure1<EisModel> _function = (EisModel it) -> {
+        this._validationTestHelper.assertNoErrors(it);
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void testLWord() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("lword a = 16#aaaa_aaaa_aaaa_aaaa;");
       _builder.newLine();
       final String real = _builder.toString();
       EisModel _parse = this._parseHelper.parse(((this.start + real) + this.end));

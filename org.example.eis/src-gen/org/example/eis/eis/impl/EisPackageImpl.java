@@ -17,8 +17,10 @@ import org.example.eis.eis.AssertionBlock;
 import org.example.eis.eis.BasicType;
 import org.example.eis.eis.BlockConstant;
 import org.example.eis.eis.BoolConstant;
+import org.example.eis.eis.ByteConstant;
 import org.example.eis.eis.Cascade;
 import org.example.eis.eis.Comparison;
+import org.example.eis.eis.DWordConstant;
 import org.example.eis.eis.DefineBlock;
 import org.example.eis.eis.DirectionBlock;
 import org.example.eis.eis.EisFactory;
@@ -29,6 +31,7 @@ import org.example.eis.eis.Idiom;
 import org.example.eis.eis.InOut;
 import org.example.eis.eis.Input;
 import org.example.eis.eis.IntConstant;
+import org.example.eis.eis.LWordConstant;
 import org.example.eis.eis.Minus;
 import org.example.eis.eis.MulOrDiv;
 import org.example.eis.eis.Not;
@@ -48,6 +51,7 @@ import org.example.eis.eis.UdtType;
 import org.example.eis.eis.Variable;
 import org.example.eis.eis.VariableRef;
 import org.example.eis.eis.Variables;
+import org.example.eis.eis.WordConstant;
 
 /**
  * <!-- begin-user-doc -->
@@ -294,6 +298,34 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * @generated
    */
   private EClass realConstantEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass byteConstantEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass wordConstantEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass dWordConstantEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass lWordConstantEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -1410,6 +1442,86 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getByteConstant()
+  {
+    return byteConstantEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getByteConstant_Value()
+  {
+    return (EAttribute)byteConstantEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getWordConstant()
+  {
+    return wordConstantEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getWordConstant_Value()
+  {
+    return (EAttribute)wordConstantEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getDWordConstant()
+  {
+    return dWordConstantEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getDWordConstant_Value()
+  {
+    return (EAttribute)dWordConstantEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getLWordConstant()
+  {
+    return lWordConstantEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getLWordConstant_Value()
+  {
+    return (EAttribute)lWordConstantEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EEnum getBasicType()
   {
     return basicTypeEEnum;
@@ -1583,6 +1695,18 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
     realConstantEClass = createEClass(REAL_CONSTANT);
     createEAttribute(realConstantEClass, REAL_CONSTANT__VALUE);
 
+    byteConstantEClass = createEClass(BYTE_CONSTANT);
+    createEAttribute(byteConstantEClass, BYTE_CONSTANT__VALUE);
+
+    wordConstantEClass = createEClass(WORD_CONSTANT);
+    createEAttribute(wordConstantEClass, WORD_CONSTANT__VALUE);
+
+    dWordConstantEClass = createEClass(DWORD_CONSTANT);
+    createEAttribute(dWordConstantEClass, DWORD_CONSTANT__VALUE);
+
+    lWordConstantEClass = createEClass(LWORD_CONSTANT);
+    createEAttribute(lWordConstantEClass, LWORD_CONSTANT__VALUE);
+
     // Create enums
     basicTypeEEnum = createEEnum(BASIC_TYPE);
   }
@@ -1632,6 +1756,10 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
     stringConstantEClass.getESuperTypes().add(this.getIdiom());
     variableRefEClass.getESuperTypes().add(this.getIdiom());
     realConstantEClass.getESuperTypes().add(this.getIdiom());
+    byteConstantEClass.getESuperTypes().add(this.getIdiom());
+    wordConstantEClass.getESuperTypes().add(this.getIdiom());
+    dWordConstantEClass.getESuperTypes().add(this.getIdiom());
+    lWordConstantEClass.getESuperTypes().add(this.getIdiom());
 
     // Initialize classes and features; add operations and parameters
     initEClass(eisModelEClass, EisModel.class, "EisModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1772,6 +1900,18 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
     initEClass(realConstantEClass, RealConstant.class, "RealConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getRealConstant_Value(), ecorePackage.getEFloat(), "value", null, 0, 1, RealConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(byteConstantEClass, ByteConstant.class, "ByteConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getByteConstant_Value(), ecorePackage.getEString(), "value", null, 0, 1, ByteConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(wordConstantEClass, WordConstant.class, "WordConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getWordConstant_Value(), ecorePackage.getEString(), "value", null, 0, 1, WordConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(dWordConstantEClass, DWordConstant.class, "DWordConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getDWordConstant_Value(), ecorePackage.getEString(), "value", null, 0, 1, DWordConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(lWordConstantEClass, LWordConstant.class, "LWordConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getLWordConstant_Value(), ecorePackage.getEString(), "value", null, 0, 1, LWordConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
     // Initialize enums and add enum literals
     initEEnum(basicTypeEEnum, BasicType.class, "BasicType");
     addEEnumLiteral(basicTypeEEnum, BasicType.NULL);
@@ -1779,6 +1919,10 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
     addEEnumLiteral(basicTypeEEnum, BasicType.BOOL);
     addEEnumLiteral(basicTypeEEnum, BasicType.REAL);
     addEEnumLiteral(basicTypeEEnum, BasicType.STRINGTYP);
+    addEEnumLiteral(basicTypeEEnum, BasicType.BYTE);
+    addEEnumLiteral(basicTypeEEnum, BasicType.WORD);
+    addEEnumLiteral(basicTypeEEnum, BasicType.DWORD);
+    addEEnumLiteral(basicTypeEEnum, BasicType.LWORD);
 
     // Create resource
     createResource(eNS_URI);

@@ -288,7 +288,7 @@ class EisGenerator extends AbstractGenerator {
 		var name = _name
 		for(variable : variables){
 			if(variable instanceof Variable)
-				map.put(name + variable.name, variable?.range?.interpret?.toString ?: variable.defaultRange)
+				map.put(name + variable.name, variable?.range?.interpret?.toString ?: '')
 			 else if(variable instanceof Udt) 
 				map.generateRangeMap(variable.udtVariables, name + variable.name + '.')
 			 else if(variable instanceof UdtRef)
@@ -300,20 +300,25 @@ class EisGenerator extends AbstractGenerator {
 		val type = variable.variableType.typeFor
 		switch type{
 			case type.isBoolType:	return "false"	
-			case type.isIntType:	return "0"			
-			case type.isStringType:	return ""
+			case type.isIntType:	 return "0"			
+			case type.isStringType:return ""
 			case type.isRealType: return "0.0"
+			case type.isByteType: return "16#00"
+			case type.isWordType: return "16#0000"
+			case type.isDWordType: return "16#0000_0000"
+			case type.isLWordType: return "16#0000_0000_0000_0000"
 		}
 	}
 	
-	def private String defaultRange(Variable variable) {
-		val type = variable.variableType.typeFor
-		switch type{
-			case type.isBoolType:	return ""	
-			case type.isIntType:	return "0"			
-			case type.isStringType:	return ""
-		}
-	}
+//	def private String defaultRange(Variable variable) {
+//		val type = variable.variableType.typeFor
+//		switch type{
+//			case type.isBoolType:	return ""	
+//			case type.isIntType:	return ""			
+//			case type.isStringType:	return ""
+//			case type.isRealType: return ""
+//		}
+//	}
 	
 	def private void overwriteInput(HashMap<Object, Object> setMap, TeststepBlock teststep) {
 		val statements = teststep.assertion.set.setVariables

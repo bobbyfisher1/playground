@@ -330,6 +330,42 @@ public interface EisFactory extends EFactory
   RealConstant createRealConstant();
 
   /**
+   * Returns a new object of class '<em>Byte Constant</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Byte Constant</em>'.
+   * @generated
+   */
+  ByteConstant createByteConstant();
+
+  /**
+   * Returns a new object of class '<em>Word Constant</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Word Constant</em>'.
+   * @generated
+   */
+  WordConstant createWordConstant();
+
+  /**
+   * Returns a new object of class '<em>DWord Constant</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>DWord Constant</em>'.
+   * @generated
+   */
+  DWordConstant createDWordConstant();
+
+  /**
+   * Returns a new object of class '<em>LWord Constant</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>LWord Constant</em>'.
+   * @generated
+   */
+  LWordConstant createLWordConstant();
+
+  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

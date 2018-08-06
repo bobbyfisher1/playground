@@ -58,9 +58,13 @@ public class EisSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) '!' idiom=Primary
 	 *     (rule start) (ambiguity) value='false'
 	 *     (rule start) (ambiguity) value='true'
+	 *     (rule start) (ambiguity) value=BYTE
+	 *     (rule start) (ambiguity) value=DWORD
 	 *     (rule start) (ambiguity) value=INT
+	 *     (rule start) (ambiguity) value=LWORD
 	 *     (rule start) (ambiguity) value=REAL
 	 *     (rule start) (ambiguity) value=STRING
+	 *     (rule start) (ambiguity) value=WORD
 	 *     (rule start) (ambiguity) variable=[Variable|ID]
 	 *     (rule start) (ambiguity) {And.left=}
 	 *     (rule start) (ambiguity) {Comparison.left=}

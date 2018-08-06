@@ -55,7 +55,15 @@ UdtRef:
 	udtType=[UdtType] name=ID udtVariables+=Variables* ';';
 
 enum BasicType:
-	NULL='null' | INTCONSTANT='int' | BOOL='bool' | REAL='real' | STRINGTYP='string';
+	NULL='null'
+	| INTCONSTANT='int'
+	| BOOL='bool'
+	| REAL='real'
+	| STRINGTYP='string'
+	| BYTE="byte"
+	| WORD="word"
+	| DWORD="dword"
+	| LWORD="lword";
 
 UdtType:
 	name=ID;
@@ -91,7 +99,11 @@ Atomic returns Idiom:
 	| {StringConstant} value=STRING
 	| BoolConstant
 	| {VariableRef} variable=[Variable]
-	| {RealConstant} value=REAL;
+	| {RealConstant} value=REAL
+	| {ByteConstant} value=BYTE
+	| {WordConstant} value=WORD
+	| {DWordConstant} value=DWORD
+	| {LWordConstant} value=LWORD;
 
 	/*	<listed_datatypes_in_S7UintTest_Editor>
 					Bool
@@ -143,6 +155,25 @@ Cascade:
 
 terminal fragment DIGIT:
 	'0'..'9';
+
+terminal fragment HEXDIGIT:
+	DIGIT | 'a'..'f' | 'A'..'F';
+
+terminal BYTE:
+	'16#' HEXDIGIT HEXDIGIT;
+
+terminal WORD:
+	'16#' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT;
+
+terminal DWORD:
+	'16#' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT
+	'_' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT;
+
+terminal LWORD:
+	'16#' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT
+	'_' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT
+	'_' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT
+	'_' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT;
 
 @Override
 terminal INT returns EInt:

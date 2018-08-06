@@ -644,8 +644,7 @@ public class EisGenerator extends AbstractGenerator {
         if (_string != null) {
           _elvis = _string;
         } else {
-          String _defaultRange = this.defaultRange(((Variable)variable));
-          _elvis = _defaultRange;
+          _elvis = "";
         }
         map.put(_plus, _elvis);
       } else {
@@ -697,29 +696,32 @@ public class EisGenerator extends AbstractGenerator {
         return "0.0";
       }
     }
-    return null;
-  }
-  
-  private String defaultRange(final Variable variable) {
-    final DefineType type = this._defineTypeComputer.typeFor(variable.getVariableType());
-    boolean _matched = false;
-    boolean _isBoolType = this._defineTypeComputer.isBoolType(type);
-    if (_isBoolType) {
-      _matched=true;
-      return "";
-    }
     if (!_matched) {
-      boolean _isIntType = this._defineTypeComputer.isIntType(type);
-      if (_isIntType) {
+      boolean _isByteType = this._defineTypeComputer.isByteType(type);
+      if (_isByteType) {
         _matched=true;
-        return "0";
+        return "16#00";
       }
     }
     if (!_matched) {
-      boolean _isStringType = this._defineTypeComputer.isStringType(type);
-      if (_isStringType) {
+      boolean _isWordType = this._defineTypeComputer.isWordType(type);
+      if (_isWordType) {
         _matched=true;
-        return "";
+        return "16#0000";
+      }
+    }
+    if (!_matched) {
+      boolean _isDWordType = this._defineTypeComputer.isDWordType(type);
+      if (_isDWordType) {
+        _matched=true;
+        return "16#0000_0000";
+      }
+    }
+    if (!_matched) {
+      boolean _isLWordType = this._defineTypeComputer.isLWordType(type);
+      if (_isLWordType) {
+        _matched=true;
+        return "16#0000_0000_0000_0000";
       }
     }
     return null;

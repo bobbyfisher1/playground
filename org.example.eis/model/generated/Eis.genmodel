@@ -12,6 +12,10 @@
       <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/BOOL"/>
       <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/REAL"/>
       <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/STRINGTYP"/>
+      <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/BYTE"/>
+      <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/WORD"/>
+      <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/DWORD"/>
+      <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/LWORD"/>
     </genEnums>
     <genClasses ecoreClass="Eis.ecore#//EisModel">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//EisModel/project_name"/>
@@ -149,6 +153,18 @@
     </genClasses>
     <genClasses ecoreClass="Eis.ecore#//RealConstant">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//RealConstant/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Eis.ecore#//ByteConstant">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//ByteConstant/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Eis.ecore#//WordConstant">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//WordConstant/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Eis.ecore#//DWordConstant">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//DWordConstant/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Eis.ecore#//LWordConstant">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//LWordConstant/value"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

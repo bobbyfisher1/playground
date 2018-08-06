@@ -4,10 +4,13 @@ import java.util.Arrays;
 import org.example.eis.eis.And;
 import org.example.eis.eis.BasicType;
 import org.example.eis.eis.BoolConstant;
+import org.example.eis.eis.ByteConstant;
 import org.example.eis.eis.Comparison;
+import org.example.eis.eis.DWordConstant;
 import org.example.eis.eis.Equality;
 import org.example.eis.eis.Idiom;
 import org.example.eis.eis.IntConstant;
+import org.example.eis.eis.LWordConstant;
 import org.example.eis.eis.Minus;
 import org.example.eis.eis.MulOrDiv;
 import org.example.eis.eis.Not;
@@ -16,12 +19,17 @@ import org.example.eis.eis.Plus;
 import org.example.eis.eis.RealConstant;
 import org.example.eis.eis.StringConstant;
 import org.example.eis.eis.VariableRef;
+import org.example.eis.eis.WordConstant;
 import org.example.eis.typing.BoolType;
+import org.example.eis.typing.ByteType;
+import org.example.eis.typing.DWordType;
 import org.example.eis.typing.DefineType;
 import org.example.eis.typing.IntType;
+import org.example.eis.typing.LWordType;
 import org.example.eis.typing.NullType;
 import org.example.eis.typing.RealType;
 import org.example.eis.typing.StringType;
+import org.example.eis.typing.WordType;
 
 @SuppressWarnings("all")
 public class DefineTypeComputer {
@@ -34,6 +42,14 @@ public class DefineTypeComputer {
   public final static NullType NULL_TYPE = new NullType();
   
   public final static RealType REAL_TYPE = new RealType();
+  
+  public final static ByteType BYTE_TYPE = new ByteType();
+  
+  public final static WordType WORD_TYPE = new WordType();
+  
+  public final static DWordType DWORD_TYPE = new DWordType();
+  
+  public final static LWordType LWORD_TYPE = new LWordType();
   
   public boolean isStringType(final DefineType type) {
     return (type == DefineTypeComputer.STRING_TYPE);
@@ -49,6 +65,22 @@ public class DefineTypeComputer {
   
   public boolean isRealType(final DefineType type) {
     return (type == DefineTypeComputer.REAL_TYPE);
+  }
+  
+  public boolean isByteType(final DefineType type) {
+    return (type == DefineTypeComputer.BYTE_TYPE);
+  }
+  
+  public boolean isWordType(final DefineType type) {
+    return (type == DefineTypeComputer.WORD_TYPE);
+  }
+  
+  public boolean isDWordType(final DefineType type) {
+    return (type == DefineTypeComputer.DWORD_TYPE);
+  }
+  
+  public boolean isLWordType(final DefineType type) {
+    return (type == DefineTypeComputer.LWORD_TYPE);
   }
   
   protected DefineType _typeFor(final Idiom i) {
@@ -74,6 +106,30 @@ public class DefineTypeComputer {
       if (i instanceof RealConstant) {
         _matched=true;
         _switchResult = DefineTypeComputer.REAL_TYPE;
+      }
+    }
+    if (!_matched) {
+      if (i instanceof ByteConstant) {
+        _matched=true;
+        _switchResult = DefineTypeComputer.BYTE_TYPE;
+      }
+    }
+    if (!_matched) {
+      if (i instanceof WordConstant) {
+        _matched=true;
+        _switchResult = DefineTypeComputer.WORD_TYPE;
+      }
+    }
+    if (!_matched) {
+      if (i instanceof DWordConstant) {
+        _matched=true;
+        _switchResult = DefineTypeComputer.DWORD_TYPE;
+      }
+    }
+    if (!_matched) {
+      if (i instanceof LWordConstant) {
+        _matched=true;
+        _switchResult = DefineTypeComputer.LWORD_TYPE;
       }
     }
     if (!_matched) {
@@ -127,7 +183,11 @@ public class DefineTypeComputer {
   protected DefineType _typeFor(final BasicType type) {
     DefineType _xblockexpression = null;
     {
-      final String t = type.toString();
+      String _string = null;
+      if (type!=null) {
+        _string=type.toString();
+      }
+      final String t = _string;
       DefineType _xifexpression = null;
       if ((t == "int")) {
         _xifexpression = DefineTypeComputer.INT_TYPE;
@@ -144,7 +204,31 @@ public class DefineTypeComputer {
             if ((t == "real")) {
               _xifexpression_3 = DefineTypeComputer.REAL_TYPE;
             } else {
-              _xifexpression_3 = DefineTypeComputer.NULL_TYPE;
+              DefineType _xifexpression_4 = null;
+              if ((t == "byte")) {
+                _xifexpression_4 = DefineTypeComputer.BYTE_TYPE;
+              } else {
+                DefineType _xifexpression_5 = null;
+                if ((t == "word")) {
+                  _xifexpression_5 = DefineTypeComputer.WORD_TYPE;
+                } else {
+                  DefineType _xifexpression_6 = null;
+                  if ((t == "dword")) {
+                    _xifexpression_6 = DefineTypeComputer.DWORD_TYPE;
+                  } else {
+                    DefineType _xifexpression_7 = null;
+                    if ((t == "lword")) {
+                      _xifexpression_7 = DefineTypeComputer.LWORD_TYPE;
+                    } else {
+                      _xifexpression_7 = DefineTypeComputer.NULL_TYPE;
+                    }
+                    _xifexpression_6 = _xifexpression_7;
+                  }
+                  _xifexpression_5 = _xifexpression_6;
+                }
+                _xifexpression_4 = _xifexpression_5;
+              }
+              _xifexpression_3 = _xifexpression_4;
             }
             _xifexpression_2 = _xifexpression_3;
           }

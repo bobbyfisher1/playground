@@ -91,6 +91,15 @@ class DefineTypeComputerTest {
 
 	@Test def void testNotIsBool() { (DefineTypeComputer.INT_TYPE).isBoolType.assertFalse }
 
+	@Test def void testInt() {
+		val real = '''
+			int a = -1;
+		'''
+		(start + real + end).parse => [
+			assertNoErrors
+		]
+	}
+
 	@Test def void testReal() {
 		val real = '''
 			real a = -1.01;
@@ -100,9 +109,36 @@ class DefineTypeComputerTest {
 		]
 	}
 
-	@Test def void testInt() {
+	@Test def void testByte() {
 		val real = '''
-			int a = -1;
+			byte a = 16#aa;
+		'''
+		(start + real + end).parse => [
+			assertNoErrors
+		]
+	}
+
+	@Test def void testWord() {
+		val real = '''
+			word a = 16#aaaa;
+		'''
+		(start + real + end).parse => [
+			assertNoErrors
+		]
+	}
+
+	@Test def void testDWord() {
+		val real = '''
+			dword a = 16#aaaa_aaaa;
+		'''
+		(start + real + end).parse => [
+			assertNoErrors
+		]
+	}
+
+	@Test def void testLWord() {
+		val real = '''
+			lword a = 16#aaaa_aaaa_aaaa_aaaa;
 		'''
 		(start + real + end).parse => [
 			assertNoErrors

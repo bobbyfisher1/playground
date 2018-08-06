@@ -68,7 +68,47 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  STRINGTYP(4, "STRINGTYP", "string");
+  STRINGTYP(4, "STRINGTYP", "string"),
+
+  /**
+   * The '<em><b>BYTE</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #BYTE_VALUE
+   * @generated
+   * @ordered
+   */
+  BYTE(5, "BYTE", "byte"),
+
+  /**
+   * The '<em><b>WORD</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #WORD_VALUE
+   * @generated
+   * @ordered
+   */
+  WORD(6, "WORD", "word"),
+
+  /**
+   * The '<em><b>DWORD</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #DWORD_VALUE
+   * @generated
+   * @ordered
+   */
+  DWORD(7, "DWORD", "dword"),
+
+  /**
+   * The '<em><b>LWORD</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #LWORD_VALUE
+   * @generated
+   * @ordered
+   */
+  LWORD(8, "LWORD", "lword");
 
   /**
    * The '<em><b>NULL</b></em>' literal value.
@@ -146,6 +186,66 @@ public enum BasicType implements Enumerator
   public static final int STRINGTYP_VALUE = 4;
 
   /**
+   * The '<em><b>BYTE</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>BYTE</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #BYTE
+   * @model literal="byte"
+   * @generated
+   * @ordered
+   */
+  public static final int BYTE_VALUE = 5;
+
+  /**
+   * The '<em><b>WORD</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>WORD</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #WORD
+   * @model literal="word"
+   * @generated
+   * @ordered
+   */
+  public static final int WORD_VALUE = 6;
+
+  /**
+   * The '<em><b>DWORD</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>DWORD</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #DWORD
+   * @model literal="dword"
+   * @generated
+   * @ordered
+   */
+  public static final int DWORD_VALUE = 7;
+
+  /**
+   * The '<em><b>LWORD</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>LWORD</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #LWORD
+   * @model literal="lword"
+   * @generated
+   * @ordered
+   */
+  public static final int LWORD_VALUE = 8;
+
+  /**
    * An array of all the '<em><b>Basic Type</b></em>' enumerators.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -159,6 +259,10 @@ public enum BasicType implements Enumerator
       BOOL,
       REAL,
       STRINGTYP,
+      BYTE,
+      WORD,
+      DWORD,
+      LWORD,
     };
 
   /**
@@ -228,6 +332,10 @@ public enum BasicType implements Enumerator
       case BOOL_VALUE: return BOOL;
       case REAL_VALUE: return REAL;
       case STRINGTYP_VALUE: return STRINGTYP;
+      case BYTE_VALUE: return BYTE;
+      case WORD_VALUE: return WORD;
+      case DWORD_VALUE: return DWORD;
+      case LWORD_VALUE: return LWORD;
     }
     return null;
   }
