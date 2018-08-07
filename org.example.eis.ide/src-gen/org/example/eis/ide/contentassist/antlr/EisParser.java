@@ -31,8 +31,8 @@ public class EisParser extends AbstractContentAssistParser {
 		}
 		
 		private static void init(ImmutableMap.Builder<AbstractElement, String> builder, EisGrammarAccess grammarAccess) {
-			builder.put(grammarAccess.getBoolConstantAccess().getValueAlternatives_0(), "rule__BoolConstant__ValueAlternatives_0");
-			builder.put(grammarAccess.getBlockConstantAccess().getValueAlternatives_0(), "rule__BlockConstant__ValueAlternatives_0");
+			builder.put(grammarAccess.getBlockValueAccess().getAlternatives(), "rule__BlockValue__Alternatives");
+			builder.put(grammarAccess.getBooleanValueAccess().getAlternatives(), "rule__BooleanValue__Alternatives");
 			builder.put(grammarAccess.getVariablesAccess().getAlternatives(), "rule__Variables__Alternatives");
 			builder.put(grammarAccess.getVariableAccess().getAlternatives_5(), "rule__Variable__Alternatives_5");
 			builder.put(grammarAccess.getEqualityAccess().getOpAlternatives_1_1_0(), "rule__Equality__OpAlternatives_1_1_0");

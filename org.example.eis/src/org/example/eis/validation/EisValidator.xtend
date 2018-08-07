@@ -64,6 +64,7 @@ class EisValidator extends AbstractEisValidator {
 	public static val INVALID_RANGE_DEFINITION = ISSUE_CODE_PREFIX + "InvalidRangeDefinition"
 	public static val MULTIPLE_PLCCYCLE = ISSUE_CODE_PREFIX + "MultiplePlcCycle"
 	public static val MULTIPLE_TESTCASE_NAME = ISSUE_CODE_PREFIX + "MultipleTestcaseName"
+	public static val OUT_OF_BOUNDS = ISSUE_CODE_PREFIX + "MultipleTestcaseName"
 
 	@Inject extension DefineTypeComputer
 	@Inject extension EisInterpreter
@@ -257,12 +258,16 @@ class EisValidator extends AbstractEisValidator {
 				return;
 
 			if (expectedType !== actualType)
-				error("Incompatible types. Expected '" + expectedType.toString + "' but was '" + actualType.toString +
-					"'", variable, EisPackage.eINSTANCE.variable_Idiom, INCOMPATIBLE_TYPES)
+				if (!(actualType.isIntType && expectedType.isIntType))
+					error(
+						"Incompatible types. Expected '" + expectedType.toString + "' but was '" + actualType.toString +
+							"'", variable, EisPackage.eINSTANCE.variable_Idiom, INCOMPATIBLE_TYPES)
 
 			if (rangeType !== null && rangeType != expectedType)
-				error("Incompatible types. Expected '" + expectedType.toString + "' but was '" + rangeType.toString +
-					"'", variable, EisPackage.eINSTANCE.variable_Range, INCOMPATIBLE_TYPES)
+				if (!(rangeType.isIntType && expectedType.isIntType))
+					error(
+						"Incompatible types. Expected '" + expectedType.toString + "' but was '" + rangeType.toString +
+							"'", variable, EisPackage.eINSTANCE.variable_Range, INCOMPATIBLE_TYPES)
 
 		}
 	}
@@ -284,7 +289,7 @@ class EisValidator extends AbstractEisValidator {
 					error("The range feature is not permitted to boolean types", statement,
 						EisPackage.eINSTANCE.statement_Range, INVALID_RANGE_DEFINITION)
 
-				if (expectedType === BasicType.STRINGTYP)
+				if (expectedType === BasicType.STRING)
 					error("The range feature is not permitted to string types", statement,
 						EisPackage.eINSTANCE.statement_Range, INVALID_RANGE_DEFINITION)
 			}
@@ -296,7 +301,7 @@ class EisValidator extends AbstractEisValidator {
 					error("The range feature is not permitted to boolean types", statement,
 						EisPackage.eINSTANCE.statement_Range, INVALID_RANGE_DEFINITION)
 
-				if (expectedType === BasicType.STRINGTYP)
+				if (expectedType === BasicType.STRING)
 					error("The range feature is not permitted to string types", statement,
 						EisPackage.eINSTANCE.statement_Range, INVALID_RANGE_DEFINITION)
 			}
@@ -449,7 +454,7 @@ class EisValidator extends AbstractEisValidator {
 				error("The range feature is not permitted to boolean types", variable,
 					EisPackage.eINSTANCE.variable_Range, INVALID_RANGE_DEFINITION)
 
-			if (variable.variableType === BasicType.STRINGTYP)
+			if (variable.variableType === BasicType.STRING)
 				error("The range feature is not permitted to string types", variable,
 					EisPackage.eINSTANCE.variable_Range, INVALID_RANGE_DEFINITION)
 
@@ -501,6 +506,11 @@ class EisValidator extends AbstractEisValidator {
 		}
 	}
 
+//	@Check def void checkDatatypeBoundaries(Variable variable) {
+//		if (variable.idiom !== null) {
+//			val expectedType = variable.variableType.typeFor
+//			
+//	}
 //
 // methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //
@@ -595,13 +605,17 @@ class EisValidator extends AbstractEisValidator {
 	}
 
 	def private void compareTypesAndCallErrorOnMismatch(Statement statement, DefineType actualType,
-		BasicType expectedType, DefineType rangeType) {
-		if (actualType != expectedType.typeFor)
-			error("Incompatible types. Expected '" + expectedType.toString + "' but was '" + actualType.toString + "'",
-				statement, EisPackage.eINSTANCE.statement_Idiom, INCOMPATIBLE_TYPES)
-		if (rangeType !== null && rangeType != expectedType.typeFor)
-			error("Incompatible types. Expected '" + expectedType.toString + "' but was '" + rangeType.toString + "'",
-				statement, EisPackage.eINSTANCE.statement_Range, INCOMPATIBLE_TYPES)
+		BasicType _expectedType, DefineType rangeType) {
+		val expectedType = _expectedType.typeFor
+
+		if (actualType != expectedType)
+			if (!(actualType.isIntType && expectedType.isIntType))
+				error("Incompatible types. Expected '" + expectedType.toString + "' but was '" + actualType.toString +
+					"'", statement, EisPackage.eINSTANCE.statement_Idiom, INCOMPATIBLE_TYPES)
+		if (rangeType !== null && rangeType != expectedType)
+			if (!(actualType.isIntType && expectedType.isIntType))
+				error("Incompatible types. Expected '" + expectedType.toString + "' but was '" + rangeType.toString +
+					"'", statement, EisPackage.eINSTANCE.statement_Range, INCOMPATIBLE_TYPES)
 	}
 
 	def private void checkCommaSyntaxWithVariables(Iterable<? extends Variables> variables) {

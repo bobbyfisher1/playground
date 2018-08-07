@@ -404,29 +404,21 @@ ruleBoolConstant returns [EObject current=null]
 }:
 	(
 		(
-			(
-				lv_value_0_1='true'
-				{
-					newLeafNode(lv_value_0_1, grammarAccess.getBoolConstantAccess().getValueTrueKeyword_0_0());
+			{
+				newCompositeNode(grammarAccess.getBoolConstantAccess().getValueBooleanValueParserRuleCall_0());
+			}
+			lv_value_0_0=ruleBooleanValue
+			{
+				if ($current==null) {
+					$current = createModelElementForParent(grammarAccess.getBoolConstantRule());
 				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getBoolConstantRule());
-					}
-					setWithLastConsumed($current, "value", lv_value_0_1, null);
-				}
-				    |
-				lv_value_0_2='false'
-				{
-					newLeafNode(lv_value_0_2, grammarAccess.getBoolConstantAccess().getValueFalseKeyword_0_1());
-				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getBoolConstantRule());
-					}
-					setWithLastConsumed($current, "value", lv_value_0_2, null);
-				}
-			)
+				set(
+					$current,
+					"value",
+					lv_value_0_0,
+					"org.example.eis.Eis.BooleanValue");
+				afterParserOrEnumRuleCall();
+			}
 		)
 	)
 ;
@@ -448,30 +440,82 @@ ruleBlockConstant returns [EObject current=null]
 }:
 	(
 		(
-			(
-				lv_value_0_1='FC'
-				{
-					newLeafNode(lv_value_0_1, grammarAccess.getBlockConstantAccess().getValueFCKeyword_0_0());
+			{
+				newCompositeNode(grammarAccess.getBlockConstantAccess().getValueBlockValueParserRuleCall_0());
+			}
+			lv_value_0_0=ruleBlockValue
+			{
+				if ($current==null) {
+					$current = createModelElementForParent(grammarAccess.getBlockConstantRule());
 				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getBlockConstantRule());
-					}
-					setWithLastConsumed($current, "value", lv_value_0_1, null);
-				}
-				    |
-				lv_value_0_2='FB'
-				{
-					newLeafNode(lv_value_0_2, grammarAccess.getBlockConstantAccess().getValueFBKeyword_0_1());
-				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getBlockConstantRule());
-					}
-					setWithLastConsumed($current, "value", lv_value_0_2, null);
-				}
-			)
+				set(
+					$current,
+					"value",
+					lv_value_0_0,
+					"org.example.eis.Eis.BlockValue");
+				afterParserOrEnumRuleCall();
+			}
 		)
+	)
+;
+
+// Entry rule entryRuleBlockValue
+entryRuleBlockValue returns [String current=null]:
+	{ newCompositeNode(grammarAccess.getBlockValueRule()); }
+	iv_ruleBlockValue=ruleBlockValue
+	{ $current=$iv_ruleBlockValue.current.getText(); }
+	EOF;
+
+// Rule BlockValue
+ruleBlockValue returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		kw='FC'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getBlockValueAccess().getFCKeyword_0());
+		}
+		    |
+		kw='FB'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getBlockValueAccess().getFBKeyword_1());
+		}
+	)
+;
+
+// Entry rule entryRuleBooleanValue
+entryRuleBooleanValue returns [String current=null]:
+	{ newCompositeNode(grammarAccess.getBooleanValueRule()); }
+	iv_ruleBooleanValue=ruleBooleanValue
+	{ $current=$iv_ruleBooleanValue.current.getText(); }
+	EOF;
+
+// Rule BooleanValue
+ruleBooleanValue returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		kw='true'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getBooleanValueAccess().getTrueKeyword_0());
+		}
+		    |
+		kw='false'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getBooleanValueAccess().getFalseKeyword_1());
+		}
 	)
 ;
 
@@ -2514,8 +2558,8 @@ ruleBasicType returns [Enumerator current=null]
 		(
 			enumLiteral_1='int'
 			{
-				$current = grammarAccess.getBasicTypeAccess().getINTCONSTANTEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_1, grammarAccess.getBasicTypeAccess().getINTCONSTANTEnumLiteralDeclaration_1());
+				$current = grammarAccess.getBasicTypeAccess().getINTEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_1, grammarAccess.getBasicTypeAccess().getINTEnumLiteralDeclaration_1());
 			}
 		)
 		    |
@@ -2538,8 +2582,8 @@ ruleBasicType returns [Enumerator current=null]
 		(
 			enumLiteral_4='string'
 			{
-				$current = grammarAccess.getBasicTypeAccess().getSTRINGTYPEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_4, grammarAccess.getBasicTypeAccess().getSTRINGTYPEnumLiteralDeclaration_4());
+				$current = grammarAccess.getBasicTypeAccess().getSTRINGEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_4, grammarAccess.getBasicTypeAccess().getSTRINGEnumLiteralDeclaration_4());
 			}
 		)
 		    |
@@ -2574,12 +2618,96 @@ ruleBasicType returns [Enumerator current=null]
 				newLeafNode(enumLiteral_8, grammarAccess.getBasicTypeAccess().getLWORDEnumLiteralDeclaration_8());
 			}
 		)
+		    |
+		(
+			enumLiteral_9='usint'
+			{
+				$current = grammarAccess.getBasicTypeAccess().getUSINTEnumLiteralDeclaration_9().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_9, grammarAccess.getBasicTypeAccess().getUSINTEnumLiteralDeclaration_9());
+			}
+		)
+		    |
+		(
+			enumLiteral_10='uint'
+			{
+				$current = grammarAccess.getBasicTypeAccess().getUINTEnumLiteralDeclaration_10().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_10, grammarAccess.getBasicTypeAccess().getUINTEnumLiteralDeclaration_10());
+			}
+		)
+		    |
+		(
+			enumLiteral_11='udint'
+			{
+				$current = grammarAccess.getBasicTypeAccess().getUDINTEnumLiteralDeclaration_11().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_11, grammarAccess.getBasicTypeAccess().getUDINTEnumLiteralDeclaration_11());
+			}
+		)
+		    |
+		(
+			enumLiteral_12='ulint'
+			{
+				$current = grammarAccess.getBasicTypeAccess().getULINTEnumLiteralDeclaration_12().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_12, grammarAccess.getBasicTypeAccess().getULINTEnumLiteralDeclaration_12());
+			}
+		)
+		    |
+		(
+			enumLiteral_13='sint'
+			{
+				$current = grammarAccess.getBasicTypeAccess().getSINTEnumLiteralDeclaration_13().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_13, grammarAccess.getBasicTypeAccess().getSINTEnumLiteralDeclaration_13());
+			}
+		)
+		    |
+		(
+			enumLiteral_14='dint'
+			{
+				$current = grammarAccess.getBasicTypeAccess().getDINTEnumLiteralDeclaration_14().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_14, grammarAccess.getBasicTypeAccess().getDINTEnumLiteralDeclaration_14());
+			}
+		)
+		    |
+		(
+			enumLiteral_15='lint'
+			{
+				$current = grammarAccess.getBasicTypeAccess().getLINTEnumLiteralDeclaration_15().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_15, grammarAccess.getBasicTypeAccess().getLINTEnumLiteralDeclaration_15());
+			}
+		)
+		    |
+		(
+			enumLiteral_16='char'
+			{
+				$current = grammarAccess.getBasicTypeAccess().getCHAREnumLiteralDeclaration_16().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_16, grammarAccess.getBasicTypeAccess().getCHAREnumLiteralDeclaration_16());
+			}
+		)
+		    |
+		(
+			enumLiteral_17='time'
+			{
+				$current = grammarAccess.getBasicTypeAccess().getTIMEEnumLiteralDeclaration_17().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_17, grammarAccess.getBasicTypeAccess().getTIMEEnumLiteralDeclaration_17());
+			}
+		)
+		    |
+		(
+			enumLiteral_18='s5time'
+			{
+				$current = grammarAccess.getBasicTypeAccess().getS5TIMEEnumLiteralDeclaration_18().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_18, grammarAccess.getBasicTypeAccess().getS5TIMEEnumLiteralDeclaration_18());
+			}
+		)
 	)
 ;
 
 fragment RULE_DIGIT : '0'..'9';
 
 fragment RULE_HEXDIGIT : (RULE_DIGIT|'a'..'f'|'A'..'F');
+
+RULE_INT : '-'? ('0'..'9')+;
+
+RULE_REAL : RULE_INT '.' RULE_DIGIT+;
 
 RULE_BYTE : '16#' RULE_HEXDIGIT RULE_HEXDIGIT;
 
@@ -2588,10 +2716,6 @@ RULE_WORD : '16#' RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT;
 RULE_DWORD : '16#' RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT '_' RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT;
 
 RULE_LWORD : '16#' RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT '_' RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT '_' RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT '_' RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT;
-
-RULE_INT : '-'? ('0'..'9')+;
-
-RULE_REAL : RULE_INT '.' RULE_DIGIT+;
 
 RULE_ID : '^'? ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
 

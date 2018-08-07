@@ -68,4 +68,18 @@ public class EisProposalProvider extends AbstractEisProposalProvider {
       acceptor.accept(this.createCompletionProposal(_name, _plus, null, context));
     }
   }
+  
+  @Override
+  public void completeBoolConstant_Value(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
+    super.completeBoolConstant_Value(model, assignment, context, acceptor);
+    acceptor.accept(this.createCompletionProposal("true", "true", null, context));
+    acceptor.accept(this.createCompletionProposal("false", "false", null, context));
+  }
+  
+  @Override
+  public void completeBlockConstant_Value(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
+    super.completeBlockConstant_Value(model, assignment, context, acceptor);
+    acceptor.accept(this.createCompletionProposal("FC", "FC", null, context));
+    acceptor.accept(this.createCompletionProposal("FB", "FB", null, context));
+  }
 }

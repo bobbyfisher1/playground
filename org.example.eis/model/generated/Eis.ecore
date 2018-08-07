@@ -82,14 +82,24 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="BasicType">
     <eLiterals name="NULL" literal="null"/>
-    <eLiterals name="INTCONSTANT" value="1" literal="int"/>
+    <eLiterals name="INT" value="1" literal="int"/>
     <eLiterals name="BOOL" value="2" literal="bool"/>
     <eLiterals name="REAL" value="3" literal="real"/>
-    <eLiterals name="STRINGTYP" value="4" literal="string"/>
+    <eLiterals name="STRING" value="4" literal="string"/>
     <eLiterals name="BYTE" value="5" literal="byte"/>
     <eLiterals name="WORD" value="6" literal="word"/>
     <eLiterals name="DWORD" value="7" literal="dword"/>
     <eLiterals name="LWORD" value="8" literal="lword"/>
+    <eLiterals name="USINT" value="9" literal="usint"/>
+    <eLiterals name="UINT" value="10" literal="uint"/>
+    <eLiterals name="UDINT" value="11" literal="udint"/>
+    <eLiterals name="ULINT" value="12" literal="ulint"/>
+    <eLiterals name="SINT" value="13" literal="sint"/>
+    <eLiterals name="DINT" value="14" literal="dint"/>
+    <eLiterals name="LINT" value="15" literal="lint"/>
+    <eLiterals name="CHAR" value="16" literal="char"/>
+    <eLiterals name="TIME" value="17" literal="time"/>
+    <eLiterals name="S5TIME" value="18" literal="s5time"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UdtType">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

@@ -10,6 +10,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.formatting2.AbstractFormatter2;
 import org.eclipse.xtext.formatting2.IFormattableDocument;
 import org.eclipse.xtext.formatting2.IHiddenRegionFormatter;
+import org.eclipse.xtext.formatting2.regionaccess.ISemanticRegion;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
@@ -59,30 +60,46 @@ public class EisFormatter extends AbstractFormatter2 {
     };
     document.prepend(this.textRegionExtensions.regionFor(eisModel).feature(EisPackage.Literals.EIS_MODEL__PROJECT_NAME), _function_2);
     final Procedure1<IHiddenRegionFormatter> _function_3 = (IHiddenRegionFormatter it) -> {
+      it.noSpace();
+    };
+    document.surround(this.textRegionExtensions.regionFor(eisModel).keyword(this._eisGrammarAccess.getEisModelAccess().getSemicolonKeyword_11()), _function_3);
+    final Procedure1<IHiddenRegionFormatter> _function_4 = (IHiddenRegionFormatter it) -> {
       it.newLine();
     };
-    final Procedure1<IHiddenRegionFormatter> _function_4 = (IHiddenRegionFormatter it) -> {
-      it.oneSpace();
-    };
-    document.append(document.prepend(this.textRegionExtensions.regionFor(eisModel).keyword("plcname"), _function_3), _function_4);
     final Procedure1<IHiddenRegionFormatter> _function_5 = (IHiddenRegionFormatter it) -> {
       it.oneSpace();
     };
-    document.prepend(this.textRegionExtensions.regionFor(eisModel).feature(EisPackage.Literals.EIS_MODEL__PLC_NAME), _function_5);
+    document.append(document.prepend(this.textRegionExtensions.regionFor(eisModel).keyword("plcname"), _function_4), _function_5);
     final Procedure1<IHiddenRegionFormatter> _function_6 = (IHiddenRegionFormatter it) -> {
-      it.newLine();
-    };
-    final Procedure1<IHiddenRegionFormatter> _function_7 = (IHiddenRegionFormatter it) -> {
-      it.setSpace("  ");
-    };
-    document.append(document.prepend(this.textRegionExtensions.regionFor(eisModel).keyword("author"), _function_6), _function_7);
-    final Procedure1<IHiddenRegionFormatter> _function_8 = (IHiddenRegionFormatter it) -> {
       it.oneSpace();
     };
-    document.prepend(this.textRegionExtensions.regionFor(eisModel).feature(EisPackage.Literals.EIS_MODEL__AUTHOR_NAME), _function_8);
+    document.prepend(this.textRegionExtensions.regionFor(eisModel).feature(EisPackage.Literals.EIS_MODEL__PLC_NAME), _function_6);
+    final Procedure1<IHiddenRegionFormatter> _function_7 = (IHiddenRegionFormatter it) -> {
+      it.noSpace();
+    };
+    document.surround(this.textRegionExtensions.regionFor(eisModel).keyword(this._eisGrammarAccess.getEisModelAccess().getSemicolonKeyword_3()), _function_7);
+    final Procedure1<IHiddenRegionFormatter> _function_8 = (IHiddenRegionFormatter it) -> {
+      it.newLine();
+    };
+    final Procedure1<IHiddenRegionFormatter> _function_9 = (IHiddenRegionFormatter it) -> {
+      it.setSpace("  ");
+    };
+    document.append(document.prepend(this.textRegionExtensions.regionFor(eisModel).keyword("author"), _function_8), _function_9);
+    final Procedure1<IHiddenRegionFormatter> _function_10 = (IHiddenRegionFormatter it) -> {
+      it.oneSpace();
+    };
+    document.prepend(this.textRegionExtensions.regionFor(eisModel).feature(EisPackage.Literals.EIS_MODEL__AUTHOR_NAME), _function_10);
+    final Procedure1<IHiddenRegionFormatter> _function_11 = (IHiddenRegionFormatter it) -> {
+      it.noSpace();
+    };
+    document.surround(this.textRegionExtensions.regionFor(eisModel).keyword(this._eisGrammarAccess.getEisModelAccess().getSemicolonKeyword_7()), _function_11);
     EList<Testcase> _testcases = eisModel.getTestcases();
-    for (final Testcase testcase : _testcases) {
-      document.<Testcase>format(testcase);
+    boolean _tripleNotEquals = (_testcases != null);
+    if (_tripleNotEquals) {
+      EList<Testcase> _testcases_1 = eisModel.getTestcases();
+      for (final Testcase testcase : _testcases_1) {
+        document.<Testcase>format(testcase);
+      }
     }
   }
   
@@ -97,51 +114,111 @@ public class EisFormatter extends AbstractFormatter2 {
     final Procedure1<IHiddenRegionFormatter> _function_2 = (IHiddenRegionFormatter it) -> {
       it.oneSpace();
     };
-    final Procedure1<IHiddenRegionFormatter> _function_3 = (IHiddenRegionFormatter it) -> {
-      it.oneSpace();
-    };
-    document.append(document.prepend(this.textRegionExtensions.regionFor(testcase).feature(EisPackage.Literals.TESTCASE__TESTCASE_NAME), _function_2), _function_3);
-    document.<Testblock>format(testcase.getTestblock());
+    document.surround(this.textRegionExtensions.regionFor(testcase).feature(EisPackage.Literals.TESTCASE__TESTCASE_NAME), _function_2);
+    final ISemanticRegion open = this.textRegionExtensions.regionFor(testcase).keyword(this._eisGrammarAccess.getTestcaseAccess().getLeftCurlyBracketKeyword_2());
+    final ISemanticRegion close = this.textRegionExtensions.regionFor(testcase).keyword(this._eisGrammarAccess.getTestcaseAccess().getRightCurlyBracketKeyword_4());
+    Testblock _testblock = testcase.getTestblock();
+    boolean _tripleNotEquals = (_testblock != null);
+    if (_tripleNotEquals) {
+      final Procedure1<IHiddenRegionFormatter> _function_3 = (IHiddenRegionFormatter it) -> {
+        it.newLine();
+      };
+      document.append(open, _function_3);
+      final Procedure1<IHiddenRegionFormatter> _function_4 = (IHiddenRegionFormatter it) -> {
+        it.newLine();
+      };
+      document.prepend(close, _function_4);
+      final Procedure1<IHiddenRegionFormatter> _function_5 = (IHiddenRegionFormatter it) -> {
+        it.indent();
+      };
+      document.<ISemanticRegion, ISemanticRegion>interior(open, close, _function_5);
+      document.<Testblock>format(testcase.getTestblock());
+    } else {
+      final Procedure1<IHiddenRegionFormatter> _function_6 = (IHiddenRegionFormatter it) -> {
+        it.noSpace();
+      };
+      document.append(open, _function_6);
+      final Procedure1<IHiddenRegionFormatter> _function_7 = (IHiddenRegionFormatter it) -> {
+        it.newLine();
+      };
+      document.append(close, _function_7);
+    }
   }
   
   protected void _format(final Testblock testblock, @Extension final IFormattableDocument document) {
     final Procedure1<IHiddenRegionFormatter> _function = (IHiddenRegionFormatter it) -> {
-      it.newLine();
+      it.setSpace("  ");
     };
     final Procedure1<IHiddenRegionFormatter> _function_1 = (IHiddenRegionFormatter it) -> {
       it.oneSpace();
     };
-    document.append(document.prepend(this.textRegionExtensions.regionFor(testblock).keyword("testActive"), _function), _function_1);
+    document.append(document.prepend(this.textRegionExtensions.regionFor(testblock).keyword(this._eisGrammarAccess.getTestblockAccess().getEqualsSignKeyword_1()), _function), _function_1);
     final Procedure1<IHiddenRegionFormatter> _function_2 = (IHiddenRegionFormatter it) -> {
-      it.oneSpace();
+      it.noSpace();
     };
-    document.prepend(this.textRegionExtensions.regionFor(testblock).feature(EisPackage.Literals.TESTBLOCK__TEST_ACTIVE), _function_2);
+    document.surround(this.textRegionExtensions.regionFor(testblock).keyword(this._eisGrammarAccess.getTestblockAccess().getSemicolonKeyword_3()), _function_2);
     final Procedure1<IHiddenRegionFormatter> _function_3 = (IHiddenRegionFormatter it) -> {
       it.newLine();
     };
+    document.prepend(this.textRegionExtensions.regionFor(testblock).keyword("blockType"), _function_3);
     final Procedure1<IHiddenRegionFormatter> _function_4 = (IHiddenRegionFormatter it) -> {
-      it.oneSpace();
+      it.setSpace("   ");
     };
-    document.append(document.prepend(this.textRegionExtensions.regionFor(testblock).keyword("blockType"), _function_3), _function_4);
     final Procedure1<IHiddenRegionFormatter> _function_5 = (IHiddenRegionFormatter it) -> {
       it.oneSpace();
     };
-    document.prepend(this.textRegionExtensions.regionFor(testblock).feature(EisPackage.Literals.TESTBLOCK__BLOCK_TYPE), _function_5);
+    document.append(document.prepend(this.textRegionExtensions.regionFor(testblock).keyword(this._eisGrammarAccess.getTestblockAccess().getEqualsSignKeyword_5()), _function_4), _function_5);
     final Procedure1<IHiddenRegionFormatter> _function_6 = (IHiddenRegionFormatter it) -> {
+      it.noSpace();
+    };
+    document.surround(this.textRegionExtensions.regionFor(testblock).keyword(this._eisGrammarAccess.getTestblockAccess().getSemicolonKeyword_7()), _function_6);
+    final Procedure1<IHiddenRegionFormatter> _function_7 = (IHiddenRegionFormatter it) -> {
       it.newLine();
     };
-    final Procedure1<IHiddenRegionFormatter> _function_7 = (IHiddenRegionFormatter it) -> {
-      it.oneSpace();
-    };
-    document.append(document.prepend(this.textRegionExtensions.regionFor(testblock).keyword("description"), _function_6), _function_7);
+    document.prepend(this.textRegionExtensions.regionFor(testblock).keyword("description"), _function_7);
     final Procedure1<IHiddenRegionFormatter> _function_8 = (IHiddenRegionFormatter it) -> {
       it.oneSpace();
     };
-    document.prepend(this.textRegionExtensions.regionFor(testblock).feature(EisPackage.Literals.TESTBLOCK__DESCRIPTION), _function_8);
+    document.surround(this.textRegionExtensions.regionFor(testblock).keyword(this._eisGrammarAccess.getTestblockAccess().getEqualsSignKeyword_9()), _function_8);
+    final Procedure1<IHiddenRegionFormatter> _function_9 = (IHiddenRegionFormatter it) -> {
+      it.noSpace();
+    };
+    document.surround(this.textRegionExtensions.regionFor(testblock).keyword(this._eisGrammarAccess.getTestblockAccess().getSemicolonKeyword_11()), _function_9);
+    DefineBlock _define = testblock.getDefine();
+    boolean _tripleNotEquals = (_define != null);
+    if (_tripleNotEquals) {
+      document.<DefineBlock>format(testblock.getDefine());
+    }
   }
   
   protected void _format(final DefineBlock defineblock, @Extension final IFormattableDocument document) {
-    document.<DefineBlock>format(defineblock);
+    final Procedure1<IHiddenRegionFormatter> _function = (IHiddenRegionFormatter it) -> {
+      it.oneSpace();
+    };
+    document.append(this.textRegionExtensions.regionFor(defineblock).keyword("define"), _function);
+    final ISemanticRegion open = this.textRegionExtensions.regionFor(defineblock).keyword(this._eisGrammarAccess.getDefineBlockAccess().getLeftCurlyBracketKeyword_1());
+    final ISemanticRegion close = this.textRegionExtensions.regionFor(defineblock).keyword(this._eisGrammarAccess.getDefineBlockAccess().getRightCurlyBracketKeyword_3());
+    final Procedure1<IHiddenRegionFormatter> _function_1 = (IHiddenRegionFormatter it) -> {
+      it.newLine();
+    };
+    document.append(open, _function_1);
+    final Procedure1<IHiddenRegionFormatter> _function_2 = (IHiddenRegionFormatter it) -> {
+      it.newLine();
+    };
+    document.prepend(close, _function_2);
+    final Procedure1<IHiddenRegionFormatter> _function_3 = (IHiddenRegionFormatter it) -> {
+      it.indent();
+    };
+    document.<ISemanticRegion, ISemanticRegion>interior(open, close, _function_3);
+    document.<DirectionBlock>format(defineblock.getDirection());
+    EList<TeststepBlock> _teststeps = defineblock.getTeststeps();
+    boolean _tripleNotEquals = (_teststeps != null);
+    if (_tripleNotEquals) {
+      EList<TeststepBlock> _teststeps_1 = defineblock.getTeststeps();
+      for (final TeststepBlock teststep : _teststeps_1) {
+        document.<TeststepBlock>format(teststep);
+      }
+    }
   }
   
   protected void _format(final DirectionBlock directionblock, @Extension final IFormattableDocument document) {

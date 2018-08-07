@@ -507,10 +507,16 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     BlockConstant returns BlockConstant
 	 *
 	 * Constraint:
-	 *     (value='FC' | value='FB')
+	 *     value=BlockValue
 	 */
 	protected void sequence_BlockConstant(ISerializationContext context, BlockConstant semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, EisPackage.Literals.BLOCK_CONSTANT__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EisPackage.Literals.BLOCK_CONSTANT__VALUE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getBlockConstantAccess().getValueBlockValueParserRuleCall_0(), semanticObject.getValue());
+		feeder.finish();
 	}
 	
 	
@@ -535,10 +541,16 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Atomic returns BoolConstant
 	 *
 	 * Constraint:
-	 *     (value='true' | value='false')
+	 *     value=BooleanValue
 	 */
 	protected void sequence_BoolConstant(ISerializationContext context, BoolConstant semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, EisPackage.Literals.BOOL_CONSTANT__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EisPackage.Literals.BOOL_CONSTANT__VALUE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getBoolConstantAccess().getValueBooleanValueParserRuleCall_0(), semanticObject.getValue());
+		feeder.finish();
 	}
 	
 	

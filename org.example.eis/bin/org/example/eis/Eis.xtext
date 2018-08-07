@@ -21,10 +21,16 @@ Testblock:
 	define=DefineBlock?;
 
 BoolConstant:
-	value=('true' | 'false');
+	value=BooleanValue;
 
 BlockConstant:
-	value=('FC' | 'FB');
+	value=BlockValue;
+
+BlockValue:
+	'FC' | 'FB';
+
+BooleanValue:
+	'true' | 'false';
 
 DefineBlock:
 	'define' '{' direction=DirectionBlock '}' teststeps+=TeststepBlock*;
@@ -45,8 +51,8 @@ Variables:
 	Variable | Udt | UdtRef;
 
 Variable:
-	({Variable} variantKeyword?='variant'? variableType=BasicType? name=ID
-	('=' idiom=Idiom ('+/-' range=Idiom)?)? (';' | nextVariable?=','));
+	({Variable} variantKeyword?='variant'? variableType=BasicType? name=ID ('=' idiom=Idiom ('+/-' range=Idiom)?)? (';' |
+	nextVariable?=','));
 
 Udt:
 	'udt' name=ID '(' udtType=UdtType ')' '{' udtVariables+=Variables* '}';
@@ -56,14 +62,24 @@ UdtRef:
 
 enum BasicType:
 	NULL='null'
-	| INTCONSTANT='int'
+	| INT='int'
 	| BOOL='bool'
 	| REAL='real'
-	| STRINGTYP='string'
+	| STRING='string'
 	| BYTE="byte"
 	| WORD="word"
 	| DWORD="dword"
-	| LWORD="lword";
+	| LWORD="lword"
+	| USINT="usint"
+	| UINT="uint"
+	| UDINT="udint"
+	| ULINT="ulint"
+	| SINT="sint"
+	| DINT="dint"
+	| LINT="lint"
+	| CHAR="char"
+	| TIME="time"
+	| S5TIME="s5time";
 
 UdtType:
 	name=ID;
@@ -90,20 +106,12 @@ MulOrDiv returns Idiom:
 	Primary ({MulOrDiv.left=current} op=('*' | '/') right=Primary)*;
 
 Primary returns Idiom:
-	'(' Idiom ')'
-	| {Not} "!" idiom=Primary
-	| Atomic;
+	'(' Idiom ')' | {Not} "!" idiom=Primary | Atomic;
 
 Atomic returns Idiom:
-	{IntConstant} value=INT
-	| {StringConstant} value=STRING
-	| BoolConstant
-	| {VariableRef} variable=[Variable]
-	| {RealConstant} value=REAL
-	| {ByteConstant} value=BYTE
-	| {WordConstant} value=WORD
-	| {DWordConstant} value=DWORD
-	| {LWordConstant} value=LWORD;
+	{IntConstant} value=INT | {StringConstant} value=STRING | BoolConstant | {VariableRef} variable=[Variable] |
+	{RealConstant} value=REAL | {ByteConstant} value=BYTE | {WordConstant} value=WORD | {DWordConstant} value=DWORD |
+	{LWordConstant} value=LWORD;
 
 	/*	<listed_datatypes_in_S7UintTest_Editor>
 					Bool
@@ -159,27 +167,30 @@ terminal fragment DIGIT:
 terminal fragment HEXDIGIT:
 	DIGIT | 'a'..'f' | 'A'..'F';
 
+@Override
+terminal INT returns EInt:
+	'-'? ('0'..'9')+;
+	//
+terminal REAL returns EFloat:
+	INT '.' DIGIT+;
+	//
 terminal BYTE:
 	'16#' HEXDIGIT HEXDIGIT;
-
+	//
 terminal WORD:
 	'16#' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT;
-
+	//
 terminal DWORD:
 	'16#' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT
 	'_' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT;
-
+	//
 terminal LWORD:
 	'16#' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT
 	'_' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT
 	'_' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT
 	'_' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT;
 
-@Override
-terminal INT returns EInt:
-	'-'? ('0'..'9')+;
-terminal REAL returns EFloat:
-	INT '.' DIGIT+;
+
 
 	
 	

@@ -31,14 +31,14 @@ public enum BasicType implements Enumerator
   NULL(0, "NULL", "null"),
 
   /**
-   * The '<em><b>INTCONSTANT</b></em>' literal object.
+   * The '<em><b>INT</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #INTCONSTANT_VALUE
+   * @see #INT_VALUE
    * @generated
    * @ordered
    */
-  INTCONSTANT(1, "INTCONSTANT", "int"),
+  INT(1, "INT", "int"),
 
   /**
    * The '<em><b>BOOL</b></em>' literal object.
@@ -61,14 +61,14 @@ public enum BasicType implements Enumerator
   REAL(3, "REAL", "real"),
 
   /**
-   * The '<em><b>STRINGTYP</b></em>' literal object.
+   * The '<em><b>STRING</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #STRINGTYP_VALUE
+   * @see #STRING_VALUE
    * @generated
    * @ordered
    */
-  STRINGTYP(4, "STRINGTYP", "string"),
+  STRING(4, "STRING", "string"),
 
   /**
    * The '<em><b>BYTE</b></em>' literal object.
@@ -108,7 +108,107 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  LWORD(8, "LWORD", "lword");
+  LWORD(8, "LWORD", "lword"),
+
+  /**
+   * The '<em><b>USINT</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #USINT_VALUE
+   * @generated
+   * @ordered
+   */
+  USINT(9, "USINT", "usint"),
+
+  /**
+   * The '<em><b>UINT</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #UINT_VALUE
+   * @generated
+   * @ordered
+   */
+  UINT(10, "UINT", "uint"),
+
+  /**
+   * The '<em><b>UDINT</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #UDINT_VALUE
+   * @generated
+   * @ordered
+   */
+  UDINT(11, "UDINT", "udint"),
+
+  /**
+   * The '<em><b>ULINT</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #ULINT_VALUE
+   * @generated
+   * @ordered
+   */
+  ULINT(12, "ULINT", "ulint"),
+
+  /**
+   * The '<em><b>SINT</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #SINT_VALUE
+   * @generated
+   * @ordered
+   */
+  SINT(13, "SINT", "sint"),
+
+  /**
+   * The '<em><b>DINT</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #DINT_VALUE
+   * @generated
+   * @ordered
+   */
+  DINT(14, "DINT", "dint"),
+
+  /**
+   * The '<em><b>LINT</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #LINT_VALUE
+   * @generated
+   * @ordered
+   */
+  LINT(15, "LINT", "lint"),
+
+  /**
+   * The '<em><b>CHAR</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #CHAR_VALUE
+   * @generated
+   * @ordered
+   */
+  CHAR(16, "CHAR", "char"),
+
+  /**
+   * The '<em><b>TIME</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #TIME_VALUE
+   * @generated
+   * @ordered
+   */
+  TIME(17, "TIME", "time"),
+
+  /**
+   * The '<em><b>S5TIME</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #S5TIME_VALUE
+   * @generated
+   * @ordered
+   */
+  S5TIME(18, "S5TIME", "s5time");
 
   /**
    * The '<em><b>NULL</b></em>' literal value.
@@ -126,19 +226,19 @@ public enum BasicType implements Enumerator
   public static final int NULL_VALUE = 0;
 
   /**
-   * The '<em><b>INTCONSTANT</b></em>' literal value.
+   * The '<em><b>INT</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>INTCONSTANT</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>INT</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #INTCONSTANT
+   * @see #INT
    * @model literal="int"
    * @generated
    * @ordered
    */
-  public static final int INTCONSTANT_VALUE = 1;
+  public static final int INT_VALUE = 1;
 
   /**
    * The '<em><b>BOOL</b></em>' literal value.
@@ -171,19 +271,19 @@ public enum BasicType implements Enumerator
   public static final int REAL_VALUE = 3;
 
   /**
-   * The '<em><b>STRINGTYP</b></em>' literal value.
+   * The '<em><b>STRING</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>STRINGTYP</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>STRING</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #STRINGTYP
+   * @see #STRING
    * @model literal="string"
    * @generated
    * @ordered
    */
-  public static final int STRINGTYP_VALUE = 4;
+  public static final int STRING_VALUE = 4;
 
   /**
    * The '<em><b>BYTE</b></em>' literal value.
@@ -246,6 +346,156 @@ public enum BasicType implements Enumerator
   public static final int LWORD_VALUE = 8;
 
   /**
+   * The '<em><b>USINT</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>USINT</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #USINT
+   * @model literal="usint"
+   * @generated
+   * @ordered
+   */
+  public static final int USINT_VALUE = 9;
+
+  /**
+   * The '<em><b>UINT</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>UINT</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #UINT
+   * @model literal="uint"
+   * @generated
+   * @ordered
+   */
+  public static final int UINT_VALUE = 10;
+
+  /**
+   * The '<em><b>UDINT</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>UDINT</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #UDINT
+   * @model literal="udint"
+   * @generated
+   * @ordered
+   */
+  public static final int UDINT_VALUE = 11;
+
+  /**
+   * The '<em><b>ULINT</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>ULINT</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #ULINT
+   * @model literal="ulint"
+   * @generated
+   * @ordered
+   */
+  public static final int ULINT_VALUE = 12;
+
+  /**
+   * The '<em><b>SINT</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>SINT</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #SINT
+   * @model literal="sint"
+   * @generated
+   * @ordered
+   */
+  public static final int SINT_VALUE = 13;
+
+  /**
+   * The '<em><b>DINT</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>DINT</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #DINT
+   * @model literal="dint"
+   * @generated
+   * @ordered
+   */
+  public static final int DINT_VALUE = 14;
+
+  /**
+   * The '<em><b>LINT</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>LINT</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #LINT
+   * @model literal="lint"
+   * @generated
+   * @ordered
+   */
+  public static final int LINT_VALUE = 15;
+
+  /**
+   * The '<em><b>CHAR</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>CHAR</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #CHAR
+   * @model literal="char"
+   * @generated
+   * @ordered
+   */
+  public static final int CHAR_VALUE = 16;
+
+  /**
+   * The '<em><b>TIME</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>TIME</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #TIME
+   * @model literal="time"
+   * @generated
+   * @ordered
+   */
+  public static final int TIME_VALUE = 17;
+
+  /**
+   * The '<em><b>S5TIME</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>S5TIME</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #S5TIME
+   * @model literal="s5time"
+   * @generated
+   * @ordered
+   */
+  public static final int S5TIME_VALUE = 18;
+
+  /**
    * An array of all the '<em><b>Basic Type</b></em>' enumerators.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -255,14 +505,24 @@ public enum BasicType implements Enumerator
     new BasicType[]
     {
       NULL,
-      INTCONSTANT,
+      INT,
       BOOL,
       REAL,
-      STRINGTYP,
+      STRING,
       BYTE,
       WORD,
       DWORD,
       LWORD,
+      USINT,
+      UINT,
+      UDINT,
+      ULINT,
+      SINT,
+      DINT,
+      LINT,
+      CHAR,
+      TIME,
+      S5TIME,
     };
 
   /**
@@ -328,14 +588,24 @@ public enum BasicType implements Enumerator
     switch (value)
     {
       case NULL_VALUE: return NULL;
-      case INTCONSTANT_VALUE: return INTCONSTANT;
+      case INT_VALUE: return INT;
       case BOOL_VALUE: return BOOL;
       case REAL_VALUE: return REAL;
-      case STRINGTYP_VALUE: return STRINGTYP;
+      case STRING_VALUE: return STRING;
       case BYTE_VALUE: return BYTE;
       case WORD_VALUE: return WORD;
       case DWORD_VALUE: return DWORD;
       case LWORD_VALUE: return LWORD;
+      case USINT_VALUE: return USINT;
+      case UINT_VALUE: return UINT;
+      case UDINT_VALUE: return UDINT;
+      case ULINT_VALUE: return ULINT;
+      case SINT_VALUE: return SINT;
+      case DINT_VALUE: return DINT;
+      case LINT_VALUE: return LINT;
+      case CHAR_VALUE: return CHAR;
+      case TIME_VALUE: return TIME;
+      case S5TIME_VALUE: return S5TIME;
     }
     return null;
   }

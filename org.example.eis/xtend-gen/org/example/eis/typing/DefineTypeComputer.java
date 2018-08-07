@@ -22,13 +22,20 @@ import org.example.eis.eis.VariableRef;
 import org.example.eis.eis.WordConstant;
 import org.example.eis.typing.BoolType;
 import org.example.eis.typing.ByteType;
+import org.example.eis.typing.DIntType;
 import org.example.eis.typing.DWordType;
 import org.example.eis.typing.DefineType;
 import org.example.eis.typing.IntType;
+import org.example.eis.typing.LIntType;
 import org.example.eis.typing.LWordType;
 import org.example.eis.typing.NullType;
 import org.example.eis.typing.RealType;
+import org.example.eis.typing.SIntType;
 import org.example.eis.typing.StringType;
+import org.example.eis.typing.UDIntType;
+import org.example.eis.typing.UIntType;
+import org.example.eis.typing.ULIntType;
+import org.example.eis.typing.USIntType;
 import org.example.eis.typing.WordType;
 
 @SuppressWarnings("all")
@@ -51,12 +58,27 @@ public class DefineTypeComputer {
   
   public final static LWordType LWORD_TYPE = new LWordType();
   
+  public final static USIntType USINT_TYPE = new USIntType();
+  
+  public final static UIntType UINT_TYPE = new UIntType();
+  
+  public final static UDIntType UDINT_TYPE = new UDIntType();
+  
+  public final static ULIntType ULINT_TYPE = new ULIntType();
+  
+  public final static SIntType SINT_TYPE = new SIntType();
+  
+  public final static DIntType DINT_TYPE = new DIntType();
+  
+  public final static LIntType LINT_TYPE = new LIntType();
+  
   public boolean isStringType(final DefineType type) {
     return (type == DefineTypeComputer.STRING_TYPE);
   }
   
   public boolean isIntType(final DefineType type) {
-    return (type == DefineTypeComputer.INT_TYPE);
+    return ((((((((type == DefineTypeComputer.INT_TYPE) || (type == DefineTypeComputer.USINT_TYPE)) || (type == DefineTypeComputer.UINT_TYPE)) || (type == DefineTypeComputer.UDINT_TYPE)) || (type == DefineTypeComputer.ULINT_TYPE)) || 
+      (type == DefineTypeComputer.SINT_TYPE)) || (type == DefineTypeComputer.DINT_TYPE)) || (type == DefineTypeComputer.LINT_TYPE));
   }
   
   public boolean isBoolType(final DefineType type) {
@@ -220,7 +242,49 @@ public class DefineTypeComputer {
                     if ((t == "lword")) {
                       _xifexpression_7 = DefineTypeComputer.LWORD_TYPE;
                     } else {
-                      _xifexpression_7 = DefineTypeComputer.NULL_TYPE;
+                      DefineType _xifexpression_8 = null;
+                      if ((t == "usint")) {
+                        _xifexpression_8 = DefineTypeComputer.USINT_TYPE;
+                      } else {
+                        DefineType _xifexpression_9 = null;
+                        if ((t == "uint")) {
+                          _xifexpression_9 = DefineTypeComputer.UINT_TYPE;
+                        } else {
+                          DefineType _xifexpression_10 = null;
+                          if ((t == "udint")) {
+                            _xifexpression_10 = DefineTypeComputer.UDINT_TYPE;
+                          } else {
+                            DefineType _xifexpression_11 = null;
+                            if ((t == "ulint")) {
+                              _xifexpression_11 = DefineTypeComputer.ULINT_TYPE;
+                            } else {
+                              DefineType _xifexpression_12 = null;
+                              if ((t == "sint")) {
+                                _xifexpression_12 = DefineTypeComputer.SINT_TYPE;
+                              } else {
+                                DefineType _xifexpression_13 = null;
+                                if ((t == "dint")) {
+                                  _xifexpression_13 = DefineTypeComputer.DINT_TYPE;
+                                } else {
+                                  DefineType _xifexpression_14 = null;
+                                  if ((t == "lint")) {
+                                    _xifexpression_14 = DefineTypeComputer.LINT_TYPE;
+                                  } else {
+                                    _xifexpression_14 = DefineTypeComputer.NULL_TYPE;
+                                  }
+                                  _xifexpression_13 = _xifexpression_14;
+                                }
+                                _xifexpression_12 = _xifexpression_13;
+                              }
+                              _xifexpression_11 = _xifexpression_12;
+                            }
+                            _xifexpression_10 = _xifexpression_11;
+                          }
+                          _xifexpression_9 = _xifexpression_10;
+                        }
+                        _xifexpression_8 = _xifexpression_9;
+                      }
+                      _xifexpression_7 = _xifexpression_8;
                     }
                     _xifexpression_6 = _xifexpression_7;
                   }

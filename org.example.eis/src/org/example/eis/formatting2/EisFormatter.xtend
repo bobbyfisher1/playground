@@ -38,44 +38,73 @@ class EisFormatter extends AbstractFormatter2 {
 
 	@Inject extension EisGrammarAccess
 
+//	val TAB = "	"
 	def dispatch void format(EisModel eisModel, extension IFormattableDocument document) {
 		eisModel.regionFor.keyword("project").prepend[noSpace].append[oneSpace]
 		eisModel.regionFor.feature(EIS_MODEL__PROJECT_NAME).prepend[oneSpace]
+		eisModel.regionFor.keyword(eisModelAccess.semicolonKeyword_11).surround[noSpace]
 
 		eisModel.regionFor.keyword("plcname").prepend[newLine].append[oneSpace]
 		eisModel.regionFor.feature(EIS_MODEL__PLC_NAME).prepend[oneSpace]
+		eisModel.regionFor.keyword(eisModelAccess.semicolonKeyword_3).surround[noSpace]
 
-		eisModel.regionFor.keyword("author").prepend[newLine].append[space = "  "]
+		eisModel.regionFor.keyword("author").prepend[newLine].append[space = "  "] // 2 spaces
 		eisModel.regionFor.feature(EIS_MODEL__AUTHOR_NAME).prepend[oneSpace]
+		eisModel.regionFor.keyword(eisModelAccess.semicolonKeyword_7).surround[noSpace]
 
-		for (testcase : eisModel.testcases) {
-			testcase.format
-		}
+		if (eisModel.testcases !== null)
+			for (testcase : eisModel.testcases)
+				testcase.format
 	}
 
 	def dispatch void format(Testcase testcase, extension IFormattableDocument document) {
 		testcase.regionFor.keyword("testcase").prepend[newLine].append[oneSpace]
-		testcase.regionFor.feature(TESTCASE__TESTCASE_NAME).prepend[oneSpace].append[oneSpace]
+		testcase.regionFor.feature(TESTCASE__TESTCASE_NAME).surround[oneSpace]
+		val open = testcase.regionFor.keyword(testcaseAccess.leftCurlyBracketKeyword_2)
+		val close = testcase.regionFor.keyword(testcaseAccess.rightCurlyBracketKeyword_4)
 
-		testcase.testblock.format
+		if (testcase.testblock !== null) {
+			open.append[newLine]
+			close.prepend[newLine]
+			interior(open, close)[indent]
+
+			testcase.testblock.format
+		} else {
+			open.append[noSpace]
+			close.append[newLine]
+		}
 	}
 
 	def dispatch void format(Testblock testblock, extension IFormattableDocument document) {
-		testblock.regionFor.keyword("testActive").prepend[newLine].append[oneSpace]
-		testblock.regionFor.feature(TESTBLOCK__TEST_ACTIVE).prepend[oneSpace]
+		testblock.regionFor.keyword(testblockAccess.equalsSignKeyword_1).prepend[space = "  "].append[oneSpace]
+		testblock.regionFor.keyword(testblockAccess.semicolonKeyword_3).surround[noSpace]
 
-		testblock.regionFor.keyword("blockType").prepend[newLine].append[oneSpace]
-		testblock.regionFor.feature(TESTBLOCK__BLOCK_TYPE).prepend[oneSpace]
+		testblock.regionFor.keyword("blockType").prepend[newLine]
+		testblock.regionFor.keyword(testblockAccess.equalsSignKeyword_5).prepend[space = "   "].append[oneSpace]
+		testblock.regionFor.keyword(testblockAccess.semicolonKeyword_7).surround[noSpace]
 
-		testblock.regionFor.keyword("description").prepend[newLine].append[oneSpace]
-		testblock.regionFor.feature(TESTBLOCK__DESCRIPTION).prepend[oneSpace]
+		testblock.regionFor.keyword("description").prepend[newLine]
+		testblock.regionFor.keyword(testblockAccess.equalsSignKeyword_9).surround[oneSpace]
+		testblock.regionFor.keyword(testblockAccess.semicolonKeyword_11).surround[noSpace]
 
-	// testblock.format
+		if (testblock.define !== null)
+			testblock.define.format
 	}
 
 	def dispatch void format(DefineBlock defineblock, extension IFormattableDocument document) {
-		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		defineblock.format
+		defineblock.regionFor.keyword("define").append[oneSpace]
+		val open = defineblock.regionFor.keyword(defineBlockAccess.leftCurlyBracketKeyword_1)
+		val close = defineblock.regionFor.keyword(defineBlockAccess.rightCurlyBracketKeyword_3)
+
+		open.append[newLine]
+		close.prepend[newLine]
+		interior(open, close)[indent]
+
+		defineblock.direction.format
+
+		if (defineblock.teststeps !== null)
+			for (teststep : defineblock.teststeps)
+				teststep.format
 	}
 
 	def dispatch void format(DirectionBlock directionblock, extension IFormattableDocument document) {

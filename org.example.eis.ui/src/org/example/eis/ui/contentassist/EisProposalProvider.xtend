@@ -36,4 +36,23 @@ class EisProposalProvider extends AbstractEisProposalProvider {
 		for (e : udtTypes)
 			acceptor.accept(createCompletionProposal(e.name, e.name + " - UdtType", null, context))
 	}
+
+	override completeBoolConstant_Value(EObject model, Assignment assignment, ContentAssistContext context,
+		ICompletionProposalAcceptor acceptor) {
+		super.completeBoolConstant_Value(model, assignment, context, acceptor)
+
+		acceptor.accept(createCompletionProposal("true", "true", null, context))
+		acceptor.accept(createCompletionProposal("false", "false", null, context))
+
+	}
+
+	override completeBlockConstant_Value(EObject model, Assignment assignment, ContentAssistContext context,
+		ICompletionProposalAcceptor acceptor) {
+		super.completeBlockConstant_Value(model, assignment, context, acceptor)
+
+		acceptor.accept(createCompletionProposal("FC", "FC", null, context))
+		acceptor.accept(createCompletionProposal("FB", "FB", null, context))
+
+	}
+
 }

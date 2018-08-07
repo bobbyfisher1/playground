@@ -290,9 +290,9 @@ public class EisValidatorTest {
   
   @Test
   public void testWrongTypes() {
-    this.assertWrongType(((this.start + "int a = 4 +/- true;") + this.end));
-    this.assertWrongType(((this.start + "int a = true +/- 3") + this.end));
-    this.assertWrongType(((this.start + "int a = true +/- \'string\' ") + this.end));
+    this.assertWrongType((((this.start + "int a = 4 +/- true;") + this.end) + this.ending), 1);
+    this.assertWrongType((((this.start + "int a = true +/- 3;") + this.end) + this.ending), 1);
+    this.assertWrongType((((this.start + "int a = true +/- \'string\' ;") + this.end) + this.ending), 2);
   }
   
   @Test
@@ -1209,9 +1209,14 @@ public class EisValidatorTest {
     }
   }
   
-  private void assertWrongType(final String text) {
+  private void assertWrongType(final String text, final int numberOfErrors) {
     try {
-      this._validationTestHelper.assertError(this._parseHelper.parse(text), EisPackage.eINSTANCE.getVariable(), EisValidator.INCOMPATIBLE_TYPES);
+      EisModel _parse = this._parseHelper.parse(text);
+      final Procedure1<EisModel> _function = (EisModel it) -> {
+        Assert.assertEquals(numberOfErrors, this._validationTestHelper.validate(it).size());
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getVariable(), EisValidator.INCOMPATIBLE_TYPES);
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }

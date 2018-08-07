@@ -95,6 +95,8 @@ public class EisValidator extends AbstractEisValidator {
   
   public final static String MULTIPLE_TESTCASE_NAME = (EisValidator.ISSUE_CODE_PREFIX + "MultipleTestcaseName");
   
+  public final static String OUT_OF_BOUNDS = (EisValidator.ISSUE_CODE_PREFIX + "MultipleTestcaseName");
+  
   @Inject
   @Extension
   private DefineTypeComputer _defineTypeComputer;
@@ -342,24 +344,30 @@ public class EisValidator extends AbstractEisValidator {
         return;
       }
       if ((expectedType != actualType)) {
-        String _string = expectedType.toString();
-        String _plus = ("Incompatible types. Expected \'" + _string);
-        String _plus_1 = (_plus + "\' but was \'");
-        String _string_1 = actualType.toString();
-        String _plus_2 = (_plus_1 + _string_1);
-        String _plus_3 = (_plus_2 + 
-          "\'");
-        this.error(_plus_3, variable, EisPackage.eINSTANCE.getVariable_Idiom(), EisValidator.INCOMPATIBLE_TYPES);
+        boolean _not = (!(this._defineTypeComputer.isIntType(actualType) && this._defineTypeComputer.isIntType(expectedType)));
+        if (_not) {
+          String _string = expectedType.toString();
+          String _plus = ("Incompatible types. Expected \'" + _string);
+          String _plus_1 = (_plus + "\' but was \'");
+          String _string_1 = actualType.toString();
+          String _plus_2 = (_plus_1 + _string_1);
+          String _plus_3 = (_plus_2 + 
+            "\'");
+          this.error(_plus_3, variable, EisPackage.eINSTANCE.getVariable_Idiom(), EisValidator.INCOMPATIBLE_TYPES);
+        }
       }
       if (((rangeType != null) && (!Objects.equal(rangeType, expectedType)))) {
-        String _string_2 = expectedType.toString();
-        String _plus_4 = ("Incompatible types. Expected \'" + _string_2);
-        String _plus_5 = (_plus_4 + "\' but was \'");
-        String _string_3 = rangeType.toString();
-        String _plus_6 = (_plus_5 + _string_3);
-        String _plus_7 = (_plus_6 + 
-          "\'");
-        this.error(_plus_7, variable, EisPackage.eINSTANCE.getVariable_Range(), EisValidator.INCOMPATIBLE_TYPES);
+        boolean _not_1 = (!(this._defineTypeComputer.isIntType(rangeType) && this._defineTypeComputer.isIntType(expectedType)));
+        if (_not_1) {
+          String _string_2 = expectedType.toString();
+          String _plus_4 = ("Incompatible types. Expected \'" + _string_2);
+          String _plus_5 = (_plus_4 + "\' but was \'");
+          String _string_3 = rangeType.toString();
+          String _plus_6 = (_plus_5 + _string_3);
+          String _plus_7 = (_plus_6 + 
+            "\'");
+          this.error(_plus_7, variable, EisPackage.eINSTANCE.getVariable_Range(), EisValidator.INCOMPATIBLE_TYPES);
+        }
       }
     }
   }
@@ -396,7 +404,7 @@ public class EisValidator extends AbstractEisValidator {
           this.error("The range feature is not permitted to boolean types", statement, 
             EisPackage.eINSTANCE.getStatement_Range(), EisValidator.INVALID_RANGE_DEFINITION);
         }
-        if ((expectedType == BasicType.STRINGTYP)) {
+        if ((expectedType == BasicType.STRING)) {
           this.error("The range feature is not permitted to string types", statement, 
             EisPackage.eINSTANCE.getStatement_Range(), EisValidator.INVALID_RANGE_DEFINITION);
         }
@@ -410,7 +418,7 @@ public class EisValidator extends AbstractEisValidator {
             this.error("The range feature is not permitted to boolean types", statement, 
               EisPackage.eINSTANCE.getStatement_Range(), EisValidator.INVALID_RANGE_DEFINITION);
           }
-          if ((expectedType == BasicType.STRINGTYP)) {
+          if ((expectedType == BasicType.STRING)) {
             this.error("The range feature is not permitted to string types", statement, 
               EisPackage.eINSTANCE.getStatement_Range(), EisValidator.INVALID_RANGE_DEFINITION);
           }
@@ -628,7 +636,7 @@ public class EisValidator extends AbstractEisValidator {
           EisPackage.eINSTANCE.getVariable_Range(), EisValidator.INVALID_RANGE_DEFINITION);
       }
       BasicType _variableType_1 = variable.getVariableType();
-      boolean _tripleEquals_1 = (_variableType_1 == BasicType.STRINGTYP);
+      boolean _tripleEquals_1 = (_variableType_1 == BasicType.STRING);
       if (_tripleEquals_1) {
         this.error("The range feature is not permitted to string types", variable, 
           EisPackage.eINSTANCE.getVariable_Range(), EisValidator.INVALID_RANGE_DEFINITION);
@@ -828,26 +836,34 @@ public class EisValidator extends AbstractEisValidator {
     }
   }
   
-  private void compareTypesAndCallErrorOnMismatch(final Statement statement, final DefineType actualType, final BasicType expectedType, final DefineType rangeType) {
-    DefineType _typeFor = this._defineTypeComputer.typeFor(expectedType);
-    boolean _notEquals = (!Objects.equal(actualType, _typeFor));
+  private void compareTypesAndCallErrorOnMismatch(final Statement statement, final DefineType actualType, final BasicType _expectedType, final DefineType rangeType) {
+    final DefineType expectedType = this._defineTypeComputer.typeFor(_expectedType);
+    boolean _notEquals = (!Objects.equal(actualType, expectedType));
     if (_notEquals) {
-      String _string = expectedType.toString();
-      String _plus = ("Incompatible types. Expected \'" + _string);
-      String _plus_1 = (_plus + "\' but was \'");
-      String _string_1 = actualType.toString();
-      String _plus_2 = (_plus_1 + _string_1);
-      String _plus_3 = (_plus_2 + "\'");
-      this.error(_plus_3, statement, EisPackage.eINSTANCE.getStatement_Idiom(), EisValidator.INCOMPATIBLE_TYPES);
+      boolean _not = (!(this._defineTypeComputer.isIntType(actualType) && this._defineTypeComputer.isIntType(expectedType)));
+      if (_not) {
+        String _string = expectedType.toString();
+        String _plus = ("Incompatible types. Expected \'" + _string);
+        String _plus_1 = (_plus + "\' but was \'");
+        String _string_1 = actualType.toString();
+        String _plus_2 = (_plus_1 + _string_1);
+        String _plus_3 = (_plus_2 + 
+          "\'");
+        this.error(_plus_3, statement, EisPackage.eINSTANCE.getStatement_Idiom(), EisValidator.INCOMPATIBLE_TYPES);
+      }
     }
-    if (((rangeType != null) && (!Objects.equal(rangeType, this._defineTypeComputer.typeFor(expectedType))))) {
-      String _string_2 = expectedType.toString();
-      String _plus_4 = ("Incompatible types. Expected \'" + _string_2);
-      String _plus_5 = (_plus_4 + "\' but was \'");
-      String _string_3 = rangeType.toString();
-      String _plus_6 = (_plus_5 + _string_3);
-      String _plus_7 = (_plus_6 + "\'");
-      this.error(_plus_7, statement, EisPackage.eINSTANCE.getStatement_Range(), EisValidator.INCOMPATIBLE_TYPES);
+    if (((rangeType != null) && (!Objects.equal(rangeType, expectedType)))) {
+      boolean _not_1 = (!(this._defineTypeComputer.isIntType(actualType) && this._defineTypeComputer.isIntType(expectedType)));
+      if (_not_1) {
+        String _string_2 = expectedType.toString();
+        String _plus_4 = ("Incompatible types. Expected \'" + _string_2);
+        String _plus_5 = (_plus_4 + "\' but was \'");
+        String _string_3 = rangeType.toString();
+        String _plus_6 = (_plus_5 + _string_3);
+        String _plus_7 = (_plus_6 + 
+          "\'");
+        this.error(_plus_7, statement, EisPackage.eINSTANCE.getStatement_Range(), EisValidator.INCOMPATIBLE_TYPES);
+      }
     }
   }
   

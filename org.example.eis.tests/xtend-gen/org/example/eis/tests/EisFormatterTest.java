@@ -24,7 +24,7 @@ public class EisFormatterTest {
   public void testEisModel() {
     final Procedure1<FormatterTestRequest> _function = (FormatterTestRequest it) -> {
       StringConcatenation _builder = new StringConcatenation();
-      _builder.append("project=\"proj\";plcname=\"name\";author=\"Bob\";");
+      _builder.append("project=\"proj\"     ;   plcname=\"name\"\t;\t\tauthor=\"Bob\"\t\t\t;\t\t");
       it.setToBeFormatted(_builder);
       StringConcatenation _builder_1 = new StringConcatenation();
       _builder_1.append("project = \"proj\";");
@@ -38,12 +38,16 @@ public class EisFormatterTest {
   }
   
   @Test
-  public void testTestcase() {
+  public void testEmptyTestcase() {
     final Procedure1<FormatterTestRequest> _function = (FormatterTestRequest it) -> {
       StringConcatenation _builder = new StringConcatenation();
-      _builder.append("project=\"proj\";plcname=\"name\";author=\"Bob\";\t");
+      _builder.append("project=\"proj\"\t;plcname=\"name\";author=\"Bob\";\t");
       _builder.newLine();
-      _builder.append("testcase One{}");
+      _builder.append("testcase   One           {");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.newLine();
+      _builder.append("}");
       _builder.newLine();
       it.setToBeFormatted(_builder);
       StringConcatenation _builder_1 = new StringConcatenation();
@@ -66,16 +70,43 @@ public class EisFormatterTest {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("project=\"proj\";plcname=\"name\";author=\"Bob\";\t");
       _builder.newLine();
-      _builder.append("testcase One {");
+      _builder.append("testcase One { testActive=true\t;\t\tblockType=FC;description=\"string\";}");
       _builder.newLine();
-      _builder.append("\t");
-      _builder.append("testActive = true;");
+      it.setToBeFormatted(_builder);
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("project = \"proj\";");
+      _builder_1.newLine();
+      _builder_1.append("plcname = \"name\";");
+      _builder_1.newLine();
+      _builder_1.append("author  = \"Bob\";");
+      _builder_1.newLine();
+      _builder_1.append("testcase One {");
+      _builder_1.newLine();
+      _builder_1.append("\t");
+      _builder_1.append("testActive  = true;");
+      _builder_1.newLine();
+      _builder_1.append("\t");
+      _builder_1.append("blockType   = FC;");
+      _builder_1.newLine();
+      _builder_1.append("\t");
+      _builder_1.append("description = \"string\";");
+      _builder_1.newLine();
+      _builder_1.append("}");
+      _builder_1.newLine();
+      it.setExpectation(_builder_1);
+    };
+    this._formatterTestHelper.assertFormatted(_function);
+  }
+  
+  @Test
+  public void testDefineBlock() {
+    final Procedure1<FormatterTestRequest> _function = (FormatterTestRequest it) -> {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("project=\"proj\";plcname=\"name\";author=\"Bob\";\t");
       _builder.newLine();
-      _builder.append("\t");
-      _builder.append("blockType = FC;");
+      _builder.append("testcase One { testActive=true\t;\t\tblockType=FC;description=\"string\";");
       _builder.newLine();
-      _builder.append("\t");
-      _builder.append("description = \"string\";");
+      _builder.append("define{  input[]output[]\t}");
       _builder.newLine();
       _builder.append("}");
       _builder.newLine();
@@ -85,18 +116,30 @@ public class EisFormatterTest {
       _builder_1.newLine();
       _builder_1.append("plcname = \"name\";");
       _builder_1.newLine();
-      _builder_1.append("author = \"Bob\";");
+      _builder_1.append("author  = \"Bob\";");
       _builder_1.newLine();
       _builder_1.append("testcase One {");
       _builder_1.newLine();
       _builder_1.append("\t");
-      _builder_1.append("testActive = true;");
+      _builder_1.append("testActive  = true;");
       _builder_1.newLine();
       _builder_1.append("\t");
-      _builder_1.append("blockType = FC;");
+      _builder_1.append("blockType   = FC;");
       _builder_1.newLine();
       _builder_1.append("\t");
       _builder_1.append("description = \"string\";");
+      _builder_1.newLine();
+      _builder_1.append("\t");
+      _builder_1.append("define {");
+      _builder_1.newLine();
+      _builder_1.append("\t\t");
+      _builder_1.append("input[]");
+      _builder_1.newLine();
+      _builder_1.append("\t\t");
+      _builder_1.append("output[]");
+      _builder_1.newLine();
+      _builder_1.append("\t");
+      _builder_1.append("}");
       _builder_1.newLine();
       _builder_1.append("}");
       _builder_1.newLine();

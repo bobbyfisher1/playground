@@ -167,9 +167,9 @@ class EisValidatorTest {
 	}
 
 	@Test def void testWrongTypes() {
-		(start + "int a = 4 +/- true;" + end).assertWrongType;
-		(start + "int a = true +/- 3" + end).assertWrongType;
-		(start + "int a = true +/- 'string' " + end).assertWrongType;
+		(start + "int a = 4 +/- true;" + end + ending).assertWrongType(1);
+		(start + "int a = true +/- 3;" + end + ending).assertWrongType(1);
+		(start + "int a = true +/- 'string' ;" + end + ending).assertWrongType(2);
 	}
 
 	@Test def void testCommaNotation() {
@@ -574,8 +574,11 @@ class EisValidatorTest {
 //
 // methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //
-	def private void assertWrongType(String text) {
-		text.parse.assertError(EisPackage.eINSTANCE.variable, EisValidator.INCOMPATIBLE_TYPES)
+	def private void assertWrongType(String text, int numberOfErrors) {
+		text.parse => [
+			numberOfErrors.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.INCOMPATIBLE_TYPES)
+		]
 	}
 
 	def private void assertDuplicateVariables(String text, EClass type, String description, String name,

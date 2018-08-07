@@ -8,14 +8,24 @@
       fileExtensions="eis" ecorePackage="Eis.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Eis.ecore#//BasicType">
       <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/NULL"/>
-      <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/INTCONSTANT"/>
+      <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/INT"/>
       <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/BOOL"/>
       <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/REAL"/>
-      <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/STRINGTYP"/>
+      <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/STRING"/>
       <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/BYTE"/>
       <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/WORD"/>
       <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/DWORD"/>
       <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/LWORD"/>
+      <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/USINT"/>
+      <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/UINT"/>
+      <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/UDINT"/>
+      <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/ULINT"/>
+      <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/SINT"/>
+      <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/DINT"/>
+      <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/LINT"/>
+      <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/CHAR"/>
+      <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/TIME"/>
+      <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/S5TIME"/>
     </genEnums>
     <genClasses ecoreClass="Eis.ecore#//EisModel">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//EisModel/project_name"/>

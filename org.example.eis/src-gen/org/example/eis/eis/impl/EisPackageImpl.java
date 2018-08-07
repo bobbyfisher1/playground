@@ -1915,14 +1915,24 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
     // Initialize enums and add enum literals
     initEEnum(basicTypeEEnum, BasicType.class, "BasicType");
     addEEnumLiteral(basicTypeEEnum, BasicType.NULL);
-    addEEnumLiteral(basicTypeEEnum, BasicType.INTCONSTANT);
+    addEEnumLiteral(basicTypeEEnum, BasicType.INT);
     addEEnumLiteral(basicTypeEEnum, BasicType.BOOL);
     addEEnumLiteral(basicTypeEEnum, BasicType.REAL);
-    addEEnumLiteral(basicTypeEEnum, BasicType.STRINGTYP);
+    addEEnumLiteral(basicTypeEEnum, BasicType.STRING);
     addEEnumLiteral(basicTypeEEnum, BasicType.BYTE);
     addEEnumLiteral(basicTypeEEnum, BasicType.WORD);
     addEEnumLiteral(basicTypeEEnum, BasicType.DWORD);
     addEEnumLiteral(basicTypeEEnum, BasicType.LWORD);
+    addEEnumLiteral(basicTypeEEnum, BasicType.USINT);
+    addEEnumLiteral(basicTypeEEnum, BasicType.UINT);
+    addEEnumLiteral(basicTypeEEnum, BasicType.UDINT);
+    addEEnumLiteral(basicTypeEEnum, BasicType.ULINT);
+    addEEnumLiteral(basicTypeEEnum, BasicType.SINT);
+    addEEnumLiteral(basicTypeEEnum, BasicType.DINT);
+    addEEnumLiteral(basicTypeEEnum, BasicType.LINT);
+    addEEnumLiteral(basicTypeEEnum, BasicType.CHAR);
+    addEEnumLiteral(basicTypeEEnum, BasicType.TIME);
+    addEEnumLiteral(basicTypeEEnum, BasicType.S5TIME);
 
     // Create resource
     createResource(eNS_URI);

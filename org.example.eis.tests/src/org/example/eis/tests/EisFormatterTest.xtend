@@ -13,11 +13,12 @@ class EisFormatterTest {
 
 	@Inject extension FormatterTestHelper
 
-	@Test
-	def void testEisModel() {
+//
+// tests -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//
+	@Test def void testEisModel() {
 		assertFormatted[
-			toBeFormatted = '''project="proj";plcname="name";author="Bob";'''
-
+			toBeFormatted = '''project="proj"     ;   plcname="name"	;		author="Bob"			;		'''
 			expectation = '''
 			project = "proj";
 			plcname = "name";
@@ -25,14 +26,14 @@ class EisFormatterTest {
 		]
 	}
 
-	@Test
-	def void testTestcase() {
+	@Test def void testEmptyTestcase() {
 		assertFormatted[
 			toBeFormatted = '''
-				project="proj";plcname="name";author="Bob";	
-				testcase One{}
+				project="proj"	;plcname="name";author="Bob";	
+				testcase   One           {
+					
+				}
 			'''
-
 			expectation = '''
 				project = "proj";
 				plcname = "name";
@@ -42,48 +43,84 @@ class EisFormatterTest {
 		]
 	}
 
-	@Test
-	def void testTestblock() {
+	@Test def void testTestblock() {
 		assertFormatted[
 			toBeFormatted = '''
 				project="proj";plcname="name";author="Bob";	
-				testcase One {
-					testActive = true;
-					blockType = FC;
-					description = "string";
-				}
+				testcase One { testActive=true	;		blockType=FC;description="string";}
 			'''
-
 			expectation = '''
 				project = "proj";
 				plcname = "name";
-				author = "Bob";
+				author  = "Bob";
 				testcase One {
-					testActive = true;
-					blockType = FC;
+					testActive  = true;
+					blockType   = FC;
 					description = "string";
 				}
 			'''
 		]
 	}
+
+	@Test def void testDefineBlock() {
+		assertFormatted[
+			toBeFormatted = '''
+				project="proj";plcname="name";author="Bob";	
+				testcase One { testActive=true	;		blockType=FC;description="string";
+				define{  input[]output[]	}
+				}
+			'''
+			expectation = '''
+				project = "proj";
+				plcname = "name";
+				author  = "Bob";
+				testcase One {
+					testActive  = true;
+					blockType   = FC;
+					description = "string";
+					define {
+						input[]
+						output[]
+					}
+				}
+			'''
+		]
+	}
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
+//    
