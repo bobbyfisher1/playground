@@ -63,7 +63,7 @@ class EisFormatterTest {
 	}
 
 	@Test def void testDefineBlock() {
-		assertFormatted[
+		assertFormatted [
 			toBeFormatted = '''
 				project="proj";plcname="name";author="Bob";	
 				testcase One { testActive=true	;		blockType=FC;description="string";
@@ -86,7 +86,6 @@ class EisFormatterTest {
 			'''
 		]
 	}
-
 }
 /*
  * 
@@ -123,4 +122,4 @@ class EisFormatterTest {
  * 
  * 
  */
-//    
+//       

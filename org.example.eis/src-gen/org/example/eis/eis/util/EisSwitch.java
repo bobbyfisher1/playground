@@ -359,6 +359,14 @@ public class EisSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case EisPackage.LONG_CONSTANT:
+      {
+        LongConstant longConstant = (LongConstant)theEObject;
+        T result = caseLongConstant(longConstant);
+        if (result == null) result = caseIdiom(longConstant);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       default: return defaultCase(theEObject);
     }
   }
@@ -967,6 +975,22 @@ public class EisSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseLWordConstant(LWordConstant object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Long Constant</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Long Constant</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseLongConstant(LongConstant object)
   {
     return null;
   }

@@ -17,6 +17,7 @@ import org.example.eis.eis.Equality;
 import org.example.eis.eis.Idiom;
 import org.example.eis.eis.IntConstant;
 import org.example.eis.eis.LWordConstant;
+import org.example.eis.eis.LongConstant;
 import org.example.eis.eis.Minus;
 import org.example.eis.eis.MulOrDiv;
 import org.example.eis.eis.Not;
@@ -88,40 +89,73 @@ public class EisInterpreter {
       }
     }
     if (!_matched) {
+      if (e instanceof LongConstant) {
+        _matched=true;
+        _switchResult = Long.valueOf(((LongConstant)e).getValue());
+      }
+    }
+    if (!_matched) {
       if (e instanceof Not) {
         _matched=true;
+        Boolean _xifexpression = null;
         Object _interpret = this.interpret(((Not)e).getIdiom());
-        _switchResult = Boolean.valueOf((!(((Boolean) _interpret)).booleanValue()));
+        if ((_interpret instanceof Boolean)) {
+          Object _interpret_1 = this.interpret(((Not)e).getIdiom());
+          _xifexpression = Boolean.valueOf((!(((Boolean) _interpret_1)).booleanValue()));
+        } else {
+          _xifexpression = null;
+        }
+        _switchResult = _xifexpression;
       }
     }
     if (!_matched) {
       if (e instanceof MulOrDiv) {
         _matched=true;
-        int _xblockexpression = (int) 0;
+        Integer _xblockexpression = null;
         {
-          Object _interpret = this.interpret(((MulOrDiv)e).getLeft());
-          final Integer left = ((Integer) _interpret);
-          Object _interpret_1 = this.interpret(((MulOrDiv)e).getRight());
-          final Integer right = ((Integer) _interpret_1);
-          int _xifexpression = (int) 0;
-          String _op = ((MulOrDiv)e).getOp();
-          boolean _equals = Objects.equal(_op, "*");
-          if (_equals) {
-            _xifexpression = ((left).intValue() * (right).intValue());
+          final Object left = this.interpret(((MulOrDiv)e).getLeft());
+          final Object right = this.interpret(((MulOrDiv)e).getRight());
+          Integer _xifexpression = null;
+          if (((left instanceof Integer) && (right instanceof Integer))) {
+            Integer _xifexpression_1 = null;
+            String _op = ((MulOrDiv)e).getOp();
+            boolean _equals = Objects.equal(_op, "*");
+            if (_equals) {
+              _xifexpression_1 = Integer.valueOf(((((Integer) left)).intValue() * (((Integer) right)).intValue()));
+            } else {
+              Integer _xifexpression_2 = null;
+              if (((((Integer) right)).intValue() != 0)) {
+                _xifexpression_2 = Integer.valueOf(((((Integer) left)).intValue() / (((Integer) right)).intValue()));
+              } else {
+                _xifexpression_2 = null;
+              }
+              _xifexpression_1 = _xifexpression_2;
+            }
+            _xifexpression = _xifexpression_1;
           } else {
-            _xifexpression = ((left).intValue() / (right).intValue());
+            _xifexpression = null;
           }
           _xblockexpression = _xifexpression;
         }
-        _switchResult = Integer.valueOf(_xblockexpression);
+        _switchResult = _xblockexpression;
       }
     }
     if (!_matched) {
       if (e instanceof Minus) {
         _matched=true;
-        Object _interpret = this.interpret(((Minus)e).getLeft());
-        Object _interpret_1 = this.interpret(((Minus)e).getRight());
-        _switchResult = Integer.valueOf(((((Integer) _interpret)).intValue() - (((Integer) _interpret_1)).intValue()));
+        Integer _xblockexpression = null;
+        {
+          final Object left = this.interpret(((Minus)e).getLeft());
+          final Object right = this.interpret(((Minus)e).getRight());
+          Integer _xifexpression = null;
+          if (((left instanceof Integer) && (right instanceof Integer))) {
+            _xifexpression = Integer.valueOf(((((Integer) left)).intValue() - (((Integer) right)).intValue()));
+          } else {
+            _xifexpression = null;
+          }
+          _xblockexpression = _xifexpression;
+        }
+        _switchResult = _xblockexpression;
       }
     }
     if (!_matched) {
@@ -133,9 +167,19 @@ public class EisInterpreter {
           String _string_1 = this.interpret(((Plus)e).getRight()).toString();
           _xifexpression = (_string + _string_1);
         } else {
-          Object _interpret = this.interpret(((Plus)e).getLeft());
-          Object _interpret_1 = this.interpret(((Plus)e).getRight());
-          _xifexpression = Integer.valueOf(((((Integer) _interpret)).intValue() + (((Integer) _interpret_1)).intValue()));
+          Integer _xblockexpression = null;
+          {
+            final Object left = this.interpret(((Plus)e).getLeft());
+            final Object right = this.interpret(((Plus)e).getRight());
+            Integer _xifexpression_1 = null;
+            if (((left instanceof Integer) && (right instanceof Integer))) {
+              _xifexpression_1 = Integer.valueOf(((((Integer) left)).intValue() + (((Integer) right)).intValue()));
+            } else {
+              _xifexpression_1 = null;
+            }
+            _xblockexpression = _xifexpression_1;
+          }
+          _xifexpression = _xblockexpression;
         }
         _switchResult = _xifexpression;
       }
@@ -161,88 +205,120 @@ public class EisInterpreter {
     if (!_matched) {
       if (e instanceof And) {
         _matched=true;
-        _switchResult = Boolean.valueOf(((((Boolean) this.interpret(((And)e).getLeft()))).booleanValue() && (((Boolean) this.interpret(((And)e).getRight()))).booleanValue()));
+        Boolean _xblockexpression = null;
+        {
+          final Object left = this.interpret(((And)e).getLeft());
+          final Object right = this.interpret(((And)e).getRight());
+          Boolean _xifexpression = null;
+          if (((left instanceof Boolean) && (right instanceof Boolean))) {
+            _xifexpression = Boolean.valueOf(((((Boolean) left)).booleanValue() && (((Boolean) right)).booleanValue()));
+          } else {
+            _xifexpression = null;
+          }
+          _xblockexpression = _xifexpression;
+        }
+        _switchResult = _xblockexpression;
       }
     }
     if (!_matched) {
       if (e instanceof Or) {
         _matched=true;
-        _switchResult = Boolean.valueOf(((((Boolean) this.interpret(((Or)e).getLeft()))).booleanValue() || (((Boolean) this.interpret(((Or)e).getRight()))).booleanValue()));
+        Boolean _xblockexpression = null;
+        {
+          final Object left = this.interpret(((Or)e).getLeft());
+          final Object right = this.interpret(((Or)e).getRight());
+          Boolean _xifexpression = null;
+          if (((left instanceof Boolean) && (right instanceof Boolean))) {
+            _xifexpression = Boolean.valueOf(((((Boolean) left)).booleanValue() || (((Boolean) right)).booleanValue()));
+          } else {
+            _xifexpression = null;
+          }
+          _xblockexpression = _xifexpression;
+        }
+        _switchResult = _xblockexpression;
       }
     }
     if (!_matched) {
       if (e instanceof Comparison) {
         _matched=true;
-        boolean _xifexpression = false;
+        Boolean _xifexpression = null;
         boolean _isStringType = this._defineTypeComputer.isStringType(this._defineTypeComputer.typeFor(((Comparison)e).getLeft()));
         if (_isStringType) {
-          boolean _xblockexpression = false;
+          Boolean _xblockexpression = null;
           {
-            Object _interpret = this.interpret(((Comparison)e).getLeft());
-            final String left = ((String) _interpret);
-            Object _interpret_1 = this.interpret(((Comparison)e).getRight());
-            final String right = ((String) _interpret_1);
-            boolean _switchResult_1 = false;
-            String _op = ((Comparison)e).getOp();
-            if (_op != null) {
-              switch (_op) {
-                case "<":
-                  _switchResult_1 = (left.compareTo(right) < 0);
-                  break;
-                case ">":
-                  _switchResult_1 = (left.compareTo(right) > 0);
-                  break;
-                case ">=":
-                  _switchResult_1 = (left.compareTo(right) >= 0);
-                  break;
-                case "<=":
-                  _switchResult_1 = (left.compareTo(right) <= 0);
-                  break;
-                default:
-                  _switchResult_1 = false;
-                  break;
+            final Object left = this.interpret(((Comparison)e).getLeft());
+            final Object right = this.interpret(((Comparison)e).getRight());
+            Boolean _xifexpression_1 = null;
+            if (((left instanceof String) && (right instanceof String))) {
+              boolean _switchResult_1 = false;
+              String _op = ((Comparison)e).getOp();
+              if (_op != null) {
+                switch (_op) {
+                  case "<":
+                    _switchResult_1 = (((String) left).compareTo(((String) right)) < 0);
+                    break;
+                  case ">":
+                    _switchResult_1 = (((String) left).compareTo(((String) right)) > 0);
+                    break;
+                  case ">=":
+                    _switchResult_1 = (((String) left).compareTo(((String) right)) >= 0);
+                    break;
+                  case "<=":
+                    _switchResult_1 = (((String) left).compareTo(((String) right)) <= 0);
+                    break;
+                  default:
+                    _switchResult_1 = false;
+                    break;
+                }
+              } else {
+                _switchResult_1 = false;
               }
+              _xifexpression_1 = Boolean.valueOf(_switchResult_1);
             } else {
-              _switchResult_1 = false;
+              _xifexpression_1 = null;
             }
-            _xblockexpression = _switchResult_1;
+            _xblockexpression = _xifexpression_1;
           }
           _xifexpression = _xblockexpression;
         } else {
-          boolean _xblockexpression_1 = false;
+          Boolean _xblockexpression_1 = null;
           {
-            Object _interpret = this.interpret(((Comparison)e).getLeft());
-            final Integer left = ((Integer) _interpret);
-            Object _interpret_1 = this.interpret(((Comparison)e).getRight());
-            final Integer right = ((Integer) _interpret_1);
-            boolean _switchResult_1 = false;
-            String _op = ((Comparison)e).getOp();
-            if (_op != null) {
-              switch (_op) {
-                case "<":
-                  _switchResult_1 = (left.compareTo(right) < 0);
-                  break;
-                case ">":
-                  _switchResult_1 = (left.compareTo(right) > 0);
-                  break;
-                case ">=":
-                  _switchResult_1 = (left.compareTo(right) >= 0);
-                  break;
-                case "<=":
-                  _switchResult_1 = (left.compareTo(right) <= 0);
-                  break;
-                default:
-                  _switchResult_1 = false;
-                  break;
+            final Object left = this.interpret(((Comparison)e).getLeft());
+            final Object right = this.interpret(((Comparison)e).getRight());
+            Boolean _xifexpression_1 = null;
+            if (((left instanceof Integer) && (right instanceof Integer))) {
+              boolean _switchResult_1 = false;
+              String _op = ((Comparison)e).getOp();
+              if (_op != null) {
+                switch (_op) {
+                  case "<":
+                    _switchResult_1 = (((Integer) left).compareTo(((Integer) right)) < 0);
+                    break;
+                  case ">":
+                    _switchResult_1 = (((Integer) left).compareTo(((Integer) right)) > 0);
+                    break;
+                  case ">=":
+                    _switchResult_1 = (((Integer) left).compareTo(((Integer) right)) >= 0);
+                    break;
+                  case "<=":
+                    _switchResult_1 = (((Integer) left).compareTo(((Integer) right)) <= 0);
+                    break;
+                  default:
+                    _switchResult_1 = false;
+                    break;
+                }
+              } else {
+                _switchResult_1 = false;
               }
+              _xifexpression_1 = Boolean.valueOf(_switchResult_1);
             } else {
-              _switchResult_1 = false;
+              _xifexpression_1 = null;
             }
-            _xblockexpression_1 = _switchResult_1;
+            _xblockexpression_1 = _xifexpression_1;
           }
           _xifexpression = _xblockexpression_1;
         }
-        _switchResult = Boolean.valueOf(_xifexpression);
+        _switchResult = _xifexpression;
       }
     }
     if (!_matched) {

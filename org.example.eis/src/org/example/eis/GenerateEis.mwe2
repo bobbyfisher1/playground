@@ -42,6 +42,10 @@ Workflow {
 				generateStub = true
 				generateXtendStub = true
 			}
+			webSupport = {
+				generateHtmlExample = true
+				framework = "Orion"
+			}
 		}
 	}
 }

@@ -2535,7 +2535,7 @@ public class EisGeneratorTest {
     _builder.append("teststep(1, \"\"){");
     _builder.newLine();
     _builder.append("\t");
-    _builder.append("set[ a = 16#aa; ]");
+    _builder.append("set[ a = 16#AA; ]");
     _builder.newLine();
     _builder.append("\t");
     _builder.append("assert[]");
@@ -2577,7 +2577,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Inputs>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"a\" Datatype=\"Byte\" Direction=\"Input\" Value=\"16#aa\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"a\" Datatype=\"Byte\" Direction=\"Input\" Value=\"16#AA\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t");
         _builder_1.append("</Inputs>");
@@ -2626,7 +2626,7 @@ public class EisGeneratorTest {
     _builder.append("teststep(1, \"\"){");
     _builder.newLine();
     _builder.append("\t");
-    _builder.append("set[ a = 16#aaaa; ]");
+    _builder.append("set[ a = 16#AAAA; ]");
     _builder.newLine();
     _builder.append("\t");
     _builder.append("assert[]");
@@ -2668,7 +2668,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Inputs>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"a\" Datatype=\"Word\" Direction=\"Input\" Value=\"16#aaaa\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"a\" Datatype=\"Word\" Direction=\"Input\" Value=\"16#AAAA\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t");
         _builder_1.append("</Inputs>");
@@ -2717,7 +2717,7 @@ public class EisGeneratorTest {
     _builder.append("teststep(1, \"\"){");
     _builder.newLine();
     _builder.append("\t");
-    _builder.append("set[ a = 16#aaaa_aaaa; ]");
+    _builder.append("set[ a = 16#AAAA_AAAA; ]");
     _builder.newLine();
     _builder.append("\t");
     _builder.append("assert[]");
@@ -2759,7 +2759,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Inputs>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"a\" Datatype=\"Dword\" Direction=\"Input\" Value=\"16#aaaa_aaaa\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"a\" Datatype=\"Dword\" Direction=\"Input\" Value=\"16#AAAA_AAAA\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t");
         _builder_1.append("</Inputs>");
@@ -2808,7 +2808,7 @@ public class EisGeneratorTest {
     _builder.append("teststep(1, \"\"){");
     _builder.newLine();
     _builder.append("\t");
-    _builder.append("set[ a = 16#aaaa_aaaa_aaaa_aaaa; ]");
+    _builder.append("set[ a = 16#AAAA_AAAA_AAAA_AAAA; ]");
     _builder.newLine();
     _builder.append("\t");
     _builder.append("assert[]");
@@ -2850,7 +2850,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Inputs>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"a\" Datatype=\"Lword\" Direction=\"Input\" Value=\"16#aaaa_aaaa_aaaa_aaaa\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"a\" Datatype=\"Lword\" Direction=\"Input\" Value=\"16#AAAA_AAAA_AAAA_AAAA\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t");
         _builder_1.append("</Inputs>");

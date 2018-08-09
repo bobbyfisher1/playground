@@ -64,20 +64,22 @@ enum BasicType:
 	NULL='null'
 	| INT='int'
 	| BOOL='bool'
-	| REAL='real'
+	| REAL='real' // needs revision
 	| STRING='string'
 	| BYTE="byte"
 	| WORD="word"
 	| DWORD="dword"
 	| LWORD="lword"
+	//
 	| USINT="usint"
 	| UINT="uint"
-	| UDINT="udint"
-	| ULINT="ulint"
+	| UDINT="udint" // long type? + u&l Bss
+	| ULINT="ulint" // ??????
 	| SINT="sint"
-	| DINT="dint"
-	| LINT="lint"
-	| CHAR="char"
+	| DINT="dint" // normal int
+	| LINT="lint" // normal long?
+	//yet unimplemented
+	| CHAR="char" //
 	| TIME="time"
 	| S5TIME="s5time";
 
@@ -109,40 +111,17 @@ Primary returns Idiom:
 	'(' Idiom ')' | {Not} "!" idiom=Primary | Atomic;
 
 Atomic returns Idiom:
-	{IntConstant} value=INT | {StringConstant} value=STRING | BoolConstant | {VariableRef} variable=[Variable] |
-	{RealConstant} value=REAL | {ByteConstant} value=BYTE | {WordConstant} value=WORD | {DWordConstant} value=DWORD |
-	{LWordConstant} value=LWORD;
+	{IntConstant} value=INT
+	| {StringConstant} value=STRING
+	| BoolConstant
+	| {VariableRef} variable=[Variable]
+	| {RealConstant} value=REAL
+	| {ByteConstant} value=BYTE
+	| {WordConstant} value=WORD
+	| {DWordConstant} value=DWORD
+	| {LWordConstant} value=LWORD
+	| {LongConstant} value=LONG;
 
-	/*	<listed_datatypes_in_S7UintTest_Editor>
-					Bool
-					Byte
-					Word
-					DWord
-					LWord
-					SInt
-					Int
-					DInt
-					LInt
-					USInt
-					UInt
-					UDInt
-					ULInt
-					Real
-					LReal
-					Char
-					WChar
-					String
-					WString
-					S5Time
-					Time
-					LTime
-					Date
-					Tod
-					LTod
-					DT
-					LDT
-					DTL
-UDT */
 TeststepBlock:
 	'teststep' '(' plcCycle=INT ',' description=STRING ')' '{' assertion=AssertionBlock '}';
 
@@ -165,11 +144,14 @@ terminal fragment DIGIT:
 	'0'..'9';
 
 terminal fragment HEXDIGIT:
-	DIGIT | 'a'..'f' | 'A'..'F';
+	DIGIT | 'A'..'F';
 
 @Override
 terminal INT returns EInt:
-	'-'? ('0'..'9')+;
+	'-'? DIGIT+;
+	//
+terminal LONG returns ELong:
+	'-'? INT ('l' | 'L');
 	//
 terminal REAL returns EFloat:
 	INT '.' DIGIT+;
@@ -181,14 +163,11 @@ terminal WORD:
 	'16#' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT;
 	//
 terminal DWORD:
-	'16#' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT
-	'_' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT;
+	'16#' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT '_' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT;
 	//
 terminal LWORD:
-	'16#' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT
-	'_' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT
-	'_' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT
-	'_' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT;
+	'16#' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT '_' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT '_' HEXDIGIT HEXDIGIT HEXDIGIT
+	HEXDIGIT '_' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT;
 
 
 

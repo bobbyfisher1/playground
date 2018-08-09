@@ -32,6 +32,7 @@ import org.example.eis.eis.InOut;
 import org.example.eis.eis.Input;
 import org.example.eis.eis.IntConstant;
 import org.example.eis.eis.LWordConstant;
+import org.example.eis.eis.LongConstant;
 import org.example.eis.eis.Minus;
 import org.example.eis.eis.MulOrDiv;
 import org.example.eis.eis.Not;
@@ -116,6 +117,9 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				return; 
 			case EisPackage.LWORD_CONSTANT:
 				sequence_Atomic(context, (LWordConstant) semanticObject); 
+				return; 
+			case EisPackage.LONG_CONSTANT:
+				sequence_Atomic(context, (LongConstant) semanticObject); 
 				return; 
 			case EisPackage.MINUS:
 				sequence_PlusOrMinus(context, (Minus) semanticObject); 
@@ -366,6 +370,39 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getAtomicAccess().getValueLWORDTerminalRuleCall_8_1_0(), semanticObject.getValue());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Idiom returns LongConstant
+	 *     Or returns LongConstant
+	 *     Or.Or_1_0 returns LongConstant
+	 *     And returns LongConstant
+	 *     And.And_1_0 returns LongConstant
+	 *     Equality returns LongConstant
+	 *     Equality.Equality_1_0 returns LongConstant
+	 *     Comparison returns LongConstant
+	 *     Comparison.Comparison_1_0 returns LongConstant
+	 *     PlusOrMinus returns LongConstant
+	 *     PlusOrMinus.Plus_1_0_0_0 returns LongConstant
+	 *     PlusOrMinus.Minus_1_0_1_0 returns LongConstant
+	 *     MulOrDiv returns LongConstant
+	 *     MulOrDiv.MulOrDiv_1_0 returns LongConstant
+	 *     Primary returns LongConstant
+	 *     Atomic returns LongConstant
+	 *
+	 * Constraint:
+	 *     value=LONG
+	 */
+	protected void sequence_Atomic(ISerializationContext context, LongConstant semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, EisPackage.Literals.LONG_CONSTANT__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EisPackage.Literals.LONG_CONSTANT__VALUE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getAtomicAccess().getValueLONGTerminalRuleCall_9_1_0(), semanticObject.getValue());
 		feeder.finish();
 	}
 	

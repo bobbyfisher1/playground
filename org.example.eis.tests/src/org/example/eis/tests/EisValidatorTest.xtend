@@ -558,6 +558,17 @@ class EisValidatorTest {
 		]
 	}
 
+	@Test def void testDivisionByZero() {
+		val zero = '''
+		define{
+			input[ int a = 1 / 0;]
+			output[]
+		}'''
+		(beginning + zero + ending).parse => [
+			assertError(EisPackage.eINSTANCE.mulOrDiv, EisValidator.DIVISION_BY_ZERO)
+		]
+	}
+
 	@Test def void testMultipleTestcaseNames() {
 		'''
 			project = "";

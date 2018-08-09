@@ -1185,6 +1185,30 @@ public class EisValidatorTest {
   }
   
   @Test
+  public void testDivisionByZero() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("define{");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("input[ int a = 1 / 0;]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("output[]");
+      _builder.newLine();
+      _builder.append("}");
+      final String zero = _builder.toString();
+      EisModel _parse = this._parseHelper.parse(((this.beginning + zero) + this.ending));
+      final Procedure1<EisModel> _function = (EisModel it) -> {
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getMulOrDiv(), EisValidator.DIVISION_BY_ZERO);
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
   public void testMultipleTestcaseNames() {
     try {
       StringConcatenation _builder = new StringConcatenation();

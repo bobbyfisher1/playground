@@ -15,6 +15,8 @@ import org.junit.runner.RunWith
 import static org.example.eis.typing.DefineTypeComputer.*
 
 import static extension org.junit.Assert.*
+import org.example.eis.eis.EisPackage
+import org.example.eis.validation.EisValidator
 
 @RunWith(XtextRunner)
 @InjectWith(EisInjectorProvider)
@@ -47,7 +49,7 @@ class DefineTypeComputerTest {
 //
 // tests -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //
-	@Test def void testIsInt() { (DefineTypeComputer.INT_TYPE).isIntType.assertTrue }
+	@Test def void testIsInt() { (DefineTypeComputer.INT_TYPE).isIntSuperType.assertTrue }
 
 	@Test def void testAllTypes() {
 		// basic types
@@ -85,7 +87,7 @@ class DefineTypeComputerTest {
 
 	@Test def void testIsBool() { (DefineTypeComputer.BOOL_TYPE).isBoolType.assertTrue }
 
-	@Test def void testNotIsInt() { (DefineTypeComputer.STRING_TYPE).isIntType.assertFalse }
+	@Test def void testNotIsInt() { (DefineTypeComputer.STRING_TYPE).isIntSuperType.assertFalse }
 
 	@Test def void testNotIsString() { (DefineTypeComputer.INT_TYPE).isStringType.assertFalse }
 
@@ -111,7 +113,7 @@ class DefineTypeComputerTest {
 
 	@Test def void testByte() {
 		val real = '''
-			byte a = 16#aa;
+			byte a = 16#AA;
 		'''
 		(start + real + end).parse => [
 			assertNoErrors
@@ -120,7 +122,7 @@ class DefineTypeComputerTest {
 
 	@Test def void testWord() {
 		val real = '''
-			word a = 16#aaaa;
+			word a = 16#AAAA;
 		'''
 		(start + real + end).parse => [
 			assertNoErrors
@@ -129,7 +131,7 @@ class DefineTypeComputerTest {
 
 	@Test def void testDWord() {
 		val real = '''
-			dword a = 16#aaaa_aaaa;
+			dword a = 16#AAAA_AAAA;
 		'''
 		(start + real + end).parse => [
 			assertNoErrors
@@ -137,14 +139,106 @@ class DefineTypeComputerTest {
 	}
 
 	@Test def void testLWord() {
-		val real = '''
-			lword a = 16#aaaa_aaaa_aaaa_aaaa;
-		'''
-		(start + real + end).parse => [
-			assertNoErrors
+		val real = '''lword a = 16#AAAA_AAAA_AAAA_AAAA;'''
+
+		(start + real + end).parse => [assertNoErrors]
+	}
+
+	@Test def void testUSInt() {
+		val uSInt = '''usint a = 20;'''
+		(start + uSInt + end).parse => [assertNoErrors]
+	}
+
+	@Test def void testUSIntBounds() {
+		val uSInt = '''usint a = '''
+		(start + uSInt + '256' + ';' + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + uSInt + '-1' + ';' + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + uSInt + '0 +/- -14' + ';' + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + uSInt + '0 +/- 256' + ';' + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
 		]
 	}
 
+	@Test def void testUIntBounds() {
+		val uInt = '''uint a = '''
+		(start + uInt + '65535+1' + ';' + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + uInt + '-1' + ';' + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + uInt + '0 +/- -14' + ';' + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + uInt + '0 +/- 65535+1' + ';' + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+	}
+
+//bug: -128 -1 isn't allowed because it's recognized as two numbers without an op in between
+	@Test def void testSIntBounds() {
+		val sInt = '''sint a = '''
+		(start + sInt + '-129' + ';' + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + sInt + '128' + ';' + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + sInt + '0 +/-( -128 - 1)' + ';' + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + sInt + '0 +/- (127+1)' + ';' + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+	}
+
+	@Test def void testIntBounds() {
+		val _int = '''int a = '''
+		(start + _int + '-32768 - 1' + ';' + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + _int + '32767+1' + ';' + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + _int + '0 +/- (-32768 - 1)' + ';' + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + _int + '0 +/- (32767+1)' + ';' + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+	}
+
+//	@Test def void testLint() {
+//		val _long = '''lint a = 123L;'''
+//
+//		(start + _long + end) => [
+//			println("aaaa")
+//			parse.assertNoErrors
+//			println("aaaa")
+//		]
+//	}
 	//
 // methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//

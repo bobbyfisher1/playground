@@ -11,6 +11,7 @@ import org.example.eis.eis.Equality
 import org.example.eis.eis.Idiom
 import org.example.eis.eis.IntConstant
 import org.example.eis.eis.LWordConstant
+import org.example.eis.eis.LongConstant
 import org.example.eis.eis.Minus
 import org.example.eis.eis.MulOrDiv
 import org.example.eis.eis.Not
@@ -45,23 +46,48 @@ class EisInterpreter {
 				e.value
 			LWordConstant:
 				e.value
-			Not:
-				!(e.idiom.interpret as Boolean)
-			MulOrDiv: {
-				val left = e.left.interpret as Integer
-				val right = e.right.interpret as Integer
-				if (e.op == '*')
-					left * right
-				else
-					left / right
+			LongConstant:
+				e.value
+			Not: {
+				if (e.idiom.interpret instanceof Boolean)
+					!(e.idiom.interpret as Boolean)
+				else {
+				}
 			}
-			Minus:
-				(e.left.interpret as Integer) - (e.right.interpret as Integer)
+			MulOrDiv: {
+				val left = e.left.interpret
+				val right = e.right.interpret
+				if (left instanceof Integer && right instanceof Integer) {
+					if (e.op == '*')
+						(left as Integer) * (right as Integer)
+					else {
+						if (right as Integer != 0)
+							(left as Integer) / (right as Integer)
+						else {
+						}
+					}
+				} else {
+				}
+			}
+			Minus: {
+				val left = e.left.interpret
+				val right = e.right.interpret
+				if (left instanceof Integer && right instanceof Integer) {
+					(left as Integer) - (right as Integer)
+				} else {
+				}
+			}
 			Plus: {
 				if (e.left.typeFor.isStringType || e.right.typeFor.isStringType)
 					e.left.interpret.toString + e.right.interpret.toString
-				else
-					(e.left.interpret as Integer) + (e.right.interpret as Integer)
+				else {
+					val left = e.left.interpret
+					val right = e.right.interpret
+					if (left instanceof Integer && right instanceof Integer)
+						(left as Integer) + (right as Integer)
+					else {
+					}
+				}
 			}
 			Equality: {
 				if (e.op == '==')
@@ -69,30 +95,48 @@ class EisInterpreter {
 				else
 					e.left.interpret != e.right.interpret
 			}
-			And:
-				(e.left.interpret as Boolean) && (e.right.interpret as Boolean)
-			Or:
-				(e.left.interpret as Boolean) || (e.right.interpret as Boolean)
+			And: {
+				val left = e.left.interpret
+				val right = e.right.interpret
+				if (left instanceof Boolean && right instanceof Boolean) {
+					(left as Boolean) && (right as Boolean)
+				} else {
+				}
+			}
+			Or: {
+				val left = e.left.interpret
+				val right = e.right.interpret
+				if (left instanceof Boolean && right instanceof Boolean) {
+					(left as Boolean) || (right as Boolean)
+				} else {
+				}
+			}
 			Comparison: {
 				if (e.left.typeFor.isStringType) {
-					val left = e.left.interpret as String
-					val right = e.right.interpret as String
-					switch (e.op) {
-						case '<': left < right
-						case '>': left > right
-						case '>=': left >= right
-						case '<=': left <= right
-						default: false
+					val left = e.left.interpret
+					val right = e.right.interpret
+					if (left instanceof String && right instanceof String)
+						switch (e.op) {
+							case '<': (left as String) < (right as String)
+							case '>': (left as String) > (right as String)
+							case '>=': (left as String) >= (right as String)
+							case '<=': (left as String) <= (right as String)
+							default: false
+						}
+					else {
 					}
 				} else {
-					val left = e.left.interpret as Integer
-					val right = e.right.interpret as Integer
-					switch (e.op) {
-						case '<': left < right
-						case '>': left > right
-						case '>=': left >= right
-						case '<=': left <= right
-						default: false
+					val left = e.left.interpret
+					val right = e.right.interpret
+					if (left instanceof Integer && right instanceof Integer)
+						switch (e.op) {
+							case '<': (left as Integer) < (right as Integer)
+							case '>': (left as Integer) > (right as Integer)
+							case '>=': (left as Integer) >= (right as Integer)
+							case '<=': (left as Integer) <= (right as Integer)
+							default: false
+						}
+					else {
 					}
 				}
 			}

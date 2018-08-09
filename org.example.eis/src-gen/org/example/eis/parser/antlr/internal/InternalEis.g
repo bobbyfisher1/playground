@@ -2090,6 +2090,34 @@ ruleAtomic returns [EObject current=null]
 				)
 			)
 		)
+		    |
+		(
+			(
+				{
+					$current = forceCreateModelElement(
+						grammarAccess.getAtomicAccess().getLongConstantAction_9_0(),
+						$current);
+				}
+			)
+			(
+				(
+					lv_value_18_0=RULE_LONG
+					{
+						newLeafNode(lv_value_18_0, grammarAccess.getAtomicAccess().getValueLONGTerminalRuleCall_9_1_0());
+					}
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getAtomicRule());
+						}
+						setWithLastConsumed(
+							$current,
+							"value",
+							lv_value_18_0,
+							"org.example.eis.Eis.LONG");
+					}
+				)
+			)
+		)
 	)
 ;
 
@@ -2703,9 +2731,11 @@ ruleBasicType returns [Enumerator current=null]
 
 fragment RULE_DIGIT : '0'..'9';
 
-fragment RULE_HEXDIGIT : (RULE_DIGIT|'a'..'f'|'A'..'F');
+fragment RULE_HEXDIGIT : (RULE_DIGIT|'A'..'F');
 
-RULE_INT : '-'? ('0'..'9')+;
+RULE_INT : '-'? RULE_DIGIT+;
+
+RULE_LONG : '-'? RULE_INT ('l'|'L');
 
 RULE_REAL : RULE_INT '.' RULE_DIGIT+;
 

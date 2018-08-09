@@ -9,6 +9,8 @@ import org.example.eis.eis.DWordConstant
 import org.example.eis.eis.Equality
 import org.example.eis.eis.Idiom
 import org.example.eis.eis.IntConstant
+import org.example.eis.eis.LWordConstant
+import org.example.eis.eis.LongConstant
 import org.example.eis.eis.Minus
 import org.example.eis.eis.MulOrDiv
 import org.example.eis.eis.Not
@@ -18,7 +20,22 @@ import org.example.eis.eis.RealConstant
 import org.example.eis.eis.StringConstant
 import org.example.eis.eis.VariableRef
 import org.example.eis.eis.WordConstant
-import org.example.eis.eis.LWordConstant
+import org.example.eis.typing.types.BoolType
+import org.example.eis.typing.types.ByteType
+import org.example.eis.typing.types.DIntType
+import org.example.eis.typing.types.DWordType
+import org.example.eis.typing.types.IntType
+import org.example.eis.typing.types.LIntType
+import org.example.eis.typing.types.LWordType
+import org.example.eis.typing.types.NullType
+import org.example.eis.typing.types.RealType
+import org.example.eis.typing.types.SIntType
+import org.example.eis.typing.types.StringType
+import org.example.eis.typing.types.UDIntType
+import org.example.eis.typing.types.UIntType
+import org.example.eis.typing.types.ULIntType
+import org.example.eis.typing.types.USIntType
+import org.example.eis.typing.types.WordType
 
 class DefineTypeComputer {
 	public static val STRING_TYPE = new StringType
@@ -41,7 +58,7 @@ class DefineTypeComputer {
 
 	def isStringType(DefineType type) { type === STRING_TYPE }
 
-	def isIntType(DefineType type) {
+	def isIntSuperType(DefineType type) {
 		type === INT_TYPE || type === USINT_TYPE || type === UINT_TYPE || type === UDINT_TYPE || type === ULINT_TYPE ||
 			type === SINT_TYPE || type === DINT_TYPE || type === LINT_TYPE
 	}
@@ -58,6 +75,16 @@ class DefineTypeComputer {
 
 	def isLWordType(DefineType type) { type === LWORD_TYPE }
 
+	def isUSIntType(DefineType type) { type === USINT_TYPE }
+
+	def isUIntType(DefineType type) { type === UINT_TYPE }
+
+	def isSIntType(DefineType type) { type === SINT_TYPE }
+
+	def isIntType(DefineType type) { type === INT_TYPE }
+
+	def isDIntType(DefineType type) { type === DINT_TYPE }
+
 	def dispatch DefineType typeFor(Idiom i) {
 		switch (i) {
 			StringConstant: STRING_TYPE
@@ -68,6 +95,8 @@ class DefineTypeComputer {
 			WordConstant: WORD_TYPE
 			DWordConstant: DWORD_TYPE
 			LWordConstant: LWORD_TYPE
+			//
+			LongConstant: LINT_TYPE
 			//
 			Not: BOOL_TYPE
 			MulOrDiv: INT_TYPE

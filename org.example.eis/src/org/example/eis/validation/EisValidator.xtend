@@ -64,7 +64,8 @@ class EisValidator extends AbstractEisValidator {
 	public static val INVALID_RANGE_DEFINITION = ISSUE_CODE_PREFIX + "InvalidRangeDefinition"
 	public static val MULTIPLE_PLCCYCLE = ISSUE_CODE_PREFIX + "MultiplePlcCycle"
 	public static val MULTIPLE_TESTCASE_NAME = ISSUE_CODE_PREFIX + "MultipleTestcaseName"
-	public static val OUT_OF_BOUNDS = ISSUE_CODE_PREFIX + "MultipleTestcaseName"
+	public static val VALUE_EXCEEDING_DATATYPE_BOUNDS = ISSUE_CODE_PREFIX + "ValueExceedingDatatypeBounds"
+	public static val DIVISION_BY_ZERO = ISSUE_CODE_PREFIX + "DivisionByZero"
 
 	@Inject extension DefineTypeComputer
 	@Inject extension EisInterpreter
@@ -242,7 +243,8 @@ class EisValidator extends AbstractEisValidator {
 	@Check def void checkType(Plus plus) {
 		val leftType = getTypeAndCheckNotNull(plus.left, EisPackage.Literals.PLUS__LEFT)
 		val rightType = getTypeAndCheckNotNull(plus.right, EisPackage.Literals.PLUS__RIGHT)
-		if (leftType.isIntType || rightType.isIntType || (!leftType.isStringType && !rightType.isStringType)) {
+		if (leftType.isIntSuperType || rightType.isIntSuperType ||
+			(!leftType.isStringType && !rightType.isStringType)) {
 			checkNotBoolean(leftType, EisPackage.Literals.PLUS__LEFT)
 			checkNotBoolean(rightType, EisPackage.Literals.PLUS__RIGHT)
 		}
@@ -258,13 +260,13 @@ class EisValidator extends AbstractEisValidator {
 				return;
 
 			if (expectedType !== actualType)
-				if (!(actualType.isIntType && expectedType.isIntType))
+				if (!(actualType.isIntSuperType && expectedType.isIntSuperType))
 					error(
 						"Incompatible types. Expected '" + expectedType.toString + "' but was '" + actualType.toString +
 							"'", variable, EisPackage.eINSTANCE.variable_Idiom, INCOMPATIBLE_TYPES)
 
 			if (rangeType !== null && rangeType != expectedType)
-				if (!(rangeType.isIntType && expectedType.isIntType))
+				if (!(rangeType.isIntSuperType && expectedType.isIntSuperType))
 					error(
 						"Incompatible types. Expected '" + expectedType.toString + "' but was '" + rangeType.toString +
 							"'", variable, EisPackage.eINSTANCE.variable_Range, INCOMPATIBLE_TYPES)
@@ -506,15 +508,61 @@ class EisValidator extends AbstractEisValidator {
 		}
 	}
 
-//	@Check def void checkDatatypeBoundaries(Variable variable) {
-//		if (variable.idiom !== null) {
-//			val expectedType = variable.variableType.typeFor
-//			
-//	}
+	@Check def void checkVariableValues(Variable variable) {
+		val expectedType = variable.variableType.typeFor
+		val idiom = variable?.idiom
+		val range = variable?.range
+
+		if (idiom !== null)
+			if (!(idiom instanceof VariableRef)) {
+				val idiomValue = idiom.interpret
+				if (idiomValue instanceof Integer)
+					if (idiomValue.checkNumericalValues(expectedType))
+						error("Value is out of the datatype boundaries.", variable, EisPackage.eINSTANCE.variable_Idiom,
+							VALUE_EXCEEDING_DATATYPE_BOUNDS)
+			}
+
+		if (variable.range !== null)
+			if (!(range instanceof VariableRef)) {
+				val rangeValue = range.interpret
+				if (rangeValue instanceof Integer)
+					if (rangeValue.checkNumericalValues(expectedType))
+						error("Value is out of the datatype boundaries.", variable, EisPackage.eINSTANCE.variable_Range,
+							VALUE_EXCEEDING_DATATYPE_BOUNDS)
+			}
+	}
+
+	@Check def void checkDivisionByZero(MulOrDiv mulOrDiv) {
+		val right = mulOrDiv.right.interpret
+		if (right instanceof Integer)
+			if (right == 0)
+				error("Division by zero.", mulOrDiv, EisPackage.eINSTANCE.mulOrDiv_Right, DIVISION_BY_ZERO)
+	}
+
 //
 // methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //
-	def EObject directionBlock(EObject context) {
+	def private boolean checkNumericalValues(int idiom, DefineType expectedType) {
+		switch expectedType {
+			case expectedType.isUSIntType: idiom.outOfBounds(0, 255)
+			case expectedType.isUIntType: idiom.outOfBounds(0, 65535)
+			case expectedType.isSIntType: idiom.outOfBounds(-128, 127)
+			case expectedType.isIntType: idiom.outOfBounds(-32768, 32767)
+//			case expectedType.isDIntType: idiom.outOfBounds(-2147483648,2147483647) // the xtext int is a 32-Bit-Int anyways
+			default: false
+		}
+	}
+
+	def private boolean outOfBounds(int idiom, int lower, int upper) {
+		var outOfBounds = false
+
+		if (idiom < lower || idiom > upper)
+			outOfBounds = true
+
+		return outOfBounds
+	}
+
+	def private EObject directionBlock(EObject context) {
 		val container = context.eContainer
 		if (container instanceof DirectionBlock)
 			return context
@@ -609,11 +657,11 @@ class EisValidator extends AbstractEisValidator {
 		val expectedType = _expectedType.typeFor
 
 		if (actualType != expectedType)
-			if (!(actualType.isIntType && expectedType.isIntType))
+			if (!(actualType.isIntSuperType && expectedType.isIntSuperType))
 				error("Incompatible types. Expected '" + expectedType.toString + "' but was '" + actualType.toString +
 					"'", statement, EisPackage.eINSTANCE.statement_Idiom, INCOMPATIBLE_TYPES)
 		if (rangeType !== null && rangeType != expectedType)
-			if (!(actualType.isIntType && expectedType.isIntType))
+			if (!(actualType.isIntSuperType && expectedType.isIntSuperType))
 				error("Incompatible types. Expected '" + expectedType.toString + "' but was '" + rangeType.toString +
 					"'", statement, EisPackage.eINSTANCE.statement_Range, INCOMPATIBLE_TYPES)
 	}
@@ -720,7 +768,7 @@ class EisValidator extends AbstractEisValidator {
 						newVariable.idiom = new BoolConstantImpl;
 						(newVariable.idiom as BoolConstant).value = variable?.idiom?.interpret?.toString
 					}
-					case type.isIntType: {
+					case type.isIntSuperType: {
 						newVariable.idiom = new IntConstantImpl;
 						(newVariable.idiom as IntConstant).value = variable?.idiom?.interpret as Integer
 					}
@@ -736,7 +784,7 @@ class EisValidator extends AbstractEisValidator {
 						newVariable.range = new BoolConstantImpl;
 						(newVariable.range as BoolConstant).value = variable?.range?.interpret?.toString
 					}
-					case type.isIntType: {
+					case type.isIntSuperType: {
 						newVariable.range = new IntConstantImpl;
 						(newVariable.range as IntConstant).value = (variable?.range?.interpret as Integer)
 					}

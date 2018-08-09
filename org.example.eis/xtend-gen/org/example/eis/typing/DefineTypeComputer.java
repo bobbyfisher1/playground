@@ -11,6 +11,7 @@ import org.example.eis.eis.Equality;
 import org.example.eis.eis.Idiom;
 import org.example.eis.eis.IntConstant;
 import org.example.eis.eis.LWordConstant;
+import org.example.eis.eis.LongConstant;
 import org.example.eis.eis.Minus;
 import org.example.eis.eis.MulOrDiv;
 import org.example.eis.eis.Not;
@@ -20,23 +21,23 @@ import org.example.eis.eis.RealConstant;
 import org.example.eis.eis.StringConstant;
 import org.example.eis.eis.VariableRef;
 import org.example.eis.eis.WordConstant;
-import org.example.eis.typing.BoolType;
-import org.example.eis.typing.ByteType;
-import org.example.eis.typing.DIntType;
-import org.example.eis.typing.DWordType;
 import org.example.eis.typing.DefineType;
-import org.example.eis.typing.IntType;
-import org.example.eis.typing.LIntType;
-import org.example.eis.typing.LWordType;
-import org.example.eis.typing.NullType;
-import org.example.eis.typing.RealType;
-import org.example.eis.typing.SIntType;
-import org.example.eis.typing.StringType;
-import org.example.eis.typing.UDIntType;
-import org.example.eis.typing.UIntType;
-import org.example.eis.typing.ULIntType;
-import org.example.eis.typing.USIntType;
-import org.example.eis.typing.WordType;
+import org.example.eis.typing.types.BoolType;
+import org.example.eis.typing.types.ByteType;
+import org.example.eis.typing.types.DIntType;
+import org.example.eis.typing.types.DWordType;
+import org.example.eis.typing.types.IntType;
+import org.example.eis.typing.types.LIntType;
+import org.example.eis.typing.types.LWordType;
+import org.example.eis.typing.types.NullType;
+import org.example.eis.typing.types.RealType;
+import org.example.eis.typing.types.SIntType;
+import org.example.eis.typing.types.StringType;
+import org.example.eis.typing.types.UDIntType;
+import org.example.eis.typing.types.UIntType;
+import org.example.eis.typing.types.ULIntType;
+import org.example.eis.typing.types.USIntType;
+import org.example.eis.typing.types.WordType;
 
 @SuppressWarnings("all")
 public class DefineTypeComputer {
@@ -76,7 +77,7 @@ public class DefineTypeComputer {
     return (type == DefineTypeComputer.STRING_TYPE);
   }
   
-  public boolean isIntType(final DefineType type) {
+  public boolean isIntSuperType(final DefineType type) {
     return ((((((((type == DefineTypeComputer.INT_TYPE) || (type == DefineTypeComputer.USINT_TYPE)) || (type == DefineTypeComputer.UINT_TYPE)) || (type == DefineTypeComputer.UDINT_TYPE)) || (type == DefineTypeComputer.ULINT_TYPE)) || 
       (type == DefineTypeComputer.SINT_TYPE)) || (type == DefineTypeComputer.DINT_TYPE)) || (type == DefineTypeComputer.LINT_TYPE));
   }
@@ -103,6 +104,26 @@ public class DefineTypeComputer {
   
   public boolean isLWordType(final DefineType type) {
     return (type == DefineTypeComputer.LWORD_TYPE);
+  }
+  
+  public boolean isUSIntType(final DefineType type) {
+    return (type == DefineTypeComputer.USINT_TYPE);
+  }
+  
+  public boolean isUIntType(final DefineType type) {
+    return (type == DefineTypeComputer.UINT_TYPE);
+  }
+  
+  public boolean isSIntType(final DefineType type) {
+    return (type == DefineTypeComputer.SINT_TYPE);
+  }
+  
+  public boolean isIntType(final DefineType type) {
+    return (type == DefineTypeComputer.INT_TYPE);
+  }
+  
+  public boolean isDIntType(final DefineType type) {
+    return (type == DefineTypeComputer.DINT_TYPE);
   }
   
   protected DefineType _typeFor(final Idiom i) {
@@ -152,6 +173,12 @@ public class DefineTypeComputer {
       if (i instanceof LWordConstant) {
         _matched=true;
         _switchResult = DefineTypeComputer.LWORD_TYPE;
+      }
+    }
+    if (!_matched) {
+      if (i instanceof LongConstant) {
+        _matched=true;
+        _switchResult = DefineTypeComputer.LINT_TYPE;
       }
     }
     if (!_matched) {

@@ -98,7 +98,7 @@ public class EisFormatter extends AbstractFormatter2 {
     if (_tripleNotEquals) {
       EList<Testcase> _testcases_1 = eisModel.getTestcases();
       for (final Testcase testcase : _testcases_1) {
-        document.<Testcase>format(testcase);
+        this.format(testcase, document);
       }
     }
   }
@@ -132,7 +132,7 @@ public class EisFormatter extends AbstractFormatter2 {
         it.indent();
       };
       document.<ISemanticRegion, ISemanticRegion>interior(open, close, _function_5);
-      document.<Testblock>format(testcase.getTestblock());
+      this.format(testcase.getTestblock(), document);
     } else {
       final Procedure1<IHiddenRegionFormatter> _function_6 = (IHiddenRegionFormatter it) -> {
         it.noSpace();
@@ -187,7 +187,7 @@ public class EisFormatter extends AbstractFormatter2 {
     DefineBlock _define = testblock.getDefine();
     boolean _tripleNotEquals = (_define != null);
     if (_tripleNotEquals) {
-      document.<DefineBlock>format(testblock.getDefine());
+      this.format(testblock.getDefine(), document);
     }
   }
   
@@ -210,13 +210,13 @@ public class EisFormatter extends AbstractFormatter2 {
       it.indent();
     };
     document.<ISemanticRegion, ISemanticRegion>interior(open, close, _function_3);
-    document.<DirectionBlock>format(defineblock.getDirection());
+    this.format(defineblock.getDirection(), document);
     EList<TeststepBlock> _teststeps = defineblock.getTeststeps();
     boolean _tripleNotEquals = (_teststeps != null);
     if (_tripleNotEquals) {
       EList<TeststepBlock> _teststeps_1 = defineblock.getTeststeps();
       for (final TeststepBlock teststep : _teststeps_1) {
-        document.<TeststepBlock>format(teststep);
+        this.format(teststep, document);
       }
     }
   }

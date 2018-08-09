@@ -299,15 +299,15 @@ class EisGenerator extends AbstractGenerator {
 	def private String defaultValue(Variable variable) {
 		val type = variable.variableType.typeFor
 		switch type{
-			case type.isBoolType:	return "false"	
-			case type.isIntType:	 return "0"			
-			case type.isStringType:return ""
-			case type.isRealType: return "0.0"
-			case type.isByteType: return "16#00"
-			case type.isWordType: return "16#0000"
-			case type.isDWordType: return "16#0000_0000"
-			case type.isLWordType: return "16#0000_0000_0000_0000"
-		}
+			case type.isBoolType:	"false"	
+			case type.isIntSuperType:	  "0"			
+			case type.isStringType: ""
+			case type.isRealType:  "0.0"
+			case type.isByteType:  "16#00"
+			case type.isWordType:  "16#0000"
+			case type.isDWordType:  "16#0000_0000"
+			case type.isLWordType:  "16#0000_0000_0000_0000"
+		}		
 	}
 	
 //	def private String defaultRange(Variable variable) {

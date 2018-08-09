@@ -38,7 +38,6 @@ class EisFormatter extends AbstractFormatter2 {
 
 	@Inject extension EisGrammarAccess
 
-//	val TAB = "	"
 	def dispatch void format(EisModel eisModel, extension IFormattableDocument document) {
 		eisModel.regionFor.keyword("project").prepend[noSpace].append[oneSpace]
 		eisModel.regionFor.feature(EIS_MODEL__PROJECT_NAME).prepend[oneSpace]
@@ -53,8 +52,8 @@ class EisFormatter extends AbstractFormatter2 {
 		eisModel.regionFor.keyword(eisModelAccess.semicolonKeyword_7).surround[noSpace]
 
 		if (eisModel.testcases !== null)
-			for (testcase : eisModel.testcases)
-				testcase.format
+			for (Testcase testcase : eisModel.testcases)
+				testcase.format(document)
 	}
 
 	def dispatch void format(Testcase testcase, extension IFormattableDocument document) {
@@ -68,7 +67,7 @@ class EisFormatter extends AbstractFormatter2 {
 			close.prepend[newLine]
 			interior(open, close)[indent]
 
-			testcase.testblock.format
+			testcase.testblock.format(document)
 		} else {
 			open.append[noSpace]
 			close.append[newLine]
@@ -88,7 +87,7 @@ class EisFormatter extends AbstractFormatter2 {
 		testblock.regionFor.keyword(testblockAccess.semicolonKeyword_11).surround[noSpace]
 
 		if (testblock.define !== null)
-			testblock.define.format
+			testblock.define.format(document)
 	}
 
 	def dispatch void format(DefineBlock defineblock, extension IFormattableDocument document) {
@@ -100,11 +99,11 @@ class EisFormatter extends AbstractFormatter2 {
 		close.prepend[newLine]
 		interior(open, close)[indent]
 
-		defineblock.direction.format
+		defineblock.direction.format(document)
 
 		if (defineblock.teststeps !== null)
-			for (teststep : defineblock.teststeps)
-				teststep.format
+			for (TeststepBlock teststep : defineblock.teststeps)
+				teststep.format(document)
 	}
 
 	def dispatch void format(DirectionBlock directionblock, extension IFormattableDocument document) {

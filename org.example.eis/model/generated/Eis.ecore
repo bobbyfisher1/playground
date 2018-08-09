@@ -211,4 +211,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="LWordConstant" eSuperTypes="#//Idiom">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LongConstant" eSuperTypes="#//Idiom">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+  </eClassifiers>
 </ecore:EPackage>

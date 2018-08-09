@@ -984,7 +984,7 @@ class EisGeneratorTest {
 				output[]
 			}
 			teststep(1, ""){
-				set[ a = 16#aa; ]
+				set[ a = 16#AA; ]
 				assert[]
 			}
 		''' + ending ) => [
@@ -1001,7 +1001,7 @@ class EisGeneratorTest {
 								<Teststeps>
 									<Teststep PlcCycle ="1" Description="">
 										<Inputs>
-											<Element xsi:type="Input" Name="a" Datatype="Byte" Direction="Input" Value="16#aa" Variant="false" />
+											<Element xsi:type="Input" Name="a" Datatype="Byte" Direction="Input" Value="16#AA" Variant="false" />
 										</Inputs>
 										<Outputs>
 										</Outputs>
@@ -1022,7 +1022,7 @@ class EisGeneratorTest {
 				output[]
 			}
 			teststep(1, ""){
-				set[ a = 16#aaaa; ]
+				set[ a = 16#AAAA; ]
 				assert[]
 			}
 		''' + ending ) => [
@@ -1039,7 +1039,7 @@ class EisGeneratorTest {
 								<Teststeps>
 									<Teststep PlcCycle ="1" Description="">
 										<Inputs>
-											<Element xsi:type="Input" Name="a" Datatype="Word" Direction="Input" Value="16#aaaa" Variant="false" />
+											<Element xsi:type="Input" Name="a" Datatype="Word" Direction="Input" Value="16#AAAA" Variant="false" />
 										</Inputs>
 										<Outputs>
 										</Outputs>
@@ -1060,7 +1060,7 @@ class EisGeneratorTest {
 				output[]
 			}
 			teststep(1, ""){
-				set[ a = 16#aaaa_aaaa; ]
+				set[ a = 16#AAAA_AAAA; ]
 				assert[]
 			}
 		''' + ending ) => [
@@ -1077,7 +1077,7 @@ class EisGeneratorTest {
 								<Teststeps>
 									<Teststep PlcCycle ="1" Description="">
 										<Inputs>
-											<Element xsi:type="Input" Name="a" Datatype="Dword" Direction="Input" Value="16#aaaa_aaaa" Variant="false" />
+											<Element xsi:type="Input" Name="a" Datatype="Dword" Direction="Input" Value="16#AAAA_AAAA" Variant="false" />
 										</Inputs>
 										<Outputs>
 										</Outputs>
@@ -1098,7 +1098,7 @@ class EisGeneratorTest {
 				output[]
 			}
 			teststep(1, ""){
-				set[ a = 16#aaaa_aaaa_aaaa_aaaa; ]
+				set[ a = 16#AAAA_AAAA_AAAA_AAAA; ]
 				assert[]
 			}
 		''' + ending ) => [
@@ -1115,7 +1115,7 @@ class EisGeneratorTest {
 								<Teststeps>
 									<Teststep PlcCycle ="1" Description="">
 										<Inputs>
-											<Element xsi:type="Input" Name="a" Datatype="Lword" Direction="Input" Value="16#aaaa_aaaa_aaaa_aaaa" Variant="false" />
+											<Element xsi:type="Input" Name="a" Datatype="Lword" Direction="Input" Value="16#AAAA_AAAA_AAAA_AAAA" Variant="false" />
 										</Inputs>
 										<Outputs>
 										</Outputs>

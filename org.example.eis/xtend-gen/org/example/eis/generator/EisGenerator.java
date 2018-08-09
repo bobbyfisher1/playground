@@ -668,63 +668,68 @@ public class EisGenerator extends AbstractGenerator {
   }
   
   private String defaultValue(final Variable variable) {
-    final DefineType type = this._defineTypeComputer.typeFor(variable.getVariableType());
-    boolean _matched = false;
-    boolean _isBoolType = this._defineTypeComputer.isBoolType(type);
-    if (_isBoolType) {
-      _matched=true;
-      return "false";
-    }
-    if (!_matched) {
-      boolean _isIntType = this._defineTypeComputer.isIntType(type);
-      if (_isIntType) {
+    String _xblockexpression = null;
+    {
+      final DefineType type = this._defineTypeComputer.typeFor(variable.getVariableType());
+      String _switchResult = null;
+      boolean _matched = false;
+      boolean _isBoolType = this._defineTypeComputer.isBoolType(type);
+      if (_isBoolType) {
         _matched=true;
-        return "0";
+        _switchResult = "false";
       }
-    }
-    if (!_matched) {
-      boolean _isStringType = this._defineTypeComputer.isStringType(type);
-      if (_isStringType) {
-        _matched=true;
-        return "";
+      if (!_matched) {
+        boolean _isIntSuperType = this._defineTypeComputer.isIntSuperType(type);
+        if (_isIntSuperType) {
+          _matched=true;
+          _switchResult = "0";
+        }
       }
-    }
-    if (!_matched) {
-      boolean _isRealType = this._defineTypeComputer.isRealType(type);
-      if (_isRealType) {
-        _matched=true;
-        return "0.0";
+      if (!_matched) {
+        boolean _isStringType = this._defineTypeComputer.isStringType(type);
+        if (_isStringType) {
+          _matched=true;
+          _switchResult = "";
+        }
       }
-    }
-    if (!_matched) {
-      boolean _isByteType = this._defineTypeComputer.isByteType(type);
-      if (_isByteType) {
-        _matched=true;
-        return "16#00";
+      if (!_matched) {
+        boolean _isRealType = this._defineTypeComputer.isRealType(type);
+        if (_isRealType) {
+          _matched=true;
+          _switchResult = "0.0";
+        }
       }
-    }
-    if (!_matched) {
-      boolean _isWordType = this._defineTypeComputer.isWordType(type);
-      if (_isWordType) {
-        _matched=true;
-        return "16#0000";
+      if (!_matched) {
+        boolean _isByteType = this._defineTypeComputer.isByteType(type);
+        if (_isByteType) {
+          _matched=true;
+          _switchResult = "16#00";
+        }
       }
-    }
-    if (!_matched) {
-      boolean _isDWordType = this._defineTypeComputer.isDWordType(type);
-      if (_isDWordType) {
-        _matched=true;
-        return "16#0000_0000";
+      if (!_matched) {
+        boolean _isWordType = this._defineTypeComputer.isWordType(type);
+        if (_isWordType) {
+          _matched=true;
+          _switchResult = "16#0000";
+        }
       }
-    }
-    if (!_matched) {
-      boolean _isLWordType = this._defineTypeComputer.isLWordType(type);
-      if (_isLWordType) {
-        _matched=true;
-        return "16#0000_0000_0000_0000";
+      if (!_matched) {
+        boolean _isDWordType = this._defineTypeComputer.isDWordType(type);
+        if (_isDWordType) {
+          _matched=true;
+          _switchResult = "16#0000_0000";
+        }
       }
+      if (!_matched) {
+        boolean _isLWordType = this._defineTypeComputer.isLWordType(type);
+        if (_isLWordType) {
+          _matched=true;
+          _switchResult = "16#0000_0000_0000_0000";
+        }
+      }
+      _xblockexpression = _switchResult;
     }
-    return null;
+    return _xblockexpression;
   }
   
   private void overwriteInput(final HashMap<Object, Object> setMap, final TeststepBlock teststep) {

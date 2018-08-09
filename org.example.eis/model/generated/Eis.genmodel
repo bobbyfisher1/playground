@@ -176,5 +176,8 @@
     <genClasses ecoreClass="Eis.ecore#//LWordConstant">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//LWordConstant/value"/>
     </genClasses>
+    <genClasses ecoreClass="Eis.ecore#//LongConstant">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//LongConstant/value"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>
