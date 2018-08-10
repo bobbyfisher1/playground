@@ -297,6 +297,16 @@ public class EisValidator extends AbstractEisValidator {
   }
   
   @Check
+  public void checkDivisionByZero(final MulOrDiv mulOrDiv) {
+    final Object right = this._eisInterpreter.interpret(mulOrDiv.getRight());
+    if ((right instanceof Long)) {
+      if ((((Long) right).longValue() == 0)) {
+        this.error("Division by zero.", mulOrDiv, EisPackage.eINSTANCE.getMulOrDiv_Right(), EisValidator.DIVISION_BY_ZERO);
+      }
+    }
+  }
+  
+  @Check
   public void checkType(final Equality equality) {
     final DefineType leftType = this.getTypeAndCheckNotNull(equality.getLeft(), EisPackage.Literals.EQUALITY__LEFT);
     final DefineType rightType = this.getTypeAndCheckNotNull(equality.getRight(), EisPackage.Literals.EQUALITY__RIGHT);
@@ -666,16 +676,16 @@ public class EisValidator extends AbstractEisValidator {
   
   @Check
   public void checkUniquePlcCycles(final DefineBlock define) {
-    HashMultimap<Integer, TeststepBlock> multiMap = HashMultimap.<Integer, TeststepBlock>create();
+    HashMultimap<Long, TeststepBlock> multiMap = HashMultimap.<Long, TeststepBlock>create();
     EList<TeststepBlock> _teststeps = null;
     if (define!=null) {
       _teststeps=define.getTeststeps();
     }
     for (final TeststepBlock e : _teststeps) {
-      multiMap.put(Integer.valueOf(e.getPlcCycle()), e);
+      multiMap.put(Long.valueOf(e.getPlcCycle()), e);
     }
-    Set<Map.Entry<Integer, Collection<TeststepBlock>>> _entrySet = multiMap.asMap().entrySet();
-    for (final Map.Entry<Integer, Collection<TeststepBlock>> entry : _entrySet) {
+    Set<Map.Entry<Long, Collection<TeststepBlock>>> _entrySet = multiMap.asMap().entrySet();
+    for (final Map.Entry<Long, Collection<TeststepBlock>> entry : _entrySet) {
       {
         final Collection<TeststepBlock> duplicates = entry.getValue();
         int _size = duplicates.size();
@@ -732,8 +742,8 @@ public class EisValidator extends AbstractEisValidator {
     if ((idiom != null)) {
       if ((!(idiom instanceof VariableRef))) {
         final Object idiomValue = this._eisInterpreter.interpret(idiom);
-        if ((idiomValue instanceof Integer)) {
-          boolean _checkNumericalValues = this.checkNumericalValues(((Integer) idiomValue).intValue(), expectedType);
+        if ((idiomValue instanceof Long)) {
+          boolean _checkNumericalValues = this.checkNumericalValues(((Long) idiomValue).longValue(), expectedType);
           if (_checkNumericalValues) {
             this.error("Value is out of the datatype boundaries.", variable, EisPackage.eINSTANCE.getVariable_Idiom(), 
               EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
@@ -746,8 +756,8 @@ public class EisValidator extends AbstractEisValidator {
     if (_tripleNotEquals) {
       if ((!(range instanceof VariableRef))) {
         final Object rangeValue = this._eisInterpreter.interpret(range);
-        if ((rangeValue instanceof Integer)) {
-          boolean _checkNumericalValues_1 = this.checkNumericalValues(((Integer) rangeValue).intValue(), expectedType);
+        if ((rangeValue instanceof Long)) {
+          boolean _checkNumericalValues_1 = this.checkNumericalValues(((Long) rangeValue).longValue(), expectedType);
           if (_checkNumericalValues_1) {
             this.error("Value is out of the datatype boundaries.", variable, EisPackage.eINSTANCE.getVariable_Range(), 
               EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
@@ -758,16 +768,83 @@ public class EisValidator extends AbstractEisValidator {
   }
   
   @Check
-  public void checkDivisionByZero(final MulOrDiv mulOrDiv) {
-    final Object right = this._eisInterpreter.interpret(mulOrDiv.getRight());
-    if ((right instanceof Integer)) {
-      if ((((Integer) right).intValue() == 0)) {
-        this.error("Division by zero.", mulOrDiv, EisPackage.eINSTANCE.getMulOrDiv_Right(), EisValidator.DIVISION_BY_ZERO);
+  public void checkStatementValues(final Statement statement) {
+    final EList<Cascade> cascade = statement.getCascade();
+    final Variables variable = statement.getVariable();
+    Cascade _last = null;
+    if (cascade!=null) {
+      _last=IterableExtensions.<Cascade>last(cascade);
+    }
+    Variables _udtVar = null;
+    if (_last!=null) {
+      _udtVar=_last.getUdtVar();
+    }
+    final Variables last = _udtVar;
+    Idiom _idiom = null;
+    if (statement!=null) {
+      _idiom=statement.getIdiom();
+    }
+    final Idiom idiom = _idiom;
+    Idiom _range = null;
+    if (statement!=null) {
+      _range=statement.getRange();
+    }
+    final Idiom range = _range;
+    DefineType expectedType = this._defineTypeComputer.typeFor(BasicType.NULL);
+    if ((variable instanceof Variable)) {
+      expectedType = this._defineTypeComputer.typeFor(((Variable)variable).getVariableType());
+      if ((!(idiom instanceof VariableRef))) {
+        final Object idiomValue = this._eisInterpreter.interpret(idiom);
+        if ((idiomValue instanceof Long)) {
+          boolean _checkNumericalValues = this.checkNumericalValues(((Long) idiomValue).longValue(), expectedType);
+          if (_checkNumericalValues) {
+            this.error("Value is out of the datatype boundaries.", statement, 
+              EisPackage.eINSTANCE.getStatement_Idiom(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+          }
+        }
+      }
+      if ((range != null)) {
+        if ((!(range instanceof VariableRef))) {
+          final Object rangeValue = this._eisInterpreter.interpret(range);
+          if ((rangeValue instanceof Long)) {
+            boolean _checkNumericalValues_1 = this.checkNumericalValues(((Long) rangeValue).longValue(), expectedType);
+            if (_checkNumericalValues_1) {
+              this.error("Value is out of the datatype boundaries.", statement, 
+                EisPackage.eINSTANCE.getStatement_Range(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+            }
+          }
+        }
+      }
+    } else {
+      if ((last instanceof Variable)) {
+        expectedType = this._defineTypeComputer.typeFor(((Variable)last).getVariableType());
+        if ((!(idiom instanceof VariableRef))) {
+          final Object idiomValue_1 = this._eisInterpreter.interpret(idiom);
+          if ((idiomValue_1 instanceof Long)) {
+            boolean _checkNumericalValues_2 = this.checkNumericalValues(((Long) idiomValue_1).longValue(), expectedType);
+            if (_checkNumericalValues_2) {
+              this.error("Value is out of the datatype boundaries.", statement, 
+                EisPackage.eINSTANCE.getStatement_Idiom(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+            }
+          }
+        }
+        if ((range != null)) {
+          if ((!(range instanceof VariableRef))) {
+            final Object rangeValue_1 = this._eisInterpreter.interpret(range);
+            if ((rangeValue_1 instanceof Long)) {
+              boolean _checkNumericalValues_3 = this.checkNumericalValues(((Long) rangeValue_1).longValue(), expectedType);
+              if (_checkNumericalValues_3) {
+                this.error("Value is out of the datatype boundaries.", statement, 
+                  EisPackage.eINSTANCE.getStatement_Range(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+              }
+            }
+          }
+        }
       }
     }
   }
   
-  private boolean checkNumericalValues(final int idiom, final DefineType expectedType) {
+  private boolean checkNumericalValues(final long idiom, final DefineType expectedType) {
     boolean _switchResult = false;
     boolean _matched = false;
     boolean _isUSIntType = this._defineTypeComputer.isUSIntType(expectedType);
@@ -780,6 +857,13 @@ public class EisValidator extends AbstractEisValidator {
       if (_isUIntType) {
         _matched=true;
         _switchResult = this.outOfBounds(idiom, 0, 65535);
+      }
+    }
+    if (!_matched) {
+      boolean _isUDIntType = this._defineTypeComputer.isUDIntType(expectedType);
+      if (_isUDIntType) {
+        _matched=true;
+        _switchResult = this.outOfBounds(idiom, 0, 4294967295L);
       }
     }
     if (!_matched) {
@@ -797,12 +881,27 @@ public class EisValidator extends AbstractEisValidator {
       }
     }
     if (!_matched) {
+      boolean _isDIntType = this._defineTypeComputer.isDIntType(expectedType);
+      if (_isDIntType) {
+        _matched=true;
+        _switchResult = this.outOfBounds(idiom, (-2147483647), 2147483647);
+      }
+    }
+    if (!_matched) {
       _switchResult = false;
     }
     return _switchResult;
   }
   
-  private boolean outOfBounds(final int idiom, final int lower, final int upper) {
+  private boolean outOfBounds(final long idiom, final int lower, final int upper) {
+    boolean outOfBounds = false;
+    if (((idiom < lower) || (idiom > upper))) {
+      outOfBounds = true;
+    }
+    return outOfBounds;
+  }
+  
+  private boolean outOfBounds(final long idiom, final int lower, final long upper) {
     boolean outOfBounds = false;
     if (((idiom < lower) || (idiom > upper))) {
       outOfBounds = true;
@@ -1114,7 +1213,7 @@ public class EisValidator extends AbstractEisValidator {
             if (_idiom_6!=null) {
               _interpret_2=this._eisInterpreter.interpret(_idiom_6);
             }
-            ((IntConstant) _idiom_5).setValue((((Integer) _interpret_2)).intValue());
+            ((IntConstant) _idiom_5).setValue((((Long) _interpret_2)).longValue());
           }
         }
       }
@@ -1182,7 +1281,7 @@ public class EisValidator extends AbstractEisValidator {
             if (_range_6!=null) {
               _interpret_5=this._eisInterpreter.interpret(_range_6);
             }
-            ((IntConstant) _range_5).setValue((((Integer) _interpret_5)).intValue());
+            ((IntConstant) _range_5).setValue((((Long) _interpret_5)).longValue());
           }
         }
       }

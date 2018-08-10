@@ -366,15 +366,6 @@ public interface EisFactory extends EFactory
   LWordConstant createLWordConstant();
 
   /**
-   * Returns a new object of class '<em>Long Constant</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Long Constant</em>'.
-   * @generated
-   */
-  LongConstant createLongConstant();
-
-  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

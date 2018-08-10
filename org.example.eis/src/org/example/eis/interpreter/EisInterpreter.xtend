@@ -11,7 +11,6 @@ import org.example.eis.eis.Equality
 import org.example.eis.eis.Idiom
 import org.example.eis.eis.IntConstant
 import org.example.eis.eis.LWordConstant
-import org.example.eis.eis.LongConstant
 import org.example.eis.eis.Minus
 import org.example.eis.eis.MulOrDiv
 import org.example.eis.eis.Not
@@ -46,8 +45,8 @@ class EisInterpreter {
 				e.value
 			LWordConstant:
 				e.value
-			LongConstant:
-				e.value
+//			LongConstant:
+//				e.value
 			Not: {
 				if (e.idiom.interpret instanceof Boolean)
 					!(e.idiom.interpret as Boolean)
@@ -57,12 +56,12 @@ class EisInterpreter {
 			MulOrDiv: {
 				val left = e.left.interpret
 				val right = e.right.interpret
-				if (left instanceof Integer && right instanceof Integer) {
+				if (left instanceof Long && right instanceof Long) {
 					if (e.op == '*')
-						(left as Integer) * (right as Integer)
+						(left as Long) * (right as Long)
 					else {
-						if (right as Integer != 0)
-							(left as Integer) / (right as Integer)
+						if (right as Long != 0)
+							(left as Long) / (right as Long)
 						else {
 						}
 					}
@@ -72,8 +71,8 @@ class EisInterpreter {
 			Minus: {
 				val left = e.left.interpret
 				val right = e.right.interpret
-				if (left instanceof Integer && right instanceof Integer) {
-					(left as Integer) - (right as Integer)
+				if (left instanceof Long && right instanceof Long) {
+					(left as Long) - (right as Long)
 				} else {
 				}
 			}
@@ -83,8 +82,8 @@ class EisInterpreter {
 				else {
 					val left = e.left.interpret
 					val right = e.right.interpret
-					if (left instanceof Integer && right instanceof Integer)
-						(left as Integer) + (right as Integer)
+					if (left instanceof Long && right instanceof Long)
+						(left as Long) + (right as Long)
 					else {
 					}
 				}
@@ -128,12 +127,12 @@ class EisInterpreter {
 				} else {
 					val left = e.left.interpret
 					val right = e.right.interpret
-					if (left instanceof Integer && right instanceof Integer)
+					if (left instanceof Long && right instanceof Long)
 						switch (e.op) {
-							case '<': (left as Integer) < (right as Integer)
-							case '>': (left as Integer) > (right as Integer)
-							case '>=': (left as Integer) >= (right as Integer)
-							case '<=': (left as Integer) <= (right as Integer)
+							case '<': (left as Long) < (right as Long)
+							case '>': (left as Long) > (right as Long)
+							case '>=': (left as Long) >= (right as Long)
+							case '<=': (left as Long) <= (right as Long)
 							default: false
 						}
 					else {

@@ -10,7 +10,6 @@ import org.example.eis.eis.Equality
 import org.example.eis.eis.Idiom
 import org.example.eis.eis.IntConstant
 import org.example.eis.eis.LWordConstant
-import org.example.eis.eis.LongConstant
 import org.example.eis.eis.Minus
 import org.example.eis.eis.MulOrDiv
 import org.example.eis.eis.Not
@@ -20,41 +19,25 @@ import org.example.eis.eis.RealConstant
 import org.example.eis.eis.StringConstant
 import org.example.eis.eis.VariableRef
 import org.example.eis.eis.WordConstant
-import org.example.eis.typing.types.BoolType
-import org.example.eis.typing.types.ByteType
-import org.example.eis.typing.types.DIntType
-import org.example.eis.typing.types.DWordType
-import org.example.eis.typing.types.IntType
-import org.example.eis.typing.types.LIntType
-import org.example.eis.typing.types.LWordType
-import org.example.eis.typing.types.NullType
-import org.example.eis.typing.types.RealType
-import org.example.eis.typing.types.SIntType
-import org.example.eis.typing.types.StringType
-import org.example.eis.typing.types.UDIntType
-import org.example.eis.typing.types.UIntType
-import org.example.eis.typing.types.ULIntType
-import org.example.eis.typing.types.USIntType
-import org.example.eis.typing.types.WordType
 
 class DefineTypeComputer {
-	public static val STRING_TYPE = new StringType
-	public static val INT_TYPE = new IntType
-	public static val BOOL_TYPE = new BoolType
-	public static val NULL_TYPE = new NullType
-	public static val REAL_TYPE = new RealType
-	public static val BYTE_TYPE = new ByteType
-	public static val WORD_TYPE = new WordType
-	public static val DWORD_TYPE = new DWordType
-	public static val LWORD_TYPE = new LWordType
+	public static val STRING_TYPE = new org.example.eis.typing.types.StringType
+	public static val INT_TYPE = new org.example.eis.typing.types.IntType
+	public static val BOOL_TYPE = new org.example.eis.typing.types.BoolType
+	public static val NULL_TYPE = new org.example.eis.typing.types.NullType
+	public static val REAL_TYPE = new org.example.eis.typing.types.RealType
+	public static val BYTE_TYPE = new org.example.eis.typing.types.ByteType
+	public static val WORD_TYPE = new org.example.eis.typing.types.WordType
+	public static val DWORD_TYPE = new org.example.eis.typing.types.DWordType
+	public static val LWORD_TYPE = new org.example.eis.typing.types.LWordType
 
-	public static val USINT_TYPE = new USIntType
-	public static val UINT_TYPE = new UIntType
-	public static val UDINT_TYPE = new UDIntType
-	public static val ULINT_TYPE = new ULIntType
-	public static val SINT_TYPE = new SIntType
-	public static val DINT_TYPE = new DIntType
-	public static val LINT_TYPE = new LIntType
+	public static val USINT_TYPE = new org.example.eis.typing.types.USIntType
+	public static val UINT_TYPE = new org.example.eis.typing.types.UIntType
+	public static val UDINT_TYPE = new org.example.eis.typing.types.UDIntType
+	public static val ULINT_TYPE = new org.example.eis.typing.types.ULIntType
+	public static val SINT_TYPE = new org.example.eis.typing.types.SIntType
+	public static val DINT_TYPE = new org.example.eis.typing.types.DIntType
+	public static val LINT_TYPE = new org.example.eis.typing.types.LIntType
 
 	def isStringType(DefineType type) { type === STRING_TYPE }
 
@@ -79,6 +62,8 @@ class DefineTypeComputer {
 
 	def isUIntType(DefineType type) { type === UINT_TYPE }
 
+	def isUDIntType(DefineType type) { type === UDINT_TYPE }
+
 	def isSIntType(DefineType type) { type === SINT_TYPE }
 
 	def isIntType(DefineType type) { type === INT_TYPE }
@@ -96,7 +81,7 @@ class DefineTypeComputer {
 			DWordConstant: DWORD_TYPE
 			LWordConstant: LWORD_TYPE
 			//
-			LongConstant: LINT_TYPE
+//			LongConstant: LINT_TYPE
 			//
 			Not: BOOL_TYPE
 			MulOrDiv: INT_TYPE

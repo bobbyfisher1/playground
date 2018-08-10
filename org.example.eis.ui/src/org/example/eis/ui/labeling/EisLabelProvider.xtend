@@ -47,7 +47,7 @@ class EisLabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 	def text(AssertionBlock aBlock) {
-		val plcCycle = (aBlock.eContainer as TeststepBlock).plcCycle
+		val plcCycle = (aBlock.eContainer as TeststepBlock).plcCycle.intValue
 		val description = (aBlock.eContainer as TeststepBlock).description
 
 		return "teststep " + plcCycle + "   " + description

@@ -1,6 +1,6 @@
-grammar org.example.eis.Eis with org.eclipse.xtext.common.Terminals
+grammar org.example.eis.Eis /*  with org.eclipse.xtext.common.Terminals */ hidden(WS, ML_COMMENT, SL_COMMENT)
 
-import 'http://www.eclipse.org/emf/2002/Ecore'
+import 'http://www.eclipse.org/emf/2002/Ecore' as ecore
 generate eis "http://www.example.org/eis/Eis"
 
 EisModel:
@@ -73,11 +73,11 @@ enum BasicType:
 	//
 	| USINT="usint"
 	| UINT="uint"
-	| UDINT="udint" // long type? + u&l Bss
+	| UDINT="udint"
 	| ULINT="ulint" // ??????
 	| SINT="sint"
-	| DINT="dint" // normal int
-	| LINT="lint" // normal long?
+	| DINT="dint"
+	| LINT="lint"
 	//yet unimplemented
 	| CHAR="char" //
 	| TIME="time"
@@ -111,7 +111,7 @@ Primary returns Idiom:
 	'(' Idiom ')' | {Not} "!" idiom=Primary | Atomic;
 
 Atomic returns Idiom:
-	{IntConstant} value=INT
+	{IntConstant} value=LONG
 	| {StringConstant} value=STRING
 	| BoolConstant
 	| {VariableRef} variable=[Variable]
@@ -120,10 +120,11 @@ Atomic returns Idiom:
 	| {WordConstant} value=WORD
 	| {DWordConstant} value=DWORD
 	| {LWordConstant} value=LWORD
-	| {LongConstant} value=LONG;
+	//	| {LongConstant} value=LONG
+;
 
 TeststepBlock:
-	'teststep' '(' plcCycle=INT ',' description=STRING ')' '{' assertion=AssertionBlock '}';
+	'teststep' '(' plcCycle=LONG ',' description=STRING ')' '{' assertion=AssertionBlock '}';
 
 AssertionBlock:
 	set=Set & assert=Assert;
@@ -146,21 +147,24 @@ terminal fragment DIGIT:
 terminal fragment HEXDIGIT:
 	DIGIT | 'A'..'F';
 
-@Override
-terminal INT returns EInt:
+	//@Override
+//terminal INT :
+//	'-'? DIGIT+;
+//
+terminal LONG returns ecore::ELong:
 	'-'? DIGIT+;
 	//
-terminal LONG returns ELong:
-	'-'? INT ('l' | 'L');
-	//
-terminal REAL returns EFloat:
-	INT '.' DIGIT+;
+//terminal LONGER:
+//	LONG 'L';
+//
+terminal REAL returns ecore::EFloat:
+	LONG '.' DIGIT+;
 	//
 terminal BYTE:
-	'16#' HEXDIGIT HEXDIGIT;
+	'16#' HEXDIGIT? HEXDIGIT;
 	//
 terminal WORD:
-	'16#' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT;
+	'16#' HEXDIGIT? HEXDIGIT? HEXDIGIT? HEXDIGIT;
 	//
 terminal DWORD:
 	'16#' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT '_' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT;
@@ -169,7 +173,26 @@ terminal LWORD:
 	'16#' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT '_' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT '_' HEXDIGIT HEXDIGIT HEXDIGIT
 	HEXDIGIT '_' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT;
 
+terminal ID:
+	'^'? ('a'..'z' | 'A'..'Z' | '_') ('a'..'z' | 'A'..'Z' | '_' | '0'..'9')*;
 
+	//terminal INT returns ecore::EInt:
+//	('0'..'9')+;
+terminal STRING:
+	'"' ('\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\' | '"'))* '"' |
+	"'" ('\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\' | "'"))* "'";
+
+terminal ML_COMMENT:
+	'/*'->'*/';
+
+terminal SL_COMMENT:
+	'//' !('\n' | '\r')* ('\r'? '\n')?;
+
+terminal WS:
+	(' ' | '\t' | '\r' | '\n')+;
+
+terminal ANY_OTHER:
+	.;
 
 	
 	

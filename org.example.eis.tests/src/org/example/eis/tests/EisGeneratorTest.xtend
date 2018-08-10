@@ -228,7 +228,7 @@ class EisGeneratorTest {
 				set[ 
 					a = 43;
 				]
-				assert[a=100043;]
+				assert[a=10043;]
 			}
 		''' + ending ) => [
 			parse.assertNoErrors
@@ -247,7 +247,7 @@ class EisGeneratorTest {
 										<Element xsi:type="Input" Name="a" Datatype="Int" Direction="InOut" Value="43" Variant="false" />
 									</Inputs>
 									<Outputs>
-										<Element xsi:type="Output" Name="a" Datatype="Int" Direction="InOut" Expect="100043" Range="2" Variant="false" />
+										<Element xsi:type="Output" Name="a" Datatype="Int" Direction="InOut" Expect="10043" Range="2" Variant="false" />
 									</Outputs>
 								</Teststep>
 							</Teststeps>

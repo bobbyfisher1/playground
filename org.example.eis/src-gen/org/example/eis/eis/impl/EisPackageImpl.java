@@ -32,7 +32,6 @@ import org.example.eis.eis.InOut;
 import org.example.eis.eis.Input;
 import org.example.eis.eis.IntConstant;
 import org.example.eis.eis.LWordConstant;
-import org.example.eis.eis.LongConstant;
 import org.example.eis.eis.Minus;
 import org.example.eis.eis.MulOrDiv;
 import org.example.eis.eis.Not;
@@ -327,13 +326,6 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * @generated
    */
   private EClass lWordConstantEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass longConstantEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -1530,26 +1522,6 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getLongConstant()
-  {
-    return longConstantEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getLongConstant_Value()
-  {
-    return (EAttribute)longConstantEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EEnum getBasicType()
   {
     return basicTypeEEnum;
@@ -1735,9 +1707,6 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
     lWordConstantEClass = createEClass(LWORD_CONSTANT);
     createEAttribute(lWordConstantEClass, LWORD_CONSTANT__VALUE);
 
-    longConstantEClass = createEClass(LONG_CONSTANT);
-    createEAttribute(longConstantEClass, LONG_CONSTANT__VALUE);
-
     // Create enums
     basicTypeEEnum = createEEnum(BASIC_TYPE);
   }
@@ -1791,7 +1760,6 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
     wordConstantEClass.getESuperTypes().add(this.getIdiom());
     dWordConstantEClass.getESuperTypes().add(this.getIdiom());
     lWordConstantEClass.getESuperTypes().add(this.getIdiom());
-    longConstantEClass.getESuperTypes().add(this.getIdiom());
 
     // Initialize classes and features; add operations and parameters
     initEClass(eisModelEClass, EisModel.class, "EisModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1861,7 +1829,7 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
     initEClass(idiomEClass, Idiom.class, "Idiom", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(teststepBlockEClass, TeststepBlock.class, "TeststepBlock", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getTeststepBlock_PlcCycle(), ecorePackage.getEInt(), "plcCycle", null, 0, 1, TeststepBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTeststepBlock_PlcCycle(), ecorePackage.getELong(), "plcCycle", null, 0, 1, TeststepBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getTeststepBlock_Description(), ecorePackage.getEString(), "description", null, 0, 1, TeststepBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTeststepBlock_Assertion(), this.getAssertionBlock(), null, "assertion", null, 0, 1, TeststepBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1921,7 +1889,7 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
     initEReference(getNot_Idiom(), this.getIdiom(), null, "idiom", null, 0, 1, Not.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(intConstantEClass, IntConstant.class, "IntConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getIntConstant_Value(), ecorePackage.getEInt(), "value", null, 0, 1, IntConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getIntConstant_Value(), ecorePackage.getELong(), "value", null, 0, 1, IntConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(stringConstantEClass, StringConstant.class, "StringConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getStringConstant_Value(), ecorePackage.getEString(), "value", null, 0, 1, StringConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1943,9 +1911,6 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
 
     initEClass(lWordConstantEClass, LWordConstant.class, "LWordConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getLWordConstant_Value(), ecorePackage.getEString(), "value", null, 0, 1, LWordConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(longConstantEClass, LongConstant.class, "LongConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getLongConstant_Value(), ecorePackage.getELong(), "value", null, 0, 1, LongConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Initialize enums and add enum literals
     initEEnum(basicTypeEEnum, BasicType.class, "BasicType");

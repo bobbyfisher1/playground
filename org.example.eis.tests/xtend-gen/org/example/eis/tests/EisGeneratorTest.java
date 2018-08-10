@@ -524,7 +524,7 @@ public class EisGeneratorTest {
     _builder.append("]");
     _builder.newLine();
     _builder.append("\t");
-    _builder.append("assert[a=100043;]");
+    _builder.append("assert[a=10043;]");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
@@ -572,7 +572,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Outputs>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Output\" Name=\"a\" Datatype=\"Int\" Direction=\"InOut\" Expect=\"100043\" Range=\"2\" Variant=\"false\" />");
+        _builder_1.append("<Element xsi:type=\"Output\" Name=\"a\" Datatype=\"Int\" Direction=\"InOut\" Expect=\"10043\" Range=\"2\" Variant=\"false\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t");
         _builder_1.append("</Outputs>");

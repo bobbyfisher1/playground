@@ -99,7 +99,7 @@ ruleEisModel returns [EObject current=null]
 						$current,
 						"project_name",
 						lv_project_name_2_0,
-						"org.eclipse.xtext.common.Terminals.STRING");
+						"org.example.eis.Eis.STRING");
 				}
 			)
 		)
@@ -129,7 +129,7 @@ ruleEisModel returns [EObject current=null]
 						$current,
 						"plc_name",
 						lv_plc_name_6_0,
-						"org.eclipse.xtext.common.Terminals.STRING");
+						"org.example.eis.Eis.STRING");
 				}
 			)
 		)
@@ -159,7 +159,7 @@ ruleEisModel returns [EObject current=null]
 						$current,
 						"author_name",
 						lv_author_name_10_0,
-						"org.eclipse.xtext.common.Terminals.STRING");
+						"org.example.eis.Eis.STRING");
 				}
 			)
 		)
@@ -223,7 +223,7 @@ ruleTestcase returns [EObject current=null]
 						$current,
 						"testcase_name",
 						lv_testcase_name_1_0,
-						"org.eclipse.xtext.common.Terminals.ID");
+						"org.example.eis.Eis.ID");
 				}
 			)
 		)
@@ -357,7 +357,7 @@ ruleTestblock returns [EObject current=null]
 						$current,
 						"description",
 						lv_description_10_0,
-						"org.eclipse.xtext.common.Terminals.STRING");
+						"org.example.eis.Eis.STRING");
 				}
 			)
 		)
@@ -999,7 +999,7 @@ ruleVariable returns [EObject current=null]
 						$current,
 						"name",
 						lv_name_3_0,
-						"org.eclipse.xtext.common.Terminals.ID");
+						"org.example.eis.Eis.ID");
 				}
 			)
 		)
@@ -1111,7 +1111,7 @@ ruleUdt returns [EObject current=null]
 						$current,
 						"name",
 						lv_name_1_0,
-						"org.eclipse.xtext.common.Terminals.ID");
+						"org.example.eis.Eis.ID");
 				}
 			)
 		)
@@ -1215,7 +1215,7 @@ ruleUdtRef returns [EObject current=null]
 						$current,
 						"name",
 						lv_name_1_0,
-						"org.eclipse.xtext.common.Terminals.ID");
+						"org.example.eis.Eis.ID");
 				}
 			)
 		)
@@ -1274,7 +1274,7 @@ ruleUdtType returns [EObject current=null]
 					$current,
 					"name",
 					lv_name_0_0,
-					"org.eclipse.xtext.common.Terminals.ID");
+					"org.example.eis.Eis.ID");
 			}
 		)
 	)
@@ -1873,9 +1873,9 @@ ruleAtomic returns [EObject current=null]
 			)
 			(
 				(
-					lv_value_1_0=RULE_INT
+					lv_value_1_0=RULE_LONG
 					{
-						newLeafNode(lv_value_1_0, grammarAccess.getAtomicAccess().getValueINTTerminalRuleCall_0_1_0());
+						newLeafNode(lv_value_1_0, grammarAccess.getAtomicAccess().getValueLONGTerminalRuleCall_0_1_0());
 					}
 					{
 						if ($current==null) {
@@ -1885,7 +1885,7 @@ ruleAtomic returns [EObject current=null]
 							$current,
 							"value",
 							lv_value_1_0,
-							"org.example.eis.Eis.INT");
+							"org.example.eis.Eis.LONG");
 					}
 				)
 			)
@@ -1913,7 +1913,7 @@ ruleAtomic returns [EObject current=null]
 							$current,
 							"value",
 							lv_value_3_0,
-							"org.eclipse.xtext.common.Terminals.STRING");
+							"org.example.eis.Eis.STRING");
 					}
 				)
 			)
@@ -2090,34 +2090,6 @@ ruleAtomic returns [EObject current=null]
 				)
 			)
 		)
-		    |
-		(
-			(
-				{
-					$current = forceCreateModelElement(
-						grammarAccess.getAtomicAccess().getLongConstantAction_9_0(),
-						$current);
-				}
-			)
-			(
-				(
-					lv_value_18_0=RULE_LONG
-					{
-						newLeafNode(lv_value_18_0, grammarAccess.getAtomicAccess().getValueLONGTerminalRuleCall_9_1_0());
-					}
-					{
-						if ($current==null) {
-							$current = createModelElement(grammarAccess.getAtomicRule());
-						}
-						setWithLastConsumed(
-							$current,
-							"value",
-							lv_value_18_0,
-							"org.example.eis.Eis.LONG");
-					}
-				)
-			)
-		)
 	)
 ;
 
@@ -2147,9 +2119,9 @@ ruleTeststepBlock returns [EObject current=null]
 		}
 		(
 			(
-				lv_plcCycle_2_0=RULE_INT
+				lv_plcCycle_2_0=RULE_LONG
 				{
-					newLeafNode(lv_plcCycle_2_0, grammarAccess.getTeststepBlockAccess().getPlcCycleINTTerminalRuleCall_2_0());
+					newLeafNode(lv_plcCycle_2_0, grammarAccess.getTeststepBlockAccess().getPlcCycleLONGTerminalRuleCall_2_0());
 				}
 				{
 					if ($current==null) {
@@ -2159,7 +2131,7 @@ ruleTeststepBlock returns [EObject current=null]
 						$current,
 						"plcCycle",
 						lv_plcCycle_2_0,
-						"org.example.eis.Eis.INT");
+						"org.example.eis.Eis.LONG");
 				}
 			)
 		)
@@ -2181,7 +2153,7 @@ ruleTeststepBlock returns [EObject current=null]
 						$current,
 						"description",
 						lv_description_4_0,
-						"org.eclipse.xtext.common.Terminals.STRING");
+						"org.example.eis.Eis.STRING");
 				}
 			)
 		)
@@ -2733,11 +2705,9 @@ fragment RULE_DIGIT : '0'..'9';
 
 fragment RULE_HEXDIGIT : (RULE_DIGIT|'A'..'F');
 
-RULE_INT : '-'? RULE_DIGIT+;
+RULE_LONG : '-'? RULE_DIGIT+;
 
-RULE_LONG : '-'? RULE_INT ('l'|'L');
-
-RULE_REAL : RULE_INT '.' RULE_DIGIT+;
+RULE_REAL : RULE_LONG '.' RULE_DIGIT+;
 
 RULE_BYTE : '16#' RULE_HEXDIGIT RULE_HEXDIGIT;
 

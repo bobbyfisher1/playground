@@ -87,21 +87,6 @@ public class EisValidatorTest {
   
   private final String end = "]}";
   
-  private final String startWithVariable = new Function0<String>() {
-    public String apply() {
-      StringConcatenation _builder = new StringConcatenation();
-      _builder.append("define{");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("input[]");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("output[\tint a = ");
-      String _plus = (EisValidatorTest.this.beginning + _builder);
-      return _plus;
-    }
-  }.apply();
-  
   private final String endWithSemicolon = (";]}" + this.ending);
   
   @Test
@@ -1292,7 +1277,7 @@ public class EisValidatorTest {
   
   public void assertType(final CharSequence input, final DefineType expectedWrongType, final DefineType expectedActualType) {
     try {
-      this._validationTestHelper.assertError(this._parseHelper.parse(((this.startWithVariable + input) + this.endWithSemicolon)), EisPackage.eINSTANCE.getIdiom(), 
+      this._validationTestHelper.assertError(this._parseHelper.parse((((this.start + "int a =") + input) + this.endWithSemicolon)), EisPackage.eINSTANCE.getIdiom(), 
         EisValidator.TYPE_MISMATCH, ((("expected " + expectedActualType) + " type, but was ") + expectedWrongType));
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
@@ -1301,7 +1286,7 @@ public class EisValidatorTest {
   
   public void assertSameType(final CharSequence input, final DefineType expectedLeft, final DefineType expectedRight) {
     try {
-      this._validationTestHelper.assertError(this._parseHelper.parse(((this.startWithVariable + input) + this.endWithSemicolon)), EisPackage.eINSTANCE.getIdiom(), 
+      this._validationTestHelper.assertError(this._parseHelper.parse((((this.start + "int a =") + input) + this.endWithSemicolon)), EisPackage.eINSTANCE.getIdiom(), 
         EisValidator.TYPE_MISMATCH, ((("expected the same type, but was " + expectedLeft) + ", ") + expectedRight));
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
@@ -1310,7 +1295,7 @@ public class EisValidatorTest {
   
   public void assertNotBooleanType(final CharSequence input) {
     try {
-      this._validationTestHelper.assertError(this._parseHelper.parse(((this.startWithVariable + input) + this.endWithSemicolon)), EisPackage.eINSTANCE.getIdiom(), 
+      this._validationTestHelper.assertError(this._parseHelper.parse((((this.start + "int a =") + input) + this.endWithSemicolon)), EisPackage.eINSTANCE.getIdiom(), 
         EisValidator.TYPE_MISMATCH, "cannot be boolean");
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);

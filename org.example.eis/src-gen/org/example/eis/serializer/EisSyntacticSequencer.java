@@ -59,7 +59,6 @@ public class EisSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) value=BYTE
 	 *     (rule start) (ambiguity) value=BooleanValue
 	 *     (rule start) (ambiguity) value=DWORD
-	 *     (rule start) (ambiguity) value=INT
 	 *     (rule start) (ambiguity) value=LONG
 	 *     (rule start) (ambiguity) value=LWORD
 	 *     (rule start) (ambiguity) value=REAL

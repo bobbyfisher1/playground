@@ -84,7 +84,7 @@ public class EisLabelProvider extends DefaultEObjectLabelProvider {
   
   public String text(final AssertionBlock aBlock) {
     EObject _eContainer = aBlock.eContainer();
-    final int plcCycle = ((TeststepBlock) _eContainer).getPlcCycle();
+    final int plcCycle = Long.valueOf(((TeststepBlock) _eContainer).getPlcCycle()).intValue();
     EObject _eContainer_1 = aBlock.eContainer();
     final String description = ((TeststepBlock) _eContainer_1).getDescription();
     return ((("teststep " + Integer.valueOf(plcCycle)) + "   ") + description);

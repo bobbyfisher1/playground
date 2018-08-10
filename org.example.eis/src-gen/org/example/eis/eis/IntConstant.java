@@ -31,12 +31,12 @@ public interface IntConstant extends Idiom
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Value</em>' attribute.
-   * @see #setValue(int)
+   * @see #setValue(long)
    * @see org.example.eis.eis.EisPackage#getIntConstant_Value()
    * @model
    * @generated
    */
-  int getValue();
+  long getValue();
 
   /**
    * Sets the value of the '{@link org.example.eis.eis.IntConstant#getValue <em>Value</em>}' attribute.
@@ -46,6 +46,6 @@ public interface IntConstant extends Idiom
    * @see #getValue()
    * @generated
    */
-  void setValue(int value);
+  void setValue(long value);
 
 } // IntConstant

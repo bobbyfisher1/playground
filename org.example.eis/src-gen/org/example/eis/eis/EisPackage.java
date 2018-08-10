@@ -1474,34 +1474,6 @@ public interface EisPackage extends EPackage
   int LWORD_CONSTANT_FEATURE_COUNT = IDIOM_FEATURE_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link org.example.eis.eis.impl.LongConstantImpl <em>Long Constant</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.example.eis.eis.impl.LongConstantImpl
-   * @see org.example.eis.eis.impl.EisPackageImpl#getLongConstant()
-   * @generated
-   */
-  int LONG_CONSTANT = 38;
-
-  /**
-   * The feature id for the '<em><b>Value</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int LONG_CONSTANT__VALUE = IDIOM_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Long Constant</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int LONG_CONSTANT_FEATURE_COUNT = IDIOM_FEATURE_COUNT + 1;
-
-  /**
    * The meta object id for the '{@link org.example.eis.eis.BasicType <em>Basic Type</em>}' enum.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1509,7 +1481,7 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getBasicType()
    * @generated
    */
-  int BASIC_TYPE = 39;
+  int BASIC_TYPE = 38;
 
 
   /**
@@ -2707,27 +2679,6 @@ public interface EisPackage extends EPackage
   EAttribute getLWordConstant_Value();
 
   /**
-   * Returns the meta object for class '{@link org.example.eis.eis.LongConstant <em>Long Constant</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Long Constant</em>'.
-   * @see org.example.eis.eis.LongConstant
-   * @generated
-   */
-  EClass getLongConstant();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.example.eis.eis.LongConstant#getValue <em>Value</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Value</em>'.
-   * @see org.example.eis.eis.LongConstant#getValue()
-   * @see #getLongConstant()
-   * @generated
-   */
-  EAttribute getLongConstant_Value();
-
-  /**
    * Returns the meta object for enum '{@link org.example.eis.eis.BasicType <em>Basic Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3731,24 +3682,6 @@ public interface EisPackage extends EPackage
      * @generated
      */
     EAttribute LWORD_CONSTANT__VALUE = eINSTANCE.getLWordConstant_Value();
-
-    /**
-     * The meta object literal for the '{@link org.example.eis.eis.impl.LongConstantImpl <em>Long Constant</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.example.eis.eis.impl.LongConstantImpl
-     * @see org.example.eis.eis.impl.EisPackageImpl#getLongConstant()
-     * @generated
-     */
-    EClass LONG_CONSTANT = eINSTANCE.getLongConstant();
-
-    /**
-     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute LONG_CONSTANT__VALUE = eINSTANCE.getLongConstant_Value();
 
     /**
      * The meta object literal for the '{@link org.example.eis.eis.BasicType <em>Basic Type</em>}' enum.

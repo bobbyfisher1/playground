@@ -41,7 +41,7 @@ public class TeststepBlockImpl extends MinimalEObjectImpl.Container implements T
    * @generated
    * @ordered
    */
-  protected static final int PLC_CYCLE_EDEFAULT = 0;
+  protected static final long PLC_CYCLE_EDEFAULT = 0L;
 
   /**
    * The cached value of the '{@link #getPlcCycle() <em>Plc Cycle</em>}' attribute.
@@ -51,7 +51,7 @@ public class TeststepBlockImpl extends MinimalEObjectImpl.Container implements T
    * @generated
    * @ordered
    */
-  protected int plcCycle = PLC_CYCLE_EDEFAULT;
+  protected long plcCycle = PLC_CYCLE_EDEFAULT;
 
   /**
    * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
@@ -109,7 +109,7 @@ public class TeststepBlockImpl extends MinimalEObjectImpl.Container implements T
    * <!-- end-user-doc -->
    * @generated
    */
-  public int getPlcCycle()
+  public long getPlcCycle()
   {
     return plcCycle;
   }
@@ -119,9 +119,9 @@ public class TeststepBlockImpl extends MinimalEObjectImpl.Container implements T
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setPlcCycle(int newPlcCycle)
+  public void setPlcCycle(long newPlcCycle)
   {
-    int oldPlcCycle = plcCycle;
+    long oldPlcCycle = plcCycle;
     plcCycle = newPlcCycle;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, EisPackage.TESTSTEP_BLOCK__PLC_CYCLE, oldPlcCycle, plcCycle));
@@ -245,7 +245,7 @@ public class TeststepBlockImpl extends MinimalEObjectImpl.Container implements T
     switch (featureID)
     {
       case EisPackage.TESTSTEP_BLOCK__PLC_CYCLE:
-        setPlcCycle((Integer)newValue);
+        setPlcCycle((Long)newValue);
         return;
       case EisPackage.TESTSTEP_BLOCK__DESCRIPTION:
         setDescription((String)newValue);

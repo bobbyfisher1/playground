@@ -47,11 +47,6 @@ class EisValidatorTest {
 	'''
 	val end = "]}"
 
-	val startWithVariable = beginning + '''
-	define{
-		input[]
-		output[	int a = '''
-
 	val endWithSemicolon = ";]}" + ending
 
 //
@@ -649,17 +644,17 @@ class EisValidatorTest {
 	}
 
 	def void assertType(CharSequence input, DefineType expectedWrongType, DefineType expectedActualType) {
-		(startWithVariable + input + endWithSemicolon).parse.assertError(EisPackage.eINSTANCE.idiom,
+		(start + "int a =" + input + endWithSemicolon).parse.assertError(EisPackage.eINSTANCE.idiom,
 			EisValidator.TYPE_MISMATCH, "expected " + expectedActualType + " type, but was " + expectedWrongType)
 	}
 
 	def void assertSameType(CharSequence input, DefineType expectedLeft, DefineType expectedRight) {
-		(startWithVariable + input + endWithSemicolon).parse.assertError(EisPackage.eINSTANCE.idiom,
+		(start + "int a =" + input + endWithSemicolon).parse.assertError(EisPackage.eINSTANCE.idiom,
 			EisValidator.TYPE_MISMATCH, "expected the same type, but was " + expectedLeft + ", " + expectedRight)
 	}
 
 	def void assertNotBooleanType(CharSequence input) {
-		(startWithVariable + input + endWithSemicolon).parse.assertError(EisPackage.eINSTANCE.idiom,
+		(start + "int a =" + input + endWithSemicolon).parse.assertError(EisPackage.eINSTANCE.idiom,
 			EisValidator.TYPE_MISMATCH, "cannot be boolean")
 	}
 

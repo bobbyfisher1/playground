@@ -34,12 +34,12 @@ public interface TeststepBlock extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Plc Cycle</em>' attribute.
-   * @see #setPlcCycle(int)
+   * @see #setPlcCycle(long)
    * @see org.example.eis.eis.EisPackage#getTeststepBlock_PlcCycle()
    * @model
    * @generated
    */
-  int getPlcCycle();
+  long getPlcCycle();
 
   /**
    * Sets the value of the '{@link org.example.eis.eis.TeststepBlock#getPlcCycle <em>Plc Cycle</em>}' attribute.
@@ -49,7 +49,7 @@ public interface TeststepBlock extends EObject
    * @see #getPlcCycle()
    * @generated
    */
-  void setPlcCycle(int value);
+  void setPlcCycle(long value);
 
   /**
    * Returns the value of the '<em><b>Description</b></em>' attribute.

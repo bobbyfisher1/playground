@@ -46,6 +46,10 @@ class DefineTypeComputerTest {
 
 	val end = "]}" + ending
 
+	val teststep = '''teststep(0,""){
+			set[]
+			assert[a='''
+
 //
 // tests -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //
@@ -140,7 +144,6 @@ class DefineTypeComputerTest {
 
 	@Test def void testLWord() {
 		val real = '''lword a = 16#AAAA_AAAA_AAAA_AAAA;'''
-
 		(start + real + end).parse => [assertNoErrors]
 	}
 
@@ -189,6 +192,26 @@ class DefineTypeComputerTest {
 		]
 	}
 
+	@Test def void testUDIntBounds() {
+		val uDInt = '''udint a = '''
+		(start + uDInt + '4294967295+1' + ';' + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + uDInt + '-1' + ';' + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + uDInt + '0 +/- -14' + ';' + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + uDInt + '0 +/- 4294967295+1' + ';' + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+	}
+
 //bug: -128 -1 isn't allowed because it's recognized as two numbers without an op in between
 	@Test def void testSIntBounds() {
 		val sInt = '''sint a = '''
@@ -230,15 +253,152 @@ class DefineTypeComputerTest {
 		]
 	}
 
-//	@Test def void testLint() {
-//		val _long = '''lint a = 123L;'''
-//
-//		(start + _long + end) => [
-//			println("aaaa")
-//			parse.assertNoErrors
-//			println("aaaa")
-//		]
-//	}
+	@Test def void testDIntBounds() {
+		val dInt = '''dint a = '''
+		(start + dInt + '-2147483648 - 1' + ';' + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + dInt + '2147483647+1' + ';' + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + dInt + '0 +/- (-2147483648- 1)' + ';' + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + dInt + '0 +/- (2147483647+1)' + ';' + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+	}
+
+	@Test def void testUSIntBoundsInStatement() {
+		val uSInt = '''usint a; '''
+
+		(start + uSInt + "]}" + teststep + '256' + ";]}" + ending).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.statement, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + uSInt + "]}" + teststep + '-1' + ';]}' + ending).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.statement, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + uSInt + ']}' + teststep + '0 +/- -14' + ';]}' + ending).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.statement, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + uSInt + ']}' + teststep + '0 +/- 256' + ';]}' + ending).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.statement, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+	}
+
+	@Test def void testUIntBoundsInStatement() {
+		val uInt = '''uint a; '''
+
+		(start + uInt + "]}" + teststep + '65535+1' + ";]}" + ending).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.statement, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + uInt + "]}" + teststep + '-1' + ';]}' + ending).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.statement, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + uInt + ']}' + teststep + '0 +/- -14' + ';]}' + ending).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.statement, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + uInt + ']}' + teststep + '0 +/- 65535+1' + ';]}' + ending).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.statement, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+	}
+
+	@Test def void testUDIntBoundsInStatement() {
+		val uDInt = '''udint a; '''
+
+		(start + uDInt + "]}" + teststep + '4294967295+1' + ";]}" + ending).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.statement, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + uDInt + "]}" + teststep + '-1' + ';]}' + ending).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.statement, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + uDInt + ']}' + teststep + '0 +/- -14' + ';]}' + ending).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.statement, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + uDInt + ']}' + teststep + '0 +/- 4294967295+1' + ';]}' + ending).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.statement, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+	}
+
+	@Test def void testSIntBoundsInStatement() {
+		val sInt = '''sint a; '''
+
+		(start + sInt + "]}" + teststep + '-129' + ";]}" + ending).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.statement, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + sInt + "]}" + teststep + '128' + ';]}' + ending).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.statement, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + sInt + ']}' + teststep + '0 +/- (-128 - 1)' + ';]}' + ending).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.statement, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + sInt + ']}' + teststep + '0 +/- (127+1)' + ';]}' + ending).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.statement, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+	}
+
+	@Test def void testIntBoundsInStatement() {
+		val _int = '''int a; '''
+
+		(start + _int + "]}" + teststep + '-32768 - 1' + ";]}" + ending).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.statement, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + _int + "]}" + teststep + '32767 + 1' + ';]}' + ending).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.statement, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + _int + ']}' + teststep + '0 +/- (-32768 - 1)' + ';]}' + ending).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.statement, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + _int + ']}' + teststep + '0 +/- (32767 + 1)' + ';]}' + ending).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.statement, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+	}
+
+	@Test def void testDIntBoundsInStatement() {
+		val dInt = '''dint a; '''
+
+		(start + dInt + "]}" + teststep + '-2147483648 - 1' + ";]}" + ending).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.statement, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + dInt + "]}" + teststep + '2147483647 + 1' + ';]}' + ending).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.statement, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + dInt + ']}' + teststep + '0 +/- (-2147483648 - 1)' + ';]}' + ending).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.statement, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + dInt + ']}' + teststep + '0 +/- (2147483647 + 1)' + ';]}' + ending).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.statement, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+	}
+
 	//
 // methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//

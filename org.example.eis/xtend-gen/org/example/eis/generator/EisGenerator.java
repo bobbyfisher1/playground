@@ -208,8 +208,8 @@ public class EisGenerator extends AbstractGenerator {
           for(final TeststepBlock e : steps) {
             _builder.append(fourTabs);
             _builder.append("<Teststep PlcCycle =\"");
-            int _plcCycle = e.getPlcCycle();
-            _builder.append(_plcCycle);
+            int _intValue = Long.valueOf(e.getPlcCycle()).intValue();
+            _builder.append(_intValue);
             _builder.append("\" Description=\"");
             String _description = e.getDescription();
             _builder.append(_description);

@@ -226,6 +226,13 @@ class EisValidator extends AbstractEisValidator {
 		checkExpectedInt(mulOrDiv.right, EisPackage.Literals.MUL_OR_DIV__RIGHT)
 	}
 
+	@Check def void checkDivisionByZero(MulOrDiv mulOrDiv) {
+		val right = mulOrDiv.right.interpret
+		if (right instanceof Long)
+			if (right == 0)
+				error("Division by zero.", mulOrDiv, EisPackage.eINSTANCE.mulOrDiv_Right, DIVISION_BY_ZERO)
+	}
+
 	@Check def void checkType(Equality equality) {
 		val leftType = getTypeAndCheckNotNull(equality.left, EisPackage.Literals.EQUALITY__LEFT)
 		val rightType = getTypeAndCheckNotNull(equality.right, EisPackage.Literals.EQUALITY__RIGHT)
@@ -516,7 +523,7 @@ class EisValidator extends AbstractEisValidator {
 		if (idiom !== null)
 			if (!(idiom instanceof VariableRef)) {
 				val idiomValue = idiom.interpret
-				if (idiomValue instanceof Integer)
+				if (idiomValue instanceof Long)
 					if (idiomValue.checkNumericalValues(expectedType))
 						error("Value is out of the datatype boundaries.", variable, EisPackage.eINSTANCE.variable_Idiom,
 							VALUE_EXCEEDING_DATATYPE_BOUNDS)
@@ -525,35 +532,86 @@ class EisValidator extends AbstractEisValidator {
 		if (variable.range !== null)
 			if (!(range instanceof VariableRef)) {
 				val rangeValue = range.interpret
-				if (rangeValue instanceof Integer)
+				if (rangeValue instanceof Long)
 					if (rangeValue.checkNumericalValues(expectedType))
 						error("Value is out of the datatype boundaries.", variable, EisPackage.eINSTANCE.variable_Range,
 							VALUE_EXCEEDING_DATATYPE_BOUNDS)
 			}
 	}
 
-	@Check def void checkDivisionByZero(MulOrDiv mulOrDiv) {
-		val right = mulOrDiv.right.interpret
-		if (right instanceof Integer)
-			if (right == 0)
-				error("Division by zero.", mulOrDiv, EisPackage.eINSTANCE.mulOrDiv_Right, DIVISION_BY_ZERO)
+	@Check def void checkStatementValues(Statement statement) {
+		val cascade = statement.cascade
+		val variable = statement.variable
+		val last = cascade?.last?.udtVar
+
+		val idiom = statement?.idiom
+		val range = statement?.range
+		var expectedType = BasicType.NULL.typeFor
+
+		if (variable instanceof Variable) {
+			expectedType = variable.variableType.typeFor
+
+			if (!(idiom instanceof VariableRef)) {
+				val idiomValue = idiom.interpret
+				if (idiomValue instanceof Long)
+					if (idiomValue.checkNumericalValues(expectedType))
+						error("Value is out of the datatype boundaries.", statement,
+							EisPackage.eINSTANCE.statement_Idiom, VALUE_EXCEEDING_DATATYPE_BOUNDS)
+			}
+			if (range !== null)
+				if (!(range instanceof VariableRef)) {
+					val rangeValue = range.interpret
+					if (rangeValue instanceof Long)
+						if (rangeValue.checkNumericalValues(expectedType))
+							error("Value is out of the datatype boundaries.", statement,
+								EisPackage.eINSTANCE.statement_Range, VALUE_EXCEEDING_DATATYPE_BOUNDS)
+				}
+		} else if (last instanceof Variable) {
+			expectedType = last.variableType.typeFor
+
+			if (!(idiom instanceof VariableRef)) {
+				val idiomValue = idiom.interpret
+				if (idiomValue instanceof Long)
+					if (idiomValue.checkNumericalValues(expectedType))
+						error("Value is out of the datatype boundaries.", statement,
+							EisPackage.eINSTANCE.statement_Idiom, VALUE_EXCEEDING_DATATYPE_BOUNDS)
+			}
+			if (range !== null)
+				if (!(range instanceof VariableRef)) {
+					val rangeValue = range.interpret
+					if (rangeValue instanceof Long)
+						if (rangeValue.checkNumericalValues(expectedType))
+							error("Value is out of the datatype boundaries.", statement,
+								EisPackage.eINSTANCE.statement_Range, VALUE_EXCEEDING_DATATYPE_BOUNDS)
+				}
+		}
 	}
 
 //
 // methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //
-	def private boolean checkNumericalValues(int idiom, DefineType expectedType) {
+	def private boolean checkNumericalValues(long idiom, DefineType expectedType) {
 		switch expectedType {
 			case expectedType.isUSIntType: idiom.outOfBounds(0, 255)
 			case expectedType.isUIntType: idiom.outOfBounds(0, 65535)
+			case expectedType.isUDIntType: idiom.outOfBounds(0, 4294967295L)
 			case expectedType.isSIntType: idiom.outOfBounds(-128, 127)
 			case expectedType.isIntType: idiom.outOfBounds(-32768, 32767)
-//			case expectedType.isDIntType: idiom.outOfBounds(-2147483648,2147483647) // the xtext int is a 32-Bit-Int anyways
+			case expectedType.isDIntType: idiom.outOfBounds(-2147483647, 2147483647) // the xtext int is a 32-Bit-Int
 			default: false
 		}
 	}
 
-	def private boolean outOfBounds(int idiom, int lower, int upper) {
+	def private boolean outOfBounds(long idiom, int lower, int upper) {
+		var outOfBounds = false
+
+		if (idiom < lower || idiom > upper)
+			outOfBounds = true
+
+		return outOfBounds
+	}
+
+	def private boolean outOfBounds(long idiom, int lower, long upper) {
 		var outOfBounds = false
 
 		if (idiom < lower || idiom > upper)
@@ -770,7 +828,7 @@ class EisValidator extends AbstractEisValidator {
 					}
 					case type.isIntSuperType: {
 						newVariable.idiom = new IntConstantImpl;
-						(newVariable.idiom as IntConstant).value = variable?.idiom?.interpret as Integer
+						(newVariable.idiom as IntConstant).value = variable?.idiom?.interpret as Long
 					}
 				}
 
@@ -786,7 +844,7 @@ class EisValidator extends AbstractEisValidator {
 					}
 					case type.isIntSuperType: {
 						newVariable.range = new IntConstantImpl;
-						(newVariable.range as IntConstant).value = (variable?.range?.interpret as Integer)
+						(newVariable.range as IntConstant).value = (variable?.range?.interpret as Long)
 					}
 				}
 		}

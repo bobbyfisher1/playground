@@ -17,7 +17,6 @@ import org.example.eis.eis.Equality;
 import org.example.eis.eis.Idiom;
 import org.example.eis.eis.IntConstant;
 import org.example.eis.eis.LWordConstant;
-import org.example.eis.eis.LongConstant;
 import org.example.eis.eis.Minus;
 import org.example.eis.eis.MulOrDiv;
 import org.example.eis.eis.Not;
@@ -44,7 +43,7 @@ public class EisInterpreter {
     boolean _matched = false;
     if (e instanceof IntConstant) {
       _matched=true;
-      _switchResult = Integer.valueOf(((IntConstant)e).getValue());
+      _switchResult = Long.valueOf(((IntConstant)e).getValue());
     }
     if (!_matched) {
       if (e instanceof BoolConstant) {
@@ -89,12 +88,6 @@ public class EisInterpreter {
       }
     }
     if (!_matched) {
-      if (e instanceof LongConstant) {
-        _matched=true;
-        _switchResult = Long.valueOf(((LongConstant)e).getValue());
-      }
-    }
-    if (!_matched) {
       if (e instanceof Not) {
         _matched=true;
         Boolean _xifexpression = null;
@@ -111,21 +104,21 @@ public class EisInterpreter {
     if (!_matched) {
       if (e instanceof MulOrDiv) {
         _matched=true;
-        Integer _xblockexpression = null;
+        Long _xblockexpression = null;
         {
           final Object left = this.interpret(((MulOrDiv)e).getLeft());
           final Object right = this.interpret(((MulOrDiv)e).getRight());
-          Integer _xifexpression = null;
-          if (((left instanceof Integer) && (right instanceof Integer))) {
-            Integer _xifexpression_1 = null;
+          Long _xifexpression = null;
+          if (((left instanceof Long) && (right instanceof Long))) {
+            Long _xifexpression_1 = null;
             String _op = ((MulOrDiv)e).getOp();
             boolean _equals = Objects.equal(_op, "*");
             if (_equals) {
-              _xifexpression_1 = Integer.valueOf(((((Integer) left)).intValue() * (((Integer) right)).intValue()));
+              _xifexpression_1 = Long.valueOf(((((Long) left)).longValue() * (((Long) right)).longValue()));
             } else {
-              Integer _xifexpression_2 = null;
-              if (((((Integer) right)).intValue() != 0)) {
-                _xifexpression_2 = Integer.valueOf(((((Integer) left)).intValue() / (((Integer) right)).intValue()));
+              Long _xifexpression_2 = null;
+              if (((((Long) right)).longValue() != 0)) {
+                _xifexpression_2 = Long.valueOf(((((Long) left)).longValue() / (((Long) right)).longValue()));
               } else {
                 _xifexpression_2 = null;
               }
@@ -143,13 +136,13 @@ public class EisInterpreter {
     if (!_matched) {
       if (e instanceof Minus) {
         _matched=true;
-        Integer _xblockexpression = null;
+        Long _xblockexpression = null;
         {
           final Object left = this.interpret(((Minus)e).getLeft());
           final Object right = this.interpret(((Minus)e).getRight());
-          Integer _xifexpression = null;
-          if (((left instanceof Integer) && (right instanceof Integer))) {
-            _xifexpression = Integer.valueOf(((((Integer) left)).intValue() - (((Integer) right)).intValue()));
+          Long _xifexpression = null;
+          if (((left instanceof Long) && (right instanceof Long))) {
+            _xifexpression = Long.valueOf(((((Long) left)).longValue() - (((Long) right)).longValue()));
           } else {
             _xifexpression = null;
           }
@@ -167,13 +160,13 @@ public class EisInterpreter {
           String _string_1 = this.interpret(((Plus)e).getRight()).toString();
           _xifexpression = (_string + _string_1);
         } else {
-          Integer _xblockexpression = null;
+          Long _xblockexpression = null;
           {
             final Object left = this.interpret(((Plus)e).getLeft());
             final Object right = this.interpret(((Plus)e).getRight());
-            Integer _xifexpression_1 = null;
-            if (((left instanceof Integer) && (right instanceof Integer))) {
-              _xifexpression_1 = Integer.valueOf(((((Integer) left)).intValue() + (((Integer) right)).intValue()));
+            Long _xifexpression_1 = null;
+            if (((left instanceof Long) && (right instanceof Long))) {
+              _xifexpression_1 = Long.valueOf(((((Long) left)).longValue() + (((Long) right)).longValue()));
             } else {
               _xifexpression_1 = null;
             }
@@ -286,22 +279,22 @@ public class EisInterpreter {
             final Object left = this.interpret(((Comparison)e).getLeft());
             final Object right = this.interpret(((Comparison)e).getRight());
             Boolean _xifexpression_1 = null;
-            if (((left instanceof Integer) && (right instanceof Integer))) {
+            if (((left instanceof Long) && (right instanceof Long))) {
               boolean _switchResult_1 = false;
               String _op = ((Comparison)e).getOp();
               if (_op != null) {
                 switch (_op) {
                   case "<":
-                    _switchResult_1 = (((Integer) left).compareTo(((Integer) right)) < 0);
+                    _switchResult_1 = (((Long) left).compareTo(((Long) right)) < 0);
                     break;
                   case ">":
-                    _switchResult_1 = (((Integer) left).compareTo(((Integer) right)) > 0);
+                    _switchResult_1 = (((Long) left).compareTo(((Long) right)) > 0);
                     break;
                   case ">=":
-                    _switchResult_1 = (((Integer) left).compareTo(((Integer) right)) >= 0);
+                    _switchResult_1 = (((Long) left).compareTo(((Long) right)) >= 0);
                     break;
                   case "<=":
-                    _switchResult_1 = (((Integer) left).compareTo(((Integer) right)) <= 0);
+                    _switchResult_1 = (((Long) left).compareTo(((Long) right)) <= 0);
                     break;
                   default:
                     _switchResult_1 = false;

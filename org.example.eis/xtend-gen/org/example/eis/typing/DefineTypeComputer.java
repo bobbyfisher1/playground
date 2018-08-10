@@ -11,7 +11,6 @@ import org.example.eis.eis.Equality;
 import org.example.eis.eis.Idiom;
 import org.example.eis.eis.IntConstant;
 import org.example.eis.eis.LWordConstant;
-import org.example.eis.eis.LongConstant;
 import org.example.eis.eis.Minus;
 import org.example.eis.eis.MulOrDiv;
 import org.example.eis.eis.Not;
@@ -114,6 +113,10 @@ public class DefineTypeComputer {
     return (type == DefineTypeComputer.UINT_TYPE);
   }
   
+  public boolean isUDIntType(final DefineType type) {
+    return (type == DefineTypeComputer.UDINT_TYPE);
+  }
+  
   public boolean isSIntType(final DefineType type) {
     return (type == DefineTypeComputer.SINT_TYPE);
   }
@@ -173,12 +176,6 @@ public class DefineTypeComputer {
       if (i instanceof LWordConstant) {
         _matched=true;
         _switchResult = DefineTypeComputer.LWORD_TYPE;
-      }
-    }
-    if (!_matched) {
-      if (i instanceof LongConstant) {
-        _matched=true;
-        _switchResult = DefineTypeComputer.LINT_TYPE;
       }
     }
     if (!_matched) {

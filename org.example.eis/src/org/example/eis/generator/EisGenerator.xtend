@@ -101,7 +101,7 @@ class EisGenerator extends AbstractGenerator {
 		«IF !steps.empty»		
 		«oneTab + twoTabs»<Teststeps>
 		«FOR e : steps»
-		«fourTabs»<Teststep PlcCycle ="«e.plcCycle»" Description="«e.description»">
+		«fourTabs»<Teststep PlcCycle ="«e.plcCycle.intValue»" Description="«e.description»">
 		«fiveTabs»<Inputs>
 		«setMap.clear»
 		«setMap.putAll(inputMap)»
