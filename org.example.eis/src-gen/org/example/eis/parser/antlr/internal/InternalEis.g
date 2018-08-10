@@ -1983,15 +1983,15 @@ ruleAtomic returns [EObject current=null]
 			(
 				{
 					$current = forceCreateModelElement(
-						grammarAccess.getAtomicAccess().getByteConstantAction_5_0(),
+						grammarAccess.getAtomicAccess().getHexConstantAction_5_0(),
 						$current);
 				}
 			)
 			(
 				(
-					lv_value_10_0=RULE_BYTE
+					lv_value_10_0=RULE_HEX
 					{
-						newLeafNode(lv_value_10_0, grammarAccess.getAtomicAccess().getValueBYTETerminalRuleCall_5_1_0());
+						newLeafNode(lv_value_10_0, grammarAccess.getAtomicAccess().getValueHEXTerminalRuleCall_5_1_0());
 					}
 					{
 						if ($current==null) {
@@ -2001,91 +2001,7 @@ ruleAtomic returns [EObject current=null]
 							$current,
 							"value",
 							lv_value_10_0,
-							"org.example.eis.Eis.BYTE");
-					}
-				)
-			)
-		)
-		    |
-		(
-			(
-				{
-					$current = forceCreateModelElement(
-						grammarAccess.getAtomicAccess().getWordConstantAction_6_0(),
-						$current);
-				}
-			)
-			(
-				(
-					lv_value_12_0=RULE_WORD
-					{
-						newLeafNode(lv_value_12_0, grammarAccess.getAtomicAccess().getValueWORDTerminalRuleCall_6_1_0());
-					}
-					{
-						if ($current==null) {
-							$current = createModelElement(grammarAccess.getAtomicRule());
-						}
-						setWithLastConsumed(
-							$current,
-							"value",
-							lv_value_12_0,
-							"org.example.eis.Eis.WORD");
-					}
-				)
-			)
-		)
-		    |
-		(
-			(
-				{
-					$current = forceCreateModelElement(
-						grammarAccess.getAtomicAccess().getDWordConstantAction_7_0(),
-						$current);
-				}
-			)
-			(
-				(
-					lv_value_14_0=RULE_DWORD
-					{
-						newLeafNode(lv_value_14_0, grammarAccess.getAtomicAccess().getValueDWORDTerminalRuleCall_7_1_0());
-					}
-					{
-						if ($current==null) {
-							$current = createModelElement(grammarAccess.getAtomicRule());
-						}
-						setWithLastConsumed(
-							$current,
-							"value",
-							lv_value_14_0,
-							"org.example.eis.Eis.DWORD");
-					}
-				)
-			)
-		)
-		    |
-		(
-			(
-				{
-					$current = forceCreateModelElement(
-						grammarAccess.getAtomicAccess().getLWordConstantAction_8_0(),
-						$current);
-				}
-			)
-			(
-				(
-					lv_value_16_0=RULE_LWORD
-					{
-						newLeafNode(lv_value_16_0, grammarAccess.getAtomicAccess().getValueLWORDTerminalRuleCall_8_1_0());
-					}
-					{
-						if ($current==null) {
-							$current = createModelElement(grammarAccess.getAtomicRule());
-						}
-						setWithLastConsumed(
-							$current,
-							"value",
-							lv_value_16_0,
-							"org.example.eis.Eis.LWORD");
+							"org.example.eis.Eis.HEX");
 					}
 				)
 			)
@@ -2709,13 +2625,7 @@ RULE_LONG : '-'? RULE_DIGIT+;
 
 RULE_REAL : RULE_LONG '.' RULE_DIGIT+;
 
-RULE_BYTE : '16#' RULE_HEXDIGIT RULE_HEXDIGIT;
-
-RULE_WORD : '16#' RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT;
-
-RULE_DWORD : '16#' RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT '_' RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT;
-
-RULE_LWORD : '16#' RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT '_' RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT '_' RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT '_' RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT;
+RULE_HEX : '16#' ((((((((((((((RULE_HEXDIGIT? RULE_HEXDIGIT)? RULE_HEXDIGIT)? RULE_HEXDIGIT '_')? RULE_HEXDIGIT)? RULE_HEXDIGIT)? RULE_HEXDIGIT)? RULE_HEXDIGIT '_')? RULE_HEXDIGIT)? RULE_HEXDIGIT)? RULE_HEXDIGIT)? RULE_HEXDIGIT '_')? RULE_HEXDIGIT)? RULE_HEXDIGIT)? RULE_HEXDIGIT)? RULE_HEXDIGIT;
 
 RULE_ID : '^'? ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
 

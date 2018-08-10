@@ -116,10 +116,10 @@ Atomic returns Idiom:
 	| BoolConstant
 	| {VariableRef} variable=[Variable]
 	| {RealConstant} value=REAL
-	| {ByteConstant} value=BYTE
-	| {WordConstant} value=WORD
-	| {DWordConstant} value=DWORD
-	| {LWordConstant} value=LWORD
+	//	| {ByteConstant} value=BYTE
+	//	| {WordConstant} value=WORD
+	//	| {DWordConstant} value=DWORD
+	| {HexConstant} value=HEX
 	//	| {LongConstant} value=LONG
 ;
 
@@ -160,18 +160,22 @@ terminal LONG returns ecore::ELong:
 terminal REAL returns ecore::EFloat:
 	LONG '.' DIGIT+;
 	//
-terminal BYTE:
-	'16#' HEXDIGIT? HEXDIGIT;
-	//
-terminal WORD:
-	'16#' HEXDIGIT? HEXDIGIT? HEXDIGIT? HEXDIGIT;
-	//
-terminal DWORD:
-	'16#' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT '_' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT;
-	//
-terminal LWORD:
-	'16#' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT '_' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT '_' HEXDIGIT HEXDIGIT HEXDIGIT
-	HEXDIGIT '_' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT;
+//terminal BYTE:
+//	'16#' HEXDIGIT? HEXDIGIT;
+//	//
+//terminal WORD:
+//	'16#' HEXDIGIT? HEXDIGIT? HEXDIGIT? HEXDIGIT;
+//	//
+//terminal DWORD:
+//	'16#' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT '_' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT;
+//	//
+terminal HEX:
+	'16#'
+	((((((((((((((( //
+	HEXDIGIT)? HEXDIGIT)? HEXDIGIT)? HEXDIGIT '_')?
+	HEXDIGIT)? HEXDIGIT)? HEXDIGIT)? HEXDIGIT '_')?
+	HEXDIGIT)? HEXDIGIT)? HEXDIGIT)? HEXDIGIT '_')?
+	HEXDIGIT)? HEXDIGIT)? HEXDIGIT)? HEXDIGIT;
 
 terminal ID:
 	'^'? ('a'..'z' | 'A'..'Z' | '_') ('a'..'z' | 'A'..'Z' | '_' | '0'..'9')*;

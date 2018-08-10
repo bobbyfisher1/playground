@@ -10,13 +10,11 @@ import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Pair;
 import org.example.eis.eis.And;
 import org.example.eis.eis.BoolConstant;
-import org.example.eis.eis.ByteConstant;
 import org.example.eis.eis.Comparison;
-import org.example.eis.eis.DWordConstant;
 import org.example.eis.eis.Equality;
+import org.example.eis.eis.HexConstant;
 import org.example.eis.eis.Idiom;
 import org.example.eis.eis.IntConstant;
-import org.example.eis.eis.LWordConstant;
 import org.example.eis.eis.Minus;
 import org.example.eis.eis.MulOrDiv;
 import org.example.eis.eis.Not;
@@ -26,7 +24,6 @@ import org.example.eis.eis.RealConstant;
 import org.example.eis.eis.StringConstant;
 import org.example.eis.eis.Variable;
 import org.example.eis.eis.VariableRef;
-import org.example.eis.eis.WordConstant;
 import org.example.eis.typing.DefineTypeComputer;
 
 @SuppressWarnings("all")
@@ -64,27 +61,9 @@ public class EisInterpreter {
       }
     }
     if (!_matched) {
-      if (e instanceof ByteConstant) {
+      if (e instanceof HexConstant) {
         _matched=true;
-        _switchResult = ((ByteConstant)e).getValue();
-      }
-    }
-    if (!_matched) {
-      if (e instanceof WordConstant) {
-        _matched=true;
-        _switchResult = ((WordConstant)e).getValue();
-      }
-    }
-    if (!_matched) {
-      if (e instanceof DWordConstant) {
-        _matched=true;
-        _switchResult = ((DWordConstant)e).getValue();
-      }
-    }
-    if (!_matched) {
-      if (e instanceof LWordConstant) {
-        _matched=true;
-        _switchResult = ((LWordConstant)e).getValue();
+        _switchResult = ((HexConstant)e).getValue();
       }
     }
     if (!_matched) {

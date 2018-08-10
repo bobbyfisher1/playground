@@ -4,13 +4,11 @@ import java.util.Arrays;
 import org.example.eis.eis.And;
 import org.example.eis.eis.BasicType;
 import org.example.eis.eis.BoolConstant;
-import org.example.eis.eis.ByteConstant;
 import org.example.eis.eis.Comparison;
-import org.example.eis.eis.DWordConstant;
 import org.example.eis.eis.Equality;
+import org.example.eis.eis.HexConstant;
 import org.example.eis.eis.Idiom;
 import org.example.eis.eis.IntConstant;
-import org.example.eis.eis.LWordConstant;
 import org.example.eis.eis.Minus;
 import org.example.eis.eis.MulOrDiv;
 import org.example.eis.eis.Not;
@@ -19,7 +17,6 @@ import org.example.eis.eis.Plus;
 import org.example.eis.eis.RealConstant;
 import org.example.eis.eis.StringConstant;
 import org.example.eis.eis.VariableRef;
-import org.example.eis.eis.WordConstant;
 import org.example.eis.typing.DefineType;
 import org.example.eis.typing.types.BoolType;
 import org.example.eis.typing.types.ByteType;
@@ -81,6 +78,10 @@ public class DefineTypeComputer {
       (type == DefineTypeComputer.SINT_TYPE)) || (type == DefineTypeComputer.DINT_TYPE)) || (type == DefineTypeComputer.LINT_TYPE));
   }
   
+  public boolean isBinaryType(final DefineType type) {
+    return ((((type == DefineTypeComputer.BYTE_TYPE) || (type == DefineTypeComputer.WORD_TYPE)) || (type == DefineTypeComputer.DWORD_TYPE)) || (type == DefineTypeComputer.LWORD_TYPE));
+  }
+  
   public boolean isBoolType(final DefineType type) {
     return (type == DefineTypeComputer.BOOL_TYPE);
   }
@@ -117,6 +118,10 @@ public class DefineTypeComputer {
     return (type == DefineTypeComputer.UDINT_TYPE);
   }
   
+  public boolean isULIntType(final DefineType type) {
+    return (type == DefineTypeComputer.ULINT_TYPE);
+  }
+  
   public boolean isSIntType(final DefineType type) {
     return (type == DefineTypeComputer.SINT_TYPE);
   }
@@ -127,6 +132,10 @@ public class DefineTypeComputer {
   
   public boolean isDIntType(final DefineType type) {
     return (type == DefineTypeComputer.DINT_TYPE);
+  }
+  
+  public boolean isLIntType(final DefineType type) {
+    return (type == DefineTypeComputer.LINT_TYPE);
   }
   
   protected DefineType _typeFor(final Idiom i) {
@@ -155,25 +164,7 @@ public class DefineTypeComputer {
       }
     }
     if (!_matched) {
-      if (i instanceof ByteConstant) {
-        _matched=true;
-        _switchResult = DefineTypeComputer.BYTE_TYPE;
-      }
-    }
-    if (!_matched) {
-      if (i instanceof WordConstant) {
-        _matched=true;
-        _switchResult = DefineTypeComputer.WORD_TYPE;
-      }
-    }
-    if (!_matched) {
-      if (i instanceof DWordConstant) {
-        _matched=true;
-        _switchResult = DefineTypeComputer.DWORD_TYPE;
-      }
-    }
-    if (!_matched) {
-      if (i instanceof LWordConstant) {
+      if (i instanceof HexConstant) {
         _matched=true;
         _switchResult = DefineTypeComputer.LWORD_TYPE;
       }

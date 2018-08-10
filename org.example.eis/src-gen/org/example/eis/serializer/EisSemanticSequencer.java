@@ -19,19 +19,17 @@ import org.example.eis.eis.Assert;
 import org.example.eis.eis.AssertionBlock;
 import org.example.eis.eis.BlockConstant;
 import org.example.eis.eis.BoolConstant;
-import org.example.eis.eis.ByteConstant;
 import org.example.eis.eis.Cascade;
 import org.example.eis.eis.Comparison;
-import org.example.eis.eis.DWordConstant;
 import org.example.eis.eis.DefineBlock;
 import org.example.eis.eis.DirectionBlock;
 import org.example.eis.eis.EisModel;
 import org.example.eis.eis.EisPackage;
 import org.example.eis.eis.Equality;
+import org.example.eis.eis.HexConstant;
 import org.example.eis.eis.InOut;
 import org.example.eis.eis.Input;
 import org.example.eis.eis.IntConstant;
-import org.example.eis.eis.LWordConstant;
 import org.example.eis.eis.Minus;
 import org.example.eis.eis.MulOrDiv;
 import org.example.eis.eis.Not;
@@ -49,7 +47,6 @@ import org.example.eis.eis.UdtRef;
 import org.example.eis.eis.UdtType;
 import org.example.eis.eis.Variable;
 import org.example.eis.eis.VariableRef;
-import org.example.eis.eis.WordConstant;
 import org.example.eis.services.EisGrammarAccess;
 
 @SuppressWarnings("all")
@@ -81,17 +78,11 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case EisPackage.BOOL_CONSTANT:
 				sequence_BoolConstant(context, (BoolConstant) semanticObject); 
 				return; 
-			case EisPackage.BYTE_CONSTANT:
-				sequence_Atomic(context, (ByteConstant) semanticObject); 
-				return; 
 			case EisPackage.CASCADE:
 				sequence_Cascade(context, (Cascade) semanticObject); 
 				return; 
 			case EisPackage.COMPARISON:
 				sequence_Comparison(context, (Comparison) semanticObject); 
-				return; 
-			case EisPackage.DWORD_CONSTANT:
-				sequence_Atomic(context, (DWordConstant) semanticObject); 
 				return; 
 			case EisPackage.DEFINE_BLOCK:
 				sequence_DefineBlock(context, (DefineBlock) semanticObject); 
@@ -105,6 +96,9 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case EisPackage.EQUALITY:
 				sequence_Equality(context, (Equality) semanticObject); 
 				return; 
+			case EisPackage.HEX_CONSTANT:
+				sequence_Atomic(context, (HexConstant) semanticObject); 
+				return; 
 			case EisPackage.IN_OUT:
 				sequence_InOut(context, (InOut) semanticObject); 
 				return; 
@@ -113,9 +107,6 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				return; 
 			case EisPackage.INT_CONSTANT:
 				sequence_Atomic(context, (IntConstant) semanticObject); 
-				return; 
-			case EisPackage.LWORD_CONSTANT:
-				sequence_Atomic(context, (LWordConstant) semanticObject); 
 				return; 
 			case EisPackage.MINUS:
 				sequence_PlusOrMinus(context, (Minus) semanticObject); 
@@ -170,9 +161,6 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				return; 
 			case EisPackage.VARIABLE_REF:
 				sequence_Atomic(context, (VariableRef) semanticObject); 
-				return; 
-			case EisPackage.WORD_CONSTANT:
-				sequence_Atomic(context, (WordConstant) semanticObject); 
 				return; 
 			}
 		if (errorAcceptor != null)
@@ -240,66 +228,33 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     Idiom returns ByteConstant
-	 *     Or returns ByteConstant
-	 *     Or.Or_1_0 returns ByteConstant
-	 *     And returns ByteConstant
-	 *     And.And_1_0 returns ByteConstant
-	 *     Equality returns ByteConstant
-	 *     Equality.Equality_1_0 returns ByteConstant
-	 *     Comparison returns ByteConstant
-	 *     Comparison.Comparison_1_0 returns ByteConstant
-	 *     PlusOrMinus returns ByteConstant
-	 *     PlusOrMinus.Plus_1_0_0_0 returns ByteConstant
-	 *     PlusOrMinus.Minus_1_0_1_0 returns ByteConstant
-	 *     MulOrDiv returns ByteConstant
-	 *     MulOrDiv.MulOrDiv_1_0 returns ByteConstant
-	 *     Primary returns ByteConstant
-	 *     Atomic returns ByteConstant
+	 *     Idiom returns HexConstant
+	 *     Or returns HexConstant
+	 *     Or.Or_1_0 returns HexConstant
+	 *     And returns HexConstant
+	 *     And.And_1_0 returns HexConstant
+	 *     Equality returns HexConstant
+	 *     Equality.Equality_1_0 returns HexConstant
+	 *     Comparison returns HexConstant
+	 *     Comparison.Comparison_1_0 returns HexConstant
+	 *     PlusOrMinus returns HexConstant
+	 *     PlusOrMinus.Plus_1_0_0_0 returns HexConstant
+	 *     PlusOrMinus.Minus_1_0_1_0 returns HexConstant
+	 *     MulOrDiv returns HexConstant
+	 *     MulOrDiv.MulOrDiv_1_0 returns HexConstant
+	 *     Primary returns HexConstant
+	 *     Atomic returns HexConstant
 	 *
 	 * Constraint:
-	 *     value=BYTE
+	 *     value=HEX
 	 */
-	protected void sequence_Atomic(ISerializationContext context, ByteConstant semanticObject) {
+	protected void sequence_Atomic(ISerializationContext context, HexConstant semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, EisPackage.Literals.BYTE_CONSTANT__VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EisPackage.Literals.BYTE_CONSTANT__VALUE));
+			if (transientValues.isValueTransient(semanticObject, EisPackage.Literals.HEX_CONSTANT__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EisPackage.Literals.HEX_CONSTANT__VALUE));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getAtomicAccess().getValueBYTETerminalRuleCall_5_1_0(), semanticObject.getValue());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     Idiom returns DWordConstant
-	 *     Or returns DWordConstant
-	 *     Or.Or_1_0 returns DWordConstant
-	 *     And returns DWordConstant
-	 *     And.And_1_0 returns DWordConstant
-	 *     Equality returns DWordConstant
-	 *     Equality.Equality_1_0 returns DWordConstant
-	 *     Comparison returns DWordConstant
-	 *     Comparison.Comparison_1_0 returns DWordConstant
-	 *     PlusOrMinus returns DWordConstant
-	 *     PlusOrMinus.Plus_1_0_0_0 returns DWordConstant
-	 *     PlusOrMinus.Minus_1_0_1_0 returns DWordConstant
-	 *     MulOrDiv returns DWordConstant
-	 *     MulOrDiv.MulOrDiv_1_0 returns DWordConstant
-	 *     Primary returns DWordConstant
-	 *     Atomic returns DWordConstant
-	 *
-	 * Constraint:
-	 *     value=DWORD
-	 */
-	protected void sequence_Atomic(ISerializationContext context, DWordConstant semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, EisPackage.Literals.DWORD_CONSTANT__VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EisPackage.Literals.DWORD_CONSTANT__VALUE));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getAtomicAccess().getValueDWORDTerminalRuleCall_7_1_0(), semanticObject.getValue());
+		feeder.accept(grammarAccess.getAtomicAccess().getValueHEXTerminalRuleCall_5_1_0(), semanticObject.getValue());
 		feeder.finish();
 	}
 	
@@ -333,39 +288,6 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getAtomicAccess().getValueLONGTerminalRuleCall_0_1_0(), semanticObject.getValue());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     Idiom returns LWordConstant
-	 *     Or returns LWordConstant
-	 *     Or.Or_1_0 returns LWordConstant
-	 *     And returns LWordConstant
-	 *     And.And_1_0 returns LWordConstant
-	 *     Equality returns LWordConstant
-	 *     Equality.Equality_1_0 returns LWordConstant
-	 *     Comparison returns LWordConstant
-	 *     Comparison.Comparison_1_0 returns LWordConstant
-	 *     PlusOrMinus returns LWordConstant
-	 *     PlusOrMinus.Plus_1_0_0_0 returns LWordConstant
-	 *     PlusOrMinus.Minus_1_0_1_0 returns LWordConstant
-	 *     MulOrDiv returns LWordConstant
-	 *     MulOrDiv.MulOrDiv_1_0 returns LWordConstant
-	 *     Primary returns LWordConstant
-	 *     Atomic returns LWordConstant
-	 *
-	 * Constraint:
-	 *     value=LWORD
-	 */
-	protected void sequence_Atomic(ISerializationContext context, LWordConstant semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, EisPackage.Literals.LWORD_CONSTANT__VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EisPackage.Literals.LWORD_CONSTANT__VALUE));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getAtomicAccess().getValueLWORDTerminalRuleCall_8_1_0(), semanticObject.getValue());
 		feeder.finish();
 	}
 	
@@ -465,39 +387,6 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getAtomicAccess().getVariableVariableIDTerminalRuleCall_3_1_0_1(), semanticObject.eGet(EisPackage.Literals.VARIABLE_REF__VARIABLE, false));
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     Idiom returns WordConstant
-	 *     Or returns WordConstant
-	 *     Or.Or_1_0 returns WordConstant
-	 *     And returns WordConstant
-	 *     And.And_1_0 returns WordConstant
-	 *     Equality returns WordConstant
-	 *     Equality.Equality_1_0 returns WordConstant
-	 *     Comparison returns WordConstant
-	 *     Comparison.Comparison_1_0 returns WordConstant
-	 *     PlusOrMinus returns WordConstant
-	 *     PlusOrMinus.Plus_1_0_0_0 returns WordConstant
-	 *     PlusOrMinus.Minus_1_0_1_0 returns WordConstant
-	 *     MulOrDiv returns WordConstant
-	 *     MulOrDiv.MulOrDiv_1_0 returns WordConstant
-	 *     Primary returns WordConstant
-	 *     Atomic returns WordConstant
-	 *
-	 * Constraint:
-	 *     value=WORD
-	 */
-	protected void sequence_Atomic(ISerializationContext context, WordConstant semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, EisPackage.Literals.WORD_CONSTANT__VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EisPackage.Literals.WORD_CONSTANT__VALUE));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getAtomicAccess().getValueWORDTerminalRuleCall_6_1_0(), semanticObject.getValue());
 		feeder.finish();
 	}
 	

@@ -116,20 +116,34 @@ class DefineTypeComputerTest {
 	}
 
 	@Test def void testByte() {
-		val real = '''
+		val _byte = '''
 			byte a = 16#AA;
 		'''
+		(start + _byte + end).parse => [
+			assertNoErrors
+		]
+	}
+
+	@Test def void testByteBoundaries() {
+		val _byte = '''byte a =16#0440;'''
+		(start + _byte + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+	}
+
+	@Test def void testWord() {
+		val real = '''word a = 16#AAAA;'''
 		(start + real + end).parse => [
 			assertNoErrors
 		]
 	}
 
-	@Test def void testWord() {
-		val real = '''
-			word a = 16#AAAA;
-		'''
-		(start + real + end).parse => [
-			assertNoErrors
+	@Test def void testWordBoundaries() {
+		val word = '''word a =16#0000_0440;'''
+		(start + word + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
 		]
 	}
 
@@ -139,6 +153,14 @@ class DefineTypeComputerTest {
 		'''
 		(start + real + end).parse => [
 			assertNoErrors
+		]
+	}
+
+	@Test def void testDWordBoundaries() {
+		val dWord = '''dword a =16#0_2000_0440;'''
+		(start + dWord + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
 		]
 	}
 
@@ -210,6 +232,19 @@ class DefineTypeComputerTest {
 			1.assertEquals(validate.size)
 			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
 		]
+	}
+
+	@Test def void testULIntBounds() {
+		val uLInt = '''ulint a = '''
+		(start + uLInt + '-1' + ';' + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + uLInt + '0 +/- -14' + ';' + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+
 	}
 
 //bug: -128 -1 isn't allowed because it's recognized as two numbers without an op in between
@@ -331,6 +366,19 @@ class DefineTypeComputerTest {
 			assertError(EisPackage.eINSTANCE.statement, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
 		]
 		(start + uDInt + ']}' + teststep + '0 +/- 4294967295+1' + ';]}' + ending).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.statement, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+	}
+
+	@Test def void testULIntBoundsInStatement() {
+		val uLInt = '''ulint a; '''
+
+		(start + uLInt + "]}" + teststep + '-1' + ';]}' + ending).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.statement, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+		(start + uLInt + ']}' + teststep + '0 +/- -14' + ';]}' + ending).parse => [
 			1.assertEquals(validate.size)
 			assertError(EisPackage.eINSTANCE.statement, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
 		]

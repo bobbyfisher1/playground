@@ -198,10 +198,27 @@ public class DefineTypeComputerTest {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("byte a = 16#AA;");
       _builder.newLine();
-      final String real = _builder.toString();
-      EisModel _parse = this._parseHelper.parse(((this.start + real) + this.end));
+      final String _byte = _builder.toString();
+      EisModel _parse = this._parseHelper.parse(((this.start + _byte) + this.end));
       final Procedure1<EisModel> _function = (EisModel it) -> {
         this._validationTestHelper.assertNoErrors(it);
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void testByteBoundaries() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("byte a =16#0440;");
+      final String _byte = _builder.toString();
+      EisModel _parse = this._parseHelper.parse(((this.start + _byte) + this.end));
+      final Procedure1<EisModel> _function = (EisModel it) -> {
+        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getVariable(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
       };
       ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
     } catch (Throwable _e) {
@@ -214,11 +231,27 @@ public class DefineTypeComputerTest {
     try {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("word a = 16#AAAA;");
-      _builder.newLine();
       final String real = _builder.toString();
       EisModel _parse = this._parseHelper.parse(((this.start + real) + this.end));
       final Procedure1<EisModel> _function = (EisModel it) -> {
         this._validationTestHelper.assertNoErrors(it);
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void testWordBoundaries() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("word a =16#0000_0440;");
+      final String word = _builder.toString();
+      EisModel _parse = this._parseHelper.parse(((this.start + word) + this.end));
+      final Procedure1<EisModel> _function = (EisModel it) -> {
+        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getVariable(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
       };
       ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
     } catch (Throwable _e) {
@@ -236,6 +269,23 @@ public class DefineTypeComputerTest {
       EisModel _parse = this._parseHelper.parse(((this.start + real) + this.end));
       final Procedure1<EisModel> _function = (EisModel it) -> {
         this._validationTestHelper.assertNoErrors(it);
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void testDWordBoundaries() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("dword a =16#0_2000_0440;");
+      final String dWord = _builder.toString();
+      EisModel _parse = this._parseHelper.parse(((this.start + dWord) + this.end));
+      final Procedure1<EisModel> _function = (EisModel it) -> {
+        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getVariable(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
       };
       ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
     } catch (Throwable _e) {
@@ -375,6 +425,29 @@ public class DefineTypeComputerTest {
         this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getVariable(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
       };
       ObjectExtensions.<EisModel>operator_doubleArrow(_parse_3, _function_3);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void testULIntBounds() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("ulint a = ");
+      final String uLInt = _builder.toString();
+      EisModel _parse = this._parseHelper.parse(((((this.start + uLInt) + "-1") + ";") + this.end));
+      final Procedure1<EisModel> _function = (EisModel it) -> {
+        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getVariable(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
+      EisModel _parse_1 = this._parseHelper.parse(((((this.start + uLInt) + "0 +/- -14") + ";") + this.end));
+      final Procedure1<EisModel> _function_1 = (EisModel it) -> {
+        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getVariable(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse_1, _function_1);
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
@@ -585,6 +658,29 @@ public class DefineTypeComputerTest {
         this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getStatement(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
       };
       ObjectExtensions.<EisModel>operator_doubleArrow(_parse_3, _function_3);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void testULIntBoundsInStatement() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("ulint a; ");
+      final String uLInt = _builder.toString();
+      EisModel _parse = this._parseHelper.parse(((((((this.start + uLInt) + "]}") + this.teststep) + "-1") + ";]}") + this.ending));
+      final Procedure1<EisModel> _function = (EisModel it) -> {
+        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getStatement(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
+      EisModel _parse_1 = this._parseHelper.parse(((((((this.start + uLInt) + "]}") + this.teststep) + "0 +/- -14") + ";]}") + this.ending));
+      final Procedure1<EisModel> _function_1 = (EisModel it) -> {
+        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getStatement(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse_1, _function_1);
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }

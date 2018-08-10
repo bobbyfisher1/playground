@@ -100,10 +100,7 @@ public class EisFactoryImpl extends EFactoryImpl implements EisFactory
       case EisPackage.STRING_CONSTANT: return createStringConstant();
       case EisPackage.VARIABLE_REF: return createVariableRef();
       case EisPackage.REAL_CONSTANT: return createRealConstant();
-      case EisPackage.BYTE_CONSTANT: return createByteConstant();
-      case EisPackage.WORD_CONSTANT: return createWordConstant();
-      case EisPackage.DWORD_CONSTANT: return createDWordConstant();
-      case EisPackage.LWORD_CONSTANT: return createLWordConstant();
+      case EisPackage.HEX_CONSTANT: return createHexConstant();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -522,43 +519,10 @@ public class EisFactoryImpl extends EFactoryImpl implements EisFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public ByteConstant createByteConstant()
+  public HexConstant createHexConstant()
   {
-    ByteConstantImpl byteConstant = new ByteConstantImpl();
-    return byteConstant;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public WordConstant createWordConstant()
-  {
-    WordConstantImpl wordConstant = new WordConstantImpl();
-    return wordConstant;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public DWordConstant createDWordConstant()
-  {
-    DWordConstantImpl dWordConstant = new DWordConstantImpl();
-    return dWordConstant;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public LWordConstant createLWordConstant()
-  {
-    LWordConstantImpl lWordConstant = new LWordConstantImpl();
-    return lWordConstant;
+    HexConstantImpl hexConstant = new HexConstantImpl();
+    return hexConstant;
   }
 
   /**

@@ -120,7 +120,7 @@ public class VariableImpl extends VariablesImpl implements Variable
    * <!-- end-user-doc -->
    * @generated
    */
-  public  VariableImpl()
+  public VariableImpl()
   {
     super();
   }

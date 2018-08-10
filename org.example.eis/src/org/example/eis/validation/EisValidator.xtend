@@ -43,6 +43,7 @@ import org.example.eis.eis.impl.VariableImpl
 import org.example.eis.interpreter.EisInterpreter
 import org.example.eis.typing.DefineType
 import org.example.eis.typing.DefineTypeComputer
+import org.example.eis.eis.HexConstant
 
 class EisValidator extends AbstractEisValidator {
 	protected static val ISSUE_CODE_PREFIX = "org.example.entities.";
@@ -267,13 +268,15 @@ class EisValidator extends AbstractEisValidator {
 				return;
 
 			if (expectedType !== actualType)
-				if (!(actualType.isIntSuperType && expectedType.isIntSuperType))
+				if (!(actualType.isIntSuperType && expectedType.isIntSuperType || actualType.isBinaryType &&
+					expectedType.isBinaryType))
 					error(
 						"Incompatible types. Expected '" + expectedType.toString + "' but was '" + actualType.toString +
 							"'", variable, EisPackage.eINSTANCE.variable_Idiom, INCOMPATIBLE_TYPES)
 
 			if (rangeType !== null && rangeType != expectedType)
-				if (!(rangeType.isIntSuperType && expectedType.isIntSuperType))
+				if (!(rangeType.isIntSuperType && expectedType.isIntSuperType ||
+					rangeType.isBinaryType && expectedType.isBinaryType))
 					error(
 						"Incompatible types. Expected '" + expectedType.toString + "' but was '" + rangeType.toString +
 							"'", variable, EisPackage.eINSTANCE.variable_Range, INCOMPATIBLE_TYPES)
@@ -515,7 +518,7 @@ class EisValidator extends AbstractEisValidator {
 		}
 	}
 
-	@Check def void checkVariableValues(Variable variable) {
+	@Check def void checkNumericalValues(Variable variable) {
 		val expectedType = variable.variableType.typeFor
 		val idiom = variable?.idiom
 		val range = variable?.range
@@ -529,7 +532,7 @@ class EisValidator extends AbstractEisValidator {
 							VALUE_EXCEEDING_DATATYPE_BOUNDS)
 			}
 
-		if (variable.range !== null)
+		if (range !== null)
 			if (!(range instanceof VariableRef)) {
 				val rangeValue = range.interpret
 				if (rangeValue instanceof Long)
@@ -539,7 +542,7 @@ class EisValidator extends AbstractEisValidator {
 			}
 	}
 
-	@Check def void checkStatementValues(Statement statement) {
+	@Check def void checkNumericalValues(Statement statement) {
 		val cascade = statement.cascade
 		val variable = statement.variable
 		val last = cascade?.last?.udtVar
@@ -587,28 +590,63 @@ class EisValidator extends AbstractEisValidator {
 		}
 	}
 
+	@Check def void checkBinaryValues(Variable variable) {
+		val expectedType = variable.variableType.typeFor
+		val idiom = variable?.idiom
+		val range = variable?.range
+
+		if (idiom !== null)
+			if (!(idiom instanceof VariableRef))
+				if (idiom instanceof HexConstant) {
+					val idiomValue = idiom.interpret as String
+					if (idiomValue.checkBinaryValues(expectedType))
+						error("Value is out of the datatype boundaries.", variable, EisPackage.eINSTANCE.variable_Idiom,
+							VALUE_EXCEEDING_DATATYPE_BOUNDS)
+				}
+
+		if (range !== null)
+			if (!(range instanceof VariableRef))
+				if (range instanceof HexConstant) {
+					val rangeValue = range.interpret as String
+					if (rangeValue.checkBinaryValues(expectedType))
+						error("Value is out of the datatype boundaries.", variable, EisPackage.eINSTANCE.variable_Range,
+							VALUE_EXCEEDING_DATATYPE_BOUNDS)
+				}
+	}
+
 //
 // methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //
+	def private boolean checkBinaryValues(String hex, DefineType expectedType) {
+		switch expectedType {
+			case expectedType.isByteType: hex.length.outOfBounds('16#00'.length)
+			case expectedType.isWordType: hex.length.outOfBounds('16#0000'.length)
+			case expectedType.isDWordType: hex.length.outOfBounds('16#0000_0000'.length)
+//			case expectedType.isLWordType: hex.length.outOfBounds('16#0000_0000_0000_0000'.length) //grammar doesn't allow binaries to be bigger than the size of a LWord
+			default: false
+		}
+	}
+
+	def private boolean outOfBounds(int actual_length, int maxSize) {
+		var outOfBounds = false
+
+		if (actual_length > maxSize)
+			outOfBounds = true
+
+		return outOfBounds
+	}
+
 	def private boolean checkNumericalValues(long idiom, DefineType expectedType) {
 		switch expectedType {
 			case expectedType.isUSIntType: idiom.outOfBounds(0, 255)
 			case expectedType.isUIntType: idiom.outOfBounds(0, 65535)
 			case expectedType.isUDIntType: idiom.outOfBounds(0, 4294967295L)
+			case expectedType.isULIntType: if(idiom.intValue < 0) true else false
 			case expectedType.isSIntType: idiom.outOfBounds(-128, 127)
 			case expectedType.isIntType: idiom.outOfBounds(-32768, 32767)
-			case expectedType.isDIntType: idiom.outOfBounds(-2147483647, 2147483647) // the xtext int is a 32-Bit-Int
+			case expectedType.isDIntType: idiom.outOfBounds(-2147483647, 2147483647) // the xtend (java) int is a 32-Bit-Int
 			default: false
 		}
-	}
-
-	def private boolean outOfBounds(long idiom, int lower, int upper) {
-		var outOfBounds = false
-
-		if (idiom < lower || idiom > upper)
-			outOfBounds = true
-
-		return outOfBounds
 	}
 
 	def private boolean outOfBounds(long idiom, int lower, long upper) {
@@ -715,11 +753,13 @@ class EisValidator extends AbstractEisValidator {
 		val expectedType = _expectedType.typeFor
 
 		if (actualType != expectedType)
-			if (!(actualType.isIntSuperType && expectedType.isIntSuperType))
+			if (!(actualType.isIntSuperType && expectedType.isIntSuperType ||
+				actualType.isBinaryType && expectedType.isBinaryType))
 				error("Incompatible types. Expected '" + expectedType.toString + "' but was '" + actualType.toString +
 					"'", statement, EisPackage.eINSTANCE.statement_Idiom, INCOMPATIBLE_TYPES)
 		if (rangeType !== null && rangeType != expectedType)
-			if (!(actualType.isIntSuperType && expectedType.isIntSuperType))
+			if (!(rangeType.isIntSuperType && expectedType.isIntSuperType ||
+				rangeType.isBinaryType && expectedType.isBinaryType))
 				error("Incompatible types. Expected '" + expectedType.toString + "' but was '" + rangeType.toString +
 					"'", statement, EisPackage.eINSTANCE.statement_Range, INCOMPATIBLE_TYPES)
 	}
