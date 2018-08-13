@@ -4,6 +4,7 @@ import org.example.eis.eis.And
 import org.example.eis.eis.BasicType
 import org.example.eis.eis.BoolConstant
 import org.example.eis.eis.ByteConstant
+import org.example.eis.eis.CharConstant
 import org.example.eis.eis.Comparison
 import org.example.eis.eis.DWordConstant
 import org.example.eis.eis.Equality
@@ -19,25 +20,44 @@ import org.example.eis.eis.RealConstant
 import org.example.eis.eis.StringConstant
 import org.example.eis.eis.VariableRef
 import org.example.eis.eis.WordConstant
+import org.example.eis.typing.types.BoolType
+import org.example.eis.typing.types.ByteType
+import org.example.eis.typing.types.CharType
+import org.example.eis.typing.types.DIntType
+import org.example.eis.typing.types.DWordType
+import org.example.eis.typing.types.IntType
+import org.example.eis.typing.types.LIntType
+import org.example.eis.typing.types.LWordType
+import org.example.eis.typing.types.NullType
+import org.example.eis.typing.types.RealType
+import org.example.eis.typing.types.SIntType
+import org.example.eis.typing.types.StringType
+import org.example.eis.typing.types.UDIntType
+import org.example.eis.typing.types.UIntType
+import org.example.eis.typing.types.ULIntType
+import org.example.eis.typing.types.USIntType
+import org.example.eis.typing.types.WordType
 
 class DefineTypeComputer {
-	public static val STRING_TYPE = new org.example.eis.typing.types.StringType
-	public static val INT_TYPE = new org.example.eis.typing.types.IntType
-	public static val BOOL_TYPE = new org.example.eis.typing.types.BoolType
-	public static val NULL_TYPE = new org.example.eis.typing.types.NullType
-	public static val REAL_TYPE = new org.example.eis.typing.types.RealType
-	public static val BYTE_TYPE = new org.example.eis.typing.types.ByteType
-	public static val WORD_TYPE = new org.example.eis.typing.types.WordType
-	public static val DWORD_TYPE = new org.example.eis.typing.types.DWordType
-	public static val LWORD_TYPE = new org.example.eis.typing.types.LWordType
+	public static val STRING_TYPE = new StringType
+	public static val INT_TYPE = new IntType
+	public static val BOOL_TYPE = new BoolType
+	public static val NULL_TYPE = new NullType
+	public static val REAL_TYPE = new RealType
+	public static val CHAR_TYPE = new CharType
 
-	public static val USINT_TYPE = new org.example.eis.typing.types.USIntType
-	public static val UINT_TYPE = new org.example.eis.typing.types.UIntType
-	public static val UDINT_TYPE = new org.example.eis.typing.types.UDIntType
-	public static val ULINT_TYPE = new org.example.eis.typing.types.ULIntType
-	public static val SINT_TYPE = new org.example.eis.typing.types.SIntType
-	public static val DINT_TYPE = new org.example.eis.typing.types.DIntType
-	public static val LINT_TYPE = new org.example.eis.typing.types.LIntType
+	public static val BYTE_TYPE = new ByteType
+	public static val WORD_TYPE = new WordType
+	public static val DWORD_TYPE = new DWordType
+	public static val LWORD_TYPE = new LWordType
+
+	public static val USINT_TYPE = new USIntType
+	public static val UINT_TYPE = new UIntType
+	public static val UDINT_TYPE = new UDIntType
+	public static val ULINT_TYPE = new ULIntType
+	public static val SINT_TYPE = new SIntType
+	public static val DINT_TYPE = new DIntType
+	public static val LINT_TYPE = new LIntType
 
 	def isStringType(DefineType type) { type === STRING_TYPE }
 
@@ -49,7 +69,6 @@ class DefineTypeComputer {
 //	def isBinaryType(DefineType type) {
 //		type === BYTE_TYPE || type === WORD_TYPE || type === DWORD_TYPE || type === LWORD_TYPE
 //	}
-
 	def isBoolType(DefineType type) { type === BOOL_TYPE }
 
 	def isRealType(DefineType type) { type === REAL_TYPE }
@@ -88,6 +107,7 @@ class DefineTypeComputer {
 			WordConstant: WORD_TYPE
 			DWordConstant: DWORD_TYPE
 			LWordConstant: LWORD_TYPE
+			CharConstant: CHAR_TYPE
 			//
 //			LongConstant: LINT_TYPE
 			//
@@ -105,37 +125,39 @@ class DefineTypeComputer {
 	def dispatch DefineType typeFor(BasicType type) {
 		val t = type?.toString
 
-		if (t === 'int') {
+		if (t === 'int')
 			INT_TYPE
-		} else if (t === 'bool') {
-			BOOL_TYPE;
-		} else if (t === 'string') {
+		else if (t === 'bool')
+			BOOL_TYPE
+		else if (t === 'string')
 			STRING_TYPE
-		} else if (t === 'real') {
+		else if (t === 'real')
 			REAL_TYPE
-		} else if (t === 'byte') {
+		else if (t === 'byte')
 			BYTE_TYPE
-		} else if (t === 'word') {
+		else if (t === 'word')
 			WORD_TYPE
-		} else if (t === 'dword') {
+		else if (t === 'dword')
 			DWORD_TYPE
-		} else if (t === 'lword') {
+		else if (t === 'lword')
 			LWORD_TYPE
-		} else if (t === 'usint') {
+		else if (t === 'usint')
 			USINT_TYPE
-		} else if (t === 'uint') {
+		else if (t === 'uint')
 			UINT_TYPE
-		} else if (t === 'udint') {
+		else if (t === 'udint')
 			UDINT_TYPE
-		} else if (t === 'ulint') {
+		else if (t === 'ulint')
 			ULINT_TYPE
-		} else if (t === 'sint') {
+		else if (t === 'sint')
 			SINT_TYPE
-		} else if (t === 'dint') {
+		else if (t === 'dint')
 			DINT_TYPE
-		} else if (t === 'lint') {
+		else if (t === 'lint')
 			LINT_TYPE
-		} else
+		else if (t === 'char')
+			CHAR_TYPE
+		else
 			NULL_TYPE
 	}
 

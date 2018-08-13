@@ -104,6 +104,7 @@ public class EisFactoryImpl extends EFactoryImpl implements EisFactory
       case EisPackage.WORD_CONSTANT: return createWordConstant();
       case EisPackage.DWORD_CONSTANT: return createDWordConstant();
       case EisPackage.LWORD_CONSTANT: return createLWordConstant();
+      case EisPackage.CHAR_CONSTANT: return createCharConstant();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -559,6 +560,17 @@ public class EisFactoryImpl extends EFactoryImpl implements EisFactory
   {
     LWordConstantImpl lWordConstant = new LWordConstantImpl();
     return lWordConstant;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public CharConstant createCharConstant()
+  {
+    CharConstantImpl charConstant = new CharConstantImpl();
+    return charConstant;
   }
 
   /**

@@ -140,8 +140,8 @@ class EisValidatorTest {
 	}
 
 	@Test def void testWrongComparisonType() {
-		"10 < '1'".assertSameType(INT_TYPE, STRING_TYPE)
-		"'10' > 10".assertSameType(STRING_TYPE, INT_TYPE)
+		'''10 < "1"'''.assertSameType(INT_TYPE, STRING_TYPE)
+		'''"10" > 10'''.assertSameType(STRING_TYPE, INT_TYPE)
 	}
 
 	@Test def void testWrongBooleanComparison() {

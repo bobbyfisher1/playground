@@ -5,6 +5,7 @@ import org.eclipse.xtext.util.IResourceScopeCache
 import org.example.eis.eis.And
 import org.example.eis.eis.BoolConstant
 import org.example.eis.eis.ByteConstant
+import org.example.eis.eis.CharConstant
 import org.example.eis.eis.Comparison
 import org.example.eis.eis.DWordConstant
 import org.example.eis.eis.Equality
@@ -45,6 +46,10 @@ class EisInterpreter {
 				e.value.toUpperCase
 			LWordConstant:
 				e.value.toUpperCase
+			CharConstant:
+				e.value.charAt(1)		// char a = 'a' => a 	//without apostrophes
+				
+//
 //			LongConstant:
 //				e.value
 			Not: {

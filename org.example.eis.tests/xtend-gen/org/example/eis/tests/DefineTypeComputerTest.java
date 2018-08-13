@@ -180,9 +180,24 @@ public class DefineTypeComputerTest {
     try {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("real a = -1.01;");
-      _builder.newLine();
       final String real = _builder.toString();
       EisModel _parse = this._parseHelper.parse(((this.start + real) + this.end));
+      final Procedure1<EisModel> _function = (EisModel it) -> {
+        this._validationTestHelper.assertNoErrors(it);
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void testChar() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("char a = \'u\';");
+      final String _char = _builder.toString();
+      EisModel _parse = this._parseHelper.parse(((this.start + _char) + this.end));
       final Procedure1<EisModel> _function = (EisModel it) -> {
         this._validationTestHelper.assertNoErrors(it);
       };

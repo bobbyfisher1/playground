@@ -11,6 +11,7 @@ import org.eclipse.xtext.xbase.lib.Pair;
 import org.example.eis.eis.And;
 import org.example.eis.eis.BoolConstant;
 import org.example.eis.eis.ByteConstant;
+import org.example.eis.eis.CharConstant;
 import org.example.eis.eis.Comparison;
 import org.example.eis.eis.DWordConstant;
 import org.example.eis.eis.Equality;
@@ -85,6 +86,12 @@ public class EisInterpreter {
       if (e instanceof LWordConstant) {
         _matched=true;
         _switchResult = ((LWordConstant)e).getValue().toUpperCase();
+      }
+    }
+    if (!_matched) {
+      if (e instanceof CharConstant) {
+        _matched=true;
+        _switchResult = Character.valueOf(((CharConstant)e).getValue().charAt(1));
       }
     }
     if (!_matched) {

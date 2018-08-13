@@ -1474,6 +1474,34 @@ public interface EisPackage extends EPackage
   int LWORD_CONSTANT_FEATURE_COUNT = IDIOM_FEATURE_COUNT + 1;
 
   /**
+   * The meta object id for the '{@link org.example.eis.eis.impl.CharConstantImpl <em>Char Constant</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.example.eis.eis.impl.CharConstantImpl
+   * @see org.example.eis.eis.impl.EisPackageImpl#getCharConstant()
+   * @generated
+   */
+  int CHAR_CONSTANT = 38;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CHAR_CONSTANT__VALUE = IDIOM_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Char Constant</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CHAR_CONSTANT_FEATURE_COUNT = IDIOM_FEATURE_COUNT + 1;
+
+  /**
    * The meta object id for the '{@link org.example.eis.eis.BasicType <em>Basic Type</em>}' enum.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1481,7 +1509,7 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getBasicType()
    * @generated
    */
-  int BASIC_TYPE = 38;
+  int BASIC_TYPE = 39;
 
 
   /**
@@ -2679,6 +2707,27 @@ public interface EisPackage extends EPackage
   EAttribute getLWordConstant_Value();
 
   /**
+   * Returns the meta object for class '{@link org.example.eis.eis.CharConstant <em>Char Constant</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Char Constant</em>'.
+   * @see org.example.eis.eis.CharConstant
+   * @generated
+   */
+  EClass getCharConstant();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.example.eis.eis.CharConstant#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see org.example.eis.eis.CharConstant#getValue()
+   * @see #getCharConstant()
+   * @generated
+   */
+  EAttribute getCharConstant_Value();
+
+  /**
    * Returns the meta object for enum '{@link org.example.eis.eis.BasicType <em>Basic Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3682,6 +3731,24 @@ public interface EisPackage extends EPackage
      * @generated
      */
     EAttribute LWORD_CONSTANT__VALUE = eINSTANCE.getLWordConstant_Value();
+
+    /**
+     * The meta object literal for the '{@link org.example.eis.eis.impl.CharConstantImpl <em>Char Constant</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.example.eis.eis.impl.CharConstantImpl
+     * @see org.example.eis.eis.impl.EisPackageImpl#getCharConstant()
+     * @generated
+     */
+    EClass CHAR_CONSTANT = eINSTANCE.getCharConstant();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CHAR_CONSTANT__VALUE = eINSTANCE.getCharConstant_Value();
 
     /**
      * The meta object literal for the '{@link org.example.eis.eis.BasicType <em>Basic Type</em>}' enum.

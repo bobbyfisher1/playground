@@ -78,6 +78,7 @@ public class EisParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getAtomicAccess().getGroup_6(), "rule__Atomic__Group_6__0");
 			builder.put(grammarAccess.getAtomicAccess().getGroup_7(), "rule__Atomic__Group_7__0");
 			builder.put(grammarAccess.getAtomicAccess().getGroup_8(), "rule__Atomic__Group_8__0");
+			builder.put(grammarAccess.getAtomicAccess().getGroup_9(), "rule__Atomic__Group_9__0");
 			builder.put(grammarAccess.getTeststepBlockAccess().getGroup(), "rule__TeststepBlock__Group__0");
 			builder.put(grammarAccess.getSetAccess().getGroup(), "rule__Set__Group__0");
 			builder.put(grammarAccess.getAssertAccess().getGroup(), "rule__Assert__Group__0");
@@ -138,6 +139,7 @@ public class EisParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getAtomicAccess().getValueAssignment_6_1(), "rule__Atomic__ValueAssignment_6_1");
 			builder.put(grammarAccess.getAtomicAccess().getValueAssignment_7_1(), "rule__Atomic__ValueAssignment_7_1");
 			builder.put(grammarAccess.getAtomicAccess().getValueAssignment_8_1(), "rule__Atomic__ValueAssignment_8_1");
+			builder.put(grammarAccess.getAtomicAccess().getValueAssignment_9_1(), "rule__Atomic__ValueAssignment_9_1");
 			builder.put(grammarAccess.getTeststepBlockAccess().getPlcCycleAssignment_2(), "rule__TeststepBlock__PlcCycleAssignment_2");
 			builder.put(grammarAccess.getTeststepBlockAccess().getDescriptionAssignment_4(), "rule__TeststepBlock__DescriptionAssignment_4");
 			builder.put(grammarAccess.getTeststepBlockAccess().getAssertionAssignment_7(), "rule__TeststepBlock__AssertionAssignment_7");

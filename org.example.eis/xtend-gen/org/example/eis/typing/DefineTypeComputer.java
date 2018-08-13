@@ -5,6 +5,7 @@ import org.example.eis.eis.And;
 import org.example.eis.eis.BasicType;
 import org.example.eis.eis.BoolConstant;
 import org.example.eis.eis.ByteConstant;
+import org.example.eis.eis.CharConstant;
 import org.example.eis.eis.Comparison;
 import org.example.eis.eis.DWordConstant;
 import org.example.eis.eis.Equality;
@@ -23,6 +24,7 @@ import org.example.eis.eis.WordConstant;
 import org.example.eis.typing.DefineType;
 import org.example.eis.typing.types.BoolType;
 import org.example.eis.typing.types.ByteType;
+import org.example.eis.typing.types.CharType;
 import org.example.eis.typing.types.DIntType;
 import org.example.eis.typing.types.DWordType;
 import org.example.eis.typing.types.IntType;
@@ -49,6 +51,8 @@ public class DefineTypeComputer {
   public final static NullType NULL_TYPE = new NullType();
   
   public final static RealType REAL_TYPE = new RealType();
+  
+  public final static CharType CHAR_TYPE = new CharType();
   
   public final static ByteType BYTE_TYPE = new ByteType();
   
@@ -187,6 +191,12 @@ public class DefineTypeComputer {
       }
     }
     if (!_matched) {
+      if (i instanceof CharConstant) {
+        _matched=true;
+        _switchResult = DefineTypeComputer.CHAR_TYPE;
+      }
+    }
+    if (!_matched) {
       if (i instanceof Not) {
         _matched=true;
         _switchResult = DefineTypeComputer.BOOL_TYPE;
@@ -302,7 +312,13 @@ public class DefineTypeComputer {
                                   if ((t == "lint")) {
                                     _xifexpression_14 = DefineTypeComputer.LINT_TYPE;
                                   } else {
-                                    _xifexpression_14 = DefineTypeComputer.NULL_TYPE;
+                                    DefineType _xifexpression_15 = null;
+                                    if ((t == "char")) {
+                                      _xifexpression_15 = DefineTypeComputer.CHAR_TYPE;
+                                    } else {
+                                      _xifexpression_15 = DefineTypeComputer.NULL_TYPE;
+                                    }
+                                    _xifexpression_14 = _xifexpression_15;
                                   }
                                   _xifexpression_13 = _xifexpression_14;
                                 }

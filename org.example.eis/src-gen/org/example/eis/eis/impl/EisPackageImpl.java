@@ -19,6 +19,7 @@ import org.example.eis.eis.BlockConstant;
 import org.example.eis.eis.BoolConstant;
 import org.example.eis.eis.ByteConstant;
 import org.example.eis.eis.Cascade;
+import org.example.eis.eis.CharConstant;
 import org.example.eis.eis.Comparison;
 import org.example.eis.eis.DWordConstant;
 import org.example.eis.eis.DefineBlock;
@@ -326,6 +327,13 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * @generated
    */
   private EClass lWordConstantEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass charConstantEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -1522,6 +1530,26 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getCharConstant()
+  {
+    return charConstantEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getCharConstant_Value()
+  {
+    return (EAttribute)charConstantEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EEnum getBasicType()
   {
     return basicTypeEEnum;
@@ -1707,6 +1735,9 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
     lWordConstantEClass = createEClass(LWORD_CONSTANT);
     createEAttribute(lWordConstantEClass, LWORD_CONSTANT__VALUE);
 
+    charConstantEClass = createEClass(CHAR_CONSTANT);
+    createEAttribute(charConstantEClass, CHAR_CONSTANT__VALUE);
+
     // Create enums
     basicTypeEEnum = createEEnum(BASIC_TYPE);
   }
@@ -1760,6 +1791,7 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
     wordConstantEClass.getESuperTypes().add(this.getIdiom());
     dWordConstantEClass.getESuperTypes().add(this.getIdiom());
     lWordConstantEClass.getESuperTypes().add(this.getIdiom());
+    charConstantEClass.getESuperTypes().add(this.getIdiom());
 
     // Initialize classes and features; add operations and parameters
     initEClass(eisModelEClass, EisModel.class, "EisModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1911,6 +1943,9 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
 
     initEClass(lWordConstantEClass, LWordConstant.class, "LWordConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getLWordConstant_Value(), ecorePackage.getEString(), "value", null, 0, 1, LWordConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(charConstantEClass, CharConstant.class, "CharConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getCharConstant_Value(), ecorePackage.getEString(), "value", null, 0, 1, CharConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Initialize enums and add enum literals
     initEEnum(basicTypeEEnum, BasicType.class, "BasicType");

@@ -1083,6 +1083,10 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cLWordConstantAction_8_0 = (Action)cGroup_8.eContents().get(0);
 		private final Assignment cValueAssignment_8_1 = (Assignment)cGroup_8.eContents().get(1);
 		private final RuleCall cValueLWORDTerminalRuleCall_8_1_0 = (RuleCall)cValueAssignment_8_1.eContents().get(0);
+		private final Group cGroup_9 = (Group)cAlternatives.eContents().get(9);
+		private final Action cCharConstantAction_9_0 = (Action)cGroup_9.eContents().get(0);
+		private final Assignment cValueAssignment_9_1 = (Assignment)cGroup_9.eContents().get(1);
+		private final RuleCall cValueCHARTerminalRuleCall_9_1_0 = (RuleCall)cValueAssignment_9_1.eContents().get(0);
 		
 		//Atomic Idiom:
 		//	{IntConstant} value=LONG
@@ -1094,12 +1098,13 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		//	| {DWordConstant} value=DWORD
 		//	| {LWordConstant} value=LWORD
 		//	//	| {LongConstant} value=LONG
-		//;
+		//	| {CharConstant} value=CHAR;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{IntConstant} value=LONG | {StringConstant} value=STRING | BoolConstant | {VariableRef} variable=[Variable] |
 		//{RealConstant} value=REAL | {ByteConstant} value=BYTE | {WordConstant} value=WORD | {DWordConstant} value=DWORD |
-		//{LWordConstant} value=LWORD
+		//{LWordConstant} value=LWORD //	| {LongConstant} value=LONG
+		//| {CharConstant} value=CHAR
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//{IntConstant} value=LONG
@@ -1203,6 +1208,18 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//LWORD
 		public RuleCall getValueLWORDTerminalRuleCall_8_1_0() { return cValueLWORDTerminalRuleCall_8_1_0; }
+		
+		//{CharConstant} value=CHAR
+		public Group getGroup_9() { return cGroup_9; }
+		
+		//{CharConstant}
+		public Action getCharConstantAction_9_0() { return cCharConstantAction_9_0; }
+		
+		//value=CHAR
+		public Assignment getValueAssignment_9_1() { return cValueAssignment_9_1; }
+		
+		//CHAR
+		public RuleCall getValueCHARTerminalRuleCall_9_1_0() { return cValueCHARTerminalRuleCall_9_1_0; }
 	}
 	public class TeststepBlockElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.TeststepBlock");
@@ -1681,6 +1698,7 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	private final TerminalRule tWORD;
 	private final TerminalRule tDWORD;
 	private final TerminalRule tLWORD;
+	private final TerminalRule tCHAR;
 	private final TerminalRule tID;
 	private final TerminalRule tSTRING;
 	private final TerminalRule tML_COMMENT;
@@ -1734,6 +1752,7 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		this.tWORD = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.WORD");
 		this.tDWORD = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.DWORD");
 		this.tLWORD = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.LWORD");
+		this.tCHAR = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.CHAR");
 		this.tID = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.ID");
 		this.tSTRING = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.STRING");
 		this.tML_COMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.ML_COMMENT");
@@ -2067,7 +2086,7 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	//	| {DWordConstant} value=DWORD
 	//	| {LWordConstant} value=LWORD
 	//	//	| {LongConstant} value=LONG
-	//;
+	//	| {CharConstant} value=CHAR;
 	public AtomicElements getAtomicAccess() {
 		return pAtomic;
 	}
@@ -2186,6 +2205,13 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	//	HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT;
 	public TerminalRule getLWORDRule() {
 		return tLWORD;
+	}
+	
+	//terminal CHAR:
+	//	"'" ('a'..'z' | 'A'..'Z' | '0'..'9')
+	//	"'";
+	public TerminalRule getCHARRule() {
+		return tCHAR;
 	}
 	
 	//terminal ID:

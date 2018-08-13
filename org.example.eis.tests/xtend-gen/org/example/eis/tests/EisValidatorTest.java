@@ -245,8 +245,12 @@ public class EisValidatorTest {
   
   @Test
   public void testWrongComparisonType() {
-    this.assertSameType("10 < \'1\'", DefineTypeComputer.INT_TYPE, DefineTypeComputer.STRING_TYPE);
-    this.assertSameType("\'10\' > 10", DefineTypeComputer.STRING_TYPE, DefineTypeComputer.INT_TYPE);
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("10 < \"1\"");
+    this.assertSameType(_builder, DefineTypeComputer.INT_TYPE, DefineTypeComputer.STRING_TYPE);
+    StringConcatenation _builder_1 = new StringConcatenation();
+    _builder_1.append("\"10\" > 10");
+    this.assertSameType(_builder_1, DefineTypeComputer.STRING_TYPE, DefineTypeComputer.INT_TYPE);
   }
   
   @Test

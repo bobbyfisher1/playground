@@ -107,10 +107,16 @@ class DefineTypeComputerTest {
 	}
 
 	@Test def void testReal() {
-		val real = '''
-			real a = -1.01;
-		'''
+		val real = '''real a = -1.01;'''
 		(start + real + end).parse => [
+			assertNoErrors
+		]
+	}
+
+	@Test def void testChar() {
+		val _char = '''char a = 'u';'''
+
+		(start + _char + end).parse => [
 			assertNoErrors
 		]
 	}

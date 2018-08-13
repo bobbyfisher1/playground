@@ -66,6 +66,8 @@ enum BasicType:
 	| BOOL='bool'
 	| REAL='real' // needs revision
 	| STRING='string'
+	| CHAR="char"
+	//
 	| BYTE="byte"
 	| WORD="word"
 	| DWORD="dword"
@@ -79,10 +81,9 @@ enum BasicType:
 	| DINT="dint"
 	| LINT="lint"
 	//yet unimplemented
-	| CHAR="char" // a-z, A-Z, 0-9
 	| TIME="time"
-	| S5TIME="s5time"; //not needed only IEC times
-//
+	| LTIME="ltime";
+	//
 //
 UdtType:
 	name=ID;
@@ -122,7 +123,7 @@ Atomic returns Idiom:
 	| {DWordConstant} value=DWORD
 	| {LWordConstant} value=LWORD
 	//	| {LongConstant} value=LONG
-;
+	| {CharConstant} value=CHAR;
 
 TeststepBlock:
 	'teststep' '(' plcCycle=LONG ',' description=STRING ')' '{' assertion=AssertionBlock '}';
@@ -146,7 +147,7 @@ terminal fragment DIGIT:
 	'0'..'9';
 
 terminal fragment HEXDIGIT:
-	DIGIT | 'A'..'F'|'a'..'f';
+	DIGIT | 'A'..'F' | 'a'..'f';
 
 	//@Override
 //terminal INT :
@@ -177,10 +178,19 @@ terminal LWORD:
 	HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT '_'
 	HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT;
 
+terminal CHAR:
+	"'"
+	('a'..'z' | 'A'..'Z' | '0'..'9')
+	"'";
+
+terminal TIME:
+	'T#'
+;
+
 terminal ID:
 	'^'? ('a'..'z' | 'A'..'Z' | '_') ('a'..'z' | 'A'..'Z' | '_' | '0'..'9')*;
 
-//terminal INT returns ecore::EInt:
+	//terminal INT returns ecore::EInt:
 //	('0'..'9')+;
 //
 terminal STRING:

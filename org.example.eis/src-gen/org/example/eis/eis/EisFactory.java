@@ -366,6 +366,15 @@ public interface EisFactory extends EFactory
   LWordConstant createLWordConstant();
 
   /**
+   * Returns a new object of class '<em>Char Constant</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Char Constant</em>'.
+   * @generated
+   */
+  CharConstant createCharConstant();
+
+  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

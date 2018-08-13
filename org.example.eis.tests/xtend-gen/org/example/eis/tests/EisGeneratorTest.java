@@ -2520,6 +2520,100 @@ public class EisGeneratorTest {
   }
   
   @Test
+  public void testChar() {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("define{");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("input[char a = \'9\'; ]");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("output[]");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("teststep(0, \"\"){");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("set[]");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("assert[]");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    String _plus = (this.beginning + _builder);
+    String _plus_1 = (_plus + this.ending);
+    final Procedure1<String> _function = (String it) -> {
+      try {
+        this._validationTestHelper.assertNoErrors(this._parseHelper.parse(it));
+        StringConcatenation _builder_1 = new StringConcatenation();
+        _builder_1.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+        _builder_1.newLine();
+        _builder_1.append("<TestFixture xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">");
+        _builder_1.newLine();
+        _builder_1.append("\t");
+        _builder_1.append("<TiaProjectName>project</TiaProjectName>");
+        _builder_1.newLine();
+        _builder_1.append("\t");
+        _builder_1.append("<PlcName>plcname</PlcName>");
+        _builder_1.newLine();
+        _builder_1.append("\t");
+        _builder_1.append("<Author>author</Author>");
+        _builder_1.newLine();
+        _builder_1.append("\t");
+        _builder_1.append("<TestCases>");
+        _builder_1.newLine();
+        _builder_1.append("\t\t");
+        _builder_1.append("<TestCase ID=\"0\" TestActive=\"false\" Blockname=\"Testcase\" Blocktype=\"FC\" Description=\"description\">");
+        _builder_1.newLine();
+        _builder_1.append("\t\t\t");
+        _builder_1.append("<Teststeps>");
+        _builder_1.newLine();
+        _builder_1.append("\t\t\t\t");
+        _builder_1.append("<Teststep PlcCycle =\"0\" Description=\"\">");
+        _builder_1.newLine();
+        _builder_1.append("\t\t\t\t\t");
+        _builder_1.append("<Inputs>");
+        _builder_1.newLine();
+        _builder_1.append("\t\t\t\t\t\t");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"a\" Datatype=\"Char\" Direction=\"Input\" Value=\"9\" Variant=\"false\" />");
+        _builder_1.newLine();
+        _builder_1.append("\t\t\t\t\t");
+        _builder_1.append("</Inputs>");
+        _builder_1.newLine();
+        _builder_1.append("\t\t\t\t\t");
+        _builder_1.append("<Outputs>");
+        _builder_1.newLine();
+        _builder_1.append("\t\t\t\t\t");
+        _builder_1.append("</Outputs>");
+        _builder_1.newLine();
+        _builder_1.append("\t\t\t\t");
+        _builder_1.append("</Teststep>");
+        _builder_1.newLine();
+        _builder_1.append("\t\t\t");
+        _builder_1.append("</Teststeps>");
+        _builder_1.newLine();
+        _builder_1.append("\t\t");
+        _builder_1.append("</TestCase>");
+        _builder_1.newLine();
+        _builder_1.append("\t");
+        _builder_1.append("</TestCases>");
+        _builder_1.newLine();
+        _builder_1.append("</TestFixture>");
+        _builder_1.newLine();
+        this._compilationTestHelper.assertCompilesTo(it, _builder_1);
+      } catch (Throwable _e) {
+        throw Exceptions.sneakyThrow(_e);
+      }
+    };
+    ObjectExtensions.<String>operator_doubleArrow(_plus_1, _function);
+  }
+  
+  @Test
   public void testByte() {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("define{");

@@ -21,6 +21,7 @@ import org.example.eis.eis.BlockConstant;
 import org.example.eis.eis.BoolConstant;
 import org.example.eis.eis.ByteConstant;
 import org.example.eis.eis.Cascade;
+import org.example.eis.eis.CharConstant;
 import org.example.eis.eis.Comparison;
 import org.example.eis.eis.DWordConstant;
 import org.example.eis.eis.DefineBlock;
@@ -86,6 +87,9 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				return; 
 			case EisPackage.CASCADE:
 				sequence_Cascade(context, (Cascade) semanticObject); 
+				return; 
+			case EisPackage.CHAR_CONSTANT:
+				sequence_Atomic(context, (CharConstant) semanticObject); 
 				return; 
 			case EisPackage.COMPARISON:
 				sequence_Comparison(context, (Comparison) semanticObject); 
@@ -267,6 +271,39 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getAtomicAccess().getValueBYTETerminalRuleCall_5_1_0(), semanticObject.getValue());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Idiom returns CharConstant
+	 *     Or returns CharConstant
+	 *     Or.Or_1_0 returns CharConstant
+	 *     And returns CharConstant
+	 *     And.And_1_0 returns CharConstant
+	 *     Equality returns CharConstant
+	 *     Equality.Equality_1_0 returns CharConstant
+	 *     Comparison returns CharConstant
+	 *     Comparison.Comparison_1_0 returns CharConstant
+	 *     PlusOrMinus returns CharConstant
+	 *     PlusOrMinus.Plus_1_0_0_0 returns CharConstant
+	 *     PlusOrMinus.Minus_1_0_1_0 returns CharConstant
+	 *     MulOrDiv returns CharConstant
+	 *     MulOrDiv.MulOrDiv_1_0 returns CharConstant
+	 *     Primary returns CharConstant
+	 *     Atomic returns CharConstant
+	 *
+	 * Constraint:
+	 *     value=CHAR
+	 */
+	protected void sequence_Atomic(ISerializationContext context, CharConstant semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, EisPackage.Literals.CHAR_CONSTANT__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EisPackage.Literals.CHAR_CONSTANT__VALUE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getAtomicAccess().getValueCHARTerminalRuleCall_9_1_0(), semanticObject.getValue());
 		feeder.finish();
 	}
 	
