@@ -1170,6 +1170,42 @@ public class EisValidatorTest {
   }
   
   @Test
+  public void testNegativePlcCycles() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("define{");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("input[]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("output[]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("teststep(-4,\"one\"){");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("set[]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("assert[]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      String _plus = (this.beginning + _builder);
+      EisModel _parse = this._parseHelper.parse((_plus + this.ending));
+      final Procedure1<EisModel> _function = (EisModel it) -> {
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getTeststepBlock(), EisValidator.NEGATIVE_PLCCYCLE);
+        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
   public void testDivisionByZero() {
     try {
       StringConcatenation _builder = new StringConcatenation();

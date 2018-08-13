@@ -2535,7 +2535,7 @@ public class EisGeneratorTest {
     _builder.append("teststep(1, \"\"){");
     _builder.newLine();
     _builder.append("\t");
-    _builder.append("set[ a = 16#AA; ]");
+    _builder.append("set[ a = 16#aa; ]");
     _builder.newLine();
     _builder.append("\t");
     _builder.append("assert[]");

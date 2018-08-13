@@ -27,7 +27,6 @@ import org.example.eis.eis.DirectionBlock;
 import org.example.eis.eis.EisModel;
 import org.example.eis.eis.EisPackage;
 import org.example.eis.eis.Equality;
-import org.example.eis.eis.HexConstant;
 import org.example.eis.eis.Idiom;
 import org.example.eis.eis.InOut;
 import org.example.eis.eis.Input;
@@ -99,6 +98,8 @@ public class EisValidator extends AbstractEisValidator {
   public final static String VALUE_EXCEEDING_DATATYPE_BOUNDS = (EisValidator.ISSUE_CODE_PREFIX + "ValueExceedingDatatypeBounds");
   
   public final static String DIVISION_BY_ZERO = (EisValidator.ISSUE_CODE_PREFIX + "DivisionByZero");
+  
+  public final static String NEGATIVE_PLCCYCLE = (EisValidator.ISSUE_CODE_PREFIX + "NegativePlcCycle");
   
   @Inject
   @Extension
@@ -357,8 +358,7 @@ public class EisValidator extends AbstractEisValidator {
         return;
       }
       if ((expectedType != actualType)) {
-        boolean _not = (!((this._defineTypeComputer.isIntSuperType(actualType) && this._defineTypeComputer.isIntSuperType(expectedType)) || (this._defineTypeComputer.isBinaryType(actualType) && 
-          this._defineTypeComputer.isBinaryType(expectedType))));
+        boolean _not = (!(this._defineTypeComputer.isIntSuperType(actualType) && this._defineTypeComputer.isIntSuperType(expectedType)));
         if (_not) {
           String _string = expectedType.toString();
           String _plus = ("Incompatible types. Expected \'" + _string);
@@ -371,8 +371,7 @@ public class EisValidator extends AbstractEisValidator {
         }
       }
       if (((rangeType != null) && (!Objects.equal(rangeType, expectedType)))) {
-        boolean _not_1 = (!((this._defineTypeComputer.isIntSuperType(rangeType) && this._defineTypeComputer.isIntSuperType(expectedType)) || 
-          (this._defineTypeComputer.isBinaryType(rangeType) && this._defineTypeComputer.isBinaryType(expectedType))));
+        boolean _not_1 = (!(this._defineTypeComputer.isIntSuperType(rangeType) && this._defineTypeComputer.isIntSuperType(expectedType)));
         if (_not_1) {
           String _string_2 = expectedType.toString();
           String _plus_4 = ("Incompatible types. Expected \'" + _string_2);
@@ -846,80 +845,12 @@ public class EisValidator extends AbstractEisValidator {
   }
   
   @Check
-  public void checkBinaryValues(final Variable variable) {
-    final DefineType expectedType = this._defineTypeComputer.typeFor(variable.getVariableType());
-    Idiom _idiom = null;
-    if (variable!=null) {
-      _idiom=variable.getIdiom();
+  public void checkNegativPlcCycles(final TeststepBlock tsb) {
+    long _plcCycle = tsb.getPlcCycle();
+    boolean _lessThan = (_plcCycle < 0);
+    if (_lessThan) {
+      this.error("PlcCycles are not negative.", tsb, EisPackage.eINSTANCE.getTeststepBlock_PlcCycle(), EisValidator.NEGATIVE_PLCCYCLE);
     }
-    final Idiom idiom = _idiom;
-    Idiom _range = null;
-    if (variable!=null) {
-      _range=variable.getRange();
-    }
-    final Idiom range = _range;
-    if ((idiom != null)) {
-      if ((!(idiom instanceof VariableRef))) {
-        if ((idiom instanceof HexConstant)) {
-          Object _interpret = this._eisInterpreter.interpret(idiom);
-          final String idiomValue = ((String) _interpret);
-          boolean _checkBinaryValues = this.checkBinaryValues(idiomValue, expectedType);
-          if (_checkBinaryValues) {
-            this.error("Value is out of the datatype boundaries.", variable, EisPackage.eINSTANCE.getVariable_Idiom(), 
-              EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
-          }
-        }
-      }
-    }
-    if ((range != null)) {
-      if ((!(range instanceof VariableRef))) {
-        if ((range instanceof HexConstant)) {
-          Object _interpret_1 = this._eisInterpreter.interpret(range);
-          final String rangeValue = ((String) _interpret_1);
-          boolean _checkBinaryValues_1 = this.checkBinaryValues(rangeValue, expectedType);
-          if (_checkBinaryValues_1) {
-            this.error("Value is out of the datatype boundaries.", variable, EisPackage.eINSTANCE.getVariable_Range(), 
-              EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
-          }
-        }
-      }
-    }
-  }
-  
-  private boolean checkBinaryValues(final String hex, final DefineType expectedType) {
-    boolean _switchResult = false;
-    boolean _matched = false;
-    boolean _isByteType = this._defineTypeComputer.isByteType(expectedType);
-    if (_isByteType) {
-      _matched=true;
-      _switchResult = this.outOfBounds(hex.length(), "16#00".length());
-    }
-    if (!_matched) {
-      boolean _isWordType = this._defineTypeComputer.isWordType(expectedType);
-      if (_isWordType) {
-        _matched=true;
-        _switchResult = this.outOfBounds(hex.length(), "16#0000".length());
-      }
-    }
-    if (!_matched) {
-      boolean _isDWordType = this._defineTypeComputer.isDWordType(expectedType);
-      if (_isDWordType) {
-        _matched=true;
-        _switchResult = this.outOfBounds(hex.length(), "16#0000_0000".length());
-      }
-    }
-    if (!_matched) {
-      _switchResult = false;
-    }
-    return _switchResult;
-  }
-  
-  private boolean outOfBounds(final int actual_length, final int maxSize) {
-    boolean outOfBounds = false;
-    if ((actual_length > maxSize)) {
-      outOfBounds = true;
-    }
-    return outOfBounds;
   }
   
   private boolean checkNumericalValues(final long idiom, final DefineType expectedType) {
@@ -1120,8 +1051,7 @@ public class EisValidator extends AbstractEisValidator {
     final DefineType expectedType = this._defineTypeComputer.typeFor(_expectedType);
     boolean _notEquals = (!Objects.equal(actualType, expectedType));
     if (_notEquals) {
-      boolean _not = (!((this._defineTypeComputer.isIntSuperType(actualType) && this._defineTypeComputer.isIntSuperType(expectedType)) || 
-        (this._defineTypeComputer.isBinaryType(actualType) && this._defineTypeComputer.isBinaryType(expectedType))));
+      boolean _not = (!(this._defineTypeComputer.isIntSuperType(actualType) && this._defineTypeComputer.isIntSuperType(expectedType)));
       if (_not) {
         String _string = expectedType.toString();
         String _plus = ("Incompatible types. Expected \'" + _string);
@@ -1134,8 +1064,7 @@ public class EisValidator extends AbstractEisValidator {
       }
     }
     if (((rangeType != null) && (!Objects.equal(rangeType, expectedType)))) {
-      boolean _not_1 = (!((this._defineTypeComputer.isIntSuperType(rangeType) && this._defineTypeComputer.isIntSuperType(expectedType)) || 
-        (this._defineTypeComputer.isBinaryType(rangeType) && this._defineTypeComputer.isBinaryType(expectedType))));
+      boolean _not_1 = (!(this._defineTypeComputer.isIntSuperType(rangeType) && this._defineTypeComputer.isIntSuperType(expectedType)));
       if (_not_1) {
         String _string_2 = expectedType.toString();
         String _plus_4 = ("Incompatible types. Expected \'" + _string_2);

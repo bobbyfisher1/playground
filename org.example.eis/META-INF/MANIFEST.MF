@@ -20,13 +20,13 @@ Export-Package: org.example.eis,
  org.example.eis.eis,
  org.example.eis.eis.impl,
  org.example.eis.eis.util,
+ org.example.eis.formatting2,
  org.example.eis.generator,
- org.example.eis.parser.antlr,
  org.example.eis.parser.antlr.internal,
  org.example.eis.scoping,
  org.example.eis.serializer,
  org.example.eis.services,
  org.example.eis.typing,
  org.example.eis.validation,
- org.example.eis.formatting2
+ org.example.eis.parser.antlr
 Import-Package: org.apache.log4j

@@ -3,11 +3,13 @@ package org.example.eis.typing
 import org.example.eis.eis.And
 import org.example.eis.eis.BasicType
 import org.example.eis.eis.BoolConstant
+import org.example.eis.eis.ByteConstant
 import org.example.eis.eis.Comparison
+import org.example.eis.eis.DWordConstant
 import org.example.eis.eis.Equality
-import org.example.eis.eis.HexConstant
 import org.example.eis.eis.Idiom
 import org.example.eis.eis.IntConstant
+import org.example.eis.eis.LWordConstant
 import org.example.eis.eis.Minus
 import org.example.eis.eis.MulOrDiv
 import org.example.eis.eis.Not
@@ -16,6 +18,7 @@ import org.example.eis.eis.Plus
 import org.example.eis.eis.RealConstant
 import org.example.eis.eis.StringConstant
 import org.example.eis.eis.VariableRef
+import org.example.eis.eis.WordConstant
 
 class DefineTypeComputer {
 	public static val STRING_TYPE = new org.example.eis.typing.types.StringType
@@ -43,9 +46,9 @@ class DefineTypeComputer {
 			type === SINT_TYPE || type === DINT_TYPE || type === LINT_TYPE
 	}
 
-	def isBinaryType(DefineType type) {
-		type === BYTE_TYPE || type === WORD_TYPE || type === DWORD_TYPE || type === LWORD_TYPE
-	}
+//	def isBinaryType(DefineType type) {
+//		type === BYTE_TYPE || type === WORD_TYPE || type === DWORD_TYPE || type === LWORD_TYPE
+//	}
 
 	def isBoolType(DefineType type) { type === BOOL_TYPE }
 
@@ -81,10 +84,10 @@ class DefineTypeComputer {
 			IntConstant: INT_TYPE
 			BoolConstant: BOOL_TYPE
 			RealConstant: REAL_TYPE
-//			ByteConstant: BYTE_TYPE
-//			WordConstant: WORD_TYPE
-//			DWordConstant: DWORD_TYPE
-			HexConstant: LWORD_TYPE
+			ByteConstant: BYTE_TYPE
+			WordConstant: WORD_TYPE
+			DWordConstant: DWORD_TYPE
+			LWordConstant: LWORD_TYPE
 			//
 //			LongConstant: LINT_TYPE
 			//

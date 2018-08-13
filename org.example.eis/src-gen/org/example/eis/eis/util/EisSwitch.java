@@ -327,11 +327,35 @@ public class EisSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case EisPackage.HEX_CONSTANT:
+      case EisPackage.BYTE_CONSTANT:
       {
-        HexConstant hexConstant = (HexConstant)theEObject;
-        T result = caseHexConstant(hexConstant);
-        if (result == null) result = caseIdiom(hexConstant);
+        ByteConstant byteConstant = (ByteConstant)theEObject;
+        T result = caseByteConstant(byteConstant);
+        if (result == null) result = caseIdiom(byteConstant);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case EisPackage.WORD_CONSTANT:
+      {
+        WordConstant wordConstant = (WordConstant)theEObject;
+        T result = caseWordConstant(wordConstant);
+        if (result == null) result = caseIdiom(wordConstant);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case EisPackage.DWORD_CONSTANT:
+      {
+        DWordConstant dWordConstant = (DWordConstant)theEObject;
+        T result = caseDWordConstant(dWordConstant);
+        if (result == null) result = caseIdiom(dWordConstant);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case EisPackage.LWORD_CONSTANT:
+      {
+        LWordConstant lWordConstant = (LWordConstant)theEObject;
+        T result = caseLWordConstant(lWordConstant);
+        if (result == null) result = caseIdiom(lWordConstant);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -884,17 +908,65 @@ public class EisSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Hex Constant</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Byte Constant</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Hex Constant</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Byte Constant</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseHexConstant(HexConstant object)
+  public T caseByteConstant(ByteConstant object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Word Constant</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Word Constant</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseWordConstant(WordConstant object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>DWord Constant</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>DWord Constant</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseDWordConstant(DWordConstant object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>LWord Constant</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>LWord Constant</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseLWordConstant(LWordConstant object)
   {
     return null;
   }

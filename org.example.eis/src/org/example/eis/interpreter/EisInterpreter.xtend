@@ -4,11 +4,13 @@ import com.google.inject.Inject
 import org.eclipse.xtext.util.IResourceScopeCache
 import org.example.eis.eis.And
 import org.example.eis.eis.BoolConstant
+import org.example.eis.eis.ByteConstant
 import org.example.eis.eis.Comparison
+import org.example.eis.eis.DWordConstant
 import org.example.eis.eis.Equality
-import org.example.eis.eis.HexConstant
 import org.example.eis.eis.Idiom
 import org.example.eis.eis.IntConstant
+import org.example.eis.eis.LWordConstant
 import org.example.eis.eis.Minus
 import org.example.eis.eis.MulOrDiv
 import org.example.eis.eis.Not
@@ -18,6 +20,7 @@ import org.example.eis.eis.RealConstant
 import org.example.eis.eis.StringConstant
 import org.example.eis.eis.Variable
 import org.example.eis.eis.VariableRef
+import org.example.eis.eis.WordConstant
 import org.example.eis.typing.DefineTypeComputer
 
 class EisInterpreter {
@@ -34,14 +37,14 @@ class EisInterpreter {
 				e.value
 			RealConstant:
 				e.value
-//			ByteConstant:
-//				e.value
-//			WordConstant:
-//				e.value
-//			DWordConstant:
-//				e.value
-			HexConstant:
-				e.value
+			ByteConstant:
+				e.value.toUpperCase
+			WordConstant:
+				e.value.toUpperCase
+			DWordConstant:
+				e.value.toUpperCase
+			LWordConstant:
+				e.value.toUpperCase
 //			LongConstant:
 //				e.value
 			Not: {

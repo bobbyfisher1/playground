@@ -1362,14 +1362,14 @@ public interface EisPackage extends EPackage
   int REAL_CONSTANT_FEATURE_COUNT = IDIOM_FEATURE_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link org.example.eis.eis.impl.HexConstantImpl <em>Hex Constant</em>}' class.
+   * The meta object id for the '{@link org.example.eis.eis.impl.ByteConstantImpl <em>Byte Constant</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.example.eis.eis.impl.HexConstantImpl
-   * @see org.example.eis.eis.impl.EisPackageImpl#getHexConstant()
+   * @see org.example.eis.eis.impl.ByteConstantImpl
+   * @see org.example.eis.eis.impl.EisPackageImpl#getByteConstant()
    * @generated
    */
-  int HEX_CONSTANT = 34;
+  int BYTE_CONSTANT = 34;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1378,16 +1378,100 @@ public interface EisPackage extends EPackage
    * @generated
    * @ordered
    */
-  int HEX_CONSTANT__VALUE = IDIOM_FEATURE_COUNT + 0;
+  int BYTE_CONSTANT__VALUE = IDIOM_FEATURE_COUNT + 0;
 
   /**
-   * The number of structural features of the '<em>Hex Constant</em>' class.
+   * The number of structural features of the '<em>Byte Constant</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int HEX_CONSTANT_FEATURE_COUNT = IDIOM_FEATURE_COUNT + 1;
+  int BYTE_CONSTANT_FEATURE_COUNT = IDIOM_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.example.eis.eis.impl.WordConstantImpl <em>Word Constant</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.example.eis.eis.impl.WordConstantImpl
+   * @see org.example.eis.eis.impl.EisPackageImpl#getWordConstant()
+   * @generated
+   */
+  int WORD_CONSTANT = 35;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int WORD_CONSTANT__VALUE = IDIOM_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Word Constant</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int WORD_CONSTANT_FEATURE_COUNT = IDIOM_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.example.eis.eis.impl.DWordConstantImpl <em>DWord Constant</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.example.eis.eis.impl.DWordConstantImpl
+   * @see org.example.eis.eis.impl.EisPackageImpl#getDWordConstant()
+   * @generated
+   */
+  int DWORD_CONSTANT = 36;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DWORD_CONSTANT__VALUE = IDIOM_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>DWord Constant</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DWORD_CONSTANT_FEATURE_COUNT = IDIOM_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.example.eis.eis.impl.LWordConstantImpl <em>LWord Constant</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.example.eis.eis.impl.LWordConstantImpl
+   * @see org.example.eis.eis.impl.EisPackageImpl#getLWordConstant()
+   * @generated
+   */
+  int LWORD_CONSTANT = 37;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LWORD_CONSTANT__VALUE = IDIOM_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>LWord Constant</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LWORD_CONSTANT_FEATURE_COUNT = IDIOM_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link org.example.eis.eis.BasicType <em>Basic Type</em>}' enum.
@@ -1397,7 +1481,7 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getBasicType()
    * @generated
    */
-  int BASIC_TYPE = 35;
+  int BASIC_TYPE = 38;
 
 
   /**
@@ -2511,25 +2595,88 @@ public interface EisPackage extends EPackage
   EAttribute getRealConstant_Value();
 
   /**
-   * Returns the meta object for class '{@link org.example.eis.eis.HexConstant <em>Hex Constant</em>}'.
+   * Returns the meta object for class '{@link org.example.eis.eis.ByteConstant <em>Byte Constant</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Hex Constant</em>'.
-   * @see org.example.eis.eis.HexConstant
+   * @return the meta object for class '<em>Byte Constant</em>'.
+   * @see org.example.eis.eis.ByteConstant
    * @generated
    */
-  EClass getHexConstant();
+  EClass getByteConstant();
 
   /**
-   * Returns the meta object for the attribute '{@link org.example.eis.eis.HexConstant#getValue <em>Value</em>}'.
+   * Returns the meta object for the attribute '{@link org.example.eis.eis.ByteConstant#getValue <em>Value</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Value</em>'.
-   * @see org.example.eis.eis.HexConstant#getValue()
-   * @see #getHexConstant()
+   * @see org.example.eis.eis.ByteConstant#getValue()
+   * @see #getByteConstant()
    * @generated
    */
-  EAttribute getHexConstant_Value();
+  EAttribute getByteConstant_Value();
+
+  /**
+   * Returns the meta object for class '{@link org.example.eis.eis.WordConstant <em>Word Constant</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Word Constant</em>'.
+   * @see org.example.eis.eis.WordConstant
+   * @generated
+   */
+  EClass getWordConstant();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.example.eis.eis.WordConstant#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see org.example.eis.eis.WordConstant#getValue()
+   * @see #getWordConstant()
+   * @generated
+   */
+  EAttribute getWordConstant_Value();
+
+  /**
+   * Returns the meta object for class '{@link org.example.eis.eis.DWordConstant <em>DWord Constant</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>DWord Constant</em>'.
+   * @see org.example.eis.eis.DWordConstant
+   * @generated
+   */
+  EClass getDWordConstant();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.example.eis.eis.DWordConstant#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see org.example.eis.eis.DWordConstant#getValue()
+   * @see #getDWordConstant()
+   * @generated
+   */
+  EAttribute getDWordConstant_Value();
+
+  /**
+   * Returns the meta object for class '{@link org.example.eis.eis.LWordConstant <em>LWord Constant</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>LWord Constant</em>'.
+   * @see org.example.eis.eis.LWordConstant
+   * @generated
+   */
+  EClass getLWordConstant();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.example.eis.eis.LWordConstant#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see org.example.eis.eis.LWordConstant#getValue()
+   * @see #getLWordConstant()
+   * @generated
+   */
+  EAttribute getLWordConstant_Value();
 
   /**
    * Returns the meta object for enum '{@link org.example.eis.eis.BasicType <em>Basic Type</em>}'.
@@ -3465,14 +3612,14 @@ public interface EisPackage extends EPackage
     EAttribute REAL_CONSTANT__VALUE = eINSTANCE.getRealConstant_Value();
 
     /**
-     * The meta object literal for the '{@link org.example.eis.eis.impl.HexConstantImpl <em>Hex Constant</em>}' class.
+     * The meta object literal for the '{@link org.example.eis.eis.impl.ByteConstantImpl <em>Byte Constant</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.example.eis.eis.impl.HexConstantImpl
-     * @see org.example.eis.eis.impl.EisPackageImpl#getHexConstant()
+     * @see org.example.eis.eis.impl.ByteConstantImpl
+     * @see org.example.eis.eis.impl.EisPackageImpl#getByteConstant()
      * @generated
      */
-    EClass HEX_CONSTANT = eINSTANCE.getHexConstant();
+    EClass BYTE_CONSTANT = eINSTANCE.getByteConstant();
 
     /**
      * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
@@ -3480,7 +3627,61 @@ public interface EisPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute HEX_CONSTANT__VALUE = eINSTANCE.getHexConstant_Value();
+    EAttribute BYTE_CONSTANT__VALUE = eINSTANCE.getByteConstant_Value();
+
+    /**
+     * The meta object literal for the '{@link org.example.eis.eis.impl.WordConstantImpl <em>Word Constant</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.example.eis.eis.impl.WordConstantImpl
+     * @see org.example.eis.eis.impl.EisPackageImpl#getWordConstant()
+     * @generated
+     */
+    EClass WORD_CONSTANT = eINSTANCE.getWordConstant();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute WORD_CONSTANT__VALUE = eINSTANCE.getWordConstant_Value();
+
+    /**
+     * The meta object literal for the '{@link org.example.eis.eis.impl.DWordConstantImpl <em>DWord Constant</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.example.eis.eis.impl.DWordConstantImpl
+     * @see org.example.eis.eis.impl.EisPackageImpl#getDWordConstant()
+     * @generated
+     */
+    EClass DWORD_CONSTANT = eINSTANCE.getDWordConstant();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DWORD_CONSTANT__VALUE = eINSTANCE.getDWordConstant_Value();
+
+    /**
+     * The meta object literal for the '{@link org.example.eis.eis.impl.LWordConstantImpl <em>LWord Constant</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.example.eis.eis.impl.LWordConstantImpl
+     * @see org.example.eis.eis.impl.EisPackageImpl#getLWordConstant()
+     * @generated
+     */
+    EClass LWORD_CONSTANT = eINSTANCE.getLWordConstant();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute LWORD_CONSTANT__VALUE = eINSTANCE.getLWordConstant_Value();
 
     /**
      * The meta object literal for the '{@link org.example.eis.eis.BasicType <em>Basic Type</em>}' enum.

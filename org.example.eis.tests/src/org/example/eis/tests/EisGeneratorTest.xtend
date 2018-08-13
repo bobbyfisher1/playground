@@ -984,7 +984,7 @@ class EisGeneratorTest {
 				output[]
 			}
 			teststep(1, ""){
-				set[ a = 16#AA; ]
+				set[ a = 16#aa; ]
 				assert[]
 			}
 		''' + ending ) => [

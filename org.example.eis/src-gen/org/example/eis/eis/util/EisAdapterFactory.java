@@ -246,9 +246,24 @@ public class EisAdapterFactory extends AdapterFactoryImpl
         return createRealConstantAdapter();
       }
       @Override
-      public Adapter caseHexConstant(HexConstant object)
+      public Adapter caseByteConstant(ByteConstant object)
       {
-        return createHexConstantAdapter();
+        return createByteConstantAdapter();
+      }
+      @Override
+      public Adapter caseWordConstant(WordConstant object)
+      {
+        return createWordConstantAdapter();
+      }
+      @Override
+      public Adapter caseDWordConstant(DWordConstant object)
+      {
+        return createDWordConstantAdapter();
+      }
+      @Override
+      public Adapter caseLWordConstant(LWordConstant object)
+      {
+        return createLWordConstantAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -783,16 +798,61 @@ public class EisAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.example.eis.eis.HexConstant <em>Hex Constant</em>}'.
+   * Creates a new adapter for an object of class '{@link org.example.eis.eis.ByteConstant <em>Byte Constant</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.example.eis.eis.HexConstant
+   * @see org.example.eis.eis.ByteConstant
    * @generated
    */
-  public Adapter createHexConstantAdapter()
+  public Adapter createByteConstantAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.example.eis.eis.WordConstant <em>Word Constant</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.example.eis.eis.WordConstant
+   * @generated
+   */
+  public Adapter createWordConstantAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.example.eis.eis.DWordConstant <em>DWord Constant</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.example.eis.eis.DWordConstant
+   * @generated
+   */
+  public Adapter createDWordConstantAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.example.eis.eis.LWordConstant <em>LWord Constant</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.example.eis.eis.LWordConstant
+   * @generated
+   */
+  public Adapter createLWordConstantAdapter()
   {
     return null;
   }

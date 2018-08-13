@@ -697,6 +697,9 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cNameAssignment = (Assignment)rule.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_0 = (RuleCall)cNameAssignment.eContents().get(0);
 		
+		////not needed only IEC times
+		////
+		////
 		//UdtType:
 		//	name=ID;
 		@Override public ParserRule getRule() { return rule; }
@@ -1065,28 +1068,38 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cValueAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
 		private final RuleCall cValueREALTerminalRuleCall_4_1_0 = (RuleCall)cValueAssignment_4_1.eContents().get(0);
 		private final Group cGroup_5 = (Group)cAlternatives.eContents().get(5);
-		private final Action cHexConstantAction_5_0 = (Action)cGroup_5.eContents().get(0);
+		private final Action cByteConstantAction_5_0 = (Action)cGroup_5.eContents().get(0);
 		private final Assignment cValueAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
-		private final RuleCall cValueHEXTerminalRuleCall_5_1_0 = (RuleCall)cValueAssignment_5_1.eContents().get(0);
+		private final RuleCall cValueBYTETerminalRuleCall_5_1_0 = (RuleCall)cValueAssignment_5_1.eContents().get(0);
+		private final Group cGroup_6 = (Group)cAlternatives.eContents().get(6);
+		private final Action cWordConstantAction_6_0 = (Action)cGroup_6.eContents().get(0);
+		private final Assignment cValueAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
+		private final RuleCall cValueWORDTerminalRuleCall_6_1_0 = (RuleCall)cValueAssignment_6_1.eContents().get(0);
+		private final Group cGroup_7 = (Group)cAlternatives.eContents().get(7);
+		private final Action cDWordConstantAction_7_0 = (Action)cGroup_7.eContents().get(0);
+		private final Assignment cValueAssignment_7_1 = (Assignment)cGroup_7.eContents().get(1);
+		private final RuleCall cValueDWORDTerminalRuleCall_7_1_0 = (RuleCall)cValueAssignment_7_1.eContents().get(0);
+		private final Group cGroup_8 = (Group)cAlternatives.eContents().get(8);
+		private final Action cLWordConstantAction_8_0 = (Action)cGroup_8.eContents().get(0);
+		private final Assignment cValueAssignment_8_1 = (Assignment)cGroup_8.eContents().get(1);
+		private final RuleCall cValueLWORDTerminalRuleCall_8_1_0 = (RuleCall)cValueAssignment_8_1.eContents().get(0);
 		
 		//Atomic Idiom:
 		//	{IntConstant} value=LONG
 		//	| {StringConstant} value=STRING
 		//	| BoolConstant
 		//	| {VariableRef} variable=[Variable] | {RealConstant} value=REAL
-		//	//	| {ByteConstant} value=BYTE
-		//	//	| {WordConstant} value=WORD
-		//	//	| {DWordConstant} value=DWORD
-		//	| {HexConstant} value=HEX
+		//	| {ByteConstant} value=BYTE
+		//	| {WordConstant} value=WORD
+		//	| {DWordConstant} value=DWORD
+		//	| {LWordConstant} value=LWORD
 		//	//	| {LongConstant} value=LONG
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{IntConstant} value=LONG | {StringConstant} value=STRING | BoolConstant | {VariableRef} variable=[Variable] |
-		//{RealConstant} value=REAL //	| {ByteConstant} value=BYTE
-		////	| {WordConstant} value=WORD
-		////	| {DWordConstant} value=DWORD
-		//| {HexConstant} value=HEX
+		//{RealConstant} value=REAL | {ByteConstant} value=BYTE | {WordConstant} value=WORD | {DWordConstant} value=DWORD |
+		//{LWordConstant} value=LWORD
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//{IntConstant} value=LONG
@@ -1143,17 +1156,53 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		//REAL
 		public RuleCall getValueREALTerminalRuleCall_4_1_0() { return cValueREALTerminalRuleCall_4_1_0; }
 		
-		//{HexConstant} value=HEX
+		//{ByteConstant} value=BYTE
 		public Group getGroup_5() { return cGroup_5; }
 		
-		//{HexConstant}
-		public Action getHexConstantAction_5_0() { return cHexConstantAction_5_0; }
+		//{ByteConstant}
+		public Action getByteConstantAction_5_0() { return cByteConstantAction_5_0; }
 		
-		//value=HEX
+		//value=BYTE
 		public Assignment getValueAssignment_5_1() { return cValueAssignment_5_1; }
 		
-		//HEX
-		public RuleCall getValueHEXTerminalRuleCall_5_1_0() { return cValueHEXTerminalRuleCall_5_1_0; }
+		//BYTE
+		public RuleCall getValueBYTETerminalRuleCall_5_1_0() { return cValueBYTETerminalRuleCall_5_1_0; }
+		
+		//{WordConstant} value=WORD
+		public Group getGroup_6() { return cGroup_6; }
+		
+		//{WordConstant}
+		public Action getWordConstantAction_6_0() { return cWordConstantAction_6_0; }
+		
+		//value=WORD
+		public Assignment getValueAssignment_6_1() { return cValueAssignment_6_1; }
+		
+		//WORD
+		public RuleCall getValueWORDTerminalRuleCall_6_1_0() { return cValueWORDTerminalRuleCall_6_1_0; }
+		
+		//{DWordConstant} value=DWORD
+		public Group getGroup_7() { return cGroup_7; }
+		
+		//{DWordConstant}
+		public Action getDWordConstantAction_7_0() { return cDWordConstantAction_7_0; }
+		
+		//value=DWORD
+		public Assignment getValueAssignment_7_1() { return cValueAssignment_7_1; }
+		
+		//DWORD
+		public RuleCall getValueDWORDTerminalRuleCall_7_1_0() { return cValueDWORDTerminalRuleCall_7_1_0; }
+		
+		//{LWordConstant} value=LWORD
+		public Group getGroup_8() { return cGroup_8; }
+		
+		//{LWordConstant}
+		public Action getLWordConstantAction_8_0() { return cLWordConstantAction_8_0; }
+		
+		//value=LWORD
+		public Assignment getValueAssignment_8_1() { return cValueAssignment_8_1; }
+		
+		//LWORD
+		public RuleCall getValueLWORDTerminalRuleCall_8_1_0() { return cValueLWORDTerminalRuleCall_8_1_0; }
 	}
 	public class TeststepBlockElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.TeststepBlock");
@@ -1463,7 +1512,7 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		//	| DINT="dint"
 		//	| LINT="lint"
 		//	//yet unimplemented
-		//	| CHAR="char" //
+		//	| CHAR="char" // a-z, A-Z, 0-9
 		//	| TIME="time"
 		//	| S5TIME="s5time";
 		public EnumRule getRule() { return rule; }
@@ -1472,7 +1521,7 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		//| STRING='string' | BYTE="byte" | WORD="word" | DWORD="dword" | LWORD="lword" //
 		//| USINT="usint" | UINT="uint" | UDINT="udint" | ULINT="ulint" // ??????
 		//| SINT="sint" | DINT="dint" | LINT="lint" //yet unimplemented
-		//| CHAR="char" //
+		//| CHAR="char" // a-z, A-Z, 0-9
 		//| TIME="time" | S5TIME="s5time"
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
@@ -1628,7 +1677,10 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	private final TerminalRule tHEXDIGIT;
 	private final TerminalRule tLONG;
 	private final TerminalRule tREAL;
-	private final TerminalRule tHEX;
+	private final TerminalRule tBYTE;
+	private final TerminalRule tWORD;
+	private final TerminalRule tDWORD;
+	private final TerminalRule tLWORD;
 	private final TerminalRule tID;
 	private final TerminalRule tSTRING;
 	private final TerminalRule tML_COMMENT;
@@ -1678,7 +1730,10 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		this.tHEXDIGIT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.HEXDIGIT");
 		this.tLONG = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.LONG");
 		this.tREAL = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.REAL");
-		this.tHEX = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.HEX");
+		this.tBYTE = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.BYTE");
+		this.tWORD = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.WORD");
+		this.tDWORD = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.DWORD");
+		this.tLWORD = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.LWORD");
 		this.tID = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.ID");
 		this.tSTRING = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.STRING");
 		this.tML_COMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.ML_COMMENT");
@@ -1898,7 +1953,7 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	//	| DINT="dint"
 	//	| LINT="lint"
 	//	//yet unimplemented
-	//	| CHAR="char" //
+	//	| CHAR="char" // a-z, A-Z, 0-9
 	//	| TIME="time"
 	//	| S5TIME="s5time";
 	public BasicTypeElements getBasicTypeAccess() {
@@ -1909,6 +1964,9 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		return getBasicTypeAccess().getRule();
 	}
 	
+	////not needed only IEC times
+	////
+	////
 	//UdtType:
 	//	name=ID;
 	public UdtTypeElements getUdtTypeAccess() {
@@ -2004,10 +2062,10 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	//	| {StringConstant} value=STRING
 	//	| BoolConstant
 	//	| {VariableRef} variable=[Variable] | {RealConstant} value=REAL
-	//	//	| {ByteConstant} value=BYTE
-	//	//	| {WordConstant} value=WORD
-	//	//	| {DWordConstant} value=DWORD
-	//	| {HexConstant} value=HEX
+	//	| {ByteConstant} value=BYTE
+	//	| {WordConstant} value=WORD
+	//	| {DWordConstant} value=DWORD
+	//	| {LWordConstant} value=LWORD
 	//	//	| {LongConstant} value=LONG
 	//;
 	public AtomicElements getAtomicAccess() {
@@ -2085,7 +2143,7 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//terminal fragment HEXDIGIT:
-	//	DIGIT | 'A'..'F';
+	//	DIGIT | 'A'..'F' | 'a'..'f';
 	public TerminalRule getHEXDIGITRule() {
 		return tHEXDIGIT;
 	}
@@ -2102,13 +2160,32 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		return tREAL;
 	}
 	
-	//terminal HEX:
-	//	'16#' ((((((((((((((HEXDIGIT? HEXDIGIT)? HEXDIGIT)? HEXDIGIT '_')?
-	//	HEXDIGIT)? HEXDIGIT)? HEXDIGIT)? HEXDIGIT '_')?
-	//	HEXDIGIT)? HEXDIGIT)? HEXDIGIT)? HEXDIGIT '_')?
-	//	HEXDIGIT)? HEXDIGIT)? HEXDIGIT)? HEXDIGIT;
-	public TerminalRule getHEXRule() {
-		return tHEX;
+	//terminal BYTE:
+	//	'16#' HEXDIGIT HEXDIGIT;
+	public TerminalRule getBYTERule() {
+		return tBYTE;
+	}
+	
+	//terminal WORD:
+	//	'16#' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT;
+	public TerminalRule getWORDRule() {
+		return tWORD;
+	}
+	
+	//terminal DWORD:
+	//	'16#' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT '_' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT;
+	public TerminalRule getDWORDRule() {
+		return tDWORD;
+	}
+	
+	//terminal LWORD:
+	//	'16#'
+	//	HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT '_'
+	//	HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT '_'
+	//	HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT '_'
+	//	HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT;
+	public TerminalRule getLWORDRule() {
+		return tLWORD;
 	}
 	
 	//terminal ID:

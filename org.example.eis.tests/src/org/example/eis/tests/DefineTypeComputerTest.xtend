@@ -116,57 +116,51 @@ class DefineTypeComputerTest {
 	}
 
 	@Test def void testByte() {
-		val _byte = '''
-			byte a = 16#AA;
-		'''
+		val _byte = '''byte 	a = 16#AA, b = 16#aa;'''
+		val _byte2 = '''byte 	a = 16#aaAA, b = 16#aacc;'''
+
 		(start + _byte + end).parse => [
 			assertNoErrors
 		]
-	}
-
-	@Test def void testByteBoundaries() {
-		val _byte = '''byte a =16#0440;'''
-		(start + _byte + end).parse => [
-			1.assertEquals(validate.size)
-			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		(start + _byte2 + end).parse => [
+			2.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.INCOMPATIBLE_TYPES)
 		]
 	}
 
 	@Test def void testWord() {
-		val real = '''word a = 16#AAAA;'''
-		(start + real + end).parse => [
+		val word = '''word a = 16#AAAA, b = 16#aaaa;'''
+		val word2 = '''word a = 16#AA, b = 16#aa;'''
+		(start + word + end).parse => [
 			assertNoErrors
 		]
-	}
-
-	@Test def void testWordBoundaries() {
-		val word = '''word a =16#0000_0440;'''
-		(start + word + end).parse => [
-			1.assertEquals(validate.size)
-			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		(start + word2 + end).parse => [
+			2.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.INCOMPATIBLE_TYPES)
 		]
 	}
 
 	@Test def void testDWord() {
-		val real = '''
-			dword a = 16#AAAA_AAAA;
-		'''
-		(start + real + end).parse => [
+		val dword = '''dword a = 16#AAAA_AAAA, b = 16#aaaa_aaaa;'''
+		val dword2 = '''dword a = 16#AAAA, b = 16#aaaa_aaaa_cccc_def8;'''
+		(start + dword + end).parse => [
 			assertNoErrors
 		]
-	}
-
-	@Test def void testDWordBoundaries() {
-		val dWord = '''dword a =16#0_2000_0440;'''
-		(start + dWord + end).parse => [
-			1.assertEquals(validate.size)
-			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		(start + dword2 + end).parse => [
+			2.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.INCOMPATIBLE_TYPES)
 		]
 	}
 
 	@Test def void testLWord() {
-		val real = '''lword a = 16#AAAA_AAAA_AAAA_AAAA;'''
-		(start + real + end).parse => [assertNoErrors]
+		val lword = '''lword a = 16#ABCD_EF01_2345_6789, b = 16#abcd_efaa_aaaa_bbbb;'''
+		val lword2 = '''lword a = 16#2345_6789, b = 16#ab;'''
+		(start + lword + end).parse => [assertNoErrors]
+
+		(start + lword2 + end).parse => [
+			2.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.INCOMPATIBLE_TYPES)
+		]
 	}
 
 	@Test def void testUSInt() {

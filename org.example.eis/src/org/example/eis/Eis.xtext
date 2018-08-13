@@ -79,10 +79,11 @@ enum BasicType:
 	| DINT="dint"
 	| LINT="lint"
 	//yet unimplemented
-	| CHAR="char" //
+	| CHAR="char" // a-z, A-Z, 0-9
 	| TIME="time"
-	| S5TIME="s5time";
-
+	| S5TIME="s5time"; //not needed only IEC times
+//
+//
 UdtType:
 	name=ID;
 
@@ -116,10 +117,10 @@ Atomic returns Idiom:
 	| BoolConstant
 	| {VariableRef} variable=[Variable]
 	| {RealConstant} value=REAL
-	//	| {ByteConstant} value=BYTE
-	//	| {WordConstant} value=WORD
-	//	| {DWordConstant} value=DWORD
-	| {HexConstant} value=HEX
+	| {ByteConstant} value=BYTE
+	| {WordConstant} value=WORD
+	| {DWordConstant} value=DWORD
+	| {LWordConstant} value=LWORD
 	//	| {LongConstant} value=LONG
 ;
 
@@ -145,7 +146,7 @@ terminal fragment DIGIT:
 	'0'..'9';
 
 terminal fragment HEXDIGIT:
-	DIGIT | 'A'..'F';
+	DIGIT | 'A'..'F'|'a'..'f';
 
 	//@Override
 //terminal INT :
@@ -159,29 +160,29 @@ terminal LONG returns ecore::ELong:
 //
 terminal REAL returns ecore::EFloat:
 	LONG '.' DIGIT+;
+	//	
+terminal BYTE:
+	'16#' HEXDIGIT HEXDIGIT;
 	//
-//terminal BYTE:
-//	'16#' HEXDIGIT? HEXDIGIT;
-//	//
-//terminal WORD:
-//	'16#' HEXDIGIT? HEXDIGIT? HEXDIGIT? HEXDIGIT;
-//	//
-//terminal DWORD:
-//	'16#' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT '_' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT;
-//	//
-terminal HEX:
+terminal WORD:
+	'16#' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT;
+	//
+terminal DWORD:
+	'16#' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT '_' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT;
+	//
+terminal LWORD:
 	'16#'
-	((((((((((((((( //
-	HEXDIGIT)? HEXDIGIT)? HEXDIGIT)? HEXDIGIT '_')?
-	HEXDIGIT)? HEXDIGIT)? HEXDIGIT)? HEXDIGIT '_')?
-	HEXDIGIT)? HEXDIGIT)? HEXDIGIT)? HEXDIGIT '_')?
-	HEXDIGIT)? HEXDIGIT)? HEXDIGIT)? HEXDIGIT;
+	HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT '_'
+	HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT '_'
+	HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT '_'
+	HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT;
 
 terminal ID:
 	'^'? ('a'..'z' | 'A'..'Z' | '_') ('a'..'z' | 'A'..'Z' | '_' | '0'..'9')*;
 
-	//terminal INT returns ecore::EInt:
+//terminal INT returns ecore::EInt:
 //	('0'..'9')+;
+//
 terminal STRING:
 	'"' ('\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\' | '"'))* '"' |
 	"'" ('\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\' | "'"))* "'";
