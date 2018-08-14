@@ -125,7 +125,7 @@ Atomic returns Idiom:
 	//	| {LongConstant} value=LONG
 	| {CharConstant} value=CHAR
 	| {TimeConstant} value=TIME
-	|{LTimeConstant}value=LTIME;
+	| {LTimeConstant} value=LTIME;
 
 TeststepBlock:
 	'teststep' '(' plcCycle=LONG ',' description=STRING ')' '{' assertion=AssertionBlock '}';

@@ -5,6 +5,7 @@ package org.example.eis.validation
 
 import com.google.common.collect.HashMultimap
 import com.google.inject.Inject
+import java.time.Duration
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.validation.Check
@@ -43,6 +44,7 @@ import org.example.eis.eis.impl.VariableImpl
 import org.example.eis.interpreter.EisInterpreter
 import org.example.eis.typing.DefineType
 import org.example.eis.typing.DefineTypeComputer
+import org.example.eis.typing.types.LTimeType
 import org.example.eis.typing.types.TimeType
 
 class EisValidator extends AbstractEisValidator {
@@ -541,7 +543,7 @@ class EisValidator extends AbstractEisValidator {
 			}
 	}
 
-	@Check def void checkNumericalValues(Statement statement) {
+	@Check def void checkNumericalTimeAndLTimeValues(Statement statement) {
 		val cascade = statement.cascade
 		val variable = statement.variable
 		val last = cascade?.last?.udtVar
@@ -555,34 +557,69 @@ class EisValidator extends AbstractEisValidator {
 
 			if (!(idiom instanceof VariableRef)) {
 				val idiomValue = idiom.interpret
-				if (idiomValue instanceof Long)
+				if (idiomValue instanceof Long) {
 					if (idiomValue.checkNumericalValues(expectedType))
 						error("Value is out of the datatype boundaries.", statement,
 							EisPackage.eINSTANCE.statement_Idiom, VALUE_EXCEEDING_DATATYPE_BOUNDS)
+				} else if (idiom.typeFor instanceof TimeType) {
+					if (idiom.outOfTime)
+						error("Value is out of the datatype boundaries.", statement,
+							EisPackage.eINSTANCE.statement_Idiom, VALUE_EXCEEDING_DATATYPE_BOUNDS)
+				} else if (idiom.typeFor instanceof LTimeType) {
+					if (idiom.isOutOfLTime)
+						error("Value is out of the datatype boundaries.", statement,
+							EisPackage.eINSTANCE.statement_Idiom, VALUE_EXCEEDING_DATATYPE_BOUNDS)
+				}
 			}
 			if (range !== null)
 				if (!(range instanceof VariableRef)) {
 					val rangeValue = range.interpret
-					if (rangeValue instanceof Long)
+					if (rangeValue instanceof Long) {
 						if (rangeValue.checkNumericalValues(expectedType))
 							error("Value is out of the datatype boundaries.", statement,
 								EisPackage.eINSTANCE.statement_Range, VALUE_EXCEEDING_DATATYPE_BOUNDS)
+					} else if (range.typeFor instanceof TimeType) {
+						if (range.isOutOfTime)
+							error("Value is out of the datatype boundaries.", statement,
+								EisPackage.eINSTANCE.statement_Range, VALUE_EXCEEDING_DATATYPE_BOUNDS)
+					} else if (range.typeFor instanceof LTimeType) {
+						if (range.isOutOfLTime)
+							error("Value is out of the datatype boundaries.", statement,
+								EisPackage.eINSTANCE.statement_Range, VALUE_EXCEEDING_DATATYPE_BOUNDS)
+					}
 				}
 		} else if (last instanceof Variable) {
 			expectedType = last.variableType.typeFor
 
 			if (!(idiom instanceof VariableRef)) {
 				val idiomValue = idiom.interpret
-				if (idiomValue instanceof Long)
+				if (idiomValue instanceof Long) {
 					if (idiomValue.checkNumericalValues(expectedType))
 						error("Value is out of the datatype boundaries.", statement,
 							EisPackage.eINSTANCE.statement_Idiom, VALUE_EXCEEDING_DATATYPE_BOUNDS)
+				} else if (idiom.typeFor instanceof TimeType) {
+					if (idiom.isOutOfTime)
+						error("Value is out of the datatype boundaries.", statement,
+							EisPackage.eINSTANCE.statement_Idiom, VALUE_EXCEEDING_DATATYPE_BOUNDS)
+				} else if (idiom.typeFor instanceof LTimeType) {
+					if (idiom.isOutOfLTime)
+						error("Value is out of the datatype boundaries.", statement,
+							EisPackage.eINSTANCE.statement_Idiom, VALUE_EXCEEDING_DATATYPE_BOUNDS)
+				}
 			}
 			if (range !== null)
 				if (!(range instanceof VariableRef)) {
 					val rangeValue = range.interpret
-					if (rangeValue instanceof Long)
+					if (rangeValue instanceof Long) {
 						if (rangeValue.checkNumericalValues(expectedType))
+							error("Value is out of the datatype boundaries.", statement,
+								EisPackage.eINSTANCE.statement_Range, VALUE_EXCEEDING_DATATYPE_BOUNDS)
+					} else if (range.typeFor instanceof TimeType) {
+						if (range.isOutOfTime)
+							error("Value is out of the datatype boundaries.", statement,
+								EisPackage.eINSTANCE.statement_Range, VALUE_EXCEEDING_DATATYPE_BOUNDS)
+					} else if (range.typeFor instanceof LTimeType)
+						if (range.isOutOfLTime)
 							error("Value is out of the datatype boundaries.", statement,
 								EisPackage.eINSTANCE.statement_Range, VALUE_EXCEEDING_DATATYPE_BOUNDS)
 				}
@@ -595,92 +632,175 @@ class EisValidator extends AbstractEisValidator {
 
 		if (idiom !== null)
 			if (!(idiom instanceof VariableRef)) {
-				if (idiom.typeFor instanceof TimeType)
+				if (idiom.typeFor instanceof TimeType) {
 					if (idiom.isOutOfTime)
+						error("Value is out of the datatype boundaries.", variable, EisPackage.eINSTANCE.variable_Idiom,
+							VALUE_EXCEEDING_DATATYPE_BOUNDS)
+				} else if (idiom.typeFor instanceof LTimeType)
+					if (idiom.isOutOfLTime)
 						error("Value is out of the datatype boundaries.", variable, EisPackage.eINSTANCE.variable_Idiom,
 							VALUE_EXCEEDING_DATATYPE_BOUNDS)
 			}
 
 		if (range !== null)
 			if (!(range instanceof VariableRef)) {
-				if (range.typeFor instanceof TimeType)
+				if (range.typeFor instanceof TimeType) {
 					if (range.isOutOfTime)
+						error("Value is out of the datatype boundaries.", variable, EisPackage.eINSTANCE.variable_Range,
+							VALUE_EXCEEDING_DATATYPE_BOUNDS)
+				} else if (range.typeFor instanceof LTimeType)
+					if (range.isOutOfLTime)
 						error("Value is out of the datatype boundaries.", variable, EisPackage.eINSTANCE.variable_Range,
 							VALUE_EXCEEDING_DATATYPE_BOUNDS)
 			}
 	}
 
+//
+// methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//
 	def boolean isOutOfTime(Idiom _time) {
 		var time = _time.interpret.toString.substring(2).replaceAll('_', '')
 
-		println(time)
-		val maxTime = 2147483647
+		var ms = ''
+		var s = ''
+		var m = ''
+		var h = ''
+		var d = ''
+		var sign = ''
 
-		val minTime = -2147483647000000000L*100
-
-		var currentTime = 0L
-
-		var ms = 0
-		var s = 0
-		var m = 0
-		var h = 0
-		var d = 0
-
-		var sign = 1
-		if (time.contains('-'))
-			sign = -1
-
+		if (time.contains('-')) {
+			sign = '-'
+			time = time.replace('-', '')
+		}
 		if (time.contains('ms')) {
-			time = time.replace('ms', '')
+			time = time.split('ms').head
 			ms = time.lastNumber
-			println(ms)
 		}
 		if (time.contains('s')) {
 			time = time.split('s').head
 			s = time.lastNumber
-			println(s)
 		}
 		if (time.contains('m')) {
 			time = time.split('m').head
 			m = time.lastNumber
-			println(m)
 		}
 		if (time.contains('h')) {
 			time = time.split('h').head
 			h = time.lastNumber
-			println(h)
 		}
 		if (time.contains('d')) {
-			time = time.split('d').head
-			d = Integer.parseInt(time)
-			println(d)
+			d = time.split('d').head
 		}
+//
+//		rebuilding the time string
+//
+		time = sign + 'p'
+		if(d != '') time += d + 'd'
+		time += 't'
+		if(h != '') time += h + 'h'
+		if(m != '') time += m + 'm'
+		if (s != '') {
+			time += s
+			if(ms != '') time += '.' + ms.fraction + 's'
+		} else if (ms != '')
+			time += '0' + '.' + ms.fraction + 's'
 
-		currentTime += ms * sign
-		currentTime += s * 1000 * sign
-		currentTime += m * 1000 * 60 * sign
-		currentTime += h * 1000 * 60 * 60 * sign
-		currentTime += d * 1000 * 60 * 60 * 24
+		val duration = Duration.parse(time)
+		val maxTime = Duration.parse("p24dt20h31m23,647s")
+		val minTime = Duration.parse("-p24dt20h31m23,648s")
 
-		println(currentTime)
-		println('max: ' + maxTime)
-		println('min: ' + minTime)
-		if (currentTime > maxTime || currentTime < minTime)
-			true
+		if (maxTime.compareTo(duration) < 0) // (final_hour > t) => returns 1 if under maxTime
+			return true
+		else if (minTime.compareTo(duration) > 0) // (first_hour > t) => -1 if above minTime
+			return true
 		else
 			false
 	}
 
-	def Integer lastNumber(String time) {
+	def boolean isOutOfLTime(Idiom _ltime) {
+		var LTime = _ltime.interpret.toString.substring(3).replaceAll('_', '')
+
+		var ns = ''
+		var us = ''
+		var ms = ''
+		var s = ''
+		var m = ''
+		var h = ''
+		var d = ''
+		var sign = ''
+
+		if (LTime.contains('-')) {
+			sign = '-'
+			LTime = LTime.replace('-', '')
+		}
+		if (LTime.contains('ns')) {
+			LTime = LTime.split('ns').head
+			ns = LTime.lastNumber
+		}
+		if (LTime.contains('us')) {
+			LTime = LTime.split('us').head
+			us = LTime.lastNumber
+		}
+		if (LTime.contains('ms')) {
+			LTime = LTime.split('ms').head
+			ms = LTime.lastNumber
+		}
+		if (LTime.contains('s')) {
+			LTime = LTime.split('s').head
+			s = LTime.lastNumber
+		}
+		if (LTime.contains('m')) {
+			LTime = LTime.split('m').head
+			m = LTime.lastNumber
+		}
+		if (LTime.contains('h')) {
+			LTime = LTime.split('h').head
+			h = LTime.lastNumber
+		}
+		if (LTime.contains('d')) {
+			d = LTime.split('d').head
+		}
+//
+//		rebuilding the time string
+//
+		LTime = sign + 'p'
+		if(d != '') LTime += d + 'd'
+		LTime += 't'
+		if(h != '') LTime += h + 'h'
+		if(m != '') LTime += m + 'm'
+		if (s != '') {
+			LTime += s
+			if(ns != '' || us != '' || ms != '') LTime += '.' + ms.fraction + us.fraction + ns.fraction
+			LTime += 's'
+
+		} else if (ns != '' || us != '' || ms != '')
+			LTime += '0.' + ms.fraction + us.fraction + ns.fraction + 's'
+
+		val duration = Duration.parse(LTime)
+		val maxTime = Duration.parse("p106751dt23h47m16.854775807s")
+		val minTime = Duration.parse("-p106751dt23h47m16.854775808s")
+
+		if (maxTime.compareTo(duration) < 0) // (final_hour > t) => returns 1 if under maxTime
+			return true
+		else if (minTime.compareTo(duration) > 0) // (first_hour > t) => -1 if above minTime
+			return true
+		else
+			false
+	}
+
+	def String lastNumber(String time) {
 		var i = 1
 		var last = ""
 		while (time.charAt(time.length - i).toString.isNumerical) {
-			i++
+			if (i < time.length)
+				i++
+			else // avoid endless loop
+				return time
 		}
 		for (i--; i > 0; i--) {
 			last += time.charAt(time.length - i).toString
 		}
-		return Integer.parseInt(last)
+		return last
 	}
 
 	def boolean isNumerical(String _char) {
@@ -690,9 +810,17 @@ class EisValidator extends AbstractEisValidator {
 			false
 	}
 
-//
-// methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-//
+	def String fraction(String value) {
+		if (value.length == 3)
+			return value
+		if (value.length == 2)
+			return '0' + value
+		if (value.length == 1)
+			return '00' + value
+		if (value.length == 0)
+			return '000'
+	}
+
 	def private boolean checkNumericalValues(long idiom, DefineType expectedType) {
 		switch expectedType {
 			case expectedType.isUSIntType: idiom.isOutOfNumericalBounds(0, 255)

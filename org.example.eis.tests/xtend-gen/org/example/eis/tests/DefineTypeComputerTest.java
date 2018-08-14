@@ -815,6 +815,32 @@ public class DefineTypeComputerTest {
     }
   }
   
+  @Test
+  public void testingLTime() {
+    try {
+      String LTime = "106751d_23h_47M_16s_854ms_775us_807ns";
+      this._validationTestHelper.assertNoErrors(this._parseHelper.parse(((((this.start + "ltime a = LT#") + LTime) + ";") + this.end)));
+      LTime = "106751d_23h_47M_16s_854ms_775us_808ns";
+      EisModel _parse = this._parseHelper.parse(((((this.start + "ltime a = LT#") + LTime) + ";") + this.end));
+      final Procedure1<EisModel> _function = (EisModel it) -> {
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getVariable(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
+      LTime = "-106751d_23h_47M_16s_854ms_775us_808ns";
+      this._validationTestHelper.assertNoErrors(this._parseHelper.parse(((((this.start + "ltime a = LT#") + LTime) + ";") + this.end)));
+      LTime = "-106751d_23h_47M_16s_854ms_775us_809ns";
+      EisModel _parse_1 = this._parseHelper.parse(((((this.start + "ltime a = LT#") + LTime) + ";") + this.end));
+      final Procedure1<EisModel> _function_1 = (EisModel it) -> {
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getVariable(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse_1, _function_1);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
   private void assertSameType(final String text, final DefineType expectedType) {
     try {
       Variables _get = IterableExtensions.<Testcase>head(this._parseHelper.parse(((this.start + text) + this.end)).getTestcases()).getTestblock().getDefine().getDirection().getOutput().getOutputVariables().get(0);

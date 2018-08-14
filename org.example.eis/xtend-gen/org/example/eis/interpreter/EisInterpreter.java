@@ -18,6 +18,7 @@ import org.example.eis.eis.DWordConstant;
 import org.example.eis.eis.Equality;
 import org.example.eis.eis.Idiom;
 import org.example.eis.eis.IntConstant;
+import org.example.eis.eis.LTimeConstant;
 import org.example.eis.eis.LWordConstant;
 import org.example.eis.eis.Minus;
 import org.example.eis.eis.MulOrDiv;
@@ -100,6 +101,12 @@ public class EisInterpreter {
       if (e instanceof TimeConstant) {
         _matched=true;
         _switchResult = StringExtensions.toFirstUpper(((TimeConstant)e).getValue().toLowerCase());
+      }
+    }
+    if (!_matched) {
+      if (e instanceof LTimeConstant) {
+        _matched=true;
+        _switchResult = StringExtensions.toFirstUpper(((LTimeConstant)e).getValue().toLowerCase());
       }
     }
     if (!_matched) {

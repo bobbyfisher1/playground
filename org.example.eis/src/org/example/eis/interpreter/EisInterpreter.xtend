@@ -11,6 +11,7 @@ import org.example.eis.eis.DWordConstant
 import org.example.eis.eis.Equality
 import org.example.eis.eis.Idiom
 import org.example.eis.eis.IntConstant
+import org.example.eis.eis.LTimeConstant
 import org.example.eis.eis.LWordConstant
 import org.example.eis.eis.Minus
 import org.example.eis.eis.MulOrDiv
@@ -50,6 +51,8 @@ class EisInterpreter {
 			CharConstant:
 				e.value.charAt(1) // char a = 'a' => a 	//without apostrophes
 			TimeConstant:
+				e.value.toLowerCase.toFirstUpper
+			LTimeConstant:
 				e.value.toLowerCase.toFirstUpper
 //
 //			LongConstant:

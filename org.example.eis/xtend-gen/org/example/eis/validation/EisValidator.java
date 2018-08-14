@@ -6,6 +6,7 @@ package org.example.eis.validation;
 import com.google.common.base.Objects;
 import com.google.common.collect.HashMultimap;
 import com.google.inject.Inject;
+import java.time.Duration;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
@@ -15,7 +16,6 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Extension;
-import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.example.eis.eis.And;
 import org.example.eis.eis.Assert;
@@ -54,6 +54,7 @@ import org.example.eis.eis.impl.VariableImpl;
 import org.example.eis.interpreter.EisInterpreter;
 import org.example.eis.typing.DefineType;
 import org.example.eis.typing.DefineTypeComputer;
+import org.example.eis.typing.types.LTimeType;
 import org.example.eis.typing.types.TimeType;
 import org.example.eis.validation.AbstractEisValidator;
 
@@ -770,7 +771,7 @@ public class EisValidator extends AbstractEisValidator {
   }
   
   @Check
-  public void checkNumericalValues(final Statement statement) {
+  public void checkNumericalTimeAndLTimeValues(final Statement statement) {
     final EList<Cascade> cascade = statement.getCascade();
     final Variables variable = statement.getVariable();
     Cascade _last = null;
@@ -803,6 +804,24 @@ public class EisValidator extends AbstractEisValidator {
             this.error("Value is out of the datatype boundaries.", statement, 
               EisPackage.eINSTANCE.getStatement_Idiom(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
           }
+        } else {
+          DefineType _typeFor = this._defineTypeComputer.typeFor(idiom);
+          if ((_typeFor instanceof TimeType)) {
+            boolean _isOutOfTime = this.isOutOfTime(idiom);
+            if (_isOutOfTime) {
+              this.error("Value is out of the datatype boundaries.", statement, 
+                EisPackage.eINSTANCE.getStatement_Idiom(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+            }
+          } else {
+            DefineType _typeFor_1 = this._defineTypeComputer.typeFor(idiom);
+            if ((_typeFor_1 instanceof LTimeType)) {
+              boolean _isOutOfLTime = this.isOutOfLTime(idiom);
+              if (_isOutOfLTime) {
+                this.error("Value is out of the datatype boundaries.", statement, 
+                  EisPackage.eINSTANCE.getStatement_Idiom(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+              }
+            }
+          }
         }
       }
       if ((range != null)) {
@@ -813,6 +832,24 @@ public class EisValidator extends AbstractEisValidator {
             if (_checkNumericalValues_1) {
               this.error("Value is out of the datatype boundaries.", statement, 
                 EisPackage.eINSTANCE.getStatement_Range(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+            }
+          } else {
+            DefineType _typeFor_2 = this._defineTypeComputer.typeFor(range);
+            if ((_typeFor_2 instanceof TimeType)) {
+              boolean _isOutOfTime_1 = this.isOutOfTime(range);
+              if (_isOutOfTime_1) {
+                this.error("Value is out of the datatype boundaries.", statement, 
+                  EisPackage.eINSTANCE.getStatement_Range(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+              }
+            } else {
+              DefineType _typeFor_3 = this._defineTypeComputer.typeFor(range);
+              if ((_typeFor_3 instanceof LTimeType)) {
+                boolean _isOutOfLTime_1 = this.isOutOfLTime(range);
+                if (_isOutOfLTime_1) {
+                  this.error("Value is out of the datatype boundaries.", statement, 
+                    EisPackage.eINSTANCE.getStatement_Range(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+                }
+              }
             }
           }
         }
@@ -828,6 +865,24 @@ public class EisValidator extends AbstractEisValidator {
               this.error("Value is out of the datatype boundaries.", statement, 
                 EisPackage.eINSTANCE.getStatement_Idiom(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
             }
+          } else {
+            DefineType _typeFor_4 = this._defineTypeComputer.typeFor(idiom);
+            if ((_typeFor_4 instanceof TimeType)) {
+              boolean _isOutOfTime_2 = this.isOutOfTime(idiom);
+              if (_isOutOfTime_2) {
+                this.error("Value is out of the datatype boundaries.", statement, 
+                  EisPackage.eINSTANCE.getStatement_Idiom(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+              }
+            } else {
+              DefineType _typeFor_5 = this._defineTypeComputer.typeFor(idiom);
+              if ((_typeFor_5 instanceof LTimeType)) {
+                boolean _isOutOfLTime_2 = this.isOutOfLTime(idiom);
+                if (_isOutOfLTime_2) {
+                  this.error("Value is out of the datatype boundaries.", statement, 
+                    EisPackage.eINSTANCE.getStatement_Idiom(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+                }
+              }
+            }
           }
         }
         if ((range != null)) {
@@ -838,6 +893,24 @@ public class EisValidator extends AbstractEisValidator {
               if (_checkNumericalValues_3) {
                 this.error("Value is out of the datatype boundaries.", statement, 
                   EisPackage.eINSTANCE.getStatement_Range(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+              }
+            } else {
+              DefineType _typeFor_6 = this._defineTypeComputer.typeFor(range);
+              if ((_typeFor_6 instanceof TimeType)) {
+                boolean _isOutOfTime_3 = this.isOutOfTime(range);
+                if (_isOutOfTime_3) {
+                  this.error("Value is out of the datatype boundaries.", statement, 
+                    EisPackage.eINSTANCE.getStatement_Range(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+                }
+              } else {
+                DefineType _typeFor_7 = this._defineTypeComputer.typeFor(range);
+                if ((_typeFor_7 instanceof LTimeType)) {
+                  boolean _isOutOfLTime_3 = this.isOutOfLTime(range);
+                  if (_isOutOfLTime_3) {
+                    this.error("Value is out of the datatype boundaries.", statement, 
+                      EisPackage.eINSTANCE.getStatement_Range(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+                  }
+                }
               }
             }
           }
@@ -867,17 +940,35 @@ public class EisValidator extends AbstractEisValidator {
             this.error("Value is out of the datatype boundaries.", variable, EisPackage.eINSTANCE.getVariable_Idiom(), 
               EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
           }
+        } else {
+          DefineType _typeFor_1 = this._defineTypeComputer.typeFor(idiom);
+          if ((_typeFor_1 instanceof LTimeType)) {
+            boolean _isOutOfLTime = this.isOutOfLTime(idiom);
+            if (_isOutOfLTime) {
+              this.error("Value is out of the datatype boundaries.", variable, EisPackage.eINSTANCE.getVariable_Idiom(), 
+                EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+            }
+          }
         }
       }
     }
     if ((range != null)) {
       if ((!(range instanceof VariableRef))) {
-        DefineType _typeFor_1 = this._defineTypeComputer.typeFor(range);
-        if ((_typeFor_1 instanceof TimeType)) {
+        DefineType _typeFor_2 = this._defineTypeComputer.typeFor(range);
+        if ((_typeFor_2 instanceof TimeType)) {
           boolean _isOutOfTime_1 = this.isOutOfTime(range);
           if (_isOutOfTime_1) {
             this.error("Value is out of the datatype boundaries.", variable, EisPackage.eINSTANCE.getVariable_Range(), 
               EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+          }
+        } else {
+          DefineType _typeFor_3 = this._defineTypeComputer.typeFor(range);
+          if ((_typeFor_3 instanceof LTimeType)) {
+            boolean _isOutOfLTime_1 = this.isOutOfLTime(range);
+            if (_isOutOfLTime_1) {
+              this.error("Value is out of the datatype boundaries.", variable, EisPackage.eINSTANCE.getVariable_Range(), 
+                EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+            }
           }
         }
       }
@@ -888,79 +979,238 @@ public class EisValidator extends AbstractEisValidator {
     boolean _xblockexpression = false;
     {
       String time = this._eisInterpreter.interpret(_time).toString().substring(2).replaceAll("_", "");
-      InputOutput.<String>println(time);
-      final int maxTime = 2147483647;
-      final long minTime = ((-2147483647000000000L) * 100);
-      long currentTime = 0L;
-      int ms = 0;
-      int s = 0;
-      int m = 0;
-      int h = 0;
-      int d = 0;
-      int sign = 1;
+      String ms = "";
+      String s = "";
+      String m = "";
+      String h = "";
+      String d = "";
+      String sign = "";
       boolean _contains = time.contains("-");
       if (_contains) {
-        sign = (-1);
+        sign = "-";
+        time = time.replace("-", "");
       }
       boolean _contains_1 = time.contains("ms");
       if (_contains_1) {
-        time = time.replace("ms", "");
-        ms = (this.lastNumber(time)).intValue();
-        InputOutput.<Integer>println(Integer.valueOf(ms));
+        time = IterableExtensions.<String>head(((Iterable<String>)Conversions.doWrapArray(time.split("ms"))));
+        ms = this.lastNumber(time);
       }
       boolean _contains_2 = time.contains("s");
       if (_contains_2) {
         time = IterableExtensions.<String>head(((Iterable<String>)Conversions.doWrapArray(time.split("s"))));
-        s = (this.lastNumber(time)).intValue();
-        InputOutput.<Integer>println(Integer.valueOf(s));
+        s = this.lastNumber(time);
       }
       boolean _contains_3 = time.contains("m");
       if (_contains_3) {
         time = IterableExtensions.<String>head(((Iterable<String>)Conversions.doWrapArray(time.split("m"))));
-        m = (this.lastNumber(time)).intValue();
-        InputOutput.<Integer>println(Integer.valueOf(m));
+        m = this.lastNumber(time);
       }
       boolean _contains_4 = time.contains("h");
       if (_contains_4) {
         time = IterableExtensions.<String>head(((Iterable<String>)Conversions.doWrapArray(time.split("h"))));
-        h = (this.lastNumber(time)).intValue();
-        InputOutput.<Integer>println(Integer.valueOf(h));
+        h = this.lastNumber(time);
       }
       boolean _contains_5 = time.contains("d");
       if (_contains_5) {
-        time = IterableExtensions.<String>head(((Iterable<String>)Conversions.doWrapArray(time.split("d"))));
-        d = Integer.parseInt(time);
-        InputOutput.<Integer>println(Integer.valueOf(d));
+        d = IterableExtensions.<String>head(((Iterable<String>)Conversions.doWrapArray(time.split("d"))));
       }
-      long _currentTime = currentTime;
-      currentTime = (_currentTime + (ms * sign));
-      long _currentTime_1 = currentTime;
-      currentTime = (_currentTime_1 + ((s * 1000) * sign));
-      long _currentTime_2 = currentTime;
-      currentTime = (_currentTime_2 + (((m * 1000) * 60) * sign));
-      long _currentTime_3 = currentTime;
-      currentTime = (_currentTime_3 + ((((h * 1000) * 60) * 60) * sign));
-      long _currentTime_4 = currentTime;
-      currentTime = (_currentTime_4 + ((((d * 1000) * 60) * 60) * 24));
-      InputOutput.<Long>println(Long.valueOf(currentTime));
-      InputOutput.<String>println(("max: " + Integer.valueOf(maxTime)));
-      InputOutput.<String>println(("min: " + Long.valueOf(minTime)));
-      boolean _xifexpression = false;
-      if (((currentTime > maxTime) || (currentTime < minTime))) {
-        _xifexpression = true;
+      time = (sign + "p");
+      boolean _notEquals = (!Objects.equal(d, ""));
+      if (_notEquals) {
+        String _time_1 = time;
+        time = (_time_1 + (d + "d"));
+      }
+      String _time_2 = time;
+      time = (_time_2 + "t");
+      boolean _notEquals_1 = (!Objects.equal(h, ""));
+      if (_notEquals_1) {
+        String _time_3 = time;
+        time = (_time_3 + (h + "h"));
+      }
+      boolean _notEquals_2 = (!Objects.equal(m, ""));
+      if (_notEquals_2) {
+        String _time_4 = time;
+        time = (_time_4 + (m + "m"));
+      }
+      boolean _notEquals_3 = (!Objects.equal(s, ""));
+      if (_notEquals_3) {
+        String _time_5 = time;
+        time = (_time_5 + s);
+        boolean _notEquals_4 = (!Objects.equal(ms, ""));
+        if (_notEquals_4) {
+          String _time_6 = time;
+          String _fraction = this.fraction(ms);
+          String _plus = ("." + _fraction);
+          String _plus_1 = (_plus + "s");
+          time = (_time_6 + _plus_1);
+        }
       } else {
-        _xifexpression = false;
+        boolean _notEquals_5 = (!Objects.equal(ms, ""));
+        if (_notEquals_5) {
+          String _time_7 = time;
+          String _fraction_1 = this.fraction(ms);
+          String _plus_2 = (("0" + ".") + _fraction_1);
+          String _plus_3 = (_plus_2 + "s");
+          time = (_time_7 + _plus_3);
+        }
+      }
+      final Duration duration = Duration.parse(time);
+      final Duration maxTime = Duration.parse("p24dt20h31m23,647s");
+      final Duration minTime = Duration.parse("-p24dt20h31m23,648s");
+      boolean _xifexpression = false;
+      int _compareTo = maxTime.compareTo(duration);
+      boolean _lessThan = (_compareTo < 0);
+      if (_lessThan) {
+        return true;
+      } else {
+        boolean _xifexpression_1 = false;
+        int _compareTo_1 = minTime.compareTo(duration);
+        boolean _greaterThan = (_compareTo_1 > 0);
+        if (_greaterThan) {
+          return true;
+        } else {
+          _xifexpression_1 = false;
+        }
+        _xifexpression = _xifexpression_1;
       }
       _xblockexpression = _xifexpression;
     }
     return _xblockexpression;
   }
   
-  public Integer lastNumber(final String time) {
+  public boolean isOutOfLTime(final Idiom _ltime) {
+    boolean _xblockexpression = false;
+    {
+      String LTime = this._eisInterpreter.interpret(_ltime).toString().substring(3).replaceAll("_", "");
+      String ns = "";
+      String us = "";
+      String ms = "";
+      String s = "";
+      String m = "";
+      String h = "";
+      String d = "";
+      String sign = "";
+      boolean _contains = LTime.contains("-");
+      if (_contains) {
+        sign = "-";
+        LTime = LTime.replace("-", "");
+      }
+      boolean _contains_1 = LTime.contains("ns");
+      if (_contains_1) {
+        LTime = IterableExtensions.<String>head(((Iterable<String>)Conversions.doWrapArray(LTime.split("ns"))));
+        ns = this.lastNumber(LTime);
+      }
+      boolean _contains_2 = LTime.contains("us");
+      if (_contains_2) {
+        LTime = IterableExtensions.<String>head(((Iterable<String>)Conversions.doWrapArray(LTime.split("us"))));
+        us = this.lastNumber(LTime);
+      }
+      boolean _contains_3 = LTime.contains("ms");
+      if (_contains_3) {
+        LTime = IterableExtensions.<String>head(((Iterable<String>)Conversions.doWrapArray(LTime.split("ms"))));
+        ms = this.lastNumber(LTime);
+      }
+      boolean _contains_4 = LTime.contains("s");
+      if (_contains_4) {
+        LTime = IterableExtensions.<String>head(((Iterable<String>)Conversions.doWrapArray(LTime.split("s"))));
+        s = this.lastNumber(LTime);
+      }
+      boolean _contains_5 = LTime.contains("m");
+      if (_contains_5) {
+        LTime = IterableExtensions.<String>head(((Iterable<String>)Conversions.doWrapArray(LTime.split("m"))));
+        m = this.lastNumber(LTime);
+      }
+      boolean _contains_6 = LTime.contains("h");
+      if (_contains_6) {
+        LTime = IterableExtensions.<String>head(((Iterable<String>)Conversions.doWrapArray(LTime.split("h"))));
+        h = this.lastNumber(LTime);
+      }
+      boolean _contains_7 = LTime.contains("d");
+      if (_contains_7) {
+        d = IterableExtensions.<String>head(((Iterable<String>)Conversions.doWrapArray(LTime.split("d"))));
+      }
+      LTime = (sign + "p");
+      boolean _notEquals = (!Objects.equal(d, ""));
+      if (_notEquals) {
+        String _LTime = LTime;
+        LTime = (_LTime + (d + "d"));
+      }
+      String _LTime_1 = LTime;
+      LTime = (_LTime_1 + "t");
+      boolean _notEquals_1 = (!Objects.equal(h, ""));
+      if (_notEquals_1) {
+        String _LTime_2 = LTime;
+        LTime = (_LTime_2 + (h + "h"));
+      }
+      boolean _notEquals_2 = (!Objects.equal(m, ""));
+      if (_notEquals_2) {
+        String _LTime_3 = LTime;
+        LTime = (_LTime_3 + (m + "m"));
+      }
+      boolean _notEquals_3 = (!Objects.equal(s, ""));
+      if (_notEquals_3) {
+        String _LTime_4 = LTime;
+        LTime = (_LTime_4 + s);
+        if ((((!Objects.equal(ns, "")) || (!Objects.equal(us, ""))) || (!Objects.equal(ms, "")))) {
+          String _LTime_5 = LTime;
+          String _fraction = this.fraction(ms);
+          String _plus = ("." + _fraction);
+          String _fraction_1 = this.fraction(us);
+          String _plus_1 = (_plus + _fraction_1);
+          String _fraction_2 = this.fraction(ns);
+          String _plus_2 = (_plus_1 + _fraction_2);
+          LTime = (_LTime_5 + _plus_2);
+        }
+        String _LTime_6 = LTime;
+        LTime = (_LTime_6 + "s");
+      } else {
+        if ((((!Objects.equal(ns, "")) || (!Objects.equal(us, ""))) || (!Objects.equal(ms, "")))) {
+          String _LTime_7 = LTime;
+          String _fraction_3 = this.fraction(ms);
+          String _plus_3 = ("0." + _fraction_3);
+          String _fraction_4 = this.fraction(us);
+          String _plus_4 = (_plus_3 + _fraction_4);
+          String _fraction_5 = this.fraction(ns);
+          String _plus_5 = (_plus_4 + _fraction_5);
+          String _plus_6 = (_plus_5 + "s");
+          LTime = (_LTime_7 + _plus_6);
+        }
+      }
+      final Duration duration = Duration.parse(LTime);
+      final Duration maxTime = Duration.parse("p106751dt23h47m16.854775807s");
+      final Duration minTime = Duration.parse("-p106751dt23h47m16.854775808s");
+      boolean _xifexpression = false;
+      int _compareTo = maxTime.compareTo(duration);
+      boolean _lessThan = (_compareTo < 0);
+      if (_lessThan) {
+        return true;
+      } else {
+        boolean _xifexpression_1 = false;
+        int _compareTo_1 = minTime.compareTo(duration);
+        boolean _greaterThan = (_compareTo_1 > 0);
+        if (_greaterThan) {
+          return true;
+        } else {
+          _xifexpression_1 = false;
+        }
+        _xifexpression = _xifexpression_1;
+      }
+      _xblockexpression = _xifexpression;
+    }
+    return _xblockexpression;
+  }
+  
+  public String lastNumber(final String time) {
     int i = 1;
     String last = "";
     while (this.isNumerical(Character.valueOf(time.charAt((time.length() - i))).toString())) {
-      i++;
+      int _length = time.length();
+      boolean _lessThan = (i < _length);
+      if (_lessThan) {
+        i++;
+      } else {
+        return time;
+      }
     }
     for (i--; (i > 0); i--) {
       String _last = last;
@@ -969,7 +1219,7 @@ public class EisValidator extends AbstractEisValidator {
       String _string = Character.valueOf(time.charAt(_minus)).toString();
       last = (_last + _string);
     }
-    return Integer.valueOf(Integer.parseInt(last));
+    return last;
   }
   
   public boolean isNumerical(final String _char) {
@@ -981,6 +1231,30 @@ public class EisValidator extends AbstractEisValidator {
       _xifexpression = false;
     }
     return _xifexpression;
+  }
+  
+  public String fraction(final String value) {
+    int _length = value.length();
+    boolean _equals = (_length == 3);
+    if (_equals) {
+      return value;
+    }
+    int _length_1 = value.length();
+    boolean _equals_1 = (_length_1 == 2);
+    if (_equals_1) {
+      return ("0" + value);
+    }
+    int _length_2 = value.length();
+    boolean _equals_2 = (_length_2 == 1);
+    if (_equals_2) {
+      return ("00" + value);
+    }
+    int _length_3 = value.length();
+    boolean _equals_3 = (_length_3 == 0);
+    if (_equals_3) {
+      return "000";
+    }
+    return null;
   }
   
   private boolean checkNumericalValues(final long idiom, final DefineType expectedType) {
