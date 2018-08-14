@@ -1873,20 +1873,37 @@ ruleAtomic returns [EObject current=null]
 			)
 			(
 				(
-					lv_value_1_0=RULE_LONG
-					{
-						newLeafNode(lv_value_1_0, grammarAccess.getAtomicAccess().getValueLONGTerminalRuleCall_0_1_0());
-					}
-					{
-						if ($current==null) {
-							$current = createModelElement(grammarAccess.getAtomicRule());
+					(
+						lv_value_1_1=RULE_LONG
+						{
+							newLeafNode(lv_value_1_1, grammarAccess.getAtomicAccess().getValueLONGTerminalRuleCall_0_1_0_0());
 						}
-						setWithLastConsumed(
-							$current,
-							"value",
-							lv_value_1_0,
-							"org.example.eis.Eis.LONG");
-					}
+						{
+							if ($current==null) {
+								$current = createModelElement(grammarAccess.getAtomicRule());
+							}
+							setWithLastConsumed(
+								$current,
+								"value",
+								lv_value_1_1,
+								"org.example.eis.Eis.LONG");
+						}
+						    |
+						lv_value_1_2=RULE_NEGATIVE_LONG
+						{
+							newLeafNode(lv_value_1_2, grammarAccess.getAtomicAccess().getValueNEGATIVE_LONGTerminalRuleCall_0_1_0_1());
+						}
+						{
+							if ($current==null) {
+								$current = createModelElement(grammarAccess.getAtomicRule());
+							}
+							setWithLastConsumed(
+								$current,
+								"value",
+								lv_value_1_2,
+								"org.example.eis.Eis.NEGATIVE_LONG");
+						}
+					)
 				)
 			)
 		)
@@ -2114,6 +2131,34 @@ ruleAtomic returns [EObject current=null]
 							"value",
 							lv_value_18_0,
 							"org.example.eis.Eis.CHAR");
+					}
+				)
+			)
+		)
+		    |
+		(
+			(
+				{
+					$current = forceCreateModelElement(
+						grammarAccess.getAtomicAccess().getTimeConstantAction_10_0(),
+						$current);
+				}
+			)
+			(
+				(
+					lv_value_20_0=RULE_TIME
+					{
+						newLeafNode(lv_value_20_0, grammarAccess.getAtomicAccess().getValueTIMETerminalRuleCall_10_1_0());
+					}
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getAtomicRule());
+						}
+						setWithLastConsumed(
+							$current,
+							"value",
+							lv_value_20_0,
+							"org.example.eis.Eis.TIME");
 					}
 				)
 			)
@@ -2616,98 +2661,98 @@ ruleBasicType returns [Enumerator current=null]
 		)
 		    |
 		(
-			enumLiteral_5='byte'
+			enumLiteral_5='char'
 			{
-				$current = grammarAccess.getBasicTypeAccess().getBYTEEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_5, grammarAccess.getBasicTypeAccess().getBYTEEnumLiteralDeclaration_5());
+				$current = grammarAccess.getBasicTypeAccess().getCHAREnumLiteralDeclaration_5().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_5, grammarAccess.getBasicTypeAccess().getCHAREnumLiteralDeclaration_5());
 			}
 		)
 		    |
 		(
-			enumLiteral_6='word'
+			enumLiteral_6='byte'
 			{
-				$current = grammarAccess.getBasicTypeAccess().getWORDEnumLiteralDeclaration_6().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_6, grammarAccess.getBasicTypeAccess().getWORDEnumLiteralDeclaration_6());
+				$current = grammarAccess.getBasicTypeAccess().getBYTEEnumLiteralDeclaration_6().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_6, grammarAccess.getBasicTypeAccess().getBYTEEnumLiteralDeclaration_6());
 			}
 		)
 		    |
 		(
-			enumLiteral_7='dword'
+			enumLiteral_7='word'
 			{
-				$current = grammarAccess.getBasicTypeAccess().getDWORDEnumLiteralDeclaration_7().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_7, grammarAccess.getBasicTypeAccess().getDWORDEnumLiteralDeclaration_7());
+				$current = grammarAccess.getBasicTypeAccess().getWORDEnumLiteralDeclaration_7().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_7, grammarAccess.getBasicTypeAccess().getWORDEnumLiteralDeclaration_7());
 			}
 		)
 		    |
 		(
-			enumLiteral_8='lword'
+			enumLiteral_8='dword'
 			{
-				$current = grammarAccess.getBasicTypeAccess().getLWORDEnumLiteralDeclaration_8().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_8, grammarAccess.getBasicTypeAccess().getLWORDEnumLiteralDeclaration_8());
+				$current = grammarAccess.getBasicTypeAccess().getDWORDEnumLiteralDeclaration_8().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_8, grammarAccess.getBasicTypeAccess().getDWORDEnumLiteralDeclaration_8());
 			}
 		)
 		    |
 		(
-			enumLiteral_9='usint'
+			enumLiteral_9='lword'
 			{
-				$current = grammarAccess.getBasicTypeAccess().getUSINTEnumLiteralDeclaration_9().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_9, grammarAccess.getBasicTypeAccess().getUSINTEnumLiteralDeclaration_9());
+				$current = grammarAccess.getBasicTypeAccess().getLWORDEnumLiteralDeclaration_9().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_9, grammarAccess.getBasicTypeAccess().getLWORDEnumLiteralDeclaration_9());
 			}
 		)
 		    |
 		(
-			enumLiteral_10='uint'
+			enumLiteral_10='usint'
 			{
-				$current = grammarAccess.getBasicTypeAccess().getUINTEnumLiteralDeclaration_10().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_10, grammarAccess.getBasicTypeAccess().getUINTEnumLiteralDeclaration_10());
+				$current = grammarAccess.getBasicTypeAccess().getUSINTEnumLiteralDeclaration_10().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_10, grammarAccess.getBasicTypeAccess().getUSINTEnumLiteralDeclaration_10());
 			}
 		)
 		    |
 		(
-			enumLiteral_11='udint'
+			enumLiteral_11='uint'
 			{
-				$current = grammarAccess.getBasicTypeAccess().getUDINTEnumLiteralDeclaration_11().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_11, grammarAccess.getBasicTypeAccess().getUDINTEnumLiteralDeclaration_11());
+				$current = grammarAccess.getBasicTypeAccess().getUINTEnumLiteralDeclaration_11().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_11, grammarAccess.getBasicTypeAccess().getUINTEnumLiteralDeclaration_11());
 			}
 		)
 		    |
 		(
-			enumLiteral_12='ulint'
+			enumLiteral_12='udint'
 			{
-				$current = grammarAccess.getBasicTypeAccess().getULINTEnumLiteralDeclaration_12().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_12, grammarAccess.getBasicTypeAccess().getULINTEnumLiteralDeclaration_12());
+				$current = grammarAccess.getBasicTypeAccess().getUDINTEnumLiteralDeclaration_12().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_12, grammarAccess.getBasicTypeAccess().getUDINTEnumLiteralDeclaration_12());
 			}
 		)
 		    |
 		(
-			enumLiteral_13='sint'
+			enumLiteral_13='ulint'
 			{
-				$current = grammarAccess.getBasicTypeAccess().getSINTEnumLiteralDeclaration_13().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_13, grammarAccess.getBasicTypeAccess().getSINTEnumLiteralDeclaration_13());
+				$current = grammarAccess.getBasicTypeAccess().getULINTEnumLiteralDeclaration_13().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_13, grammarAccess.getBasicTypeAccess().getULINTEnumLiteralDeclaration_13());
 			}
 		)
 		    |
 		(
-			enumLiteral_14='dint'
+			enumLiteral_14='sint'
 			{
-				$current = grammarAccess.getBasicTypeAccess().getDINTEnumLiteralDeclaration_14().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_14, grammarAccess.getBasicTypeAccess().getDINTEnumLiteralDeclaration_14());
+				$current = grammarAccess.getBasicTypeAccess().getSINTEnumLiteralDeclaration_14().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_14, grammarAccess.getBasicTypeAccess().getSINTEnumLiteralDeclaration_14());
 			}
 		)
 		    |
 		(
-			enumLiteral_15='lint'
+			enumLiteral_15='dint'
 			{
-				$current = grammarAccess.getBasicTypeAccess().getLINTEnumLiteralDeclaration_15().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_15, grammarAccess.getBasicTypeAccess().getLINTEnumLiteralDeclaration_15());
+				$current = grammarAccess.getBasicTypeAccess().getDINTEnumLiteralDeclaration_15().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_15, grammarAccess.getBasicTypeAccess().getDINTEnumLiteralDeclaration_15());
 			}
 		)
 		    |
 		(
-			enumLiteral_16='char'
+			enumLiteral_16='lint'
 			{
-				$current = grammarAccess.getBasicTypeAccess().getCHAREnumLiteralDeclaration_16().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_16, grammarAccess.getBasicTypeAccess().getCHAREnumLiteralDeclaration_16());
+				$current = grammarAccess.getBasicTypeAccess().getLINTEnumLiteralDeclaration_16().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_16, grammarAccess.getBasicTypeAccess().getLINTEnumLiteralDeclaration_16());
 			}
 		)
 		    |
@@ -2720,32 +2765,36 @@ ruleBasicType returns [Enumerator current=null]
 		)
 		    |
 		(
-			enumLiteral_18='s5time'
+			enumLiteral_18='ltime'
 			{
-				$current = grammarAccess.getBasicTypeAccess().getS5TIMEEnumLiteralDeclaration_18().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_18, grammarAccess.getBasicTypeAccess().getS5TIMEEnumLiteralDeclaration_18());
+				$current = grammarAccess.getBasicTypeAccess().getLTIMEEnumLiteralDeclaration_18().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_18, grammarAccess.getBasicTypeAccess().getLTIMEEnumLiteralDeclaration_18());
 			}
 		)
 	)
 ;
 
-fragment RULE_DIGIT : '0'..'9';
+fragment RULE_X : '0'..'9';
 
-fragment RULE_HEXDIGIT : (RULE_DIGIT|'A'..'F'|'a'..'f');
+fragment RULE_HEX : (RULE_X|'A'..'F'|'a'..'f');
 
-RULE_LONG : '-'? RULE_DIGIT+;
+RULE_LONG : RULE_X+;
 
-RULE_REAL : RULE_LONG '.' RULE_DIGIT+;
+RULE_NEGATIVE_LONG : '-' RULE_LONG;
 
-RULE_BYTE : '16#' RULE_HEXDIGIT RULE_HEXDIGIT;
+RULE_REAL : (RULE_LONG|RULE_NEGATIVE_LONG) '.' RULE_X+;
 
-RULE_WORD : '16#' RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT;
+RULE_BYTE : '16#' RULE_HEX RULE_HEX;
 
-RULE_DWORD : '16#' RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT '_' RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT;
+RULE_WORD : '16#' RULE_HEX RULE_HEX RULE_HEX RULE_HEX;
 
-RULE_LWORD : '16#' RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT '_' RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT '_' RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT '_' RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT RULE_HEXDIGIT;
+RULE_DWORD : '16#' RULE_HEX RULE_HEX RULE_HEX RULE_HEX '_' RULE_HEX RULE_HEX RULE_HEX RULE_HEX;
+
+RULE_LWORD : '16#' RULE_HEX RULE_HEX RULE_HEX RULE_HEX '_' RULE_HEX RULE_HEX RULE_HEX RULE_HEX '_' RULE_HEX RULE_HEX RULE_HEX RULE_HEX '_' RULE_HEX RULE_HEX RULE_HEX RULE_HEX;
 
 RULE_CHAR : '\'' ('a'..'z'|'A'..'Z'|'0'..'9') '\'';
+
+RULE_TIME : 'T#' '-'? (RULE_X? RULE_X 'd' '_'?)? (RULE_X? RULE_X 'h' '_'?)? (RULE_X? RULE_X 'M' '_'?)? (RULE_X? RULE_X 's' '_'?)? ((RULE_X? RULE_X)? RULE_X 'ms')?;
 
 RULE_ID : '^'? ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
 

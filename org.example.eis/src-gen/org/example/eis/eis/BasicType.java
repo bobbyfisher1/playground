@@ -71,6 +71,16 @@ public enum BasicType implements Enumerator
   STRING(4, "STRING", "string"),
 
   /**
+   * The '<em><b>CHAR</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #CHAR_VALUE
+   * @generated
+   * @ordered
+   */
+  CHAR(5, "CHAR", "char"),
+
+  /**
    * The '<em><b>BYTE</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -78,7 +88,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  BYTE(5, "BYTE", "byte"),
+  BYTE(6, "BYTE", "byte"),
 
   /**
    * The '<em><b>WORD</b></em>' literal object.
@@ -88,7 +98,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  WORD(6, "WORD", "word"),
+  WORD(7, "WORD", "word"),
 
   /**
    * The '<em><b>DWORD</b></em>' literal object.
@@ -98,7 +108,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  DWORD(7, "DWORD", "dword"),
+  DWORD(8, "DWORD", "dword"),
 
   /**
    * The '<em><b>LWORD</b></em>' literal object.
@@ -108,7 +118,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  LWORD(8, "LWORD", "lword"),
+  LWORD(9, "LWORD", "lword"),
 
   /**
    * The '<em><b>USINT</b></em>' literal object.
@@ -118,7 +128,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  USINT(9, "USINT", "usint"),
+  USINT(10, "USINT", "usint"),
 
   /**
    * The '<em><b>UINT</b></em>' literal object.
@@ -128,7 +138,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  UINT(10, "UINT", "uint"),
+  UINT(11, "UINT", "uint"),
 
   /**
    * The '<em><b>UDINT</b></em>' literal object.
@@ -138,7 +148,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  UDINT(11, "UDINT", "udint"),
+  UDINT(12, "UDINT", "udint"),
 
   /**
    * The '<em><b>ULINT</b></em>' literal object.
@@ -148,7 +158,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  ULINT(12, "ULINT", "ulint"),
+  ULINT(13, "ULINT", "ulint"),
 
   /**
    * The '<em><b>SINT</b></em>' literal object.
@@ -158,7 +168,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  SINT(13, "SINT", "sint"),
+  SINT(14, "SINT", "sint"),
 
   /**
    * The '<em><b>DINT</b></em>' literal object.
@@ -168,7 +178,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  DINT(14, "DINT", "dint"),
+  DINT(15, "DINT", "dint"),
 
   /**
    * The '<em><b>LINT</b></em>' literal object.
@@ -178,17 +188,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  LINT(15, "LINT", "lint"),
-
-  /**
-   * The '<em><b>CHAR</b></em>' literal object.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #CHAR_VALUE
-   * @generated
-   * @ordered
-   */
-  CHAR(16, "CHAR", "char"),
+  LINT(16, "LINT", "lint"),
 
   /**
    * The '<em><b>TIME</b></em>' literal object.
@@ -201,14 +201,14 @@ public enum BasicType implements Enumerator
   TIME(17, "TIME", "time"),
 
   /**
-   * The '<em><b>S5TIME</b></em>' literal object.
+   * The '<em><b>LTIME</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #S5TIME_VALUE
+   * @see #LTIME_VALUE
    * @generated
    * @ordered
    */
-  S5TIME(18, "S5TIME", "s5time");
+  LTIME(18, "LTIME", "ltime");
 
   /**
    * The '<em><b>NULL</b></em>' literal value.
@@ -286,6 +286,21 @@ public enum BasicType implements Enumerator
   public static final int STRING_VALUE = 4;
 
   /**
+   * The '<em><b>CHAR</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>CHAR</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #CHAR
+   * @model literal="char"
+   * @generated
+   * @ordered
+   */
+  public static final int CHAR_VALUE = 5;
+
+  /**
    * The '<em><b>BYTE</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
@@ -298,7 +313,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int BYTE_VALUE = 5;
+  public static final int BYTE_VALUE = 6;
 
   /**
    * The '<em><b>WORD</b></em>' literal value.
@@ -313,7 +328,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int WORD_VALUE = 6;
+  public static final int WORD_VALUE = 7;
 
   /**
    * The '<em><b>DWORD</b></em>' literal value.
@@ -328,7 +343,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int DWORD_VALUE = 7;
+  public static final int DWORD_VALUE = 8;
 
   /**
    * The '<em><b>LWORD</b></em>' literal value.
@@ -343,7 +358,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int LWORD_VALUE = 8;
+  public static final int LWORD_VALUE = 9;
 
   /**
    * The '<em><b>USINT</b></em>' literal value.
@@ -358,7 +373,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int USINT_VALUE = 9;
+  public static final int USINT_VALUE = 10;
 
   /**
    * The '<em><b>UINT</b></em>' literal value.
@@ -373,7 +388,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int UINT_VALUE = 10;
+  public static final int UINT_VALUE = 11;
 
   /**
    * The '<em><b>UDINT</b></em>' literal value.
@@ -388,7 +403,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int UDINT_VALUE = 11;
+  public static final int UDINT_VALUE = 12;
 
   /**
    * The '<em><b>ULINT</b></em>' literal value.
@@ -403,7 +418,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int ULINT_VALUE = 12;
+  public static final int ULINT_VALUE = 13;
 
   /**
    * The '<em><b>SINT</b></em>' literal value.
@@ -418,7 +433,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int SINT_VALUE = 13;
+  public static final int SINT_VALUE = 14;
 
   /**
    * The '<em><b>DINT</b></em>' literal value.
@@ -433,7 +448,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int DINT_VALUE = 14;
+  public static final int DINT_VALUE = 15;
 
   /**
    * The '<em><b>LINT</b></em>' literal value.
@@ -448,22 +463,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int LINT_VALUE = 15;
-
-  /**
-   * The '<em><b>CHAR</b></em>' literal value.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>CHAR</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @see #CHAR
-   * @model literal="char"
-   * @generated
-   * @ordered
-   */
-  public static final int CHAR_VALUE = 16;
+  public static final int LINT_VALUE = 16;
 
   /**
    * The '<em><b>TIME</b></em>' literal value.
@@ -481,19 +481,19 @@ public enum BasicType implements Enumerator
   public static final int TIME_VALUE = 17;
 
   /**
-   * The '<em><b>S5TIME</b></em>' literal value.
+   * The '<em><b>LTIME</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>S5TIME</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>LTIME</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #S5TIME
-   * @model literal="s5time"
+   * @see #LTIME
+   * @model literal="ltime"
    * @generated
    * @ordered
    */
-  public static final int S5TIME_VALUE = 18;
+  public static final int LTIME_VALUE = 18;
 
   /**
    * An array of all the '<em><b>Basic Type</b></em>' enumerators.
@@ -509,6 +509,7 @@ public enum BasicType implements Enumerator
       BOOL,
       REAL,
       STRING,
+      CHAR,
       BYTE,
       WORD,
       DWORD,
@@ -520,9 +521,8 @@ public enum BasicType implements Enumerator
       SINT,
       DINT,
       LINT,
-      CHAR,
       TIME,
-      S5TIME,
+      LTIME,
     };
 
   /**
@@ -592,6 +592,7 @@ public enum BasicType implements Enumerator
       case BOOL_VALUE: return BOOL;
       case REAL_VALUE: return REAL;
       case STRING_VALUE: return STRING;
+      case CHAR_VALUE: return CHAR;
       case BYTE_VALUE: return BYTE;
       case WORD_VALUE: return WORD;
       case DWORD_VALUE: return DWORD;
@@ -603,9 +604,8 @@ public enum BasicType implements Enumerator
       case SINT_VALUE: return SINT;
       case DINT_VALUE: return DINT;
       case LINT_VALUE: return LINT;
-      case CHAR_VALUE: return CHAR;
       case TIME_VALUE: return TIME;
-      case S5TIME_VALUE: return S5TIME;
+      case LTIME_VALUE: return LTIME;
     }
     return null;
   }

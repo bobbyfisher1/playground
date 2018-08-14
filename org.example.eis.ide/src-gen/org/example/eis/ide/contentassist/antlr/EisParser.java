@@ -41,6 +41,7 @@ public class EisParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getMulOrDivAccess().getOpAlternatives_1_1_0(), "rule__MulOrDiv__OpAlternatives_1_1_0");
 			builder.put(grammarAccess.getPrimaryAccess().getAlternatives(), "rule__Primary__Alternatives");
 			builder.put(grammarAccess.getAtomicAccess().getAlternatives(), "rule__Atomic__Alternatives");
+			builder.put(grammarAccess.getAtomicAccess().getValueAlternatives_0_1_0(), "rule__Atomic__ValueAlternatives_0_1_0");
 			builder.put(grammarAccess.getBasicTypeAccess().getAlternatives(), "rule__BasicType__Alternatives");
 			builder.put(grammarAccess.getEisModelAccess().getGroup(), "rule__EisModel__Group__0");
 			builder.put(grammarAccess.getTestcaseAccess().getGroup(), "rule__Testcase__Group__0");
@@ -79,6 +80,7 @@ public class EisParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getAtomicAccess().getGroup_7(), "rule__Atomic__Group_7__0");
 			builder.put(grammarAccess.getAtomicAccess().getGroup_8(), "rule__Atomic__Group_8__0");
 			builder.put(grammarAccess.getAtomicAccess().getGroup_9(), "rule__Atomic__Group_9__0");
+			builder.put(grammarAccess.getAtomicAccess().getGroup_10(), "rule__Atomic__Group_10__0");
 			builder.put(grammarAccess.getTeststepBlockAccess().getGroup(), "rule__TeststepBlock__Group__0");
 			builder.put(grammarAccess.getSetAccess().getGroup(), "rule__Set__Group__0");
 			builder.put(grammarAccess.getAssertAccess().getGroup(), "rule__Assert__Group__0");
@@ -140,6 +142,7 @@ public class EisParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getAtomicAccess().getValueAssignment_7_1(), "rule__Atomic__ValueAssignment_7_1");
 			builder.put(grammarAccess.getAtomicAccess().getValueAssignment_8_1(), "rule__Atomic__ValueAssignment_8_1");
 			builder.put(grammarAccess.getAtomicAccess().getValueAssignment_9_1(), "rule__Atomic__ValueAssignment_9_1");
+			builder.put(grammarAccess.getAtomicAccess().getValueAssignment_10_1(), "rule__Atomic__ValueAssignment_10_1");
 			builder.put(grammarAccess.getTeststepBlockAccess().getPlcCycleAssignment_2(), "rule__TeststepBlock__PlcCycleAssignment_2");
 			builder.put(grammarAccess.getTeststepBlockAccess().getDescriptionAssignment_4(), "rule__TeststepBlock__DescriptionAssignment_4");
 			builder.put(grammarAccess.getTeststepBlockAccess().getAssertionAssignment_7(), "rule__TeststepBlock__AssertionAssignment_7");

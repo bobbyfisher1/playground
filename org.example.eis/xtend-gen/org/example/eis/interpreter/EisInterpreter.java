@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.util.IResourceScopeCache;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Pair;
+import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.example.eis.eis.And;
 import org.example.eis.eis.BoolConstant;
 import org.example.eis.eis.ByteConstant;
@@ -25,6 +26,7 @@ import org.example.eis.eis.Or;
 import org.example.eis.eis.Plus;
 import org.example.eis.eis.RealConstant;
 import org.example.eis.eis.StringConstant;
+import org.example.eis.eis.TimeConstant;
 import org.example.eis.eis.Variable;
 import org.example.eis.eis.VariableRef;
 import org.example.eis.eis.WordConstant;
@@ -92,6 +94,12 @@ public class EisInterpreter {
       if (e instanceof CharConstant) {
         _matched=true;
         _switchResult = Character.valueOf(((CharConstant)e).getValue().charAt(1));
+      }
+    }
+    if (!_matched) {
+      if (e instanceof TimeConstant) {
+        _matched=true;
+        _switchResult = StringExtensions.toFirstUpper(((TimeConstant)e).getValue().toLowerCase());
       }
     }
     if (!_matched) {

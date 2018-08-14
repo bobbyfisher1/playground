@@ -18,6 +18,7 @@ import org.example.eis.eis.Or
 import org.example.eis.eis.Plus
 import org.example.eis.eis.RealConstant
 import org.example.eis.eis.StringConstant
+import org.example.eis.eis.TimeConstant
 import org.example.eis.eis.VariableRef
 import org.example.eis.eis.WordConstant
 import org.example.eis.typing.types.BoolType
@@ -32,6 +33,7 @@ import org.example.eis.typing.types.NullType
 import org.example.eis.typing.types.RealType
 import org.example.eis.typing.types.SIntType
 import org.example.eis.typing.types.StringType
+import org.example.eis.typing.types.TimeType
 import org.example.eis.typing.types.UDIntType
 import org.example.eis.typing.types.UIntType
 import org.example.eis.typing.types.ULIntType
@@ -45,6 +47,7 @@ class DefineTypeComputer {
 	public static val NULL_TYPE = new NullType
 	public static val REAL_TYPE = new RealType
 	public static val CHAR_TYPE = new CharType
+	public static val TIME_TYPE = new TimeType
 
 	public static val BYTE_TYPE = new ByteType
 	public static val WORD_TYPE = new WordType
@@ -108,6 +111,7 @@ class DefineTypeComputer {
 			DWordConstant: DWORD_TYPE
 			LWordConstant: LWORD_TYPE
 			CharConstant: CHAR_TYPE
+			TimeConstant: TIME_TYPE
 			//
 //			LongConstant: LINT_TYPE
 			//
@@ -157,6 +161,8 @@ class DefineTypeComputer {
 			LINT_TYPE
 		else if (t === 'char')
 			CHAR_TYPE
+		else if (t === 'time')
+			TIME_TYPE
 		else
 			NULL_TYPE
 	}

@@ -45,6 +45,7 @@ import org.example.eis.eis.StringConstant;
 import org.example.eis.eis.Testblock;
 import org.example.eis.eis.Testcase;
 import org.example.eis.eis.TeststepBlock;
+import org.example.eis.eis.TimeConstant;
 import org.example.eis.eis.Udt;
 import org.example.eis.eis.UdtRef;
 import org.example.eis.eis.UdtType;
@@ -159,6 +160,9 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				return; 
 			case EisPackage.TESTSTEP_BLOCK:
 				sequence_TeststepBlock(context, (TeststepBlock) semanticObject); 
+				return; 
+			case EisPackage.TIME_CONSTANT:
+				sequence_Atomic(context, (TimeConstant) semanticObject); 
 				return; 
 			case EisPackage.UDT:
 				sequence_Udt(context, (Udt) semanticObject); 
@@ -361,16 +365,10 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Atomic returns IntConstant
 	 *
 	 * Constraint:
-	 *     value=LONG
+	 *     (value=LONG | value=NEGATIVE_LONG)
 	 */
 	protected void sequence_Atomic(ISerializationContext context, IntConstant semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, EisPackage.Literals.INT_CONSTANT__VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EisPackage.Literals.INT_CONSTANT__VALUE));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getAtomicAccess().getValueLONGTerminalRuleCall_0_1_0(), semanticObject.getValue());
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -469,6 +467,39 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getAtomicAccess().getValueSTRINGTerminalRuleCall_1_1_0(), semanticObject.getValue());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Idiom returns TimeConstant
+	 *     Or returns TimeConstant
+	 *     Or.Or_1_0 returns TimeConstant
+	 *     And returns TimeConstant
+	 *     And.And_1_0 returns TimeConstant
+	 *     Equality returns TimeConstant
+	 *     Equality.Equality_1_0 returns TimeConstant
+	 *     Comparison returns TimeConstant
+	 *     Comparison.Comparison_1_0 returns TimeConstant
+	 *     PlusOrMinus returns TimeConstant
+	 *     PlusOrMinus.Plus_1_0_0_0 returns TimeConstant
+	 *     PlusOrMinus.Minus_1_0_1_0 returns TimeConstant
+	 *     MulOrDiv returns TimeConstant
+	 *     MulOrDiv.MulOrDiv_1_0 returns TimeConstant
+	 *     Primary returns TimeConstant
+	 *     Atomic returns TimeConstant
+	 *
+	 * Constraint:
+	 *     value=TIME
+	 */
+	protected void sequence_Atomic(ISerializationContext context, TimeConstant semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, EisPackage.Literals.TIME_CONSTANT__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EisPackage.Literals.TIME_CONSTANT__VALUE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getAtomicAccess().getValueTIMETerminalRuleCall_10_1_0(), semanticObject.getValue());
 		feeder.finish();
 	}
 	

@@ -447,6 +447,25 @@ class DefineTypeComputerTest {
 		]
 	}
 
+	@Test def void temptingTime() {
+		var time = "24d_20h_31M_23s_647ms"
+		(start + "time a = T#" + time + ';' + end).parse.assertNoErrors
+
+		time = "24d_20h_31M_23s_648ms"
+		(start + "time a = T#" + time + ';' + end).parse => [
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+			1.assertEquals(validate.size)
+		]
+		time = "-24d_20h_31M_23s_648ms"
+		(start + "time a = T#" + time + ';' + end).parse.assertNoErrors
+
+		time = "-24d_20h_31M_23s_649ms"
+		(start + "time a = T#" + time + ';' + end).parse => [
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+			1.assertEquals(validate.size)
+		]
+	}
+
 	//
 // methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//

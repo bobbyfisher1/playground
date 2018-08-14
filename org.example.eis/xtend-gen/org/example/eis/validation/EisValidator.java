@@ -6,6 +6,7 @@ package org.example.eis.validation;
 import com.google.common.base.Objects;
 import com.google.common.collect.HashMultimap;
 import com.google.inject.Inject;
+import java.time.Duration;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
@@ -53,6 +54,7 @@ import org.example.eis.eis.impl.VariableImpl;
 import org.example.eis.interpreter.EisInterpreter;
 import org.example.eis.typing.DefineType;
 import org.example.eis.typing.DefineTypeComputer;
+import org.example.eis.typing.types.TimeType;
 import org.example.eis.validation.AbstractEisValidator;
 
 @SuppressWarnings("all")
@@ -845,12 +847,103 @@ public class EisValidator extends AbstractEisValidator {
   }
   
   @Check
-  public void checkNegativPlcCycles(final TeststepBlock tsb) {
-    long _plcCycle = tsb.getPlcCycle();
-    boolean _lessThan = (_plcCycle < 0);
-    if (_lessThan) {
-      this.error("PlcCycles are not negative.", tsb, EisPackage.eINSTANCE.getTeststepBlock_PlcCycle(), EisValidator.NEGATIVE_PLCCYCLE);
+  public void checkTimeValues(final Variable variable) {
+    Idiom _idiom = null;
+    if (variable!=null) {
+      _idiom=variable.getIdiom();
     }
+    final Idiom idiom = _idiom;
+    Idiom _range = null;
+    if (variable!=null) {
+      _range=variable.getRange();
+    }
+    final Idiom range = _range;
+    if ((idiom != null)) {
+      if ((!(idiom instanceof VariableRef))) {
+        DefineType _typeFor = this._defineTypeComputer.typeFor(idiom);
+        if ((_typeFor instanceof TimeType)) {
+          boolean _isOutOfTime = this.isOutOfTime(idiom);
+          if (_isOutOfTime) {
+            this.error("Value is out of the datatype boundaries.", variable, EisPackage.eINSTANCE.getVariable_Idiom(), 
+              EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+          }
+        }
+      }
+    }
+    if ((range != null)) {
+      if ((!(range instanceof VariableRef))) {
+        DefineType _typeFor_1 = this._defineTypeComputer.typeFor(range);
+        if ((_typeFor_1 instanceof TimeType)) {
+          boolean _isOutOfTime_1 = this.isOutOfTime(range);
+          if (_isOutOfTime_1) {
+            this.error("Value is out of the datatype boundaries.", variable, EisPackage.eINSTANCE.getVariable_Range(), 
+              EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+          }
+        }
+      }
+    }
+  }
+  
+  public boolean isOutOfTime(final Idiom _time) {
+    boolean _xblockexpression = false;
+    {
+      String time = this._eisInterpreter.interpret(_time).toString().substring(2).replaceAll("_", "");
+      boolean _contains = time.contains("d");
+      if (_contains) {
+        time = time.replace("d", "dt");
+      } else {
+        time = ("t" + time);
+      }
+      boolean _contains_1 = time.contains("-");
+      if (_contains_1) {
+        time = time.replace("-", "-p");
+      } else {
+        time = ("p" + time);
+      }
+      boolean _contains_2 = time.contains("ms");
+      if (_contains_2) {
+        time = IterableExtensions.<String>head(((Iterable<String>)Conversions.doWrapArray(time.split("ms"))));
+        boolean _contains_3 = time.contains("s");
+        if (_contains_3) {
+          time = time.replace("s", ".");
+        } else {
+          boolean _contains_4 = time.contains("m");
+          if (_contains_4) {
+            time = time.replace("m", "m0.");
+          } else {
+            boolean _contains_5 = time.contains("h");
+            if (_contains_5) {
+              time = time.replace("h", "h0.");
+            } else {
+              time = time.replace("t", "t0.");
+            }
+          }
+        }
+        String _time_1 = time;
+        time = (_time_1 + "s");
+      }
+      final Duration duration = Duration.parse(time);
+      final Duration maxTime = Duration.parse("p24dt20h31m23,647s");
+      final Duration minTime = Duration.parse("-p24dt20h31m23,648s");
+      boolean _xifexpression = false;
+      int _compareTo = maxTime.compareTo(duration);
+      boolean _lessThan = (_compareTo < 0);
+      if (_lessThan) {
+        return true;
+      } else {
+        boolean _xifexpression_1 = false;
+        int _compareTo_1 = minTime.compareTo(duration);
+        boolean _greaterThan = (_compareTo_1 > 0);
+        if (_greaterThan) {
+          return true;
+        } else {
+          _xifexpression_1 = false;
+        }
+        _xifexpression = _xifexpression_1;
+      }
+      _xblockexpression = _xifexpression;
+    }
+    return _xblockexpression;
   }
   
   private boolean checkNumericalValues(final long idiom, final DefineType expectedType) {
@@ -859,20 +952,20 @@ public class EisValidator extends AbstractEisValidator {
     boolean _isUSIntType = this._defineTypeComputer.isUSIntType(expectedType);
     if (_isUSIntType) {
       _matched=true;
-      _switchResult = this.outOfBounds(idiom, 0, 255);
+      _switchResult = this.isOutOfNumericalBounds(idiom, 0, 255);
     }
     if (!_matched) {
       boolean _isUIntType = this._defineTypeComputer.isUIntType(expectedType);
       if (_isUIntType) {
         _matched=true;
-        _switchResult = this.outOfBounds(idiom, 0, 65535);
+        _switchResult = this.isOutOfNumericalBounds(idiom, 0, 65535);
       }
     }
     if (!_matched) {
       boolean _isUDIntType = this._defineTypeComputer.isUDIntType(expectedType);
       if (_isUDIntType) {
         _matched=true;
-        _switchResult = this.outOfBounds(idiom, 0, 4294967295L);
+        _switchResult = this.isOutOfNumericalBounds(idiom, 0, 4294967295L);
       }
     }
     if (!_matched) {
@@ -894,21 +987,21 @@ public class EisValidator extends AbstractEisValidator {
       boolean _isSIntType = this._defineTypeComputer.isSIntType(expectedType);
       if (_isSIntType) {
         _matched=true;
-        _switchResult = this.outOfBounds(idiom, (-128), 127);
+        _switchResult = this.isOutOfNumericalBounds(idiom, (-128), 127);
       }
     }
     if (!_matched) {
       boolean _isIntType = this._defineTypeComputer.isIntType(expectedType);
       if (_isIntType) {
         _matched=true;
-        _switchResult = this.outOfBounds(idiom, (-32768), 32767);
+        _switchResult = this.isOutOfNumericalBounds(idiom, (-32768), 32767);
       }
     }
     if (!_matched) {
       boolean _isDIntType = this._defineTypeComputer.isDIntType(expectedType);
       if (_isDIntType) {
         _matched=true;
-        _switchResult = this.outOfBounds(idiom, (-2147483647), 2147483647);
+        _switchResult = this.isOutOfNumericalBounds(idiom, (-2147483647), 2147483647);
       }
     }
     if (!_matched) {
@@ -917,7 +1010,7 @@ public class EisValidator extends AbstractEisValidator {
     return _switchResult;
   }
   
-  private boolean outOfBounds(final long idiom, final int lower, final long upper) {
+  private boolean isOutOfNumericalBounds(final long idiom, final int lower, final long upper) {
     boolean outOfBounds = false;
     if (((idiom < lower) || (idiom > upper))) {
       outOfBounds = true;

@@ -789,6 +789,32 @@ public class DefineTypeComputerTest {
     }
   }
   
+  @Test
+  public void temptingTime() {
+    try {
+      String time = "24d_20h_31M_23s_647ms";
+      this._validationTestHelper.assertNoErrors(this._parseHelper.parse(((((this.start + "time a = T#") + time) + ";") + this.end)));
+      time = "24d_20h_31M_23s_648ms";
+      EisModel _parse = this._parseHelper.parse(((((this.start + "time a = T#") + time) + ";") + this.end));
+      final Procedure1<EisModel> _function = (EisModel it) -> {
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getVariable(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
+      time = "-24d_20h_31M_23s_648ms";
+      this._validationTestHelper.assertNoErrors(this._parseHelper.parse(((((this.start + "time a = T#") + time) + ";") + this.end)));
+      time = "-24d_20h_31M_23s_649ms";
+      EisModel _parse_1 = this._parseHelper.parse(((((this.start + "time a = T#") + time) + ";") + this.end));
+      final Procedure1<EisModel> _function_1 = (EisModel it) -> {
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getVariable(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse_1, _function_1);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
   private void assertSameType(final String text, final DefineType expectedType) {
     try {
       Variables _get = IterableExtensions.<Testcase>head(this._parseHelper.parse(((this.start + text) + this.end)).getTestcases()).getTestblock().getDefine().getDirection().getOutput().getOutputVariables().get(0);

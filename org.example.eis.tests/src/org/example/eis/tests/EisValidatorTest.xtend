@@ -553,22 +553,6 @@ class EisValidatorTest {
 		]
 	}
 
-	@Test def void testNegativePlcCycles() {
-		(beginning + '''
-			define{
-				input[]
-				output[]
-			}
-			teststep(-4,"one"){
-				set[]
-				assert[]
-			}
-		''' + ending).parse => [
-			assertError(EisPackage.eINSTANCE.teststepBlock, EisValidator.NEGATIVE_PLCCYCLE)
-			1.assertEquals(validate.size)
-		]
-	}
-
 	@Test def void testDivisionByZero() {
 		val zero = '''
 		define{

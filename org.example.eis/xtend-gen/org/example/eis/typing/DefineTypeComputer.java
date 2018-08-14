@@ -19,6 +19,7 @@ import org.example.eis.eis.Or;
 import org.example.eis.eis.Plus;
 import org.example.eis.eis.RealConstant;
 import org.example.eis.eis.StringConstant;
+import org.example.eis.eis.TimeConstant;
 import org.example.eis.eis.VariableRef;
 import org.example.eis.eis.WordConstant;
 import org.example.eis.typing.DefineType;
@@ -34,6 +35,7 @@ import org.example.eis.typing.types.NullType;
 import org.example.eis.typing.types.RealType;
 import org.example.eis.typing.types.SIntType;
 import org.example.eis.typing.types.StringType;
+import org.example.eis.typing.types.TimeType;
 import org.example.eis.typing.types.UDIntType;
 import org.example.eis.typing.types.UIntType;
 import org.example.eis.typing.types.ULIntType;
@@ -53,6 +55,8 @@ public class DefineTypeComputer {
   public final static RealType REAL_TYPE = new RealType();
   
   public final static CharType CHAR_TYPE = new CharType();
+  
+  public final static TimeType TIME_TYPE = new TimeType();
   
   public final static ByteType BYTE_TYPE = new ByteType();
   
@@ -197,6 +201,12 @@ public class DefineTypeComputer {
       }
     }
     if (!_matched) {
+      if (i instanceof TimeConstant) {
+        _matched=true;
+        _switchResult = DefineTypeComputer.TIME_TYPE;
+      }
+    }
+    if (!_matched) {
       if (i instanceof Not) {
         _matched=true;
         _switchResult = DefineTypeComputer.BOOL_TYPE;
@@ -316,7 +326,13 @@ public class DefineTypeComputer {
                                     if ((t == "char")) {
                                       _xifexpression_15 = DefineTypeComputer.CHAR_TYPE;
                                     } else {
-                                      _xifexpression_15 = DefineTypeComputer.NULL_TYPE;
+                                      DefineType _xifexpression_16 = null;
+                                      if ((t == "time")) {
+                                        _xifexpression_16 = DefineTypeComputer.TIME_TYPE;
+                                      } else {
+                                        _xifexpression_16 = DefineTypeComputer.NULL_TYPE;
+                                      }
+                                      _xifexpression_15 = _xifexpression_16;
                                     }
                                     _xifexpression_14 = _xifexpression_15;
                                   }

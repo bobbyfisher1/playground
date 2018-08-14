@@ -46,6 +46,7 @@ import org.example.eis.eis.StringConstant;
 import org.example.eis.eis.Testblock;
 import org.example.eis.eis.Testcase;
 import org.example.eis.eis.TeststepBlock;
+import org.example.eis.eis.TimeConstant;
 import org.example.eis.eis.Udt;
 import org.example.eis.eis.UdtRef;
 import org.example.eis.eis.UdtType;
@@ -334,6 +335,13 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * @generated
    */
   private EClass charConstantEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass timeConstantEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -1550,6 +1558,26 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getTimeConstant()
+  {
+    return timeConstantEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getTimeConstant_Value()
+  {
+    return (EAttribute)timeConstantEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EEnum getBasicType()
   {
     return basicTypeEEnum;
@@ -1738,6 +1766,9 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
     charConstantEClass = createEClass(CHAR_CONSTANT);
     createEAttribute(charConstantEClass, CHAR_CONSTANT__VALUE);
 
+    timeConstantEClass = createEClass(TIME_CONSTANT);
+    createEAttribute(timeConstantEClass, TIME_CONSTANT__VALUE);
+
     // Create enums
     basicTypeEEnum = createEEnum(BASIC_TYPE);
   }
@@ -1792,6 +1823,7 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
     dWordConstantEClass.getESuperTypes().add(this.getIdiom());
     lWordConstantEClass.getESuperTypes().add(this.getIdiom());
     charConstantEClass.getESuperTypes().add(this.getIdiom());
+    timeConstantEClass.getESuperTypes().add(this.getIdiom());
 
     // Initialize classes and features; add operations and parameters
     initEClass(eisModelEClass, EisModel.class, "EisModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1947,6 +1979,9 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
     initEClass(charConstantEClass, CharConstant.class, "CharConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getCharConstant_Value(), ecorePackage.getEString(), "value", null, 0, 1, CharConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(timeConstantEClass, TimeConstant.class, "TimeConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getTimeConstant_Value(), ecorePackage.getEString(), "value", null, 0, 1, TimeConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
     // Initialize enums and add enum literals
     initEEnum(basicTypeEEnum, BasicType.class, "BasicType");
     addEEnumLiteral(basicTypeEEnum, BasicType.NULL);
@@ -1954,6 +1989,7 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
     addEEnumLiteral(basicTypeEEnum, BasicType.BOOL);
     addEEnumLiteral(basicTypeEEnum, BasicType.REAL);
     addEEnumLiteral(basicTypeEEnum, BasicType.STRING);
+    addEEnumLiteral(basicTypeEEnum, BasicType.CHAR);
     addEEnumLiteral(basicTypeEEnum, BasicType.BYTE);
     addEEnumLiteral(basicTypeEEnum, BasicType.WORD);
     addEEnumLiteral(basicTypeEEnum, BasicType.DWORD);
@@ -1965,9 +2001,8 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
     addEEnumLiteral(basicTypeEEnum, BasicType.SINT);
     addEEnumLiteral(basicTypeEEnum, BasicType.DINT);
     addEEnumLiteral(basicTypeEEnum, BasicType.LINT);
-    addEEnumLiteral(basicTypeEEnum, BasicType.CHAR);
     addEEnumLiteral(basicTypeEEnum, BasicType.TIME);
-    addEEnumLiteral(basicTypeEEnum, BasicType.S5TIME);
+    addEEnumLiteral(basicTypeEEnum, BasicType.LTIME);
 
     // Create resource
     createResource(eNS_URI);

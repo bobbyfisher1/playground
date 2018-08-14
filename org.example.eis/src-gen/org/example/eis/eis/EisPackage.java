@@ -1502,6 +1502,34 @@ public interface EisPackage extends EPackage
   int CHAR_CONSTANT_FEATURE_COUNT = IDIOM_FEATURE_COUNT + 1;
 
   /**
+   * The meta object id for the '{@link org.example.eis.eis.impl.TimeConstantImpl <em>Time Constant</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.example.eis.eis.impl.TimeConstantImpl
+   * @see org.example.eis.eis.impl.EisPackageImpl#getTimeConstant()
+   * @generated
+   */
+  int TIME_CONSTANT = 39;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TIME_CONSTANT__VALUE = IDIOM_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Time Constant</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TIME_CONSTANT_FEATURE_COUNT = IDIOM_FEATURE_COUNT + 1;
+
+  /**
    * The meta object id for the '{@link org.example.eis.eis.BasicType <em>Basic Type</em>}' enum.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1509,7 +1537,7 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getBasicType()
    * @generated
    */
-  int BASIC_TYPE = 39;
+  int BASIC_TYPE = 40;
 
 
   /**
@@ -2728,6 +2756,27 @@ public interface EisPackage extends EPackage
   EAttribute getCharConstant_Value();
 
   /**
+   * Returns the meta object for class '{@link org.example.eis.eis.TimeConstant <em>Time Constant</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Time Constant</em>'.
+   * @see org.example.eis.eis.TimeConstant
+   * @generated
+   */
+  EClass getTimeConstant();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.example.eis.eis.TimeConstant#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see org.example.eis.eis.TimeConstant#getValue()
+   * @see #getTimeConstant()
+   * @generated
+   */
+  EAttribute getTimeConstant_Value();
+
+  /**
    * Returns the meta object for enum '{@link org.example.eis.eis.BasicType <em>Basic Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3749,6 +3798,24 @@ public interface EisPackage extends EPackage
      * @generated
      */
     EAttribute CHAR_CONSTANT__VALUE = eINSTANCE.getCharConstant_Value();
+
+    /**
+     * The meta object literal for the '{@link org.example.eis.eis.impl.TimeConstantImpl <em>Time Constant</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.example.eis.eis.impl.TimeConstantImpl
+     * @see org.example.eis.eis.impl.EisPackageImpl#getTimeConstant()
+     * @generated
+     */
+    EClass TIME_CONSTANT = eINSTANCE.getTimeConstant();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute TIME_CONSTANT__VALUE = eINSTANCE.getTimeConstant_Value();
 
     /**
      * The meta object literal for the '{@link org.example.eis.eis.BasicType <em>Basic Type</em>}' enum.

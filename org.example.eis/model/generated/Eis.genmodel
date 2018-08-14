@@ -12,6 +12,7 @@
       <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/BOOL"/>
       <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/REAL"/>
       <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/STRING"/>
+      <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/CHAR"/>
       <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/BYTE"/>
       <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/WORD"/>
       <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/DWORD"/>
@@ -23,9 +24,8 @@
       <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/SINT"/>
       <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/DINT"/>
       <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/LINT"/>
-      <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/CHAR"/>
       <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/TIME"/>
-      <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/S5TIME"/>
+      <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/LTIME"/>
     </genEnums>
     <genClasses ecoreClass="Eis.ecore#//EisModel">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//EisModel/project_name"/>
@@ -178,6 +178,9 @@
     </genClasses>
     <genClasses ecoreClass="Eis.ecore#//CharConstant">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//CharConstant/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Eis.ecore#//TimeConstant">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//TimeConstant/value"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

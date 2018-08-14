@@ -5,6 +5,7 @@ package org.example.eis.validation
 
 import com.google.common.collect.HashMultimap
 import com.google.inject.Inject
+import java.time.Duration
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.validation.Check
@@ -30,7 +31,6 @@ import org.example.eis.eis.Plus
 import org.example.eis.eis.Set
 import org.example.eis.eis.Statement
 import org.example.eis.eis.StringConstant
-import org.example.eis.eis.TeststepBlock
 import org.example.eis.eis.Udt
 import org.example.eis.eis.UdtRef
 import org.example.eis.eis.Variable
@@ -44,6 +44,7 @@ import org.example.eis.eis.impl.VariableImpl
 import org.example.eis.interpreter.EisInterpreter
 import org.example.eis.typing.DefineType
 import org.example.eis.typing.DefineTypeComputer
+import org.example.eis.typing.types.TimeType
 
 class EisValidator extends AbstractEisValidator {
 	protected static val ISSUE_CODE_PREFIX = "org.example.entities.";
@@ -589,10 +590,68 @@ class EisValidator extends AbstractEisValidator {
 		}
 	}
 
-	@Check def void checkNegativPlcCycles(TeststepBlock tsb) {
-		if (tsb.plcCycle < 0) {
-			error("PlcCycles are not negative.", tsb, EisPackage.eINSTANCE.teststepBlock_PlcCycle, NEGATIVE_PLCCYCLE)
+	@Check def void checkTimeValues(Variable variable) {
+		val idiom = variable?.idiom
+		val range = variable?.range
+
+		if (idiom !== null)
+			if (!(idiom instanceof VariableRef)) {
+				if (idiom.typeFor instanceof TimeType)
+					if (idiom.isOutOfTime)
+						error("Value is out of the datatype boundaries.", variable, EisPackage.eINSTANCE.variable_Idiom,
+							VALUE_EXCEEDING_DATATYPE_BOUNDS)
+			}
+
+		if (range !== null)
+			if (!(range instanceof VariableRef)) {
+				if (range.typeFor instanceof TimeType)
+					if (range.isOutOfTime)
+						error("Value is out of the datatype boundaries.", variable, EisPackage.eINSTANCE.variable_Range,
+							VALUE_EXCEEDING_DATATYPE_BOUNDS)
+			}
+	}
+
+	def boolean isOutOfTime(Idiom _time) {
+		var time = _time.interpret.toString.substring(2).replaceAll('_', '')
+
+		if (time.contains('d'))
+			time = time.replace('d', 'dt')
+		else
+			time = 't' + time
+
+		if (time.contains('-'))
+			time = time.replace('-', '-p')
+		else
+			time = 'p' + time
+
+		if (time.contains('ms')) {
+			time = time.split('ms').head
+
+			if (time.contains('s'))
+				time = time.replace('s', '.')
+			else // no seconds
+			if (time.contains('m'))
+				time = time.replace('m', 'm0.')
+			else // no minutes 
+			if (time.contains('h'))
+				time = time.replace('h', 'h0.')
+			else // no hours
+				time = time.replace('t', 't0.')
+
+			time += 's'
 		}
+
+		val duration = Duration.parse(time)
+
+		val maxTime = Duration.parse("p24dt20h31m23,647s")
+		val minTime = Duration.parse("-p24dt20h31m23,648s")
+
+		if (maxTime.compareTo(duration) < 0) // (final_hour > t) => returns 1 if under maxTime
+			return true
+		else if (minTime.compareTo(duration) > 0) // (first_hour > t) => -1 if above minTime
+			return true
+		else
+			false
 	}
 
 //
@@ -600,18 +659,18 @@ class EisValidator extends AbstractEisValidator {
 //
 	def private boolean checkNumericalValues(long idiom, DefineType expectedType) {
 		switch expectedType {
-			case expectedType.isUSIntType: idiom.outOfBounds(0, 255)
-			case expectedType.isUIntType: idiom.outOfBounds(0, 65535)
-			case expectedType.isUDIntType: idiom.outOfBounds(0, 4294967295L)
+			case expectedType.isUSIntType: idiom.isOutOfNumericalBounds(0, 255)
+			case expectedType.isUIntType: idiom.isOutOfNumericalBounds(0, 65535)
+			case expectedType.isUDIntType: idiom.isOutOfNumericalBounds(0, 4294967295L)
 			case expectedType.isULIntType: if(idiom.intValue < 0) true else false
-			case expectedType.isSIntType: idiom.outOfBounds(-128, 127)
-			case expectedType.isIntType: idiom.outOfBounds(-32768, 32767)
-			case expectedType.isDIntType: idiom.outOfBounds(-2147483647, 2147483647) // the xtend (java) int is a 32-Bit-Int
+			case expectedType.isSIntType: idiom.isOutOfNumericalBounds(-128, 127)
+			case expectedType.isIntType: idiom.isOutOfNumericalBounds(-32768, 32767)
+			case expectedType.isDIntType: idiom.isOutOfNumericalBounds(-2147483647, 2147483647) // the xtend (java) int is a 32-Bit-Int
 			default: false
 		}
 	}
 
-	def private boolean outOfBounds(long idiom, int lower, long upper) {
+	def private boolean isOutOfNumericalBounds(long idiom, int lower, long upper) {
 		var outOfBounds = false
 
 		if (idiom < lower || idiom > upper)

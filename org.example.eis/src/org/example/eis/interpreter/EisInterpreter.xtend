@@ -19,6 +19,7 @@ import org.example.eis.eis.Or
 import org.example.eis.eis.Plus
 import org.example.eis.eis.RealConstant
 import org.example.eis.eis.StringConstant
+import org.example.eis.eis.TimeConstant
 import org.example.eis.eis.Variable
 import org.example.eis.eis.VariableRef
 import org.example.eis.eis.WordConstant
@@ -47,8 +48,9 @@ class EisInterpreter {
 			LWordConstant:
 				e.value.toUpperCase
 			CharConstant:
-				e.value.charAt(1)		// char a = 'a' => a 	//without apostrophes
-				
+				e.value.charAt(1) // char a = 'a' => a 	//without apostrophes
+			TimeConstant:
+				e.value.toLowerCase.toFirstUpper
 //
 //			LongConstant:
 //				e.value

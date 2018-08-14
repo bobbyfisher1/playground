@@ -113,7 +113,7 @@ Primary returns Idiom:
 	'(' Idiom ')' | {Not} "!" idiom=Primary | Atomic;
 
 Atomic returns Idiom:
-	{IntConstant} value=LONG
+	{IntConstant} value=(LONG | NEGATIVE_LONG)
 	| {StringConstant} value=STRING
 	| BoolConstant
 	| {VariableRef} variable=[Variable]
@@ -123,7 +123,8 @@ Atomic returns Idiom:
 	| {DWordConstant} value=DWORD
 	| {LWordConstant} value=LWORD
 	//	| {LongConstant} value=LONG
-	| {CharConstant} value=CHAR;
+	| {CharConstant} value=CHAR
+	| {TimeConstant} value=TIME;
 
 TeststepBlock:
 	'teststep' '(' plcCycle=LONG ',' description=STRING ')' '{' assertion=AssertionBlock '}';
@@ -143,40 +144,43 @@ Statement:
 Cascade:
 	'.' udtVar=[Variables];
 
-terminal fragment DIGIT:
+terminal fragment X:
 	'0'..'9';
 
-terminal fragment HEXDIGIT:
-	DIGIT | 'A'..'F' | 'a'..'f';
+terminal fragment HEX:
+	X | 'A'..'F' | 'a'..'f';
 
 	//@Override
 //terminal INT :
 //	'-'? DIGIT+;
 //
 terminal LONG returns ecore::ELong:
-	'-'? DIGIT+;
+	X+;
+
+terminal NEGATIVE_LONG returns ecore::ELong:
+	'-' LONG;
 	//
 //terminal LONGER:
 //	LONG 'L';
 //
 terminal REAL returns ecore::EFloat:
-	LONG '.' DIGIT+;
+	(LONG | NEGATIVE_LONG) '.' X+;
 	//	
 terminal BYTE:
-	'16#' HEXDIGIT HEXDIGIT;
+	'16#' HEX HEX;
 	//
 terminal WORD:
-	'16#' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT;
+	'16#' HEX HEX HEX HEX;
 	//
 terminal DWORD:
-	'16#' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT '_' HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT;
+	'16#' HEX HEX HEX HEX '_' HEX HEX HEX HEX;
 	//
 terminal LWORD:
 	'16#'
-	HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT '_'
-	HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT '_'
-	HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT '_'
-	HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT;
+	HEX HEX HEX HEX '_'
+	HEX HEX HEX HEX '_'
+	HEX HEX HEX HEX '_'
+	HEX HEX HEX HEX;
 
 terminal CHAR:
 	"'"
@@ -185,6 +189,12 @@ terminal CHAR:
 
 terminal TIME:
 	'T#'
+	'-'?
+	(X? X 'd' '_'?)?
+	(X? X 'h' '_'?)?
+	(X? X 'M' '_'?)?
+	(X? X 's' '_'?)?
+	((X? X)? X 'ms')? //interesting note:  X? X? X 'ms' doesn't compile
 ;
 
 terminal ID:
@@ -209,18 +219,4 @@ terminal WS:
 terminal ANY_OTHER:
 	.;
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
