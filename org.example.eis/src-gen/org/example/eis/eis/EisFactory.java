@@ -384,6 +384,15 @@ public interface EisFactory extends EFactory
   TimeConstant createTimeConstant();
 
   /**
+   * Returns a new object of class '<em>LTime Constant</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>LTime Constant</em>'.
+   * @generated
+   */
+  LTimeConstant createLTimeConstant();
+
+  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

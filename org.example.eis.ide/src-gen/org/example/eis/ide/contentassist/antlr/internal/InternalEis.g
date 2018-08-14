@@ -1148,6 +1148,12 @@ rule__Atomic__Alternatives
 		(rule__Atomic__Group_10__0)
 		{ after(grammarAccess.getAtomicAccess().getGroup_10()); }
 	)
+	|
+	(
+		{ before(grammarAccess.getAtomicAccess().getGroup_11()); }
+		(rule__Atomic__Group_11__0)
+		{ after(grammarAccess.getAtomicAccess().getGroup_11()); }
+	)
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -4807,6 +4813,60 @@ finally {
 }
 
 
+rule__Atomic__Group_11__0
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+	rule__Atomic__Group_11__0__Impl
+	rule__Atomic__Group_11__1
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Atomic__Group_11__0__Impl
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+(
+	{ before(grammarAccess.getAtomicAccess().getLTimeConstantAction_11_0()); }
+	()
+	{ after(grammarAccess.getAtomicAccess().getLTimeConstantAction_11_0()); }
+)
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Atomic__Group_11__1
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+	rule__Atomic__Group_11__1__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Atomic__Group_11__1__Impl
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+(
+	{ before(grammarAccess.getAtomicAccess().getValueAssignment_11_1()); }
+	(rule__Atomic__ValueAssignment_11_1)
+	{ after(grammarAccess.getAtomicAccess().getValueAssignment_11_1()); }
+)
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
 rule__TeststepBlock__Group__0
 	@init {
 		int stackSize = keepStackSize();
@@ -6597,6 +6657,21 @@ finally {
 	restoreStackSize(stackSize);
 }
 
+rule__Atomic__ValueAssignment_11_1
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+	(
+		{ before(grammarAccess.getAtomicAccess().getValueLTIMETerminalRuleCall_11_1_0()); }
+		RULE_LTIME
+		{ after(grammarAccess.getAtomicAccess().getValueLTIMETerminalRuleCall_11_1_0()); }
+	)
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
 rule__TeststepBlock__PlcCycleAssignment_2
 	@init {
 		int stackSize = keepStackSize();
@@ -6844,6 +6919,8 @@ RULE_LWORD : '16#' RULE_HEX RULE_HEX RULE_HEX RULE_HEX '_' RULE_HEX RULE_HEX RUL
 RULE_CHAR : '\'' ('a'..'z'|'A'..'Z'|'0'..'9') '\'';
 
 RULE_TIME : 'T#' '-'? (RULE_X? RULE_X 'd' '_'?)? (RULE_X? RULE_X 'h' '_'?)? (RULE_X? RULE_X 'M' '_'?)? (RULE_X? RULE_X 's' '_'?)? ((RULE_X? RULE_X)? RULE_X 'ms')?;
+
+RULE_LTIME : 'LT#' '-'? (((((RULE_X? RULE_X)? RULE_X)? RULE_X)? RULE_X)? RULE_X 'd' '_'?)? (RULE_X? RULE_X 'h' '_'?)? (RULE_X? RULE_X 'M' '_'?)? (RULE_X? RULE_X 's' '_'?)? ((RULE_X? RULE_X)? RULE_X 'ms' '_'?)? ((RULE_X? RULE_X)? RULE_X 'us' '_'?)? ((RULE_X? RULE_X)? RULE_X 'ns')?;
 
 RULE_ID : '^'? ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
 

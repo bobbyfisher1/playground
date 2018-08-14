@@ -1530,6 +1530,34 @@ public interface EisPackage extends EPackage
   int TIME_CONSTANT_FEATURE_COUNT = IDIOM_FEATURE_COUNT + 1;
 
   /**
+   * The meta object id for the '{@link org.example.eis.eis.impl.LTimeConstantImpl <em>LTime Constant</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.example.eis.eis.impl.LTimeConstantImpl
+   * @see org.example.eis.eis.impl.EisPackageImpl#getLTimeConstant()
+   * @generated
+   */
+  int LTIME_CONSTANT = 40;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LTIME_CONSTANT__VALUE = IDIOM_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>LTime Constant</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LTIME_CONSTANT_FEATURE_COUNT = IDIOM_FEATURE_COUNT + 1;
+
+  /**
    * The meta object id for the '{@link org.example.eis.eis.BasicType <em>Basic Type</em>}' enum.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1537,7 +1565,7 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getBasicType()
    * @generated
    */
-  int BASIC_TYPE = 40;
+  int BASIC_TYPE = 41;
 
 
   /**
@@ -2777,6 +2805,27 @@ public interface EisPackage extends EPackage
   EAttribute getTimeConstant_Value();
 
   /**
+   * Returns the meta object for class '{@link org.example.eis.eis.LTimeConstant <em>LTime Constant</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>LTime Constant</em>'.
+   * @see org.example.eis.eis.LTimeConstant
+   * @generated
+   */
+  EClass getLTimeConstant();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.example.eis.eis.LTimeConstant#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see org.example.eis.eis.LTimeConstant#getValue()
+   * @see #getLTimeConstant()
+   * @generated
+   */
+  EAttribute getLTimeConstant_Value();
+
+  /**
    * Returns the meta object for enum '{@link org.example.eis.eis.BasicType <em>Basic Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3816,6 +3865,24 @@ public interface EisPackage extends EPackage
      * @generated
      */
     EAttribute TIME_CONSTANT__VALUE = eINSTANCE.getTimeConstant_Value();
+
+    /**
+     * The meta object literal for the '{@link org.example.eis.eis.impl.LTimeConstantImpl <em>LTime Constant</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.example.eis.eis.impl.LTimeConstantImpl
+     * @see org.example.eis.eis.impl.EisPackageImpl#getLTimeConstant()
+     * @generated
+     */
+    EClass LTIME_CONSTANT = eINSTANCE.getLTimeConstant();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute LTIME_CONSTANT__VALUE = eINSTANCE.getLTimeConstant_Value();
 
     /**
      * The meta object literal for the '{@link org.example.eis.eis.BasicType <em>Basic Type</em>}' enum.

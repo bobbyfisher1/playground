@@ -106,6 +106,7 @@ public class EisFactoryImpl extends EFactoryImpl implements EisFactory
       case EisPackage.LWORD_CONSTANT: return createLWordConstant();
       case EisPackage.CHAR_CONSTANT: return createCharConstant();
       case EisPackage.TIME_CONSTANT: return createTimeConstant();
+      case EisPackage.LTIME_CONSTANT: return createLTimeConstant();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -583,6 +584,17 @@ public class EisFactoryImpl extends EFactoryImpl implements EisFactory
   {
     TimeConstantImpl timeConstant = new TimeConstantImpl();
     return timeConstant;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public LTimeConstant createLTimeConstant()
+  {
+    LTimeConstantImpl lTimeConstant = new LTimeConstantImpl();
+    return lTimeConstant;
   }
 
   /**

@@ -5,7 +5,6 @@ package org.example.eis.validation
 
 import com.google.common.collect.HashMultimap
 import com.google.inject.Inject
-import java.time.Duration
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.validation.Check
@@ -614,42 +613,79 @@ class EisValidator extends AbstractEisValidator {
 	def boolean isOutOfTime(Idiom _time) {
 		var time = _time.interpret.toString.substring(2).replaceAll('_', '')
 
-		if (time.contains('d'))
-			time = time.replace('d', 'dt')
-		else
-			time = 't' + time
+		println(time)
+		val maxTime = 2147483647
 
+		val minTime = -2147483647000000000L*100
+
+		var currentTime = 0L
+
+		var ms = 0
+		var s = 0
+		var m = 0
+		var h = 0
+		var d = 0
+
+		var sign = 1
 		if (time.contains('-'))
-			time = time.replace('-', '-p')
-		else
-			time = 'p' + time
+			sign = -1
 
 		if (time.contains('ms')) {
-			time = time.split('ms').head
-
-			if (time.contains('s'))
-				time = time.replace('s', '.')
-			else // no seconds
-			if (time.contains('m'))
-				time = time.replace('m', 'm0.')
-			else // no minutes 
-			if (time.contains('h'))
-				time = time.replace('h', 'h0.')
-			else // no hours
-				time = time.replace('t', 't0.')
-
-			time += 's'
+			time = time.replace('ms', '')
+			ms = time.lastNumber
+			println(ms)
+		}
+		if (time.contains('s')) {
+			time = time.split('s').head
+			s = time.lastNumber
+			println(s)
+		}
+		if (time.contains('m')) {
+			time = time.split('m').head
+			m = time.lastNumber
+			println(m)
+		}
+		if (time.contains('h')) {
+			time = time.split('h').head
+			h = time.lastNumber
+			println(h)
+		}
+		if (time.contains('d')) {
+			time = time.split('d').head
+			d = Integer.parseInt(time)
+			println(d)
 		}
 
-		val duration = Duration.parse(time)
+		currentTime += ms * sign
+		currentTime += s * 1000 * sign
+		currentTime += m * 1000 * 60 * sign
+		currentTime += h * 1000 * 60 * 60 * sign
+		currentTime += d * 1000 * 60 * 60 * 24
 
-		val maxTime = Duration.parse("p24dt20h31m23,647s")
-		val minTime = Duration.parse("-p24dt20h31m23,648s")
+		println(currentTime)
+		println('max: ' + maxTime)
+		println('min: ' + minTime)
+		if (currentTime > maxTime || currentTime < minTime)
+			true
+		else
+			false
+	}
 
-		if (maxTime.compareTo(duration) < 0) // (final_hour > t) => returns 1 if under maxTime
-			return true
-		else if (minTime.compareTo(duration) > 0) // (first_hour > t) => -1 if above minTime
-			return true
+	def Integer lastNumber(String time) {
+		var i = 1
+		var last = ""
+		while (time.charAt(time.length - i).toString.isNumerical) {
+			i++
+		}
+		for (i--; i > 0; i--) {
+			last += time.charAt(time.length - i).toString
+		}
+		return Integer.parseInt(last)
+	}
+
+	def boolean isNumerical(String _char) {
+		if (_char.toUpperCase.equals(_char.toLowerCase))
+			true
 		else
 			false
 	}

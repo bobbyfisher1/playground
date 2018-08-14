@@ -32,6 +32,7 @@ import org.example.eis.eis.Idiom;
 import org.example.eis.eis.InOut;
 import org.example.eis.eis.Input;
 import org.example.eis.eis.IntConstant;
+import org.example.eis.eis.LTimeConstant;
 import org.example.eis.eis.LWordConstant;
 import org.example.eis.eis.Minus;
 import org.example.eis.eis.MulOrDiv;
@@ -342,6 +343,13 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * @generated
    */
   private EClass timeConstantEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass lTimeConstantEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -1578,6 +1586,26 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getLTimeConstant()
+  {
+    return lTimeConstantEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getLTimeConstant_Value()
+  {
+    return (EAttribute)lTimeConstantEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EEnum getBasicType()
   {
     return basicTypeEEnum;
@@ -1769,6 +1797,9 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
     timeConstantEClass = createEClass(TIME_CONSTANT);
     createEAttribute(timeConstantEClass, TIME_CONSTANT__VALUE);
 
+    lTimeConstantEClass = createEClass(LTIME_CONSTANT);
+    createEAttribute(lTimeConstantEClass, LTIME_CONSTANT__VALUE);
+
     // Create enums
     basicTypeEEnum = createEEnum(BASIC_TYPE);
   }
@@ -1824,6 +1855,7 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
     lWordConstantEClass.getESuperTypes().add(this.getIdiom());
     charConstantEClass.getESuperTypes().add(this.getIdiom());
     timeConstantEClass.getESuperTypes().add(this.getIdiom());
+    lTimeConstantEClass.getESuperTypes().add(this.getIdiom());
 
     // Initialize classes and features; add operations and parameters
     initEClass(eisModelEClass, EisModel.class, "EisModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1981,6 +2013,9 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
 
     initEClass(timeConstantEClass, TimeConstant.class, "TimeConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getTimeConstant_Value(), ecorePackage.getEString(), "value", null, 0, 1, TimeConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(lTimeConstantEClass, LTimeConstant.class, "LTimeConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getLTimeConstant_Value(), ecorePackage.getEString(), "value", null, 0, 1, LTimeConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Initialize enums and add enum literals
     initEEnum(basicTypeEEnum, BasicType.class, "BasicType");

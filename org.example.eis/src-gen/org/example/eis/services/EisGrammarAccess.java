@@ -1092,6 +1092,10 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cTimeConstantAction_10_0 = (Action)cGroup_10.eContents().get(0);
 		private final Assignment cValueAssignment_10_1 = (Assignment)cGroup_10.eContents().get(1);
 		private final RuleCall cValueTIMETerminalRuleCall_10_1_0 = (RuleCall)cValueAssignment_10_1.eContents().get(0);
+		private final Group cGroup_11 = (Group)cAlternatives.eContents().get(11);
+		private final Action cLTimeConstantAction_11_0 = (Action)cGroup_11.eContents().get(0);
+		private final Assignment cValueAssignment_11_1 = (Assignment)cGroup_11.eContents().get(1);
+		private final RuleCall cValueLTIMETerminalRuleCall_11_1_0 = (RuleCall)cValueAssignment_11_1.eContents().get(0);
 		
 		//Atomic Idiom:
 		//	{IntConstant} value=(LONG | NEGATIVE_LONG) | {StringConstant} value=STRING
@@ -1103,13 +1107,14 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		//	| {LWordConstant} value=LWORD
 		//	//	| {LongConstant} value=LONG
 		//	| {CharConstant} value=CHAR
-		//	| {TimeConstant} value=TIME;
+		//	| {TimeConstant} value=TIME
+		//	| {LTimeConstant} value=LTIME;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{IntConstant} value=(LONG | NEGATIVE_LONG) | {StringConstant} value=STRING | BoolConstant | {VariableRef}
 		//variable=[Variable] | {RealConstant} value=REAL | {ByteConstant} value=BYTE | {WordConstant} value=WORD |
 		//{DWordConstant} value=DWORD | {LWordConstant} value=LWORD //	| {LongConstant} value=LONG
-		//| {CharConstant} value=CHAR | {TimeConstant} value=TIME
+		//| {CharConstant} value=CHAR | {TimeConstant} value=TIME | {LTimeConstant} value=LTIME
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//{IntConstant} value=(LONG | NEGATIVE_LONG)
@@ -1243,6 +1248,18 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//TIME
 		public RuleCall getValueTIMETerminalRuleCall_10_1_0() { return cValueTIMETerminalRuleCall_10_1_0; }
+		
+		//{LTimeConstant} value=LTIME
+		public Group getGroup_11() { return cGroup_11; }
+		
+		//{LTimeConstant}
+		public Action getLTimeConstantAction_11_0() { return cLTimeConstantAction_11_0; }
+		
+		//value=LTIME
+		public Assignment getValueAssignment_11_1() { return cValueAssignment_11_1; }
+		
+		//LTIME
+		public RuleCall getValueLTIMETerminalRuleCall_11_1_0() { return cValueLTIMETerminalRuleCall_11_1_0; }
 	}
 	public class TeststepBlockElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.TeststepBlock");
@@ -1725,6 +1742,7 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	private final TerminalRule tLWORD;
 	private final TerminalRule tCHAR;
 	private final TerminalRule tTIME;
+	private final TerminalRule tLTIME;
 	private final TerminalRule tID;
 	private final TerminalRule tSTRING;
 	private final TerminalRule tML_COMMENT;
@@ -1781,6 +1799,7 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		this.tLWORD = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.LWORD");
 		this.tCHAR = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.CHAR");
 		this.tTIME = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.TIME");
+		this.tLTIME = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.LTIME");
 		this.tID = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.ID");
 		this.tSTRING = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.STRING");
 		this.tML_COMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.example.eis.Eis.ML_COMMENT");
@@ -2114,7 +2133,8 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	//	| {LWordConstant} value=LWORD
 	//	//	| {LongConstant} value=LONG
 	//	| {CharConstant} value=CHAR
-	//	| {TimeConstant} value=TIME;
+	//	| {TimeConstant} value=TIME
+	//	| {LTimeConstant} value=LTIME;
 	public AtomicElements getAtomicAccess() {
 		return pAtomic;
 	}
@@ -2254,6 +2274,14 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	//;
 	public TerminalRule getTIMERule() {
 		return tTIME;
+	}
+	
+	//terminal LTIME:
+	//	'LT#'
+	//	'-'? (((((X? X)? X)? X)? X)? X 'd' '_'?)? (X? X 'h' '_'?)? (X? X 'M' '_'?)? (X? X 's' '_'?)? ((X? X)? X 'ms' '_'?)?
+	//	((X? X)? X 'us' '_'?)? ((X? X)? X 'ns')?;
+	public TerminalRule getLTIMERule() {
+		return tLTIME;
 	}
 	
 	//terminal ID:

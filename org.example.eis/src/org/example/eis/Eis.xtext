@@ -124,7 +124,8 @@ Atomic returns Idiom:
 	| {LWordConstant} value=LWORD
 	//	| {LongConstant} value=LONG
 	| {CharConstant} value=CHAR
-	| {TimeConstant} value=TIME;
+	| {TimeConstant} value=TIME
+	|{LTimeConstant}value=LTIME;
 
 TeststepBlock:
 	'teststep' '(' plcCycle=LONG ',' description=STRING ')' '{' assertion=AssertionBlock '}';
@@ -196,6 +197,17 @@ terminal TIME:
 	(X? X 's' '_'?)?
 	((X? X)? X 'ms')? //interesting note:  X? X? X 'ms' doesn't compile
 ;
+
+terminal LTIME:
+	'LT#'
+	'-'?
+	(((((X? X)? X)? X)? X)? X 'd' '_'?)?
+	(X? X 'h' '_'?)?
+	(X? X 'M' '_'?)?
+	(X? X 's' '_'?)?
+	((X? X)? X 'ms' '_'?)?
+	((X? X)? X 'us' '_'?)?
+	((X? X)? X 'ns')?;
 
 terminal ID:
 	'^'? ('a'..'z' | 'A'..'Z' | '_') ('a'..'z' | 'A'..'Z' | '_' | '0'..'9')*;

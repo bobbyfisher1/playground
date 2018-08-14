@@ -6,7 +6,6 @@ package org.example.eis.validation;
 import com.google.common.base.Objects;
 import com.google.common.collect.HashMultimap;
 import com.google.inject.Inject;
-import java.time.Duration;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
@@ -16,6 +15,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Extension;
+import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.example.eis.eis.And;
 import org.example.eis.eis.Assert;
@@ -888,62 +888,99 @@ public class EisValidator extends AbstractEisValidator {
     boolean _xblockexpression = false;
     {
       String time = this._eisInterpreter.interpret(_time).toString().substring(2).replaceAll("_", "");
-      boolean _contains = time.contains("d");
+      InputOutput.<String>println(time);
+      final int maxTime = 2147483647;
+      final long minTime = ((-2147483647000000000L) * 100);
+      long currentTime = 0L;
+      int ms = 0;
+      int s = 0;
+      int m = 0;
+      int h = 0;
+      int d = 0;
+      int sign = 1;
+      boolean _contains = time.contains("-");
       if (_contains) {
-        time = time.replace("d", "dt");
-      } else {
-        time = ("t" + time);
+        sign = (-1);
       }
-      boolean _contains_1 = time.contains("-");
+      boolean _contains_1 = time.contains("ms");
       if (_contains_1) {
-        time = time.replace("-", "-p");
-      } else {
-        time = ("p" + time);
+        time = time.replace("ms", "");
+        ms = (this.lastNumber(time)).intValue();
+        InputOutput.<Integer>println(Integer.valueOf(ms));
       }
-      boolean _contains_2 = time.contains("ms");
+      boolean _contains_2 = time.contains("s");
       if (_contains_2) {
-        time = IterableExtensions.<String>head(((Iterable<String>)Conversions.doWrapArray(time.split("ms"))));
-        boolean _contains_3 = time.contains("s");
-        if (_contains_3) {
-          time = time.replace("s", ".");
-        } else {
-          boolean _contains_4 = time.contains("m");
-          if (_contains_4) {
-            time = time.replace("m", "m0.");
-          } else {
-            boolean _contains_5 = time.contains("h");
-            if (_contains_5) {
-              time = time.replace("h", "h0.");
-            } else {
-              time = time.replace("t", "t0.");
-            }
-          }
-        }
-        String _time_1 = time;
-        time = (_time_1 + "s");
+        time = IterableExtensions.<String>head(((Iterable<String>)Conversions.doWrapArray(time.split("s"))));
+        s = (this.lastNumber(time)).intValue();
+        InputOutput.<Integer>println(Integer.valueOf(s));
       }
-      final Duration duration = Duration.parse(time);
-      final Duration maxTime = Duration.parse("p24dt20h31m23,647s");
-      final Duration minTime = Duration.parse("-p24dt20h31m23,648s");
+      boolean _contains_3 = time.contains("m");
+      if (_contains_3) {
+        time = IterableExtensions.<String>head(((Iterable<String>)Conversions.doWrapArray(time.split("m"))));
+        m = (this.lastNumber(time)).intValue();
+        InputOutput.<Integer>println(Integer.valueOf(m));
+      }
+      boolean _contains_4 = time.contains("h");
+      if (_contains_4) {
+        time = IterableExtensions.<String>head(((Iterable<String>)Conversions.doWrapArray(time.split("h"))));
+        h = (this.lastNumber(time)).intValue();
+        InputOutput.<Integer>println(Integer.valueOf(h));
+      }
+      boolean _contains_5 = time.contains("d");
+      if (_contains_5) {
+        time = IterableExtensions.<String>head(((Iterable<String>)Conversions.doWrapArray(time.split("d"))));
+        d = Integer.parseInt(time);
+        InputOutput.<Integer>println(Integer.valueOf(d));
+      }
+      long _currentTime = currentTime;
+      currentTime = (_currentTime + (ms * sign));
+      long _currentTime_1 = currentTime;
+      currentTime = (_currentTime_1 + ((s * 1000) * sign));
+      long _currentTime_2 = currentTime;
+      currentTime = (_currentTime_2 + (((m * 1000) * 60) * sign));
+      long _currentTime_3 = currentTime;
+      currentTime = (_currentTime_3 + ((((h * 1000) * 60) * 60) * sign));
+      long _currentTime_4 = currentTime;
+      currentTime = (_currentTime_4 + ((((d * 1000) * 60) * 60) * 24));
+      InputOutput.<Long>println(Long.valueOf(currentTime));
+      InputOutput.<String>println(("max: " + Integer.valueOf(maxTime)));
+      InputOutput.<String>println(("min: " + Long.valueOf(minTime)));
       boolean _xifexpression = false;
-      int _compareTo = maxTime.compareTo(duration);
-      boolean _lessThan = (_compareTo < 0);
-      if (_lessThan) {
-        return true;
+      if (((currentTime > maxTime) || (currentTime < minTime))) {
+        _xifexpression = true;
       } else {
-        boolean _xifexpression_1 = false;
-        int _compareTo_1 = minTime.compareTo(duration);
-        boolean _greaterThan = (_compareTo_1 > 0);
-        if (_greaterThan) {
-          return true;
-        } else {
-          _xifexpression_1 = false;
-        }
-        _xifexpression = _xifexpression_1;
+        _xifexpression = false;
       }
       _xblockexpression = _xifexpression;
     }
     return _xblockexpression;
+  }
+  
+  public Integer lastNumber(final String time) {
+    int i = 1;
+    String last = "";
+    while (this.isNumerical(Character.valueOf(time.charAt((time.length() - i))).toString())) {
+      i++;
+    }
+    for (i--; (i > 0); i--) {
+      String _last = last;
+      int _length = time.length();
+      int _minus = (_length - i);
+      String _string = Character.valueOf(time.charAt(_minus)).toString();
+      last = (_last + _string);
+    }
+    return Integer.valueOf(Integer.parseInt(last));
+  }
+  
+  public boolean isNumerical(final String _char) {
+    boolean _xifexpression = false;
+    boolean _equals = _char.toUpperCase().equals(_char.toLowerCase());
+    if (_equals) {
+      _xifexpression = true;
+    } else {
+      _xifexpression = false;
+    }
+    return _xifexpression;
   }
   
   private boolean checkNumericalValues(final long idiom, final DefineType expectedType) {

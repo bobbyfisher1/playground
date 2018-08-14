@@ -32,6 +32,7 @@ import org.example.eis.eis.Equality;
 import org.example.eis.eis.InOut;
 import org.example.eis.eis.Input;
 import org.example.eis.eis.IntConstant;
+import org.example.eis.eis.LTimeConstant;
 import org.example.eis.eis.LWordConstant;
 import org.example.eis.eis.Minus;
 import org.example.eis.eis.MulOrDiv;
@@ -118,6 +119,9 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				return; 
 			case EisPackage.INT_CONSTANT:
 				sequence_Atomic(context, (IntConstant) semanticObject); 
+				return; 
+			case EisPackage.LTIME_CONSTANT:
+				sequence_Atomic(context, (LTimeConstant) semanticObject); 
 				return; 
 			case EisPackage.LWORD_CONSTANT:
 				sequence_Atomic(context, (LWordConstant) semanticObject); 
@@ -369,6 +373,39 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 */
 	protected void sequence_Atomic(ISerializationContext context, IntConstant semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Idiom returns LTimeConstant
+	 *     Or returns LTimeConstant
+	 *     Or.Or_1_0 returns LTimeConstant
+	 *     And returns LTimeConstant
+	 *     And.And_1_0 returns LTimeConstant
+	 *     Equality returns LTimeConstant
+	 *     Equality.Equality_1_0 returns LTimeConstant
+	 *     Comparison returns LTimeConstant
+	 *     Comparison.Comparison_1_0 returns LTimeConstant
+	 *     PlusOrMinus returns LTimeConstant
+	 *     PlusOrMinus.Plus_1_0_0_0 returns LTimeConstant
+	 *     PlusOrMinus.Minus_1_0_1_0 returns LTimeConstant
+	 *     MulOrDiv returns LTimeConstant
+	 *     MulOrDiv.MulOrDiv_1_0 returns LTimeConstant
+	 *     Primary returns LTimeConstant
+	 *     Atomic returns LTimeConstant
+	 *
+	 * Constraint:
+	 *     value=LTIME
+	 */
+	protected void sequence_Atomic(ISerializationContext context, LTimeConstant semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, EisPackage.Literals.LTIME_CONSTANT__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EisPackage.Literals.LTIME_CONSTANT__VALUE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getAtomicAccess().getValueLTIMETerminalRuleCall_11_1_0(), semanticObject.getValue());
+		feeder.finish();
 	}
 	
 	

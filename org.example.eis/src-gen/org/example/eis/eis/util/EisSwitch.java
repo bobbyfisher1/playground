@@ -375,6 +375,14 @@ public class EisSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case EisPackage.LTIME_CONSTANT:
+      {
+        LTimeConstant lTimeConstant = (LTimeConstant)theEObject;
+        T result = caseLTimeConstant(lTimeConstant);
+        if (result == null) result = caseIdiom(lTimeConstant);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       default: return defaultCase(theEObject);
     }
   }
@@ -1015,6 +1023,22 @@ public class EisSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseTimeConstant(TimeConstant object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>LTime Constant</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>LTime Constant</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseLTimeConstant(LTimeConstant object)
   {
     return null;
   }

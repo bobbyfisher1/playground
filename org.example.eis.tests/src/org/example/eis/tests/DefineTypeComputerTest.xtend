@@ -6,17 +6,17 @@ import org.eclipse.xtext.testing.XtextRunner
 import org.eclipse.xtext.testing.util.ParseHelper
 import org.eclipse.xtext.testing.validation.ValidationTestHelper
 import org.example.eis.eis.EisModel
+import org.example.eis.eis.EisPackage
 import org.example.eis.eis.Variable
 import org.example.eis.typing.DefineType
 import org.example.eis.typing.DefineTypeComputer
+import org.example.eis.validation.EisValidator
 import org.junit.Test
 import org.junit.runner.RunWith
 
 import static org.example.eis.typing.DefineTypeComputer.*
 
 import static extension org.junit.Assert.*
-import org.example.eis.eis.EisPackage
-import org.example.eis.validation.EisValidator
 
 @RunWith(XtextRunner)
 @InjectWith(EisInjectorProvider)
@@ -464,6 +464,8 @@ class DefineTypeComputerTest {
 			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
 			1.assertEquals(validate.size)
 		]
+//		var time = "-1d_2h_3M_4s147ms"
+//		(start + "time a = T#" + time + ';' + end).parse.assertNoErrors
 	}
 
 	//

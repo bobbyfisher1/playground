@@ -182,5 +182,8 @@
     <genClasses ecoreClass="Eis.ecore#//TimeConstant">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//TimeConstant/value"/>
     </genClasses>
+    <genClasses ecoreClass="Eis.ecore#//LTimeConstant">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//LTimeConstant/value"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

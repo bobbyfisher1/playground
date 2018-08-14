@@ -2163,6 +2163,34 @@ ruleAtomic returns [EObject current=null]
 				)
 			)
 		)
+		    |
+		(
+			(
+				{
+					$current = forceCreateModelElement(
+						grammarAccess.getAtomicAccess().getLTimeConstantAction_11_0(),
+						$current);
+				}
+			)
+			(
+				(
+					lv_value_22_0=RULE_LTIME
+					{
+						newLeafNode(lv_value_22_0, grammarAccess.getAtomicAccess().getValueLTIMETerminalRuleCall_11_1_0());
+					}
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getAtomicRule());
+						}
+						setWithLastConsumed(
+							$current,
+							"value",
+							lv_value_22_0,
+							"org.example.eis.Eis.LTIME");
+					}
+				)
+			)
+		)
 	)
 ;
 
@@ -2795,6 +2823,8 @@ RULE_LWORD : '16#' RULE_HEX RULE_HEX RULE_HEX RULE_HEX '_' RULE_HEX RULE_HEX RUL
 RULE_CHAR : '\'' ('a'..'z'|'A'..'Z'|'0'..'9') '\'';
 
 RULE_TIME : 'T#' '-'? (RULE_X? RULE_X 'd' '_'?)? (RULE_X? RULE_X 'h' '_'?)? (RULE_X? RULE_X 'M' '_'?)? (RULE_X? RULE_X 's' '_'?)? ((RULE_X? RULE_X)? RULE_X 'ms')?;
+
+RULE_LTIME : 'LT#' '-'? (((((RULE_X? RULE_X)? RULE_X)? RULE_X)? RULE_X)? RULE_X 'd' '_'?)? (RULE_X? RULE_X 'h' '_'?)? (RULE_X? RULE_X 'M' '_'?)? (RULE_X? RULE_X 's' '_'?)? ((RULE_X? RULE_X)? RULE_X 'ms' '_'?)? ((RULE_X? RULE_X)? RULE_X 'us' '_'?)? ((RULE_X? RULE_X)? RULE_X 'ns')?;
 
 RULE_ID : '^'? ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
 
