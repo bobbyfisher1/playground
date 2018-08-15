@@ -486,6 +486,14 @@ class DefineTypeComputerTest {
 		]
 	}
 
+	@Test def void testingUnderscores() {
+		(start + "time a = T#5s_ ;" + end).parse => [
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.INVALID_UNDERSCORE_NOTATION)
+			1.assertEquals(validate.size)
+		]
+		(start + "string a = 'asdf_';" + end).parse.assertNoErrors
+	}
+
 	//
 // methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//

@@ -841,6 +841,21 @@ public class DefineTypeComputerTest {
     }
   }
   
+  @Test
+  public void testingUnderscores() {
+    try {
+      EisModel _parse = this._parseHelper.parse(((this.start + "time a = T#5s_ ;") + this.end));
+      final Procedure1<EisModel> _function = (EisModel it) -> {
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getVariable(), EisValidator.INVALID_UNDERSCORE_NOTATION);
+        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
+      this._validationTestHelper.assertNoErrors(this._parseHelper.parse(((this.start + "string a = \'asdf_\';") + this.end)));
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
   private void assertSameType(final String text, final DefineType expectedType) {
     try {
       Variables _get = IterableExtensions.<Testcase>head(this._parseHelper.parse(((this.start + text) + this.end)).getTestcases()).getTestblock().getDefine().getDirection().getOutput().getOutputVariables().get(0);

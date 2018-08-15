@@ -104,6 +104,8 @@ public class EisValidator extends AbstractEisValidator {
   
   public final static String NEGATIVE_PLCCYCLE = (EisValidator.ISSUE_CODE_PREFIX + "NegativePlcCycle");
   
+  public final static String INVALID_UNDERSCORE_NOTATION = (EisValidator.ISSUE_CODE_PREFIX + "InvalidUnderscoreNotation");
+  
   @Inject
   @Extension
   private DefineTypeComputer _defineTypeComputer;
@@ -812,6 +814,7 @@ public class EisValidator extends AbstractEisValidator {
               this.error("Value is out of the datatype boundaries.", statement, 
                 EisPackage.eINSTANCE.getStatement_Idiom(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
             }
+            this.checkUnderscoreNotation(this._eisInterpreter.interpret(idiom).toString(), statement, EisPackage.eINSTANCE.getStatement_Idiom());
           } else {
             DefineType _typeFor_1 = this._defineTypeComputer.typeFor(idiom);
             if ((_typeFor_1 instanceof LTimeType)) {
@@ -820,6 +823,7 @@ public class EisValidator extends AbstractEisValidator {
                 this.error("Value is out of the datatype boundaries.", statement, 
                   EisPackage.eINSTANCE.getStatement_Idiom(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
               }
+              this.checkUnderscoreNotation(this._eisInterpreter.interpret(idiom).toString(), statement, EisPackage.eINSTANCE.getStatement_Idiom());
             }
           }
         }
@@ -841,6 +845,8 @@ public class EisValidator extends AbstractEisValidator {
                 this.error("Value is out of the datatype boundaries.", statement, 
                   EisPackage.eINSTANCE.getStatement_Range(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
               }
+              this.checkUnderscoreNotation(this._eisInterpreter.interpret(range).toString(), statement, 
+                EisPackage.eINSTANCE.getStatement_Range());
             } else {
               DefineType _typeFor_3 = this._defineTypeComputer.typeFor(range);
               if ((_typeFor_3 instanceof LTimeType)) {
@@ -849,6 +855,8 @@ public class EisValidator extends AbstractEisValidator {
                   this.error("Value is out of the datatype boundaries.", statement, 
                     EisPackage.eINSTANCE.getStatement_Range(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
                 }
+                this.checkUnderscoreNotation(this._eisInterpreter.interpret(range).toString(), statement, 
+                  EisPackage.eINSTANCE.getStatement_Range());
               }
             }
           }
@@ -873,6 +881,7 @@ public class EisValidator extends AbstractEisValidator {
                 this.error("Value is out of the datatype boundaries.", statement, 
                   EisPackage.eINSTANCE.getStatement_Idiom(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
               }
+              this.checkUnderscoreNotation(this._eisInterpreter.interpret(idiom).toString(), statement, EisPackage.eINSTANCE.getStatement_Idiom());
             } else {
               DefineType _typeFor_5 = this._defineTypeComputer.typeFor(idiom);
               if ((_typeFor_5 instanceof LTimeType)) {
@@ -881,6 +890,7 @@ public class EisValidator extends AbstractEisValidator {
                   this.error("Value is out of the datatype boundaries.", statement, 
                     EisPackage.eINSTANCE.getStatement_Idiom(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
                 }
+                this.checkUnderscoreNotation(this._eisInterpreter.interpret(idiom).toString(), statement, EisPackage.eINSTANCE.getStatement_Idiom());
               }
             }
           }
@@ -902,6 +912,8 @@ public class EisValidator extends AbstractEisValidator {
                   this.error("Value is out of the datatype boundaries.", statement, 
                     EisPackage.eINSTANCE.getStatement_Range(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
                 }
+                this.checkUnderscoreNotation(this._eisInterpreter.interpret(range).toString(), statement, 
+                  EisPackage.eINSTANCE.getStatement_Range());
               } else {
                 DefineType _typeFor_7 = this._defineTypeComputer.typeFor(range);
                 if ((_typeFor_7 instanceof LTimeType)) {
@@ -910,6 +922,8 @@ public class EisValidator extends AbstractEisValidator {
                     this.error("Value is out of the datatype boundaries.", statement, 
                       EisPackage.eINSTANCE.getStatement_Range(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
                   }
+                  this.checkUnderscoreNotation(this._eisInterpreter.interpret(range).toString(), statement, 
+                    EisPackage.eINSTANCE.getStatement_Range());
                 }
               }
             }
@@ -940,6 +954,7 @@ public class EisValidator extends AbstractEisValidator {
             this.error("Value is out of the datatype boundaries.", variable, EisPackage.eINSTANCE.getVariable_Idiom(), 
               EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
           }
+          this.checkUnderscoreNotation(this._eisInterpreter.interpret(idiom).toString(), variable, EisPackage.eINSTANCE.getVariable_Idiom());
         } else {
           DefineType _typeFor_1 = this._defineTypeComputer.typeFor(idiom);
           if ((_typeFor_1 instanceof LTimeType)) {
@@ -948,6 +963,7 @@ public class EisValidator extends AbstractEisValidator {
               this.error("Value is out of the datatype boundaries.", variable, EisPackage.eINSTANCE.getVariable_Idiom(), 
                 EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
             }
+            this.checkUnderscoreNotation(this._eisInterpreter.interpret(idiom).toString(), variable, EisPackage.eINSTANCE.getVariable_Idiom());
           }
         }
       }
@@ -961,6 +977,7 @@ public class EisValidator extends AbstractEisValidator {
             this.error("Value is out of the datatype boundaries.", variable, EisPackage.eINSTANCE.getVariable_Range(), 
               EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
           }
+          this.checkUnderscoreNotation(this._eisInterpreter.interpret(range).toString(), variable, EisPackage.eINSTANCE.getVariable_Range());
         } else {
           DefineType _typeFor_3 = this._defineTypeComputer.typeFor(range);
           if ((_typeFor_3 instanceof LTimeType)) {
@@ -969,6 +986,7 @@ public class EisValidator extends AbstractEisValidator {
               this.error("Value is out of the datatype boundaries.", variable, EisPackage.eINSTANCE.getVariable_Range(), 
                 EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
             }
+            this.checkUnderscoreNotation(this._eisInterpreter.interpret(range).toString(), variable, EisPackage.eINSTANCE.getVariable_Range());
           }
         }
       }
@@ -1041,17 +1059,18 @@ public class EisValidator extends AbstractEisValidator {
           String _time_6 = time;
           String _fraction = this.fraction(ms);
           String _plus = ("." + _fraction);
-          String _plus_1 = (_plus + "s");
-          time = (_time_6 + _plus_1);
+          time = (_time_6 + _plus);
         }
+        String _time_7 = time;
+        time = (_time_7 + "s");
       } else {
         boolean _notEquals_5 = (!Objects.equal(ms, ""));
         if (_notEquals_5) {
-          String _time_7 = time;
+          String _time_8 = time;
           String _fraction_1 = this.fraction(ms);
-          String _plus_2 = (("0" + ".") + _fraction_1);
-          String _plus_3 = (_plus_2 + "s");
-          time = (_time_7 + _plus_3);
+          String _plus_1 = (("0" + ".") + _fraction_1);
+          String _plus_2 = (_plus_1 + "s");
+          time = (_time_8 + _plus_2);
         }
       }
       final Duration duration = Duration.parse(time);
@@ -1255,6 +1274,16 @@ public class EisValidator extends AbstractEisValidator {
       return "000";
     }
     return null;
+  }
+  
+  private void checkUnderscoreNotation(final String string, final EObject object, final EReference reference) {
+    int _length = string.length();
+    int _minus = (_length - 1);
+    final char lastChar = string.charAt(_minus);
+    boolean _equals = Character.valueOf(lastChar).toString().equals("_");
+    if (_equals) {
+      this.error("Invalid underscore notation.", object, reference, EisValidator.INVALID_UNDERSCORE_NOTATION);
+    }
   }
   
   private boolean checkNumericalValues(final long idiom, final DefineType expectedType) {

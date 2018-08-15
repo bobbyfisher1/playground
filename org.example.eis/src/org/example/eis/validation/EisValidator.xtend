@@ -70,6 +70,7 @@ class EisValidator extends AbstractEisValidator {
 	public static val VALUE_EXCEEDING_DATATYPE_BOUNDS = ISSUE_CODE_PREFIX + "ValueExceedingDatatypeBounds"
 	public static val DIVISION_BY_ZERO = ISSUE_CODE_PREFIX + "DivisionByZero"
 	public static val NEGATIVE_PLCCYCLE = ISSUE_CODE_PREFIX + "NegativePlcCycle"
+	public static val INVALID_UNDERSCORE_NOTATION = ISSUE_CODE_PREFIX + "InvalidUnderscoreNotation"
 
 	@Inject extension DefineTypeComputer
 	@Inject extension EisInterpreter
@@ -565,10 +566,12 @@ class EisValidator extends AbstractEisValidator {
 					if (idiom.outOfTime)
 						error("Value is out of the datatype boundaries.", statement,
 							EisPackage.eINSTANCE.statement_Idiom, VALUE_EXCEEDING_DATATYPE_BOUNDS)
+					idiom.interpret.toString.checkUnderscoreNotation(statement, EisPackage.eINSTANCE.statement_Idiom)
 				} else if (idiom.typeFor instanceof LTimeType) {
 					if (idiom.isOutOfLTime)
 						error("Value is out of the datatype boundaries.", statement,
 							EisPackage.eINSTANCE.statement_Idiom, VALUE_EXCEEDING_DATATYPE_BOUNDS)
+					idiom.interpret.toString.checkUnderscoreNotation(statement, EisPackage.eINSTANCE.statement_Idiom)
 				}
 			}
 			if (range !== null)
@@ -582,10 +585,14 @@ class EisValidator extends AbstractEisValidator {
 						if (range.isOutOfTime)
 							error("Value is out of the datatype boundaries.", statement,
 								EisPackage.eINSTANCE.statement_Range, VALUE_EXCEEDING_DATATYPE_BOUNDS)
+						range.interpret.toString.checkUnderscoreNotation(statement,
+							EisPackage.eINSTANCE.statement_Range)
 					} else if (range.typeFor instanceof LTimeType) {
 						if (range.isOutOfLTime)
 							error("Value is out of the datatype boundaries.", statement,
 								EisPackage.eINSTANCE.statement_Range, VALUE_EXCEEDING_DATATYPE_BOUNDS)
+						range.interpret.toString.checkUnderscoreNotation(statement,
+							EisPackage.eINSTANCE.statement_Range)
 					}
 				}
 		} else if (last instanceof Variable) {
@@ -601,10 +608,12 @@ class EisValidator extends AbstractEisValidator {
 					if (idiom.isOutOfTime)
 						error("Value is out of the datatype boundaries.", statement,
 							EisPackage.eINSTANCE.statement_Idiom, VALUE_EXCEEDING_DATATYPE_BOUNDS)
+					idiom.interpret.toString.checkUnderscoreNotation(statement, EisPackage.eINSTANCE.statement_Idiom)
 				} else if (idiom.typeFor instanceof LTimeType) {
 					if (idiom.isOutOfLTime)
 						error("Value is out of the datatype boundaries.", statement,
 							EisPackage.eINSTANCE.statement_Idiom, VALUE_EXCEEDING_DATATYPE_BOUNDS)
+					idiom.interpret.toString.checkUnderscoreNotation(statement, EisPackage.eINSTANCE.statement_Idiom)
 				}
 			}
 			if (range !== null)
@@ -618,10 +627,16 @@ class EisValidator extends AbstractEisValidator {
 						if (range.isOutOfTime)
 							error("Value is out of the datatype boundaries.", statement,
 								EisPackage.eINSTANCE.statement_Range, VALUE_EXCEEDING_DATATYPE_BOUNDS)
-					} else if (range.typeFor instanceof LTimeType)
+						range.interpret.toString.checkUnderscoreNotation(statement,
+							EisPackage.eINSTANCE.statement_Range)
+					} else if (range.typeFor instanceof LTimeType) {
 						if (range.isOutOfLTime)
 							error("Value is out of the datatype boundaries.", statement,
 								EisPackage.eINSTANCE.statement_Range, VALUE_EXCEEDING_DATATYPE_BOUNDS)
+
+						range.interpret.toString.checkUnderscoreNotation(statement,
+							EisPackage.eINSTANCE.statement_Range)
+					}
 				}
 		}
 	}
@@ -636,10 +651,13 @@ class EisValidator extends AbstractEisValidator {
 					if (idiom.isOutOfTime)
 						error("Value is out of the datatype boundaries.", variable, EisPackage.eINSTANCE.variable_Idiom,
 							VALUE_EXCEEDING_DATATYPE_BOUNDS)
-				} else if (idiom.typeFor instanceof LTimeType)
+					idiom.interpret.toString.checkUnderscoreNotation(variable, EisPackage.eINSTANCE.variable_Idiom)
+				} else if (idiom.typeFor instanceof LTimeType) {
 					if (idiom.isOutOfLTime)
 						error("Value is out of the datatype boundaries.", variable, EisPackage.eINSTANCE.variable_Idiom,
 							VALUE_EXCEEDING_DATATYPE_BOUNDS)
+					idiom.interpret.toString.checkUnderscoreNotation(variable, EisPackage.eINSTANCE.variable_Idiom)
+				}
 			}
 
 		if (range !== null)
@@ -648,10 +666,13 @@ class EisValidator extends AbstractEisValidator {
 					if (range.isOutOfTime)
 						error("Value is out of the datatype boundaries.", variable, EisPackage.eINSTANCE.variable_Range,
 							VALUE_EXCEEDING_DATATYPE_BOUNDS)
-				} else if (range.typeFor instanceof LTimeType)
+					range.interpret.toString.checkUnderscoreNotation(variable, EisPackage.eINSTANCE.variable_Range)
+				} else if (range.typeFor instanceof LTimeType) {
 					if (range.isOutOfLTime)
 						error("Value is out of the datatype boundaries.", variable, EisPackage.eINSTANCE.variable_Range,
 							VALUE_EXCEEDING_DATATYPE_BOUNDS)
+					range.interpret.toString.checkUnderscoreNotation(variable, EisPackage.eINSTANCE.variable_Range)
+				}
 			}
 	}
 
@@ -701,7 +722,8 @@ class EisValidator extends AbstractEisValidator {
 		if(m != '') time += m + 'm'
 		if (s != '') {
 			time += s
-			if(ms != '') time += '.' + ms.fraction + 's'
+			if(ms != '') time += '.' + ms.fraction
+			time += 's'
 		} else if (ms != '')
 			time += '0' + '.' + ms.fraction + 's'
 
@@ -819,6 +841,12 @@ class EisValidator extends AbstractEisValidator {
 			return '00' + value
 		if (value.length == 0)
 			return '000'
+	}
+
+	def private void checkUnderscoreNotation(String string, EObject object, EReference reference) {
+		val lastChar = string.charAt(string.length - 1)
+		if (lastChar.toString.equals('_'))
+			error("Invalid underscore notation.", object, reference, INVALID_UNDERSCORE_NOTATION)
 	}
 
 	def private boolean checkNumericalValues(long idiom, DefineType expectedType) {
