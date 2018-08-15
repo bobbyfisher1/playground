@@ -137,7 +137,7 @@ class EisGenerator extends AbstractGenerator {
 			if(variable instanceof Variable) {
 				val value = setMap.get(qualifiedName + variable.name).toString
 				
-				charSeq += indent +	'''<Element xsi:type="Input" Name="«variable.name»" Datatype="«variable.variableType.toString.toFirstUpper»" Direction="«variable.directionBlock»" Value="«value»" Variant="«variable.variantKeyword.toString»" />
+				charSeq += indent +	'''<Element xsi:type="Input" Name="«variable.name»" Datatype="«IF variable.variantKeyword»Variant@«ENDIF»«variable.variableType.toString.toFirstUpper»" Direction="«variable.directionBlock»" Value="«value»" />
 				'''//newline
 			} else if(variable instanceof Udt)	
 				charSeq += buildUdt(setMap, qualifiedName, indent, variable) 
@@ -208,7 +208,7 @@ class EisGenerator extends AbstractGenerator {
 				val idiom = idiomMap.get(qualifiedName + variable.name).toString
 				val range = rangeMap.get(qualifiedName + variable.name).toString
 					
-				charSeq +=	indent + '''<Element xsi:type="Output" Name="«variable.name»" Datatype="«variable.variableType.toString.toFirstUpper»" Direction="«variable.directionBlock»" Expect="«idiom»" Range="«range»" Variant="«variable.variantKeyword.toString»" />
+				charSeq +=	indent + '''<Element xsi:type="Output" Name="«variable.name»" Datatype="«IF variable.variantKeyword»Variant@«ENDIF»«variable.variableType.toString.toFirstUpper»" Direction="«variable.directionBlock»" Expect="«idiom»" Range="«range»" />
 				''' // newline
 					
 			} else if (variable instanceof Udt)

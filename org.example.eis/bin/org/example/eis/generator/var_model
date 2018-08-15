@@ -6,13 +6,13 @@ todo:
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 * When an inout variable is declared in inout block, in the xml, it is shown on both inputs and outpus. 
 ---->NOOOO
-		Determine if it is an Input or an Output only by the occurance in either the Set or Assert block
+---->Determine if it is an Input or an Output only by the occurance in either the Set or Assert block
 		
-* only IEC times
+* only IEC times																		CHECK
 * Chars: a-z, A-Z, 0-9 															CHECK
 	
 
-* check with Kevin about Variant@LInt
+* check with Kevin about Variant@LInt						HALF CHECK
 
 
 

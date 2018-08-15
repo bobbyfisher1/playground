@@ -294,6 +294,12 @@ public class EisGenerator extends AbstractGenerator {
         String _name_1 = ((Variable)variable).getName();
         _builder.append(_name_1);
         _builder.append("\" Datatype=\"");
+        {
+          boolean _isVariantKeyword = ((Variable)variable).isVariantKeyword();
+          if (_isVariantKeyword) {
+            _builder.append("Variant@");
+          }
+        }
         String _firstUpper = StringExtensions.toFirstUpper(((Variable)variable).getVariableType().toString());
         _builder.append(_firstUpper);
         _builder.append("\" Direction=\"");
@@ -301,9 +307,6 @@ public class EisGenerator extends AbstractGenerator {
         _builder.append(_directionBlock);
         _builder.append("\" Value=\"");
         _builder.append(value);
-        _builder.append("\" Variant=\"");
-        String _string = Boolean.valueOf(((Variable)variable).isVariantKeyword()).toString();
-        _builder.append(_string);
         _builder.append("\" />");
         _builder.newLineIfNotEmpty();
         String _plus_1 = (indent + _builder);
@@ -443,6 +446,12 @@ public class EisGenerator extends AbstractGenerator {
         String _name_2 = ((Variable)variable).getName();
         _builder.append(_name_2);
         _builder.append("\" Datatype=\"");
+        {
+          boolean _isVariantKeyword = ((Variable)variable).isVariantKeyword();
+          if (_isVariantKeyword) {
+            _builder.append("Variant@");
+          }
+        }
         String _firstUpper = StringExtensions.toFirstUpper(((Variable)variable).getVariableType().toString());
         _builder.append(_firstUpper);
         _builder.append("\" Direction=\"");
@@ -452,9 +461,6 @@ public class EisGenerator extends AbstractGenerator {
         _builder.append(idiom);
         _builder.append("\" Range=\"");
         _builder.append(range);
-        _builder.append("\" Variant=\"");
-        String _string = Boolean.valueOf(((Variable)variable).isVariantKeyword()).toString();
-        _builder.append(_string);
         _builder.append("\" />");
         _builder.newLineIfNotEmpty();
         String _plus_2 = (indent + _builder);
