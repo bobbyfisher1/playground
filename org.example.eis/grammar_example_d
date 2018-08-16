@@ -1,0 +1,31 @@
+define { 
+	input [ 
+		inout variant int a;
+		inout udt b(typeB){
+			int a;								// inferred as inouts
+			bool b;							// inferred as inouts
+		}
+	]
+	output [ ]	
+}
+
+
+
+/*
+The idea is to  remove the inout block and let all types of variables have the possibility of a prefix 'inout'. 
+This is regarded as the solution to the question about to which block (input or output) an inout variable should be associated to.
+The initial idea was to associate the variable to the block according to which assertBlock the variable was written in.
+Unfortunately this cannot work as the assertBlocks can be left empty or not all variables need to be declared in them, so their default values can be used.
+In that case, it is not possible to infer to which block the inout should be associated with. 
+Currently the all inouts were written to both the input and the output blocks simultaneously.
+
+This solution is comfortable regarding the scoping, generation, validation and is easily achievable by only adding a single boolean keyword.
+
+The assertionBlocks can only be assigned to either an input or output block. 
+Generation simply takes place on the two remaining blocks.
+Checks no longer need to be made on an extra 'inout' block.
+
+
+
+
+*/

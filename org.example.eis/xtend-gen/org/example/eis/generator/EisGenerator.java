@@ -279,10 +279,8 @@ public class EisGenerator extends AbstractGenerator {
     return multiLineString;
   }
   
-  private CharSequence compileIn(final EList<Variables> variables, final HashMap<Object, Object> setMap, final String _qualifiedName, final String _indent) {
+  private CharSequence compileIn(final EList<Variables> variables, final HashMap<Object, Object> setMap, final String qualifiedName, final String indent) {
     String charSeq = "";
-    String qualifiedName = _qualifiedName;
-    String indent = _indent;
     for (final Variables variable : variables) {
       if ((variable instanceof Variable)) {
         String _name = ((Variable)variable).getName();
@@ -328,9 +326,8 @@ public class EisGenerator extends AbstractGenerator {
     return charSeq;
   }
   
-  private CharSequence buildUdt(final HashMap<Object, Object> setMap, final String _qualifiedName, final String indent, final Udt variable) {
+  private CharSequence buildUdt(final HashMap<Object, Object> setMap, final String qualifiedName, final String indent, final Udt variable) {
     String charSeq = "";
-    String qualifiedName = _qualifiedName;
     final String tab = "\t";
     String _charSeq = charSeq;
     charSeq = (_charSeq + indent);
@@ -378,9 +375,8 @@ public class EisGenerator extends AbstractGenerator {
     return charSeq;
   }
   
-  private CharSequence buildUdtRef(final HashMap<Object, Object> setMap, final String _qualifiedName, final String indent, final UdtRef variable) {
+  private CharSequence buildUdtRef(final HashMap<Object, Object> setMap, final String qualifiedName, final String indent, final UdtRef variable) {
     String charSeq = "";
-    String qualifiedName = _qualifiedName;
     final String tab = "\t";
     String _charSeq = charSeq;
     charSeq = (_charSeq + indent);
@@ -428,10 +424,8 @@ public class EisGenerator extends AbstractGenerator {
     return charSeq;
   }
   
-  private CharSequence compileOut(final EList<Variables> variables, final HashMap<Object, Object> idiomMap, final HashMap<Object, Object> rangeMap, final String _qualifiedName, final String _indent) {
+  private CharSequence compileOut(final EList<Variables> variables, final HashMap<Object, Object> idiomMap, final HashMap<Object, Object> rangeMap, final String qualifiedName, final String indent) {
     String charSeq = "";
-    String qualifiedName = _qualifiedName;
-    String indent = _indent;
     for (final Variables variable : variables) {
       if ((variable instanceof Variable)) {
         String _name = ((Variable)variable).getName();
@@ -482,9 +476,8 @@ public class EisGenerator extends AbstractGenerator {
     return charSeq;
   }
   
-  private CharSequence buildUdt(final Udt variable, final HashMap<Object, Object> idiomMap, final HashMap<Object, Object> rangeMap, final String _qualifiedName, final String indent) {
+  private CharSequence buildUdt(final Udt variable, final HashMap<Object, Object> idiomMap, final HashMap<Object, Object> rangeMap, final String qualifiedName, final String indent) {
     String charSeq = "";
-    String qualifiedName = _qualifiedName;
     final String tab = "\t";
     String _charSeq = charSeq;
     charSeq = (_charSeq + indent);
@@ -532,9 +525,8 @@ public class EisGenerator extends AbstractGenerator {
     return charSeq;
   }
   
-  private CharSequence buildUdtRef(final UdtRef variable, final HashMap<Object, Object> idiomMap, final HashMap<Object, Object> rangeMap, final String _qualifiedName, final String indent) {
+  private CharSequence buildUdtRef(final UdtRef variable, final HashMap<Object, Object> idiomMap, final HashMap<Object, Object> rangeMap, final String qualifiedName, final String indent) {
     String charSeq = "";
-    String qualifiedName = _qualifiedName;
     final String tab = "\t";
     String _charSeq = charSeq;
     charSeq = (_charSeq + indent);
@@ -582,12 +574,11 @@ public class EisGenerator extends AbstractGenerator {
     return charSeq;
   }
   
-  private void generateMap(final HashMap<Object, Object> map, final EList<Variables> variables, final String _name) {
-    String name = _name;
+  private void generateMap(final HashMap<Object, Object> map, final EList<Variables> variables, final String name) {
     for (final Variables variable : variables) {
       if ((variable instanceof Variable)) {
-        String _name_1 = ((Variable)variable).getName();
-        String _plus = (name + _name_1);
+        String _name = ((Variable)variable).getName();
+        String _plus = (name + _name);
         String _elvis = null;
         Idiom _idiom = null;
         if (((Variable)variable)!=null) {
@@ -611,15 +602,15 @@ public class EisGenerator extends AbstractGenerator {
       } else {
         if ((variable instanceof Udt)) {
           EList<Variables> _udtVariables = ((Udt)variable).getUdtVariables();
-          String _name_2 = ((Udt)variable).getName();
-          String _plus_1 = (name + _name_2);
+          String _name_1 = ((Udt)variable).getName();
+          String _plus_1 = (name + _name_1);
           String _plus_2 = (_plus_1 + ".");
           this.generateMap(map, _udtVariables, _plus_2);
         } else {
           if ((variable instanceof UdtRef)) {
             EList<Variables> _udtVariables_1 = ((UdtRef)variable).getUdtVariables();
-            String _name_3 = ((UdtRef)variable).getName();
-            String _plus_3 = (name + _name_3);
+            String _name_2 = ((UdtRef)variable).getName();
+            String _plus_3 = (name + _name_2);
             String _plus_4 = (_plus_3 + ".");
             this.generateMap(map, _udtVariables_1, _plus_4);
           }
@@ -628,12 +619,11 @@ public class EisGenerator extends AbstractGenerator {
     }
   }
   
-  private void generateRangeMap(final HashMap<Object, Object> map, final EList<Variables> variables, final String _name) {
-    String name = _name;
+  private void generateRangeMap(final HashMap<Object, Object> map, final EList<Variables> variables, final String name) {
     for (final Variables variable : variables) {
       if ((variable instanceof Variable)) {
-        String _name_1 = ((Variable)variable).getName();
-        String _plus = (name + _name_1);
+        String _name = ((Variable)variable).getName();
+        String _plus = (name + _name);
         String _elvis = null;
         Idiom _range = null;
         if (((Variable)variable)!=null) {
@@ -656,15 +646,15 @@ public class EisGenerator extends AbstractGenerator {
       } else {
         if ((variable instanceof Udt)) {
           EList<Variables> _udtVariables = ((Udt)variable).getUdtVariables();
-          String _name_2 = ((Udt)variable).getName();
-          String _plus_1 = (name + _name_2);
+          String _name_1 = ((Udt)variable).getName();
+          String _plus_1 = (name + _name_1);
           String _plus_2 = (_plus_1 + ".");
           this.generateRangeMap(map, _udtVariables, _plus_2);
         } else {
           if ((variable instanceof UdtRef)) {
             EList<Variables> _udtVariables_1 = ((UdtRef)variable).getUdtVariables();
-            String _name_3 = ((UdtRef)variable).getName();
-            String _plus_3 = (name + _name_3);
+            String _name_2 = ((UdtRef)variable).getName();
+            String _plus_3 = (name + _name_2);
             String _plus_4 = (_plus_3 + ".");
             this.generateRangeMap(map, _udtVariables_1, _plus_4);
           }
@@ -732,6 +722,9 @@ public class EisGenerator extends AbstractGenerator {
           _matched=true;
           _switchResult = "16#0000_0000_0000_0000";
         }
+      }
+      if (!_matched) {
+        _switchResult = "";
       }
       _xblockexpression = _switchResult;
     }

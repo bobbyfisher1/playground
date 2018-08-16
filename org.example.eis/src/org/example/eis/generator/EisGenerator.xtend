@@ -30,8 +30,7 @@ class EisGenerator extends AbstractGenerator {
 	@Inject extension EisInterpreter
 	@Inject extension DefineTypeComputer
 	
-	
-	
+		
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		val model = resource.allContents.toIterable.filter(EisModel).head
 		fsa.generateFile('''«model.plc_name»_Testfixture.xml''', model.compile)
@@ -128,10 +127,8 @@ class EisGenerator extends AbstractGenerator {
 		return multiLineString
 	}
 				
-	def private CharSequence compileIn(EList<Variables> variables, HashMap<Object, Object> setMap,  String _qualifiedName, String _indent) {
+	def private CharSequence compileIn(EList<Variables> variables, HashMap<Object, Object> setMap,  String qualifiedName, String indent) {
 		var charSeq = ""
-		var qualifiedName = _qualifiedName
-		var indent = _indent
 		
 		for(variable : variables) {
 			if(variable instanceof Variable) {
@@ -147,9 +144,8 @@ class EisGenerator extends AbstractGenerator {
 		return charSeq
 	}
 	
-	def private CharSequence buildUdt(HashMap<Object, Object> setMap, String _qualifiedName, String indent, Udt variable) {
+	def private CharSequence buildUdt(HashMap<Object, Object> setMap, String qualifiedName, String indent, Udt variable) {
 		var charSeq = ""
-		var qualifiedName = _qualifiedName 
 		val tab = "	"
 		
 		charSeq += indent
@@ -172,9 +168,8 @@ class EisGenerator extends AbstractGenerator {
 		return charSeq
 	}
 	
-	def private CharSequence buildUdtRef(HashMap<Object, Object> setMap, String _qualifiedName, String indent, UdtRef variable) {
+	def private CharSequence buildUdtRef(HashMap<Object, Object> setMap, String qualifiedName, String indent, UdtRef variable) {
 		var charSeq = ""
-		var qualifiedName = _qualifiedName 
 		val tab = "	"
 		
 		charSeq += indent
@@ -197,12 +192,9 @@ class EisGenerator extends AbstractGenerator {
 		return charSeq
 	}
 	
-	def private CharSequence compileOut(EList <Variables> variables, HashMap<Object, Object> idiomMap,HashMap<Object, Object> rangeMap , String _qualifiedName, String _indent) {
+	def private CharSequence compileOut(EList <Variables> variables, HashMap<Object, Object> idiomMap,HashMap<Object, Object> rangeMap , String qualifiedName, String indent) {
 		var charSeq = ""
-		var qualifiedName = _qualifiedName
-		var indent = _indent
-		
-		
+
 		for (variable : variables) {
 			if (variable instanceof Variable) {
 				val idiom = idiomMap.get(qualifiedName + variable.name).toString
@@ -219,9 +211,8 @@ class EisGenerator extends AbstractGenerator {
 		return charSeq
 	}
 		
-	def private CharSequence buildUdt(Udt variable, HashMap<Object, Object> idiomMap, HashMap<Object, Object> rangeMap, String _qualifiedName, String indent) {
-		var charSeq = ""
-		var qualifiedName = _qualifiedName 
+	def private CharSequence buildUdt(Udt variable, HashMap<Object, Object> idiomMap, HashMap<Object, Object> rangeMap, String qualifiedName, String indent) {
+		var charSeq = "" 
 		val tab = "	"
 		
 		charSeq += indent
@@ -244,9 +235,8 @@ class EisGenerator extends AbstractGenerator {
 		return charSeq
 	}
 	
-	def private CharSequence buildUdtRef(UdtRef variable, HashMap<Object, Object> idiomMap, HashMap<Object, Object> rangeMap, String _qualifiedName, String indent) {
-		var charSeq = ""
-		var qualifiedName = _qualifiedName 
+	def private CharSequence buildUdtRef(UdtRef variable, HashMap<Object, Object> idiomMap, HashMap<Object, Object> rangeMap, String qualifiedName, String indent) {
+		var charSeq = "" 
 		val tab = "	"
 		
 		charSeq += indent
@@ -272,8 +262,7 @@ class EisGenerator extends AbstractGenerator {
 //
 // methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //	
-	def private void generateMap(HashMap<Object, Object> map, EList<Variables> variables, String _name) {
-		var name = _name
+	def private void generateMap(HashMap<Object, Object> map, EList<Variables> variables, String name) {
 		for(variable : variables){
 			if(variable instanceof Variable)
 				map.put(name + variable.name, variable?.idiom?.interpret?.toString ?: variable.defaultValue)
@@ -284,8 +273,7 @@ class EisGenerator extends AbstractGenerator {
 		}
 	}
 	
-	def private void generateRangeMap(HashMap<Object, Object> map, EList<Variables> variables, String _name) {
-		var name = _name
+	def private void generateRangeMap(HashMap<Object, Object> map, EList<Variables> variables, String name) {
 		for(variable : variables){
 			if(variable instanceof Variable)
 				map.put(name + variable.name, variable?.range?.interpret?.toString ?: '')
@@ -307,18 +295,9 @@ class EisGenerator extends AbstractGenerator {
 			case type.isWordType:  "16#0000"
 			case type.isDWordType:  "16#0000_0000"
 			case type.isLWordType:  "16#0000_0000_0000_0000"
+			default: ''
 		}		
 	}
-	
-//	def private String defaultRange(Variable variable) {
-//		val type = variable.variableType.typeFor
-//		switch type{
-//			case type.isBoolType:	return ""	
-//			case type.isIntType:	return ""			
-//			case type.isStringType:	return ""
-//			case type.isRealType: return ""
-//		}
-//	}
 	
 	def private void overwriteInput(HashMap<Object, Object> setMap, TeststepBlock teststep) {
 		val statements = teststep.assertion.set.setVariables

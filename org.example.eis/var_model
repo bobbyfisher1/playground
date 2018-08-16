@@ -1,0 +1,87 @@
+bugs:
+!!! int a = 0, b = a + 1; // THIS DOESN'T WORK !!!
+!!! real a= 1.0 + 2.7; //doesn't work
+!!!char a = 'd';			string b = "d", c ='dd';
+todo:		 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* When an inout variable is declared in inout block, in the xml, it is shown on both inputs and outpus. 
+---->NOOOO
+---->Determine if it is an Input or an Output only by the occurance in either the Set or Assert block
+		
+* only IEC times																		CHECK
+* Chars: a-z, A-Z, 0-9 															CHECK
+* Reals?	
+* mathematics with variablerefs
+* check with Kevin about Variant@LInt						HALF CHECK
+* coloring with udtTypes
+
+
+
+* make eis dsl accessable: p2 repository?		 
+
+
+
+--------------------------------------------------------INPUTS--------------------------------------------------------------------------------------------------------------------------------
+VAR:
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<Element xsi:type="Input" Name="a" Datatype="Int" Direction="Input" Value="0" />
+
+<Element xsi:type="Input" Name="Freigabe" Datatype="Bool" Direction="Input" Value="false" />
+	
+<Element xsi:type="Input" Name="Rechte" Datatype="Int" Direction="InOut" Value="0" />
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+UDT:
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<Element xsi:type="InputUDT" Name="Steuerwort"	Datatype="typeSteuerwort" Direction="Input">
+	<Elements>
+		<Element xsi:type="Input" Name="Start" Datatype="Bool" Direction="Input" Value="false" />
+		<Element xsi:type="Input" Name="Stop" Datatype="Bool"	Direction="Input" Value="false" />
+		<Element xsi:type="Input" Name="Modus" Datatype="Bool"	Direction="Input" Value="false" />
+		<Element xsi:type="InputUDT" Name="Manuell" Datatype="typeManuellSteuerwort" Direction="Input">
+			<Elements>
+				<Element xsi:type="Input" Name="Links" Datatype="Bool" 	Direction="Input" Value="false" />
+				<Element xsi:type="Input" Name="Rechts" Datatype="Bool" Direction="Input" Value="false" />
+			</Elements>
+		</Element>
+		<Element xsi:type="InputUDT" Name="Auto" Datatype="typeAutoSteuerwort" Direction="Input">
+			<Elements>
+				<Element xsi:type="Input" Name="SollPos" Datatype="DInt" Direction="Input" Value="0" />
+				<Element xsi:type="Input" Name="Execute" Datatype="Bool" Direction="Input" Value="false" />
+			</Elements>
+		</Element>
+	</Elements>
+</Element>
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	
+	
+	
+--------------------------------------------------------OUTPUTS--------------------------------------------------------------------------------------------------------------------------------
+VAR:
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<Element xsi:type="Output" Name="Motorlinks" 	Datatype="Bool" Direction="Output" Expect="false" Range="" />
+						
+<Element xsi:type="Output" Name="Motorrechts" Datatype="Bool" Direction="Output" Expect="false" Range="" />
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+UDT:
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<Element xsi:type="OutputUDT" Name="Statuswort" Datatype="typeStatuswort" Direction="Output">
+	<Elements>
+		<Element xsi:type="Output" Name="ready" Datatype="Bool" Direction="Output" Expect="false" Range="" />
+		<Element xsi:type="Output" Name="busy" Datatype="Bool" Direction="Output" Expect="false" Range="" />
+		<Element xsi:type="Output" Name="istPos" Datatype="DInt" Direction="Output" Expect="0" Range="" />
+	</Elements>
+</Element>
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	
