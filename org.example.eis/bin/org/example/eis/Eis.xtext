@@ -36,7 +36,7 @@ DefineBlock:
 	'define' '{' direction=DirectionBlock '}' teststeps+=TeststepBlock*;
 
 DirectionBlock:
-	input=Input & inout=InOut? & output=Output;
+	input=Input &  output=Output;
 
 Input:
 	name='input' '[' inputVariables+=Variables* ']';
@@ -44,21 +44,18 @@ Input:
 Output:
 	name='output' '[' outputVariables+=Variables* ']';
 
-InOut:
-	name='inout' '[' inoutVariables+=Variables* ']';
-
 Variables:
 	Variable | Udt | UdtRef;
 
 Variable:
-	({Variable} variantKeyword?='variant'? variableType=BasicType? name=ID ('=' idiom=Idiom ('+/-' range=Idiom)?)? (';' |
-	nextVariable?=','));
+	{Variable} inout?='inout'? variantKeyword?='variant'? variableType=BasicType? name=ID ('=' idiom=Idiom ('+/-' range=Idiom)?)? (';' |
+	nextVariable?=',');
 
 Udt:
-	'udt' name=ID '(' udtType=UdtType ')' '{' udtVariables+=Variables* '}';
+	inout?='inout'? 'udt' name=ID '(' udtType=UdtType ')' '{' udtVariables+=Variables* '}';
 
 UdtRef:
-	udtType=[UdtType] name=ID udtVariables+=Variables* ';';
+	inout?='inout'? udtType=[UdtType] name=ID udtVariables+=Variables* ';';
 
 enum BasicType:
 	NULL='null'

@@ -132,7 +132,6 @@ class EisGeneratorTest {
 					bool b;
 				]
 				output[	]
-				inout[  ]
 			}
 			teststep(0, ""){
 				set[ 
@@ -178,7 +177,6 @@ class EisGeneratorTest {
 					}
 				]
 				output[	]
-				inout[  ]
 			}
 			teststep(0, ""){
 				set[ 
@@ -221,13 +219,10 @@ class EisGeneratorTest {
 		(beginning + '''
 			define{
 				input[ ]
-				output[	]
-				inout[ int a = 1 +/- 2 ; ]
+				output[	inout int a = 1 +/- 2 ; ]
 			}
 			teststep(0, ""){
-				set[ 
-					a = 43;
-				]
+				set[]
 				assert[a=10043;]
 			}
 		''' + ending ) => [
@@ -244,7 +239,6 @@ class EisGeneratorTest {
 							<Teststeps>
 								<Teststep PlcCycle ="0" Description="">
 									<Inputs>
-										<Element xsi:type="Input" Name="a" Datatype="Int" Direction="InOut" Value="43" />
 									</Inputs>
 									<Outputs>
 										<Element xsi:type="Output" Name="a" Datatype="Int" Direction="InOut" Expect="10043" Range="2" />
@@ -351,14 +345,13 @@ class EisGeneratorTest {
 	@Test def void testErrorProneUseCase() {
 		(beginning + '''
 			define{
-				inout[ 
+				input[ 
 					udt a(typeA){
 						int b;
 					}
 					int c;
 				]
 				output[	]
-				input[  ]
 			}
 			teststep(1, ""){
 				set[ 
@@ -408,19 +401,17 @@ class EisGeneratorTest {
 	@Test def void testInputsAndInOuts() {
 		(beginning + '''
 			define{
-				inout[ 
-					udt a(typeA){
+				input[	
+					inout udt a(typeA){
 						int b;
 					}
 					int c;
-				]
-				output[	]
-				input[ 
 					udt aa(typeAA){
 						int bb;
 					}
 					int cc;
 				]
+				output[]
 			}
 			teststep(1, ""){
 				set[ 
@@ -554,9 +545,8 @@ class EisGeneratorTest {
 	@Test def void testDefaultValuesWithInouts() {
 		(beginning + '''
 			define{
-				input[ variant bool x, y, z; ] 
-				inout[
-					udt a(typeA){
+				input[ variant bool x, y, z; 
+					inout udt a(typeA){
 						int b = 46;
 					}
 					int c = 2;
@@ -788,14 +778,12 @@ class EisGeneratorTest {
 	@Test def void testOutputsAndInOuts() {
 		(beginning + '''
 			define{
-				inout[ 
-					udt a(typeA){
+				input[]
+				output[
+					inout udt a(typeA){
 						int b;
 					}
 					int c;
-				]
-				input[	]
-				output[ 
 					udt aa(typeAA){
 						int bb;
 					}
@@ -859,8 +847,11 @@ class EisGeneratorTest {
 		(beginning + '''
 			define{
 				input[int a = 1;]
-				output[ int b = 2 +/- 3;]
-				inout[ int d = 4 +/- 5; bool c;]
+				output[ 
+					int b = 2 +/- 3;
+					inout int d = 4 +/- 5; 
+					bool c;
+				]
 			}
 			teststep(0, ""){
 				set[]

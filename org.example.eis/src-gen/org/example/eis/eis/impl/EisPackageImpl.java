@@ -29,7 +29,6 @@ import org.example.eis.eis.EisModel;
 import org.example.eis.eis.EisPackage;
 import org.example.eis.eis.Equality;
 import org.example.eis.eis.Idiom;
-import org.example.eis.eis.InOut;
 import org.example.eis.eis.Input;
 import org.example.eis.eis.IntConstant;
 import org.example.eis.eis.LTimeConstant;
@@ -126,13 +125,6 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * @generated
    */
   private EClass outputEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass inOutEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -646,19 +638,9 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getDirectionBlock_Inout()
-  {
-    return (EReference)directionBlockEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getDirectionBlock_Output()
   {
-    return (EReference)directionBlockEClass.getEStructuralFeatures().get(2);
+    return (EReference)directionBlockEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -726,36 +708,6 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getInOut()
-  {
-    return inOutEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getInOut_Name()
-  {
-    return (EAttribute)inOutEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getInOut_InoutVariables()
-  {
-    return (EReference)inOutEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getVariables()
   {
     return variablesEClass;
@@ -766,9 +718,19 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getVariables_Name()
+  public EAttribute getVariables_Inout()
   {
     return (EAttribute)variablesEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getVariables_Name()
+  {
+    return (EAttribute)variablesEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1669,7 +1631,6 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
 
     directionBlockEClass = createEClass(DIRECTION_BLOCK);
     createEReference(directionBlockEClass, DIRECTION_BLOCK__INPUT);
-    createEReference(directionBlockEClass, DIRECTION_BLOCK__INOUT);
     createEReference(directionBlockEClass, DIRECTION_BLOCK__OUTPUT);
 
     inputEClass = createEClass(INPUT);
@@ -1680,11 +1641,8 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
     createEAttribute(outputEClass, OUTPUT__NAME);
     createEReference(outputEClass, OUTPUT__OUTPUT_VARIABLES);
 
-    inOutEClass = createEClass(IN_OUT);
-    createEAttribute(inOutEClass, IN_OUT__NAME);
-    createEReference(inOutEClass, IN_OUT__INOUT_VARIABLES);
-
     variablesEClass = createEClass(VARIABLES);
+    createEAttribute(variablesEClass, VARIABLES__INOUT);
     createEAttribute(variablesEClass, VARIABLES__NAME);
 
     variableEClass = createEClass(VARIABLE);
@@ -1886,7 +1844,6 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
 
     initEClass(directionBlockEClass, DirectionBlock.class, "DirectionBlock", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getDirectionBlock_Input(), this.getInput(), null, "input", null, 0, 1, DirectionBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getDirectionBlock_Inout(), this.getInOut(), null, "inout", null, 0, 1, DirectionBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getDirectionBlock_Output(), this.getOutput(), null, "output", null, 0, 1, DirectionBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(inputEClass, Input.class, "Input", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1897,11 +1854,8 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
     initEAttribute(getOutput_Name(), ecorePackage.getEString(), "name", null, 0, 1, Output.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getOutput_OutputVariables(), this.getVariables(), null, "outputVariables", null, 0, -1, Output.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(inOutEClass, InOut.class, "InOut", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getInOut_Name(), ecorePackage.getEString(), "name", null, 0, 1, InOut.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getInOut_InoutVariables(), this.getVariables(), null, "inoutVariables", null, 0, -1, InOut.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
     initEClass(variablesEClass, Variables.class, "Variables", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getVariables_Inout(), ecorePackage.getEBoolean(), "inout", null, 0, 1, Variables.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getVariables_Name(), ecorePackage.getEString(), "name", null, 0, 1, Variables.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(variableEClass, Variable.class, "Variable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

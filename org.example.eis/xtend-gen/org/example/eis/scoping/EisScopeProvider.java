@@ -4,25 +4,20 @@
 package org.example.eis.scoping;
 
 import com.google.common.base.Objects;
-import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
-import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
-import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.example.eis.EisModelUtil;
 import org.example.eis.eis.Assert;
 import org.example.eis.eis.Cascade;
 import org.example.eis.eis.DefineBlock;
-import org.example.eis.eis.DirectionBlock;
 import org.example.eis.eis.EisPackage;
 import org.example.eis.eis.Idiom;
-import org.example.eis.eis.InOut;
 import org.example.eis.eis.Input;
 import org.example.eis.eis.Output;
 import org.example.eis.eis.Set;
@@ -94,12 +89,6 @@ public class EisScopeProvider extends AbstractEisScopeProvider {
       }
     }
     if (!_matched) {
-      if (context instanceof InOut) {
-        _matched=true;
-        _switchResult = Scopes.scopeFor(this._eisModelUtil.udtTypesDefinedBefore(((InOut)context)));
-      }
-    }
-    if (!_matched) {
       if (context instanceof Udt) {
         _matched=true;
         _switchResult = Scopes.scopeFor(this._eisModelUtil.udtTypesDefinedBefore(((Udt)context)));
@@ -131,21 +120,11 @@ public class EisScopeProvider extends AbstractEisScopeProvider {
       EObject defineBlock = this.getDefineBlock(context);
       final Input input = ((DefineBlock) defineBlock).getDirection().getInput();
       final Output output = ((DefineBlock) defineBlock).getDirection().getOutput();
-      DirectionBlock _direction = ((DefineBlock) defineBlock).getDirection();
-      InOut _inout = null;
-      if (_direction!=null) {
-        _inout=_direction.getInout();
-      }
-      final InOut inout = _inout;
-      List<Variables> inoutScope = CollectionLiterals.<Variables>emptyList();
-      if ((inout != null)) {
-        inoutScope = inout.getInoutVariables();
-      }
       IScope _xifexpression = null;
       if ((context instanceof Statement)) {
-        _xifexpression = this.statementScope(((Statement)context).eContainer(), input, output, inoutScope);
+        _xifexpression = this.statementScope(((Statement)context).eContainer(), input, output);
       } else {
-        _xifexpression = this.statementScope(context, input, output, inoutScope);
+        _xifexpression = this.statementScope(context, input, output);
       }
       _xblockexpression = _xifexpression;
     }
@@ -219,21 +198,19 @@ public class EisScopeProvider extends AbstractEisScopeProvider {
     return _xblockexpression;
   }
   
-  protected IScope statementScope(final EObject context, final Input inputs, final Output outputs, final List<Variables> inoutScope) {
+  protected IScope statementScope(final EObject context, final Input inputs, final Output outputs) {
     EList<Variables> input = inputs.getInputVariables();
     EList<Variables> output = outputs.getOutputVariables();
     IScope _switchResult = null;
     boolean _matched = false;
     if (context instanceof Set) {
       _matched=true;
-      Iterable<Variables> _plus = Iterables.<Variables>concat(input, inoutScope);
-      _switchResult = Scopes.scopeFor(_plus);
+      _switchResult = Scopes.scopeFor(input);
     }
     if (!_matched) {
       if (context instanceof Assert) {
         _matched=true;
-        Iterable<Variables> _plus = Iterables.<Variables>concat(output, inoutScope);
-        _switchResult = Scopes.scopeFor(_plus);
+        _switchResult = Scopes.scopeFor(output);
       }
     }
     return _switchResult;

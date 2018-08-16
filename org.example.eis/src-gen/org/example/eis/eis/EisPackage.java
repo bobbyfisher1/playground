@@ -213,7 +213,7 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getIdiom()
    * @generated
    */
-  int IDIOM = 15;
+  int IDIOM = 14;
 
   /**
    * The number of structural features of the '<em>Idiom</em>' class.
@@ -337,22 +337,13 @@ public interface EisPackage extends EPackage
   int DIRECTION_BLOCK__INPUT = 0;
 
   /**
-   * The feature id for the '<em><b>Inout</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int DIRECTION_BLOCK__INOUT = 1;
-
-  /**
    * The feature id for the '<em><b>Output</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int DIRECTION_BLOCK__OUTPUT = 2;
+  int DIRECTION_BLOCK__OUTPUT = 1;
 
   /**
    * The number of structural features of the '<em>Direction Block</em>' class.
@@ -361,7 +352,7 @@ public interface EisPackage extends EPackage
    * @generated
    * @ordered
    */
-  int DIRECTION_BLOCK_FEATURE_COUNT = 3;
+  int DIRECTION_BLOCK_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link org.example.eis.eis.impl.InputImpl <em>Input</em>}' class.
@@ -438,43 +429,6 @@ public interface EisPackage extends EPackage
   int OUTPUT_FEATURE_COUNT = 2;
 
   /**
-   * The meta object id for the '{@link org.example.eis.eis.impl.InOutImpl <em>In Out</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.example.eis.eis.impl.InOutImpl
-   * @see org.example.eis.eis.impl.EisPackageImpl#getInOut()
-   * @generated
-   */
-  int IN_OUT = 9;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IN_OUT__NAME = 0;
-
-  /**
-   * The feature id for the '<em><b>Inout Variables</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IN_OUT__INOUT_VARIABLES = 1;
-
-  /**
-   * The number of structural features of the '<em>In Out</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IN_OUT_FEATURE_COUNT = 2;
-
-  /**
    * The meta object id for the '{@link org.example.eis.eis.impl.VariablesImpl <em>Variables</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -482,7 +436,16 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getVariables()
    * @generated
    */
-  int VARIABLES = 10;
+  int VARIABLES = 9;
+
+  /**
+   * The feature id for the '<em><b>Inout</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLES__INOUT = 0;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -491,7 +454,7 @@ public interface EisPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VARIABLES__NAME = 0;
+  int VARIABLES__NAME = 1;
 
   /**
    * The number of structural features of the '<em>Variables</em>' class.
@@ -500,7 +463,7 @@ public interface EisPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VARIABLES_FEATURE_COUNT = 1;
+  int VARIABLES_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link org.example.eis.eis.impl.VariableImpl <em>Variable</em>}' class.
@@ -510,7 +473,16 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getVariable()
    * @generated
    */
-  int VARIABLE = 11;
+  int VARIABLE = 10;
+
+  /**
+   * The feature id for the '<em><b>Inout</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE__INOUT = VARIABLES__INOUT;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -583,7 +555,16 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getUdt()
    * @generated
    */
-  int UDT = 12;
+  int UDT = 11;
+
+  /**
+   * The feature id for the '<em><b>Inout</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UDT__INOUT = VARIABLES__INOUT;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -629,7 +610,16 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getUdtRef()
    * @generated
    */
-  int UDT_REF = 13;
+  int UDT_REF = 12;
+
+  /**
+   * The feature id for the '<em><b>Inout</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UDT_REF__INOUT = VARIABLES__INOUT;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -675,7 +665,7 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getUdtType()
    * @generated
    */
-  int UDT_TYPE = 14;
+  int UDT_TYPE = 13;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -703,7 +693,7 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getTeststepBlock()
    * @generated
    */
-  int TESTSTEP_BLOCK = 16;
+  int TESTSTEP_BLOCK = 15;
 
   /**
    * The feature id for the '<em><b>Plc Cycle</b></em>' attribute.
@@ -749,7 +739,7 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getAssertionBlock()
    * @generated
    */
-  int ASSERTION_BLOCK = 17;
+  int ASSERTION_BLOCK = 16;
 
   /**
    * The feature id for the '<em><b>Set</b></em>' containment reference.
@@ -786,7 +776,7 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getSet()
    * @generated
    */
-  int SET = 18;
+  int SET = 17;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -823,7 +813,7 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getAssert()
    * @generated
    */
-  int ASSERT = 19;
+  int ASSERT = 18;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -860,7 +850,7 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getStatement()
    * @generated
    */
-  int STATEMENT = 20;
+  int STATEMENT = 19;
 
   /**
    * The feature id for the '<em><b>Variable</b></em>' reference.
@@ -915,7 +905,7 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getCascade()
    * @generated
    */
-  int CASCADE = 21;
+  int CASCADE = 20;
 
   /**
    * The feature id for the '<em><b>Udt Var</b></em>' reference.
@@ -943,7 +933,7 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getOr()
    * @generated
    */
-  int OR = 22;
+  int OR = 21;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -980,7 +970,7 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getAnd()
    * @generated
    */
-  int AND = 23;
+  int AND = 22;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1017,7 +1007,7 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getEquality()
    * @generated
    */
-  int EQUALITY = 24;
+  int EQUALITY = 23;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1063,7 +1053,7 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getComparison()
    * @generated
    */
-  int COMPARISON = 25;
+  int COMPARISON = 24;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1109,7 +1099,7 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getPlus()
    * @generated
    */
-  int PLUS = 26;
+  int PLUS = 25;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1146,7 +1136,7 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getMinus()
    * @generated
    */
-  int MINUS = 27;
+  int MINUS = 26;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1183,7 +1173,7 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getMulOrDiv()
    * @generated
    */
-  int MUL_OR_DIV = 28;
+  int MUL_OR_DIV = 27;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1229,7 +1219,7 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getNot()
    * @generated
    */
-  int NOT = 29;
+  int NOT = 28;
 
   /**
    * The feature id for the '<em><b>Idiom</b></em>' containment reference.
@@ -1257,7 +1247,7 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getIntConstant()
    * @generated
    */
-  int INT_CONSTANT = 30;
+  int INT_CONSTANT = 29;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1285,7 +1275,7 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getStringConstant()
    * @generated
    */
-  int STRING_CONSTANT = 31;
+  int STRING_CONSTANT = 30;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1313,7 +1303,7 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getVariableRef()
    * @generated
    */
-  int VARIABLE_REF = 32;
+  int VARIABLE_REF = 31;
 
   /**
    * The feature id for the '<em><b>Variable</b></em>' reference.
@@ -1341,7 +1331,7 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getRealConstant()
    * @generated
    */
-  int REAL_CONSTANT = 33;
+  int REAL_CONSTANT = 32;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1369,7 +1359,7 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getByteConstant()
    * @generated
    */
-  int BYTE_CONSTANT = 34;
+  int BYTE_CONSTANT = 33;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1397,7 +1387,7 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getWordConstant()
    * @generated
    */
-  int WORD_CONSTANT = 35;
+  int WORD_CONSTANT = 34;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1425,7 +1415,7 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getDWordConstant()
    * @generated
    */
-  int DWORD_CONSTANT = 36;
+  int DWORD_CONSTANT = 35;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1453,7 +1443,7 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getLWordConstant()
    * @generated
    */
-  int LWORD_CONSTANT = 37;
+  int LWORD_CONSTANT = 36;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1481,7 +1471,7 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getCharConstant()
    * @generated
    */
-  int CHAR_CONSTANT = 38;
+  int CHAR_CONSTANT = 37;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1509,7 +1499,7 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getTimeConstant()
    * @generated
    */
-  int TIME_CONSTANT = 39;
+  int TIME_CONSTANT = 38;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1537,7 +1527,7 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getLTimeConstant()
    * @generated
    */
-  int LTIME_CONSTANT = 40;
+  int LTIME_CONSTANT = 39;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1565,7 +1555,7 @@ public interface EisPackage extends EPackage
    * @see org.example.eis.eis.impl.EisPackageImpl#getBasicType()
    * @generated
    */
-  int BASIC_TYPE = 41;
+  int BASIC_TYPE = 40;
 
 
   /**
@@ -1804,17 +1794,6 @@ public interface EisPackage extends EPackage
   EReference getDirectionBlock_Input();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.example.eis.eis.DirectionBlock#getInout <em>Inout</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Inout</em>'.
-   * @see org.example.eis.eis.DirectionBlock#getInout()
-   * @see #getDirectionBlock()
-   * @generated
-   */
-  EReference getDirectionBlock_Inout();
-
-  /**
    * Returns the meta object for the containment reference '{@link org.example.eis.eis.DirectionBlock#getOutput <em>Output</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1890,38 +1869,6 @@ public interface EisPackage extends EPackage
   EReference getOutput_OutputVariables();
 
   /**
-   * Returns the meta object for class '{@link org.example.eis.eis.InOut <em>In Out</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>In Out</em>'.
-   * @see org.example.eis.eis.InOut
-   * @generated
-   */
-  EClass getInOut();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.example.eis.eis.InOut#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.example.eis.eis.InOut#getName()
-   * @see #getInOut()
-   * @generated
-   */
-  EAttribute getInOut_Name();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.example.eis.eis.InOut#getInoutVariables <em>Inout Variables</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Inout Variables</em>'.
-   * @see org.example.eis.eis.InOut#getInoutVariables()
-   * @see #getInOut()
-   * @generated
-   */
-  EReference getInOut_InoutVariables();
-
-  /**
    * Returns the meta object for class '{@link org.example.eis.eis.Variables <em>Variables</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1930,6 +1877,17 @@ public interface EisPackage extends EPackage
    * @generated
    */
   EClass getVariables();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.example.eis.eis.Variables#isInout <em>Inout</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Inout</em>'.
+   * @see org.example.eis.eis.Variables#isInout()
+   * @see #getVariables()
+   * @generated
+   */
+  EAttribute getVariables_Inout();
 
   /**
    * Returns the meta object for the attribute '{@link org.example.eis.eis.Variables#getName <em>Name</em>}'.
@@ -3049,14 +3007,6 @@ public interface EisPackage extends EPackage
     EReference DIRECTION_BLOCK__INPUT = eINSTANCE.getDirectionBlock_Input();
 
     /**
-     * The meta object literal for the '<em><b>Inout</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference DIRECTION_BLOCK__INOUT = eINSTANCE.getDirectionBlock_Inout();
-
-    /**
      * The meta object literal for the '<em><b>Output</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3117,32 +3067,6 @@ public interface EisPackage extends EPackage
     EReference OUTPUT__OUTPUT_VARIABLES = eINSTANCE.getOutput_OutputVariables();
 
     /**
-     * The meta object literal for the '{@link org.example.eis.eis.impl.InOutImpl <em>In Out</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.example.eis.eis.impl.InOutImpl
-     * @see org.example.eis.eis.impl.EisPackageImpl#getInOut()
-     * @generated
-     */
-    EClass IN_OUT = eINSTANCE.getInOut();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute IN_OUT__NAME = eINSTANCE.getInOut_Name();
-
-    /**
-     * The meta object literal for the '<em><b>Inout Variables</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference IN_OUT__INOUT_VARIABLES = eINSTANCE.getInOut_InoutVariables();
-
-    /**
      * The meta object literal for the '{@link org.example.eis.eis.impl.VariablesImpl <em>Variables</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3151,6 +3075,14 @@ public interface EisPackage extends EPackage
      * @generated
      */
     EClass VARIABLES = eINSTANCE.getVariables();
+
+    /**
+     * The meta object literal for the '<em><b>Inout</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VARIABLES__INOUT = eINSTANCE.getVariables_Inout();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.

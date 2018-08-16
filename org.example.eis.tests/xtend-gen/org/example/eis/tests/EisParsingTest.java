@@ -123,13 +123,9 @@ public class EisParsingTest {
       _builder.append("int x; variant int y; udt z(atype){}");
       _builder.newLine();
       _builder.append("\t");
-      _builder.append("]");
       _builder.newLine();
       _builder.append("\t");
-      _builder.append("inout[");
-      _builder.newLine();
-      _builder.append("\t\t");
-      _builder.append("udt Rain(typeRain){ ");
+      _builder.append("inout udt Rain(typeRain){ ");
       _builder.newLine();
       _builder.append("\t\t\t");
       _builder.append("int d = 90;");
@@ -189,9 +185,6 @@ public class EisParsingTest {
       _builder.newLine();
       _builder.append("\t\t\t");
       _builder.append("]");
-      _builder.newLine();
-      _builder.append("\t\t\t");
-      _builder.append("inout[]");
       _builder.newLine();
       _builder.append("\t\t\t");
       _builder.append("output[bool x,y,z;]");
@@ -378,7 +371,7 @@ public class EisParsingTest {
       _builder.append("define{\t\t");
       _builder.newLine();
       _builder.append("\t");
-      _builder.append("output[] input[] inout[]");
+      _builder.append("output[] input[]");
       _builder.newLine();
       _builder.append("}");
       String _plus = (this.beginning + _builder);

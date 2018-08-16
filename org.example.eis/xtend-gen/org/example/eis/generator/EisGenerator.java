@@ -22,7 +22,6 @@ import org.example.eis.eis.DefineBlock;
 import org.example.eis.eis.DirectionBlock;
 import org.example.eis.eis.EisModel;
 import org.example.eis.eis.Idiom;
-import org.example.eis.eis.InOut;
 import org.example.eis.eis.Input;
 import org.example.eis.eis.Output;
 import org.example.eis.eis.Statement;
@@ -154,16 +153,6 @@ public class EisGenerator extends AbstractGenerator {
     }
     final EList<TeststepBlock> steps = _teststeps;
     final EList<Variables> inputs = define.getDirection().getInput().getInputVariables();
-    DirectionBlock _direction = define.getDirection();
-    InOut _inout = null;
-    if (_direction!=null) {
-      _inout=_direction.getInout();
-    }
-    EList<Variables> _inoutVariables = null;
-    if (_inout!=null) {
-      _inoutVariables=_inout.getInoutVariables();
-    }
-    final EList<Variables> inouts = _inoutVariables;
     final EList<Variables> outputs = define.getDirection().getOutput().getOutputVariables();
     final HashMap<Object, Object> inputMap = new HashMap<Object, Object>();
     final HashMap<Object, Object> outputIdiomMap = new HashMap<Object, Object>();
@@ -187,20 +176,11 @@ public class EisGenerator extends AbstractGenerator {
       this.generateMap(outputIdiomMap, outputs, "");
       this.generateRangeMap(outputRangeMap, outputs, "");
     }
-    if ((inouts != null)) {
-      boolean _isEmpty_2 = inouts.isEmpty();
-      boolean _not_2 = (!_isEmpty_2);
-      if (_not_2) {
-        this.generateMap(inputMap, inouts, "");
-        this.generateMap(outputIdiomMap, inouts, "");
-        this.generateRangeMap(outputRangeMap, inouts, "");
-      }
-    }
     StringConcatenation _builder = new StringConcatenation();
     {
-      boolean _isEmpty_3 = steps.isEmpty();
-      boolean _not_3 = (!_isEmpty_3);
-      if (_not_3) {
+      boolean _isEmpty_2 = steps.isEmpty();
+      boolean _not_2 = (!_isEmpty_2);
+      if (_not_2) {
         _builder.append((oneTab + twoTabs));
         _builder.append("<Teststeps>");
         _builder.newLineIfNotEmpty();
@@ -227,13 +207,6 @@ public class EisGenerator extends AbstractGenerator {
             CharSequence _compileIn = this.compileIn(inputs, setMap, "", sixTabs);
             _builder.append(_compileIn);
             _builder.newLineIfNotEmpty();
-            {
-              if ((inouts != null)) {
-                CharSequence _compileIn_1 = this.compileIn(inouts, setMap, "", sixTabs);
-                _builder.append(_compileIn_1);
-              }
-            }
-            _builder.newLineIfNotEmpty();
             _builder.append(fiveTabs);
             _builder.append("</Inputs>");
             _builder.newLineIfNotEmpty();
@@ -254,13 +227,6 @@ public class EisGenerator extends AbstractGenerator {
             _builder.newLineIfNotEmpty();
             CharSequence _compileOut = this.compileOut(outputs, assertIdiomMap, assertRangeMap, "", sixTabs);
             _builder.append(_compileOut);
-            _builder.newLineIfNotEmpty();
-            {
-              if ((inouts != null)) {
-                CharSequence _compileOut_1 = this.compileOut(inouts, assertIdiomMap, assertRangeMap, "", sixTabs);
-                _builder.append(_compileOut_1);
-              }
-            }
             _builder.newLineIfNotEmpty();
             _builder.append(fiveTabs);
             _builder.append("</Outputs>");
@@ -301,8 +267,15 @@ public class EisGenerator extends AbstractGenerator {
         String _firstUpper = StringExtensions.toFirstUpper(((Variable)variable).getVariableType().toString());
         _builder.append(_firstUpper);
         _builder.append("\" Direction=\"");
-        String _directionBlock = this.directionBlock(variable);
-        _builder.append(_directionBlock);
+        {
+          boolean _isInout = ((Variable)variable).isInout();
+          if (_isInout) {
+            _builder.append("InOut");
+          } else {
+            String _directionBlock = this.directionBlock(variable);
+            _builder.append(_directionBlock);
+          }
+        }
         _builder.append("\" Value=\"");
         _builder.append(value);
         _builder.append("\" />");
@@ -326,7 +299,7 @@ public class EisGenerator extends AbstractGenerator {
     return charSeq;
   }
   
-  private CharSequence buildUdt(final HashMap<Object, Object> setMap, final String qualifiedName, final String indent, final Udt variable) {
+  private CharSequence buildUdt(final HashMap<Object, Object> setMap, final String qualifiedName, final String indent, final Udt udt) {
     String charSeq = "";
     final String tab = "\t";
     String _charSeq = charSeq;
@@ -334,14 +307,21 @@ public class EisGenerator extends AbstractGenerator {
     String _charSeq_1 = charSeq;
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("<Element xsi: type=\"InputUDT\" Name=\"");
-    String _name = variable.getName();
+    String _name = udt.getName();
     _builder.append(_name);
     _builder.append("\" Datatype=\"");
-    String _name_1 = variable.getUdtType().getName();
+    String _name_1 = udt.getUdtType().getName();
     _builder.append(_name_1);
     _builder.append("\" Direction=\"");
-    String _directionBlock = this.directionBlock(variable);
-    _builder.append(_directionBlock);
+    {
+      boolean _isInout = udt.isInout();
+      if (_isInout) {
+        _builder.append("InOut");
+      } else {
+        String _directionBlock = this.directionBlock(udt);
+        _builder.append(_directionBlock);
+      }
+    }
     _builder.append("\">");
     _builder.newLineIfNotEmpty();
     charSeq = (_charSeq_1 + _builder);
@@ -354,8 +334,8 @@ public class EisGenerator extends AbstractGenerator {
     charSeq = (_charSeq_2 + _plus);
     final String indentPlusPlus = (indentPlus + tab);
     String _charSeq_3 = charSeq;
-    EList<Variables> _udtVariables = variable.getUdtVariables();
-    String _name_2 = variable.getName();
+    EList<Variables> _udtVariables = udt.getUdtVariables();
+    String _name_2 = udt.getName();
     String _plus_1 = (qualifiedName + _name_2);
     String _plus_2 = (_plus_1 + ".");
     CharSequence _compileIn = this.compileIn(_udtVariables, setMap, _plus_2, indentPlusPlus);
@@ -375,7 +355,7 @@ public class EisGenerator extends AbstractGenerator {
     return charSeq;
   }
   
-  private CharSequence buildUdtRef(final HashMap<Object, Object> setMap, final String qualifiedName, final String indent, final UdtRef variable) {
+  private CharSequence buildUdtRef(final HashMap<Object, Object> setMap, final String qualifiedName, final String indent, final UdtRef udtRef) {
     String charSeq = "";
     final String tab = "\t";
     String _charSeq = charSeq;
@@ -383,14 +363,21 @@ public class EisGenerator extends AbstractGenerator {
     String _charSeq_1 = charSeq;
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("<Element xsi: type=\"InputUDT\" Name=\"");
-    String _name = variable.getName();
+    String _name = udtRef.getName();
     _builder.append(_name);
     _builder.append("\" Datatype=\"");
-    String _string = variable.getUdtType().getName().toString();
+    String _string = udtRef.getUdtType().getName().toString();
     _builder.append(_string);
     _builder.append("\" Direction=\"");
-    String _directionBlock = this.directionBlock(variable);
-    _builder.append(_directionBlock);
+    {
+      boolean _isInout = udtRef.isInout();
+      if (_isInout) {
+        _builder.append("InOut");
+      } else {
+        String _directionBlock = this.directionBlock(udtRef);
+        _builder.append(_directionBlock);
+      }
+    }
     _builder.append("\">");
     _builder.newLineIfNotEmpty();
     charSeq = (_charSeq_1 + _builder);
@@ -403,8 +390,8 @@ public class EisGenerator extends AbstractGenerator {
     charSeq = (_charSeq_2 + _plus);
     final String indentPlusPlus = (indentPlus + tab);
     String _charSeq_3 = charSeq;
-    EList<Variables> _udtVariables = variable.getUdtVariables();
-    String _name_1 = variable.getName();
+    EList<Variables> _udtVariables = udtRef.getUdtVariables();
+    String _name_1 = udtRef.getName();
     String _plus_1 = (qualifiedName + _name_1);
     String _plus_2 = (_plus_1 + ".");
     CharSequence _compileIn = this.compileIn(_udtVariables, setMap, _plus_2, indentPlusPlus);
@@ -449,8 +436,15 @@ public class EisGenerator extends AbstractGenerator {
         String _firstUpper = StringExtensions.toFirstUpper(((Variable)variable).getVariableType().toString());
         _builder.append(_firstUpper);
         _builder.append("\" Direction=\"");
-        String _directionBlock = this.directionBlock(variable);
-        _builder.append(_directionBlock);
+        {
+          boolean _isInout = ((Variable)variable).isInout();
+          if (_isInout) {
+            _builder.append("InOut");
+          } else {
+            String _directionBlock = this.directionBlock(variable);
+            _builder.append(_directionBlock);
+          }
+        }
         _builder.append("\" Expect=\"");
         _builder.append(idiom);
         _builder.append("\" Range=\"");
@@ -476,7 +470,7 @@ public class EisGenerator extends AbstractGenerator {
     return charSeq;
   }
   
-  private CharSequence buildUdt(final Udt variable, final HashMap<Object, Object> idiomMap, final HashMap<Object, Object> rangeMap, final String qualifiedName, final String indent) {
+  private CharSequence buildUdt(final Udt udt, final HashMap<Object, Object> idiomMap, final HashMap<Object, Object> rangeMap, final String qualifiedName, final String indent) {
     String charSeq = "";
     final String tab = "\t";
     String _charSeq = charSeq;
@@ -484,14 +478,21 @@ public class EisGenerator extends AbstractGenerator {
     String _charSeq_1 = charSeq;
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("<Element xsi: type=\"OutputUDT\" Name=\"");
-    String _name = variable.getName();
+    String _name = udt.getName();
     _builder.append(_name);
     _builder.append("\" Datatype=\"");
-    String _name_1 = variable.getUdtType().getName();
+    String _name_1 = udt.getUdtType().getName();
     _builder.append(_name_1);
     _builder.append("\" Direction=\"");
-    String _directionBlock = this.directionBlock(variable);
-    _builder.append(_directionBlock);
+    {
+      boolean _isInout = udt.isInout();
+      if (_isInout) {
+        _builder.append("InOut");
+      } else {
+        String _directionBlock = this.directionBlock(udt);
+        _builder.append(_directionBlock);
+      }
+    }
     _builder.append("\">");
     _builder.newLineIfNotEmpty();
     charSeq = (_charSeq_1 + _builder);
@@ -504,8 +505,8 @@ public class EisGenerator extends AbstractGenerator {
     charSeq = (_charSeq_2 + _plus);
     final String indentPlusPlus = (indentPlus + tab);
     String _charSeq_3 = charSeq;
-    EList<Variables> _udtVariables = variable.getUdtVariables();
-    String _name_2 = variable.getName();
+    EList<Variables> _udtVariables = udt.getUdtVariables();
+    String _name_2 = udt.getName();
     String _plus_1 = (qualifiedName + _name_2);
     String _plus_2 = (_plus_1 + ".");
     CharSequence _compileOut = this.compileOut(_udtVariables, idiomMap, rangeMap, _plus_2, indentPlusPlus);
@@ -525,7 +526,7 @@ public class EisGenerator extends AbstractGenerator {
     return charSeq;
   }
   
-  private CharSequence buildUdtRef(final UdtRef variable, final HashMap<Object, Object> idiomMap, final HashMap<Object, Object> rangeMap, final String qualifiedName, final String indent) {
+  private CharSequence buildUdtRef(final UdtRef udtRef, final HashMap<Object, Object> idiomMap, final HashMap<Object, Object> rangeMap, final String qualifiedName, final String indent) {
     String charSeq = "";
     final String tab = "\t";
     String _charSeq = charSeq;
@@ -533,14 +534,21 @@ public class EisGenerator extends AbstractGenerator {
     String _charSeq_1 = charSeq;
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("<Element xsi: type=\"OutputUDT\" Name=\"");
-    String _name = variable.getName();
+    String _name = udtRef.getName();
     _builder.append(_name);
     _builder.append("\" Datatype=\"");
-    String _string = variable.getUdtType().getName().toString();
+    String _string = udtRef.getUdtType().getName().toString();
     _builder.append(_string);
     _builder.append("\" Direction=\"");
-    String _directionBlock = this.directionBlock(variable);
-    _builder.append(_directionBlock);
+    {
+      boolean _isInout = udtRef.isInout();
+      if (_isInout) {
+        _builder.append("InOut");
+      } else {
+        String _directionBlock = this.directionBlock(udtRef);
+        _builder.append(_directionBlock);
+      }
+    }
     _builder.append("\">");
     _builder.newLineIfNotEmpty();
     charSeq = (_charSeq_1 + _builder);
@@ -553,8 +561,8 @@ public class EisGenerator extends AbstractGenerator {
     charSeq = (_charSeq_2 + _plus);
     final String indentPlusPlus = (indentPlus + tab);
     String _charSeq_3 = charSeq;
-    EList<Variables> _udtVariables = variable.getUdtVariables();
-    String _name_1 = variable.getName();
+    EList<Variables> _udtVariables = udtRef.getUdtVariables();
+    String _name_1 = udtRef.getName();
     String _plus_1 = (qualifiedName + _name_1);
     String _plus_2 = (_plus_1 + ".");
     CharSequence _compileOut = this.compileOut(_udtVariables, idiomMap, rangeMap, _plus_2, indentPlusPlus);
@@ -839,12 +847,6 @@ public class EisGenerator extends AbstractGenerator {
           if (context instanceof Output) {
             _matched=true;
             _switchResult = "Output";
-          }
-        }
-        if (!_matched) {
-          if (context instanceof InOut) {
-            _matched=true;
-            _switchResult = "InOut";
           }
         }
         return _switchResult;

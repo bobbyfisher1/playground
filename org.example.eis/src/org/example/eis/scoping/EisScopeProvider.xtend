@@ -4,7 +4,6 @@
 package org.example.eis.scoping
 
 import com.google.inject.Inject
-import java.util.List
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.scoping.IScope
@@ -14,7 +13,6 @@ import org.example.eis.eis.Assert
 import org.example.eis.eis.DefineBlock
 import org.example.eis.eis.EisPackage
 import org.example.eis.eis.Idiom
-import org.example.eis.eis.InOut
 import org.example.eis.eis.Input
 import org.example.eis.eis.Output
 import org.example.eis.eis.Set
@@ -22,7 +20,6 @@ import org.example.eis.eis.Statement
 import org.example.eis.eis.Udt
 import org.example.eis.eis.UdtRef
 import org.example.eis.eis.Variable
-import org.example.eis.eis.Variables
 
 /**
  * This class contains custom scoping description.
@@ -57,8 +54,8 @@ class EisScopeProvider extends AbstractEisScopeProvider {
 				Scopes.scopeFor(context.udtTypesDefinedBefore)
 			Output:
 				Scopes.scopeFor(context.udtTypesDefinedBefore)
-			InOut:
-				Scopes.scopeFor(context.udtTypesDefinedBefore)
+//			InOut:
+//				Scopes.scopeFor(context.udtTypesDefinedBefore)
 			Udt:
 				Scopes.scopeFor(context.udtTypesDefinedBefore)
 		}
@@ -78,16 +75,14 @@ class EisScopeProvider extends AbstractEisScopeProvider {
 
 		val input = (defineBlock as DefineBlock).direction.input
 		val output = (defineBlock as DefineBlock).direction.output
-		val inout = (defineBlock as DefineBlock).direction?.inout
-
-		var List<Variables> inoutScope = emptyList
-		if (inout !== null)
-			inoutScope = inout.inoutVariables
-
+//		val inout = (defineBlock as DefineBlock).direction?.inout
+//		var List<Variables> inoutScope = emptyList
+//		if (inout !== null)
+//			inoutScope = inout.inoutVariables
 		if (context instanceof Statement)
-			statementScope(context.eContainer, input, output, inoutScope)
+			statementScope(context.eContainer, input, output)
 		else
-			statementScope(context, input, output, inoutScope)
+			statementScope(context, input, output)
 	}
 
 	def protected IScope scopeForUdtStatements(EObject context) { // context is the specific cascade
@@ -137,15 +132,15 @@ class EisScopeProvider extends AbstractEisScopeProvider {
 			getDefineBlock(container)
 	}
 
-	def protected IScope statementScope(EObject context, Input inputs, Output outputs, List<Variables> inoutScope) {
+	def protected IScope statementScope(EObject context, Input inputs, Output outputs) {
 		var input = inputs.inputVariables
 		var output = outputs.outputVariables
 
 		return switch (context) {
 			Set:
-				Scopes.scopeFor(input + inoutScope)
+				Scopes.scopeFor(input)
 			Assert:
-				Scopes.scopeFor(output + inoutScope)
+				Scopes.scopeFor(output)
 		}
 	}
 

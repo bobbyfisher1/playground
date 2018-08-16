@@ -7,7 +7,6 @@ import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.Assignment
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
-import org.example.eis.eis.InOut
 import org.example.eis.eis.Input
 import org.example.eis.eis.Output
 import org.example.eis.eis.Udt
@@ -27,8 +26,8 @@ class EisProposalProvider extends AbstractEisProposalProvider {
 		// Here model is either input, inout or output
 		val udtTypes = if (model instanceof Input)
 				model.inputVariables.filter(Udt).map[udtType]
-			else if (model instanceof InOut)
-				model.inoutVariables.filter(Udt).map[udtType]
+//			else if (model instanceof InOut)
+//				model.inoutVariables.filter(Udt).map[udtType]
 			else if (model instanceof Output)
 				model.outputVariables.filter(Udt).map[udtType]
 			else if (model instanceof Udt)

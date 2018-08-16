@@ -7,7 +7,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
-import org.example.eis.eis.InOut;
 import org.example.eis.eis.Input;
 import org.example.eis.eis.Output;
 import org.example.eis.eis.Udt;
@@ -28,15 +27,6 @@ public class EisModelUtil {
         return Boolean.valueOf((!Objects.equal(it, variable)));
       };
       _switchResult = Iterables.<Variable>filter(IterableExtensions.<Variables>takeWhile(((Output)container).getOutputVariables(), _function), Variable.class);
-    }
-    if (!_matched) {
-      if (container instanceof InOut) {
-        _matched=true;
-        final Function1<Variables, Boolean> _function = (Variables it) -> {
-          return Boolean.valueOf((!Objects.equal(it, variable)));
-        };
-        _switchResult = Iterables.<Variable>filter(IterableExtensions.<Variables>takeWhile(((InOut)container).getInoutVariables(), _function), Variable.class);
-      }
     }
     if (!_matched) {
       if (container instanceof Input) {
@@ -71,10 +61,6 @@ public class EisModelUtil {
     return Iterables.<Variable>filter(output.getOutputVariables(), Variable.class);
   }
   
-  public Iterable<Variable> variablesDefinedBefore(final InOut inout) {
-    return Iterables.<Variable>filter(inout.getInoutVariables(), Variable.class);
-  }
-  
   public Iterable<UdtType> udtTypesDefinedBefore(final UdtRef variable) {
     final EObject container = variable.eContainer();
     Iterable<UdtType> _switchResult = null;
@@ -88,18 +74,6 @@ public class EisModelUtil {
         return it.getUdtType();
       };
       _switchResult = IterableExtensions.<Udt, UdtType>map(Iterables.<Udt>filter(IterableExtensions.<Variables>takeWhile(((Output)container).getOutputVariables(), _function), Udt.class), _function_1);
-    }
-    if (!_matched) {
-      if (container instanceof InOut) {
-        _matched=true;
-        final Function1<Variables, Boolean> _function = (Variables it) -> {
-          return Boolean.valueOf((!Objects.equal(it, variable)));
-        };
-        final Function1<Udt, UdtType> _function_1 = (Udt it) -> {
-          return it.getUdtType();
-        };
-        _switchResult = IterableExtensions.<Udt, UdtType>map(Iterables.<Udt>filter(IterableExtensions.<Variables>takeWhile(((InOut)container).getInoutVariables(), _function), Udt.class), _function_1);
-      }
     }
     if (!_matched) {
       if (container instanceof Input) {
@@ -143,13 +117,6 @@ public class EisModelUtil {
       return it.getUdtType();
     };
     return IterableExtensions.<Udt, UdtType>map(Iterables.<Udt>filter(output.getOutputVariables(), Udt.class), _function);
-  }
-  
-  public Iterable<UdtType> udtTypesDefinedBefore(final InOut inout) {
-    final Function1<Udt, UdtType> _function = (Udt it) -> {
-      return it.getUdtType();
-    };
-    return IterableExtensions.<Udt, UdtType>map(Iterables.<Udt>filter(inout.getInoutVariables(), Udt.class), _function);
   }
   
   public Iterable<UdtType> udtTypesDefinedBefore(final Udt udt) {

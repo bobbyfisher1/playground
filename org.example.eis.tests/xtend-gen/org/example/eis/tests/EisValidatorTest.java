@@ -116,10 +116,16 @@ public class EisValidatorTest {
     _builder.append("output[]");
     _builder.newLine();
     _builder.append("\t");
-    _builder.append("input[int t;]");
+    _builder.append("input[");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("int t; ");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("inout int t;");
     _builder.newLine();
     _builder.append("\t");
-    _builder.append("inout[int t;]");
+    _builder.append("]");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
@@ -156,10 +162,7 @@ public class EisValidatorTest {
     _builder.append("input[udt a(udtType1){}]");
     _builder.newLine();
     _builder.append("\t");
-    _builder.append("output[]");
-    _builder.newLine();
-    _builder.append("\t");
-    _builder.append("inout[udt a(udtType2){}]");
+    _builder.append("output[\tinout udt a(udtType2){} ]");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
@@ -380,35 +383,6 @@ public class EisValidatorTest {
       _builder.newLine();
       _builder.append("\t");
       _builder.append("output[]");
-      _builder.newLine();
-      _builder.append("}");
-      _builder.newLine();
-      String _plus = (this.beginning + _builder);
-      EisModel _parse = this._parseHelper.parse((_plus + this.ending));
-      final Procedure1<EisModel> _function = (EisModel it) -> {
-        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getVariable(), EisValidator.MISSING_VARIABLE_TYPE);
-        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
-      };
-      ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
-    } catch (Throwable _e) {
-      throw Exceptions.sneakyThrow(_e);
-    }
-  }
-  
-  @Test
-  public void testMissingTypeIOInout() {
-    try {
-      StringConcatenation _builder = new StringConcatenation();
-      _builder.append("define{");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("input[a;] ");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("output[] ");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("inout[]");
       _builder.newLine();
       _builder.append("}");
       _builder.newLine();

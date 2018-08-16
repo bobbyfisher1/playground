@@ -23,7 +23,6 @@ import org.example.eis.eis.DirectionBlock;
 import org.example.eis.eis.EisModel;
 import org.example.eis.eis.EisPackage;
 import org.example.eis.eis.Equality;
-import org.example.eis.eis.InOut;
 import org.example.eis.eis.Input;
 import org.example.eis.eis.Minus;
 import org.example.eis.eis.MulOrDiv;
@@ -233,10 +232,6 @@ public class EisFormatter extends AbstractFormatter2 {
     document.<Output>format(output);
   }
   
-  protected void _format(final InOut inout, @Extension final IFormattableDocument document) {
-    document.<InOut>format(inout);
-  }
-  
   protected void _format(final Variable variable, @Extension final IFormattableDocument document) {
     document.<Variable>format(variable);
   }
@@ -352,9 +347,6 @@ public class EisFormatter extends AbstractFormatter2 {
       return;
     } else if (and instanceof EisModel) {
       _format((EisModel)and, document);
-      return;
-    } else if (and instanceof InOut) {
-      _format((InOut)and, document);
       return;
     } else if (and instanceof Input) {
       _format((Input)and, document);

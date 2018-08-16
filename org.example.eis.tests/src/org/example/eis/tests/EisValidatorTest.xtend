@@ -67,8 +67,10 @@ class EisValidatorTest {
 		(beginning + '''
 			define{
 				output[]
-				input[int t;]
-				inout[int t;]
+				input[
+					int t; 
+					inout int t;
+				]
 			}
 		''' + ending).toString.assertDuplicateVariables(EisPackage.eINSTANCE.variable, "variable name", 't', 2)
 	}
@@ -87,8 +89,7 @@ class EisValidatorTest {
 		(beginning + '''
 			define{
 				input[udt a(udtType1){}]
-				output[]
-				inout[udt a(udtType2){}]
+				output[	inout udt a(udtType2){} ]
 			}
 		''' + ending).toString.assertDuplicateUdts(EisPackage.eINSTANCE.udt, "variable name", 'a', 'udtType', 2)
 	}
@@ -209,19 +210,6 @@ class EisValidatorTest {
 			define{
 				input[a;] 
 				output[]
-			}
-		''' + ending).parse => [
-			assertError(EisPackage.eINSTANCE.variable, EisValidator.MISSING_VARIABLE_TYPE)
-			1.assertEquals(validate.size)
-		]
-	}
-
-	@Test def void testMissingTypeIOInout() {
-		(beginning + '''
-			define{
-				input[a;] 
-				output[] 
-				inout[]
 			}
 		''' + ending).parse => [
 			assertError(EisPackage.eINSTANCE.variable, EisValidator.MISSING_VARIABLE_TYPE)

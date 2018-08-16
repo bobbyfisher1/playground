@@ -14,7 +14,6 @@ import org.example.eis.eis.DefineBlock
 import org.example.eis.eis.DirectionBlock
 import org.example.eis.eis.EisModel
 import org.example.eis.eis.Equality
-import org.example.eis.eis.InOut
 import org.example.eis.eis.Input
 import org.example.eis.eis.Minus
 import org.example.eis.eis.MulOrDiv
@@ -119,11 +118,6 @@ class EisFormatter extends AbstractFormatter2 {
 	def dispatch void format(Output output, extension IFormattableDocument document) {
 		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
 		output.format
-	}
-
-	def dispatch void format(InOut inout, extension IFormattableDocument document) {
-		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		inout.format
 	}
 
 	def dispatch void format(Variable variable, extension IFormattableDocument document) {

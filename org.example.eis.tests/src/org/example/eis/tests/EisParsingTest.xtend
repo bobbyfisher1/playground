@@ -69,9 +69,8 @@ class EisParsingTest {
 					int a= 4; int b = 0;
 					bool Int=true;
 					int x; variant int y; udt z(atype){}
-				]
-				inout[
-					udt Rain(typeRain){ 
+				
+				inout udt Rain(typeRain){ 
 						int d = 90;
 						udt Sun(typeSun){
 							int e = 10;
@@ -94,7 +93,6 @@ class EisParsingTest {
 							udt Dido(typeDido){ int b = 39; }
 							variant int Train;
 						]
-						inout[]
 						output[bool x,y,z;]
 			}
 		''' + ending).parse => [
@@ -184,7 +182,7 @@ class EisParsingTest {
 	@Test def void testUnorderedGroup() {
 		(beginning + '''
 		define{		
-			output[] input[] inout[]
+			output[] input[]
 		}''' + ending).parse.assertNoErrors();
 	}
 

@@ -5,7 +5,6 @@ package org.example.eis.ui.labeling
 
 import javax.inject.Inject
 import org.eclipse.xtext.ui.label.DefaultDescriptionLabelProvider
-import org.example.eis.eis.InOut
 import org.example.eis.eis.Input
 import org.example.eis.eis.Output
 import org.example.eis.eis.Udt
@@ -28,8 +27,6 @@ class EisDescriptionLabelProvider extends DefaultDescriptionLabelProvider {
 	def text(Input i) { "input" }
 
 	def text(Output o) { "output" }
-
-	def text(InOut io) { "inout" }
 
 	def text(Variables v) {
 		if (v instanceof Variable)

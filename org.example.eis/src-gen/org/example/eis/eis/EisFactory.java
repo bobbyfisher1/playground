@@ -105,15 +105,6 @@ public interface EisFactory extends EFactory
   Output createOutput();
 
   /**
-   * Returns a new object of class '<em>In Out</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>In Out</em>'.
-   * @generated
-   */
-  InOut createInOut();
-
-  /**
    * Returns a new object of class '<em>Variables</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

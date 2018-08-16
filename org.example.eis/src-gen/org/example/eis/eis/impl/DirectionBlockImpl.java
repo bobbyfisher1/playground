@@ -14,7 +14,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.example.eis.eis.DirectionBlock;
 import org.example.eis.eis.EisPackage;
-import org.example.eis.eis.InOut;
 import org.example.eis.eis.Input;
 import org.example.eis.eis.Output;
 
@@ -27,7 +26,6 @@ import org.example.eis.eis.Output;
  * </p>
  * <ul>
  *   <li>{@link org.example.eis.eis.impl.DirectionBlockImpl#getInput <em>Input</em>}</li>
- *   <li>{@link org.example.eis.eis.impl.DirectionBlockImpl#getInout <em>Inout</em>}</li>
  *   <li>{@link org.example.eis.eis.impl.DirectionBlockImpl#getOutput <em>Output</em>}</li>
  * </ul>
  *
@@ -44,16 +42,6 @@ public class DirectionBlockImpl extends MinimalEObjectImpl.Container implements 
    * @ordered
    */
   protected Input input;
-
-  /**
-   * The cached value of the '{@link #getInout() <em>Inout</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getInout()
-   * @generated
-   * @ordered
-   */
-  protected InOut inout;
 
   /**
    * The cached value of the '{@link #getOutput() <em>Output</em>}' containment reference.
@@ -139,54 +127,6 @@ public class DirectionBlockImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
-  public InOut getInout()
-  {
-    return inout;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetInout(InOut newInout, NotificationChain msgs)
-  {
-    InOut oldInout = inout;
-    inout = newInout;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EisPackage.DIRECTION_BLOCK__INOUT, oldInout, newInout);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setInout(InOut newInout)
-  {
-    if (newInout != inout)
-    {
-      NotificationChain msgs = null;
-      if (inout != null)
-        msgs = ((InternalEObject)inout).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EisPackage.DIRECTION_BLOCK__INOUT, null, msgs);
-      if (newInout != null)
-        msgs = ((InternalEObject)newInout).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EisPackage.DIRECTION_BLOCK__INOUT, null, msgs);
-      msgs = basicSetInout(newInout, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, EisPackage.DIRECTION_BLOCK__INOUT, newInout, newInout));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public Output getOutput()
   {
     return output;
@@ -242,8 +182,6 @@ public class DirectionBlockImpl extends MinimalEObjectImpl.Container implements 
     {
       case EisPackage.DIRECTION_BLOCK__INPUT:
         return basicSetInput(null, msgs);
-      case EisPackage.DIRECTION_BLOCK__INOUT:
-        return basicSetInout(null, msgs);
       case EisPackage.DIRECTION_BLOCK__OUTPUT:
         return basicSetOutput(null, msgs);
     }
@@ -262,8 +200,6 @@ public class DirectionBlockImpl extends MinimalEObjectImpl.Container implements 
     {
       case EisPackage.DIRECTION_BLOCK__INPUT:
         return getInput();
-      case EisPackage.DIRECTION_BLOCK__INOUT:
-        return getInout();
       case EisPackage.DIRECTION_BLOCK__OUTPUT:
         return getOutput();
     }
@@ -282,9 +218,6 @@ public class DirectionBlockImpl extends MinimalEObjectImpl.Container implements 
     {
       case EisPackage.DIRECTION_BLOCK__INPUT:
         setInput((Input)newValue);
-        return;
-      case EisPackage.DIRECTION_BLOCK__INOUT:
-        setInout((InOut)newValue);
         return;
       case EisPackage.DIRECTION_BLOCK__OUTPUT:
         setOutput((Output)newValue);
@@ -306,9 +239,6 @@ public class DirectionBlockImpl extends MinimalEObjectImpl.Container implements 
       case EisPackage.DIRECTION_BLOCK__INPUT:
         setInput((Input)null);
         return;
-      case EisPackage.DIRECTION_BLOCK__INOUT:
-        setInout((InOut)null);
-        return;
       case EisPackage.DIRECTION_BLOCK__OUTPUT:
         setOutput((Output)null);
         return;
@@ -328,8 +258,6 @@ public class DirectionBlockImpl extends MinimalEObjectImpl.Container implements 
     {
       case EisPackage.DIRECTION_BLOCK__INPUT:
         return input != null;
-      case EisPackage.DIRECTION_BLOCK__INOUT:
-        return inout != null;
       case EisPackage.DIRECTION_BLOCK__OUTPUT:
         return output != null;
     }

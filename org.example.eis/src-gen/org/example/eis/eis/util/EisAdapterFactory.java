@@ -121,11 +121,6 @@ public class EisAdapterFactory extends AdapterFactoryImpl
         return createOutputAdapter();
       }
       @Override
-      public Adapter caseInOut(InOut object)
-      {
-        return createInOutAdapter();
-      }
-      @Override
       public Adapter caseVariables(Variables object)
       {
         return createVariablesAdapter();
@@ -433,21 +428,6 @@ public class EisAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createOutputAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.example.eis.eis.InOut <em>In Out</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.example.eis.eis.InOut
-   * @generated
-   */
-  public Adapter createInOutAdapter()
   {
     return null;
   }

@@ -8,7 +8,6 @@ import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider
 import org.example.eis.eis.AssertionBlock
 import org.example.eis.eis.Cascade
-import org.example.eis.eis.InOut
 import org.example.eis.eis.Input
 import org.example.eis.eis.Output
 import org.example.eis.eis.Statement
@@ -34,8 +33,6 @@ class EisLabelProvider extends DefaultEObjectLabelProvider {
 	def text(Input i) { "input" }
 
 	def text(Output o) { "output" }
-
-	def text(InOut io) { "inout" }
 
 	def text(Variables v) {
 		if (v instanceof Variable)

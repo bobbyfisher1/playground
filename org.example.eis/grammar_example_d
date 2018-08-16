@@ -26,6 +26,11 @@ Generation simply takes place on the two remaining blocks.
 Checks no longer need to be made on an extra 'inout' block.
 
 
+Additional checks need to be made, as such:
+---------------------------------------------------------------------------------------------------
+If a udt or udtRef is declared inout, then so must all containing variables.
+If a udt is not declared inout, then neithen can any containing variables.
+In a comma separated list the inout keyword can be used such as the variant keyword.
 
 
 */

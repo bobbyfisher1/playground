@@ -21,6 +21,7 @@ import org.example.eis.eis.Variables;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.example.eis.eis.impl.VariablesImpl#isInout <em>Inout</em>}</li>
  *   <li>{@link org.example.eis.eis.impl.VariablesImpl#getName <em>Name</em>}</li>
  * </ul>
  *
@@ -28,6 +29,26 @@ import org.example.eis.eis.Variables;
  */
 public class VariablesImpl extends MinimalEObjectImpl.Container implements Variables
 {
+  /**
+   * The default value of the '{@link #isInout() <em>Inout</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isInout()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean INOUT_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isInout() <em>Inout</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isInout()
+   * @generated
+   * @ordered
+   */
+  protected boolean inout = INOUT_EDEFAULT;
+
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -74,6 +95,29 @@ public class VariablesImpl extends MinimalEObjectImpl.Container implements Varia
    * <!-- end-user-doc -->
    * @generated
    */
+  public boolean isInout()
+  {
+    return inout;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setInout(boolean newInout)
+  {
+    boolean oldInout = inout;
+    inout = newInout;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, EisPackage.VARIABLES__INOUT, oldInout, inout));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public String getName()
   {
     return name;
@@ -102,6 +146,8 @@ public class VariablesImpl extends MinimalEObjectImpl.Container implements Varia
   {
     switch (featureID)
     {
+      case EisPackage.VARIABLES__INOUT:
+        return isInout();
       case EisPackage.VARIABLES__NAME:
         return getName();
     }
@@ -118,6 +164,9 @@ public class VariablesImpl extends MinimalEObjectImpl.Container implements Varia
   {
     switch (featureID)
     {
+      case EisPackage.VARIABLES__INOUT:
+        setInout((Boolean)newValue);
+        return;
       case EisPackage.VARIABLES__NAME:
         setName((String)newValue);
         return;
@@ -135,6 +184,9 @@ public class VariablesImpl extends MinimalEObjectImpl.Container implements Varia
   {
     switch (featureID)
     {
+      case EisPackage.VARIABLES__INOUT:
+        setInout(INOUT_EDEFAULT);
+        return;
       case EisPackage.VARIABLES__NAME:
         setName(NAME_EDEFAULT);
         return;
@@ -152,6 +204,8 @@ public class VariablesImpl extends MinimalEObjectImpl.Container implements Varia
   {
     switch (featureID)
     {
+      case EisPackage.VARIABLES__INOUT:
+        return inout != INOUT_EDEFAULT;
       case EisPackage.VARIABLES__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
     }
@@ -169,7 +223,9 @@ public class VariablesImpl extends MinimalEObjectImpl.Container implements Varia
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
+    result.append(" (inout: ");
+    result.append(inout);
+    result.append(", name: ");
     result.append(name);
     result.append(')');
     return result.toString();
