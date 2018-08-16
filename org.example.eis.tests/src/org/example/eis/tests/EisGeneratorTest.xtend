@@ -374,27 +374,21 @@ class EisGeneratorTest {
 							<Teststeps>
 								<Teststep PlcCycle ="1" Description="">
 									<Inputs>
-										<Element xsi: type="InputUDT" Name="a" Datatype="typeA" Direction="InOut">
+										<Element xsi: type="InputUDT" Name="a" Datatype="typeA" Direction="Input">
 											<Elements>
-												<Element xsi:type="Input" Name="b" Datatype="Int" Direction="InOut" Value="33" />
+												<Element xsi:type="Input" Name="b" Datatype="Int" Direction="Input" Value="33" />
 											</Elements>
 										</Element>
-										<Element xsi:type="Input" Name="c" Datatype="Int" Direction="InOut" Value="3" />
+										<Element xsi:type="Input" Name="c" Datatype="Int" Direction="Input" Value="3" />
 									</Inputs>
 									<Outputs>
-										<Element xsi: type="OutputUDT" Name="a" Datatype="typeA" Direction="InOut">
-											<Elements>
-												<Element xsi:type="Output" Name="b" Datatype="Int" Direction="InOut" Expect="0" Range="" />
-											</Elements>
-										</Element>
-										<Element xsi:type="Output" Name="c" Datatype="Int" Direction="InOut" Expect="0" Range="" />
 									</Outputs>
 								</Teststep>
 							</Teststeps>
 						</TestCase>
 					</TestCases>
 				</TestFixture>
-			''')
+''')
 		]
 	}
 
@@ -436,33 +430,27 @@ class EisGeneratorTest {
 							<Teststeps>
 								<Teststep PlcCycle ="1" Description="">
 									<Inputs>
+										<Element xsi: type="InputUDT" Name="a" Datatype="typeA" Direction="InOut">
+											<Elements>
+												<Element xsi:type="Input" Name="b" Datatype="Int" Direction="InOut" Value="3" />
+											</Elements>
+										</Element>
+										<Element xsi:type="Input" Name="c" Datatype="Int" Direction="Input" Value="6" />
 										<Element xsi: type="InputUDT" Name="aa" Datatype="typeAA" Direction="Input">
 											<Elements>
 												<Element xsi:type="Input" Name="bb" Datatype="Int" Direction="Input" Value="33" />
 											</Elements>
 										</Element>
 										<Element xsi:type="Input" Name="cc" Datatype="Int" Direction="Input" Value="66" />
-										<Element xsi: type="InputUDT" Name="a" Datatype="typeA" Direction="InOut">
-											<Elements>
-												<Element xsi:type="Input" Name="b" Datatype="Int" Direction="InOut" Value="3" />
-											</Elements>
-										</Element>
-										<Element xsi:type="Input" Name="c" Datatype="Int" Direction="InOut" Value="6" />
 									</Inputs>
 									<Outputs>
-										<Element xsi: type="OutputUDT" Name="a" Datatype="typeA" Direction="InOut">
-											<Elements>
-												<Element xsi:type="Output" Name="b" Datatype="Int" Direction="InOut" Expect="0" Range="" />
-											</Elements>
-										</Element>
-										<Element xsi:type="Output" Name="c" Datatype="Int" Direction="InOut" Expect="0" Range="" />
 									</Outputs>
 								</Teststep>
 							</Teststeps>
 						</TestCase>
 					</TestCases>
 				</TestFixture>
-			''')
+''')
 		]
 	}
 
@@ -587,15 +575,9 @@ class EisGeneratorTest {
 												<Element xsi:type="Input" Name="b" Datatype="Int" Direction="InOut" Value="46" />
 											</Elements>
 										</Element>
-										<Element xsi:type="Input" Name="c" Datatype="Int" Direction="InOut" Value="2" />
+										<Element xsi:type="Input" Name="c" Datatype="Int" Direction="Input" Value="2" />
 									</Inputs>
 									<Outputs>
-										<Element xsi: type="OutputUDT" Name="a" Datatype="typeA" Direction="InOut">
-											<Elements>
-												<Element xsi:type="Output" Name="b" Datatype="Int" Direction="InOut" Expect="46" Range="" />
-											</Elements>
-										</Element>
-										<Element xsi:type="Output" Name="c" Datatype="Int" Direction="InOut" Expect="2" Range="" />
 									</Outputs>
 								</Teststep>
 								<Teststep PlcCycle ="1" Description="one">
@@ -608,15 +590,9 @@ class EisGeneratorTest {
 												<Element xsi:type="Input" Name="b" Datatype="Int" Direction="InOut" Value="3" />
 											</Elements>
 										</Element>
-										<Element xsi:type="Input" Name="c" Datatype="Int" Direction="InOut" Value="6" />
+										<Element xsi:type="Input" Name="c" Datatype="Int" Direction="Input" Value="6" />
 									</Inputs>
 									<Outputs>
-										<Element xsi: type="OutputUDT" Name="a" Datatype="typeA" Direction="InOut">
-											<Elements>
-												<Element xsi:type="Output" Name="b" Datatype="Int" Direction="InOut" Expect="46" Range="" />
-											</Elements>
-										</Element>
-										<Element xsi:type="Output" Name="c" Datatype="Int" Direction="InOut" Expect="2" Range="" />
 									</Outputs>
 								</Teststep>
 								<Teststep PlcCycle ="2" Description="two">
@@ -629,22 +605,16 @@ class EisGeneratorTest {
 												<Element xsi:type="Input" Name="b" Datatype="Int" Direction="InOut" Value="46" />
 											</Elements>
 										</Element>
-										<Element xsi:type="Input" Name="c" Datatype="Int" Direction="InOut" Value="2" />
+										<Element xsi:type="Input" Name="c" Datatype="Int" Direction="Input" Value="2" />
 									</Inputs>
 									<Outputs>
-										<Element xsi: type="OutputUDT" Name="a" Datatype="typeA" Direction="InOut">
-											<Elements>
-												<Element xsi:type="Output" Name="b" Datatype="Int" Direction="InOut" Expect="46" Range="" />
-											</Elements>
-										</Element>
-										<Element xsi:type="Output" Name="c" Datatype="Int" Direction="InOut" Expect="2" Range="" />
 									</Outputs>
 								</Teststep>
 							</Teststeps>
 						</TestCase>
 					</TestCases>
 				</TestFixture>
-			''')
+''')
 		]
 	}
 
@@ -813,26 +783,20 @@ class EisGeneratorTest {
 							<Teststeps>
 								<Teststep PlcCycle ="1" Description="">
 									<Inputs>
-										<Element xsi: type="InputUDT" Name="a" Datatype="typeA" Direction="InOut">
-											<Elements>
-												<Element xsi:type="Input" Name="b" Datatype="Int" Direction="InOut" Value="0" />
-											</Elements>
-										</Element>
-										<Element xsi:type="Input" Name="c" Datatype="Int" Direction="InOut" Value="0" />
 									</Inputs>
 									<Outputs>
+										<Element xsi: type="OutputUDT" Name="a" Datatype="typeA" Direction="InOut">
+											<Elements>
+												<Element xsi:type="Output" Name="b" Datatype="Int" Direction="InOut" Expect="3" Range="" />
+											</Elements>
+										</Element>
+										<Element xsi:type="Output" Name="c" Datatype="Int" Direction="Output" Expect="6" Range="" />
 										<Element xsi: type="OutputUDT" Name="aa" Datatype="typeAA" Direction="Output">
 											<Elements>
 												<Element xsi:type="Output" Name="bb" Datatype="Int" Direction="Output" Expect="33" Range="" />
 											</Elements>
 										</Element>
 										<Element xsi:type="Output" Name="cc" Datatype="Int" Direction="Output" Expect="66" Range="" />
-										<Element xsi: type="OutputUDT" Name="a" Datatype="typeA" Direction="InOut">
-											<Elements>
-												<Element xsi:type="Output" Name="b" Datatype="Int" Direction="InOut" Expect="3" Range="" />
-											</Elements>
-										</Element>
-										<Element xsi:type="Output" Name="c" Datatype="Int" Direction="InOut" Expect="6" Range="" />
 									</Outputs>
 								</Teststep>
 							</Teststeps>
@@ -872,20 +836,18 @@ class EisGeneratorTest {
 									<Teststep PlcCycle ="0" Description="">
 										<Inputs>
 											<Element xsi:type="Input" Name="a" Datatype="Int" Direction="Input" Value="1" />
-											<Element xsi:type="Input" Name="d" Datatype="Int" Direction="InOut" Value="4" />
-											<Element xsi:type="Input" Name="c" Datatype="Bool" Direction="InOut" Value="false" />
 										</Inputs>
 										<Outputs>
 											<Element xsi:type="Output" Name="b" Datatype="Int" Direction="Output" Expect="2" Range="3" />
 											<Element xsi:type="Output" Name="d" Datatype="Int" Direction="InOut" Expect="4" Range="5" />
-											<Element xsi:type="Output" Name="c" Datatype="Bool" Direction="InOut" Expect="false" Range="" />
+											<Element xsi:type="Output" Name="c" Datatype="Bool" Direction="Output" Expect="false" Range="" />
 										</Outputs>
 									</Teststep>
 								</Teststeps>
 							</TestCase>
 						</TestCases>
 					</TestFixture>
-				'''
+'''
 			)
 		]
 	}

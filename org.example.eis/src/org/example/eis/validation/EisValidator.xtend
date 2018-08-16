@@ -45,6 +45,7 @@ import org.example.eis.typing.DefineType
 import org.example.eis.typing.DefineTypeComputer
 import org.example.eis.typing.types.LTimeType
 import org.example.eis.typing.types.TimeType
+import org.eclipse.emf.common.util.EList
 
 class EisValidator extends AbstractEisValidator {
 	protected static val ISSUE_CODE_PREFIX = "org.example.entities.";
@@ -53,6 +54,7 @@ class EisValidator extends AbstractEisValidator {
 	public static val MISSING_VARIABLE_TYPE = ISSUE_CODE_PREFIX + "MissingVariableType"
 	public static val MULTIPLE_TYPE_DEFINITION = ISSUE_CODE_PREFIX + "MultipleTypeDefinition"
 	public static val INVALID_VARIANT_KEYWORD = ISSUE_CODE_PREFIX + "InvalidVariantKeyword"
+	public static val INVALID_INOUT_KEYWORD = ISSUE_CODE_PREFIX + "InvalidInOutKeyword"
 	public static val INVALID_COMMA_NOTATION = ISSUE_CODE_PREFIX + "InvalidCommaNotation"
 	public static val TYPE_MISMATCH = ISSUE_CODE_PREFIX + "TypeMismatch"
 	public static val INCOMPATIBLE_TYPES = ISSUE_CODE_PREFIX + "IncompatibleTypes"
@@ -77,7 +79,7 @@ class EisValidator extends AbstractEisValidator {
 //
 // checks -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //
-	@Check def void checkNoDuplicateVariablesIO(DirectionBlock directionblock) {
+	@Check def void checkNoDuplicateVariables(DirectionBlock directionblock) {
 		val in = directionblock.input.inputVariables
 		val out = directionblock.output.outputVariables
 		val multiMap = HashMultimap.create()
@@ -105,7 +107,7 @@ class EisValidator extends AbstractEisValidator {
 		}
 	}
 
-	@Check def void checkNoDuplicateUdtTypesIO(DirectionBlock directionblock) {
+	@Check def void checkNoDuplicateUdtTypes(DirectionBlock directionblock) {
 		var multiMap = HashMultimap.create
 		val in = directionblock.input.inputVariables
 		val out = directionblock.output.outputVariables
@@ -250,7 +252,7 @@ class EisValidator extends AbstractEisValidator {
 		}
 	}
 
-	@Check def void checkCommaSyntaxIO(DirectionBlock directionblock) {
+	@Check def void checkCommaSyntax(DirectionBlock directionblock) {
 		val in = directionblock.input.inputVariables
 		val out = directionblock.output.outputVariables
 		if (!in.empty) {
@@ -278,14 +280,15 @@ class EisValidator extends AbstractEisValidator {
 		var ownUdtVars = udtRef.udtVariables
 		val referredUdtVars = (udtRef.udtType.eContainer as Udt).udtVariables
 		var count = 0
+		val inoutKeyword = udtRef.inout
 
 		ownUdtVars.clear
 		if (!referredUdtVars.empty) {
 			for (e : referredUdtVars) {
 				if (e instanceof Variable) {
-					ownUdtVars.add(assignNewVariable(referredUdtVars, count))
+					ownUdtVars.add(assignNewVariable(referredUdtVars, count, inoutKeyword))
 				} else if (e instanceof Udt) {
-					ownUdtVars.add(assignNewUdt(referredUdtVars, count))
+					ownUdtVars.add(assignNewUdt(referredUdtVars, count, inoutKeyword))
 				} else if (e instanceof UdtRef) {
 					error("This reference cannot be made because the udt itself contains other references ", udtRef,
 						EisPackage.eINSTANCE.udtRef_UdtType, RECURSIVE_UDT_REFERENCE)
@@ -597,6 +600,41 @@ class EisValidator extends AbstractEisValidator {
 			}
 	}
 
+	@Check def void checkInoutKeyword(Variables variable) {
+		if (variable.inout) {
+			if (variable.eContainer instanceof Udt)
+				if (!((variable.firstUdt as Udt ).inout))
+					error("Invalid inout keyword", variable, EisPackage.eINSTANCE.variables_Inout,
+						INVALID_INOUT_KEYWORD)
+
+			if (variable instanceof Udt)
+				variable.udtVariables.assignInOutKeywordToAll
+
+		}
+	}
+
+	def private EObject firstUdt(EObject context) {
+		val container = context.eContainer
+		if (container instanceof Udt)
+			container.firstUdt
+		else
+			return context
+	}
+
+	def void assignInOutKeywordToAll(EList<Variables> udtVariables) {
+		for (variable : udtVariables) {
+			if (variable instanceof Variable)
+				variable.inout = true
+			else if (variable instanceof Udt) {
+				variable.inout = true
+				variable.udtVariables.assignInOutKeywordToAll
+			} else if (variable instanceof UdtRef) {
+				variable.inout = true
+				variable.udtVariables.assignInOutKeywordToAll
+			}
+		}
+	}
+
 //
 // methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //
@@ -903,6 +941,7 @@ class EisValidator extends AbstractEisValidator {
 		var commaBeforeVariable = false;
 		var helpingVariableType = BasicType.NULL
 		var variantKeyword = false
+		var inoutKeyword = false
 
 		for (e : variables) {
 
@@ -943,9 +982,13 @@ class EisValidator extends AbstractEisValidator {
 					if (e.variantKeyword && !variantKeyword)
 						error("Invalid variant keyword", e, EisPackage.eINSTANCE.variable_VariantKeyword,
 							INVALID_VARIANT_KEYWORD)
-					else
-						// assign variantKeyword
+					else // assign variantKeyword
 						e.variantKeyword = variantKeyword
+
+					if (e.inout && !inoutKeyword)
+						error("Invalid inout keyword", e, EisPackage.eINSTANCE.variables_Inout, INVALID_INOUT_KEYWORD)
+					else
+						e.inout = inoutKeyword
 				}
 // for the immediate next variable
 				if (e.nextVariable) { // comma at the end instead of semicolon
@@ -960,8 +1003,9 @@ class EisValidator extends AbstractEisValidator {
 					helpingVariableType = null
 
 				}
-				// the variant as well	
+				// the variant and inout as well	
 				variantKeyword = e.variantKeyword
+				inoutKeyword = e.inout
 			}
 			count++
 		}
@@ -973,7 +1017,7 @@ class EisValidator extends AbstractEisValidator {
 					INVALID_COMMA_NOTATION)
 	}
 
-	def private Variable assignNewVariable(Iterable<? extends Variables> referredUdtVars, int count) {
+	def private Variable assignNewVariable(Iterable<? extends Variables> referredUdtVars, int count, boolean inout) {
 		var newVariable = new VariableImpl
 		val variable = (referredUdtVars.get(count) as Variable)
 
@@ -981,11 +1025,15 @@ class EisValidator extends AbstractEisValidator {
 		newVariable.variableType = variable.variableType
 		newVariable.variantKeyword = variable.isVariantKeyword
 		newVariable.nextVariable = variable.isNextVariable
+		if (inout)
+			newVariable.inout = true
+		else
+			newVariable.inout = variable.inout
 
-		if ((variable.idiom instanceof VariableRef) || (variable.range instanceof VariableRef)) {
+		if ((variable.idiom instanceof VariableRef) || (variable.range instanceof VariableRef))
 			error("This reference cannot be made because a variable contains other references ", // udtRef,
 			EisPackage.eINSTANCE.udtRef_UdtType, RECURSIVE_VARIABLE_REFERENCE)
-		} else {
+		else {
 			val type = newVariable.variableType.typeFor
 
 			if (variable?.idiom !== null)
@@ -1024,7 +1072,7 @@ class EisValidator extends AbstractEisValidator {
 		return newVariable
 	}
 
-	def private Udt assignNewUdt(Iterable<? extends Variables> referredUdtVars, int count) {
+	def private Udt assignNewUdt(Iterable<? extends Variables> referredUdtVars, int count, boolean inout) {
 		var newUdt = new UdtImpl
 		val childRef = (referredUdtVars.get(count) as Udt)
 		val childRefVars = childRef.udtVariables
@@ -1032,13 +1080,17 @@ class EisValidator extends AbstractEisValidator {
 
 		newUdt.name = childRef.name
 		newUdt.udtType = childRef.udtType
+		if (inout)
+			newUdt.inout = true
+		else
+			newUdt.inout = childRef.inout
 
 		if (!childRefVars.empty) {
 			for (e : childRefVars) {
 				if (e instanceof Variable) {
-					newUdt.udtVariables.add(assignNewVariable(childRefVars, count2))
+					newUdt.udtVariables.add(assignNewVariable(childRefVars, count2, inout))
 				} else if (e instanceof Udt) {
-					newUdt.udtVariables.add(assignNewUdt(childRefVars, count2))
+					newUdt.udtVariables.add(assignNewUdt(childRefVars, count2, inout))
 				} else if (e instanceof UdtRef) {
 					error("This reference cannot be made because the udt itself contains other references ",
 						(e as UdtRef), EisPackage.eINSTANCE.udtRef_UdtType, RECURSIVE_UDT_REFERENCE)

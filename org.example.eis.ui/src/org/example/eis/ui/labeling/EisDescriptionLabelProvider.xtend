@@ -29,13 +29,17 @@ class EisDescriptionLabelProvider extends DefaultDescriptionLabelProvider {
 	def text(Output o) { "output" }
 
 	def text(Variables v) {
+		var inout = ""
+
 		if (v instanceof Variable)
 			v.name + " : " + v.trueVariableType
-		else if (v instanceof Udt)
-			"udt " + v.name + " of type " + v.udtType.name
-		else if (v instanceof UdtRef)
-			"udt " + v.name + " of type " + v.udtType.name
-
+		else if (v instanceof Udt) {
+			if(v.inout) inout = "inout "
+			inout + "udt " + v.name + " of type " + v.udtType.name
+		} else if (v instanceof UdtRef) {
+			if(v.inout) inout = "inout "
+			inout + "udt " + v.name + " of type " + v.udtType.name
+		}
 	}
 
 }

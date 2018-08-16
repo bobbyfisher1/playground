@@ -1196,6 +1196,49 @@ public class EisValidatorTest {
     }
   }
   
+  @Test
+  public void testInvalidInoutKeywords() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("define{");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("input[");
+      _builder.newLine();
+      _builder.append("\t\t ");
+      _builder.append("udt a(typeA){");
+      _builder.newLine();
+      _builder.append("\t\t\t ");
+      _builder.append("udt b(typeB){");
+      _builder.newLine();
+      _builder.append("\t\t\t\t");
+      _builder.append("inout int c;");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("output[]");
+      _builder.newLine();
+      _builder.append("}");
+      final String keyword = _builder.toString();
+      EisModel _parse = this._parseHelper.parse(((this.beginning + keyword) + this.ending));
+      final Procedure1<EisModel> _function = (EisModel it) -> {
+        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getVariables(), EisValidator.INVALID_INOUT_KEYWORD);
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
   private void assertWrongType(final String text, final int numberOfErrors) {
     try {
       EisModel _parse = this._parseHelper.parse(text);

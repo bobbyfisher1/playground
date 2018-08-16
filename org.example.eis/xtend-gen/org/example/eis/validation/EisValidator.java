@@ -71,6 +71,8 @@ public class EisValidator extends AbstractEisValidator {
   
   public final static String INVALID_VARIANT_KEYWORD = (EisValidator.ISSUE_CODE_PREFIX + "InvalidVariantKeyword");
   
+  public final static String INVALID_INOUT_KEYWORD = (EisValidator.ISSUE_CODE_PREFIX + "InvalidInOutKeyword");
+  
   public final static String INVALID_COMMA_NOTATION = (EisValidator.ISSUE_CODE_PREFIX + "InvalidCommaNotation");
   
   public final static String TYPE_MISMATCH = (EisValidator.ISSUE_CODE_PREFIX + "TypeMismatch");
@@ -114,7 +116,7 @@ public class EisValidator extends AbstractEisValidator {
   private EisInterpreter _eisInterpreter;
   
   @Check
-  public void checkNoDuplicateVariablesIO(final DirectionBlock directionblock) {
+  public void checkNoDuplicateVariables(final DirectionBlock directionblock) {
     final EList<Variables> in = directionblock.getInput().getInputVariables();
     final EList<Variables> out = directionblock.getOutput().getOutputVariables();
     final HashMultimap<String, Variables> multiMap = HashMultimap.<String, Variables>create();
@@ -150,7 +152,7 @@ public class EisValidator extends AbstractEisValidator {
   }
   
   @Check
-  public void checkNoDuplicateUdtTypesIO(final DirectionBlock directionblock) {
+  public void checkNoDuplicateUdtTypes(final DirectionBlock directionblock) {
     HashMultimap<String, Udt> multiMap = HashMultimap.<String, Udt>create();
     final EList<Variables> in = directionblock.getInput().getInputVariables();
     final EList<Variables> out = directionblock.getOutput().getOutputVariables();
@@ -358,7 +360,7 @@ public class EisValidator extends AbstractEisValidator {
   }
   
   @Check
-  public void checkCommaSyntaxIO(final DirectionBlock directionblock) {
+  public void checkCommaSyntax(final DirectionBlock directionblock) {
     final EList<Variables> in = directionblock.getInput().getInputVariables();
     final EList<Variables> out = directionblock.getOutput().getOutputVariables();
     boolean _isEmpty = in.isEmpty();
@@ -404,6 +406,7 @@ public class EisValidator extends AbstractEisValidator {
     EObject _eContainer = udtRef.getUdtType().eContainer();
     final EList<Variables> referredUdtVars = ((Udt) _eContainer).getUdtVariables();
     int count = 0;
+    final boolean inoutKeyword = udtRef.isInout();
     ownUdtVars.clear();
     boolean _isEmpty = referredUdtVars.isEmpty();
     boolean _not = (!_isEmpty);
@@ -411,10 +414,10 @@ public class EisValidator extends AbstractEisValidator {
       for (final Variables e : referredUdtVars) {
         {
           if ((e instanceof Variable)) {
-            ownUdtVars.add(this.assignNewVariable(referredUdtVars, count));
+            ownUdtVars.add(this.assignNewVariable(referredUdtVars, count, inoutKeyword));
           } else {
             if ((e instanceof Udt)) {
-              ownUdtVars.add(this.assignNewUdt(referredUdtVars, count));
+              ownUdtVars.add(this.assignNewUdt(referredUdtVars, count, inoutKeyword));
             } else {
               if ((e instanceof UdtRef)) {
                 this.error("This reference cannot be made because the udt itself contains other references ", udtRef, 
@@ -888,6 +891,59 @@ public class EisValidator extends AbstractEisValidator {
                 EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
             }
             this.checkUnderscoreNotation(this._eisInterpreter.interpret(range).toString(), variable, EisPackage.eINSTANCE.getVariable_Range());
+          }
+        }
+      }
+    }
+  }
+  
+  @Check
+  public void checkInoutKeyword(final Variables variable) {
+    boolean _isInout = variable.isInout();
+    if (_isInout) {
+      EObject _eContainer = variable.eContainer();
+      if ((_eContainer instanceof Udt)) {
+        EObject _firstUdt = this.firstUdt(variable);
+        boolean _isInout_1 = ((Udt) _firstUdt).isInout();
+        boolean _not = (!_isInout_1);
+        if (_not) {
+          this.error("Invalid inout keyword", variable, EisPackage.eINSTANCE.getVariables_Inout(), 
+            EisValidator.INVALID_INOUT_KEYWORD);
+        }
+      }
+      if ((variable instanceof Udt)) {
+        this.assignInOutKeywordToAll(((Udt)variable).getUdtVariables());
+      }
+    }
+  }
+  
+  private EObject firstUdt(final EObject context) {
+    EObject _xblockexpression = null;
+    {
+      final EObject container = context.eContainer();
+      EObject _xifexpression = null;
+      if ((container instanceof Udt)) {
+        _xifexpression = this.firstUdt(container);
+      } else {
+        return context;
+      }
+      _xblockexpression = _xifexpression;
+    }
+    return _xblockexpression;
+  }
+  
+  public void assignInOutKeywordToAll(final EList<Variables> udtVariables) {
+    for (final Variables variable : udtVariables) {
+      if ((variable instanceof Variable)) {
+        ((Variable)variable).setInout(true);
+      } else {
+        if ((variable instanceof Udt)) {
+          ((Udt)variable).setInout(true);
+          this.assignInOutKeywordToAll(((Udt)variable).getUdtVariables());
+        } else {
+          if ((variable instanceof UdtRef)) {
+            ((UdtRef)variable).setInout(true);
+            this.assignInOutKeywordToAll(((UdtRef)variable).getUdtVariables());
           }
         }
       }
@@ -1418,6 +1474,7 @@ public class EisValidator extends AbstractEisValidator {
     boolean commaBeforeVariable = false;
     BasicType helpingVariableType = BasicType.NULL;
     boolean variantKeyword = false;
+    boolean inoutKeyword = false;
     for (final Variables e : variables) {
       {
         if ((e instanceof Udt)) {
@@ -1461,6 +1518,11 @@ public class EisValidator extends AbstractEisValidator {
             } else {
               ((Variable)e).setVariantKeyword(variantKeyword);
             }
+            if ((((Variable)e).isInout() && (!inoutKeyword))) {
+              this.error("Invalid inout keyword", e, EisPackage.eINSTANCE.getVariables_Inout(), EisValidator.INVALID_INOUT_KEYWORD);
+            } else {
+              ((Variable)e).setInout(inoutKeyword);
+            }
           }
           boolean _isNextVariable = ((Variable)e).isNextVariable();
           if (_isNextVariable) {
@@ -1472,6 +1534,7 @@ public class EisValidator extends AbstractEisValidator {
             helpingVariableType = null;
           }
           variantKeyword = ((Variable)e).isVariantKeyword();
+          inoutKeyword = ((Variable)e).isInout();
         }
         count++;
       }
@@ -1486,7 +1549,7 @@ public class EisValidator extends AbstractEisValidator {
     }
   }
   
-  private Variable assignNewVariable(final Iterable<? extends Variables> referredUdtVars, final int count) {
+  private Variable assignNewVariable(final Iterable<? extends Variables> referredUdtVars, final int count, final boolean inout) {
     VariableImpl newVariable = new VariableImpl();
     Variables _get = ((Variables[])Conversions.unwrapArray(referredUdtVars, Variables.class))[count];
     final Variable variable = ((Variable) _get);
@@ -1494,6 +1557,11 @@ public class EisValidator extends AbstractEisValidator {
     newVariable.setVariableType(variable.getVariableType());
     newVariable.setVariantKeyword(variable.isVariantKeyword());
     newVariable.setNextVariable(variable.isNextVariable());
+    if (inout) {
+      newVariable.setInout(true);
+    } else {
+      newVariable.setInout(variable.isInout());
+    }
     if (((variable.getIdiom() instanceof VariableRef) || (variable.getRange() instanceof VariableRef))) {
       this.error("This reference cannot be made because a variable contains other references ", 
         EisPackage.eINSTANCE.getUdtRef_UdtType(), EisValidator.RECURSIVE_VARIABLE_REFERENCE);
@@ -1639,7 +1707,7 @@ public class EisValidator extends AbstractEisValidator {
     return newVariable;
   }
   
-  private Udt assignNewUdt(final Iterable<? extends Variables> referredUdtVars, final int count) {
+  private Udt assignNewUdt(final Iterable<? extends Variables> referredUdtVars, final int count, final boolean inout) {
     UdtImpl newUdt = new UdtImpl();
     Variables _get = ((Variables[])Conversions.unwrapArray(referredUdtVars, Variables.class))[count];
     final Udt childRef = ((Udt) _get);
@@ -1647,16 +1715,21 @@ public class EisValidator extends AbstractEisValidator {
     int count2 = 0;
     newUdt.setName(childRef.getName());
     newUdt.setUdtType(childRef.getUdtType());
+    if (inout) {
+      newUdt.setInout(true);
+    } else {
+      newUdt.setInout(childRef.isInout());
+    }
     boolean _isEmpty = childRefVars.isEmpty();
     boolean _not = (!_isEmpty);
     if (_not) {
       for (final Variables e : childRefVars) {
         {
           if ((e instanceof Variable)) {
-            newUdt.getUdtVariables().add(this.assignNewVariable(childRefVars, count2));
+            newUdt.getUdtVariables().add(this.assignNewVariable(childRefVars, count2, inout));
           } else {
             if ((e instanceof Udt)) {
-              newUdt.getUdtVariables().add(this.assignNewUdt(childRefVars, count2));
+              newUdt.getUdtVariables().add(this.assignNewUdt(childRefVars, count2, inout));
             } else {
               if ((e instanceof UdtRef)) {
                 this.error("This reference cannot be made because the udt itself contains other references ", ((UdtRef) e), EisPackage.eINSTANCE.getUdtRef_UdtType(), EisValidator.RECURSIVE_UDT_REFERENCE);

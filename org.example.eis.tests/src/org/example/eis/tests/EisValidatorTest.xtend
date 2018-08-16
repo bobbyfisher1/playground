@@ -565,6 +565,24 @@ class EisValidatorTest {
 		]
 	}
 
+	@Test def void testInvalidInoutKeywords() {
+		val keyword = '''
+		define{
+			input[
+				 udt a(typeA){
+					 udt b(typeB){
+						inout int c;
+					}
+				}
+			]
+			output[]
+		}'''
+		(beginning + keyword + ending).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variables, EisValidator.INVALID_INOUT_KEYWORD)
+		]
+	}
+
 //
 // methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //

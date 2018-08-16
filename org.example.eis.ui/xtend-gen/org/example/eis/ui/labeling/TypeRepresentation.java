@@ -18,7 +18,7 @@ public class TypeRepresentation {
       boolean _isInout = v.isInout();
       if (_isInout) {
         String _string = string;
-        string = (_string + "inout");
+        string = (_string + "inout ");
       }
       boolean _isVariantKeyword = v.isVariantKeyword();
       if (_isVariantKeyword) {
