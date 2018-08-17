@@ -6,16 +6,13 @@ package org.example.eis.generator
 import com.google.inject.Inject
 import java.util.HashMap
 import org.eclipse.emf.common.util.EList
-import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
+import org.example.eis.EisModelUtil
 import org.example.eis.eis.DefineBlock
-import org.example.eis.eis.DirectionBlock
 import org.example.eis.eis.EisModel
-import org.example.eis.eis.Input
-import org.example.eis.eis.Output
 import org.example.eis.eis.TeststepBlock
 import org.example.eis.eis.Udt
 import org.example.eis.eis.UdtRef
@@ -28,7 +25,7 @@ class EisGenerator extends AbstractGenerator {
 
 	@Inject extension EisInterpreter
 	@Inject extension DefineTypeComputer
-	
+	@Inject extension EisModelUtil
 		
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		val model = resource.allContents.toIterable.filter(EisModel).head
@@ -123,7 +120,7 @@ class EisGenerator extends AbstractGenerator {
 			if(variable instanceof Variable) {
 				val value = setMap.get(qualifiedName + variable.name).toString
 				
-				charSeq += indent +	'''<Element xsi:type="Input" Name="«variable.name»" «variable.datatype»" Direction="«IF variable.inout»InOut«ELSE»«variable.directionBlock»«ENDIF»" Value="«value»" />
+				charSeq += indent +	'''<Element xsi:type="Input" Name="«variable.name»" «variable.datatype»" Direction="«IF variable.inout»InOut«ELSE»Input«ENDIF»" Value="«value»" />
 				'''//newline
 			} else if(variable instanceof Udt)	
 				charSeq += buildUdt(setMap, qualifiedName, indent, variable) 
@@ -138,7 +135,7 @@ class EisGenerator extends AbstractGenerator {
 		val tab = "	"
 		
 		charSeq += indent
-		charSeq += '''<Element xsi: type="InputUDT" Name="«udt.name»" Datatype="«udt.udtType.name»" Direction="«IF udt.inout»InOut«ELSE»«udt.directionBlock»«ENDIF»">
+		charSeq += '''<Element xsi: type="InputUDT" Name="«udt.name»" Datatype="«udt.udtType.name»" Direction="«IF udt.inout»InOut«ELSE»Input«ENDIF»">
 		'''//newline				
 				
 		val indentPlus = indent + tab //indent++ 
@@ -162,7 +159,7 @@ class EisGenerator extends AbstractGenerator {
 		val tab = "	"
 		
 		charSeq += indent
-		charSeq += '''<Element xsi: type="InputUDT" Name="«udtRef.name»" Datatype="«udtRef.udtType.name.toString»" Direction="«IF udtRef.inout»InOut«ELSE»«udtRef.directionBlock»«ENDIF»">
+		charSeq += '''<Element xsi: type="InputUDT" Name="«udtRef.name»" Datatype="«udtRef.udtType.name.toString»" Direction="«IF udtRef.inout»InOut«ELSE»Input«ENDIF»">
 		'''//newline		
 				
 		val indentPlus = indent + tab //indent++ 
@@ -189,7 +186,7 @@ class EisGenerator extends AbstractGenerator {
 				val idiom = idiomMap.get(qualifiedName + variable.name).toString
 				val range = rangeMap.get(qualifiedName + variable.name).toString
 					
-				charSeq +=	indent + '''<Element xsi:type="Output" Name="«variable.name»" «variable.datatype»" Direction="«IF variable.inout»InOut«ELSE»«variable.directionBlock»«ENDIF»" Expect="«idiom»" Range="«range»" />
+				charSeq +=	indent + '''<Element xsi:type="Output" Name="«variable.name»" «variable.datatype»" Direction="«IF variable.inout»InOut«ELSE»Output«ENDIF»" Expect="«idiom»" Range="«range»" />
 				''' // newline
 					
 			} else if (variable instanceof Udt)
@@ -205,7 +202,7 @@ class EisGenerator extends AbstractGenerator {
 		val tab = "	"
 		
 		charSeq += indent
-		charSeq += '''<Element xsi: type="OutputUDT" Name="«udt.name»" Datatype="«udt.udtType.name»" Direction="«IF udt.inout»InOut«ELSE»«udt.directionBlock»«ENDIF»">
+		charSeq += '''<Element xsi: type="OutputUDT" Name="«udt.name»" Datatype="«udt.udtType.name»" Direction="«IF udt.inout»InOut«ELSE»Output«ENDIF»">
 		'''//newline				
 				
 		val indentPlus = indent + tab //indent++ 
@@ -229,7 +226,7 @@ class EisGenerator extends AbstractGenerator {
 		val tab = "	"
 		
 		charSeq += indent
-		charSeq += '''<Element xsi: type="OutputUDT" Name="«udtRef.name»" Datatype="«udtRef.udtType.name.toString»" Direction="«IF udtRef.inout»InOut«ELSE»«udtRef.directionBlock»«ENDIF»">
+		charSeq += '''<Element xsi: type="OutputUDT" Name="«udtRef.name»" Datatype="«udtRef.udtType.name.toString»" Direction="«IF udtRef.inout»InOut«ELSE»Output«ENDIF»">
 		'''//newline		
 				
 		val indentPlus = indent + tab //indent++ 
@@ -253,24 +250,22 @@ class EisGenerator extends AbstractGenerator {
 //	
 	def private CharSequence getDatatype(Variable variable){
 		var _char = ""
-		var type = variable.variableType//.toString.toFirstUpper
+		var type = variable.variableType
+		var string = type.toString.toFirstUpper
 		
 		_char += '''Datatype="'''		
 		
 		if(variable.variantKeyword){
 			_char += "Variant@"		
 		}
-		val array = type.toString.toCharArray
 		if(type.typeFor.isSecondLetterCapitalized){
-			var index1 = array.get(1).charValue.toString.toUpperCase.charAt(0)
-			array.set(1, index1)
+			string =	string.toCharUpper(1)
 		}
 		if(type.typeFor.isThirdLetterCapitalized){
-			var index2 = array.get(2).charValue.toString.toUpperCase.charAt(0)
-			array.set(2, index2)
+			string = string.toCharUpper(2)
 		}
 		
-		_char += array.join.toFirstUpper
+		_char += string
 		
 		return _char
 	}
@@ -361,16 +356,5 @@ class EisGenerator extends AbstractGenerator {
 			}
 		}
 	}
-	
-	def private String directionBlock(EObject context) { // context is variable to begin with
-		val container = context.eContainer
-		if (container instanceof DirectionBlock){
-			return switch(context){
-				Input: "Input"
-				Output: "Output"
-			}
-		} else
-			container.directionBlock
-	}
-	
+		
 }

@@ -2,6 +2,7 @@ package org.example.eis.interpreter
 
 import com.google.inject.Inject
 import org.eclipse.xtext.util.IResourceScopeCache
+import org.example.eis.EisModelUtil
 import org.example.eis.eis.And
 import org.example.eis.eis.BoolConstant
 import org.example.eis.eis.ByteConstant
@@ -29,6 +30,7 @@ import org.example.eis.typing.DefineTypeComputer
 class EisInterpreter {
 	@Inject extension DefineTypeComputer
 	@Inject IResourceScopeCache cache
+	@Inject extension EisModelUtil
 
 	def dispatch Object interpret(Idiom e) {
 		switch (e) {
@@ -53,7 +55,7 @@ class EisInterpreter {
 			TimeConstant:
 				e.value.toLowerCase.toFirstUpper
 			LTimeConstant:
-				e.value.toLowerCase.toFirstUpper
+				e.value.toLowerCase.toFirstUpper.toCharUpper(1)
 //
 //			LongConstant:
 //				e.value

@@ -1088,7 +1088,7 @@ class EisGeneratorTest {
 				output[]
 			}
 			teststep(1, ""){
-				set[ a = 16#AAAA_AAAA_AAAA_AAAA; ]
+				set[ a = 16#Abcd_ef01_AAAA_AAAA; ]
 				assert[]
 			}
 		''' + ending ) => [
@@ -1105,7 +1105,7 @@ class EisGeneratorTest {
 								<Teststeps>
 									<Teststep PlcCycle ="1" Description="">
 										<Inputs>
-											<Element xsi:type="Input" Name="a" Datatype="LWord" Direction="Input" Value="16#AAAA_AAAA_AAAA_AAAA" />
+											<Element xsi:type="Input" Name="a" Datatype="LWord" Direction="Input" Value="16#ABCD_EF01_AAAA_AAAA" />
 										</Inputs>
 										<Outputs>
 										</Outputs>
@@ -1151,6 +1151,49 @@ class EisGeneratorTest {
 										</Inputs>
 										<Outputs>
 											<Element xsi:type="Output" Name="b" Datatype="ULInt" Direction="InOut" Expect="0" Range="" />
+										</Outputs>
+									</Teststep>
+								</Teststeps>
+							</TestCase>
+						</TestCases>
+					</TestFixture>
+				'''
+			)
+		]
+	}
+
+	@Test def void testTimes() {
+		(beginning + '''
+			define{
+				input[
+					inout time a = T#5d12M2s; 
+				]
+				output[
+					inout ltime b = LT#99ms456us239ns;
+				]
+			}
+			teststep(1, ""){
+				set[]
+				assert[]
+			}
+		''' + ending ) => [
+			parse.assertNoErrors
+			assertCompilesTo(
+				'''
+					<?xml version="1.0" encoding="utf-8"?>
+					<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+						<TiaProjectName>project</TiaProjectName>
+						<PlcName>plcname</PlcName>
+						<Author>author</Author>
+						<TestCases>
+							<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
+								<Teststeps>
+									<Teststep PlcCycle ="1" Description="">
+										<Inputs>
+											<Element xsi:type="Input" Name="a" Datatype="Time" Direction="InOut" Value="T#5d12m2s" />
+										</Inputs>
+										<Outputs>
+											<Element xsi:type="Output" Name="b" Datatype="LTime" Direction="InOut" Expect="LT#99ms456us239ns" Range="" />
 										</Outputs>
 									</Teststep>
 								</Teststeps>

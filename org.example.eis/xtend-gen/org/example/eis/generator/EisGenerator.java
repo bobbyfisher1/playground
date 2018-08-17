@@ -13,19 +13,16 @@ import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.generator.AbstractGenerator;
 import org.eclipse.xtext.generator.IFileSystemAccess2;
 import org.eclipse.xtext.generator.IGeneratorContext;
-import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.IteratorExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
+import org.example.eis.EisModelUtil;
 import org.example.eis.eis.BasicType;
 import org.example.eis.eis.Cascade;
 import org.example.eis.eis.DefineBlock;
-import org.example.eis.eis.DirectionBlock;
 import org.example.eis.eis.EisModel;
 import org.example.eis.eis.Idiom;
-import org.example.eis.eis.Input;
-import org.example.eis.eis.Output;
 import org.example.eis.eis.Statement;
 import org.example.eis.eis.Testblock;
 import org.example.eis.eis.Testcase;
@@ -47,6 +44,10 @@ public class EisGenerator extends AbstractGenerator {
   @Inject
   @Extension
   private DefineTypeComputer _defineTypeComputer;
+  
+  @Inject
+  @Extension
+  private EisModelUtil _eisModelUtil;
   
   @Override
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
@@ -268,8 +269,7 @@ public class EisGenerator extends AbstractGenerator {
           if (_isInout) {
             _builder.append("InOut");
           } else {
-            String _directionBlock = this.directionBlock(variable);
-            _builder.append(_directionBlock);
+            _builder.append("Input");
           }
         }
         _builder.append("\" Value=\"");
@@ -314,8 +314,7 @@ public class EisGenerator extends AbstractGenerator {
       if (_isInout) {
         _builder.append("InOut");
       } else {
-        String _directionBlock = this.directionBlock(udt);
-        _builder.append(_directionBlock);
+        _builder.append("Input");
       }
     }
     _builder.append("\">");
@@ -370,8 +369,7 @@ public class EisGenerator extends AbstractGenerator {
       if (_isInout) {
         _builder.append("InOut");
       } else {
-        String _directionBlock = this.directionBlock(udtRef);
-        _builder.append(_directionBlock);
+        _builder.append("Input");
       }
     }
     _builder.append("\">");
@@ -431,8 +429,7 @@ public class EisGenerator extends AbstractGenerator {
           if (_isInout) {
             _builder.append("InOut");
           } else {
-            String _directionBlock = this.directionBlock(variable);
-            _builder.append(_directionBlock);
+            _builder.append("Output");
           }
         }
         _builder.append("\" Expect=\"");
@@ -479,8 +476,7 @@ public class EisGenerator extends AbstractGenerator {
       if (_isInout) {
         _builder.append("InOut");
       } else {
-        String _directionBlock = this.directionBlock(udt);
-        _builder.append(_directionBlock);
+        _builder.append("Output");
       }
     }
     _builder.append("\">");
@@ -535,8 +531,7 @@ public class EisGenerator extends AbstractGenerator {
       if (_isInout) {
         _builder.append("InOut");
       } else {
-        String _directionBlock = this.directionBlock(udtRef);
-        _builder.append(_directionBlock);
+        _builder.append("Output");
       }
     }
     _builder.append("\">");
@@ -575,6 +570,7 @@ public class EisGenerator extends AbstractGenerator {
   private CharSequence getDatatype(final Variable variable) {
     String _char = "";
     BasicType type = variable.getVariableType();
+    String string = StringExtensions.toFirstUpper(type.toString());
     String __char = _char;
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("Datatype=\"");
@@ -584,20 +580,16 @@ public class EisGenerator extends AbstractGenerator {
       String __char_1 = _char;
       _char = (__char_1 + "Variant@");
     }
-    final char[] array = type.toString().toCharArray();
     boolean _isSecondLetterCapitalized = this._defineTypeComputer.isSecondLetterCapitalized(this._defineTypeComputer.typeFor(type));
     if (_isSecondLetterCapitalized) {
-      char index1 = Character.valueOf(Character.valueOf(array[1]).charValue()).toString().toUpperCase().charAt(0);
-      array[1] = index1;
+      string = this._eisModelUtil.toCharUpper(string, 1);
     }
     boolean _isThirdLetterCapitalized = this._defineTypeComputer.isThirdLetterCapitalized(this._defineTypeComputer.typeFor(type));
     if (_isThirdLetterCapitalized) {
-      char index2 = Character.valueOf(Character.valueOf(array[2]).charValue()).toString().toUpperCase().charAt(0);
-      array[2] = index2;
+      string = this._eisModelUtil.toCharUpper(string, 2);
     }
     String __char_2 = _char;
-    String _firstUpper = StringExtensions.toFirstUpper(IterableExtensions.join(((Iterable<?>)Conversions.doWrapArray(array))));
-    _char = (__char_2 + _firstUpper);
+    _char = (__char_2 + string);
     return _char;
   }
   
@@ -848,32 +840,5 @@ public class EisGenerator extends AbstractGenerator {
         }
       }
     }
-  }
-  
-  private String directionBlock(final EObject context) {
-    String _xblockexpression = null;
-    {
-      final EObject container = context.eContainer();
-      String _xifexpression = null;
-      if ((container instanceof DirectionBlock)) {
-        String _switchResult = null;
-        boolean _matched = false;
-        if (context instanceof Input) {
-          _matched=true;
-          _switchResult = "Input";
-        }
-        if (!_matched) {
-          if (context instanceof Output) {
-            _matched=true;
-            _switchResult = "Output";
-          }
-        }
-        return _switchResult;
-      } else {
-        _xifexpression = this.directionBlock(container);
-      }
-      _xblockexpression = _xifexpression;
-    }
-    return _xblockexpression;
   }
 }

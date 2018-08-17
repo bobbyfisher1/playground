@@ -32,10 +32,6 @@ class EisModelUtil {
 		output.outputVariables.filter(Variable)
 	}
 
-//	def variablesDefinedBefore(InOut inout) {
-//		inout.inoutVariables.filter(Variable)
-//	}
-
 	def udtTypesDefinedBefore(UdtRef variable) {
 		val container = variable.eContainer
 		return switch (container) {
@@ -61,11 +57,16 @@ class EisModelUtil {
 		return output.outputVariables.filter(Udt).map[udtType]
 	}
 
-//	def udtTypesDefinedBefore(InOut inout) {
-//		return inout.inoutVariables.filter(Udt).map[udtType]
-//	}
-
 	def udtTypesDefinedBefore(Udt udt) {
 		return udt.udtVariables.filter(Udt).map[udtType]
 	}
+
+	def String toCharUpper(String string, int index) {
+		val array = string.toCharArray
+		val uppercaseChar = array.get(index).charValue.toString.toUpperCase.charAt(0)
+
+		array.set(index, uppercaseChar)
+		return array.join
+	}
+
 }

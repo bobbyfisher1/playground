@@ -73,11 +73,10 @@ enum BasicType:
 	| USINT="usint"
 	| UINT="uint"
 	| UDINT="udint"
-	| ULINT="ulint" // ??????
+	| ULINT="ulint" // should I keep this? the upper numbers can't be compiled
 	| SINT="sint"
 	| DINT="dint"
 	| LINT="lint"
-	//yet unimplemented
 	| TIME="time"
 	| LTIME="ltime";
 	//

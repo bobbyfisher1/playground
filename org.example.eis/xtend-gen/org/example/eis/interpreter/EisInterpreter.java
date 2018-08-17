@@ -9,6 +9,7 @@ import org.eclipse.xtext.util.IResourceScopeCache;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Pair;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
+import org.example.eis.EisModelUtil;
 import org.example.eis.eis.And;
 import org.example.eis.eis.BoolConstant;
 import org.example.eis.eis.ByteConstant;
@@ -41,6 +42,10 @@ public class EisInterpreter {
   
   @Inject
   private IResourceScopeCache cache;
+  
+  @Inject
+  @Extension
+  private EisModelUtil _eisModelUtil;
   
   protected Object _interpret(final Idiom e) {
     Object _switchResult = null;
@@ -106,7 +111,7 @@ public class EisInterpreter {
     if (!_matched) {
       if (e instanceof LTimeConstant) {
         _matched=true;
-        _switchResult = StringExtensions.toFirstUpper(((LTimeConstant)e).getValue().toLowerCase());
+        _switchResult = this._eisModelUtil.toCharUpper(StringExtensions.toFirstUpper(((LTimeConstant)e).getValue().toLowerCase()), 1);
       }
     }
     if (!_matched) {

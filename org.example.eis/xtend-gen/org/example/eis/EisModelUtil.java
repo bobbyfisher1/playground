@@ -5,6 +5,7 @@ import com.google.common.collect.Iterables;
 import java.util.Set;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
+import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.example.eis.eis.Input;
@@ -124,5 +125,12 @@ public class EisModelUtil {
       return it.getUdtType();
     };
     return IterableExtensions.<Udt, UdtType>map(Iterables.<Udt>filter(udt.getUdtVariables(), Udt.class), _function);
+  }
+  
+  public String toCharUpper(final String string, final int index) {
+    final char[] array = string.toCharArray();
+    final char uppercaseChar = Character.valueOf(Character.valueOf(array[index]).charValue()).toString().toUpperCase().charAt(0);
+    array[index] = uppercaseChar;
+    return IterableExtensions.join(((Iterable<?>)Conversions.doWrapArray(array)));
   }
 }
