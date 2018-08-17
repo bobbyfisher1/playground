@@ -13,10 +13,12 @@ import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.generator.AbstractGenerator;
 import org.eclipse.xtext.generator.IFileSystemAccess2;
 import org.eclipse.xtext.generator.IGeneratorContext;
+import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.IteratorExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
+import org.example.eis.eis.BasicType;
 import org.example.eis.eis.Cascade;
 import org.example.eis.eis.DefineBlock;
 import org.example.eis.eis.DirectionBlock;
@@ -257,15 +259,9 @@ public class EisGenerator extends AbstractGenerator {
         _builder.append("<Element xsi:type=\"Input\" Name=\"");
         String _name_1 = ((Variable)variable).getName();
         _builder.append(_name_1);
-        _builder.append("\" Datatype=\"");
-        {
-          boolean _isVariantKeyword = ((Variable)variable).isVariantKeyword();
-          if (_isVariantKeyword) {
-            _builder.append("Variant@");
-          }
-        }
-        String _firstUpper = StringExtensions.toFirstUpper(((Variable)variable).getVariableType().toString());
-        _builder.append(_firstUpper);
+        _builder.append("\" ");
+        CharSequence _datatype = this.getDatatype(((Variable)variable));
+        _builder.append(_datatype);
         _builder.append("\" Direction=\"");
         {
           boolean _isInout = ((Variable)variable).isInout();
@@ -426,15 +422,9 @@ public class EisGenerator extends AbstractGenerator {
         _builder.append("<Element xsi:type=\"Output\" Name=\"");
         String _name_2 = ((Variable)variable).getName();
         _builder.append(_name_2);
-        _builder.append("\" Datatype=\"");
-        {
-          boolean _isVariantKeyword = ((Variable)variable).isVariantKeyword();
-          if (_isVariantKeyword) {
-            _builder.append("Variant@");
-          }
-        }
-        String _firstUpper = StringExtensions.toFirstUpper(((Variable)variable).getVariableType().toString());
-        _builder.append(_firstUpper);
+        _builder.append("\" ");
+        CharSequence _datatype = this.getDatatype(((Variable)variable));
+        _builder.append(_datatype);
         _builder.append("\" Direction=\"");
         {
           boolean _isInout = ((Variable)variable).isInout();
@@ -580,6 +570,35 @@ public class EisGenerator extends AbstractGenerator {
     String _plus_4 = (indent + _builder_3);
     charSeq = (_charSeq_5 + _plus_4);
     return charSeq;
+  }
+  
+  private CharSequence getDatatype(final Variable variable) {
+    String _char = "";
+    BasicType type = variable.getVariableType();
+    String __char = _char;
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("Datatype=\"");
+    _char = (__char + _builder);
+    boolean _isVariantKeyword = variable.isVariantKeyword();
+    if (_isVariantKeyword) {
+      String __char_1 = _char;
+      _char = (__char_1 + "Variant@");
+    }
+    final char[] array = type.toString().toCharArray();
+    boolean _isSecondLetterCapitalized = this._defineTypeComputer.isSecondLetterCapitalized(this._defineTypeComputer.typeFor(type));
+    if (_isSecondLetterCapitalized) {
+      char index1 = Character.valueOf(Character.valueOf(array[1]).charValue()).toString().toUpperCase().charAt(0);
+      array[1] = index1;
+    }
+    boolean _isThirdLetterCapitalized = this._defineTypeComputer.isThirdLetterCapitalized(this._defineTypeComputer.typeFor(type));
+    if (_isThirdLetterCapitalized) {
+      char index2 = Character.valueOf(Character.valueOf(array[2]).charValue()).toString().toUpperCase().charAt(0);
+      array[2] = index2;
+    }
+    String __char_2 = _char;
+    String _firstUpper = StringExtensions.toFirstUpper(IterableExtensions.join(((Iterable<?>)Conversions.doWrapArray(array))));
+    _char = (__char_2 + _firstUpper);
+    return _char;
   }
   
   private void generateMap(final HashMap<Object, Object> map, final EList<Variables> variables, final String name) {

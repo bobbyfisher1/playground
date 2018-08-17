@@ -8,6 +8,8 @@ todo:
 ---->NOOOO
 ---->Determine if it is an Input or an Output only by the occurance in either the Set or Assert block
 		
+		=>CHECK
+		
 * only IEC times																		CHECK
 * Chars: a-z, A-Z, 0-9 															CHECK
 * Reals?	

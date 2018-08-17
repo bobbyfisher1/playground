@@ -72,9 +72,16 @@ class DefineTypeComputer {
 			type === SINT_TYPE || type === DINT_TYPE || type === LINT_TYPE
 	}
 
-//	def isBinaryType(DefineType type) {
-//		type === BYTE_TYPE || type === WORD_TYPE || type === DWORD_TYPE || type === LWORD_TYPE
-//	}
+	def isSecondLetterCapitalized(DefineType type) {
+		type === USINT_TYPE || type === UINT_TYPE || type === UDINT_TYPE || type === ULINT_TYPE || type === SINT_TYPE ||
+			type === DINT_TYPE || type === LINT_TYPE || type === DWORD_TYPE || type === LWORD_TYPE ||
+			type === LTIME_TYPE
+	}
+
+	def isThirdLetterCapitalized(DefineType type) {
+		type === USINT_TYPE || type === UDINT_TYPE || type === ULINT_TYPE
+	}
+
 	def isBoolType(DefineType type) { type === BOOL_TYPE }
 
 	def isRealType(DefineType type) { type === REAL_TYPE }

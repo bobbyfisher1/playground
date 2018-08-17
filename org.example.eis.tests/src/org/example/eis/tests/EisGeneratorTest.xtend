@@ -388,7 +388,7 @@ class EisGeneratorTest {
 						</TestCase>
 					</TestCases>
 				</TestFixture>
-''')
+			''')
 		]
 	}
 
@@ -450,7 +450,7 @@ class EisGeneratorTest {
 						</TestCase>
 					</TestCases>
 				</TestFixture>
-''')
+			''')
 		]
 	}
 
@@ -614,7 +614,7 @@ class EisGeneratorTest {
 						</TestCase>
 					</TestCases>
 				</TestFixture>
-''')
+			''')
 		]
 	}
 
@@ -847,7 +847,7 @@ class EisGeneratorTest {
 							</TestCase>
 						</TestCases>
 					</TestFixture>
-'''
+				'''
 			)
 		]
 	}
@@ -1067,7 +1067,7 @@ class EisGeneratorTest {
 								<Teststeps>
 									<Teststep PlcCycle ="1" Description="">
 										<Inputs>
-											<Element xsi:type="Input" Name="a" Datatype="Dword" Direction="Input" Value="16#AAAA_AAAA" />
+											<Element xsi:type="Input" Name="a" Datatype="DWord" Direction="Input" Value="16#AAAA_AAAA" />
 										</Inputs>
 										<Outputs>
 										</Outputs>
@@ -1105,9 +1105,52 @@ class EisGeneratorTest {
 								<Teststeps>
 									<Teststep PlcCycle ="1" Description="">
 										<Inputs>
-											<Element xsi:type="Input" Name="a" Datatype="Lword" Direction="Input" Value="16#AAAA_AAAA_AAAA_AAAA" />
+											<Element xsi:type="Input" Name="a" Datatype="LWord" Direction="Input" Value="16#AAAA_AAAA_AAAA_AAAA" />
 										</Inputs>
 										<Outputs>
+										</Outputs>
+									</Teststep>
+								</Teststeps>
+							</TestCase>
+						</TestCases>
+					</TestFixture>
+				'''
+			)
+		]
+	}
+
+	@Test def void testUDInt() {
+		(beginning + '''
+			define{
+				input[
+					inout udint a; 
+				]
+				output[
+					inout ulint b;
+				]
+			}
+			teststep(1, ""){
+				set[]
+				assert[]
+			}
+		''' + ending ) => [
+			parse.assertNoErrors
+			assertCompilesTo(
+				'''
+					<?xml version="1.0" encoding="utf-8"?>
+					<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+						<TiaProjectName>project</TiaProjectName>
+						<PlcName>plcname</PlcName>
+						<Author>author</Author>
+						<TestCases>
+							<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
+								<Teststeps>
+									<Teststep PlcCycle ="1" Description="">
+										<Inputs>
+											<Element xsi:type="Input" Name="a" Datatype="UDInt" Direction="InOut" Value="0" />
+										</Inputs>
+										<Outputs>
+											<Element xsi:type="Output" Name="b" Datatype="ULInt" Direction="InOut" Expect="0" Range="" />
 										</Outputs>
 									</Teststep>
 								</Teststeps>

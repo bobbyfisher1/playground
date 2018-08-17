@@ -93,6 +93,16 @@ public class DefineTypeComputer {
       (type == DefineTypeComputer.SINT_TYPE)) || (type == DefineTypeComputer.DINT_TYPE)) || (type == DefineTypeComputer.LINT_TYPE));
   }
   
+  public boolean isSecondLetterCapitalized(final DefineType type) {
+    return ((((((((((type == DefineTypeComputer.USINT_TYPE) || (type == DefineTypeComputer.UINT_TYPE)) || (type == DefineTypeComputer.UDINT_TYPE)) || (type == DefineTypeComputer.ULINT_TYPE)) || (type == DefineTypeComputer.SINT_TYPE)) || 
+      (type == DefineTypeComputer.DINT_TYPE)) || (type == DefineTypeComputer.LINT_TYPE)) || (type == DefineTypeComputer.DWORD_TYPE)) || (type == DefineTypeComputer.LWORD_TYPE)) || 
+      (type == DefineTypeComputer.LTIME_TYPE));
+  }
+  
+  public boolean isThirdLetterCapitalized(final DefineType type) {
+    return (((type == DefineTypeComputer.USINT_TYPE) || (type == DefineTypeComputer.UDINT_TYPE)) || (type == DefineTypeComputer.ULINT_TYPE));
+  }
+  
   public boolean isBoolType(final DefineType type) {
     return (type == DefineTypeComputer.BOOL_TYPE);
   }

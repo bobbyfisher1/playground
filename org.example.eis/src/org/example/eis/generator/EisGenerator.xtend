@@ -123,7 +123,7 @@ class EisGenerator extends AbstractGenerator {
 			if(variable instanceof Variable) {
 				val value = setMap.get(qualifiedName + variable.name).toString
 				
-				charSeq += indent +	'''<Element xsi:type="Input" Name="«variable.name»" Datatype="«IF variable.variantKeyword»Variant@«ENDIF»«variable.variableType.toString.toFirstUpper»" Direction="«IF variable.inout»InOut«ELSE»«variable.directionBlock»«ENDIF»" Value="«value»" />
+				charSeq += indent +	'''<Element xsi:type="Input" Name="«variable.name»" «variable.datatype»" Direction="«IF variable.inout»InOut«ELSE»«variable.directionBlock»«ENDIF»" Value="«value»" />
 				'''//newline
 			} else if(variable instanceof Udt)	
 				charSeq += buildUdt(setMap, qualifiedName, indent, variable) 
@@ -189,7 +189,7 @@ class EisGenerator extends AbstractGenerator {
 				val idiom = idiomMap.get(qualifiedName + variable.name).toString
 				val range = rangeMap.get(qualifiedName + variable.name).toString
 					
-				charSeq +=	indent + '''<Element xsi:type="Output" Name="«variable.name»" Datatype="«IF variable.variantKeyword»Variant@«ENDIF»«variable.variableType.toString.toFirstUpper»" Direction="«IF variable.inout»InOut«ELSE»«variable.directionBlock»«ENDIF»" Expect="«idiom»" Range="«range»" />
+				charSeq +=	indent + '''<Element xsi:type="Output" Name="«variable.name»" «variable.datatype»" Direction="«IF variable.inout»InOut«ELSE»«variable.directionBlock»«ENDIF»" Expect="«idiom»" Range="«range»" />
 				''' // newline
 					
 			} else if (variable instanceof Udt)
@@ -251,6 +251,30 @@ class EisGenerator extends AbstractGenerator {
 //
 // methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //	
+	def private CharSequence getDatatype(Variable variable){
+		var _char = ""
+		var type = variable.variableType//.toString.toFirstUpper
+		
+		_char += '''Datatype="'''		
+		
+		if(variable.variantKeyword){
+			_char += "Variant@"		
+		}
+		val array = type.toString.toCharArray
+		if(type.typeFor.isSecondLetterCapitalized){
+			var index1 = array.get(1).charValue.toString.toUpperCase.charAt(0)
+			array.set(1, index1)
+		}
+		if(type.typeFor.isThirdLetterCapitalized){
+			var index2 = array.get(2).charValue.toString.toUpperCase.charAt(0)
+			array.set(2, index2)
+		}
+		
+		_char += array.join.toFirstUpper
+		
+		return _char
+	}
+
 	def private void generateMap(HashMap<Object, Object> map, EList<Variables> variables, String name) {
 		for(variable : variables){
 			if(variable instanceof Variable)
