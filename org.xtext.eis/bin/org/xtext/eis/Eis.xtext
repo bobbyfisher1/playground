@@ -1,0 +1,206 @@
+grammar org.xtext.eis.Eis /*with org.eclipse.xtext.common.Terminals*/ hidden(WS, ML_COMMENT, SL_COMMENT)
+
+import 'http://www.eclipse.org/emf/2002/Ecore' as ecore
+generate eis "http://www.xtext.org/eis/Eis"
+
+EisModel:
+	'project' '=' project_name=STRING ';'
+	'plcname' '=' plc_name=STRING ';'
+	'author' '=' author_name=STRING ';'
+	testcases+=Testcase*;
+
+Testcase:
+	"testcase" testcase_name=ID '{'
+	testblock=Testblock?
+	'}';
+
+Testblock:
+	'testActive' '=' testActive=BoolConstant ';'
+	'blockType' '=' blockType=BlockConstant ';'
+	'description' '=' description=STRING ';'
+	define=DefineBlock?;
+
+BoolConstant:
+	value=BooleanValue;
+
+BlockConstant:
+	value=BlockValue;
+
+BlockValue:
+	'FC' | 'FB';
+
+BooleanValue:
+	'true' | 'false';
+
+DefineBlock:
+	'define' '{' direction=DirectionBlock '}' teststeps+=TeststepBlock*;
+
+DirectionBlock:
+	input=Input & output=Output;
+
+Input:
+	name='input' '[' inputVariables+=Variables* ']';
+
+Output:
+	name='output' '[' outputVariables+=Variables* ']';
+
+Variables:
+	Variable | Udt | UdtRef;
+
+Variable:
+	{Variable} inout?='inout'? variantKeyword?='variant'? variableType=BasicType? name=ID ('=' idiom=Idiom ('+/-'
+	range=Idiom)?)? (';' |
+	nextVariable?=',');
+
+Udt:
+	inout?='inout'? 'udt' name=ID '(' udtType=UdtType ')' '{' udtVariables+=Variables* '}';
+
+UdtRef:
+	inout?='inout'? udtType=[UdtType] name=ID udtVariables+=Variables* ';';
+
+enum BasicType:
+	NULL='null'
+	| INT='int' //
+	| BOOL='bool' //
+	| REAL='real' //
+	| STRING='string'
+	| CHAR="char" //
+	//
+	| BYTE="byte" //
+	| WORD="word" //
+	| DWORD="dword" //
+	| LWORD="lword" //
+	//
+	| USINT="usint" //
+	| UINT="uint" //
+	| UDINT="udint" //
+	| ULINT="ulint" //
+	| SINT="sint" //
+	| DINT="dint" //
+	| LINT="lint" //
+	//
+	| TIME="time" //
+	| LTIME="ltime" //
+	| DATE="date";
+	//LREAL
+//WCHAR
+UdtType:
+	name=ID;
+
+Idiom:
+	Or;
+
+Or returns Idiom:
+	And ({Or.left=current} "||" right=And)*;
+
+And returns Idiom:
+	Equality ({And.left=current} "&&" right=Equality)*;
+
+Equality returns Idiom:
+	Comparison ({Equality.left=current} op=("==" | "!=") right=Comparison)*;
+
+Comparison returns Idiom:
+	PlusOrMinus ({Comparison.left=current} op=(">=" | "<=" | ">" | "<") right=PlusOrMinus)*;
+
+PlusOrMinus returns Idiom:
+	MulOrDiv (({Plus.left=current} '+' | {Minus.left=current} '-') right=MulOrDiv)*;
+
+MulOrDiv returns Idiom:
+	Primary ({MulOrDiv.left=current} op=('*' | '/') right=Primary)*;
+
+Primary returns Idiom:
+	'(' Idiom ')' | {Not} "!" idiom=Primary | Atomic;
+
+Atomic returns Idiom:
+	{IntConstant} value=(LONG | NEGATIVE_LONG)
+	| {StringConstant} value=STRING
+	| BoolConstant
+	| {VariableRef} variable=[Variable]
+	| {RealConstant} value=REAL
+	| {ByteConstant} value=BYTE
+	| {WordConstant} value=WORD
+	| {DWordConstant} value=DWORD
+	| {LWordConstant} value=LWORD
+	| {CharConstant} value=CHAR
+	| {TimeConstant} value=TIME
+	| {LTimeConstant} value=LTIME
+	| {DateConstant} value=DATE;
+
+TeststepBlock:
+	'teststep' '(' plcCycle=LONG ',' description=STRING ')' '{' assertion=AssertionBlock '}';
+
+AssertionBlock:
+	set=Set & assert=Assert;
+
+Set:
+	name='set' '[' setVariables+=Statement* ']';
+
+Assert:
+	name='assert' '[' assertVariables+=Statement* ']';
+
+Statement:
+	variable=[Variables] cascade+=Cascade* '=' idiom=Idiom ('+/-' range=Idiom)? ';';
+
+Cascade:
+	'.' udtVar=[Variables];
+
+terminal fragment X:
+	'0'..'9';
+
+terminal fragment HEX:
+	X | 'A'..'F' | 'a'..'f';
+
+terminal LONG returns ecore::ELong:
+	X+;
+
+terminal NEGATIVE_LONG returns ecore::ELong:
+	'-' LONG;
+
+terminal REAL returns ecore::EDouble:
+	(LONG | NEGATIVE_LONG) '.' LONG;
+
+terminal BYTE:
+	'16#' HEX HEX;
+
+terminal WORD:
+	'16#' HEX HEX HEX HEX;
+
+terminal DWORD:
+	'16#' HEX HEX HEX HEX '_' HEX HEX HEX HEX;
+
+terminal LWORD:
+	'16#' HEX HEX HEX HEX '_' HEX HEX HEX HEX '_' HEX HEX HEX HEX '_' HEX HEX HEX HEX;
+
+terminal DATE:
+	'D#' X X X X '-' X X '-' X X;
+
+terminal CHAR:
+	"'" ('a'..'z' | 'A'..'Z' | '0'..'9') "'";
+
+terminal TIME:
+	'T#' '-'? (X? X 'd' '_'?)? (X? X 'h' '_'?)? (X? X 'M' '_'?)? (X? X 's' '_'?)? ((X? X)? X 'ms')?;
+
+terminal LTIME:
+	'LT#' '-'? (((((X? X)? X)? X)? X)? X 'd' '_'?)? (X? X 'h' '_'?)? (X? X 'M' '_'?)? (X? X 's' '_'?)? ((X? X)? X 'ms'
+	'_'?)? ((X? X)? X 'us' '_'?)? ((X? X)? X 'ns')?;
+
+terminal ID:
+	'^'? ('a'..'z' | 'A'..'Z' | '_') ('a'..'z' | 'A'..'Z' | '_' | '0'..'9')*;
+
+terminal STRING:
+	'"' ('\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\' | '"'))* '"' | "'" ('\\' .
+	/* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\' | "'"))* "'";
+
+terminal ML_COMMENT:
+	'/*'->'*/';
+
+terminal SL_COMMENT:
+	'//' !('\n' | '\r')* ('\r'? '\n')?;
+
+terminal WS:
+	(' ' | '\t' | '\r' | '\n')+;
+
+terminal ANY_OTHER:
+	.;
+
+	

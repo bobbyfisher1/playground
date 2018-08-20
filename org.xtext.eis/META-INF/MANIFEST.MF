@@ -1,0 +1,32 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: org.xtext.eis
+Bundle-ManifestVersion: 2
+Bundle-Name: org.xtext.eis
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: org.xtext.eis; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.xtext,
+ org.eclipse.xtext.xbase,
+ org.eclipse.equinox.common;bundle-version="3.5.0",
+ org.eclipse.emf.ecore,
+ org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
+ org.antlr.runtime,
+ org.eclipse.xtext.util,
+ org.eclipse.emf.common,
+ org.eclipse.xtend.lib;bundle-version="2.14.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: org.xtext.eis,
+ org.xtext.eis.eis,
+ org.xtext.eis.eis.impl,
+ org.xtext.eis.eis.util,
+ org.xtext.eis.generator,
+ org.xtext.eis.parser.antlr,
+ org.xtext.eis.parser.antlr.internal,
+ org.xtext.eis.scoping,
+ org.xtext.eis.serializer,
+ org.xtext.eis.services,
+ org.xtext.eis.typing,
+ org.xtext.eis.validation,
+ org.xtext.eis.formatting2
+Import-Package: org.apache.log4j
