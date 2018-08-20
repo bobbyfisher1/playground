@@ -73,6 +73,8 @@ public class EisParsingTest {
   
   private final String ending = "}";
   
+  private final int delta = 0;
+  
   @Test
   public void testFixedProgramBeginning_noErrors() {
     try {
@@ -422,7 +424,8 @@ public class EisParsingTest {
         Variables _get = IterableExtensions.<Testcase>head(it.getTestcases()).getTestblock().getDefine().getDirection().getInput().getInputVariables().get(0);
         final Procedure1<Variable> _function_1 = (Variable it_1) -> {
           Idiom _idiom = it_1.getIdiom();
-          Assert.assertEquals(((RealConstant) _idiom).getValue(), 19.001, 0.000001);
+          Assert.assertEquals(((RealConstant) _idiom).getValue(), 19.001, this.delta);
+          this._validationTestHelper.assertNoErrors(it_1);
         };
         ObjectExtensions.<Variable>operator_doubleArrow(((Variable) _get), _function_1);
       };
@@ -452,7 +455,7 @@ public class EisParsingTest {
         Variables _get = IterableExtensions.<Testcase>head(it.getTestcases()).getTestblock().getDefine().getDirection().getInput().getInputVariables().get(0);
         final Procedure1<Variable> _function_1 = (Variable it_1) -> {
           Idiom _idiom = it_1.getIdiom();
-          Assert.assertEquals(((RealConstant) _idiom).getValue(), 0.4, 0.000001);
+          Assert.assertEquals(((RealConstant) _idiom).getValue(), 0.4, this.delta);
         };
         ObjectExtensions.<Variable>operator_doubleArrow(((Variable) _get), _function_1);
       };

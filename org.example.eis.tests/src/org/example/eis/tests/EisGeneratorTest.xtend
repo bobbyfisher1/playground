@@ -893,13 +893,13 @@ class EisGeneratorTest {
 	@Test def void testReal() {
 		(beginning + '''
 			define{
-				input[real a = -1.0; ]
+				input[
+					real a = -1.00000000000000009;
+				]
 				output[]
 			}
 			teststep(0, ""){
-				set[
-					a = -1.0 ;
-				]
+				set[	]
 				assert[]
 			}
 		''' + ending ) => [
@@ -916,7 +916,7 @@ class EisGeneratorTest {
 								<Teststeps>
 									<Teststep PlcCycle ="0" Description="">
 										<Inputs>
-											<Element xsi:type="Input" Name="a" Datatype="Real" Direction="Input" Value="-1.0" />
+											<Element xsi:type="Input" Name="a" Datatype="Real" Direction="Input" Value="-1.00000000000000009" />
 										</Inputs>
 										<Outputs>
 										</Outputs>

@@ -6,6 +6,7 @@ package org.example.eis.validation
 import com.google.common.collect.HashMultimap
 import com.google.inject.Inject
 import java.time.Duration
+import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.validation.Check
@@ -45,7 +46,6 @@ import org.example.eis.typing.DefineType
 import org.example.eis.typing.DefineTypeComputer
 import org.example.eis.typing.types.LTimeType
 import org.example.eis.typing.types.TimeType
-import org.eclipse.emf.common.util.EList
 
 class EisValidator extends AbstractEisValidator {
 	protected static val ISSUE_CODE_PREFIX = "org.example.entities.";
@@ -152,13 +152,30 @@ class EisValidator extends AbstractEisValidator {
 	}
 
 	@Check def void checkType(Minus minus) {
-		checkExpectedInt(minus.left, EisPackage.Literals.MINUS__LEFT)
-		checkExpectedInt(minus.right, EisPackage.Literals.MINUS__RIGHT)
+		val left = minus.left.interpret
+		val right = minus.right.interpret
+
+		if (left instanceof Double || right instanceof Double) {
+			checkExpectedDouble(minus.left, EisPackage.Literals.MINUS__LEFT)
+			checkExpectedDouble(minus.right, EisPackage.Literals.MINUS__RIGHT)
+		} else {
+			checkExpectedInt(minus.left, EisPackage.Literals.MINUS__LEFT)
+			checkExpectedInt(minus.right, EisPackage.Literals.MINUS__RIGHT)
+		}
+
 	}
 
 	@Check def void checkType(MulOrDiv mulOrDiv) {
-		checkExpectedInt(mulOrDiv.left, EisPackage.Literals.MUL_OR_DIV__LEFT)
-		checkExpectedInt(mulOrDiv.right, EisPackage.Literals.MUL_OR_DIV__RIGHT)
+		val left = mulOrDiv.left.interpret
+		val right = mulOrDiv.right.interpret
+
+		if (left instanceof Double || right instanceof Double) {
+			checkExpectedDouble(mulOrDiv.right, EisPackage.Literals.MUL_OR_DIV__LEFT)
+			checkExpectedDouble(mulOrDiv.right, EisPackage.Literals.MUL_OR_DIV__RIGHT)
+		} else {
+			checkExpectedInt(mulOrDiv.left, EisPackage.Literals.MUL_OR_DIV__LEFT)
+			checkExpectedInt(mulOrDiv.right, EisPackage.Literals.MUL_OR_DIV__RIGHT)
+		}
 	}
 
 	@Check def void checkDivisionByZero(MulOrDiv mulOrDiv) {
@@ -166,6 +183,10 @@ class EisValidator extends AbstractEisValidator {
 		if (right instanceof Long)
 			if (right == 0)
 				error("Division by zero.", mulOrDiv, EisPackage.eINSTANCE.mulOrDiv_Right, DIVISION_BY_ZERO)
+		if (right instanceof Double)
+			if (right == 0)
+				error("Division by zero.", mulOrDiv, EisPackage.eINSTANCE.mulOrDiv_Right, DIVISION_BY_ZERO)
+
 	}
 
 	@Check def void checkType(Equality equality) {
@@ -613,6 +634,9 @@ class EisValidator extends AbstractEisValidator {
 		}
 	}
 
+//
+// methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//
 	def private EObject firstUdt(EObject context) {
 		val container = context.eContainer
 		if (container instanceof Udt)
@@ -635,9 +659,6 @@ class EisValidator extends AbstractEisValidator {
 		}
 	}
 
-//
-// methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-//
 	def boolean isOutOfTime(Idiom _time) {
 		var time = _time.interpret.toString.substring(2).replaceAll('_', '')
 
@@ -894,6 +915,10 @@ class EisValidator extends AbstractEisValidator {
 
 	def private void checkExpectedInt(Idiom exp, EReference reference) {
 		checkExpectedType(exp, DefineTypeComputer.INT_TYPE, reference)
+	}
+
+	def private void checkExpectedDouble(Idiom exp, EReference reference) {
+		checkExpectedType(exp, DefineTypeComputer.REAL_TYPE, reference)
 	}
 
 	def private void checkExpectedType(Idiom exp, DefineType expectedType, EReference reference) {

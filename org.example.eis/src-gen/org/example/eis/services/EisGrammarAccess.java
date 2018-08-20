@@ -1547,11 +1547,10 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		//	| USINT="usint"
 		//	| UINT="uint"
 		//	| UDINT="udint"
-		//	| ULINT="ulint" // ??????
+		//	| ULINT="ulint" // should I keep this? the upper numbers can't be compiled
 		//	| SINT="sint"
 		//	| DINT="dint"
 		//	| LINT="lint"
-		//	//yet unimplemented
 		//	| TIME="time"
 		//	| LTIME="ltime";
 		public EnumRule getRule() { return rule; }
@@ -1559,9 +1558,8 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		//NULL='null' | INT='int' | BOOL='bool' | REAL='real' // needs revision
 		//| STRING='string' | CHAR="char" //
 		//| BYTE="byte" | WORD="word" | DWORD="dword" | LWORD="lword" //
-		//| USINT="usint" | UINT="uint" | UDINT="udint" | ULINT="ulint" // ??????
-		//| SINT="sint" | DINT="dint" | LINT="lint" //yet unimplemented
-		//| TIME="time" | LTIME="ltime"
+		//| USINT="usint" | UINT="uint" | UDINT="udint" | ULINT="ulint" // should I keep this? the upper numbers can't be compiled
+		//| SINT="sint" | DINT="dint" | LINT="lint" | TIME="time" | LTIME="ltime"
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//NULL='null'
@@ -1985,11 +1983,10 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	//	| USINT="usint"
 	//	| UINT="uint"
 	//	| UDINT="udint"
-	//	| ULINT="ulint" // ??????
+	//	| ULINT="ulint" // should I keep this? the upper numbers can't be compiled
 	//	| SINT="sint"
 	//	| DINT="dint"
 	//	| LINT="lint"
-	//	//yet unimplemented
 	//	| TIME="time"
 	//	| LTIME="ltime";
 	public BasicTypeElements getBasicTypeAccess() {
@@ -2196,8 +2193,8 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		return tNEGATIVE_LONG;
 	}
 	
-	//terminal REAL returns ecore::EFloat:
-	//	(LONG | NEGATIVE_LONG) '.' X+;
+	//terminal REAL returns ecore::EDouble:
+	//	(LONG | NEGATIVE_LONG) '.' LONG;
 	public TerminalRule getREALRule() {
 		return tREAL;
 	}
@@ -2221,34 +2218,27 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//terminal LWORD:
-	//	'16#'
-	//	HEX HEX HEX HEX '_'
-	//	HEX HEX HEX HEX '_'
-	//	HEX HEX HEX HEX '_'
-	//	HEX HEX HEX HEX;
+	//	'16#' HEX HEX HEX HEX '_' HEX HEX HEX HEX '_' HEX HEX HEX HEX '_' HEX HEX HEX HEX;
 	public TerminalRule getLWORDRule() {
 		return tLWORD;
 	}
 	
 	//terminal CHAR:
-	//	"'" ('a'..'z' | 'A'..'Z' | '0'..'9')
-	//	"'";
+	//	"'" ('a'..'z' | 'A'..'Z' | '0'..'9') "'";
 	public TerminalRule getCHARRule() {
 		return tCHAR;
 	}
 	
 	//terminal TIME:
-	//	'T#'
-	//	'-'? (X? X 'd' '_'?)? (X? X 'h' '_'?)? (X? X 'M' '_'?)? (X? X 's' '_'?)? ((X? X)? X 'ms')? //interesting note:  X? X? X 'ms' doesn't compile
+	//	'T#' '-'? (X? X 'd' '_'?)? (X? X 'h' '_'?)? (X? X 'M' '_'?)? (X? X 's' '_'?)? ((X? X)? X 'ms')? //interesting note:  X? X? X 'ms' doesn't compile
 	//;
 	public TerminalRule getTIMERule() {
 		return tTIME;
 	}
 	
 	//terminal LTIME:
-	//	'LT#'
-	//	'-'? (((((X? X)? X)? X)? X)? X 'd' '_'?)? (X? X 'h' '_'?)? (X? X 'M' '_'?)? (X? X 's' '_'?)? ((X? X)? X 'ms' '_'?)?
-	//	((X? X)? X 'us' '_'?)? ((X? X)? X 'ns')?;
+	//	'LT#' '-'? (((((X? X)? X)? X)? X)? X 'd' '_'?)? (X? X 'h' '_'?)? (X? X 'M' '_'?)? (X? X 's' '_'?)? ((X? X)? X 'ms'
+	//	'_'?)? ((X? X)? X 'us' '_'?)? ((X? X)? X 'ns')?;
 	public TerminalRule getLTIMERule() {
 		return tLTIME;
 	}
@@ -2260,8 +2250,7 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//terminal STRING:
-	//	'"' ('\\' . | !('\\' | '"'))* '"' |
-	//	"'" ('\\' . | !('\\' | "'"))* "'";
+	//	'"' ('\\' . | !('\\' | '"'))* '"' | "'" ('\\' . | !('\\' | "'"))* "'";
 	public TerminalRule getSTRINGRule() {
 		return tSTRING;
 	}

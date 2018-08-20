@@ -14,7 +14,7 @@ todo:
 * Chars: a-z, A-Z, 0-9 															CHECK
 * Reals?	
 * mathematics with variablerefs
-* check with Kevin about Variant@LInt						HALF CHECK
+* check with Kevin about Variant@LInt						CHECK
 * coloring with udtTypes
 
 

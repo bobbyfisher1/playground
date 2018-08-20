@@ -235,13 +235,25 @@ public class DefineTypeComputer {
     if (!_matched) {
       if (i instanceof MulOrDiv) {
         _matched=true;
-        _switchResult = DefineTypeComputer.INT_TYPE;
+        DefineType _xifexpression = null;
+        if (((this.typeFor(((MulOrDiv)i).getLeft()) instanceof RealType) && (this.typeFor(((MulOrDiv)i).getRight()) instanceof RealType))) {
+          _xifexpression = DefineTypeComputer.REAL_TYPE;
+        } else {
+          _xifexpression = DefineTypeComputer.INT_TYPE;
+        }
+        _switchResult = _xifexpression;
       }
     }
     if (!_matched) {
       if (i instanceof Minus) {
         _matched=true;
-        _switchResult = DefineTypeComputer.INT_TYPE;
+        DefineType _xifexpression = null;
+        if (((this.typeFor(((Minus)i).getLeft()) instanceof RealType) && (this.typeFor(((Minus)i).getRight()) instanceof RealType))) {
+          _xifexpression = DefineTypeComputer.REAL_TYPE;
+        } else {
+          _xifexpression = DefineTypeComputer.INT_TYPE;
+        }
+        _switchResult = _xifexpression;
       }
     }
     if (!_matched) {
@@ -409,7 +421,13 @@ public class DefineTypeComputer {
       if ((this.isStringType(leftType) || this.isStringType(rightType))) {
         _xifexpression = DefineTypeComputer.STRING_TYPE;
       } else {
-        _xifexpression = DefineTypeComputer.INT_TYPE;
+        DefineType _xifexpression_1 = null;
+        if (((leftType instanceof RealType) && (rightType instanceof RealType))) {
+          _xifexpression_1 = DefineTypeComputer.REAL_TYPE;
+        } else {
+          _xifexpression_1 = DefineTypeComputer.INT_TYPE;
+        }
+        _xifexpression = _xifexpression_1;
       }
       _xblockexpression = _xifexpression;
     }

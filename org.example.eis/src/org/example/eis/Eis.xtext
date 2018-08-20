@@ -36,7 +36,7 @@ DefineBlock:
 	'define' '{' direction=DirectionBlock '}' teststeps+=TeststepBlock*;
 
 DirectionBlock:
-	input=Input &  output=Output;
+	input=Input & output=Output;
 
 Input:
 	name='input' '[' inputVariables+=Variables* ']';
@@ -48,7 +48,8 @@ Variables:
 	Variable | Udt | UdtRef;
 
 Variable:
-	{Variable} inout?='inout'? variantKeyword?='variant'? variableType=BasicType? name=ID ('=' idiom=Idiom ('+/-' range=Idiom)?)? (';' |
+	{Variable} inout?='inout'? variantKeyword?='variant'? variableType=BasicType? name=ID ('=' idiom=Idiom ('+/-'
+	range=Idiom)?)? (';' |
 	nextVariable?=',');
 
 Udt:
@@ -160,9 +161,13 @@ terminal NEGATIVE_LONG returns ecore::ELong:
 //terminal LONGER:
 //	LONG 'L';
 //
-terminal REAL returns ecore::EFloat:
-	(LONG | NEGATIVE_LONG) '.' X+;
-	//	
+terminal REAL returns ecore::EDouble:
+	(LONG | NEGATIVE_LONG) '.' LONG;
+	/*
+	((((((((((((((((((((((((((((((((((((X? X)? X)? X)? X)? X)? X)? X)? X)? X)? X)? X)? X)? X)? X)? X)? X)? X)? X)? X)? X)?
+	X)? X)? X)? X)? X)? X)? X)? X)? X)? X)? X)? X)? X)? X)? X)? X)? X;
+	*/
+//	
 terminal BYTE:
 	'16#' HEX HEX;
 	//
@@ -173,37 +178,18 @@ terminal DWORD:
 	'16#' HEX HEX HEX HEX '_' HEX HEX HEX HEX;
 	//
 terminal LWORD:
-	'16#'
-	HEX HEX HEX HEX '_'
-	HEX HEX HEX HEX '_'
-	HEX HEX HEX HEX '_'
-	HEX HEX HEX HEX;
+	'16#' HEX HEX HEX HEX '_' HEX HEX HEX HEX '_' HEX HEX HEX HEX '_' HEX HEX HEX HEX;
 
 terminal CHAR:
-	"'"
-	('a'..'z' | 'A'..'Z' | '0'..'9')
-	"'";
+	"'" ('a'..'z' | 'A'..'Z' | '0'..'9') "'";
 
 terminal TIME:
-	'T#'
-	'-'?
-	(X? X 'd' '_'?)?
-	(X? X 'h' '_'?)?
-	(X? X 'M' '_'?)?
-	(X? X 's' '_'?)?
-	((X? X)? X 'ms')? //interesting note:  X? X? X 'ms' doesn't compile
+	'T#' '-'? (X? X 'd' '_'?)? (X? X 'h' '_'?)? (X? X 'M' '_'?)? (X? X 's' '_'?)? ((X? X)? X 'ms')? //interesting note:  X? X? X 'ms' doesn't compile
 ;
 
 terminal LTIME:
-	'LT#'
-	'-'?
-	(((((X? X)? X)? X)? X)? X 'd' '_'?)?
-	(X? X 'h' '_'?)?
-	(X? X 'M' '_'?)?
-	(X? X 's' '_'?)?
-	((X? X)? X 'ms' '_'?)?
-	((X? X)? X 'us' '_'?)?
-	((X? X)? X 'ns')?;
+	'LT#' '-'? (((((X? X)? X)? X)? X)? X 'd' '_'?)? (X? X 'h' '_'?)? (X? X 'M' '_'?)? (X? X 's' '_'?)? ((X? X)? X 'ms'
+	'_'?)? ((X? X)? X 'us' '_'?)? ((X? X)? X 'ns')?;
 
 terminal ID:
 	'^'? ('a'..'z' | 'A'..'Z' | '_') ('a'..'z' | 'A'..'Z' | '_' | '0'..'9')*;
@@ -212,8 +198,8 @@ terminal ID:
 //	('0'..'9')+;
 //
 terminal STRING:
-	'"' ('\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\' | '"'))* '"' |
-	"'" ('\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\' | "'"))* "'";
+	'"' ('\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\' | '"'))* '"' | "'" ('\\' .
+	/* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\' | "'"))* "'";
 
 terminal ML_COMMENT:
 	'/*'->'*/';

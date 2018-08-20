@@ -42,6 +42,7 @@ class EisParsingTest {
 			description = "";
 	'''
 	val ending = "}"
+	val delta = 0
 
 //
 // tests -----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -203,7 +204,8 @@ class EisParsingTest {
 			}
 		''' + ending).parse => [
 			(testcases.head.testblock.define.direction.input.inputVariables.get(0) as Variable) => [
-				(idiom as RealConstant).value.assertEquals(19.001, 0.000001)
+				(idiom as RealConstant).value.assertEquals(19.001, delta) // .contentEquals((19.001).toString).assertTrue
+				assertNoErrors
 			]
 		]
 	}
@@ -216,8 +218,7 @@ class EisParsingTest {
 			}
 		''' + ending).parse => [
 			(testcases.head.testblock.define.direction.input.inputVariables.get(0) as Variable) => [
-				(idiom as RealConstant).value.assertEquals(0.4, 0.000001)
-
+				(idiom as RealConstant).value.assertEquals(0.4, delta) // .contentEquals((0.4).toString).assertTrue
 			]
 		]
 	}

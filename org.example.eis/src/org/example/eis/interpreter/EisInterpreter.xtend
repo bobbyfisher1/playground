@@ -77,6 +77,15 @@ class EisInterpreter {
 						else {
 						}
 					}
+				} else if (left instanceof Double && right instanceof Double) {
+					if (e.op == '*')
+						(left as Double) * (right as Double)
+					else {
+						if (right as Double != 0)
+							(left as Double) / (right as Double)
+						else {
+						}
+					}
 				} else {
 				}
 			}
@@ -85,6 +94,8 @@ class EisInterpreter {
 				val right = e.right.interpret
 				if (left instanceof Long && right instanceof Long) {
 					(left as Long) - (right as Long)
+				} else if (left instanceof Double && right instanceof Double) {
+					(left as Double) - (right as Double)
 				} else {
 				}
 			}
@@ -96,7 +107,9 @@ class EisInterpreter {
 					val right = e.right.interpret
 					if (left instanceof Long && right instanceof Long)
 						(left as Long) + (right as Long)
-					else {
+					else if (left instanceof Double && right instanceof Double) {
+						(left as Double) + (right as Double)
+					} else {
 					}
 				}
 			}
@@ -147,7 +160,15 @@ class EisInterpreter {
 							case '<=': (left as Long) <= (right as Long)
 							default: false
 						}
-					else {
+					else if (left instanceof Double && right instanceof Double) {
+						switch (e.op) {
+							case '<': (left as Double) < (right as Double)
+							case '>': (left as Double) > (right as Double)
+							case '>=': (left as Double) >= (right as Double)
+							case '<=': (left as Double) <= (right as Double)
+							default: false
+						}
+					} else {
 					}
 				}
 			}

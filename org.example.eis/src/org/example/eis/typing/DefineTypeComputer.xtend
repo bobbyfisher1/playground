@@ -112,28 +112,55 @@ class DefineTypeComputer {
 
 	def dispatch DefineType typeFor(Idiom i) {
 		switch (i) {
-			StringConstant: STRING_TYPE
-			IntConstant: INT_TYPE
-			BoolConstant: BOOL_TYPE
-			RealConstant: REAL_TYPE
-			ByteConstant: BYTE_TYPE
-			WordConstant: WORD_TYPE
-			DWordConstant: DWORD_TYPE
-			LWordConstant: LWORD_TYPE
-			CharConstant: CHAR_TYPE
-			TimeConstant: TIME_TYPE
-			LTimeConstant: LTIME_TYPE
+			StringConstant:
+				STRING_TYPE
+			IntConstant:
+				INT_TYPE
+			BoolConstant:
+				BOOL_TYPE
+			RealConstant:
+				REAL_TYPE
+			ByteConstant:
+				BYTE_TYPE
+			WordConstant:
+				WORD_TYPE
+			DWordConstant:
+				DWORD_TYPE
+			LWordConstant:
+				LWORD_TYPE
+			CharConstant:
+				CHAR_TYPE
+			TimeConstant:
+				TIME_TYPE
+			LTimeConstant:
+				LTIME_TYPE
 			//
 //			LongConstant: LINT_TYPE
 			//
-			Not: BOOL_TYPE
-			MulOrDiv: INT_TYPE
-			Minus: INT_TYPE
-			Comparison: BOOL_TYPE
-			Equality: BOOL_TYPE
-			And: BOOL_TYPE
-			Or: BOOL_TYPE
-			default: NULL_TYPE
+			Not:
+				BOOL_TYPE
+			MulOrDiv: {
+				if (i.left.typeFor instanceof RealType && i.right.typeFor instanceof RealType)
+					REAL_TYPE
+				else
+					INT_TYPE
+			}
+			Minus: {
+				if (i.left.typeFor instanceof RealType && i.right.typeFor instanceof RealType)
+					REAL_TYPE
+				else
+					INT_TYPE
+			}
+			Comparison:
+				BOOL_TYPE
+			Equality:
+				BOOL_TYPE
+			And:
+				BOOL_TYPE
+			Or:
+				BOOL_TYPE
+			default:
+				NULL_TYPE
 		}
 	}
 
@@ -185,6 +212,8 @@ class DefineTypeComputer {
 		val rightType = plus.right?.typeFor
 		if (leftType.isStringType || rightType.isStringType)
 			STRING_TYPE
+		else if (leftType instanceof RealType && rightType instanceof RealType)
+			REAL_TYPE
 		else
 			INT_TYPE
 	}

@@ -206,14 +206,28 @@ public class EisValidator extends AbstractEisValidator {
   
   @Check
   public void checkType(final Minus minus) {
-    this.checkExpectedInt(minus.getLeft(), EisPackage.Literals.MINUS__LEFT);
-    this.checkExpectedInt(minus.getRight(), EisPackage.Literals.MINUS__RIGHT);
+    final Object left = this._eisInterpreter.interpret(minus.getLeft());
+    final Object right = this._eisInterpreter.interpret(minus.getRight());
+    if (((left instanceof Double) || (right instanceof Double))) {
+      this.checkExpectedDouble(minus.getLeft(), EisPackage.Literals.MINUS__LEFT);
+      this.checkExpectedDouble(minus.getRight(), EisPackage.Literals.MINUS__RIGHT);
+    } else {
+      this.checkExpectedInt(minus.getLeft(), EisPackage.Literals.MINUS__LEFT);
+      this.checkExpectedInt(minus.getRight(), EisPackage.Literals.MINUS__RIGHT);
+    }
   }
   
   @Check
   public void checkType(final MulOrDiv mulOrDiv) {
-    this.checkExpectedInt(mulOrDiv.getLeft(), EisPackage.Literals.MUL_OR_DIV__LEFT);
-    this.checkExpectedInt(mulOrDiv.getRight(), EisPackage.Literals.MUL_OR_DIV__RIGHT);
+    final Object left = this._eisInterpreter.interpret(mulOrDiv.getLeft());
+    final Object right = this._eisInterpreter.interpret(mulOrDiv.getRight());
+    if (((left instanceof Double) || (right instanceof Double))) {
+      this.checkExpectedDouble(mulOrDiv.getRight(), EisPackage.Literals.MUL_OR_DIV__LEFT);
+      this.checkExpectedDouble(mulOrDiv.getRight(), EisPackage.Literals.MUL_OR_DIV__RIGHT);
+    } else {
+      this.checkExpectedInt(mulOrDiv.getLeft(), EisPackage.Literals.MUL_OR_DIV__LEFT);
+      this.checkExpectedInt(mulOrDiv.getRight(), EisPackage.Literals.MUL_OR_DIV__RIGHT);
+    }
   }
   
   @Check
@@ -221,6 +235,11 @@ public class EisValidator extends AbstractEisValidator {
     final Object right = this._eisInterpreter.interpret(mulOrDiv.getRight());
     if ((right instanceof Long)) {
       if ((((Long) right).longValue() == 0)) {
+        this.error("Division by zero.", mulOrDiv, EisPackage.eINSTANCE.getMulOrDiv_Right(), EisValidator.DIVISION_BY_ZERO);
+      }
+    }
+    if ((right instanceof Double)) {
+      if ((((Double) right).doubleValue() == 0)) {
         this.error("Division by zero.", mulOrDiv, EisPackage.eINSTANCE.getMulOrDiv_Right(), EisValidator.DIVISION_BY_ZERO);
       }
     }
@@ -1401,6 +1420,10 @@ public class EisValidator extends AbstractEisValidator {
   
   private void checkExpectedInt(final Idiom exp, final EReference reference) {
     this.checkExpectedType(exp, DefineTypeComputer.INT_TYPE, reference);
+  }
+  
+  private void checkExpectedDouble(final Idiom exp, final EReference reference) {
+    this.checkExpectedType(exp, DefineTypeComputer.REAL_TYPE, reference);
   }
   
   private void checkExpectedType(final Idiom exp, final DefineType expectedType, final EReference reference) {

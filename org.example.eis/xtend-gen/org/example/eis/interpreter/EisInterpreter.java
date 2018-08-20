@@ -6,6 +6,7 @@ import com.google.inject.Provider;
 import java.util.Arrays;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.util.IResourceScopeCache;
+import org.eclipse.xtext.xbase.lib.DoubleExtensions;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Pair;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
@@ -69,7 +70,7 @@ public class EisInterpreter {
     if (!_matched) {
       if (e instanceof RealConstant) {
         _matched=true;
-        _switchResult = Float.valueOf(((RealConstant)e).getValue());
+        _switchResult = Double.valueOf(((RealConstant)e).getValue());
       }
     }
     if (!_matched) {
@@ -131,11 +132,11 @@ public class EisInterpreter {
     if (!_matched) {
       if (e instanceof MulOrDiv) {
         _matched=true;
-        Long _xblockexpression = null;
+        Number _xblockexpression = null;
         {
           final Object left = this.interpret(((MulOrDiv)e).getLeft());
           final Object right = this.interpret(((MulOrDiv)e).getRight());
-          Long _xifexpression = null;
+          Number _xifexpression = null;
           if (((left instanceof Long) && (right instanceof Long))) {
             Long _xifexpression_1 = null;
             String _op = ((MulOrDiv)e).getOp();
@@ -153,9 +154,29 @@ public class EisInterpreter {
             }
             _xifexpression = _xifexpression_1;
           } else {
-            _xifexpression = null;
+            Double _xifexpression_3 = null;
+            if (((left instanceof Double) && (right instanceof Double))) {
+              Double _xifexpression_4 = null;
+              String _op_1 = ((MulOrDiv)e).getOp();
+              boolean _equals_1 = Objects.equal(_op_1, "*");
+              if (_equals_1) {
+                _xifexpression_4 = Double.valueOf(DoubleExtensions.operator_multiply(((Double) left), ((Double) right)));
+              } else {
+                Double _xifexpression_5 = null;
+                if (((((Double) right)).doubleValue() != 0)) {
+                  _xifexpression_5 = Double.valueOf(DoubleExtensions.operator_divide(((Double) left), ((Double) right)));
+                } else {
+                  _xifexpression_5 = null;
+                }
+                _xifexpression_4 = _xifexpression_5;
+              }
+              _xifexpression_3 = _xifexpression_4;
+            } else {
+              _xifexpression_3 = null;
+            }
+            _xifexpression = _xifexpression_3;
           }
-          _xblockexpression = _xifexpression;
+          _xblockexpression = ((Number)_xifexpression);
         }
         _switchResult = _xblockexpression;
       }
@@ -163,17 +184,23 @@ public class EisInterpreter {
     if (!_matched) {
       if (e instanceof Minus) {
         _matched=true;
-        Long _xblockexpression = null;
+        Number _xblockexpression = null;
         {
           final Object left = this.interpret(((Minus)e).getLeft());
           final Object right = this.interpret(((Minus)e).getRight());
-          Long _xifexpression = null;
+          Number _xifexpression = null;
           if (((left instanceof Long) && (right instanceof Long))) {
             _xifexpression = Long.valueOf(((((Long) left)).longValue() - (((Long) right)).longValue()));
           } else {
-            _xifexpression = null;
+            Double _xifexpression_1 = null;
+            if (((left instanceof Double) && (right instanceof Double))) {
+              _xifexpression_1 = Double.valueOf(DoubleExtensions.operator_minus(((Double) left), ((Double) right)));
+            } else {
+              _xifexpression_1 = null;
+            }
+            _xifexpression = _xifexpression_1;
           }
-          _xblockexpression = _xifexpression;
+          _xblockexpression = ((Number)_xifexpression);
         }
         _switchResult = _xblockexpression;
       }
@@ -187,17 +214,23 @@ public class EisInterpreter {
           String _string_1 = this.interpret(((Plus)e).getRight()).toString();
           _xifexpression = (_string + _string_1);
         } else {
-          Long _xblockexpression = null;
+          Number _xblockexpression = null;
           {
             final Object left = this.interpret(((Plus)e).getLeft());
             final Object right = this.interpret(((Plus)e).getRight());
-            Long _xifexpression_1 = null;
+            Number _xifexpression_1 = null;
             if (((left instanceof Long) && (right instanceof Long))) {
               _xifexpression_1 = Long.valueOf(((((Long) left)).longValue() + (((Long) right)).longValue()));
             } else {
-              _xifexpression_1 = null;
+              Double _xifexpression_2 = null;
+              if (((left instanceof Double) && (right instanceof Double))) {
+                _xifexpression_2 = Double.valueOf(DoubleExtensions.operator_plus(((Double) left), ((Double) right)));
+              } else {
+                _xifexpression_2 = null;
+              }
+              _xifexpression_1 = _xifexpression_2;
             }
-            _xblockexpression = _xifexpression_1;
+            _xblockexpression = ((Number)_xifexpression_1);
           }
           _xifexpression = _xblockexpression;
         }
@@ -332,7 +365,36 @@ public class EisInterpreter {
               }
               _xifexpression_1 = Boolean.valueOf(_switchResult_1);
             } else {
-              _xifexpression_1 = null;
+              Boolean _xifexpression_2 = null;
+              if (((left instanceof Double) && (right instanceof Double))) {
+                boolean _switchResult_2 = false;
+                String _op_1 = ((Comparison)e).getOp();
+                if (_op_1 != null) {
+                  switch (_op_1) {
+                    case "<":
+                      _switchResult_2 = (((Double) left).compareTo(((Double) right)) < 0);
+                      break;
+                    case ">":
+                      _switchResult_2 = (((Double) left).compareTo(((Double) right)) > 0);
+                      break;
+                    case ">=":
+                      _switchResult_2 = (((Double) left).compareTo(((Double) right)) >= 0);
+                      break;
+                    case "<=":
+                      _switchResult_2 = (((Double) left).compareTo(((Double) right)) <= 0);
+                      break;
+                    default:
+                      _switchResult_2 = false;
+                      break;
+                  }
+                } else {
+                  _switchResult_2 = false;
+                }
+                _xifexpression_2 = Boolean.valueOf(_switchResult_2);
+              } else {
+                _xifexpression_2 = null;
+              }
+              _xifexpression_1 = _xifexpression_2;
             }
             _xblockexpression_1 = _xifexpression_1;
           }

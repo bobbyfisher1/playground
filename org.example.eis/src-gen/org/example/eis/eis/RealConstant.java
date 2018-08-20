@@ -31,12 +31,12 @@ public interface RealConstant extends Idiom
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Value</em>' attribute.
-   * @see #setValue(float)
+   * @see #setValue(double)
    * @see org.example.eis.eis.EisPackage#getRealConstant_Value()
    * @model
    * @generated
    */
-  float getValue();
+  double getValue();
 
   /**
    * Sets the value of the '{@link org.example.eis.eis.RealConstant#getValue <em>Value</em>}' attribute.
@@ -46,6 +46,6 @@ public interface RealConstant extends Idiom
    * @see #getValue()
    * @generated
    */
-  void setValue(float value);
+  void setValue(double value);
 
 } // RealConstant

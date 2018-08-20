@@ -548,7 +548,20 @@ class EisValidatorTest {
 			output[]
 		}'''
 		(beginning + zero + ending).parse => [
+			1.assertEquals(validate.size)
 			assertError(EisPackage.eINSTANCE.mulOrDiv, EisValidator.DIVISION_BY_ZERO)
+		]
+	}
+
+	@Test def void testDivisionByRealZero() {
+		val zero = '''
+		define{
+			input[ real a = 1.0 / 0.0;]
+			output[]
+		}'''
+		(beginning + zero + ending).parse => [
+			assertError(EisPackage.eINSTANCE.mulOrDiv, EisValidator.DIVISION_BY_ZERO)
+			1.assertEquals(validate.size)
 		]
 	}
 
@@ -570,9 +583,9 @@ class EisValidatorTest {
 		define{
 			input[
 				 udt a(typeA){
-					 udt b(typeB){
-						inout int c;
-					}
+				  udt b(typeB){
+				  inout int c;
+				 }
 				}
 			]
 			output[]

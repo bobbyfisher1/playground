@@ -2287,7 +2287,13 @@ public class EisGeneratorTest {
     _builder.append("define{");
     _builder.newLine();
     _builder.append("\t");
-    _builder.append("input[real a = -1.0; ]");
+    _builder.append("input[");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("real a = -1.00000000000000009;");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("]");
     _builder.newLine();
     _builder.append("\t");
     _builder.append("output[]");
@@ -2297,13 +2303,7 @@ public class EisGeneratorTest {
     _builder.append("teststep(0, \"\"){");
     _builder.newLine();
     _builder.append("\t");
-    _builder.append("set[");
-    _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("a = -1.0 ;");
-    _builder.newLine();
-    _builder.append("\t");
-    _builder.append("]");
+    _builder.append("set[\t]");
     _builder.newLine();
     _builder.append("\t");
     _builder.append("assert[]");
@@ -2345,7 +2345,7 @@ public class EisGeneratorTest {
         _builder_1.append("<Inputs>");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t");
-        _builder_1.append("<Element xsi:type=\"Input\" Name=\"a\" Datatype=\"Real\" Direction=\"Input\" Value=\"-1.0\" />");
+        _builder_1.append("<Element xsi:type=\"Input\" Name=\"a\" Datatype=\"Real\" Direction=\"Input\" Value=\"-1.00000000000000009\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t");
         _builder_1.append("</Inputs>");

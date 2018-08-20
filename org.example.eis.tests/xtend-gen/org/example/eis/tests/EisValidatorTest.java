@@ -1163,7 +1163,33 @@ public class EisValidatorTest {
       final String zero = _builder.toString();
       EisModel _parse = this._parseHelper.parse(((this.beginning + zero) + this.ending));
       final Procedure1<EisModel> _function = (EisModel it) -> {
+        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
         this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getMulOrDiv(), EisValidator.DIVISION_BY_ZERO);
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void testDivisionByRealZero() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("define{");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("input[ real a = 1.0 / 0.0;]");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("output[]");
+      _builder.newLine();
+      _builder.append("}");
+      final String zero = _builder.toString();
+      EisModel _parse = this._parseHelper.parse(((this.beginning + zero) + this.ending));
+      final Procedure1<EisModel> _function = (EisModel it) -> {
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getMulOrDiv(), EisValidator.DIVISION_BY_ZERO);
+        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
       };
       ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
     } catch (Throwable _e) {
@@ -1208,13 +1234,13 @@ public class EisValidatorTest {
       _builder.append("\t\t ");
       _builder.append("udt a(typeA){");
       _builder.newLine();
-      _builder.append("\t\t\t ");
+      _builder.append("\t\t  ");
       _builder.append("udt b(typeB){");
       _builder.newLine();
-      _builder.append("\t\t\t\t");
+      _builder.append("\t\t  ");
       _builder.append("inout int c;");
       _builder.newLine();
-      _builder.append("\t\t\t");
+      _builder.append("\t\t ");
       _builder.append("}");
       _builder.newLine();
       _builder.append("\t\t");
