@@ -199,12 +199,12 @@ class EisParsingTest {
 	@Test def void testDecimal() {
 		(beginning + '''
 			define{
-				input[ real a = 19.001; ]
+				input[ real a = 19.00000000009; ]
 				output[]
 			}
 		''' + ending).parse => [
 			(testcases.head.testblock.define.direction.input.inputVariables.get(0) as Variable) => [
-				(idiom as RealConstant).value.assertEquals(19.001, delta) // .contentEquals((19.001).toString).assertTrue
+				Double.parseDouble((idiom as RealConstant).value).assertEquals(19.00000000009, delta) // .contentEquals((19.001).toString).assertTrue
 				assertNoErrors
 			]
 		]
@@ -218,7 +218,7 @@ class EisParsingTest {
 			}
 		''' + ending).parse => [
 			(testcases.head.testblock.define.direction.input.inputVariables.get(0) as Variable) => [
-				(idiom as RealConstant).value.assertEquals(0.4, delta) // .contentEquals((0.4).toString).assertTrue
+				Double.parseDouble((idiom as RealConstant).value).assertEquals(0.4, delta) // .contentEquals((0.4).toString).assertTrue
 			]
 		]
 	}

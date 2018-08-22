@@ -35,7 +35,7 @@ public class RealConstantImpl extends IdiomImpl implements RealConstant
    * @generated
    * @ordered
    */
-  protected static final double VALUE_EDEFAULT = 0.0;
+  protected static final String VALUE_EDEFAULT = null;
 
   /**
    * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
@@ -45,7 +45,7 @@ public class RealConstantImpl extends IdiomImpl implements RealConstant
    * @generated
    * @ordered
    */
-  protected double value = VALUE_EDEFAULT;
+  protected String value = VALUE_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -73,7 +73,7 @@ public class RealConstantImpl extends IdiomImpl implements RealConstant
    * <!-- end-user-doc -->
    * @generated
    */
-  public double getValue()
+  public String getValue()
   {
     return value;
   }
@@ -83,9 +83,9 @@ public class RealConstantImpl extends IdiomImpl implements RealConstant
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setValue(double newValue)
+  public void setValue(String newValue)
   {
-    double oldValue = value;
+    String oldValue = value;
     value = newValue;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, EisPackage.REAL_CONSTANT__VALUE, oldValue, value));
@@ -118,7 +118,7 @@ public class RealConstantImpl extends IdiomImpl implements RealConstant
     switch (featureID)
     {
       case EisPackage.REAL_CONSTANT__VALUE:
-        setValue((Double)newValue);
+        setValue((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -152,7 +152,7 @@ public class RealConstantImpl extends IdiomImpl implements RealConstant
     switch (featureID)
     {
       case EisPackage.REAL_CONSTANT__VALUE:
-        return value != VALUE_EDEFAULT;
+        return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
     }
     return super.eIsSet(featureID);
   }

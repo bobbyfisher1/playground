@@ -14,10 +14,10 @@ import org.xtext.eis.eis.Udt
 class EisProposalProvider extends AbstractEisProposalProvider {
 	override completeVariable_VariableType(EObject model, Assignment assignment, ContentAssistContext context,
 		ICompletionProposalAcceptor acceptor) {
-		// The content assist should work as expected.
+
 		super.completeVariable_VariableType(model, assignment, context, acceptor)
 
-		// As an added proposals udtTypes are shown as well 
+		// As added proposals udtTypes are shown as well 
 		// Here model is either input or output
 		val udtTypes = if (model instanceof Input)
 				model.inputVariables.filter(Udt).map[udtType]
@@ -25,6 +25,7 @@ class EisProposalProvider extends AbstractEisProposalProvider {
 				model.outputVariables.filter(Udt).map[udtType]
 			else if (model instanceof Udt)
 				model.udtVariables.filter(Udt).map[udtType]
+
 		for (e : udtTypes)
 			acceptor.accept(createCompletionProposal(e.name, e.name + " - UdtType", null, context))
 	}
@@ -41,9 +42,49 @@ class EisProposalProvider extends AbstractEisProposalProvider {
 	override completeBlockConstant_Value(EObject model, Assignment assignment, ContentAssistContext context,
 		ICompletionProposalAcceptor acceptor) {
 		super.completeBlockConstant_Value(model, assignment, context, acceptor)
-
 		acceptor.accept(createCompletionProposal("FC", "FC", null, context))
 		acceptor.accept(createCompletionProposal("FB", "FB", null, context))
+	}
 
+	override completeEisModel_Project_name(EObject model, Assignment assignment, ContentAssistContext context,
+		ICompletionProposalAcceptor acceptor) {
+		super.completeEisModel_Project_name(model, assignment, context, acceptor)
+		acceptor.accept(createCompletionProposal('"project_name"', "project_name", null, context))
+	}
+
+	override completeEisModel_Plc_name(EObject model, Assignment assignment, ContentAssistContext context,
+		ICompletionProposalAcceptor acceptor) {
+		super.completeEisModel_Plc_name(model, assignment, context, acceptor)
+		acceptor.accept(createCompletionProposal('"plc_name"', "plc_name", null, context))
+	}
+
+	override completeEisModel_Author_name(EObject model, Assignment assignment, ContentAssistContext context,
+		ICompletionProposalAcceptor acceptor) {
+		super.completeEisModel_Author_name(model, assignment, context, acceptor)
+		acceptor.accept(createCompletionProposal('"author_name"', 'author_name', null, context))
+	}
+
+	override completeTestcase_Testcase_name(EObject model, Assignment assignment, ContentAssistContext context,
+		ICompletionProposalAcceptor acceptor) {
+		super.completeTestcase_Testcase_name(model, assignment, context, acceptor)
+		acceptor.accept(createCompletionProposal("testcase_name", 'testcase_name', null, context))
+	}
+
+	override completeTestblock_Description(EObject model, Assignment assignment, ContentAssistContext context,
+		ICompletionProposalAcceptor acceptor) {
+		super.completeTestblock_Description(model, assignment, context, acceptor)
+		acceptor.accept(createCompletionProposal('"description"', 'description', null, context))
+	}
+
+	override completeTeststepBlock_PlcCycle(EObject model, Assignment assignment, ContentAssistContext context,
+		ICompletionProposalAcceptor acceptor) {
+		super.completeTeststepBlock_PlcCycle(model, assignment, context, acceptor)
+		acceptor.accept(createCompletionProposal('0', '0', null, context))
+	}
+
+	override completeTeststepBlock_Description(EObject model, Assignment assignment, ContentAssistContext context,
+		ICompletionProposalAcceptor acceptor) {
+		super.completeTeststepBlock_Description(model, assignment, context, acceptor)
+		acceptor.accept(createCompletionProposal('"description"', 'description', null, context))
 	}
 }

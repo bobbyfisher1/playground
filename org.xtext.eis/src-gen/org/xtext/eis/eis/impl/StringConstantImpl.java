@@ -52,7 +52,7 @@ public class StringConstantImpl extends IdiomImpl implements StringConstant
    * <!-- end-user-doc -->
    * @generated
    */
-  public StringConstantImpl()
+  public  StringConstantImpl()
   {
     super();
   }

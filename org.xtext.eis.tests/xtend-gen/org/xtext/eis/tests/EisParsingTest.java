@@ -411,7 +411,7 @@ public class EisParsingTest {
       _builder.append("define{");
       _builder.newLine();
       _builder.append("\t");
-      _builder.append("input[ real a = 19.001; ]");
+      _builder.append("input[ real a = 19.00000000009; ]");
       _builder.newLine();
       _builder.append("\t");
       _builder.append("output[]");
@@ -424,7 +424,7 @@ public class EisParsingTest {
         Variables _get = IterableExtensions.<Testcase>head(it.getTestcases()).getTestblock().getDefine().getDirection().getInput().getInputVariables().get(0);
         final Procedure1<Variable> _function_1 = (Variable it_1) -> {
           Idiom _idiom = it_1.getIdiom();
-          Assert.assertEquals(((RealConstant) _idiom).getValue(), 19.001, this.delta);
+          Assert.assertEquals(Double.parseDouble(((RealConstant) _idiom).getValue()), 19.00000000009, this.delta);
           this._validationTestHelper.assertNoErrors(it_1);
         };
         ObjectExtensions.<Variable>operator_doubleArrow(((Variable) _get), _function_1);
@@ -455,7 +455,7 @@ public class EisParsingTest {
         Variables _get = IterableExtensions.<Testcase>head(it.getTestcases()).getTestblock().getDefine().getDirection().getInput().getInputVariables().get(0);
         final Procedure1<Variable> _function_1 = (Variable it_1) -> {
           Idiom _idiom = it_1.getIdiom();
-          Assert.assertEquals(((RealConstant) _idiom).getValue(), 0.4, this.delta);
+          Assert.assertEquals(Double.parseDouble(((RealConstant) _idiom).getValue()), 0.4, this.delta);
         };
         ObjectExtensions.<Variable>operator_doubleArrow(((Variable) _get), _function_1);
       };

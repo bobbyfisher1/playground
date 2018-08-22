@@ -43,7 +43,7 @@ class EisInterpreter {
 			StringConstant:
 				e.value
 			RealConstant:
-				e.value
+				Double.parseDouble(e.value)
 			ByteConstant:
 				e.value.toUpperCase
 			WordConstant:

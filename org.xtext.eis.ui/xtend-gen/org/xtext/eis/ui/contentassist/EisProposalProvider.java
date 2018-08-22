@@ -68,4 +68,46 @@ public class EisProposalProvider extends AbstractEisProposalProvider {
     acceptor.accept(this.createCompletionProposal("FC", "FC", null, context));
     acceptor.accept(this.createCompletionProposal("FB", "FB", null, context));
   }
+  
+  @Override
+  public void completeEisModel_Project_name(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
+    super.completeEisModel_Project_name(model, assignment, context, acceptor);
+    acceptor.accept(this.createCompletionProposal("\"project_name\"", "project_name", null, context));
+  }
+  
+  @Override
+  public void completeEisModel_Plc_name(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
+    super.completeEisModel_Plc_name(model, assignment, context, acceptor);
+    acceptor.accept(this.createCompletionProposal("\"plc_name\"", "plc_name", null, context));
+  }
+  
+  @Override
+  public void completeEisModel_Author_name(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
+    super.completeEisModel_Author_name(model, assignment, context, acceptor);
+    acceptor.accept(this.createCompletionProposal("\"author_name\"", "author_name", null, context));
+  }
+  
+  @Override
+  public void completeTestcase_Testcase_name(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
+    super.completeTestcase_Testcase_name(model, assignment, context, acceptor);
+    acceptor.accept(this.createCompletionProposal("testcase_name", "testcase_name", null, context));
+  }
+  
+  @Override
+  public void completeTestblock_Description(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
+    super.completeTestblock_Description(model, assignment, context, acceptor);
+    acceptor.accept(this.createCompletionProposal("\"description\"", "description", null, context));
+  }
+  
+  @Override
+  public void completeTeststepBlock_PlcCycle(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
+    super.completeTeststepBlock_PlcCycle(model, assignment, context, acceptor);
+    acceptor.accept(this.createCompletionProposal("0", "0", null, context));
+  }
+  
+  @Override
+  public void completeTeststepBlock_Description(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
+    super.completeTeststepBlock_Description(model, assignment, context, acceptor);
+    acceptor.accept(this.createCompletionProposal("\"description\"", "description", null, context));
+  }
 }

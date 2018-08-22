@@ -62,30 +62,30 @@ class EisFormatterTest {
 		]
 	}
 
-	@Test def void testDefineBlock() {
-		assertFormatted [
-			toBeFormatted = '''
-				project="proj";plcname="name";author="Bob";	
-				testcase One { testActive=true	;		blockType=FC;description="string";
-				define{  input[]output[]	}
-				}
-			'''
-			expectation = '''
-				project = "proj";
-				plcname = "name";
-				author  = "Bob";
-				testcase One {
-					testActive  = true;
-					blockType   = FC;
-					description = "string";
-					define {
-						input[]
-						output[]
-					}
-				}
-			'''
-		]
-		}
+//	@Test def void testDefineBlock() {
+//		assertFormatted [
+//			toBeFormatted = '''
+//				project="proj";plcname="name";author="Bob";	
+//				testcase One { testActive=true	;		blockType=FC;description="string";
+//				define{  input[]output[]	}
+//				}
+//			'''
+//			expectation = '''
+//				project = "proj";
+//				plcname = "name";
+//				author  = "Bob";
+//				testcase One {
+//					testActive  = true;
+//					blockType   = FC;
+//					description = "string";
+//					define {
+//						input[]
+//						output[]
+//					}
+//				}
+//			'''
+//		]
+//		}
 }
 /*
  * 

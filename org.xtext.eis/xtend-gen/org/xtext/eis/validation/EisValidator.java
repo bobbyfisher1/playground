@@ -1019,7 +1019,7 @@ public class EisValidator extends AbstractEisValidator {
         LocalDate.parse(date, DateTimeFormatter.ISO_LOCAL_DATE);
       } catch (final Throwable _t) {
         if (_t instanceof DateTimeParseException) {
-          this.error("Date could not be correctly parsed.", _date.eContainer(), ref, EisValidator.INVALID_DATE_NOTATION);
+          this.error("Date could not be correctly parsed to the following format: YYYY-MM-DD ", _date.eContainer(), ref, EisValidator.INVALID_DATE_NOTATION);
           return false;
         } else {
           throw Exceptions.sneakyThrow(_t);

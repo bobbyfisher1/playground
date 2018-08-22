@@ -60,30 +60,31 @@ UdtRef:
 
 enum BasicType:
 	NULL='null'
-	| INT='int' //
-	| BOOL='bool' //
-	| REAL='real' //
+	| INT='int'
+	| BOOL='bool'
+	| REAL='real'//
 	| STRING='string'
-	| CHAR="char" //
+	| CHAR="char"
 	//
-	| BYTE="byte" //
-	| WORD="word" //
-	| DWORD="dword" //
-	| LWORD="lword" //
+	| BYTE="byte"
+	| WORD="word"
+	| DWORD="dword"
+	| LWORD="lword"
 	//
-	| USINT="usint" //
-	| UINT="uint" //
-	| UDINT="udint" //
-	| ULINT="ulint" //
-	| SINT="sint" //
-	| DINT="dint" //
-	| LINT="lint" //
+	| USINT="usint"
+	| UINT="uint"
+	| UDINT="udint"
+	| ULINT="ulint"
+	| SINT="sint"
+	| DINT="dint"
+	| LINT="lint"
 	//
-	| TIME="time" //
-	| LTIME="ltime" //
+	| TIME="time"
+	| LTIME="ltime"
 	| DATE="date";
-	//LREAL
-//WCHAR
+	//		LREAL
+//		WCHAR
+//
 UdtType:
 	name=ID;
 
@@ -144,19 +145,25 @@ Statement:
 Cascade:
 	'.' udtVar=[Variables];
 
+	//
+//	terminal fragments-----------------------------------------------------------------------------------------------------------------------
+//
 terminal fragment X:
 	'0'..'9';
 
 terminal fragment HEX:
 	X | 'A'..'F' | 'a'..'f';
 
+	//
+//	terminals---------------------------------------------------------------------------------------------------------------------------------------
+//
 terminal LONG returns ecore::ELong:
 	X+;
 
 terminal NEGATIVE_LONG returns ecore::ELong:
 	'-' LONG;
 
-terminal REAL returns ecore::EDouble:
+terminal REAL ://returns ecore::EDouble:
 	(LONG | NEGATIVE_LONG) '.' LONG;
 
 terminal BYTE:

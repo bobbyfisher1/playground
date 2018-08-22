@@ -676,6 +676,9 @@ class EisValidator extends AbstractEisValidator {
 			}
 	}
 
+//
+// methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//
 	def boolean checkDate(Idiom _date, EReference ref) {
 		val date = _date.interpret.toString.substring(2) // Format: YYYY-MM-DD
 		val dateAsInt = Integer.parseInt(date.replaceAll('-', ''))
@@ -685,7 +688,7 @@ class EisValidator extends AbstractEisValidator {
 		try {
 			LocalDate.parse(date, DateTimeFormatter.ISO_LOCAL_DATE);
 		} catch (DateTimeParseException e) {
-			error("Date could not be correctly parsed.", _date.eContainer, ref, INVALID_DATE_NOTATION)
+			error("Date could not be correctly parsed to the following format: YYYY-MM-DD ", _date.eContainer, ref, INVALID_DATE_NOTATION)
 			return false
 		}
 
@@ -695,9 +698,6 @@ class EisValidator extends AbstractEisValidator {
 			false
 	}
 
-//
-// methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-//
 	def private EObject firstUdt(EObject context) {
 		val container = context.eContainer
 		if (container instanceof Udt)

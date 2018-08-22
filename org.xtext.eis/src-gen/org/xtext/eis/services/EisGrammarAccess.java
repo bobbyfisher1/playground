@@ -678,8 +678,9 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cNameAssignment = (Assignment)rule.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_0 = (RuleCall)cNameAssignment.eContents().get(0);
 		
-		////LREAL
-		////WCHAR
+		////		LREAL
+		////		WCHAR
+		////
 		//UdtType:
 		//	name=ID;
 		@Override public ParserRule getRule() { return rule; }
@@ -1551,51 +1552,34 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//enum BasicType:
 		//	NULL='null'
-		//	| INT='int' //
-		//	| BOOL='bool' //
-		//	| REAL='real' //
+		//	| INT='int'
+		//	| BOOL='bool'
+		//	| REAL='real'
 		//	| STRING='string'
-		//	| CHAR="char" //
+		//	| CHAR="char"
 		//	//
-		//	| BYTE="byte" //
-		//	| WORD="word" //
-		//	| DWORD="dword" //
-		//	| LWORD="lword" //
+		//	| BYTE="byte"
+		//	| WORD="word"
+		//	| DWORD="dword"
+		//	| LWORD="lword"
 		//	//
-		//	| USINT="usint" //
-		//	| UINT="uint" //
-		//	| UDINT="udint" //
-		//	| ULINT="ulint" //
-		//	| SINT="sint" //
-		//	| DINT="dint" //
-		//	| LINT="lint" //
+		//	| USINT="usint"
+		//	| UINT="uint"
+		//	| UDINT="udint"
+		//	| ULINT="ulint"
+		//	| SINT="sint"
+		//	| DINT="dint"
+		//	| LINT="lint"
 		//	//
-		//	| TIME="time" //
-		//	| LTIME="ltime" //
+		//	| TIME="time"
+		//	| LTIME="ltime"
 		//	| DATE="date";
 		public EnumRule getRule() { return rule; }
 		
-		//NULL='null' | INT='int' //
-		//| BOOL='bool' //
-		//| REAL='real' //
-		//| STRING='string' | CHAR="char" //
-		////
-		//| BYTE="byte" //
-		//| WORD="word" //
-		//| DWORD="dword" //
-		//| LWORD="lword" //
-		////
-		//| USINT="usint" //
-		//| UINT="uint" //
-		//| UDINT="udint" //
-		//| ULINT="ulint" //
-		//| SINT="sint" //
-		//| DINT="dint" //
-		//| LINT="lint" //
-		////
-		//| TIME="time" //
-		//| LTIME="ltime" //
-		//| DATE="date"
+		//NULL='null' | INT='int' | BOOL='bool' | REAL='real' | STRING='string' | CHAR="char" //
+		//| BYTE="byte" | WORD="word" | DWORD="dword" | LWORD="lword" //
+		//| USINT="usint" | UINT="uint" | UDINT="udint" | ULINT="ulint" | SINT="sint" | DINT="dint" | LINT="lint" //
+		//| TIME="time" | LTIME="ltime" | DATE="date"
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//NULL='null'
@@ -2013,27 +1997,27 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//enum BasicType:
 	//	NULL='null'
-	//	| INT='int' //
-	//	| BOOL='bool' //
-	//	| REAL='real' //
+	//	| INT='int'
+	//	| BOOL='bool'
+	//	| REAL='real'
 	//	| STRING='string'
-	//	| CHAR="char" //
+	//	| CHAR="char"
 	//	//
-	//	| BYTE="byte" //
-	//	| WORD="word" //
-	//	| DWORD="dword" //
-	//	| LWORD="lword" //
+	//	| BYTE="byte"
+	//	| WORD="word"
+	//	| DWORD="dword"
+	//	| LWORD="lword"
 	//	//
-	//	| USINT="usint" //
-	//	| UINT="uint" //
-	//	| UDINT="udint" //
-	//	| ULINT="ulint" //
-	//	| SINT="sint" //
-	//	| DINT="dint" //
-	//	| LINT="lint" //
+	//	| USINT="usint"
+	//	| UINT="uint"
+	//	| UDINT="udint"
+	//	| ULINT="ulint"
+	//	| SINT="sint"
+	//	| DINT="dint"
+	//	| LINT="lint"
 	//	//
-	//	| TIME="time" //
-	//	| LTIME="ltime" //
+	//	| TIME="time"
+	//	| LTIME="ltime"
 	//	| DATE="date";
 	public BasicTypeElements getBasicTypeAccess() {
 		return eBasicType;
@@ -2043,8 +2027,9 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		return getBasicTypeAccess().getRule();
 	}
 	
-	////LREAL
-	////WCHAR
+	////		LREAL
+	////		WCHAR
+	////
 	//UdtType:
 	//	name=ID;
 	public UdtTypeElements getUdtTypeAccess() {
@@ -2239,7 +2224,7 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		return tNEGATIVE_LONG;
 	}
 	
-	//terminal REAL returns ecore::EDouble:
+	//terminal REAL:
 	//	(LONG | NEGATIVE_LONG) '.' LONG;
 	public TerminalRule getREALRule() {
 		return tREAL;

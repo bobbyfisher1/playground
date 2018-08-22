@@ -71,7 +71,7 @@ public class EisInterpreter {
     if (!_matched) {
       if (e instanceof RealConstant) {
         _matched=true;
-        _switchResult = Double.valueOf(((RealConstant)e).getValue());
+        _switchResult = Double.valueOf(Double.parseDouble(((RealConstant)e).getValue()));
       }
     }
     if (!_matched) {
