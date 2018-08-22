@@ -191,7 +191,7 @@ class EisValidator extends AbstractEisValidator {
 			if (right == 0)
 				error("Division by zero.", mulOrDiv, EisPackage.eINSTANCE.mulOrDiv_Right, DIVISION_BY_ZERO)
 		if (right instanceof Double)
-			if (right == 0)
+			if (!(right < 0) && !(right > 0))
 				error("Division by zero.", mulOrDiv, EisPackage.eINSTANCE.mulOrDiv_Right, DIVISION_BY_ZERO)
 
 	}

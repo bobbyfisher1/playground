@@ -247,7 +247,7 @@ public class EisValidator extends AbstractEisValidator {
       }
     }
     if ((right instanceof Double)) {
-      if ((((Double) right).doubleValue() == 0)) {
+      if (((!(((Double) right).doubleValue() < 0)) && (!(((Double) right).doubleValue() > 0)))) {
         this.error("Division by zero.", mulOrDiv, EisPackage.eINSTANCE.getMulOrDiv_Right(), EisValidator.DIVISION_BY_ZERO);
       }
     }
