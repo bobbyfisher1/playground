@@ -98,25 +98,95 @@ class DefineTypeComputerTest {
 	@Test def void testNotIsBool() { (DefineTypeComputer.INT_TYPE).isBoolType.assertFalse }
 
 	@Test def void testInt() {
-		val real = '''
+		val _int = '''
 			int a = -1;
 		'''
-		(start + real + end).parse => [
+		(start + _int + end).parse => [
 			assertNoErrors
 		]
 	}
 
 	@Test def void testReal() {
-		val real = '''real a = -1.01;'''
+		var real = '''real a = -1.01;'''
+		(start + real + end).parse.assertNoErrors
+
+		real = '''real a = -1.01E10;'''
+		(start + real + end).parse.assertNoErrors
+
+		real = '''real a = -1.01e+10;'''
+		(start + real + end).parse.assertNoErrors
+
+		real = '''real a = -1.01E-10;'''
+		(start + real + end).parse.assertNoErrors
+
+		real = '''real a = -1.01e710;'''
 		(start + real + end).parse => [
-			assertNoErrors
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
 		]
+
+		real = '''real a = -1.01e+100;'''
+		(start + real + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+
+		real = '''real a = -1.01e-100;'''
+		(start + real + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+
+	}
+
+	@Test def void testLReal() {
+		var lreal = '''lreal a = -1.01;'''
+		(start + lreal + end).parse.assertNoErrors
+
+		lreal = '''lreal a = -1.01e308;'''
+		(start + lreal + end).parse.assertNoErrors
+
+		lreal = '''lreal a = -2.0e308;'''
+		(start + lreal + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+
+		lreal = '''lreal a = -1.01e309;'''
+		(start + lreal + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+
+		lreal = '''lreal a = -3.0e-308;'''
+		(start + lreal + end).parse.assertNoErrors
+
+		lreal = '''lreal a = -2.0e-308;'''
+		(start + lreal + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+
+		lreal = '''lreal a = -3.0e-309;'''
+		(start + lreal + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+
 	}
 
 	@Test def void testChar() {
 		val _char = '''char a = 'u';'''
 
 		(start + _char + end).parse => [
+			assertNoErrors
+		]
+	}
+
+	@Test def void testWChar() {
+		val _wchar = '''wchar a = 'u';'''
+
+		(start + _wchar + end).parse => [
 			assertNoErrors
 		]
 	}

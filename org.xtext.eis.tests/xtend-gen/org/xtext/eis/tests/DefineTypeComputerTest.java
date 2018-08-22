@@ -164,8 +164,8 @@ public class DefineTypeComputerTest {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("int a = -1;");
       _builder.newLine();
-      final String real = _builder.toString();
-      EisModel _parse = this._parseHelper.parse(((this.start + real) + this.end));
+      final String _int = _builder.toString();
+      EisModel _parse = this._parseHelper.parse(((this.start + _int) + this.end));
       final Procedure1<EisModel> _function = (EisModel it) -> {
         this._validationTestHelper.assertNoErrors(it);
       };
@@ -180,12 +180,103 @@ public class DefineTypeComputerTest {
     try {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("real a = -1.01;");
-      final String real = _builder.toString();
+      String real = _builder.toString();
+      this._validationTestHelper.assertNoErrors(this._parseHelper.parse(((this.start + real) + this.end)));
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("real a = -1.01E10;");
+      real = _builder_1.toString();
+      this._validationTestHelper.assertNoErrors(this._parseHelper.parse(((this.start + real) + this.end)));
+      StringConcatenation _builder_2 = new StringConcatenation();
+      _builder_2.append("real a = -1.01e+10;");
+      real = _builder_2.toString();
+      this._validationTestHelper.assertNoErrors(this._parseHelper.parse(((this.start + real) + this.end)));
+      StringConcatenation _builder_3 = new StringConcatenation();
+      _builder_3.append("real a = -1.01E-10;");
+      real = _builder_3.toString();
+      this._validationTestHelper.assertNoErrors(this._parseHelper.parse(((this.start + real) + this.end)));
+      StringConcatenation _builder_4 = new StringConcatenation();
+      _builder_4.append("real a = -1.01e710;");
+      real = _builder_4.toString();
       EisModel _parse = this._parseHelper.parse(((this.start + real) + this.end));
       final Procedure1<EisModel> _function = (EisModel it) -> {
-        this._validationTestHelper.assertNoErrors(it);
+        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getVariable(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
       };
       ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
+      StringConcatenation _builder_5 = new StringConcatenation();
+      _builder_5.append("real a = -1.01e+100;");
+      real = _builder_5.toString();
+      EisModel _parse_1 = this._parseHelper.parse(((this.start + real) + this.end));
+      final Procedure1<EisModel> _function_1 = (EisModel it) -> {
+        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getVariable(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse_1, _function_1);
+      StringConcatenation _builder_6 = new StringConcatenation();
+      _builder_6.append("real a = -1.01e-100;");
+      real = _builder_6.toString();
+      EisModel _parse_2 = this._parseHelper.parse(((this.start + real) + this.end));
+      final Procedure1<EisModel> _function_2 = (EisModel it) -> {
+        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getVariable(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse_2, _function_2);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void testLReal() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("lreal a = -1.01;");
+      String lreal = _builder.toString();
+      this._validationTestHelper.assertNoErrors(this._parseHelper.parse(((this.start + lreal) + this.end)));
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("lreal a = -1.01e308;");
+      lreal = _builder_1.toString();
+      this._validationTestHelper.assertNoErrors(this._parseHelper.parse(((this.start + lreal) + this.end)));
+      StringConcatenation _builder_2 = new StringConcatenation();
+      _builder_2.append("lreal a = -2.0e308;");
+      lreal = _builder_2.toString();
+      EisModel _parse = this._parseHelper.parse(((this.start + lreal) + this.end));
+      final Procedure1<EisModel> _function = (EisModel it) -> {
+        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getVariable(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
+      StringConcatenation _builder_3 = new StringConcatenation();
+      _builder_3.append("lreal a = -1.01e309;");
+      lreal = _builder_3.toString();
+      EisModel _parse_1 = this._parseHelper.parse(((this.start + lreal) + this.end));
+      final Procedure1<EisModel> _function_1 = (EisModel it) -> {
+        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getVariable(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse_1, _function_1);
+      StringConcatenation _builder_4 = new StringConcatenation();
+      _builder_4.append("lreal a = -3.0e-308;");
+      lreal = _builder_4.toString();
+      this._validationTestHelper.assertNoErrors(this._parseHelper.parse(((this.start + lreal) + this.end)));
+      StringConcatenation _builder_5 = new StringConcatenation();
+      _builder_5.append("lreal a = -2.0e-308;");
+      lreal = _builder_5.toString();
+      EisModel _parse_2 = this._parseHelper.parse(((this.start + lreal) + this.end));
+      final Procedure1<EisModel> _function_2 = (EisModel it) -> {
+        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getVariable(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse_2, _function_2);
+      StringConcatenation _builder_6 = new StringConcatenation();
+      _builder_6.append("lreal a = -3.0e-309;");
+      lreal = _builder_6.toString();
+      EisModel _parse_3 = this._parseHelper.parse(((this.start + lreal) + this.end));
+      final Procedure1<EisModel> _function_3 = (EisModel it) -> {
+        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getVariable(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse_3, _function_3);
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
@@ -198,6 +289,22 @@ public class DefineTypeComputerTest {
       _builder.append("char a = \'u\';");
       final String _char = _builder.toString();
       EisModel _parse = this._parseHelper.parse(((this.start + _char) + this.end));
+      final Procedure1<EisModel> _function = (EisModel it) -> {
+        this._validationTestHelper.assertNoErrors(it);
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void testWChar() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("wchar a = \'u\';");
+      final String _wchar = _builder.toString();
+      EisModel _parse = this._parseHelper.parse(((this.start + _wchar) + this.end));
       final Procedure1<EisModel> _function = (EisModel it) -> {
         this._validationTestHelper.assertNoErrors(it);
       };

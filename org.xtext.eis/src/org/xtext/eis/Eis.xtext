@@ -62,7 +62,7 @@ enum BasicType:
 	NULL='null'
 	| INT='int'
 	| BOOL='bool'
-	| REAL='real'//
+	| REAL='real' //
 	| STRING='string'
 	| CHAR="char"
 	//
@@ -81,10 +81,10 @@ enum BasicType:
 	//
 	| TIME="time"
 	| LTIME="ltime"
-	| DATE="date";
-	//		LREAL
-//		WCHAR
-//
+	| DATE="date"
+	| LREAL="lreal"
+	| WCHAR="wchar";
+	//
 UdtType:
 	name=ID;
 
@@ -163,8 +163,8 @@ terminal LONG returns ecore::ELong:
 terminal NEGATIVE_LONG returns ecore::ELong:
 	'-' LONG;
 
-terminal REAL ://returns ecore::EDouble:
-	(LONG | NEGATIVE_LONG) '.' LONG;
+terminal REAL: //returns ecore::EDouble:
+	(LONG | NEGATIVE_LONG) '.' LONG (('e' | 'E') ('-' | '+')? ((X? X)? X))?;
 
 terminal BYTE:
 	'16#' HEX HEX;

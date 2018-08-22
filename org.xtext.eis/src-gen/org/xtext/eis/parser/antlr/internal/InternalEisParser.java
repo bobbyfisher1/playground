@@ -22,7 +22,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalEisParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_STRING", "RULE_ID", "RULE_LONG", "RULE_NEGATIVE_LONG", "RULE_REAL", "RULE_BYTE", "RULE_WORD", "RULE_DWORD", "RULE_LWORD", "RULE_CHAR", "RULE_TIME", "RULE_LTIME", "RULE_DATE", "RULE_X", "RULE_HEX", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'project'", "'='", "';'", "'plcname'", "'author'", "'testcase'", "'{'", "'}'", "'testActive'", "'blockType'", "'description'", "'FC'", "'FB'", "'true'", "'false'", "'define'", "'input'", "'['", "']'", "'output'", "'inout'", "'variant'", "'+/-'", "','", "'udt'", "'('", "')'", "'||'", "'&&'", "'=='", "'!='", "'>='", "'<='", "'>'", "'<'", "'+'", "'-'", "'*'", "'/'", "'!'", "'teststep'", "'set'", "'assert'", "'.'", "'null'", "'int'", "'bool'", "'real'", "'string'", "'char'", "'byte'", "'word'", "'dword'", "'lword'", "'usint'", "'uint'", "'udint'", "'ulint'", "'sint'", "'dint'", "'lint'", "'time'", "'ltime'", "'date'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_STRING", "RULE_ID", "RULE_LONG", "RULE_NEGATIVE_LONG", "RULE_REAL", "RULE_BYTE", "RULE_WORD", "RULE_DWORD", "RULE_LWORD", "RULE_CHAR", "RULE_TIME", "RULE_LTIME", "RULE_DATE", "RULE_X", "RULE_HEX", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'project'", "'='", "';'", "'plcname'", "'author'", "'testcase'", "'{'", "'}'", "'testActive'", "'blockType'", "'description'", "'FC'", "'FB'", "'true'", "'false'", "'define'", "'input'", "'['", "']'", "'output'", "'inout'", "'variant'", "'+/-'", "','", "'udt'", "'('", "')'", "'||'", "'&&'", "'=='", "'!='", "'>='", "'<='", "'>'", "'<'", "'+'", "'-'", "'*'", "'/'", "'!'", "'teststep'", "'set'", "'assert'", "'.'", "'null'", "'int'", "'bool'", "'real'", "'string'", "'char'", "'byte'", "'word'", "'dword'", "'lword'", "'usint'", "'uint'", "'udint'", "'ulint'", "'sint'", "'dint'", "'lint'", "'time'", "'ltime'", "'date'", "'lreal'", "'wchar'"
     };
     public static final int RULE_HEX=18;
     public static final int T__50=50;
@@ -97,6 +97,7 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
     public static final int T__48=48;
     public static final int T__49=49;
     public static final int T__44=44;
+    public static final int T__88=88;
     public static final int T__45=45;
     public static final int T__46=46;
     public static final int RULE_LONG=6;
@@ -108,6 +109,7 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
     public static final int T__42=42;
     public static final int T__86=86;
     public static final int T__43=43;
+    public static final int T__87=87;
 
     // delegates
     // delegators
@@ -1760,7 +1762,7 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
                 int alt8=2;
                 int LA8_0 = input.LA(1);
 
-                if ( (LA8_0==RULE_ID||(LA8_0>=43 && LA8_0<=44)||LA8_0==47||(LA8_0>=67 && LA8_0<=86)) ) {
+                if ( (LA8_0==RULE_ID||(LA8_0>=43 && LA8_0<=44)||LA8_0==47||(LA8_0>=67 && LA8_0<=88)) ) {
                     alt8=1;
                 }
 
@@ -1918,7 +1920,7 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
                 int alt9=2;
                 int LA9_0 = input.LA(1);
 
-                if ( (LA9_0==RULE_ID||(LA9_0>=43 && LA9_0<=44)||LA9_0==47||(LA9_0>=67 && LA9_0<=86)) ) {
+                if ( (LA9_0==RULE_ID||(LA9_0>=43 && LA9_0<=44)||LA9_0==47||(LA9_0>=67 && LA9_0<=88)) ) {
                     alt9=1;
                 }
 
@@ -2074,6 +2076,8 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
                 case 84:
                 case 85:
                 case 86:
+                case 87:
+                case 88:
                     {
                     alt10=1;
                     }
@@ -2126,6 +2130,8 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
             case 84:
             case 85:
             case 86:
+            case 87:
+            case 88:
                 {
                 alt10=1;
                 }
@@ -2383,7 +2389,7 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
             int alt13=2;
             int LA13_0 = input.LA(1);
 
-            if ( ((LA13_0>=67 && LA13_0<=86)) ) {
+            if ( ((LA13_0>=67 && LA13_0<=88)) ) {
                 alt13=1;
             }
             switch (alt13) {
@@ -2806,7 +2812,7 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
                 int alt18=2;
                 int LA18_0 = input.LA(1);
 
-                if ( (LA18_0==RULE_ID||(LA18_0>=43 && LA18_0<=44)||LA18_0==47||(LA18_0>=67 && LA18_0<=86)) ) {
+                if ( (LA18_0==RULE_ID||(LA18_0>=43 && LA18_0<=44)||LA18_0==47||(LA18_0>=67 && LA18_0<=88)) ) {
                     alt18=1;
                 }
 
@@ -3019,7 +3025,7 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
                 int alt20=2;
                 int LA20_0 = input.LA(1);
 
-                if ( (LA20_0==RULE_ID||(LA20_0>=43 && LA20_0<=44)||LA20_0==47||(LA20_0>=67 && LA20_0<=86)) ) {
+                if ( (LA20_0==RULE_ID||(LA20_0>=43 && LA20_0<=44)||LA20_0==47||(LA20_0>=67 && LA20_0<=88)) ) {
                     alt20=1;
                 }
 
@@ -6674,7 +6680,7 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleBasicType"
-    // InternalEis.g:2625:1: ruleBasicType returns [Enumerator current=null] : ( (enumLiteral_0= 'null' ) | (enumLiteral_1= 'int' ) | (enumLiteral_2= 'bool' ) | (enumLiteral_3= 'real' ) | (enumLiteral_4= 'string' ) | (enumLiteral_5= 'char' ) | (enumLiteral_6= 'byte' ) | (enumLiteral_7= 'word' ) | (enumLiteral_8= 'dword' ) | (enumLiteral_9= 'lword' ) | (enumLiteral_10= 'usint' ) | (enumLiteral_11= 'uint' ) | (enumLiteral_12= 'udint' ) | (enumLiteral_13= 'ulint' ) | (enumLiteral_14= 'sint' ) | (enumLiteral_15= 'dint' ) | (enumLiteral_16= 'lint' ) | (enumLiteral_17= 'time' ) | (enumLiteral_18= 'ltime' ) | (enumLiteral_19= 'date' ) ) ;
+    // InternalEis.g:2625:1: ruleBasicType returns [Enumerator current=null] : ( (enumLiteral_0= 'null' ) | (enumLiteral_1= 'int' ) | (enumLiteral_2= 'bool' ) | (enumLiteral_3= 'real' ) | (enumLiteral_4= 'string' ) | (enumLiteral_5= 'char' ) | (enumLiteral_6= 'byte' ) | (enumLiteral_7= 'word' ) | (enumLiteral_8= 'dword' ) | (enumLiteral_9= 'lword' ) | (enumLiteral_10= 'usint' ) | (enumLiteral_11= 'uint' ) | (enumLiteral_12= 'udint' ) | (enumLiteral_13= 'ulint' ) | (enumLiteral_14= 'sint' ) | (enumLiteral_15= 'dint' ) | (enumLiteral_16= 'lint' ) | (enumLiteral_17= 'time' ) | (enumLiteral_18= 'ltime' ) | (enumLiteral_19= 'date' ) | (enumLiteral_20= 'lreal' ) | (enumLiteral_21= 'wchar' ) ) ;
     public final Enumerator ruleBasicType() throws RecognitionException {
         Enumerator current = null;
 
@@ -6698,16 +6704,18 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
         Token enumLiteral_17=null;
         Token enumLiteral_18=null;
         Token enumLiteral_19=null;
+        Token enumLiteral_20=null;
+        Token enumLiteral_21=null;
 
 
         	enterRule();
 
         try {
-            // InternalEis.g:2631:2: ( ( (enumLiteral_0= 'null' ) | (enumLiteral_1= 'int' ) | (enumLiteral_2= 'bool' ) | (enumLiteral_3= 'real' ) | (enumLiteral_4= 'string' ) | (enumLiteral_5= 'char' ) | (enumLiteral_6= 'byte' ) | (enumLiteral_7= 'word' ) | (enumLiteral_8= 'dword' ) | (enumLiteral_9= 'lword' ) | (enumLiteral_10= 'usint' ) | (enumLiteral_11= 'uint' ) | (enumLiteral_12= 'udint' ) | (enumLiteral_13= 'ulint' ) | (enumLiteral_14= 'sint' ) | (enumLiteral_15= 'dint' ) | (enumLiteral_16= 'lint' ) | (enumLiteral_17= 'time' ) | (enumLiteral_18= 'ltime' ) | (enumLiteral_19= 'date' ) ) )
-            // InternalEis.g:2632:2: ( (enumLiteral_0= 'null' ) | (enumLiteral_1= 'int' ) | (enumLiteral_2= 'bool' ) | (enumLiteral_3= 'real' ) | (enumLiteral_4= 'string' ) | (enumLiteral_5= 'char' ) | (enumLiteral_6= 'byte' ) | (enumLiteral_7= 'word' ) | (enumLiteral_8= 'dword' ) | (enumLiteral_9= 'lword' ) | (enumLiteral_10= 'usint' ) | (enumLiteral_11= 'uint' ) | (enumLiteral_12= 'udint' ) | (enumLiteral_13= 'ulint' ) | (enumLiteral_14= 'sint' ) | (enumLiteral_15= 'dint' ) | (enumLiteral_16= 'lint' ) | (enumLiteral_17= 'time' ) | (enumLiteral_18= 'ltime' ) | (enumLiteral_19= 'date' ) )
+            // InternalEis.g:2631:2: ( ( (enumLiteral_0= 'null' ) | (enumLiteral_1= 'int' ) | (enumLiteral_2= 'bool' ) | (enumLiteral_3= 'real' ) | (enumLiteral_4= 'string' ) | (enumLiteral_5= 'char' ) | (enumLiteral_6= 'byte' ) | (enumLiteral_7= 'word' ) | (enumLiteral_8= 'dword' ) | (enumLiteral_9= 'lword' ) | (enumLiteral_10= 'usint' ) | (enumLiteral_11= 'uint' ) | (enumLiteral_12= 'udint' ) | (enumLiteral_13= 'ulint' ) | (enumLiteral_14= 'sint' ) | (enumLiteral_15= 'dint' ) | (enumLiteral_16= 'lint' ) | (enumLiteral_17= 'time' ) | (enumLiteral_18= 'ltime' ) | (enumLiteral_19= 'date' ) | (enumLiteral_20= 'lreal' ) | (enumLiteral_21= 'wchar' ) ) )
+            // InternalEis.g:2632:2: ( (enumLiteral_0= 'null' ) | (enumLiteral_1= 'int' ) | (enumLiteral_2= 'bool' ) | (enumLiteral_3= 'real' ) | (enumLiteral_4= 'string' ) | (enumLiteral_5= 'char' ) | (enumLiteral_6= 'byte' ) | (enumLiteral_7= 'word' ) | (enumLiteral_8= 'dword' ) | (enumLiteral_9= 'lword' ) | (enumLiteral_10= 'usint' ) | (enumLiteral_11= 'uint' ) | (enumLiteral_12= 'udint' ) | (enumLiteral_13= 'ulint' ) | (enumLiteral_14= 'sint' ) | (enumLiteral_15= 'dint' ) | (enumLiteral_16= 'lint' ) | (enumLiteral_17= 'time' ) | (enumLiteral_18= 'ltime' ) | (enumLiteral_19= 'date' ) | (enumLiteral_20= 'lreal' ) | (enumLiteral_21= 'wchar' ) )
             {
-            // InternalEis.g:2632:2: ( (enumLiteral_0= 'null' ) | (enumLiteral_1= 'int' ) | (enumLiteral_2= 'bool' ) | (enumLiteral_3= 'real' ) | (enumLiteral_4= 'string' ) | (enumLiteral_5= 'char' ) | (enumLiteral_6= 'byte' ) | (enumLiteral_7= 'word' ) | (enumLiteral_8= 'dword' ) | (enumLiteral_9= 'lword' ) | (enumLiteral_10= 'usint' ) | (enumLiteral_11= 'uint' ) | (enumLiteral_12= 'udint' ) | (enumLiteral_13= 'ulint' ) | (enumLiteral_14= 'sint' ) | (enumLiteral_15= 'dint' ) | (enumLiteral_16= 'lint' ) | (enumLiteral_17= 'time' ) | (enumLiteral_18= 'ltime' ) | (enumLiteral_19= 'date' ) )
-            int alt39=20;
+            // InternalEis.g:2632:2: ( (enumLiteral_0= 'null' ) | (enumLiteral_1= 'int' ) | (enumLiteral_2= 'bool' ) | (enumLiteral_3= 'real' ) | (enumLiteral_4= 'string' ) | (enumLiteral_5= 'char' ) | (enumLiteral_6= 'byte' ) | (enumLiteral_7= 'word' ) | (enumLiteral_8= 'dword' ) | (enumLiteral_9= 'lword' ) | (enumLiteral_10= 'usint' ) | (enumLiteral_11= 'uint' ) | (enumLiteral_12= 'udint' ) | (enumLiteral_13= 'ulint' ) | (enumLiteral_14= 'sint' ) | (enumLiteral_15= 'dint' ) | (enumLiteral_16= 'lint' ) | (enumLiteral_17= 'time' ) | (enumLiteral_18= 'ltime' ) | (enumLiteral_19= 'date' ) | (enumLiteral_20= 'lreal' ) | (enumLiteral_21= 'wchar' ) )
+            int alt39=22;
             switch ( input.LA(1) ) {
             case 67:
                 {
@@ -6807,6 +6815,16 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
             case 86:
                 {
                 alt39=20;
+                }
+                break;
+            case 87:
+                {
+                alt39=21;
+                }
+                break;
+            case 88:
+                {
+                alt39=22;
                 }
                 break;
             default:
@@ -7157,6 +7175,40 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
 
                     }
                     break;
+                case 21 :
+                    // InternalEis.g:2793:3: (enumLiteral_20= 'lreal' )
+                    {
+                    // InternalEis.g:2793:3: (enumLiteral_20= 'lreal' )
+                    // InternalEis.g:2794:4: enumLiteral_20= 'lreal'
+                    {
+                    enumLiteral_20=(Token)match(input,87,FOLLOW_2); 
+
+                    				current = grammarAccess.getBasicTypeAccess().getLREALEnumLiteralDeclaration_20().getEnumLiteral().getInstance();
+                    				newLeafNode(enumLiteral_20, grammarAccess.getBasicTypeAccess().getLREALEnumLiteralDeclaration_20());
+                    			
+
+                    }
+
+
+                    }
+                    break;
+                case 22 :
+                    // InternalEis.g:2801:3: (enumLiteral_21= 'wchar' )
+                    {
+                    // InternalEis.g:2801:3: (enumLiteral_21= 'wchar' )
+                    // InternalEis.g:2802:4: enumLiteral_21= 'wchar'
+                    {
+                    enumLiteral_21=(Token)match(input,88,FOLLOW_2); 
+
+                    				current = grammarAccess.getBasicTypeAccess().getWCHAREnumLiteralDeclaration_21().getEnumLiteral().getInstance();
+                    				newLeafNode(enumLiteral_21, grammarAccess.getBasicTypeAccess().getWCHAREnumLiteralDeclaration_21());
+                    			
+
+                    }
+
+
+                    }
+                    break;
 
             }
 
@@ -7204,9 +7256,9 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x8000000000000002L});
     public static final BitSet FOLLOW_20 = new BitSet(new long[]{0x0000048000000002L});
     public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x0000010000000000L});
-    public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x00009A0000000020L,0x00000000007FFFF8L});
-    public static final BitSet FOLLOW_23 = new BitSet(new long[]{0x0000100000000020L,0x00000000007FFFF8L});
-    public static final BitSet FOLLOW_24 = new BitSet(new long[]{0x0000000000000020L,0x00000000007FFFF8L});
+    public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x00009A0000000020L,0x0000000001FFFFF8L});
+    public static final BitSet FOLLOW_23 = new BitSet(new long[]{0x0000100000000020L,0x0000000001FFFFF8L});
+    public static final BitSet FOLLOW_24 = new BitSet(new long[]{0x0000000000000020L,0x0000000001FFFFF8L});
     public static final BitSet FOLLOW_25 = new BitSet(new long[]{0x0000400003000000L});
     public static final BitSet FOLLOW_26 = new BitSet(new long[]{0x400100300001FFF0L});
     public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x0000600002000000L});
@@ -7214,8 +7266,8 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_29 = new BitSet(new long[]{0x0000800000000000L});
     public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x0001000000000000L});
     public static final BitSet FOLLOW_31 = new BitSet(new long[]{0x0002000000000000L});
-    public static final BitSet FOLLOW_32 = new BitSet(new long[]{0x0000980040000020L,0x00000000007FFFF8L});
-    public static final BitSet FOLLOW_33 = new BitSet(new long[]{0x0000980002000020L,0x00000000007FFFF8L});
+    public static final BitSet FOLLOW_32 = new BitSet(new long[]{0x0000980040000020L,0x0000000001FFFFF8L});
+    public static final BitSet FOLLOW_33 = new BitSet(new long[]{0x0000980002000020L,0x0000000001FFFFF8L});
     public static final BitSet FOLLOW_34 = new BitSet(new long[]{0x0004000000000002L});
     public static final BitSet FOLLOW_35 = new BitSet(new long[]{0x0008000000000002L});
     public static final BitSet FOLLOW_36 = new BitSet(new long[]{0x0030000000000002L});

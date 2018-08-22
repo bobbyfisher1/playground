@@ -49,6 +49,7 @@ import org.xtext.eis.typing.DefineType
 import org.xtext.eis.typing.DefineTypeComputer
 import org.xtext.eis.typing.types.DateType
 import org.xtext.eis.typing.types.LTimeType
+import org.xtext.eis.typing.types.RealType
 import org.xtext.eis.typing.types.TimeType
 
 class EisValidator extends AbstractEisValidator {
@@ -676,6 +677,103 @@ class EisValidator extends AbstractEisValidator {
 			}
 	}
 
+	@Check def void checkRealValues(Variable variable) {
+		val type = variable.variableType?.toString
+		val idiom = variable?.idiom
+		val range = variable?.range
+
+		if (idiom !== null)
+			if (!(idiom instanceof VariableRef)) {
+				if (idiom.typeFor instanceof RealType)
+					if (type === "real") {
+						if ((idiom.interpret as Double).checkRealValue)
+							error("Value is out of the datatype boundaries.", variable,
+								EisPackage.eINSTANCE.variable_Idiom, VALUE_EXCEEDING_DATATYPE_BOUNDS)
+					} else if (type === "lreal") {
+						if ((idiom.interpret as Double).checkLRealValue)
+							error("Value is out of the datatype boundaries.", variable,
+								EisPackage.eINSTANCE.variable_Idiom, VALUE_EXCEEDING_DATATYPE_BOUNDS)
+					}
+			}
+
+		if (range !== null)
+			if (!(range instanceof VariableRef)) {
+				if (range.typeFor instanceof RealType)
+					if (type === "real") {
+						if ((range.interpret as Double).checkRealValue)
+							error("Value is out of the datatype boundaries.", variable,
+								EisPackage.eINSTANCE.variable_Range, VALUE_EXCEEDING_DATATYPE_BOUNDS)
+					} else if (type === "lreal") {
+						if ((range.interpret as Double).checkLRealValue)
+							error("Value is out of the datatype boundaries.", variable,
+								EisPackage.eINSTANCE.variable_Range, VALUE_EXCEEDING_DATATYPE_BOUNDS)
+					}
+			}
+	}
+
+	def boolean checkLRealValue(Double _double) {
+		if (_double.infinite)
+			return true
+
+		var doubleAsString = _double.toString
+
+		if (doubleAsString.contains('e') || doubleAsString.contains('E')) {
+			val uDoubleMin = 2.2250738585072014 // uDoubleMax is not necessary because the numer is infinite
+			val uMaxExponent = 308
+
+			var exponent = doubleAsString.replace('e', 'E').split('E').last
+			val negativeExponent = exponent.contains('-')
+
+			exponent = exponent.replace('-', '+').replace('+', '')
+
+			val exponentAsInt = Integer.parseInt(exponent)
+			if (exponentAsInt > uMaxExponent)
+				return true
+			if (exponentAsInt == uMaxExponent) {
+				val beforeExponentAsString = doubleAsString.replace('e', 'E').split('E').head.replace('-', '')
+				val beforeExponent = Double.parseDouble(beforeExponentAsString)
+
+				if (beforeExponent < uDoubleMin && negativeExponent)
+					return true
+			}
+		}
+
+		return false
+	}
+
+	def checkRealValue(Double _double) {
+		if(_double.infinite) return true
+		var doubleAsString = _double.toString
+		// note the fact that if too many digits behind the comma are defined the parser will round the 15th or 16th digit -> unknown behaviour
+		// also when both long numbers are in front and behind the comma -> unknown behaviour
+		if (doubleAsString.contains('e') || doubleAsString.contains('E')) {
+			val uDoubleMax = 3.402823
+			val uDoubleMin = 1.175495
+			val uMaxExponent = 38
+
+			var exponent = doubleAsString.replace('e', 'E').split('E').last
+			val negativeExponent = exponent.contains('-')
+
+			exponent = exponent.replace('-', '+').replace('+', '')
+
+			val exponentAsInt = Integer.parseInt(exponent)
+
+			if (exponentAsInt > uMaxExponent)
+				return true
+			if (exponentAsInt == uMaxExponent) {
+				val beforeExponentAsString = doubleAsString.replace('e', 'E').split('E').head.replace('-', '')
+				val beforeExponent = Double.parseDouble(beforeExponentAsString)
+				if (beforeExponent > uDoubleMax && !negativeExponent) {
+					return true
+				} else if (beforeExponent < uDoubleMin && negativeExponent) {
+					return true
+				}
+			}
+		}
+
+		return false
+	}
+
 //
 // methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //
@@ -688,7 +786,8 @@ class EisValidator extends AbstractEisValidator {
 		try {
 			LocalDate.parse(date, DateTimeFormatter.ISO_LOCAL_DATE);
 		} catch (DateTimeParseException e) {
-			error("Date could not be correctly parsed to the following format: YYYY-MM-DD ", _date.eContainer, ref, INVALID_DATE_NOTATION)
+			error("Date could not be correctly parsed to the following format: YYYY-MM-DD ", _date.eContainer, ref,
+				INVALID_DATE_NOTATION)
 			return false
 		}
 

@@ -33,6 +33,7 @@ import org.xtext.eis.typing.types.DWordType;
 import org.xtext.eis.typing.types.DateType;
 import org.xtext.eis.typing.types.IntType;
 import org.xtext.eis.typing.types.LIntType;
+import org.xtext.eis.typing.types.LRealType;
 import org.xtext.eis.typing.types.LTimeType;
 import org.xtext.eis.typing.types.LWordType;
 import org.xtext.eis.typing.types.NullType;
@@ -44,6 +45,7 @@ import org.xtext.eis.typing.types.UDIntType;
 import org.xtext.eis.typing.types.UIntType;
 import org.xtext.eis.typing.types.ULIntType;
 import org.xtext.eis.typing.types.USIntType;
+import org.xtext.eis.typing.types.WCharType;
 import org.xtext.eis.typing.types.WordType;
 
 @SuppressWarnings("all")
@@ -58,7 +60,11 @@ public class DefineTypeComputer {
   
   public final static RealType REAL_TYPE = new RealType();
   
+  public final static LRealType LREAL_TYPE = new LRealType();
+  
   public final static CharType CHAR_TYPE = new CharType();
+  
+  public final static WCharType WCHAR_TYPE = new WCharType();
   
   public final static TimeType TIME_TYPE = new TimeType();
   
@@ -321,66 +327,78 @@ public class DefineTypeComputer {
               _xifexpression_3 = DefineTypeComputer.REAL_TYPE;
             } else {
               DefineType _xifexpression_4 = null;
-              if ((t == "byte")) {
-                _xifexpression_4 = DefineTypeComputer.BYTE_TYPE;
+              if ((t == "lreal")) {
+                _xifexpression_4 = DefineTypeComputer.REAL_TYPE;
               } else {
                 DefineType _xifexpression_5 = null;
-                if ((t == "word")) {
-                  _xifexpression_5 = DefineTypeComputer.WORD_TYPE;
+                if ((t == "byte")) {
+                  _xifexpression_5 = DefineTypeComputer.BYTE_TYPE;
                 } else {
                   DefineType _xifexpression_6 = null;
-                  if ((t == "dword")) {
-                    _xifexpression_6 = DefineTypeComputer.DWORD_TYPE;
+                  if ((t == "word")) {
+                    _xifexpression_6 = DefineTypeComputer.WORD_TYPE;
                   } else {
                     DefineType _xifexpression_7 = null;
-                    if ((t == "lword")) {
-                      _xifexpression_7 = DefineTypeComputer.LWORD_TYPE;
+                    if ((t == "dword")) {
+                      _xifexpression_7 = DefineTypeComputer.DWORD_TYPE;
                     } else {
                       DefineType _xifexpression_8 = null;
-                      if ((t == "usint")) {
-                        _xifexpression_8 = DefineTypeComputer.USINT_TYPE;
+                      if ((t == "lword")) {
+                        _xifexpression_8 = DefineTypeComputer.LWORD_TYPE;
                       } else {
                         DefineType _xifexpression_9 = null;
-                        if ((t == "uint")) {
-                          _xifexpression_9 = DefineTypeComputer.UINT_TYPE;
+                        if ((t == "usint")) {
+                          _xifexpression_9 = DefineTypeComputer.USINT_TYPE;
                         } else {
                           DefineType _xifexpression_10 = null;
-                          if ((t == "udint")) {
-                            _xifexpression_10 = DefineTypeComputer.UDINT_TYPE;
+                          if ((t == "uint")) {
+                            _xifexpression_10 = DefineTypeComputer.UINT_TYPE;
                           } else {
                             DefineType _xifexpression_11 = null;
-                            if ((t == "ulint")) {
-                              _xifexpression_11 = DefineTypeComputer.ULINT_TYPE;
+                            if ((t == "udint")) {
+                              _xifexpression_11 = DefineTypeComputer.UDINT_TYPE;
                             } else {
                               DefineType _xifexpression_12 = null;
-                              if ((t == "sint")) {
-                                _xifexpression_12 = DefineTypeComputer.SINT_TYPE;
+                              if ((t == "ulint")) {
+                                _xifexpression_12 = DefineTypeComputer.ULINT_TYPE;
                               } else {
                                 DefineType _xifexpression_13 = null;
-                                if ((t == "dint")) {
-                                  _xifexpression_13 = DefineTypeComputer.DINT_TYPE;
+                                if ((t == "sint")) {
+                                  _xifexpression_13 = DefineTypeComputer.SINT_TYPE;
                                 } else {
                                   DefineType _xifexpression_14 = null;
-                                  if ((t == "lint")) {
-                                    _xifexpression_14 = DefineTypeComputer.LINT_TYPE;
+                                  if ((t == "dint")) {
+                                    _xifexpression_14 = DefineTypeComputer.DINT_TYPE;
                                   } else {
                                     DefineType _xifexpression_15 = null;
-                                    if ((t == "char")) {
-                                      _xifexpression_15 = DefineTypeComputer.CHAR_TYPE;
+                                    if ((t == "lint")) {
+                                      _xifexpression_15 = DefineTypeComputer.LINT_TYPE;
                                     } else {
                                       DefineType _xifexpression_16 = null;
-                                      if ((t == "time")) {
-                                        _xifexpression_16 = DefineTypeComputer.TIME_TYPE;
+                                      if ((t == "char")) {
+                                        _xifexpression_16 = DefineTypeComputer.CHAR_TYPE;
                                       } else {
                                         DefineType _xifexpression_17 = null;
-                                        if ((t == "ltime")) {
-                                          _xifexpression_17 = DefineTypeComputer.LTIME_TYPE;
+                                        if ((t == "wchar")) {
+                                          _xifexpression_17 = DefineTypeComputer.CHAR_TYPE;
                                         } else {
                                           DefineType _xifexpression_18 = null;
-                                          if ((t == "date")) {
-                                            _xifexpression_18 = DefineTypeComputer.DATE_TYPE;
+                                          if ((t == "time")) {
+                                            _xifexpression_18 = DefineTypeComputer.TIME_TYPE;
                                           } else {
-                                            _xifexpression_18 = DefineTypeComputer.NULL_TYPE;
+                                            DefineType _xifexpression_19 = null;
+                                            if ((t == "ltime")) {
+                                              _xifexpression_19 = DefineTypeComputer.LTIME_TYPE;
+                                            } else {
+                                              DefineType _xifexpression_20 = null;
+                                              if ((t == "date")) {
+                                                _xifexpression_20 = DefineTypeComputer.DATE_TYPE;
+                                              } else {
+                                                _xifexpression_20 = DefineTypeComputer.NULL_TYPE;
+                                              }
+                                              _xifexpression_19 = _xifexpression_20;
+                                            }
+                                            _xifexpression_18 = _xifexpression_19;
                                           }
                                           _xifexpression_17 = _xifexpression_18;
                                         }

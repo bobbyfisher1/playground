@@ -2028,6 +2028,8 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
     addEEnumLiteral(basicTypeEEnum, BasicType.TIME);
     addEEnumLiteral(basicTypeEEnum, BasicType.LTIME);
     addEEnumLiteral(basicTypeEEnum, BasicType.DATE);
+    addEEnumLiteral(basicTypeEEnum, BasicType.LREAL);
+    addEEnumLiteral(basicTypeEEnum, BasicType.WCHAR);
 
     // Create resource
     createResource(eNS_URI);

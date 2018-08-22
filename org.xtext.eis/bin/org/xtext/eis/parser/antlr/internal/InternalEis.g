@@ -2789,6 +2789,22 @@ ruleBasicType returns [Enumerator current=null]
 				newLeafNode(enumLiteral_19, grammarAccess.getBasicTypeAccess().getDATEEnumLiteralDeclaration_19());
 			}
 		)
+		    |
+		(
+			enumLiteral_20='lreal'
+			{
+				$current = grammarAccess.getBasicTypeAccess().getLREALEnumLiteralDeclaration_20().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_20, grammarAccess.getBasicTypeAccess().getLREALEnumLiteralDeclaration_20());
+			}
+		)
+		    |
+		(
+			enumLiteral_21='wchar'
+			{
+				$current = grammarAccess.getBasicTypeAccess().getWCHAREnumLiteralDeclaration_21().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_21, grammarAccess.getBasicTypeAccess().getWCHAREnumLiteralDeclaration_21());
+			}
+		)
 	)
 ;
 
@@ -2800,7 +2816,7 @@ RULE_LONG : RULE_X+;
 
 RULE_NEGATIVE_LONG : '-' RULE_LONG;
 
-RULE_REAL : (RULE_LONG|RULE_NEGATIVE_LONG) '.' RULE_LONG;
+RULE_REAL : (RULE_LONG|RULE_NEGATIVE_LONG) '.' RULE_LONG (('e'|'E') ('-'|'+')? (RULE_X? RULE_X)? RULE_X)?;
 
 RULE_BYTE : '16#' RULE_HEX RULE_HEX;
 

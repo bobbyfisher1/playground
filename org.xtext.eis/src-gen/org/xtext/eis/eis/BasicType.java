@@ -218,7 +218,27 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  DATE(19, "DATE", "date");
+  DATE(19, "DATE", "date"),
+
+  /**
+   * The '<em><b>LREAL</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #LREAL_VALUE
+   * @generated
+   * @ordered
+   */
+  LREAL(20, "LREAL", "lreal"),
+
+  /**
+   * The '<em><b>WCHAR</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #WCHAR_VALUE
+   * @generated
+   * @ordered
+   */
+  WCHAR(21, "WCHAR", "wchar");
 
   /**
    * The '<em><b>NULL</b></em>' literal value.
@@ -521,6 +541,36 @@ public enum BasicType implements Enumerator
   public static final int DATE_VALUE = 19;
 
   /**
+   * The '<em><b>LREAL</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>LREAL</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #LREAL
+   * @model literal="lreal"
+   * @generated
+   * @ordered
+   */
+  public static final int LREAL_VALUE = 20;
+
+  /**
+   * The '<em><b>WCHAR</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>WCHAR</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #WCHAR
+   * @model literal="wchar"
+   * @generated
+   * @ordered
+   */
+  public static final int WCHAR_VALUE = 21;
+
+  /**
    * An array of all the '<em><b>Basic Type</b></em>' enumerators.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -549,6 +599,8 @@ public enum BasicType implements Enumerator
       TIME,
       LTIME,
       DATE,
+      LREAL,
+      WCHAR,
     };
 
   /**
@@ -633,6 +685,8 @@ public enum BasicType implements Enumerator
       case TIME_VALUE: return TIME;
       case LTIME_VALUE: return LTIME;
       case DATE_VALUE: return DATE;
+      case LREAL_VALUE: return LREAL;
+      case WCHAR_VALUE: return WCHAR;
     }
     return null;
   }

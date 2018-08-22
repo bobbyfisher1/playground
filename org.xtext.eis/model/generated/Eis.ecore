@@ -95,6 +95,8 @@
     <eLiterals name="TIME" value="17" literal="time"/>
     <eLiterals name="LTIME" value="18" literal="ltime"/>
     <eLiterals name="DATE" value="19" literal="date"/>
+    <eLiterals name="LREAL" value="20" literal="lreal"/>
+    <eLiterals name="WCHAR" value="21" literal="wchar"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UdtType">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

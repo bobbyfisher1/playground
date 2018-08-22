@@ -678,8 +678,6 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cNameAssignment = (Assignment)rule.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_0 = (RuleCall)cNameAssignment.eContents().get(0);
 		
-		////		LREAL
-		////		WCHAR
 		////
 		//UdtType:
 		//	name=ID;
@@ -1549,12 +1547,16 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cLTIMELtimeKeyword_18_0 = (Keyword)cLTIMEEnumLiteralDeclaration_18.eContents().get(0);
 		private final EnumLiteralDeclaration cDATEEnumLiteralDeclaration_19 = (EnumLiteralDeclaration)cAlternatives.eContents().get(19);
 		private final Keyword cDATEDateKeyword_19_0 = (Keyword)cDATEEnumLiteralDeclaration_19.eContents().get(0);
+		private final EnumLiteralDeclaration cLREALEnumLiteralDeclaration_20 = (EnumLiteralDeclaration)cAlternatives.eContents().get(20);
+		private final Keyword cLREALLrealKeyword_20_0 = (Keyword)cLREALEnumLiteralDeclaration_20.eContents().get(0);
+		private final EnumLiteralDeclaration cWCHAREnumLiteralDeclaration_21 = (EnumLiteralDeclaration)cAlternatives.eContents().get(21);
+		private final Keyword cWCHARWcharKeyword_21_0 = (Keyword)cWCHAREnumLiteralDeclaration_21.eContents().get(0);
 		
 		//enum BasicType:
 		//	NULL='null'
 		//	| INT='int'
 		//	| BOOL='bool'
-		//	| REAL='real'
+		//	| REAL='real' //
 		//	| STRING='string'
 		//	| CHAR="char"
 		//	//
@@ -1573,13 +1575,16 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		//	//
 		//	| TIME="time"
 		//	| LTIME="ltime"
-		//	| DATE="date";
+		//	| DATE="date"
+		//	| LREAL="lreal"
+		//	| WCHAR="wchar";
 		public EnumRule getRule() { return rule; }
 		
-		//NULL='null' | INT='int' | BOOL='bool' | REAL='real' | STRING='string' | CHAR="char" //
+		//NULL='null' | INT='int' | BOOL='bool' | REAL='real' //
+		//| STRING='string' | CHAR="char" //
 		//| BYTE="byte" | WORD="word" | DWORD="dword" | LWORD="lword" //
 		//| USINT="usint" | UINT="uint" | UDINT="udint" | ULINT="ulint" | SINT="sint" | DINT="dint" | LINT="lint" //
-		//| TIME="time" | LTIME="ltime" | DATE="date"
+		//| TIME="time" | LTIME="ltime" | DATE="date" | LREAL="lreal" | WCHAR="wchar"
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//NULL='null'
@@ -1701,6 +1706,18 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//"date"
 		public Keyword getDATEDateKeyword_19_0() { return cDATEDateKeyword_19_0; }
+		
+		//LREAL="lreal"
+		public EnumLiteralDeclaration getLREALEnumLiteralDeclaration_20() { return cLREALEnumLiteralDeclaration_20; }
+		
+		//"lreal"
+		public Keyword getLREALLrealKeyword_20_0() { return cLREALLrealKeyword_20_0; }
+		
+		//WCHAR="wchar"
+		public EnumLiteralDeclaration getWCHAREnumLiteralDeclaration_21() { return cWCHAREnumLiteralDeclaration_21; }
+		
+		//"wchar"
+		public Keyword getWCHARWcharKeyword_21_0() { return cWCHARWcharKeyword_21_0; }
 	}
 	
 	private final EisModelElements pEisModel;
@@ -1999,7 +2016,7 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	//	NULL='null'
 	//	| INT='int'
 	//	| BOOL='bool'
-	//	| REAL='real'
+	//	| REAL='real' //
 	//	| STRING='string'
 	//	| CHAR="char"
 	//	//
@@ -2018,7 +2035,9 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	//	//
 	//	| TIME="time"
 	//	| LTIME="ltime"
-	//	| DATE="date";
+	//	| DATE="date"
+	//	| LREAL="lreal"
+	//	| WCHAR="wchar";
 	public BasicTypeElements getBasicTypeAccess() {
 		return eBasicType;
 	}
@@ -2027,8 +2046,6 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		return getBasicTypeAccess().getRule();
 	}
 	
-	////		LREAL
-	////		WCHAR
 	////
 	//UdtType:
 	//	name=ID;
@@ -2225,7 +2242,7 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//terminal REAL:
-	//	(LONG | NEGATIVE_LONG) '.' LONG;
+	//	(LONG | NEGATIVE_LONG) '.' LONG (('e' | 'E') ('-' | '+')? ((X? X)? X))?;
 	public TerminalRule getREALRule() {
 		return tREAL;
 	}

@@ -59,6 +59,7 @@ import org.xtext.eis.typing.DefineType;
 import org.xtext.eis.typing.DefineTypeComputer;
 import org.xtext.eis.typing.types.DateType;
 import org.xtext.eis.typing.types.LTimeType;
+import org.xtext.eis.typing.types.RealType;
 import org.xtext.eis.typing.types.TimeType;
 import org.xtext.eis.validation.AbstractEisValidator;
 
@@ -1008,6 +1009,133 @@ public class EisValidator extends AbstractEisValidator {
     }
   }
   
+  @Check
+  public void checkRealValues(final Variable variable) {
+    BasicType _variableType = variable.getVariableType();
+    String _string = null;
+    if (_variableType!=null) {
+      _string=_variableType.toString();
+    }
+    final String type = _string;
+    Idiom _idiom = null;
+    if (variable!=null) {
+      _idiom=variable.getIdiom();
+    }
+    final Idiom idiom = _idiom;
+    Idiom _range = null;
+    if (variable!=null) {
+      _range=variable.getRange();
+    }
+    final Idiom range = _range;
+    if ((idiom != null)) {
+      if ((!(idiom instanceof VariableRef))) {
+        DefineType _typeFor = this._defineTypeComputer.typeFor(idiom);
+        if ((_typeFor instanceof RealType)) {
+          if ((type == "real")) {
+            Object _interpret = this._eisInterpreter.interpret(idiom);
+            boolean _checkRealValue = this.checkRealValue(((Double) _interpret));
+            if (_checkRealValue) {
+              this.error("Value is out of the datatype boundaries.", variable, 
+                EisPackage.eINSTANCE.getVariable_Idiom(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+            }
+          } else {
+            if ((type == "lreal")) {
+              Object _interpret_1 = this._eisInterpreter.interpret(idiom);
+              boolean _checkLRealValue = this.checkLRealValue(((Double) _interpret_1));
+              if (_checkLRealValue) {
+                this.error("Value is out of the datatype boundaries.", variable, 
+                  EisPackage.eINSTANCE.getVariable_Idiom(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+              }
+            }
+          }
+        }
+      }
+    }
+    if ((range != null)) {
+      if ((!(range instanceof VariableRef))) {
+        DefineType _typeFor_1 = this._defineTypeComputer.typeFor(range);
+        if ((_typeFor_1 instanceof RealType)) {
+          if ((type == "real")) {
+            Object _interpret_2 = this._eisInterpreter.interpret(range);
+            boolean _checkRealValue_1 = this.checkRealValue(((Double) _interpret_2));
+            if (_checkRealValue_1) {
+              this.error("Value is out of the datatype boundaries.", variable, 
+                EisPackage.eINSTANCE.getVariable_Range(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+            }
+          } else {
+            if ((type == "lreal")) {
+              Object _interpret_3 = this._eisInterpreter.interpret(range);
+              boolean _checkLRealValue_1 = this.checkLRealValue(((Double) _interpret_3));
+              if (_checkLRealValue_1) {
+                this.error("Value is out of the datatype boundaries.", variable, 
+                  EisPackage.eINSTANCE.getVariable_Range(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  public boolean checkLRealValue(final Double _double) {
+    boolean _isInfinite = _double.isInfinite();
+    if (_isInfinite) {
+      return true;
+    }
+    String doubleAsString = _double.toString();
+    if ((doubleAsString.contains("e") || doubleAsString.contains("E"))) {
+      final double uDoubleMin = 2.2250738585072014;
+      final int uMaxExponent = 308;
+      String exponent = IterableExtensions.<String>last(((Iterable<String>)Conversions.doWrapArray(doubleAsString.replace("e", "E").split("E"))));
+      final boolean negativeExponent = exponent.contains("-");
+      exponent = exponent.replace("-", "+").replace("+", "");
+      final int exponentAsInt = Integer.parseInt(exponent);
+      if ((exponentAsInt > uMaxExponent)) {
+        return true;
+      }
+      if ((exponentAsInt == uMaxExponent)) {
+        final String beforeExponentAsString = IterableExtensions.<String>head(((Iterable<String>)Conversions.doWrapArray(doubleAsString.replace("e", "E").split("E")))).replace("-", "");
+        final double beforeExponent = Double.parseDouble(beforeExponentAsString);
+        if (((beforeExponent < uDoubleMin) && negativeExponent)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+  
+  public boolean checkRealValue(final Double _double) {
+    boolean _isInfinite = _double.isInfinite();
+    if (_isInfinite) {
+      return true;
+    }
+    String doubleAsString = _double.toString();
+    if ((doubleAsString.contains("e") || doubleAsString.contains("E"))) {
+      final double uDoubleMax = 3.402823;
+      final double uDoubleMin = 1.175495;
+      final int uMaxExponent = 38;
+      String exponent = IterableExtensions.<String>last(((Iterable<String>)Conversions.doWrapArray(doubleAsString.replace("e", "E").split("E"))));
+      final boolean negativeExponent = exponent.contains("-");
+      exponent = exponent.replace("-", "+").replace("+", "");
+      final int exponentAsInt = Integer.parseInt(exponent);
+      if ((exponentAsInt > uMaxExponent)) {
+        return true;
+      }
+      if ((exponentAsInt == uMaxExponent)) {
+        final String beforeExponentAsString = IterableExtensions.<String>head(((Iterable<String>)Conversions.doWrapArray(doubleAsString.replace("e", "E").split("E")))).replace("-", "");
+        final double beforeExponent = Double.parseDouble(beforeExponentAsString);
+        if (((beforeExponent > uDoubleMax) && (!negativeExponent))) {
+          return true;
+        } else {
+          if (((beforeExponent < uDoubleMin) && negativeExponent)) {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
+  
   public boolean checkDate(final Idiom _date, final EReference ref) {
     boolean _xblockexpression = false;
     {
@@ -1019,7 +1147,8 @@ public class EisValidator extends AbstractEisValidator {
         LocalDate.parse(date, DateTimeFormatter.ISO_LOCAL_DATE);
       } catch (final Throwable _t) {
         if (_t instanceof DateTimeParseException) {
-          this.error("Date could not be correctly parsed to the following format: YYYY-MM-DD ", _date.eContainer(), ref, EisValidator.INVALID_DATE_NOTATION);
+          this.error("Date could not be correctly parsed to the following format: YYYY-MM-DD ", _date.eContainer(), ref, 
+            EisValidator.INVALID_DATE_NOTATION);
           return false;
         } else {
           throw Exceptions.sneakyThrow(_t);

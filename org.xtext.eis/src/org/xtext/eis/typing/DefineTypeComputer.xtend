@@ -31,6 +31,7 @@ import org.xtext.eis.typing.types.DWordType
 import org.xtext.eis.typing.types.DateType
 import org.xtext.eis.typing.types.IntType
 import org.xtext.eis.typing.types.LIntType
+import org.xtext.eis.typing.types.LRealType
 import org.xtext.eis.typing.types.LTimeType
 import org.xtext.eis.typing.types.LWordType
 import org.xtext.eis.typing.types.NullType
@@ -42,6 +43,7 @@ import org.xtext.eis.typing.types.UDIntType
 import org.xtext.eis.typing.types.UIntType
 import org.xtext.eis.typing.types.ULIntType
 import org.xtext.eis.typing.types.USIntType
+import org.xtext.eis.typing.types.WCharType
 import org.xtext.eis.typing.types.WordType
 
 class DefineTypeComputer {
@@ -50,7 +52,9 @@ class DefineTypeComputer {
 	public static val BOOL_TYPE = new BoolType
 	public static val NULL_TYPE = new NullType
 	public static val REAL_TYPE = new RealType
+	public static val LREAL_TYPE = new LRealType
 	public static val CHAR_TYPE = new CharType
+	public static val WCHAR_TYPE = new WCharType
 	public static val TIME_TYPE = new TimeType
 	public static val LTIME_TYPE = new LTimeType
 	public static val DATE_TYPE = new DateType
@@ -177,6 +181,8 @@ class DefineTypeComputer {
 			STRING_TYPE
 		else if (t === 'real')
 			REAL_TYPE
+		else if (t === 'lreal')
+			REAL_TYPE
 		else if (t === 'byte')
 			BYTE_TYPE
 		else if (t === 'word')
@@ -200,6 +206,8 @@ class DefineTypeComputer {
 		else if (t === 'lint')
 			LINT_TYPE
 		else if (t === 'char')
+			CHAR_TYPE
+		else if (t === 'wchar')
 			CHAR_TYPE
 		else if (t === 'time')
 			TIME_TYPE

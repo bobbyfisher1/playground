@@ -27,6 +27,8 @@
       <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/TIME"/>
       <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/LTIME"/>
       <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/DATE"/>
+      <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/LREAL"/>
+      <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/WCHAR"/>
     </genEnums>
     <genClasses ecoreClass="Eis.ecore#//EisModel">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//EisModel/project_name"/>

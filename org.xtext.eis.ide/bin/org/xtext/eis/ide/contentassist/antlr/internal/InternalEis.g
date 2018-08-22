@@ -1285,6 +1285,18 @@ rule__BasicType__Alternatives
 		('date')
 		{ after(grammarAccess.getBasicTypeAccess().getDATEEnumLiteralDeclaration_19()); }
 	)
+	|
+	(
+		{ before(grammarAccess.getBasicTypeAccess().getLREALEnumLiteralDeclaration_20()); }
+		('lreal')
+		{ after(grammarAccess.getBasicTypeAccess().getLREALEnumLiteralDeclaration_20()); }
+	)
+	|
+	(
+		{ before(grammarAccess.getBasicTypeAccess().getWCHAREnumLiteralDeclaration_21()); }
+		('wchar')
+		{ after(grammarAccess.getBasicTypeAccess().getWCHAREnumLiteralDeclaration_21()); }
+	)
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -6916,7 +6928,7 @@ RULE_LONG : RULE_X+;
 
 RULE_NEGATIVE_LONG : '-' RULE_LONG;
 
-RULE_REAL : (RULE_LONG|RULE_NEGATIVE_LONG) '.' RULE_LONG;
+RULE_REAL : (RULE_LONG|RULE_NEGATIVE_LONG) '.' RULE_LONG (('e'|'E') ('-'|'+')? (RULE_X? RULE_X)? RULE_X)?;
 
 RULE_BYTE : '16#' RULE_HEX RULE_HEX;
 
