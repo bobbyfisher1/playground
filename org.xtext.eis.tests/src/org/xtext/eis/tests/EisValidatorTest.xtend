@@ -441,59 +441,63 @@ class EisValidatorTest {
 		(beginning + '''
 			define{
 				input[  ]
-				output[bool a = true +/- false;]
+				output[
+					bool _bool = true +/- false;
+					string _string = "one" +/- "two";
+					byte _byte = 16#bc +/- 16#df;
+					word _word = 16#abcd +/- 16#efEF;
+					dword _dword = 16#abcd_abcd +/- 16#efEF_efEF;
+					lword _lword = 16#abcd_abcd_abcd_abcd +/- 16#efEF_efEF_efEF_efEF;
+					char _char = 'c' +/- 'h';
+					wchar _wchar = 'a' +/- 'r';
+					time _time = T#1s +/- T#5ms;
+					ltime _ltime = LT#1us +/- LT#1ns;
+					date _date = D#2018-11-01 +/- D#2018-11-02;
+				]
 			}
 		''' + ending).parse => [
 			assertError(EisPackage.eINSTANCE.variable, EisValidator.INVALID_RANGE_DEFINITION)
-			1.assertEquals(validate.size)
+			11.assertEquals(validate.size)
 		]
-	}
 
-	@Test def void testInvalidRangeOnString() {
 		(beginning + '''
 			define{
 				input[  ]
-				output[string a = "one" +/- "two";]
-			}
-		''' + ending).parse => [
-			assertError(EisPackage.eINSTANCE.variable, EisValidator.INVALID_RANGE_DEFINITION)
-			1.assertEquals(validate.size)
-		]
-	}
-
-	@Test def void testInvalidRangeOnBooleanStatement() {
-		(beginning + '''
-			define{
-				input[  ]
-				output[bool a;]
+				output[
+					bool _bool;
+					string _string;
+					byte _byte;
+					word _word;
+					dword _dword;
+					lword _lword;
+					char _char;
+					wchar _wchar;
+					time _time;
+					ltime _ltime;
+					date _date;
+				]
 			}
 			teststep(0,""){
 				set[  ]
-				assert[a = true +/- false;]
+				assert[
+					_bool = true +/- false;
+						_string = "one" +/- "two";
+						_byte = 16#bc +/- 16#df;
+					_word = 16#abcd +/- 16#efEF;
+					_dword = 16#abcd_abcd +/- 16#efEF_efEF;
+					_lword = 16#abcd_abcd_abcd_abcd +/- 16#efEF_efEF_efEF_efEF;
+					_char = 'c' +/- 'h';
+					_wchar = 'a' +/- 'r';
+					_time = T#1s +/- T#5ms;
+					_ltime = LT#1us +/- LT#1ns;
+					_date = D#2018-11-01 +/- D#2018-11-02;
+				]
 			}
 		''' + ending).parse => [
 			assertError(EisPackage.eINSTANCE.statement, EisValidator.INVALID_RANGE_DEFINITION)
-			1.assertEquals(validate.size)
+			11.assertEquals(validate.size)
 		]
-	}
 
-	@Test def void testInvalidRangeOnStringStatement() {
-		(beginning + '''
-			define{
-				input[  ]
-				output[ string a;]
-			}
-			teststep(0,""){
-				set[  ]
-				assert[a = "one" +/- "two";]
-			}
-		''' + ending).parse => [
-			assertError(EisPackage.eINSTANCE.statement, EisValidator.INVALID_RANGE_DEFINITION)
-			1.assertEquals(validate.size)
-		]
-	}
-
-	@Test def void testInvalidRangeOnInput() {
 		(beginning + '''
 			define{
 				input[ int a = 0 +/- 5; ]
@@ -503,9 +507,7 @@ class EisValidatorTest {
 			assertError(EisPackage.eINSTANCE.variable, EisValidator.INVALID_RANGE_DEFINITION)
 			1.assertEquals(validate.size)
 		]
-	}
 
-	@Test def void testInvalidRangeOnInput2() {
 		(beginning + '''
 			define{
 				input[ int a;]

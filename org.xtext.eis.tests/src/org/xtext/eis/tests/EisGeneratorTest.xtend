@@ -814,14 +814,14 @@ class EisGeneratorTest {
 				output[
 				 	inout udt All(TypeAll){
 				 		variant int a = 14 +/- 3;
-				 		variant bool b = true;																														//no range
+				 		variant bool b = true;
 				 		variant real c = 3.4 +/- 1.1;
-				 		variant string d = "hahaha" ;																										//no range
-				 		variant char e = '9' +/- '7';						
-				 		variant byte f = 16#02 +/- 16#99;		
-				 		variant word g = 16#1234 +/- 16#1234;
-				 		variant dword h = 16#9876_5432 +/- 16#9876_5432;
-				 		variant lword i = 16#abcd_efAB_CDEF_0123 +/- 16#abcd_efAB_CDEF_0123;
+				 		variant string d = "hahaha" ;
+				 		variant char e = '9';						
+				 		variant byte f = 16#02;		
+				 		variant word g = 16#1234;
+				 		variant dword h = 16#9876_5432;
+				 		variant lword i = 16#abcd_efAB_CDEF_0123;
 				 		variant usint j = 1 +/- 5;
 				 		variant uint k = 256 +/- 7;
 				 		variant udint l = 123456 +/- 987654;
@@ -829,10 +829,9 @@ class EisGeneratorTest {
 				 		variant sint n = -1 +/- -25;
 				 		variant dint o = -25600 +/- (-8545000);
 				 		variant lint p = -222222222 +/- 9999999;
-				 		variant time q = T#40s +/- T#30M;		
-				 		variant ltime r = LT#400d9ns +/- LT#2h486us;
-				 		variant date s = D#2018-08-22;									 																//no range
-					/**/
+				 		variant time q = T#40s;		
+				 		variant ltime r = LT#400d9ns;
+				 		variant date s = D#2018-08-22;
 					}
 				]
 			}
@@ -862,11 +861,11 @@ class EisGeneratorTest {
 													<Element xsi:type="Output" Name="b" Datatype="Variant@Bool" Direction="InOut" Expect="true" Range="" />
 													<Element xsi:type="Output" Name="c" Datatype="Variant@Real" Direction="InOut" Expect="3.4" Range="1.1" />
 													<Element xsi:type="Output" Name="d" Datatype="Variant@String" Direction="InOut" Expect="hahaha" Range="" />
-													<Element xsi:type="Output" Name="e" Datatype="Variant@Char" Direction="InOut" Expect="9" Range="7" />
-													<Element xsi:type="Output" Name="f" Datatype="Variant@Byte" Direction="InOut" Expect="16#02" Range="16#99" />
-													<Element xsi:type="Output" Name="g" Datatype="Variant@Word" Direction="InOut" Expect="16#1234" Range="16#1234" />
-													<Element xsi:type="Output" Name="h" Datatype="Variant@DWord" Direction="InOut" Expect="16#9876_5432" Range="16#9876_5432" />
-													<Element xsi:type="Output" Name="i" Datatype="Variant@LWord" Direction="InOut" Expect="16#ABCD_EFAB_CDEF_0123" Range="16#ABCD_EFAB_CDEF_0123" />
+													<Element xsi:type="Output" Name="e" Datatype="Variant@Char" Direction="InOut" Expect="9" Range="" />
+													<Element xsi:type="Output" Name="f" Datatype="Variant@Byte" Direction="InOut" Expect="16#02" Range="" />
+													<Element xsi:type="Output" Name="g" Datatype="Variant@Word" Direction="InOut" Expect="16#1234" Range="" />
+													<Element xsi:type="Output" Name="h" Datatype="Variant@DWord" Direction="InOut" Expect="16#9876_5432" Range="" />
+													<Element xsi:type="Output" Name="i" Datatype="Variant@LWord" Direction="InOut" Expect="16#ABCD_EFAB_CDEF_0123" Range="" />
 													<Element xsi:type="Output" Name="j" Datatype="Variant@USInt" Direction="InOut" Expect="1" Range="5" />
 													<Element xsi:type="Output" Name="k" Datatype="Variant@UInt" Direction="InOut" Expect="256" Range="7" />
 													<Element xsi:type="Output" Name="l" Datatype="Variant@UDInt" Direction="InOut" Expect="123456" Range="987654" />
@@ -874,8 +873,8 @@ class EisGeneratorTest {
 													<Element xsi:type="Output" Name="n" Datatype="Variant@SInt" Direction="InOut" Expect="-1" Range="-25" />
 													<Element xsi:type="Output" Name="o" Datatype="Variant@DInt" Direction="InOut" Expect="-25600" Range="-8545000" />
 													<Element xsi:type="Output" Name="p" Datatype="Variant@LInt" Direction="InOut" Expect="-222222222" Range="9999999" />
-													<Element xsi:type="Output" Name="q" Datatype="Variant@Time" Direction="InOut" Expect="T#40s" Range="T#30m" />
-													<Element xsi:type="Output" Name="r" Datatype="Variant@LTime" Direction="InOut" Expect="LT#400d9ns" Range="LT#2h486us" />
+													<Element xsi:type="Output" Name="q" Datatype="Variant@Time" Direction="InOut" Expect="T#40s" Range="" />
+													<Element xsi:type="Output" Name="r" Datatype="Variant@LTime" Direction="InOut" Expect="LT#400d9ns" Range="" />
 													<Element xsi:type="Output" Name="s" Datatype="Variant@Date" Direction="InOut" Expect="D#2018-08-22" Range="" />
 												</Elements>
 											</Element>

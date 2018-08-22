@@ -117,6 +117,12 @@ class DefineTypeComputer {
 
 	def isLIntType(DefineType type) { type === LINT_TYPE }
 
+	def isWithoutRangeOp(DefineType type) {
+		type === BOOL_TYPE || type === STRING_TYPE || type === BYTE_TYPE || type === WORD_TYPE || type === DWORD_TYPE ||
+			type === LWORD_TYPE || type === CHAR_TYPE || type === WCHAR_TYPE || type === TIME_TYPE ||
+			type === LTIME_TYPE || type === DATE_TYPE
+	}
+
 	def dispatch DefineType typeFor(Idiom i) {
 		switch (i) {
 			StringConstant:

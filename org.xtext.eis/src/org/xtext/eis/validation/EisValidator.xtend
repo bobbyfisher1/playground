@@ -244,7 +244,7 @@ class EisValidator extends AbstractEisValidator {
 		}
 	}
 
-	@Check def void checkType(Statement statement) {
+	@Check def void checkRangesOnStatements(Statement statement) {
 		val cascade = statement.cascade
 		val variable = statement.variable
 		val last = cascade?.last?.udtVar
@@ -257,24 +257,17 @@ class EisValidator extends AbstractEisValidator {
 			expectedType = (variable as Variable).variableType
 			compareTypesAndCallErrorOnMismatch(statement, actualType, expectedType, rangeType)
 			if (rangeType !== null) {
-				if (expectedType === BasicType.BOOL)
-					error("The range feature is not permitted to boolean types", statement,
+				if (expectedType.typeFor.isWithoutRangeOp)
+					error("The range feature is not permitted to this type", statement,
 						EisPackage.eINSTANCE.statement_Range, INVALID_RANGE_DEFINITION)
 
-				if (expectedType === BasicType.STRING)
-					error("The range feature is not permitted to string types", statement,
-						EisPackage.eINSTANCE.statement_Range, INVALID_RANGE_DEFINITION)
 			}
 		} else if (last instanceof Variable) {
 			expectedType = last.variableType
 			compareTypesAndCallErrorOnMismatch(statement, actualType, expectedType, rangeType)
 			if (rangeType !== null) {
-				if (expectedType === BasicType.BOOL)
-					error("The range feature is not permitted to boolean types", statement,
-						EisPackage.eINSTANCE.statement_Range, INVALID_RANGE_DEFINITION)
-
-				if (expectedType === BasicType.STRING)
-					error("The range feature is not permitted to string types", statement,
+				if (expectedType.typeFor.isWithoutRangeOp)
+					error("The range feature is not permitted to this type", statement,
 						EisPackage.eINSTANCE.statement_Range, INVALID_RANGE_DEFINITION)
 			}
 		}
@@ -415,14 +408,12 @@ class EisValidator extends AbstractEisValidator {
 	}
 
 	@Check def void checkRangeOperator(Variable variable) {
-		if (variable.range !== null) {
-			if (variable.variableType === BasicType.BOOL)
-				error("The range feature is not permitted to boolean types", variable,
-					EisPackage.eINSTANCE.variable_Range, INVALID_RANGE_DEFINITION)
+		val type = variable.variableType.typeFor
 
-			if (variable.variableType === BasicType.STRING)
-				error("The range feature is not permitted to string types", variable,
-					EisPackage.eINSTANCE.variable_Range, INVALID_RANGE_DEFINITION)
+		if (variable.range !== null) {
+			if (type.isWithoutRangeOp)
+				error("The range feature is not permitted to this type", variable, EisPackage.eINSTANCE.variable_Range,
+					INVALID_RANGE_DEFINITION)
 
 			if (variable.directionBlock instanceof Input)
 				error("The range feature is not permitted to input variables", variable,
@@ -549,9 +540,6 @@ class EisValidator extends AbstractEisValidator {
 								EisPackage.eINSTANCE.statement_Range, VALUE_EXCEEDING_DATATYPE_BOUNDS)
 						range.interpret.toString.checkUnderscoreNotation(statement,
 							EisPackage.eINSTANCE.statement_Range)
-					} else if (range.typeFor instanceof DateType) {
-						error("The range feature is not permitted to dates.", statement,
-							EisPackage.eINSTANCE.statement_Range, INVALID_RANGE_DEFINITION)
 					}
 				}
 		} else if (last instanceof Variable) {
@@ -599,9 +587,6 @@ class EisValidator extends AbstractEisValidator {
 
 						range.interpret.toString.checkUnderscoreNotation(statement,
 							EisPackage.eINSTANCE.statement_Range)
-					} else if (range.typeFor instanceof DateType) {
-						error("The range feature is not permitted to dates.", statement,
-							EisPackage.eINSTANCE.statement_Range, INVALID_RANGE_DEFINITION)
 					}
 				}
 		}
@@ -657,7 +642,6 @@ class EisValidator extends AbstractEisValidator {
 
 	@Check def void checkDateValues(Variable variable) {
 		val idiom = variable?.idiom
-		val range = variable?.range
 
 		if (idiom !== null)
 			if (!(idiom instanceof VariableRef)) {
@@ -665,14 +649,6 @@ class EisValidator extends AbstractEisValidator {
 					if (idiom.checkDate(EisPackage.eINSTANCE.variable_Idiom))
 						error("Value is out of the datatype boundaries.", variable, EisPackage.eINSTANCE.variable_Idiom,
 							VALUE_EXCEEDING_DATATYPE_BOUNDS)
-				}
-			}
-
-		if (range !== null)
-			if (!(range instanceof VariableRef)) {
-				if (range.typeFor instanceof DateType) {
-					error("The range feature is not permitted to dates.", variable, EisPackage.eINSTANCE.variable_Range,
-						INVALID_RANGE_DEFINITION)
 				}
 			}
 	}

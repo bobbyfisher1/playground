@@ -169,6 +169,12 @@ public class DefineTypeComputer {
     return (type == DefineTypeComputer.LINT_TYPE);
   }
   
+  public boolean isWithoutRangeOp(final DefineType type) {
+    return (((((((((((type == DefineTypeComputer.BOOL_TYPE) || (type == DefineTypeComputer.STRING_TYPE)) || (type == DefineTypeComputer.BYTE_TYPE)) || (type == DefineTypeComputer.WORD_TYPE)) || (type == DefineTypeComputer.DWORD_TYPE)) || 
+      (type == DefineTypeComputer.LWORD_TYPE)) || (type == DefineTypeComputer.CHAR_TYPE)) || (type == DefineTypeComputer.WCHAR_TYPE)) || (type == DefineTypeComputer.TIME_TYPE)) || 
+      (type == DefineTypeComputer.LTIME_TYPE)) || (type == DefineTypeComputer.DATE_TYPE));
+  }
+  
   protected DefineType _typeFor(final Idiom i) {
     DefineType _switchResult = null;
     boolean _matched = false;

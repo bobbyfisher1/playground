@@ -332,7 +332,7 @@ public class EisValidator extends AbstractEisValidator {
   }
   
   @Check
-  public void checkType(final Statement statement) {
+  public void checkRangesOnStatements(final Statement statement) {
     final EList<Cascade> cascade = statement.getCascade();
     final Variables variable = statement.getVariable();
     Cascade _last = null;
@@ -359,12 +359,9 @@ public class EisValidator extends AbstractEisValidator {
       expectedType = ((Variable) variable).getVariableType();
       this.compareTypesAndCallErrorOnMismatch(statement, actualType, expectedType, rangeType);
       if ((rangeType != null)) {
-        if ((expectedType == BasicType.BOOL)) {
-          this.error("The range feature is not permitted to boolean types", statement, 
-            EisPackage.eINSTANCE.getStatement_Range(), EisValidator.INVALID_RANGE_DEFINITION);
-        }
-        if ((expectedType == BasicType.STRING)) {
-          this.error("The range feature is not permitted to string types", statement, 
+        boolean _isWithoutRangeOp = this._defineTypeComputer.isWithoutRangeOp(this._defineTypeComputer.typeFor(expectedType));
+        if (_isWithoutRangeOp) {
+          this.error("The range feature is not permitted to this type", statement, 
             EisPackage.eINSTANCE.getStatement_Range(), EisValidator.INVALID_RANGE_DEFINITION);
         }
       }
@@ -373,12 +370,9 @@ public class EisValidator extends AbstractEisValidator {
         expectedType = ((Variable)last).getVariableType();
         this.compareTypesAndCallErrorOnMismatch(statement, actualType, expectedType, rangeType);
         if ((rangeType != null)) {
-          if ((expectedType == BasicType.BOOL)) {
-            this.error("The range feature is not permitted to boolean types", statement, 
-              EisPackage.eINSTANCE.getStatement_Range(), EisValidator.INVALID_RANGE_DEFINITION);
-          }
-          if ((expectedType == BasicType.STRING)) {
-            this.error("The range feature is not permitted to string types", statement, 
+          boolean _isWithoutRangeOp_1 = this._defineTypeComputer.isWithoutRangeOp(this._defineTypeComputer.typeFor(expectedType));
+          if (_isWithoutRangeOp_1) {
+            this.error("The range feature is not permitted to this type", statement, 
               EisPackage.eINSTANCE.getStatement_Range(), EisValidator.INVALID_RANGE_DEFINITION);
           }
         }
@@ -576,20 +570,14 @@ public class EisValidator extends AbstractEisValidator {
   
   @Check
   public void checkRangeOperator(final Variable variable) {
+    final DefineType type = this._defineTypeComputer.typeFor(variable.getVariableType());
     Idiom _range = variable.getRange();
     boolean _tripleNotEquals = (_range != null);
     if (_tripleNotEquals) {
-      BasicType _variableType = variable.getVariableType();
-      boolean _tripleEquals = (_variableType == BasicType.BOOL);
-      if (_tripleEquals) {
-        this.error("The range feature is not permitted to boolean types", variable, 
-          EisPackage.eINSTANCE.getVariable_Range(), EisValidator.INVALID_RANGE_DEFINITION);
-      }
-      BasicType _variableType_1 = variable.getVariableType();
-      boolean _tripleEquals_1 = (_variableType_1 == BasicType.STRING);
-      if (_tripleEquals_1) {
-        this.error("The range feature is not permitted to string types", variable, 
-          EisPackage.eINSTANCE.getVariable_Range(), EisValidator.INVALID_RANGE_DEFINITION);
+      boolean _isWithoutRangeOp = this._defineTypeComputer.isWithoutRangeOp(type);
+      if (_isWithoutRangeOp) {
+        this.error("The range feature is not permitted to this type", variable, EisPackage.eINSTANCE.getVariable_Range(), 
+          EisValidator.INVALID_RANGE_DEFINITION);
       }
       EObject _directionBlock = this.directionBlock(variable);
       if ((_directionBlock instanceof Input)) {
@@ -797,12 +785,6 @@ public class EisValidator extends AbstractEisValidator {
                 }
                 this.checkUnderscoreNotation(this._eisInterpreter.interpret(range).toString(), statement, 
                   EisPackage.eINSTANCE.getStatement_Range());
-              } else {
-                DefineType _typeFor_5 = this._defineTypeComputer.typeFor(range);
-                if ((_typeFor_5 instanceof DateType)) {
-                  this.error("The range feature is not permitted to dates.", statement, 
-                    EisPackage.eINSTANCE.getStatement_Range(), EisValidator.INVALID_RANGE_DEFINITION);
-                }
               }
             }
           }
@@ -820,8 +802,8 @@ public class EisValidator extends AbstractEisValidator {
                 EisPackage.eINSTANCE.getStatement_Idiom(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
             }
           } else {
-            DefineType _typeFor_6 = this._defineTypeComputer.typeFor(idiom);
-            if ((_typeFor_6 instanceof TimeType)) {
+            DefineType _typeFor_5 = this._defineTypeComputer.typeFor(idiom);
+            if ((_typeFor_5 instanceof TimeType)) {
               boolean _checkTime_2 = this.checkTime(idiom);
               if (_checkTime_2) {
                 this.error("Value is out of the datatype boundaries.", statement, 
@@ -829,8 +811,8 @@ public class EisValidator extends AbstractEisValidator {
               }
               this.checkUnderscoreNotation(this._eisInterpreter.interpret(idiom).toString(), statement, EisPackage.eINSTANCE.getStatement_Idiom());
             } else {
-              DefineType _typeFor_7 = this._defineTypeComputer.typeFor(idiom);
-              if ((_typeFor_7 instanceof LTimeType)) {
+              DefineType _typeFor_6 = this._defineTypeComputer.typeFor(idiom);
+              if ((_typeFor_6 instanceof LTimeType)) {
                 boolean _isOutOfLTime_2 = this.isOutOfLTime(idiom);
                 if (_isOutOfLTime_2) {
                   this.error("Value is out of the datatype boundaries.", statement, 
@@ -838,8 +820,8 @@ public class EisValidator extends AbstractEisValidator {
                 }
                 this.checkUnderscoreNotation(this._eisInterpreter.interpret(idiom).toString(), statement, EisPackage.eINSTANCE.getStatement_Idiom());
               } else {
-                DefineType _typeFor_8 = this._defineTypeComputer.typeFor(idiom);
-                if ((_typeFor_8 instanceof DateType)) {
+                DefineType _typeFor_7 = this._defineTypeComputer.typeFor(idiom);
+                if ((_typeFor_7 instanceof DateType)) {
                   boolean _checkDate_1 = this.checkDate(idiom, EisPackage.eINSTANCE.getStatement_Idiom());
                   if (_checkDate_1) {
                     this.error("Value is out of the datatype boundaries.", statement, 
@@ -860,8 +842,8 @@ public class EisValidator extends AbstractEisValidator {
                   EisPackage.eINSTANCE.getStatement_Range(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
               }
             } else {
-              DefineType _typeFor_9 = this._defineTypeComputer.typeFor(range);
-              if ((_typeFor_9 instanceof TimeType)) {
+              DefineType _typeFor_8 = this._defineTypeComputer.typeFor(range);
+              if ((_typeFor_8 instanceof TimeType)) {
                 boolean _checkTime_3 = this.checkTime(range);
                 if (_checkTime_3) {
                   this.error("Value is out of the datatype boundaries.", statement, 
@@ -870,8 +852,8 @@ public class EisValidator extends AbstractEisValidator {
                 this.checkUnderscoreNotation(this._eisInterpreter.interpret(range).toString(), statement, 
                   EisPackage.eINSTANCE.getStatement_Range());
               } else {
-                DefineType _typeFor_10 = this._defineTypeComputer.typeFor(range);
-                if ((_typeFor_10 instanceof LTimeType)) {
+                DefineType _typeFor_9 = this._defineTypeComputer.typeFor(range);
+                if ((_typeFor_9 instanceof LTimeType)) {
                   boolean _isOutOfLTime_3 = this.isOutOfLTime(range);
                   if (_isOutOfLTime_3) {
                     this.error("Value is out of the datatype boundaries.", statement, 
@@ -879,12 +861,6 @@ public class EisValidator extends AbstractEisValidator {
                   }
                   this.checkUnderscoreNotation(this._eisInterpreter.interpret(range).toString(), statement, 
                     EisPackage.eINSTANCE.getStatement_Range());
-                } else {
-                  DefineType _typeFor_11 = this._defineTypeComputer.typeFor(range);
-                  if ((_typeFor_11 instanceof DateType)) {
-                    this.error("The range feature is not permitted to dates.", statement, 
-                      EisPackage.eINSTANCE.getStatement_Range(), EisValidator.INVALID_RANGE_DEFINITION);
-                  }
                 }
               }
             }
@@ -981,11 +957,6 @@ public class EisValidator extends AbstractEisValidator {
       _idiom=variable.getIdiom();
     }
     final Idiom idiom = _idiom;
-    Idiom _range = null;
-    if (variable!=null) {
-      _range=variable.getRange();
-    }
-    final Idiom range = _range;
     if ((idiom != null)) {
       if ((!(idiom instanceof VariableRef))) {
         DefineType _typeFor = this._defineTypeComputer.typeFor(idiom);
@@ -995,15 +966,6 @@ public class EisValidator extends AbstractEisValidator {
             this.error("Value is out of the datatype boundaries.", variable, EisPackage.eINSTANCE.getVariable_Idiom(), 
               EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
           }
-        }
-      }
-    }
-    if ((range != null)) {
-      if ((!(range instanceof VariableRef))) {
-        DefineType _typeFor_1 = this._defineTypeComputer.typeFor(range);
-        if ((_typeFor_1 instanceof DateType)) {
-          this.error("The range feature is not permitted to dates.", variable, EisPackage.eINSTANCE.getVariable_Range(), 
-            EisValidator.INVALID_RANGE_DEFINITION);
         }
       }
     }
