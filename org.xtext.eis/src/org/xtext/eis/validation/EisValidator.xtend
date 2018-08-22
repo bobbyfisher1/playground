@@ -51,6 +51,8 @@ import org.xtext.eis.typing.types.DateType
 import org.xtext.eis.typing.types.LTimeType
 import org.xtext.eis.typing.types.RealType
 import org.xtext.eis.typing.types.TimeType
+import org.eclipse.emf.common.util.EList
+import org.xtext.eis.eis.TeststepBlock
 
 class EisValidator extends AbstractEisValidator {
 
@@ -60,7 +62,7 @@ class EisValidator extends AbstractEisValidator {
 	public static val MISSING_VARIABLE_TYPE = ISSUE_CODE_PREFIX + "MissingVariableType"
 	public static val MULTIPLE_TYPE_DEFINITION = ISSUE_CODE_PREFIX + "MultipleTypeDefinition"
 	public static val INVALID_VARIANT_KEYWORD = ISSUE_CODE_PREFIX + "InvalidVariantKeyword"
-//	public static val INVALID_INOUT_KEYWORD = ISSUE_CODE_PREFIX + "InvalidInOutKeyword"
+	public static val MISSING_INOUT_DECLARATION = ISSUE_CODE_PREFIX + "MissingInOutDeclariation"
 	public static val INVALID_COMMA_NOTATION = ISSUE_CODE_PREFIX + "InvalidCommaNotation"
 	public static val TYPE_MISMATCH = ISSUE_CODE_PREFIX + "TypeMismatch"
 	public static val INCOMPATIBLE_TYPES = ISSUE_CODE_PREFIX + "IncompatibleTypes"
@@ -492,7 +494,7 @@ class EisValidator extends AbstractEisValidator {
 				error("The range feature is not permitted to this type", variable, EisPackage.eINSTANCE.variable_Range,
 					INVALID_RANGE_DEFINITION)
 
-			if (variable.directionBlock instanceof Input)
+			if (variable.direction instanceof Input)
 				error("The range feature is not permitted to input variables", variable,
 					EisPackage.eINSTANCE.variable_Range, INVALID_RANGE_DEFINITION)
 		}
@@ -751,7 +753,63 @@ class EisValidator extends AbstractEisValidator {
 			}
 	}
 
-	def boolean checkLRealValue(Double _double) {
+	@Check def void checkOccuranceOfInOuts(InOut _inouts) {
+		val inouts = _inouts.inoutVariables
+		inouts.checkOccuranceInOuts('')
+	}
+
+//
+// methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//
+	def private void checkOccuranceInOuts(EList<Variables> inouts, String qualifiedName) {
+		for (inout : inouts) {
+			if (inout instanceof Udt)
+				inout.udtVariables.checkOccuranceInOuts(qualifiedName + inout.name + '.')
+			else if (inout instanceof UdtRef)
+				inout.udtVariables.checkOccuranceInOuts(qualifiedName + inout.name + '.')
+			else if (inout instanceof Variable) {
+				val fullName = qualifiedName + inout.name
+				val teststeps = (inout.getDirection.eContainer.eContainer as DefineBlock).teststeps
+
+				for (teststep : teststeps) {
+					teststep.checkOccuranceInOuts(fullName)
+				}
+			}
+		}
+	}
+
+	def private void checkOccuranceInOuts(TeststepBlock teststep, String inoutName) {
+		val sets = teststep.assertion.set.setVariables
+		val asserts = teststep.assertion.assert.assertVariables
+		var isInSet = false
+		var isInAssert = false
+
+		for (e : sets) {
+			if (e.getStatementName.equals(inoutName))
+				isInSet = true
+		}
+		for (e : asserts) {
+			if (e.getStatementName.equals(inoutName))
+				isInAssert = true
+		}
+		if (!(isInAssert || isInSet))
+			error("The inout variable '" + inoutName + "' must be declared in either a set or assert block.", teststep,
+				EisPackage.eINSTANCE.teststepBlock_TeststepKeyword, MISSING_INOUT_DECLARATION)
+		if (isInAssert && isInSet)
+			error("The inout variable '" + inoutName + "' cannot be declared in both the set and the assert block.",
+				teststep, EisPackage.eINSTANCE.teststepBlock_TeststepKeyword, MULTIPLE_STATEMENT_ASSIGNMENT)
+	}
+
+	def private String getStatementName(Statement e) {
+		var name = ""
+		name = e.variable.name.toString
+		if (!e.cascade.empty)
+			for (c : e.cascade)
+				name += '.' + c.udtVar.name.toString
+		return name
+	}
+
+	def private boolean checkLRealValue(Double _double) {
 		if (_double.infinite)
 			return true
 
@@ -781,7 +839,7 @@ class EisValidator extends AbstractEisValidator {
 		return false
 	}
 
-	def checkRealValue(Double _double) {
+	def private checkRealValue(Double _double) {
 		if(_double.infinite) return true
 		var doubleAsString = _double.toString
 		// note the fact that if too many digits behind the comma are defined the parser will round the 15th or 16th digit -> unknown behaviour
@@ -814,10 +872,7 @@ class EisValidator extends AbstractEisValidator {
 		return false
 	}
 
-//
-// methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-//
-	def boolean checkDate(Idiom _date, EReference ref) {
+	def private boolean checkDate(Idiom _date, EReference ref) {
 		val date = _date.interpret.toString.substring(2) // Format: YYYY-MM-DD
 		val dateAsInt = Integer.parseInt(date.replaceAll('-', ''))
 		val upperBound = 21690606
@@ -837,14 +892,7 @@ class EisValidator extends AbstractEisValidator {
 			false
 	}
 
-//	def private EObject firstUdt(EObject context) {
-//		val container = context.eContainer
-//		if (container instanceof Udt)
-//			container.firstUdt
-//		else
-//			return context
-//	}
-	def boolean checkTime(Idiom _time) {
+	def private boolean checkTime(Idiom _time) {
 		var time = _time.interpret.toString.substring(2).replaceAll('_', '')
 
 		var ms = ''
@@ -904,7 +952,7 @@ class EisValidator extends AbstractEisValidator {
 			false
 	}
 
-	def boolean isOutOfLTime(Idiom _ltime) {
+	def private boolean isOutOfLTime(Idiom _ltime) {
 		var LTime = _ltime.interpret.toString.substring(3).replaceAll('_', '')
 
 		var ns = ''
@@ -975,7 +1023,7 @@ class EisValidator extends AbstractEisValidator {
 			false
 	}
 
-	def String lastNumber(String time) {
+	def private String lastNumber(String time) {
 		var i = 1
 		var last = ""
 		while (time.charAt(time.length - i).toString.isNumerical) {
@@ -990,14 +1038,14 @@ class EisValidator extends AbstractEisValidator {
 		return last
 	}
 
-	def boolean isNumerical(String _char) {
+	def private boolean isNumerical(String _char) {
 		if (_char.toUpperCase.equals(_char.toLowerCase))
 			true
 		else
 			false
 	}
 
-	def String fraction(String value) {
+	def private String fraction(String value) {
 		if (value.length == 3)
 			return value
 		if (value.length == 2)
@@ -1036,12 +1084,12 @@ class EisValidator extends AbstractEisValidator {
 		return outOfBounds
 	}
 
-	def private EObject directionBlock(EObject context) {
+	def private EObject getDirection(EObject context) { // Input, InOut or Output
 		val container = context.eContainer
 		if (container instanceof DirectionBlock)
 			return context
 		else
-			container.directionBlock
+			container.direction
 	}
 
 	def private void checkVariableTypeAndAddToMap(

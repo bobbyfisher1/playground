@@ -213,7 +213,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getIdiom()
    * @generated
    */
-  int IDIOM = 15;
+  int IDIOM = 21;
 
   /**
    * The number of structural features of the '<em>Idiom</em>' class.
@@ -703,7 +703,16 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getTeststepBlock()
    * @generated
    */
-  int TESTSTEP_BLOCK = 16;
+  int TESTSTEP_BLOCK = 15;
+
+  /**
+   * The feature id for the '<em><b>Teststep Keyword</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TESTSTEP_BLOCK__TESTSTEP_KEYWORD = 0;
 
   /**
    * The feature id for the '<em><b>Plc Cycle</b></em>' attribute.
@@ -712,7 +721,7 @@ public interface EisPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TESTSTEP_BLOCK__PLC_CYCLE = 0;
+  int TESTSTEP_BLOCK__PLC_CYCLE = 1;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -721,7 +730,7 @@ public interface EisPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TESTSTEP_BLOCK__DESCRIPTION = 1;
+  int TESTSTEP_BLOCK__DESCRIPTION = 2;
 
   /**
    * The feature id for the '<em><b>Assertion</b></em>' containment reference.
@@ -730,7 +739,7 @@ public interface EisPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TESTSTEP_BLOCK__ASSERTION = 2;
+  int TESTSTEP_BLOCK__ASSERTION = 3;
 
   /**
    * The number of structural features of the '<em>Teststep Block</em>' class.
@@ -739,7 +748,7 @@ public interface EisPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TESTSTEP_BLOCK_FEATURE_COUNT = 3;
+  int TESTSTEP_BLOCK_FEATURE_COUNT = 4;
 
   /**
    * The meta object id for the '{@link org.xtext.eis.eis.impl.AssertionBlockImpl <em>Assertion Block</em>}' class.
@@ -749,7 +758,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getAssertionBlock()
    * @generated
    */
-  int ASSERTION_BLOCK = 17;
+  int ASSERTION_BLOCK = 16;
 
   /**
    * The feature id for the '<em><b>Set</b></em>' containment reference.
@@ -786,7 +795,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getSet()
    * @generated
    */
-  int SET = 18;
+  int SET = 17;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -823,7 +832,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getAssert()
    * @generated
    */
-  int ASSERT = 19;
+  int ASSERT = 18;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -860,7 +869,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getStatement()
    * @generated
    */
-  int STATEMENT = 20;
+  int STATEMENT = 19;
 
   /**
    * The feature id for the '<em><b>Variable</b></em>' reference.
@@ -915,7 +924,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getCascade()
    * @generated
    */
-  int CASCADE = 21;
+  int CASCADE = 20;
 
   /**
    * The feature id for the '<em><b>Udt Var</b></em>' reference.
@@ -2121,16 +2130,6 @@ public interface EisPackage extends EPackage
   EAttribute getUdtType_Name();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.eis.eis.Idiom <em>Idiom</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Idiom</em>'.
-   * @see org.xtext.eis.eis.Idiom
-   * @generated
-   */
-  EClass getIdiom();
-
-  /**
    * Returns the meta object for class '{@link org.xtext.eis.eis.TeststepBlock <em>Teststep Block</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2139,6 +2138,17 @@ public interface EisPackage extends EPackage
    * @generated
    */
   EClass getTeststepBlock();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.eis.eis.TeststepBlock#getTeststepKeyword <em>Teststep Keyword</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Teststep Keyword</em>'.
+   * @see org.xtext.eis.eis.TeststepBlock#getTeststepKeyword()
+   * @see #getTeststepBlock()
+   * @generated
+   */
+  EAttribute getTeststepBlock_TeststepKeyword();
 
   /**
    * Returns the meta object for the attribute '{@link org.xtext.eis.eis.TeststepBlock#getPlcCycle <em>Plc Cycle</em>}'.
@@ -2343,6 +2353,16 @@ public interface EisPackage extends EPackage
    * @generated
    */
   EReference getCascade_UdtVar();
+
+  /**
+   * Returns the meta object for class '{@link org.xtext.eis.eis.Idiom <em>Idiom</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Idiom</em>'.
+   * @see org.xtext.eis.eis.Idiom
+   * @generated
+   */
+  EClass getIdiom();
 
   /**
    * Returns the meta object for class '{@link org.xtext.eis.eis.Or <em>Or</em>}'.
@@ -3330,16 +3350,6 @@ public interface EisPackage extends EPackage
     EAttribute UDT_TYPE__NAME = eINSTANCE.getUdtType_Name();
 
     /**
-     * The meta object literal for the '{@link org.xtext.eis.eis.impl.IdiomImpl <em>Idiom</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.xtext.eis.eis.impl.IdiomImpl
-     * @see org.xtext.eis.eis.impl.EisPackageImpl#getIdiom()
-     * @generated
-     */
-    EClass IDIOM = eINSTANCE.getIdiom();
-
-    /**
      * The meta object literal for the '{@link org.xtext.eis.eis.impl.TeststepBlockImpl <em>Teststep Block</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3348,6 +3358,14 @@ public interface EisPackage extends EPackage
      * @generated
      */
     EClass TESTSTEP_BLOCK = eINSTANCE.getTeststepBlock();
+
+    /**
+     * The meta object literal for the '<em><b>Teststep Keyword</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute TESTSTEP_BLOCK__TESTSTEP_KEYWORD = eINSTANCE.getTeststepBlock_TeststepKeyword();
 
     /**
      * The meta object literal for the '<em><b>Plc Cycle</b></em>' attribute feature.
@@ -3510,6 +3528,16 @@ public interface EisPackage extends EPackage
      * @generated
      */
     EReference CASCADE__UDT_VAR = eINSTANCE.getCascade_UdtVar();
+
+    /**
+     * The meta object literal for the '{@link org.xtext.eis.eis.impl.IdiomImpl <em>Idiom</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtext.eis.eis.impl.IdiomImpl
+     * @see org.xtext.eis.eis.impl.EisPackageImpl#getIdiom()
+     * @generated
+     */
+    EClass IDIOM = eINSTANCE.getIdiom();
 
     /**
      * The meta object literal for the '{@link org.xtext.eis.eis.impl.OrImpl <em>Or</em>}' class.

@@ -6,6 +6,7 @@ package org.xtext.eis.generator;
 import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
 import java.util.HashMap;
+import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -13,6 +14,7 @@ import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.generator.AbstractGenerator;
 import org.eclipse.xtext.generator.IFileSystemAccess2;
 import org.eclipse.xtext.generator.IGeneratorContext;
+import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.IteratorExtensions;
@@ -226,8 +228,8 @@ public class EisGenerator extends AbstractGenerator {
             _builder.newLineIfNotEmpty();
             {
               if ((inouts != null)) {
-                CharSequence _compileIn_1 = this.compileIn(inouts, setMap, "", sixTabs);
-                _builder.append(_compileIn_1);
+                CharSequence _checkInouts = this.checkInouts(inouts, setMap, "", sixTabs);
+                _builder.append(_checkInouts);
               }
             }
             _builder.newLineIfNotEmpty();
@@ -274,6 +276,37 @@ public class EisGenerator extends AbstractGenerator {
     }
     final String multiLineString = _builder.toString();
     return multiLineString;
+  }
+  
+  private CharSequence checkInouts(final EList<Variables> variables, final HashMap<Object, Object> setMap, final String qualifiedName, final String indent) {
+    for (final Variables variable : variables) {
+      if ((variable instanceof Variable)) {
+        String _name = ((Variable)variable).getName();
+        String _plus = (qualifiedName + _name);
+        boolean _containsKey = setMap.containsKey(_plus);
+        if (_containsKey) {
+          List<Variables> inoutScope = CollectionLiterals.<Variables>emptyList();
+          return "";
+        }
+      } else {
+        if ((variable instanceof Udt)) {
+          EList<Variables> _udtVariables = ((Udt)variable).getUdtVariables();
+          String _name_1 = ((Udt)variable).getName();
+          String _plus_1 = (qualifiedName + _name_1);
+          String _plus_2 = (_plus_1 + ".");
+          this.checkInouts(_udtVariables, setMap, _plus_2, "");
+        } else {
+          if ((variable instanceof UdtRef)) {
+            EList<Variables> _udtVariables_1 = ((UdtRef)variable).getUdtVariables();
+            String _name_2 = ((UdtRef)variable).getName();
+            String _plus_3 = (qualifiedName + _name_2);
+            String _plus_4 = (_plus_3 + ".");
+            this.checkInouts(_udtVariables_1, setMap, _plus_4, "");
+          }
+        }
+      }
+    }
+    return null;
   }
   
   private CharSequence compileIn(final EList<Variables> variables, final HashMap<Object, Object> setMap, final String qualifiedName, final String indent) {
@@ -789,9 +822,14 @@ public class EisGenerator extends AbstractGenerator {
             name = (_name + _plus);
           }
         }
-        boolean _containsKey = idiomMap.containsKey(name);
-        if (_containsKey) {
-          idiomMap.replace(name, this._eisInterpreter.interpret(e.getIdiom()).toString());
+        EObject _eContainer = e.getVariable().eContainer();
+        if ((_eContainer instanceof InOut)) {
+          idiomMap.put(name, this._eisInterpreter.interpret(e.getIdiom()).toString());
+        } else {
+          boolean _containsKey = idiomMap.containsKey(name);
+          if (_containsKey) {
+            idiomMap.replace(name, this._eisInterpreter.interpret(e.getIdiom()).toString());
+          }
         }
       }
     }
@@ -801,12 +839,7 @@ public class EisGenerator extends AbstractGenerator {
     final EList<Statement> statements = teststep.getAssertion().getAssert().getAssertVariables();
     String name = "";
     for (final Statement e : statements) {
-      Idiom _range = null;
-      if (e!=null) {
-        _range=e.getRange();
-      }
-      boolean _tripleNotEquals = (_range != null);
-      if (_tripleNotEquals) {
+      {
         name = e.getVariable().getName().toString();
         boolean _isEmpty = e.getCascade().isEmpty();
         boolean _not = (!_isEmpty);
@@ -819,21 +852,49 @@ public class EisGenerator extends AbstractGenerator {
             name = (_name + _plus);
           }
         }
-        boolean _containsKey = rangeMap.containsKey(name);
-        if (_containsKey) {
-          Idiom _range_1 = null;
-          if (e!=null) {
-            _range_1=e.getRange();
+        Idiom _range = null;
+        if (e!=null) {
+          _range=e.getRange();
+        }
+        boolean _tripleNotEquals = (_range != null);
+        if (_tripleNotEquals) {
+          String _directionBlock = this.directionBlock(e.getVariable());
+          boolean _tripleEquals = (_directionBlock == "InOut");
+          if (_tripleEquals) {
+            rangeMap.put(name, this._eisInterpreter.interpret(e.getRange()).toString());
+          } else {
+            boolean _containsKey = rangeMap.containsKey(name);
+            if (_containsKey) {
+              rangeMap.replace(name, this._eisInterpreter.interpret(e.getRange()).toString());
+            }
           }
-          Object _interpret = null;
-          if (_range_1!=null) {
-            _interpret=this._eisInterpreter.interpret(_range_1);
+        } else {
+          String _directionBlock_1 = this.directionBlock(e.getVariable());
+          boolean _tripleEquals_1 = (_directionBlock_1 == "InOut");
+          if (_tripleEquals_1) {
+            boolean _isEmpty_1 = e.getCascade().isEmpty();
+            if (_isEmpty_1) {
+              Variables _variable = e.getVariable();
+              Idiom _range_1 = null;
+              if (((Variable) _variable)!=null) {
+                _range_1=((Variable) _variable).getRange();
+              }
+              final Idiom range = _range_1;
+              if ((range != null)) {
+                rangeMap.put(name, this._eisInterpreter.interpret(range).toString());
+              }
+            } else {
+              Cascade _last = IterableExtensions.<Cascade>last(e.getCascade());
+              Idiom _range_2 = null;
+              if (((Variable) _last)!=null) {
+                _range_2=((Variable) _last).getRange();
+              }
+              final Idiom range_1 = _range_2;
+              if ((range_1 != null)) {
+                rangeMap.put(name, this._eisInterpreter.interpret(range_1).toString());
+              }
+            }
           }
-          String _string_1 = null;
-          if (_interpret!=null) {
-            _string_1=_interpret.toString();
-          }
-          rangeMap.replace(name, _string_1);
         }
       }
     }

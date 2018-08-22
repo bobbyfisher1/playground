@@ -159,15 +159,6 @@ public interface EisFactory extends EFactory
   UdtType createUdtType();
 
   /**
-   * Returns a new object of class '<em>Idiom</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Idiom</em>'.
-   * @generated
-   */
-  Idiom createIdiom();
-
-  /**
    * Returns a new object of class '<em>Teststep Block</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -220,6 +211,15 @@ public interface EisFactory extends EFactory
    * @generated
    */
   Cascade createCascade();
+
+  /**
+   * Returns a new object of class '<em>Idiom</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Idiom</em>'.
+   * @generated
+   */
+  Idiom createIdiom();
 
   /**
    * Returns a new object of class '<em>Or</em>'.

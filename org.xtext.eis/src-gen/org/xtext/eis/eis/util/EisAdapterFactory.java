@@ -151,11 +151,6 @@ public class EisAdapterFactory extends AdapterFactoryImpl
         return createUdtTypeAdapter();
       }
       @Override
-      public Adapter caseIdiom(Idiom object)
-      {
-        return createIdiomAdapter();
-      }
-      @Override
       public Adapter caseTeststepBlock(TeststepBlock object)
       {
         return createTeststepBlockAdapter();
@@ -184,6 +179,11 @@ public class EisAdapterFactory extends AdapterFactoryImpl
       public Adapter caseCascade(Cascade object)
       {
         return createCascadeAdapter();
+      }
+      @Override
+      public Adapter caseIdiom(Idiom object)
+      {
+        return createIdiomAdapter();
       }
       @Override
       public Adapter caseOr(Or object)
@@ -533,21 +533,6 @@ public class EisAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.xtext.eis.eis.Idiom <em>Idiom</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.xtext.eis.eis.Idiom
-   * @generated
-   */
-  public Adapter createIdiomAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link org.xtext.eis.eis.TeststepBlock <em>Teststep Block</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -633,6 +618,21 @@ public class EisAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createCascadeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.eis.eis.Idiom <em>Idiom</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.eis.eis.Idiom
+   * @generated
+   */
+  public Adapter createIdiomAdapter()
   {
     return null;
   }

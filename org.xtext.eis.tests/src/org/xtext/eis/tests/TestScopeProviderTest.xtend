@@ -39,7 +39,7 @@ class TestScopeProviderTest {
 	val define = beginning + "define{"
 	val output = "output[]"
 	val input = "input[]"
-	val teststep = '''}
+	var teststep = '''}
 		teststep(0,''){
 			set[]
 			assert[]
@@ -66,6 +66,12 @@ class TestScopeProviderTest {
 	}
 
 	@Test def void testSetReferenceInout() {
+		teststep = '''}
+		teststep(0,''){
+			set[ a=0; b=0;]
+			assert[]
+		}''' + ending;
+
 		(define + input + output + "inout[int a, b;]" + teststep).parse.testcases.head.testblock.define.teststeps.head.
 			assertion.set => [
 			assertNoErrors
@@ -74,6 +80,12 @@ class TestScopeProviderTest {
 	}
 
 	@Test def void testAssertReferenceInout() {
+		teststep = '''}
+		teststep(0,''){
+			set[ a=0; b=0;]
+			assert[]
+		}''' + ending;
+
 		(define + input + output + "inout[int a, b;]" + teststep).parse.testcases.head.testblock.define.teststeps.head.
 			assertion.assert => [
 			assertNoErrors

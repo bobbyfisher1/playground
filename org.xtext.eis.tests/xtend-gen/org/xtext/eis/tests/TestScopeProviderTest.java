@@ -76,7 +76,7 @@ public class TestScopeProviderTest {
   
   private final String input = "input[]";
   
-  private final String teststep = new Function0<String>() {
+  private String teststep = new Function0<String>() {
     public String apply() {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("}");
@@ -129,6 +129,22 @@ public class TestScopeProviderTest {
   @Test
   public void testSetReferenceInout() {
     try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("teststep(0,\'\'){");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("set[ a=0; b=0;]");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("assert[]");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("}");
+      String _plus = (_builder.toString() + this.ending);
+      this.teststep = _plus;
       Set _set = IterableExtensions.<TeststepBlock>head(IterableExtensions.<Testcase>head(this._parseHelper.parse(((((this.define + this.input) + this.output) + "inout[int a, b;]") + this.teststep)).getTestcases()).getTestblock().getDefine().getTeststeps()).getAssertion().getSet();
       final Procedure1<Set> _function = (Set it) -> {
         this._validationTestHelper.assertNoErrors(it);
@@ -143,6 +159,22 @@ public class TestScopeProviderTest {
   @Test
   public void testAssertReferenceInout() {
     try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("teststep(0,\'\'){");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("set[ a=0; b=0;]");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("assert[]");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("}");
+      String _plus = (_builder.toString() + this.ending);
+      this.teststep = _plus;
       Assert _assert = IterableExtensions.<TeststepBlock>head(IterableExtensions.<Testcase>head(this._parseHelper.parse(((((this.define + this.input) + this.output) + "inout[int a, b;]") + this.teststep)).getTestcases()).getTestblock().getDefine().getTeststeps()).getAssertion().getAssert();
       final Procedure1<Assert> _function = (Assert it) -> {
         this._validationTestHelper.assertNoErrors(it);

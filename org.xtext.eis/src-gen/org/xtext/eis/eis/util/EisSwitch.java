@@ -182,13 +182,6 @@ public class EisSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case EisPackage.IDIOM:
-      {
-        Idiom idiom = (Idiom)theEObject;
-        T result = caseIdiom(idiom);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case EisPackage.TESTSTEP_BLOCK:
       {
         TeststepBlock teststepBlock = (TeststepBlock)theEObject;
@@ -228,6 +221,13 @@ public class EisSwitch<T> extends Switch<T>
       {
         Cascade cascade = (Cascade)theEObject;
         T result = caseCascade(cascade);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case EisPackage.IDIOM:
+      {
+        Idiom idiom = (Idiom)theEObject;
+        T result = caseIdiom(idiom);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -636,22 +636,6 @@ public class EisSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Idiom</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Idiom</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseIdiom(Idiom object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Teststep Block</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -743,6 +727,22 @@ public class EisSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseCascade(Cascade object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Idiom</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Idiom</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseIdiom(Idiom object)
   {
     return null;
   }

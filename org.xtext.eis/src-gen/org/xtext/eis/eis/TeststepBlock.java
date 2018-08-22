@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link org.xtext.eis.eis.TeststepBlock#getTeststepKeyword <em>Teststep Keyword</em>}</li>
  *   <li>{@link org.xtext.eis.eis.TeststepBlock#getPlcCycle <em>Plc Cycle</em>}</li>
  *   <li>{@link org.xtext.eis.eis.TeststepBlock#getDescription <em>Description</em>}</li>
  *   <li>{@link org.xtext.eis.eis.TeststepBlock#getAssertion <em>Assertion</em>}</li>
@@ -25,6 +26,32 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface TeststepBlock extends EObject
 {
+  /**
+   * Returns the value of the '<em><b>Teststep Keyword</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Teststep Keyword</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Teststep Keyword</em>' attribute.
+   * @see #setTeststepKeyword(String)
+   * @see org.xtext.eis.eis.EisPackage#getTeststepBlock_TeststepKeyword()
+   * @model
+   * @generated
+   */
+  String getTeststepKeyword();
+
+  /**
+   * Sets the value of the '{@link org.xtext.eis.eis.TeststepBlock#getTeststepKeyword <em>Teststep Keyword</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Teststep Keyword</em>' attribute.
+   * @see #getTeststepKeyword()
+   * @generated
+   */
+  void setTeststepKeyword(String value);
+
   /**
    * Returns the value of the '<em><b>Plc Cycle</b></em>' attribute.
    * <!-- begin-user-doc -->

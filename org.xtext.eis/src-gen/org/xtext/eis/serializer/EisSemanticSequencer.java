@@ -1054,10 +1054,12 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     TeststepBlock returns TeststepBlock
 	 *
 	 * Constraint:
-	 *     (plcCycle=LONG description=STRING assertion=AssertionBlock)
+	 *     (teststepKeyword='teststep' plcCycle=LONG description=STRING assertion=AssertionBlock)
 	 */
 	protected void sequence_TeststepBlock(ISerializationContext context, TeststepBlock semanticObject) {
 		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, EisPackage.Literals.TESTSTEP_BLOCK__TESTSTEP_KEYWORD) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EisPackage.Literals.TESTSTEP_BLOCK__TESTSTEP_KEYWORD));
 			if (transientValues.isValueTransient(semanticObject, EisPackage.Literals.TESTSTEP_BLOCK__PLC_CYCLE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EisPackage.Literals.TESTSTEP_BLOCK__PLC_CYCLE));
 			if (transientValues.isValueTransient(semanticObject, EisPackage.Literals.TESTSTEP_BLOCK__DESCRIPTION) == ValueTransient.YES)
@@ -1066,6 +1068,7 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EisPackage.Literals.TESTSTEP_BLOCK__ASSERTION));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getTeststepBlockAccess().getTeststepKeywordTeststepKeyword_0_0(), semanticObject.getTeststepKeyword());
 		feeder.accept(grammarAccess.getTeststepBlockAccess().getPlcCycleLONGTerminalRuleCall_2_0(), semanticObject.getPlcCycle());
 		feeder.accept(grammarAccess.getTeststepBlockAccess().getDescriptionSTRINGTerminalRuleCall_4_0(), semanticObject.getDescription());
 		feeder.accept(grammarAccess.getTeststepBlockAccess().getAssertionAssertionBlockParserRuleCall_7_0(), semanticObject.getAssertion());

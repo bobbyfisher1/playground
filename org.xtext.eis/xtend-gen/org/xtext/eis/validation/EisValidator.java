@@ -78,6 +78,8 @@ public class EisValidator extends AbstractEisValidator {
   
   public final static String INVALID_VARIANT_KEYWORD = (EisValidator.ISSUE_CODE_PREFIX + "InvalidVariantKeyword");
   
+  public final static String MISSING_INOUT_DECLARATION = (EisValidator.ISSUE_CODE_PREFIX + "MissingInOutDeclariation");
+  
   public final static String INVALID_COMMA_NOTATION = (EisValidator.ISSUE_CODE_PREFIX + "InvalidCommaNotation");
   
   public final static String TYPE_MISMATCH = (EisValidator.ISSUE_CODE_PREFIX + "TypeMismatch");
@@ -675,8 +677,8 @@ public class EisValidator extends AbstractEisValidator {
         this.error("The range feature is not permitted to this type", variable, EisPackage.eINSTANCE.getVariable_Range(), 
           EisValidator.INVALID_RANGE_DEFINITION);
       }
-      EObject _directionBlock = this.directionBlock(variable);
-      if ((_directionBlock instanceof Input)) {
+      EObject _direction = this.getDirection(variable);
+      if ((_direction instanceof Input)) {
         this.error("The range feature is not permitted to input variables", variable, 
           EisPackage.eINSTANCE.getVariable_Range(), EisValidator.INVALID_RANGE_DEFINITION);
       }
@@ -1115,7 +1117,86 @@ public class EisValidator extends AbstractEisValidator {
     }
   }
   
-  public boolean checkLRealValue(final Double _double) {
+  @Check
+  public void checkOccuranceOfInOuts(final InOut _inouts) {
+    final EList<Variables> inouts = _inouts.getInoutVariables();
+    this.checkOccuranceInOuts(inouts, "");
+  }
+  
+  private void checkOccuranceInOuts(final EList<Variables> inouts, final String qualifiedName) {
+    for (final Variables inout : inouts) {
+      if ((inout instanceof Udt)) {
+        EList<Variables> _udtVariables = ((Udt)inout).getUdtVariables();
+        String _name = ((Udt)inout).getName();
+        String _plus = (qualifiedName + _name);
+        String _plus_1 = (_plus + ".");
+        this.checkOccuranceInOuts(_udtVariables, _plus_1);
+      } else {
+        if ((inout instanceof UdtRef)) {
+          EList<Variables> _udtVariables_1 = ((UdtRef)inout).getUdtVariables();
+          String _name_1 = ((UdtRef)inout).getName();
+          String _plus_2 = (qualifiedName + _name_1);
+          String _plus_3 = (_plus_2 + ".");
+          this.checkOccuranceInOuts(_udtVariables_1, _plus_3);
+        } else {
+          if ((inout instanceof Variable)) {
+            String _name_2 = ((Variable)inout).getName();
+            final String fullName = (qualifiedName + _name_2);
+            EObject _eContainer = this.getDirection(inout).eContainer().eContainer();
+            final EList<TeststepBlock> teststeps = ((DefineBlock) _eContainer).getTeststeps();
+            for (final TeststepBlock teststep : teststeps) {
+              this.checkOccuranceInOuts(teststep, fullName);
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  private void checkOccuranceInOuts(final TeststepBlock teststep, final String inoutName) {
+    final EList<Statement> sets = teststep.getAssertion().getSet().getSetVariables();
+    final EList<Statement> asserts = teststep.getAssertion().getAssert().getAssertVariables();
+    boolean isInSet = false;
+    boolean isInAssert = false;
+    for (final Statement e : sets) {
+      boolean _equals = this.getStatementName(e).equals(inoutName);
+      if (_equals) {
+        isInSet = true;
+      }
+    }
+    for (final Statement e_1 : asserts) {
+      boolean _equals_1 = this.getStatementName(e_1).equals(inoutName);
+      if (_equals_1) {
+        isInAssert = true;
+      }
+    }
+    if ((!(isInAssert || isInSet))) {
+      this.error((("The inout variable \'" + inoutName) + "\' must be declared in either a set or assert block."), teststep, 
+        EisPackage.eINSTANCE.getTeststepBlock_TeststepKeyword(), EisValidator.MISSING_INOUT_DECLARATION);
+    }
+    if ((isInAssert && isInSet)) {
+      this.error((("The inout variable \'" + inoutName) + "\' cannot be declared in both the set and the assert block."), teststep, EisPackage.eINSTANCE.getTeststepBlock_TeststepKeyword(), EisValidator.MULTIPLE_STATEMENT_ASSIGNMENT);
+    }
+  }
+  
+  private String getStatementName(final Statement e) {
+    String name = "";
+    name = e.getVariable().getName().toString();
+    boolean _isEmpty = e.getCascade().isEmpty();
+    boolean _not = (!_isEmpty);
+    if (_not) {
+      EList<Cascade> _cascade = e.getCascade();
+      for (final Cascade c : _cascade) {
+        String _name = name;
+        String _string = c.getUdtVar().getName().toString();
+        String _plus = ("." + _string);
+        name = (_name + _plus);
+      }
+    }
+    return name;
+  }
+  
+  private boolean checkLRealValue(final Double _double) {
     boolean _isInfinite = _double.isInfinite();
     if (_isInfinite) {
       return true;
@@ -1142,7 +1223,7 @@ public class EisValidator extends AbstractEisValidator {
     return false;
   }
   
-  public boolean checkRealValue(final Double _double) {
+  private boolean checkRealValue(final Double _double) {
     boolean _isInfinite = _double.isInfinite();
     if (_isInfinite) {
       return true;
@@ -1174,7 +1255,7 @@ public class EisValidator extends AbstractEisValidator {
     return false;
   }
   
-  public boolean checkDate(final Idiom _date, final EReference ref) {
+  private boolean checkDate(final Idiom _date, final EReference ref) {
     boolean _xblockexpression = false;
     {
       final String date = this._eisInterpreter.interpret(_date).toString().substring(2);
@@ -1203,7 +1284,7 @@ public class EisValidator extends AbstractEisValidator {
     return _xblockexpression;
   }
   
-  public boolean checkTime(final Idiom _time) {
+  private boolean checkTime(final Idiom _time) {
     boolean _xblockexpression = false;
     {
       String time = this._eisInterpreter.interpret(_time).toString().substring(2).replaceAll("_", "");
@@ -1307,7 +1388,7 @@ public class EisValidator extends AbstractEisValidator {
     return _xblockexpression;
   }
   
-  public boolean isOutOfLTime(final Idiom _ltime) {
+  private boolean isOutOfLTime(final Idiom _ltime) {
     boolean _xblockexpression = false;
     {
       String LTime = this._eisInterpreter.interpret(_ltime).toString().substring(3).replaceAll("_", "");
@@ -1429,7 +1510,7 @@ public class EisValidator extends AbstractEisValidator {
     return _xblockexpression;
   }
   
-  public String lastNumber(final String time) {
+  private String lastNumber(final String time) {
     int i = 1;
     String last = "";
     while (this.isNumerical(Character.valueOf(time.charAt((time.length() - i))).toString())) {
@@ -1451,7 +1532,7 @@ public class EisValidator extends AbstractEisValidator {
     return last;
   }
   
-  public boolean isNumerical(final String _char) {
+  private boolean isNumerical(final String _char) {
     boolean _xifexpression = false;
     boolean _equals = _char.toUpperCase().equals(_char.toLowerCase());
     if (_equals) {
@@ -1462,7 +1543,7 @@ public class EisValidator extends AbstractEisValidator {
     return _xifexpression;
   }
   
-  public String fraction(final String value) {
+  private String fraction(final String value) {
     int _length = value.length();
     boolean _equals = (_length == 3);
     if (_equals) {
@@ -1568,7 +1649,7 @@ public class EisValidator extends AbstractEisValidator {
     return outOfBounds;
   }
   
-  private EObject directionBlock(final EObject context) {
+  private EObject getDirection(final EObject context) {
     EObject _xblockexpression = null;
     {
       final EObject container = context.eContainer();
@@ -1576,7 +1657,7 @@ public class EisValidator extends AbstractEisValidator {
       if ((container instanceof DirectionBlock)) {
         return context;
       } else {
-        _xifexpression = this.directionBlock(container);
+        _xifexpression = this.getDirection(container);
       }
       _xblockexpression = _xifexpression;
     }

@@ -592,6 +592,117 @@ class EisValidatorTest {
 		]
 	}
 
+	@Test def void testInOuts() {
+		var inout = ''' inout[ int a; ]'''
+		var teststep = '''
+			teststep(0,""){
+				set[]
+				assert[]
+				}
+		'''
+		(start + "]" + inout + "}" + teststep + '}').parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.teststepBlock, EisValidator.MISSING_INOUT_DECLARATION)
+		]
+
+		inout = '''inout[	int a,b;	]'''
+		(start + "]" + inout + "}" + teststep + '}').parse => [
+			2.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.teststepBlock, EisValidator.MISSING_INOUT_DECLARATION)
+		]
+
+		teststep = '''
+			teststep(0,""){
+				set[ a=0; ]
+				assert[]
+				}
+		'''
+		(start + "]" + inout + "}" + teststep + '}').parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.teststepBlock, EisValidator.MISSING_INOUT_DECLARATION)
+		]
+
+		teststep = '''
+			teststep(0,""){
+				set[ 
+					a=0;
+					b=0;
+				]
+				assert[]
+				}
+		'''
+		(start + "]" + inout + "}" + teststep + '}').parse.assertNoErrors
+
+		inout = ''' inout[ int a; ]'''
+		teststep = '''
+			teststep(0,""){
+				set[ a=0; ]
+				assert[ a=0; ]
+				}
+		'''
+		(start + "]" + inout + "}" + teststep + '}').parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.teststepBlock, EisValidator.MULTIPLE_STATEMENT_ASSIGNMENT)
+		]
+
+		inout = ''' inout[ int a,b; ]'''
+		teststep = '''
+			teststep(0,""){
+				set[ a=0; ]
+				assert[ a=0; ]
+				}
+		'''
+		(start + "]" + inout + "}" + teststep + '}').parse => [
+			2.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.teststepBlock, EisValidator.MULTIPLE_STATEMENT_ASSIGNMENT)
+			assertError(EisPackage.eINSTANCE.teststepBlock, EisValidator.MISSING_INOUT_DECLARATION)
+		]
+
+		inout = ''' inout[ int a,b; ]'''
+		teststep = '''
+			teststep(0,""){
+				set[ a=0; b=0;]
+				assert[ a=0; b=0;]
+				}
+		'''
+		(start + "]" + inout + "}" + teststep + '}').parse => [
+			2.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.teststepBlock, EisValidator.MULTIPLE_STATEMENT_ASSIGNMENT)
+		]
+
+		inout = ''' 
+		inout[ 
+			udt a(typeA){
+				int b,c;
+			}
+		]'''
+		teststep = '''
+			teststep(0,""){
+				set[ ]
+				assert[]
+				}
+		'''
+		(start + "]" + inout + "}" + teststep + '}').parse => [
+			2.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.teststepBlock, EisValidator.MISSING_INOUT_DECLARATION)
+		]
+
+		inout = ''' 
+		inout[ 
+			udt a(typeA){
+				int b,c;
+			}
+		]'''
+		teststep = '''
+			teststep(0,""){
+				set[ a.b=0;]
+				assert[ a.c=0; ]
+				}
+		'''
+		(start + "]" + inout + "}" + teststep + '}').parse.assertNoErrors
+
+	}
+
 //
 // methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //

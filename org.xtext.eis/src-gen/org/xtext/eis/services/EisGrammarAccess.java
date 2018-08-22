@@ -697,7 +697,6 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cNameAssignment = (Assignment)rule.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_0 = (RuleCall)cNameAssignment.eContents().get(0);
 		
-		////
 		//UdtType:
 		//	name=ID;
 		@Override public ParserRule getRule() { return rule; }
@@ -707,6 +706,256 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_0() { return cNameIDTerminalRuleCall_0; }
+	}
+	public class TeststepBlockElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.eis.Eis.TeststepBlock");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cTeststepKeywordAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final Keyword cTeststepKeywordTeststepKeyword_0_0 = (Keyword)cTeststepKeywordAssignment_0.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cPlcCycleAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cPlcCycleLONGTerminalRuleCall_2_0 = (RuleCall)cPlcCycleAssignment_2.eContents().get(0);
+		private final Keyword cCommaKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cDescriptionAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cDescriptionSTRINGTerminalRuleCall_4_0 = (RuleCall)cDescriptionAssignment_4.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Keyword cLeftCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		private final Assignment cAssertionAssignment_7 = (Assignment)cGroup.eContents().get(7);
+		private final RuleCall cAssertionAssertionBlockParserRuleCall_7_0 = (RuleCall)cAssertionAssignment_7.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
+		
+		//TeststepBlock:
+		//	teststepKeyword='teststep' '(' plcCycle=LONG ',' description=STRING ')' '{' assertion=AssertionBlock '}';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//teststepKeyword='teststep' '(' plcCycle=LONG ',' description=STRING ')' '{' assertion=AssertionBlock '}'
+		public Group getGroup() { return cGroup; }
+		
+		//teststepKeyword='teststep'
+		public Assignment getTeststepKeywordAssignment_0() { return cTeststepKeywordAssignment_0; }
+		
+		//'teststep'
+		public Keyword getTeststepKeywordTeststepKeyword_0_0() { return cTeststepKeywordTeststepKeyword_0_0; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
+		
+		//plcCycle=LONG
+		public Assignment getPlcCycleAssignment_2() { return cPlcCycleAssignment_2; }
+		
+		//LONG
+		public RuleCall getPlcCycleLONGTerminalRuleCall_2_0() { return cPlcCycleLONGTerminalRuleCall_2_0; }
+		
+		//','
+		public Keyword getCommaKeyword_3() { return cCommaKeyword_3; }
+		
+		//description=STRING
+		public Assignment getDescriptionAssignment_4() { return cDescriptionAssignment_4; }
+		
+		//STRING
+		public RuleCall getDescriptionSTRINGTerminalRuleCall_4_0() { return cDescriptionSTRINGTerminalRuleCall_4_0; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_5() { return cRightParenthesisKeyword_5; }
+		
+		//'{'
+		public Keyword getLeftCurlyBracketKeyword_6() { return cLeftCurlyBracketKeyword_6; }
+		
+		//assertion=AssertionBlock
+		public Assignment getAssertionAssignment_7() { return cAssertionAssignment_7; }
+		
+		//AssertionBlock
+		public RuleCall getAssertionAssertionBlockParserRuleCall_7_0() { return cAssertionAssertionBlockParserRuleCall_7_0; }
+		
+		//'}'
+		public Keyword getRightCurlyBracketKeyword_8() { return cRightCurlyBracketKeyword_8; }
+	}
+	public class AssertionBlockElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.eis.Eis.AssertionBlock");
+		private final UnorderedGroup cUnorderedGroup = (UnorderedGroup)rule.eContents().get(1);
+		private final Assignment cSetAssignment_0 = (Assignment)cUnorderedGroup.eContents().get(0);
+		private final RuleCall cSetSetParserRuleCall_0_0 = (RuleCall)cSetAssignment_0.eContents().get(0);
+		private final Assignment cAssertAssignment_1 = (Assignment)cUnorderedGroup.eContents().get(1);
+		private final RuleCall cAssertAssertParserRuleCall_1_0 = (RuleCall)cAssertAssignment_1.eContents().get(0);
+		
+		//AssertionBlock:
+		//	set=Set & assert=Assert;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//set=Set & assert=Assert
+		public UnorderedGroup getUnorderedGroup() { return cUnorderedGroup; }
+		
+		//set=Set
+		public Assignment getSetAssignment_0() { return cSetAssignment_0; }
+		
+		//Set
+		public RuleCall getSetSetParserRuleCall_0_0() { return cSetSetParserRuleCall_0_0; }
+		
+		//assert=Assert
+		public Assignment getAssertAssignment_1() { return cAssertAssignment_1; }
+		
+		//Assert
+		public RuleCall getAssertAssertParserRuleCall_1_0() { return cAssertAssertParserRuleCall_1_0; }
+	}
+	public class SetElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.eis.Eis.Set");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final Keyword cNameSetKeyword_0_0 = (Keyword)cNameAssignment_0.eContents().get(0);
+		private final Keyword cLeftSquareBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cSetVariablesAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cSetVariablesStatementParserRuleCall_2_0 = (RuleCall)cSetVariablesAssignment_2.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		
+		//Set:
+		//	name='set' '[' setVariables+=Statement* ']';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//name='set' '[' setVariables+=Statement* ']'
+		public Group getGroup() { return cGroup; }
+		
+		//name='set'
+		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
+		
+		//'set'
+		public Keyword getNameSetKeyword_0_0() { return cNameSetKeyword_0_0; }
+		
+		//'['
+		public Keyword getLeftSquareBracketKeyword_1() { return cLeftSquareBracketKeyword_1; }
+		
+		//setVariables+=Statement*
+		public Assignment getSetVariablesAssignment_2() { return cSetVariablesAssignment_2; }
+		
+		//Statement
+		public RuleCall getSetVariablesStatementParserRuleCall_2_0() { return cSetVariablesStatementParserRuleCall_2_0; }
+		
+		//']'
+		public Keyword getRightSquareBracketKeyword_3() { return cRightSquareBracketKeyword_3; }
+	}
+	public class AssertElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.eis.Eis.Assert");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final Keyword cNameAssertKeyword_0_0 = (Keyword)cNameAssignment_0.eContents().get(0);
+		private final Keyword cLeftSquareBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cAssertVariablesAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cAssertVariablesStatementParserRuleCall_2_0 = (RuleCall)cAssertVariablesAssignment_2.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		
+		//Assert:
+		//	name='assert' '[' assertVariables+=Statement* ']';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//name='assert' '[' assertVariables+=Statement* ']'
+		public Group getGroup() { return cGroup; }
+		
+		//name='assert'
+		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
+		
+		//'assert'
+		public Keyword getNameAssertKeyword_0_0() { return cNameAssertKeyword_0_0; }
+		
+		//'['
+		public Keyword getLeftSquareBracketKeyword_1() { return cLeftSquareBracketKeyword_1; }
+		
+		//assertVariables+=Statement*
+		public Assignment getAssertVariablesAssignment_2() { return cAssertVariablesAssignment_2; }
+		
+		//Statement
+		public RuleCall getAssertVariablesStatementParserRuleCall_2_0() { return cAssertVariablesStatementParserRuleCall_2_0; }
+		
+		//']'
+		public Keyword getRightSquareBracketKeyword_3() { return cRightSquareBracketKeyword_3; }
+	}
+	public class StatementElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.eis.Eis.Statement");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cVariableAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final CrossReference cVariableVariablesCrossReference_0_0 = (CrossReference)cVariableAssignment_0.eContents().get(0);
+		private final RuleCall cVariableVariablesIDTerminalRuleCall_0_0_1 = (RuleCall)cVariableVariablesCrossReference_0_0.eContents().get(1);
+		private final Assignment cCascadeAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cCascadeCascadeParserRuleCall_1_0 = (RuleCall)cCascadeAssignment_1.eContents().get(0);
+		private final Keyword cEqualsSignKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cIdiomAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cIdiomIdiomParserRuleCall_3_0 = (RuleCall)cIdiomAssignment_3.eContents().get(0);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cPlusSignSolidusHyphenMinusKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cRangeAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cRangeIdiomParserRuleCall_4_1_0 = (RuleCall)cRangeAssignment_4_1.eContents().get(0);
+		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		
+		//Statement:
+		//	variable=[Variables] cascade+=Cascade* '=' idiom=Idiom ('+/-' range=Idiom)? ';';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//variable=[Variables] cascade+=Cascade* '=' idiom=Idiom ('+/-' range=Idiom)? ';'
+		public Group getGroup() { return cGroup; }
+		
+		//variable=[Variables]
+		public Assignment getVariableAssignment_0() { return cVariableAssignment_0; }
+		
+		//[Variables]
+		public CrossReference getVariableVariablesCrossReference_0_0() { return cVariableVariablesCrossReference_0_0; }
+		
+		//ID
+		public RuleCall getVariableVariablesIDTerminalRuleCall_0_0_1() { return cVariableVariablesIDTerminalRuleCall_0_0_1; }
+		
+		//cascade+=Cascade*
+		public Assignment getCascadeAssignment_1() { return cCascadeAssignment_1; }
+		
+		//Cascade
+		public RuleCall getCascadeCascadeParserRuleCall_1_0() { return cCascadeCascadeParserRuleCall_1_0; }
+		
+		//'='
+		public Keyword getEqualsSignKeyword_2() { return cEqualsSignKeyword_2; }
+		
+		//idiom=Idiom
+		public Assignment getIdiomAssignment_3() { return cIdiomAssignment_3; }
+		
+		//Idiom
+		public RuleCall getIdiomIdiomParserRuleCall_3_0() { return cIdiomIdiomParserRuleCall_3_0; }
+		
+		//('+/-' range=Idiom)?
+		public Group getGroup_4() { return cGroup_4; }
+		
+		//'+/-'
+		public Keyword getPlusSignSolidusHyphenMinusKeyword_4_0() { return cPlusSignSolidusHyphenMinusKeyword_4_0; }
+		
+		//range=Idiom
+		public Assignment getRangeAssignment_4_1() { return cRangeAssignment_4_1; }
+		
+		//Idiom
+		public RuleCall getRangeIdiomParserRuleCall_4_1_0() { return cRangeIdiomParserRuleCall_4_1_0; }
+		
+		//';'
+		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
+	}
+	public class CascadeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.eis.Eis.Cascade");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cFullStopKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cUdtVarAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final CrossReference cUdtVarVariablesCrossReference_1_0 = (CrossReference)cUdtVarAssignment_1.eContents().get(0);
+		private final RuleCall cUdtVarVariablesIDTerminalRuleCall_1_0_1 = (RuleCall)cUdtVarVariablesCrossReference_1_0.eContents().get(1);
+		
+		//Cascade:
+		//	'.' udtVar=[Variables];
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'.' udtVar=[Variables]
+		public Group getGroup() { return cGroup; }
+		
+		//'.'
+		public Keyword getFullStopKeyword_0() { return cFullStopKeyword_0; }
+		
+		//udtVar=[Variables]
+		public Assignment getUdtVarAssignment_1() { return cUdtVarAssignment_1; }
+		
+		//[Variables]
+		public CrossReference getUdtVarVariablesCrossReference_1_0() { return cUdtVarVariablesCrossReference_1_0; }
+		
+		//ID
+		public RuleCall getUdtVarVariablesIDTerminalRuleCall_1_0_1() { return cUdtVarVariablesIDTerminalRuleCall_1_0_1; }
 	}
 	public class IdiomElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.eis.Eis.Idiom");
@@ -1276,252 +1525,6 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		//DATE
 		public RuleCall getValueDATETerminalRuleCall_12_1_0() { return cValueDATETerminalRuleCall_12_1_0; }
 	}
-	public class TeststepBlockElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.eis.Eis.TeststepBlock");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cTeststepKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cPlcCycleAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cPlcCycleLONGTerminalRuleCall_2_0 = (RuleCall)cPlcCycleAssignment_2.eContents().get(0);
-		private final Keyword cCommaKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cDescriptionAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cDescriptionSTRINGTerminalRuleCall_4_0 = (RuleCall)cDescriptionAssignment_4.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_5 = (Keyword)cGroup.eContents().get(5);
-		private final Keyword cLeftCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
-		private final Assignment cAssertionAssignment_7 = (Assignment)cGroup.eContents().get(7);
-		private final RuleCall cAssertionAssertionBlockParserRuleCall_7_0 = (RuleCall)cAssertionAssignment_7.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
-		
-		//TeststepBlock:
-		//	'teststep' '(' plcCycle=LONG ',' description=STRING ')' '{' assertion=AssertionBlock '}';
-		@Override public ParserRule getRule() { return rule; }
-		
-		//'teststep' '(' plcCycle=LONG ',' description=STRING ')' '{' assertion=AssertionBlock '}'
-		public Group getGroup() { return cGroup; }
-		
-		//'teststep'
-		public Keyword getTeststepKeyword_0() { return cTeststepKeyword_0; }
-		
-		//'('
-		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
-		
-		//plcCycle=LONG
-		public Assignment getPlcCycleAssignment_2() { return cPlcCycleAssignment_2; }
-		
-		//LONG
-		public RuleCall getPlcCycleLONGTerminalRuleCall_2_0() { return cPlcCycleLONGTerminalRuleCall_2_0; }
-		
-		//','
-		public Keyword getCommaKeyword_3() { return cCommaKeyword_3; }
-		
-		//description=STRING
-		public Assignment getDescriptionAssignment_4() { return cDescriptionAssignment_4; }
-		
-		//STRING
-		public RuleCall getDescriptionSTRINGTerminalRuleCall_4_0() { return cDescriptionSTRINGTerminalRuleCall_4_0; }
-		
-		//')'
-		public Keyword getRightParenthesisKeyword_5() { return cRightParenthesisKeyword_5; }
-		
-		//'{'
-		public Keyword getLeftCurlyBracketKeyword_6() { return cLeftCurlyBracketKeyword_6; }
-		
-		//assertion=AssertionBlock
-		public Assignment getAssertionAssignment_7() { return cAssertionAssignment_7; }
-		
-		//AssertionBlock
-		public RuleCall getAssertionAssertionBlockParserRuleCall_7_0() { return cAssertionAssertionBlockParserRuleCall_7_0; }
-		
-		//'}'
-		public Keyword getRightCurlyBracketKeyword_8() { return cRightCurlyBracketKeyword_8; }
-	}
-	public class AssertionBlockElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.eis.Eis.AssertionBlock");
-		private final UnorderedGroup cUnorderedGroup = (UnorderedGroup)rule.eContents().get(1);
-		private final Assignment cSetAssignment_0 = (Assignment)cUnorderedGroup.eContents().get(0);
-		private final RuleCall cSetSetParserRuleCall_0_0 = (RuleCall)cSetAssignment_0.eContents().get(0);
-		private final Assignment cAssertAssignment_1 = (Assignment)cUnorderedGroup.eContents().get(1);
-		private final RuleCall cAssertAssertParserRuleCall_1_0 = (RuleCall)cAssertAssignment_1.eContents().get(0);
-		
-		//AssertionBlock:
-		//	set=Set & assert=Assert;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//set=Set & assert=Assert
-		public UnorderedGroup getUnorderedGroup() { return cUnorderedGroup; }
-		
-		//set=Set
-		public Assignment getSetAssignment_0() { return cSetAssignment_0; }
-		
-		//Set
-		public RuleCall getSetSetParserRuleCall_0_0() { return cSetSetParserRuleCall_0_0; }
-		
-		//assert=Assert
-		public Assignment getAssertAssignment_1() { return cAssertAssignment_1; }
-		
-		//Assert
-		public RuleCall getAssertAssertParserRuleCall_1_0() { return cAssertAssertParserRuleCall_1_0; }
-	}
-	public class SetElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.eis.Eis.Set");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final Keyword cNameSetKeyword_0_0 = (Keyword)cNameAssignment_0.eContents().get(0);
-		private final Keyword cLeftSquareBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cSetVariablesAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cSetVariablesStatementParserRuleCall_2_0 = (RuleCall)cSetVariablesAssignment_2.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		
-		//Set:
-		//	name='set' '[' setVariables+=Statement* ']';
-		@Override public ParserRule getRule() { return rule; }
-		
-		//name='set' '[' setVariables+=Statement* ']'
-		public Group getGroup() { return cGroup; }
-		
-		//name='set'
-		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
-		
-		//'set'
-		public Keyword getNameSetKeyword_0_0() { return cNameSetKeyword_0_0; }
-		
-		//'['
-		public Keyword getLeftSquareBracketKeyword_1() { return cLeftSquareBracketKeyword_1; }
-		
-		//setVariables+=Statement*
-		public Assignment getSetVariablesAssignment_2() { return cSetVariablesAssignment_2; }
-		
-		//Statement
-		public RuleCall getSetVariablesStatementParserRuleCall_2_0() { return cSetVariablesStatementParserRuleCall_2_0; }
-		
-		//']'
-		public Keyword getRightSquareBracketKeyword_3() { return cRightSquareBracketKeyword_3; }
-	}
-	public class AssertElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.eis.Eis.Assert");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final Keyword cNameAssertKeyword_0_0 = (Keyword)cNameAssignment_0.eContents().get(0);
-		private final Keyword cLeftSquareBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cAssertVariablesAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cAssertVariablesStatementParserRuleCall_2_0 = (RuleCall)cAssertVariablesAssignment_2.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		
-		//Assert:
-		//	name='assert' '[' assertVariables+=Statement* ']';
-		@Override public ParserRule getRule() { return rule; }
-		
-		//name='assert' '[' assertVariables+=Statement* ']'
-		public Group getGroup() { return cGroup; }
-		
-		//name='assert'
-		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
-		
-		//'assert'
-		public Keyword getNameAssertKeyword_0_0() { return cNameAssertKeyword_0_0; }
-		
-		//'['
-		public Keyword getLeftSquareBracketKeyword_1() { return cLeftSquareBracketKeyword_1; }
-		
-		//assertVariables+=Statement*
-		public Assignment getAssertVariablesAssignment_2() { return cAssertVariablesAssignment_2; }
-		
-		//Statement
-		public RuleCall getAssertVariablesStatementParserRuleCall_2_0() { return cAssertVariablesStatementParserRuleCall_2_0; }
-		
-		//']'
-		public Keyword getRightSquareBracketKeyword_3() { return cRightSquareBracketKeyword_3; }
-	}
-	public class StatementElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.eis.Eis.Statement");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cVariableAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final CrossReference cVariableVariablesCrossReference_0_0 = (CrossReference)cVariableAssignment_0.eContents().get(0);
-		private final RuleCall cVariableVariablesIDTerminalRuleCall_0_0_1 = (RuleCall)cVariableVariablesCrossReference_0_0.eContents().get(1);
-		private final Assignment cCascadeAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cCascadeCascadeParserRuleCall_1_0 = (RuleCall)cCascadeAssignment_1.eContents().get(0);
-		private final Keyword cEqualsSignKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cIdiomAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cIdiomIdiomParserRuleCall_3_0 = (RuleCall)cIdiomAssignment_3.eContents().get(0);
-		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final Keyword cPlusSignSolidusHyphenMinusKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Assignment cRangeAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final RuleCall cRangeIdiomParserRuleCall_4_1_0 = (RuleCall)cRangeAssignment_4_1.eContents().get(0);
-		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
-		
-		//Statement:
-		//	variable=[Variables] cascade+=Cascade* '=' idiom=Idiom ('+/-' range=Idiom)? ';';
-		@Override public ParserRule getRule() { return rule; }
-		
-		//variable=[Variables] cascade+=Cascade* '=' idiom=Idiom ('+/-' range=Idiom)? ';'
-		public Group getGroup() { return cGroup; }
-		
-		//variable=[Variables]
-		public Assignment getVariableAssignment_0() { return cVariableAssignment_0; }
-		
-		//[Variables]
-		public CrossReference getVariableVariablesCrossReference_0_0() { return cVariableVariablesCrossReference_0_0; }
-		
-		//ID
-		public RuleCall getVariableVariablesIDTerminalRuleCall_0_0_1() { return cVariableVariablesIDTerminalRuleCall_0_0_1; }
-		
-		//cascade+=Cascade*
-		public Assignment getCascadeAssignment_1() { return cCascadeAssignment_1; }
-		
-		//Cascade
-		public RuleCall getCascadeCascadeParserRuleCall_1_0() { return cCascadeCascadeParserRuleCall_1_0; }
-		
-		//'='
-		public Keyword getEqualsSignKeyword_2() { return cEqualsSignKeyword_2; }
-		
-		//idiom=Idiom
-		public Assignment getIdiomAssignment_3() { return cIdiomAssignment_3; }
-		
-		//Idiom
-		public RuleCall getIdiomIdiomParserRuleCall_3_0() { return cIdiomIdiomParserRuleCall_3_0; }
-		
-		//('+/-' range=Idiom)?
-		public Group getGroup_4() { return cGroup_4; }
-		
-		//'+/-'
-		public Keyword getPlusSignSolidusHyphenMinusKeyword_4_0() { return cPlusSignSolidusHyphenMinusKeyword_4_0; }
-		
-		//range=Idiom
-		public Assignment getRangeAssignment_4_1() { return cRangeAssignment_4_1; }
-		
-		//Idiom
-		public RuleCall getRangeIdiomParserRuleCall_4_1_0() { return cRangeIdiomParserRuleCall_4_1_0; }
-		
-		//';'
-		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
-	}
-	public class CascadeElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.eis.Eis.Cascade");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cFullStopKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cUdtVarAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final CrossReference cUdtVarVariablesCrossReference_1_0 = (CrossReference)cUdtVarAssignment_1.eContents().get(0);
-		private final RuleCall cUdtVarVariablesIDTerminalRuleCall_1_0_1 = (RuleCall)cUdtVarVariablesCrossReference_1_0.eContents().get(1);
-		
-		//Cascade:
-		//	'.' udtVar=[Variables];
-		@Override public ParserRule getRule() { return rule; }
-		
-		//'.' udtVar=[Variables]
-		public Group getGroup() { return cGroup; }
-		
-		//'.'
-		public Keyword getFullStopKeyword_0() { return cFullStopKeyword_0; }
-		
-		//udtVar=[Variables]
-		public Assignment getUdtVarAssignment_1() { return cUdtVarAssignment_1; }
-		
-		//[Variables]
-		public CrossReference getUdtVarVariablesCrossReference_1_0() { return cUdtVarVariablesCrossReference_1_0; }
-		
-		//ID
-		public RuleCall getUdtVarVariablesIDTerminalRuleCall_1_0_1() { return cUdtVarVariablesIDTerminalRuleCall_1_0_1; }
-	}
 	
 	public class BasicTypeElements extends AbstractEnumRuleElementFinder {
 		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.eis.Eis.BasicType");
@@ -1755,8 +1758,14 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	private final VariableElements pVariable;
 	private final UdtElements pUdt;
 	private final UdtRefElements pUdtRef;
-	private final BasicTypeElements eBasicType;
 	private final UdtTypeElements pUdtType;
+	private final TeststepBlockElements pTeststepBlock;
+	private final AssertionBlockElements pAssertionBlock;
+	private final SetElements pSet;
+	private final AssertElements pAssert;
+	private final StatementElements pStatement;
+	private final CascadeElements pCascade;
+	private final BasicTypeElements eBasicType;
 	private final IdiomElements pIdiom;
 	private final OrElements pOr;
 	private final AndElements pAnd;
@@ -1766,12 +1775,6 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	private final MulOrDivElements pMulOrDiv;
 	private final PrimaryElements pPrimary;
 	private final AtomicElements pAtomic;
-	private final TeststepBlockElements pTeststepBlock;
-	private final AssertionBlockElements pAssertionBlock;
-	private final SetElements pSet;
-	private final AssertElements pAssert;
-	private final StatementElements pStatement;
-	private final CascadeElements pCascade;
 	private final TerminalRule tX;
 	private final TerminalRule tHEX;
 	private final TerminalRule tLONG;
@@ -1813,8 +1816,14 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		this.pVariable = new VariableElements();
 		this.pUdt = new UdtElements();
 		this.pUdtRef = new UdtRefElements();
-		this.eBasicType = new BasicTypeElements();
 		this.pUdtType = new UdtTypeElements();
+		this.pTeststepBlock = new TeststepBlockElements();
+		this.pAssertionBlock = new AssertionBlockElements();
+		this.pSet = new SetElements();
+		this.pAssert = new AssertElements();
+		this.pStatement = new StatementElements();
+		this.pCascade = new CascadeElements();
+		this.eBasicType = new BasicTypeElements();
 		this.pIdiom = new IdiomElements();
 		this.pOr = new OrElements();
 		this.pAnd = new AndElements();
@@ -1824,12 +1833,6 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		this.pMulOrDiv = new MulOrDivElements();
 		this.pPrimary = new PrimaryElements();
 		this.pAtomic = new AtomicElements();
-		this.pTeststepBlock = new TeststepBlockElements();
-		this.pAssertionBlock = new AssertionBlockElements();
-		this.pSet = new SetElements();
-		this.pAssert = new AssertElements();
-		this.pStatement = new StatementElements();
-		this.pCascade = new CascadeElements();
 		this.tX = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.eis.Eis.X");
 		this.tHEX = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.eis.Eis.HEX");
 		this.tLONG = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.eis.Eis.LONG");
@@ -2043,6 +2046,76 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		return getUdtRefAccess().getRule();
 	}
 	
+	//UdtType:
+	//	name=ID;
+	public UdtTypeElements getUdtTypeAccess() {
+		return pUdtType;
+	}
+	
+	public ParserRule getUdtTypeRule() {
+		return getUdtTypeAccess().getRule();
+	}
+	
+	//TeststepBlock:
+	//	teststepKeyword='teststep' '(' plcCycle=LONG ',' description=STRING ')' '{' assertion=AssertionBlock '}';
+	public TeststepBlockElements getTeststepBlockAccess() {
+		return pTeststepBlock;
+	}
+	
+	public ParserRule getTeststepBlockRule() {
+		return getTeststepBlockAccess().getRule();
+	}
+	
+	//AssertionBlock:
+	//	set=Set & assert=Assert;
+	public AssertionBlockElements getAssertionBlockAccess() {
+		return pAssertionBlock;
+	}
+	
+	public ParserRule getAssertionBlockRule() {
+		return getAssertionBlockAccess().getRule();
+	}
+	
+	//Set:
+	//	name='set' '[' setVariables+=Statement* ']';
+	public SetElements getSetAccess() {
+		return pSet;
+	}
+	
+	public ParserRule getSetRule() {
+		return getSetAccess().getRule();
+	}
+	
+	//Assert:
+	//	name='assert' '[' assertVariables+=Statement* ']';
+	public AssertElements getAssertAccess() {
+		return pAssert;
+	}
+	
+	public ParserRule getAssertRule() {
+		return getAssertAccess().getRule();
+	}
+	
+	//Statement:
+	//	variable=[Variables] cascade+=Cascade* '=' idiom=Idiom ('+/-' range=Idiom)? ';';
+	public StatementElements getStatementAccess() {
+		return pStatement;
+	}
+	
+	public ParserRule getStatementRule() {
+		return getStatementAccess().getRule();
+	}
+	
+	//Cascade:
+	//	'.' udtVar=[Variables];
+	public CascadeElements getCascadeAccess() {
+		return pCascade;
+	}
+	
+	public ParserRule getCascadeRule() {
+		return getCascadeAccess().getRule();
+	}
+	
 	//enum BasicType:
 	//	NULL='null'
 	//	| INT='int'
@@ -2075,17 +2148,6 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public EnumRule getBasicTypeRule() {
 		return getBasicTypeAccess().getRule();
-	}
-	
-	////
-	//UdtType:
-	//	name=ID;
-	public UdtTypeElements getUdtTypeAccess() {
-		return pUdtType;
-	}
-	
-	public ParserRule getUdtTypeRule() {
-		return getUdtTypeAccess().getRule();
 	}
 	
 	//Idiom:
@@ -2186,66 +2248,6 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getAtomicRule() {
 		return getAtomicAccess().getRule();
-	}
-	
-	//TeststepBlock:
-	//	'teststep' '(' plcCycle=LONG ',' description=STRING ')' '{' assertion=AssertionBlock '}';
-	public TeststepBlockElements getTeststepBlockAccess() {
-		return pTeststepBlock;
-	}
-	
-	public ParserRule getTeststepBlockRule() {
-		return getTeststepBlockAccess().getRule();
-	}
-	
-	//AssertionBlock:
-	//	set=Set & assert=Assert;
-	public AssertionBlockElements getAssertionBlockAccess() {
-		return pAssertionBlock;
-	}
-	
-	public ParserRule getAssertionBlockRule() {
-		return getAssertionBlockAccess().getRule();
-	}
-	
-	//Set:
-	//	name='set' '[' setVariables+=Statement* ']';
-	public SetElements getSetAccess() {
-		return pSet;
-	}
-	
-	public ParserRule getSetRule() {
-		return getSetAccess().getRule();
-	}
-	
-	//Assert:
-	//	name='assert' '[' assertVariables+=Statement* ']';
-	public AssertElements getAssertAccess() {
-		return pAssert;
-	}
-	
-	public ParserRule getAssertRule() {
-		return getAssertAccess().getRule();
-	}
-	
-	//Statement:
-	//	variable=[Variables] cascade+=Cascade* '=' idiom=Idiom ('+/-' range=Idiom)? ';';
-	public StatementElements getStatementAccess() {
-		return pStatement;
-	}
-	
-	public ParserRule getStatementRule() {
-		return getStatementAccess().getRule();
-	}
-	
-	//Cascade:
-	//	'.' udtVar=[Variables];
-	public CascadeElements getCascadeAccess() {
-		return pCascade;
-	}
-	
-	public ParserRule getCascadeRule() {
-		return getCascadeAccess().getRule();
 	}
 	
 	//terminal fragment X:

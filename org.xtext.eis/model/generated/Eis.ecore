@@ -80,35 +80,11 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="udtVariables" upperBound="-1"
         eType="#//Variables" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="BasicType">
-    <eLiterals name="NULL" literal="null"/>
-    <eLiterals name="INT" value="1" literal="int"/>
-    <eLiterals name="BOOL" value="2" literal="bool"/>
-    <eLiterals name="REAL" value="3" literal="real"/>
-    <eLiterals name="STRING" value="4" literal="string"/>
-    <eLiterals name="CHAR" value="5" literal="char"/>
-    <eLiterals name="BYTE" value="6" literal="byte"/>
-    <eLiterals name="WORD" value="7" literal="word"/>
-    <eLiterals name="DWORD" value="8" literal="dword"/>
-    <eLiterals name="LWORD" value="9" literal="lword"/>
-    <eLiterals name="USINT" value="10" literal="usint"/>
-    <eLiterals name="UINT" value="11" literal="uint"/>
-    <eLiterals name="UDINT" value="12" literal="udint"/>
-    <eLiterals name="ULINT" value="13" literal="ulint"/>
-    <eLiterals name="SINT" value="14" literal="sint"/>
-    <eLiterals name="DINT" value="15" literal="dint"/>
-    <eLiterals name="LINT" value="16" literal="lint"/>
-    <eLiterals name="TIME" value="17" literal="time"/>
-    <eLiterals name="LTIME" value="18" literal="ltime"/>
-    <eLiterals name="DATE" value="19" literal="date"/>
-    <eLiterals name="LREAL" value="20" literal="lreal"/>
-    <eLiterals name="WCHAR" value="21" literal="wchar"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UdtType">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Idiom"/>
   <eClassifiers xsi:type="ecore:EClass" name="TeststepBlock">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="teststepKeyword" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="plcCycle" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="assertion" eType="#//AssertionBlock"
@@ -141,6 +117,31 @@
   <eClassifiers xsi:type="ecore:EClass" name="Cascade">
     <eStructuralFeatures xsi:type="ecore:EReference" name="udtVar" eType="#//Variables"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="BasicType">
+    <eLiterals name="NULL" literal="null"/>
+    <eLiterals name="INT" value="1" literal="int"/>
+    <eLiterals name="BOOL" value="2" literal="bool"/>
+    <eLiterals name="REAL" value="3" literal="real"/>
+    <eLiterals name="STRING" value="4" literal="string"/>
+    <eLiterals name="CHAR" value="5" literal="char"/>
+    <eLiterals name="BYTE" value="6" literal="byte"/>
+    <eLiterals name="WORD" value="7" literal="word"/>
+    <eLiterals name="DWORD" value="8" literal="dword"/>
+    <eLiterals name="LWORD" value="9" literal="lword"/>
+    <eLiterals name="USINT" value="10" literal="usint"/>
+    <eLiterals name="UINT" value="11" literal="uint"/>
+    <eLiterals name="UDINT" value="12" literal="udint"/>
+    <eLiterals name="ULINT" value="13" literal="ulint"/>
+    <eLiterals name="SINT" value="14" literal="sint"/>
+    <eLiterals name="DINT" value="15" literal="dint"/>
+    <eLiterals name="LINT" value="16" literal="lint"/>
+    <eLiterals name="TIME" value="17" literal="time"/>
+    <eLiterals name="LTIME" value="18" literal="ltime"/>
+    <eLiterals name="DATE" value="19" literal="date"/>
+    <eLiterals name="LREAL" value="20" literal="lreal"/>
+    <eLiterals name="WCHAR" value="21" literal="wchar"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Idiom"/>
   <eClassifiers xsi:type="ecore:EClass" name="Or" eSuperTypes="#//Idiom">
     <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//Idiom"
         containment="true"/>

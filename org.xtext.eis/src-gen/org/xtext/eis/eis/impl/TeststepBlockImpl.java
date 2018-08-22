@@ -24,6 +24,7 @@ import org.xtext.eis.eis.TeststepBlock;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.xtext.eis.eis.impl.TeststepBlockImpl#getTeststepKeyword <em>Teststep Keyword</em>}</li>
  *   <li>{@link org.xtext.eis.eis.impl.TeststepBlockImpl#getPlcCycle <em>Plc Cycle</em>}</li>
  *   <li>{@link org.xtext.eis.eis.impl.TeststepBlockImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.xtext.eis.eis.impl.TeststepBlockImpl#getAssertion <em>Assertion</em>}</li>
@@ -33,6 +34,26 @@ import org.xtext.eis.eis.TeststepBlock;
  */
 public class TeststepBlockImpl extends MinimalEObjectImpl.Container implements TeststepBlock
 {
+  /**
+   * The default value of the '{@link #getTeststepKeyword() <em>Teststep Keyword</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTeststepKeyword()
+   * @generated
+   * @ordered
+   */
+  protected static final String TESTSTEP_KEYWORD_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getTeststepKeyword() <em>Teststep Keyword</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTeststepKeyword()
+   * @generated
+   * @ordered
+   */
+  protected String teststepKeyword = TESTSTEP_KEYWORD_EDEFAULT;
+
   /**
    * The default value of the '{@link #getPlcCycle() <em>Plc Cycle</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -102,6 +123,29 @@ public class TeststepBlockImpl extends MinimalEObjectImpl.Container implements T
   protected EClass eStaticClass()
   {
     return EisPackage.Literals.TESTSTEP_BLOCK;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getTeststepKeyword()
+  {
+    return teststepKeyword;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTeststepKeyword(String newTeststepKeyword)
+  {
+    String oldTeststepKeyword = teststepKeyword;
+    teststepKeyword = newTeststepKeyword;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, EisPackage.TESTSTEP_BLOCK__TESTSTEP_KEYWORD, oldTeststepKeyword, teststepKeyword));
   }
 
   /**
@@ -224,6 +268,8 @@ public class TeststepBlockImpl extends MinimalEObjectImpl.Container implements T
   {
     switch (featureID)
     {
+      case EisPackage.TESTSTEP_BLOCK__TESTSTEP_KEYWORD:
+        return getTeststepKeyword();
       case EisPackage.TESTSTEP_BLOCK__PLC_CYCLE:
         return getPlcCycle();
       case EisPackage.TESTSTEP_BLOCK__DESCRIPTION:
@@ -244,6 +290,9 @@ public class TeststepBlockImpl extends MinimalEObjectImpl.Container implements T
   {
     switch (featureID)
     {
+      case EisPackage.TESTSTEP_BLOCK__TESTSTEP_KEYWORD:
+        setTeststepKeyword((String)newValue);
+        return;
       case EisPackage.TESTSTEP_BLOCK__PLC_CYCLE:
         setPlcCycle((Long)newValue);
         return;
@@ -267,6 +316,9 @@ public class TeststepBlockImpl extends MinimalEObjectImpl.Container implements T
   {
     switch (featureID)
     {
+      case EisPackage.TESTSTEP_BLOCK__TESTSTEP_KEYWORD:
+        setTeststepKeyword(TESTSTEP_KEYWORD_EDEFAULT);
+        return;
       case EisPackage.TESTSTEP_BLOCK__PLC_CYCLE:
         setPlcCycle(PLC_CYCLE_EDEFAULT);
         return;
@@ -290,6 +342,8 @@ public class TeststepBlockImpl extends MinimalEObjectImpl.Container implements T
   {
     switch (featureID)
     {
+      case EisPackage.TESTSTEP_BLOCK__TESTSTEP_KEYWORD:
+        return TESTSTEP_KEYWORD_EDEFAULT == null ? teststepKeyword != null : !TESTSTEP_KEYWORD_EDEFAULT.equals(teststepKeyword);
       case EisPackage.TESTSTEP_BLOCK__PLC_CYCLE:
         return plcCycle != PLC_CYCLE_EDEFAULT;
       case EisPackage.TESTSTEP_BLOCK__DESCRIPTION:
@@ -311,7 +365,9 @@ public class TeststepBlockImpl extends MinimalEObjectImpl.Container implements T
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (plcCycle: ");
+    result.append(" (teststepKeyword: ");
+    result.append(teststepKeyword);
+    result.append(", plcCycle: ");
     result.append(plcCycle);
     result.append(", description: ");
     result.append(description);

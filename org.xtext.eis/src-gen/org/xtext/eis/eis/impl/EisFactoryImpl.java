@@ -81,13 +81,13 @@ public class EisFactoryImpl extends EFactoryImpl implements EisFactory
       case EisPackage.UDT: return createUdt();
       case EisPackage.UDT_REF: return createUdtRef();
       case EisPackage.UDT_TYPE: return createUdtType();
-      case EisPackage.IDIOM: return createIdiom();
       case EisPackage.TESTSTEP_BLOCK: return createTeststepBlock();
       case EisPackage.ASSERTION_BLOCK: return createAssertionBlock();
       case EisPackage.SET: return createSet();
       case EisPackage.ASSERT: return createAssert();
       case EisPackage.STATEMENT: return createStatement();
       case EisPackage.CASCADE: return createCascade();
+      case EisPackage.IDIOM: return createIdiom();
       case EisPackage.OR: return createOr();
       case EisPackage.AND: return createAnd();
       case EisPackage.EQUALITY: return createEquality();
@@ -317,17 +317,6 @@ public class EisFactoryImpl extends EFactoryImpl implements EisFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public Idiom createIdiom()
-  {
-    IdiomImpl idiom = new IdiomImpl();
-    return idiom;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public TeststepBlock createTeststepBlock()
   {
     TeststepBlockImpl teststepBlock = new TeststepBlockImpl();
@@ -387,6 +376,17 @@ public class EisFactoryImpl extends EFactoryImpl implements EisFactory
   {
     CascadeImpl cascade = new CascadeImpl();
     return cascade;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Idiom createIdiom()
+  {
+    IdiomImpl idiom = new IdiomImpl();
+    return idiom;
   }
 
   /**

@@ -5,6 +5,7 @@ package org.xtext.eis.generator
 
 import com.google.inject.Inject
 import java.util.HashMap
+import java.util.List
 import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.resource.Resource
@@ -101,7 +102,7 @@ class EisGenerator extends AbstractGenerator {
 		«setMap.putAll(inputMap)»
 		«setMap.overwriteInput(e)»
 		«inputs.compileIn(setMap,'', sixTabs)»
-		«IF inouts !== null»«inouts.compileIn(setMap,'', sixTabs)»«ENDIF»
+		«IF inouts !== null»«inouts.checkInouts(setMap,'', sixTabs)»«ENDIF»
 		«fiveTabs»</Inputs>
 		«fiveTabs»<Outputs>
 		«assertIdiomMap.clear»
@@ -121,28 +122,47 @@ class EisGenerator extends AbstractGenerator {
 		
 		return multiLineString
 	}
-				
+	
+	def private CharSequence checkInouts(EList<Variables> variables, HashMap<Object, Object> setMap,  String qualifiedName, String indent) {
+		
+		
+		for(variable : variables) {		
+			if(variable instanceof Variable) {
+				if(setMap.containsKey(qualifiedName + variable.name)){
+					
+						var List<Variables> inoutScope = emptyList
+		
+					
+					return ''
+				}
+			} else if(variable instanceof Udt)	 
+				variable.udtVariables.checkInouts(setMap, qualifiedName + variable.name + '.','')
+		 	else if (variable instanceof UdtRef)				
+				variable.udtVariables.checkInouts(setMap, qualifiedName + variable.name + '.','')					
+		}				
+	}				
+	
 	def private CharSequence compileIn(EList<Variables> variables, HashMap<Object, Object> setMap,  String qualifiedName, String indent) {
 		var charSeq = ""
 		
-		for(variable : variables) {
+		for(variable : variables) {		
 			if(variable instanceof Variable) {
 				val value = setMap.get(qualifiedName + variable.name).toString
-				
+
 				charSeq += indent +	'''<Element xsi:type="Input" Name="«variable.name»" «variable.datatype»" Direction="«variable.directionBlock»" Value="«value»" />
 				'''//newline
 			} else if(variable instanceof Udt)	
 				charSeq += buildUdt(setMap, qualifiedName, indent, variable) 
-			 else if (variable instanceof UdtRef)				
+		 	else if (variable instanceof UdtRef)				
 				charSeq += buildUdtRef(setMap,qualifiedName,indent, variable)					
-		}
+		}		
 		return charSeq
 	}
-	
+		
 	def private CharSequence buildUdt(HashMap<Object, Object> setMap, String qualifiedName, String indent, Udt udt) {
 		var charSeq = ""
 		val tab = "	"
-		
+				
 		charSeq += indent
 		charSeq += '''<Element xsi: type="InputUDT" Name="«udt.name»" Datatype="«udt.udtType.name»" Direction="«udt.directionBlock»">
 		'''//newline				
@@ -328,9 +348,9 @@ class EisGenerator extends AbstractGenerator {
 			}
 			
 			//		add Inouts to the set
-			if(e.variable.eContainer instanceof InOut){
+			if(e.variable.eContainer instanceof InOut)
 				setMap.put(name, e.idiom.interpret.toString)
-			}else	if(setMap.containsKey(name))
+			else if(setMap.containsKey(name))
 				setMap.replace(name,e.idiom.interpret.toString	)
 		}
 	}
@@ -345,9 +365,11 @@ class EisGenerator extends AbstractGenerator {
 				for (c : e.cascade)
 					name += '.' + c.udtVar.name.toString
 			}
-			
-			if(idiomMap.containsKey(name))
-				idiomMap.replace(name,e.idiom.interpret.toString	)
+				//		add Inouts to the set
+			if(e.variable.eContainer instanceof InOut)
+				idiomMap.put(name, e.idiom.interpret.toString)
+			else if(idiomMap.containsKey(name))
+				idiomMap.replace(name,e.idiom.interpret.toString)
 		}
 	}
 	
@@ -356,15 +378,31 @@ class EisGenerator extends AbstractGenerator {
 		var name = ""
 		
 		for (e : statements) {
-			if(e?.range !== null){
-				name = e.variable.name.toString			
+			name = e.variable.name.toString			
 				if (!e.cascade.empty){
 					for (c : e.cascade)
 						name += '.' + c.udtVar.name.toString
 				}
 			
-				if(rangeMap.containsKey(name))
-					rangeMap.replace(name,e?.range?.interpret?.toString	)
+			
+			if(e?.range !== null){			
+				//		add Inouts to the set
+				if(e.variable.directionBlock === "InOut")
+					rangeMap.put(name, e.range.interpret.toString)
+				else if(rangeMap.containsKey(name))
+					rangeMap.replace(name,e.range.interpret.toString)
+			}  
+			else if(e.variable.directionBlock === "InOut"){ // range is not defined in statement but does it have a default value?
+				if(e.cascade.empty) {
+					val range = (e.variable as Variable)?.range					
+					if(range !== null)
+						rangeMap.put(name, range.interpret.toString)				
+				}//cascade is not empty 
+				else {
+					val range = (e.cascade.last as Variable)?.range
+						if(range !== null)
+						rangeMap.put(name, range.interpret.toString)			
+				}								
 			}
 		}
 	}

@@ -61,6 +61,27 @@ Udt:
 UdtRef:
 	udtType=[UdtType] name=ID udtVariables+=Variables* ';';
 
+UdtType:
+	name=ID;
+
+TeststepBlock:
+	teststepKeyword='teststep' '(' plcCycle=LONG ',' description=STRING ')' '{' assertion=AssertionBlock '}';
+
+AssertionBlock:
+	set=Set & assert=Assert;
+
+Set:
+	name='set' '[' setVariables+=Statement* ']';
+
+Assert:
+	name='assert' '[' assertVariables+=Statement* ']';
+
+Statement:
+	variable=[Variables] cascade+=Cascade* '=' idiom=Idiom ('+/-' range=Idiom)? ';';
+
+Cascade:
+	'.' udtVar=[Variables];
+
 enum BasicType:
 	NULL='null'
 	| INT='int'
@@ -87,9 +108,6 @@ enum BasicType:
 	| DATE="date"
 	| LREAL="lreal"
 	| WCHAR="wchar";
-	//
-UdtType:
-	name=ID;
 
 Idiom:
 	Or;
@@ -129,24 +147,6 @@ Atomic returns Idiom:
 	| {TimeConstant} value=TIME
 	| {LTimeConstant} value=LTIME
 	| {DateConstant} value=DATE;
-
-TeststepBlock:
-	'teststep' '(' plcCycle=LONG ',' description=STRING ')' '{' assertion=AssertionBlock '}';
-
-AssertionBlock:
-	set=Set & assert=Assert;
-
-Set:
-	name='set' '[' setVariables+=Statement* ']';
-
-Assert:
-	name='assert' '[' assertVariables+=Statement* ']';
-
-Statement:
-	variable=[Variables] cascade+=Cascade* '=' idiom=Idiom ('+/-' range=Idiom)? ';';
-
-Cascade:
-	'.' udtVar=[Variables];
 
 	//
 //	terminal fragments-----------------------------------------------------------------------------------------------------------------------

@@ -228,7 +228,7 @@ class EisGeneratorTest {
 				set[ 
 					a = 43;
 				]
-				assert[a=10043;]
+				assert[]
 			}
 		''' + ending ) => [
 			parse.assertNoErrors
@@ -823,26 +823,26 @@ class EisGeneratorTest {
 			define{
 				input[]
 				output[
-				 	inout udt All(TypeAll){
-				 		variant int a = 14 +/- 3;
-				 		variant bool b = true;
-				 		variant real c = 3.4 +/- 1.1;
-				 		variant string d = "hahaha" ;
-				 		variant char e = '9';						
-				 		variant byte f = 16#02;		
-				 		variant word g = 16#1234;
-				 		variant dword h = 16#9876_5432;
-				 		variant lword i = 16#abcd_efAB_CDEF_0123;
-				 		variant usint j = 1 +/- 5;
-				 		variant uint k = 256 +/- 7;
-				 		variant udint l = 123456 +/- 987654;
-				 		variant ulint m = 123456798 +/- 3;
-				 		variant sint n = -1 +/- -25;
-				 		variant dint o = -25600 +/- (-8545000);
-				 		variant lint p = -222222222 +/- 9999999;
-				 		variant time q = T#40s;		
-				 		variant ltime r = LT#400d9ns;
-				 		variant date s = D#2018-08-22;
+				 	 udt All(TypeAll){
+				 	 variant int a = 14 +/- 3;
+				 	 variant bool b = true;
+				 	 variant real c = 3.4 +/- 1.1;
+				 	 variant string d = "hahaha" ;
+				 	 variant char e = '9';						
+				 	 variant byte f = 16#02;		
+				 	 variant word g = 16#1234;
+				 	 variant dword h = 16#9876_5432;
+				 	 variant lword i = 16#abcd_efAB_CDEF_0123;
+				 	 variant usint j = 1 +/- 5;
+				 	 variant uint k = 256 +/- 7;
+				 	 variant udint l = 123456 +/- 987654;
+				 	 variant ulint m = 123456798 +/- 3;
+				 	 variant sint n = -1 +/- -25;
+				 	 variant dint o = -25600 +/- (-8545000);
+				 	 variant lint p = -222222222 +/- 9999999;
+				 	 variant time q = T#40s;		
+				 	 variant ltime r = LT#400d9ns;
+				 	 variant date s = D#2018-08-22;
 					}
 				]
 			}
@@ -854,49 +854,48 @@ class EisGeneratorTest {
 			parse.assertNoErrors
 			assertCompilesTo(
 				'''
-					<?xml version="1.0" encoding="utf-8"?>
-					<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-						<TiaProjectName>project</TiaProjectName>
-						<PlcName>plcname</PlcName>
-						<Author>author</Author>
-						<TestCases>
-							<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
-								<Teststeps>
-									<Teststep PlcCycle ="0" Description="">
-										<Inputs>
-										</Inputs>
-										<Outputs>
-											<Element xsi: type="OutputUDT" Name="All" Datatype="TypeAll" Direction="InOut">
-												<Elements>
-													<Element xsi:type="Output" Name="a" Datatype="Variant@Int" Direction="InOut" Expect="14" Range="3" />
-													<Element xsi:type="Output" Name="b" Datatype="Variant@Bool" Direction="InOut" Expect="true" Range="" />
-													<Element xsi:type="Output" Name="c" Datatype="Variant@Real" Direction="InOut" Expect="3.4" Range="1.1" />
-													<Element xsi:type="Output" Name="d" Datatype="Variant@String" Direction="InOut" Expect="hahaha" Range="" />
-													<Element xsi:type="Output" Name="e" Datatype="Variant@Char" Direction="InOut" Expect="9" Range="" />
-													<Element xsi:type="Output" Name="f" Datatype="Variant@Byte" Direction="InOut" Expect="16#02" Range="" />
-													<Element xsi:type="Output" Name="g" Datatype="Variant@Word" Direction="InOut" Expect="16#1234" Range="" />
-													<Element xsi:type="Output" Name="h" Datatype="Variant@DWord" Direction="InOut" Expect="16#9876_5432" Range="" />
-													<Element xsi:type="Output" Name="i" Datatype="Variant@LWord" Direction="InOut" Expect="16#ABCD_EFAB_CDEF_0123" Range="" />
-													<Element xsi:type="Output" Name="j" Datatype="Variant@USInt" Direction="InOut" Expect="1" Range="5" />
-													<Element xsi:type="Output" Name="k" Datatype="Variant@UInt" Direction="InOut" Expect="256" Range="7" />
-													<Element xsi:type="Output" Name="l" Datatype="Variant@UDInt" Direction="InOut" Expect="123456" Range="987654" />
-													<Element xsi:type="Output" Name="m" Datatype="Variant@ULInt" Direction="InOut" Expect="123456798" Range="3" />
-													<Element xsi:type="Output" Name="n" Datatype="Variant@SInt" Direction="InOut" Expect="-1" Range="-25" />
-													<Element xsi:type="Output" Name="o" Datatype="Variant@DInt" Direction="InOut" Expect="-25600" Range="-8545000" />
-													<Element xsi:type="Output" Name="p" Datatype="Variant@LInt" Direction="InOut" Expect="-222222222" Range="9999999" />
-													<Element xsi:type="Output" Name="q" Datatype="Variant@Time" Direction="InOut" Expect="T#40s" Range="" />
-													<Element xsi:type="Output" Name="r" Datatype="Variant@LTime" Direction="InOut" Expect="LT#400d9ns" Range="" />
-													<Element xsi:type="Output" Name="s" Datatype="Variant@Date" Direction="InOut" Expect="D#2018-08-22" Range="" />
-												</Elements>
-											</Element>
-										</Outputs>
-									</Teststep>
-								</Teststeps>
-							</TestCase>
-						</TestCases>
-					</TestFixture>
-				'''
-			)
+				<?xml version="1.0" encoding="utf-8"?>
+				<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+					<TiaProjectName>project</TiaProjectName>
+					<PlcName>plcname</PlcName>
+					<Author>author</Author>
+					<TestCases>
+						<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
+							<Teststeps>
+								<Teststep PlcCycle ="0" Description="">
+									<Inputs>
+									</Inputs>
+									<Outputs>
+										<Element xsi: type="OutputUDT" Name="All" Datatype="TypeAll" Direction="Output">
+											<Elements>
+												<Element xsi:type="Output" Name="a" Datatype="Variant@Int" Direction="Output" Expect="14" Range="3" />
+												<Element xsi:type="Output" Name="b" Datatype="Variant@Bool" Direction="Output" Expect="true" Range="" />
+												<Element xsi:type="Output" Name="c" Datatype="Variant@Real" Direction="Output" Expect="3.4" Range="1.1" />
+												<Element xsi:type="Output" Name="d" Datatype="Variant@String" Direction="Output" Expect="hahaha" Range="" />
+												<Element xsi:type="Output" Name="e" Datatype="Variant@Char" Direction="Output" Expect="9" Range="" />
+												<Element xsi:type="Output" Name="f" Datatype="Variant@Byte" Direction="Output" Expect="16#02" Range="" />
+												<Element xsi:type="Output" Name="g" Datatype="Variant@Word" Direction="Output" Expect="16#1234" Range="" />
+												<Element xsi:type="Output" Name="h" Datatype="Variant@DWord" Direction="Output" Expect="16#9876_5432" Range="" />
+												<Element xsi:type="Output" Name="i" Datatype="Variant@LWord" Direction="Output" Expect="16#ABCD_EFAB_CDEF_0123" Range="" />
+												<Element xsi:type="Output" Name="j" Datatype="Variant@USInt" Direction="Output" Expect="1" Range="5" />
+												<Element xsi:type="Output" Name="k" Datatype="Variant@UInt" Direction="Output" Expect="256" Range="7" />
+												<Element xsi:type="Output" Name="l" Datatype="Variant@UDInt" Direction="Output" Expect="123456" Range="987654" />
+												<Element xsi:type="Output" Name="m" Datatype="Variant@ULInt" Direction="Output" Expect="123456798" Range="3" />
+												<Element xsi:type="Output" Name="n" Datatype="Variant@SInt" Direction="Output" Expect="-1" Range="-25" />
+												<Element xsi:type="Output" Name="o" Datatype="Variant@DInt" Direction="Output" Expect="-25600" Range="-8545000" />
+												<Element xsi:type="Output" Name="p" Datatype="Variant@LInt" Direction="Output" Expect="-222222222" Range="9999999" />
+												<Element xsi:type="Output" Name="q" Datatype="Variant@Time" Direction="Output" Expect="T#40s" Range="" />
+												<Element xsi:type="Output" Name="r" Datatype="Variant@LTime" Direction="Output" Expect="LT#400d9ns" Range="" />
+												<Element xsi:type="Output" Name="s" Datatype="Variant@Date" Direction="Output" Expect="D#2018-08-22" Range="" />
+											</Elements>
+										</Element>
+									</Outputs>
+								</Teststep>
+							</Teststeps>
+						</TestCase>
+					</TestCases>
+				</TestFixture>
+			''')
 		]
 	}
 
@@ -1170,16 +1169,12 @@ class EisGeneratorTest {
 	@Test def void testUDInt() {
 		(beginning + '''
 			define{
-				input[
-					inout udint a; 
-				]
-				output[
-					inout ulint b;
-				]
+				input[ udint a; ]
+				output[ ulint b; ]
 			}
 			teststep(1, ""){
-				set[]
-				assert[]
+				set[ a=0; ]
+				assert[ b=0;]
 			}
 		''' + ending ) => [
 			parse.assertNoErrors
@@ -1195,10 +1190,10 @@ class EisGeneratorTest {
 								<Teststeps>
 									<Teststep PlcCycle ="1" Description="">
 										<Inputs>
-											<Element xsi:type="Input" Name="a" Datatype="UDInt" Direction="InOut" Value="0" />
+											<Element xsi:type="Input" Name="a" Datatype="UDInt" Direction="Input" Value="0" />
 										</Inputs>
 										<Outputs>
-											<Element xsi:type="Output" Name="b" Datatype="ULInt" Direction="InOut" Expect="0" Range="" />
+											<Element xsi:type="Output" Name="b" Datatype="ULInt" Direction="Output" Expect="0" Range="" />
 										</Outputs>
 									</Teststep>
 								</Teststeps>
@@ -1214,10 +1209,10 @@ class EisGeneratorTest {
 		(beginning + '''
 			define{
 				input[
-					inout time a = T#5d12M2s; 
+					 time a = T#5d12M2s; 
 				]
 				output[
-					inout ltime b = LT#99ms456us239ns;
+					 ltime b = LT#99ms456us239ns;
 				]
 			}
 			teststep(1, ""){
@@ -1238,10 +1233,10 @@ class EisGeneratorTest {
 								<Teststeps>
 									<Teststep PlcCycle ="1" Description="">
 										<Inputs>
-											<Element xsi:type="Input" Name="a" Datatype="Time" Direction="InOut" Value="T#5d12m2s" />
+											<Element xsi:type="Input" Name="a" Datatype="Time" Direction="Input" Value="T#5d12m2s" />
 										</Inputs>
 										<Outputs>
-											<Element xsi:type="Output" Name="b" Datatype="LTime" Direction="InOut" Expect="LT#99ms456us239ns" Range="" />
+											<Element xsi:type="Output" Name="b" Datatype="LTime" Direction="Output" Expect="LT#99ms456us239ns" Range="" />
 										</Outputs>
 									</Teststep>
 								</Teststeps>
