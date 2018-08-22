@@ -8,6 +8,7 @@ import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider
 import org.xtext.eis.eis.AssertionBlock
 import org.xtext.eis.eis.Cascade
+import org.xtext.eis.eis.InOut
 import org.xtext.eis.eis.Input
 import org.xtext.eis.eis.Output
 import org.xtext.eis.eis.Statement
@@ -30,17 +31,17 @@ class EisLabelProvider extends DefaultEObjectLabelProvider {
 
 	def text(Output o) { "output" }
 
+	def text(InOut io) { "inout" }
+
 	def text(Variables v) {
-		var inout = ""
+
 		if (v instanceof Variable)
 			v.name + " : " + v.trueVariableType
-		else if (v instanceof Udt) {
-			if(v.inout) inout = "inout "
-			inout + "udt " + v.name + " of type " + v.udtType.name
-		} else if (v instanceof UdtRef) {
-			if(v.inout) inout = "inout "
-			inout + "udt " + v.name + " of type " + v.udtType.name
-		}
+		else if (v instanceof Udt)
+			"udt " + v.name + " of type " + v.udtType.name
+		else if (v instanceof UdtRef)
+			"udt " + v.name + " of type " + v.udtType.name
+
 	}
 
 	def text(AssertionBlock aBlock) {

@@ -30,6 +30,7 @@ import org.xtext.eis.eis.DirectionBlock;
 import org.xtext.eis.eis.EisModel;
 import org.xtext.eis.eis.EisPackage;
 import org.xtext.eis.eis.Equality;
+import org.xtext.eis.eis.InOut;
 import org.xtext.eis.eis.Input;
 import org.xtext.eis.eis.IntConstant;
 import org.xtext.eis.eis.LTimeConstant;
@@ -113,6 +114,9 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				return; 
 			case EisPackage.EQUALITY:
 				sequence_Equality(context, (Equality) semanticObject); 
+				return; 
+			case EisPackage.IN_OUT:
+				sequence_InOut(context, (InOut) semanticObject); 
 				return; 
 			case EisPackage.INPUT:
 				sequence_Input(context, (Input) semanticObject); 
@@ -753,7 +757,7 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     DirectionBlock returns DirectionBlock
 	 *
 	 * Constraint:
-	 *     (input=Input | output=Output)+
+	 *     (input=Input | output=Output | inout=InOut)+
 	 */
 	protected void sequence_DirectionBlock(ISerializationContext context, DirectionBlock semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -794,6 +798,18 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     (left=Equality_Equality_1_0 (op='==' | op='!=') right=Comparison)
 	 */
 	protected void sequence_Equality(ISerializationContext context, Equality semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     InOut returns InOut
+	 *
+	 * Constraint:
+	 *     (name='inout' inoutVariables+=Variables*)
+	 */
+	protected void sequence_InOut(ISerializationContext context, InOut semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1063,7 +1079,7 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     UdtRef returns UdtRef
 	 *
 	 * Constraint:
-	 *     (inout?='inout'? udtType=[UdtType|ID] name=ID udtVariables+=Variables*)
+	 *     (udtType=[UdtType|ID] name=ID udtVariables+=Variables*)
 	 */
 	protected void sequence_UdtRef(ISerializationContext context, UdtRef semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1094,7 +1110,7 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Udt returns Udt
 	 *
 	 * Constraint:
-	 *     (inout?='inout'? name=ID udtType=UdtType udtVariables+=Variables*)
+	 *     (name=ID udtType=UdtType udtVariables+=Variables*)
 	 */
 	protected void sequence_Udt(ISerializationContext context, Udt semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1107,14 +1123,7 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Variable returns Variable
 	 *
 	 * Constraint:
-	 *     (
-	 *         inout?='inout'? 
-	 *         variantKeyword?='variant'? 
-	 *         variableType=BasicType? 
-	 *         name=ID 
-	 *         (idiom=Idiom range=Idiom?)? 
-	 *         nextVariable?=','?
-	 *     )
+	 *     (variantKeyword?='variant'? variableType=BasicType? name=ID (idiom=Idiom range=Idiom?)? nextVariable?=','?)
 	 */
 	protected void sequence_Variable(ISerializationContext context, Variable semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

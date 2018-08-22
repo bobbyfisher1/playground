@@ -4,6 +4,7 @@
 package org.xtext.eis.scoping
 
 import com.google.inject.Inject
+import java.util.List
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.scoping.IScope
@@ -13,6 +14,7 @@ import org.xtext.eis.eis.Assert
 import org.xtext.eis.eis.DefineBlock
 import org.xtext.eis.eis.EisPackage
 import org.xtext.eis.eis.Idiom
+import org.xtext.eis.eis.InOut
 import org.xtext.eis.eis.Input
 import org.xtext.eis.eis.Output
 import org.xtext.eis.eis.Set
@@ -20,6 +22,7 @@ import org.xtext.eis.eis.Statement
 import org.xtext.eis.eis.Udt
 import org.xtext.eis.eis.UdtRef
 import org.xtext.eis.eis.Variable
+import org.xtext.eis.eis.Variables
 
 /**
  * This class contains custom scoping description.
@@ -54,6 +57,8 @@ class EisScopeProvider extends AbstractEisScopeProvider {
 				Scopes.scopeFor(context.udtTypesDefinedBefore)
 			Output:
 				Scopes.scopeFor(context.udtTypesDefinedBefore)
+			InOut:
+				Scopes.scopeFor(context.udtTypesDefinedBefore)
 			Udt:
 				Scopes.scopeFor(context.udtTypesDefinedBefore)
 		}
@@ -73,11 +78,16 @@ class EisScopeProvider extends AbstractEisScopeProvider {
 
 		val input = (defineBlock as DefineBlock).direction.input
 		val output = (defineBlock as DefineBlock).direction.output
+		val inout = (defineBlock as DefineBlock).direction?.inout
+
+		var List<Variables> inoutScope = emptyList
+		if (inout !== null)
+			inoutScope = inout.inoutVariables
 
 		if (context instanceof Statement)
-			statementScope(context.eContainer, input, output)
+			statementScope(context.eContainer, input, output, inoutScope)
 		else
-			statementScope(context, input, output)
+			statementScope(context, input, output, inoutScope)
 	}
 
 	def protected IScope scopeForUdtStatements(EObject context) { // context is the specific cascade
@@ -127,15 +137,15 @@ class EisScopeProvider extends AbstractEisScopeProvider {
 			getDefineBlock(container)
 	}
 
-	def protected IScope statementScope(EObject context, Input inputs, Output outputs) {
+	def protected IScope statementScope(EObject context, Input inputs, Output outputs, List<Variables> inoutScope) {
 		var input = inputs.inputVariables
 		var output = outputs.outputVariables
 
 		return switch (context) {
 			Set:
-				Scopes.scopeFor(input)
+				Scopes.scopeFor(input + inoutScope)
 			Assert:
-				Scopes.scopeFor(output)
+				Scopes.scopeFor(output + inoutScope)
 		}
 	}
 

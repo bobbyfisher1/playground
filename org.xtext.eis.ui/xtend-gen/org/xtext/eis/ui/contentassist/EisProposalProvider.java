@@ -10,6 +10,7 @@ import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.xtext.eis.eis.InOut;
 import org.xtext.eis.eis.Input;
 import org.xtext.eis.eis.Output;
 import org.xtext.eis.eis.Udt;
@@ -36,11 +37,20 @@ public class EisProposalProvider extends AbstractEisProposalProvider {
         _xifexpression_1 = IterableExtensions.<Udt, UdtType>map(Iterables.<Udt>filter(((Output)model).getOutputVariables(), Udt.class), _function_1);
       } else {
         Iterable<UdtType> _xifexpression_2 = null;
-        if ((model instanceof Udt)) {
+        if ((model instanceof InOut)) {
           final Function1<Udt, UdtType> _function_2 = (Udt it) -> {
             return it.getUdtType();
           };
-          _xifexpression_2 = IterableExtensions.<Udt, UdtType>map(Iterables.<Udt>filter(((Udt)model).getUdtVariables(), Udt.class), _function_2);
+          _xifexpression_2 = IterableExtensions.<Udt, UdtType>map(Iterables.<Udt>filter(((InOut)model).getInoutVariables(), Udt.class), _function_2);
+        } else {
+          Iterable<UdtType> _xifexpression_3 = null;
+          if ((model instanceof Udt)) {
+            final Function1<Udt, UdtType> _function_3 = (Udt it) -> {
+              return it.getUdtType();
+            };
+            _xifexpression_3 = IterableExtensions.<Udt, UdtType>map(Iterables.<Udt>filter(((Udt)model).getUdtVariables(), Udt.class), _function_3);
+          }
+          _xifexpression_2 = _xifexpression_3;
         }
         _xifexpression_1 = _xifexpression_2;
       }

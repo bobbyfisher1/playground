@@ -6,13 +6,18 @@ package org.xtext.eis.generator
 import com.google.inject.Inject
 import java.util.HashMap
 import org.eclipse.emf.common.util.EList
+import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
 import org.xtext.eis.EisModelUtil
 import org.xtext.eis.eis.DefineBlock
+import org.xtext.eis.eis.DirectionBlock
 import org.xtext.eis.eis.EisModel
+import org.xtext.eis.eis.InOut
+import org.xtext.eis.eis.Input
+import org.xtext.eis.eis.Output
 import org.xtext.eis.eis.TeststepBlock
 import org.xtext.eis.eis.Udt
 import org.xtext.eis.eis.UdtRef
@@ -62,6 +67,7 @@ class EisGenerator extends AbstractGenerator {
 		val steps = define?.teststeps
 		val inputs = define.direction.input.inputVariables
 		val outputs = define.direction.output.outputVariables
+		val inouts = define.direction?.inout?.inoutVariables
 		
 		val inputMap = new HashMap					// key: name, value: idiom
 		val outputIdiomMap =  new HashMap		// key: name, value: idiom
@@ -95,6 +101,7 @@ class EisGenerator extends AbstractGenerator {
 		«setMap.putAll(inputMap)»
 		«setMap.overwriteInput(e)»
 		«inputs.compileIn(setMap,'', sixTabs)»
+		«IF inouts !== null»«inouts.compileIn(setMap,'', sixTabs)»«ENDIF»
 		«fiveTabs»</Inputs>
 		«fiveTabs»<Outputs>
 		«assertIdiomMap.clear»
@@ -104,6 +111,7 @@ class EisGenerator extends AbstractGenerator {
 		«assertIdiomMap.overwriteOutputIdiom(e)»
 		«assertRangeMap.overwriteOutputRange(e)»
 		«outputs.compileOut(assertIdiomMap, assertRangeMap, '', sixTabs)»
+		«IF inouts !== null»«inouts.compileOut(assertIdiomMap, assertRangeMap,'', sixTabs)»«ENDIF»
 		«fiveTabs»</Outputs>
 		«fourTabs»</Teststep>
 		«ENDFOR»
@@ -121,7 +129,7 @@ class EisGenerator extends AbstractGenerator {
 			if(variable instanceof Variable) {
 				val value = setMap.get(qualifiedName + variable.name).toString
 				
-				charSeq += indent +	'''<Element xsi:type="Input" Name="«variable.name»" «variable.datatype»" Direction="«IF variable.inout»InOut«ELSE»Input«ENDIF»" Value="«value»" />
+				charSeq += indent +	'''<Element xsi:type="Input" Name="«variable.name»" «variable.datatype»" Direction="«variable.directionBlock»" Value="«value»" />
 				'''//newline
 			} else if(variable instanceof Udt)	
 				charSeq += buildUdt(setMap, qualifiedName, indent, variable) 
@@ -136,7 +144,7 @@ class EisGenerator extends AbstractGenerator {
 		val tab = "	"
 		
 		charSeq += indent
-		charSeq += '''<Element xsi: type="InputUDT" Name="«udt.name»" Datatype="«udt.udtType.name»" Direction="«IF udt.inout»InOut«ELSE»Input«ENDIF»">
+		charSeq += '''<Element xsi: type="InputUDT" Name="«udt.name»" Datatype="«udt.udtType.name»" Direction="«udt.directionBlock»">
 		'''//newline				
 				
 		val indentPlus = indent + tab //indent++ 
@@ -160,7 +168,7 @@ class EisGenerator extends AbstractGenerator {
 		val tab = "	"
 		
 		charSeq += indent
-		charSeq += '''<Element xsi: type="InputUDT" Name="«udtRef.name»" Datatype="«udtRef.udtType.name.toString»" Direction="«IF udtRef.inout»InOut«ELSE»Input«ENDIF»">
+		charSeq += '''<Element xsi: type="InputUDT" Name="«udtRef.name»" Datatype="«udtRef.udtType.name.toString»" Direction="«udtRef.directionBlock»">
 		'''//newline		
 				
 		val indentPlus = indent + tab //indent++ 
@@ -187,7 +195,7 @@ class EisGenerator extends AbstractGenerator {
 				val idiom = idiomMap.get(qualifiedName + variable.name).toString
 				val range = rangeMap.get(qualifiedName + variable.name).toString
 					
-				charSeq +=	indent + '''<Element xsi:type="Output" Name="«variable.name»" «variable.datatype»" Direction="«IF variable.inout»InOut«ELSE»Output«ENDIF»" Expect="«idiom»" Range="«range»" />
+				charSeq +=	indent + '''<Element xsi:type="Output" Name="«variable.name»" «variable.datatype»" Direction="«variable.directionBlock»" Expect="«idiom»" Range="«range»" />
 				''' // newline
 					
 			} else if (variable instanceof Udt)
@@ -203,7 +211,7 @@ class EisGenerator extends AbstractGenerator {
 		val tab = "	"
 		
 		charSeq += indent
-		charSeq += '''<Element xsi: type="OutputUDT" Name="«udt.name»" Datatype="«udt.udtType.name»" Direction="«IF udt.inout»InOut«ELSE»Output«ENDIF»">
+		charSeq += '''<Element xsi: type="OutputUDT" Name="«udt.name»" Datatype="«udt.udtType.name»" Direction="«udt.directionBlock»">
 		'''//newline				
 				
 		val indentPlus = indent + tab //indent++ 
@@ -227,7 +235,7 @@ class EisGenerator extends AbstractGenerator {
 		val tab = "	"
 		
 		charSeq += indent
-		charSeq += '''<Element xsi: type="OutputUDT" Name="«udtRef.name»" Datatype="«udtRef.udtType.name.toString»" Direction="«IF udtRef.inout»InOut«ELSE»Output«ENDIF»">
+		charSeq += '''<Element xsi: type="OutputUDT" Name="«udtRef.name»" Datatype="«udtRef.udtType.name.toString»" Direction="«udtRef.directionBlock»">
 		'''//newline		
 				
 		val indentPlus = indent + tab //indent++ 
@@ -319,7 +327,10 @@ class EisGenerator extends AbstractGenerator {
 					name += '.' + c.udtVar.name.toString
 			}
 			
-			if(setMap.containsKey(name))
+			//		add Inouts to the set
+			if(e.variable.eContainer instanceof InOut){
+				setMap.put(name, e.idiom.interpret.toString)
+			}else	if(setMap.containsKey(name))
 				setMap.replace(name,e.idiom.interpret.toString	)
 		}
 	}
@@ -356,6 +367,18 @@ class EisGenerator extends AbstractGenerator {
 					rangeMap.replace(name,e?.range?.interpret?.toString	)
 			}
 		}
+	}
+	
+	def private String directionBlock(EObject context) { // context is variable to begin with
+		val container = context.eContainer
+		if (container instanceof DirectionBlock){
+			return switch(context){
+				Input: "Input"
+				Output: "Output"
+				InOut: "InOut"
+			}
+		} else
+			container.directionBlock
 	}
 		
 }

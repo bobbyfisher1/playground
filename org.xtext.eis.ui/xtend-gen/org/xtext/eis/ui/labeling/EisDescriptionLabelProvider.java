@@ -6,6 +6,7 @@ package org.xtext.eis.ui.labeling;
 import javax.inject.Inject;
 import org.eclipse.xtext.ui.label.DefaultDescriptionLabelProvider;
 import org.eclipse.xtext.xbase.lib.Extension;
+import org.xtext.eis.eis.InOut;
 import org.xtext.eis.eis.Input;
 import org.xtext.eis.eis.Output;
 import org.xtext.eis.eis.Udt;
@@ -28,55 +29,38 @@ public class EisDescriptionLabelProvider extends DefaultDescriptionLabelProvider
     return "output";
   }
   
+  public String text(final InOut io) {
+    return "inout";
+  }
+  
   public String text(final Variables v) {
-    String _xblockexpression = null;
-    {
-      String inout = "";
-      String _xifexpression = null;
-      if ((v instanceof Variable)) {
-        String _name = ((Variable)v).getName();
-        String _plus = (_name + " : ");
-        String _trueVariableType = this._typeRepresentation.trueVariableType(((Variable)v));
-        _xifexpression = (_plus + _trueVariableType);
+    String _xifexpression = null;
+    if ((v instanceof Variable)) {
+      String _name = ((Variable)v).getName();
+      String _plus = (_name + " : ");
+      String _trueVariableType = this._typeRepresentation.trueVariableType(((Variable)v));
+      _xifexpression = (_plus + _trueVariableType);
+    } else {
+      String _xifexpression_1 = null;
+      if ((v instanceof Udt)) {
+        String _name_1 = ((Udt)v).getName();
+        String _plus_1 = ("udt " + _name_1);
+        String _plus_2 = (_plus_1 + " of type ");
+        String _name_2 = ((Udt)v).getUdtType().getName();
+        _xifexpression_1 = (_plus_2 + _name_2);
       } else {
-        String _xifexpression_1 = null;
-        if ((v instanceof Udt)) {
-          String _xblockexpression_1 = null;
-          {
-            boolean _isInout = ((Udt)v).isInout();
-            if (_isInout) {
-              inout = "inout ";
-            }
-            String _name_1 = ((Udt)v).getName();
-            String _plus_1 = ((inout + "udt ") + _name_1);
-            String _plus_2 = (_plus_1 + " of type ");
-            String _name_2 = ((Udt)v).getUdtType().getName();
-            _xblockexpression_1 = (_plus_2 + _name_2);
-          }
-          _xifexpression_1 = _xblockexpression_1;
-        } else {
-          String _xifexpression_2 = null;
-          if ((v instanceof UdtRef)) {
-            String _xblockexpression_2 = null;
-            {
-              boolean _isInout = ((UdtRef)v).isInout();
-              if (_isInout) {
-                inout = "inout ";
-              }
-              String _name_1 = ((UdtRef)v).getName();
-              String _plus_1 = ((inout + "udt ") + _name_1);
-              String _plus_2 = (_plus_1 + " of type ");
-              String _name_2 = ((UdtRef)v).getUdtType().getName();
-              _xblockexpression_2 = (_plus_2 + _name_2);
-            }
-            _xifexpression_2 = _xblockexpression_2;
-          }
-          _xifexpression_1 = _xifexpression_2;
+        String _xifexpression_2 = null;
+        if ((v instanceof UdtRef)) {
+          String _name_3 = ((UdtRef)v).getName();
+          String _plus_3 = ("udt " + _name_3);
+          String _plus_4 = (_plus_3 + " of type ");
+          String _name_4 = ((UdtRef)v).getUdtType().getName();
+          _xifexpression_2 = (_plus_4 + _name_4);
         }
-        _xifexpression = _xifexpression_1;
+        _xifexpression_1 = _xifexpression_2;
       }
-      _xblockexpression = _xifexpression;
+      _xifexpression = _xifexpression_1;
     }
-    return _xblockexpression;
+    return _xifexpression;
   }
 }

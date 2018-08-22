@@ -3,30 +3,41 @@
  */
 package org.xtext.eis.eis.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.xtext.eis.eis.EisPackage;
+import org.xtext.eis.eis.InOut;
 import org.xtext.eis.eis.Variables;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Variables</b></em>'.
+ * An implementation of the model object '<em><b>In Out</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.xtext.eis.eis.impl.VariablesImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.xtext.eis.eis.impl.InOutImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.xtext.eis.eis.impl.InOutImpl#getInoutVariables <em>Inout Variables</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class VariablesImpl extends MinimalEObjectImpl.Container implements Variables
+public class InOutImpl extends MinimalEObjectImpl.Container implements InOut
 {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -49,11 +60,21 @@ public class VariablesImpl extends MinimalEObjectImpl.Container implements Varia
   protected String name = NAME_EDEFAULT;
 
   /**
+   * The cached value of the '{@link #getInoutVariables() <em>Inout Variables</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getInoutVariables()
+   * @generated
+   * @ordered
+   */
+  protected EList<Variables> inoutVariables;
+
+  /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected VariablesImpl()
+  protected InOutImpl()
   {
     super();
   }
@@ -66,7 +87,7 @@ public class VariablesImpl extends MinimalEObjectImpl.Container implements Varia
   @Override
   protected EClass eStaticClass()
   {
-    return EisPackage.Literals.VARIABLES;
+    return EisPackage.Literals.IN_OUT;
   }
 
   /**
@@ -89,7 +110,37 @@ public class VariablesImpl extends MinimalEObjectImpl.Container implements Varia
     String oldName = name;
     name = newName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, EisPackage.VARIABLES__NAME, oldName, name));
+      eNotify(new ENotificationImpl(this, Notification.SET, EisPackage.IN_OUT__NAME, oldName, name));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<Variables> getInoutVariables()
+  {
+    if (inoutVariables == null)
+    {
+      inoutVariables = new EObjectContainmentEList<Variables>(Variables.class, this, EisPackage.IN_OUT__INOUT_VARIABLES);
+    }
+    return inoutVariables;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case EisPackage.IN_OUT__INOUT_VARIABLES:
+        return ((InternalEList<?>)getInoutVariables()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -102,8 +153,10 @@ public class VariablesImpl extends MinimalEObjectImpl.Container implements Varia
   {
     switch (featureID)
     {
-      case EisPackage.VARIABLES__NAME:
+      case EisPackage.IN_OUT__NAME:
         return getName();
+      case EisPackage.IN_OUT__INOUT_VARIABLES:
+        return getInoutVariables();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -113,13 +166,18 @@ public class VariablesImpl extends MinimalEObjectImpl.Container implements Varia
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
-      case EisPackage.VARIABLES__NAME:
+      case EisPackage.IN_OUT__NAME:
         setName((String)newValue);
+        return;
+      case EisPackage.IN_OUT__INOUT_VARIABLES:
+        getInoutVariables().clear();
+        getInoutVariables().addAll((Collection<? extends Variables>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -135,8 +193,11 @@ public class VariablesImpl extends MinimalEObjectImpl.Container implements Varia
   {
     switch (featureID)
     {
-      case EisPackage.VARIABLES__NAME:
+      case EisPackage.IN_OUT__NAME:
         setName(NAME_EDEFAULT);
+        return;
+      case EisPackage.IN_OUT__INOUT_VARIABLES:
+        getInoutVariables().clear();
         return;
     }
     super.eUnset(featureID);
@@ -152,8 +213,10 @@ public class VariablesImpl extends MinimalEObjectImpl.Container implements Varia
   {
     switch (featureID)
     {
-      case EisPackage.VARIABLES__NAME:
+      case EisPackage.IN_OUT__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case EisPackage.IN_OUT__INOUT_VARIABLES:
+        return inoutVariables != null && !inoutVariables.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -175,4 +238,4 @@ public class VariablesImpl extends MinimalEObjectImpl.Container implements Varia
     return result.toString();
   }
 
-} //VariablesImpl
+} //InOutImpl

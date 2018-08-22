@@ -14,7 +14,6 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.xtext.eis.eis.Variables#isInout <em>Inout</em>}</li>
  *   <li>{@link org.xtext.eis.eis.Variables#getName <em>Name</em>}</li>
  * </ul>
  *
@@ -24,32 +23,6 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Variables extends EObject
 {
-  /**
-   * Returns the value of the '<em><b>Inout</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Inout</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Inout</em>' attribute.
-   * @see #setInout(boolean)
-   * @see org.xtext.eis.eis.EisPackage#getVariables_Inout()
-   * @model
-   * @generated
-   */
-  boolean isInout();
-
-  /**
-   * Sets the value of the '{@link org.xtext.eis.eis.Variables#isInout <em>Inout</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Inout</em>' attribute.
-   * @see #isInout()
-   * @generated
-   */
-  void setInout(boolean value);
-
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->

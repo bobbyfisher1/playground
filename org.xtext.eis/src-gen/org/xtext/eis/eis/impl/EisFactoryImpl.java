@@ -75,6 +75,7 @@ public class EisFactoryImpl extends EFactoryImpl implements EisFactory
       case EisPackage.DIRECTION_BLOCK: return createDirectionBlock();
       case EisPackage.INPUT: return createInput();
       case EisPackage.OUTPUT: return createOutput();
+      case EisPackage.IN_OUT: return createInOut();
       case EisPackage.VARIABLES: return createVariables();
       case EisPackage.VARIABLE: return createVariable();
       case EisPackage.UDT: return createUdt();
@@ -243,6 +244,17 @@ public class EisFactoryImpl extends EFactoryImpl implements EisFactory
   {
     OutputImpl output = new OutputImpl();
     return output;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public InOut createInOut()
+  {
+    InOutImpl inOut = new InOutImpl();
+    return inOut;
   }
 
   /**

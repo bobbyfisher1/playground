@@ -129,7 +129,7 @@ public class TestScopeProviderTest {
   @Test
   public void testSetReferenceInout() {
     try {
-      Set _set = IterableExtensions.<TeststepBlock>head(IterableExtensions.<Testcase>head(this._parseHelper.parse((((this.define + "input[ inout int a, b;]") + this.output) + this.teststep)).getTestcases()).getTestblock().getDefine().getTeststeps()).getAssertion().getSet();
+      Set _set = IterableExtensions.<TeststepBlock>head(IterableExtensions.<Testcase>head(this._parseHelper.parse(((((this.define + this.input) + this.output) + "inout[int a, b;]") + this.teststep)).getTestcases()).getTestblock().getDefine().getTeststeps()).getAssertion().getSet();
       final Procedure1<Set> _function = (Set it) -> {
         this._validationTestHelper.assertNoErrors(it);
         this.assertScope(it, EisPackage.eINSTANCE.getStatement_Variable(), "a, b");
@@ -143,7 +143,7 @@ public class TestScopeProviderTest {
   @Test
   public void testAssertReferenceInout() {
     try {
-      Assert _assert = IterableExtensions.<TeststepBlock>head(IterableExtensions.<Testcase>head(this._parseHelper.parse((((this.define + this.input) + "output[ inout int a, b;]") + this.teststep)).getTestcases()).getTestblock().getDefine().getTeststeps()).getAssertion().getAssert();
+      Assert _assert = IterableExtensions.<TeststepBlock>head(IterableExtensions.<Testcase>head(this._parseHelper.parse(((((this.define + this.input) + this.output) + "inout[int a, b;]") + this.teststep)).getTestcases()).getTestblock().getDefine().getTeststeps()).getAssertion().getAssert();
       final Procedure1<Assert> _function = (Assert it) -> {
         this._validationTestHelper.assertNoErrors(it);
         this.assertScope(it, EisPackage.eINSTANCE.getStatement_Variable(), "a, b");

@@ -132,6 +132,7 @@ class EisGeneratorTest {
 					bool b;
 				]
 				output[	]
+				inout[]
 			}
 			teststep(0, ""){
 				set[ 
@@ -177,6 +178,7 @@ class EisGeneratorTest {
 					}
 				]
 				output[	]
+				inout[]
 			}
 			teststep(0, ""){
 				set[ 
@@ -219,10 +221,13 @@ class EisGeneratorTest {
 		(beginning + '''
 			define{
 				input[ ]
-				output[	inout int a = 1 +/- 2 ; ]
+				output[	]
+				inout[ int a = 1 +/- 2 ; ]
 			}
 			teststep(0, ""){
-				set[]
+				set[ 
+					a = 43;
+				]
 				assert[a=10043;]
 			}
 		''' + ending ) => [
@@ -345,13 +350,14 @@ class EisGeneratorTest {
 	@Test def void testErrorProneUseCase() {
 		(beginning + '''
 			define{
-				input[ 
+				inout[ 
 					udt a(typeA){
 						int b;
 					}
 					int c;
 				]
 				output[	]
+				input[]
 			}
 			teststep(1, ""){
 				set[ 
@@ -395,17 +401,19 @@ class EisGeneratorTest {
 	@Test def void testInputsAndInOuts() {
 		(beginning + '''
 			define{
-				input[	
-					inout udt a(typeA){
+				inout[ 
+					udt a(typeA){
 						int b;
 					}
 					int c;
+				]
+				output[	]
+				input[ 
 					udt aa(typeAA){
 						int bb;
 					}
 					int cc;
 				]
-				output[]
 			}
 			teststep(1, ""){
 				set[ 
@@ -533,15 +541,16 @@ class EisGeneratorTest {
 	@Test def void testDefaultValuesWithInouts() {
 		(beginning + '''
 			define{
-				input[ variant bool x, y, z; 
-					inout udt a(typeA){
+				input[ variant bool x, y, z; ] 
+				inout[
+					udt a(typeA){
 						int b = 46;
 					}
 					int c = 2;
 				]
 				output[	]
 			}
-			teststep(0,"zero"){ set[] assert[] }
+			//teststep(0,"zero"){ set[] assert[] }   //  <---this shouldn't work
 			teststep(1, "one"){
 				set[ 
 					a.b = 3;
@@ -552,7 +561,7 @@ class EisGeneratorTest {
 				]
 				assert[]
 			}
-			teststep(2,"two"){ set[] assert[] }
+			//teststep(2,"two"){ set[] assert[] }	// <-- neither should this
 		''' + ending ) => [
 			parse.assertNoErrors
 			assertCompilesTo(
@@ -748,12 +757,14 @@ class EisGeneratorTest {
 	@Test def void testOutputsAndInOuts() {
 		(beginning + '''
 			define{
-				input[]
-				output[
-					inout udt a(typeA){
+				inout[ 
+					udt a(typeA){
 						int b;
 					}
 					int c;
+				]
+				input[	]
+				output[ 
 					udt aa(typeAA){
 						int bb;
 					}

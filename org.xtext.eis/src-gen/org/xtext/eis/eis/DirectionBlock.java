@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.xtext.eis.eis.DirectionBlock#getInput <em>Input</em>}</li>
  *   <li>{@link org.xtext.eis.eis.DirectionBlock#getOutput <em>Output</em>}</li>
+ *   <li>{@link org.xtext.eis.eis.DirectionBlock#getInout <em>Inout</em>}</li>
  * </ul>
  *
  * @see org.xtext.eis.eis.EisPackage#getDirectionBlock()
@@ -75,5 +76,31 @@ public interface DirectionBlock extends EObject
    * @generated
    */
   void setOutput(Output value);
+
+  /**
+   * Returns the value of the '<em><b>Inout</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Inout</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Inout</em>' containment reference.
+   * @see #setInout(InOut)
+   * @see org.xtext.eis.eis.EisPackage#getDirectionBlock_Inout()
+   * @model containment="true"
+   * @generated
+   */
+  InOut getInout();
+
+  /**
+   * Sets the value of the '{@link org.xtext.eis.eis.DirectionBlock#getInout <em>Inout</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Inout</em>' containment reference.
+   * @see #getInout()
+   * @generated
+   */
+  void setInout(InOut value);
 
 } // DirectionBlock

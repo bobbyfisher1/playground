@@ -66,7 +66,7 @@ class TestScopeProviderTest {
 	}
 
 	@Test def void testSetReferenceInout() {
-		(define + "input[ inout int a, b;]" + output + teststep).parse.testcases.head.testblock.define.teststeps.head.
+		(define + input + output + "inout[int a, b;]" + teststep).parse.testcases.head.testblock.define.teststeps.head.
 			assertion.set => [
 			assertNoErrors
 			assertScope(EisPackage.eINSTANCE.statement_Variable, "a, b")
@@ -74,7 +74,7 @@ class TestScopeProviderTest {
 	}
 
 	@Test def void testAssertReferenceInout() {
-		(define + input + "output[ inout int a, b;]" + teststep).parse.testcases.head.testblock.define.teststeps.head.
+		(define + input + output + "inout[int a, b;]" + teststep).parse.testcases.head.testblock.define.teststeps.head.
 			assertion.assert => [
 			assertNoErrors
 			assertScope(EisPackage.eINSTANCE.statement_Variable, "a, b")

@@ -8,6 +8,7 @@ import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.xtext.eis.eis.InOut;
 import org.xtext.eis.eis.Input;
 import org.xtext.eis.eis.Output;
 import org.xtext.eis.eis.Udt;
@@ -39,6 +40,15 @@ public class EisModelUtil {
       }
     }
     if (!_matched) {
+      if (container instanceof InOut) {
+        _matched=true;
+        final Function1<Variables, Boolean> _function = (Variables it) -> {
+          return Boolean.valueOf((!Objects.equal(it, variable)));
+        };
+        _switchResult = Iterables.<Variable>filter(IterableExtensions.<Variables>takeWhile(((InOut)container).getInoutVariables(), _function), Variable.class);
+      }
+    }
+    if (!_matched) {
       if (container instanceof Udt) {
         _matched=true;
         final Function1<Variables, Boolean> _function = (Variables it) -> {
@@ -60,6 +70,10 @@ public class EisModelUtil {
   
   public Iterable<Variable> variablesDefinedBefore(final Output output) {
     return Iterables.<Variable>filter(output.getOutputVariables(), Variable.class);
+  }
+  
+  public Iterable<Variable> variablesDefinedBefore(final InOut inout) {
+    return Iterables.<Variable>filter(inout.getInoutVariables(), Variable.class);
   }
   
   public Iterable<UdtType> udtTypesDefinedBefore(final UdtRef variable) {
@@ -86,6 +100,18 @@ public class EisModelUtil {
           return it.getUdtType();
         };
         _switchResult = IterableExtensions.<Udt, UdtType>map(Iterables.<Udt>filter(IterableExtensions.<Variables>takeWhile(((Input)container).getInputVariables(), _function), Udt.class), _function_1);
+      }
+    }
+    if (!_matched) {
+      if (container instanceof InOut) {
+        _matched=true;
+        final Function1<Variables, Boolean> _function = (Variables it) -> {
+          return Boolean.valueOf((!Objects.equal(it, variable)));
+        };
+        final Function1<Udt, UdtType> _function_1 = (Udt it) -> {
+          return it.getUdtType();
+        };
+        _switchResult = IterableExtensions.<Udt, UdtType>map(Iterables.<Udt>filter(IterableExtensions.<Variables>takeWhile(((InOut)container).getInoutVariables(), _function), Udt.class), _function_1);
       }
     }
     if (!_matched) {
@@ -118,6 +144,13 @@ public class EisModelUtil {
       return it.getUdtType();
     };
     return IterableExtensions.<Udt, UdtType>map(Iterables.<Udt>filter(output.getOutputVariables(), Udt.class), _function);
+  }
+  
+  public Iterable<UdtType> udtTypesDefinedBefore(final InOut inout) {
+    final Function1<Udt, UdtType> _function = (Udt it) -> {
+      return it.getUdtType();
+    };
+    return IterableExtensions.<Udt, UdtType>map(Iterables.<Udt>filter(inout.getInoutVariables(), Udt.class), _function);
   }
   
   public Iterable<UdtType> udtTypesDefinedBefore(final Udt udt) {

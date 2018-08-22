@@ -59,6 +59,7 @@
     <genClasses ecoreClass="Eis.ecore#//DirectionBlock">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eis.ecore#//DirectionBlock/input"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eis.ecore#//DirectionBlock/output"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eis.ecore#//DirectionBlock/inout"/>
     </genClasses>
     <genClasses ecoreClass="Eis.ecore#//Input">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//Input/name"/>
@@ -68,8 +69,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//Output/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eis.ecore#//Output/outputVariables"/>
     </genClasses>
+    <genClasses ecoreClass="Eis.ecore#//InOut">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//InOut/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eis.ecore#//InOut/inoutVariables"/>
+    </genClasses>
     <genClasses ecoreClass="Eis.ecore#//Variables">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//Variables/inout"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//Variables/name"/>
     </genClasses>
     <genClasses ecoreClass="Eis.ecore#//Variable">

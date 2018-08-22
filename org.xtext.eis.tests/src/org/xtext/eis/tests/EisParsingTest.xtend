@@ -66,23 +66,24 @@ class EisParsingTest {
 	@Test def void testDefineStructure() {
 		(beginning + '''	
 			define{
-				input[
-					int a= 4; int b = 0;
-					bool Int=true;
-					int x; variant int y; udt z(atype){}
-				
-				inout udt Rain(typeRain){ 
-						int d = 90;
-						udt Sun(typeSun){
-							int e = 10;
+							input[
+								int a= 4; int b = 0;
+								bool Int=true;
+								int x; variant int y; udt z(atype){}
+							]
+							inout[
+								udt Rain(typeRain){ 
+									int d = 90;
+									udt Sun(typeSun){
+										int e = 10;
+									}
+								}
+							]
+							output[ 
+								variant int Train;
+							]
+							
 						}
-					}
-				]
-				output[ 
-					variant int Train;
-				]
-				
-			}
 		''' + ending).parse.assertNoErrors
 	}
 
@@ -94,6 +95,7 @@ class EisParsingTest {
 							udt Dido(typeDido){ int b = 39; }
 							variant int Train;
 						]
+						inout[]
 						output[bool x,y,z;]
 			}
 		''' + ending).parse => [
@@ -183,7 +185,7 @@ class EisParsingTest {
 	@Test def void testUnorderedGroup() {
 		(beginning + '''
 		define{		
-			output[] input[]
+			output[] input[] inout[]
 		}''' + ending).parse.assertNoErrors();
 	}
 

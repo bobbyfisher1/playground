@@ -21,8 +21,12 @@ import org.xtext.eis.EisModelUtil;
 import org.xtext.eis.eis.BasicType;
 import org.xtext.eis.eis.Cascade;
 import org.xtext.eis.eis.DefineBlock;
+import org.xtext.eis.eis.DirectionBlock;
 import org.xtext.eis.eis.EisModel;
 import org.xtext.eis.eis.Idiom;
+import org.xtext.eis.eis.InOut;
+import org.xtext.eis.eis.Input;
+import org.xtext.eis.eis.Output;
 import org.xtext.eis.eis.Statement;
 import org.xtext.eis.eis.Testblock;
 import org.xtext.eis.eis.Testcase;
@@ -157,6 +161,16 @@ public class EisGenerator extends AbstractGenerator {
     final EList<TeststepBlock> steps = _teststeps;
     final EList<Variables> inputs = define.getDirection().getInput().getInputVariables();
     final EList<Variables> outputs = define.getDirection().getOutput().getOutputVariables();
+    DirectionBlock _direction = define.getDirection();
+    InOut _inout = null;
+    if (_direction!=null) {
+      _inout=_direction.getInout();
+    }
+    EList<Variables> _inoutVariables = null;
+    if (_inout!=null) {
+      _inoutVariables=_inout.getInoutVariables();
+    }
+    final EList<Variables> inouts = _inoutVariables;
     final HashMap<Object, Object> inputMap = new HashMap<Object, Object>();
     final HashMap<Object, Object> outputIdiomMap = new HashMap<Object, Object>();
     final HashMap<Object, Object> outputRangeMap = new HashMap<Object, Object>();
@@ -210,6 +224,13 @@ public class EisGenerator extends AbstractGenerator {
             CharSequence _compileIn = this.compileIn(inputs, setMap, "", sixTabs);
             _builder.append(_compileIn);
             _builder.newLineIfNotEmpty();
+            {
+              if ((inouts != null)) {
+                CharSequence _compileIn_1 = this.compileIn(inouts, setMap, "", sixTabs);
+                _builder.append(_compileIn_1);
+              }
+            }
+            _builder.newLineIfNotEmpty();
             _builder.append(fiveTabs);
             _builder.append("</Inputs>");
             _builder.newLineIfNotEmpty();
@@ -230,6 +251,13 @@ public class EisGenerator extends AbstractGenerator {
             _builder.newLineIfNotEmpty();
             CharSequence _compileOut = this.compileOut(outputs, assertIdiomMap, assertRangeMap, "", sixTabs);
             _builder.append(_compileOut);
+            _builder.newLineIfNotEmpty();
+            {
+              if ((inouts != null)) {
+                CharSequence _compileOut_1 = this.compileOut(inouts, assertIdiomMap, assertRangeMap, "", sixTabs);
+                _builder.append(_compileOut_1);
+              }
+            }
             _builder.newLineIfNotEmpty();
             _builder.append(fiveTabs);
             _builder.append("</Outputs>");
@@ -264,14 +292,8 @@ public class EisGenerator extends AbstractGenerator {
         CharSequence _datatype = this.getDatatype(((Variable)variable));
         _builder.append(_datatype);
         _builder.append("\" Direction=\"");
-        {
-          boolean _isInout = ((Variable)variable).isInout();
-          if (_isInout) {
-            _builder.append("InOut");
-          } else {
-            _builder.append("Input");
-          }
-        }
+        String _directionBlock = this.directionBlock(variable);
+        _builder.append(_directionBlock);
         _builder.append("\" Value=\"");
         _builder.append(value);
         _builder.append("\" />");
@@ -309,14 +331,8 @@ public class EisGenerator extends AbstractGenerator {
     String _name_1 = udt.getUdtType().getName();
     _builder.append(_name_1);
     _builder.append("\" Direction=\"");
-    {
-      boolean _isInout = udt.isInout();
-      if (_isInout) {
-        _builder.append("InOut");
-      } else {
-        _builder.append("Input");
-      }
-    }
+    String _directionBlock = this.directionBlock(udt);
+    _builder.append(_directionBlock);
     _builder.append("\">");
     _builder.newLineIfNotEmpty();
     charSeq = (_charSeq_1 + _builder);
@@ -364,14 +380,8 @@ public class EisGenerator extends AbstractGenerator {
     String _string = udtRef.getUdtType().getName().toString();
     _builder.append(_string);
     _builder.append("\" Direction=\"");
-    {
-      boolean _isInout = udtRef.isInout();
-      if (_isInout) {
-        _builder.append("InOut");
-      } else {
-        _builder.append("Input");
-      }
-    }
+    String _directionBlock = this.directionBlock(udtRef);
+    _builder.append(_directionBlock);
     _builder.append("\">");
     _builder.newLineIfNotEmpty();
     charSeq = (_charSeq_1 + _builder);
@@ -424,14 +434,8 @@ public class EisGenerator extends AbstractGenerator {
         CharSequence _datatype = this.getDatatype(((Variable)variable));
         _builder.append(_datatype);
         _builder.append("\" Direction=\"");
-        {
-          boolean _isInout = ((Variable)variable).isInout();
-          if (_isInout) {
-            _builder.append("InOut");
-          } else {
-            _builder.append("Output");
-          }
-        }
+        String _directionBlock = this.directionBlock(variable);
+        _builder.append(_directionBlock);
         _builder.append("\" Expect=\"");
         _builder.append(idiom);
         _builder.append("\" Range=\"");
@@ -471,14 +475,8 @@ public class EisGenerator extends AbstractGenerator {
     String _name_1 = udt.getUdtType().getName();
     _builder.append(_name_1);
     _builder.append("\" Direction=\"");
-    {
-      boolean _isInout = udt.isInout();
-      if (_isInout) {
-        _builder.append("InOut");
-      } else {
-        _builder.append("Output");
-      }
-    }
+    String _directionBlock = this.directionBlock(udt);
+    _builder.append(_directionBlock);
     _builder.append("\">");
     _builder.newLineIfNotEmpty();
     charSeq = (_charSeq_1 + _builder);
@@ -526,14 +524,8 @@ public class EisGenerator extends AbstractGenerator {
     String _string = udtRef.getUdtType().getName().toString();
     _builder.append(_string);
     _builder.append("\" Direction=\"");
-    {
-      boolean _isInout = udtRef.isInout();
-      if (_isInout) {
-        _builder.append("InOut");
-      } else {
-        _builder.append("Output");
-      }
-    }
+    String _directionBlock = this.directionBlock(udtRef);
+    _builder.append(_directionBlock);
     _builder.append("\">");
     _builder.newLineIfNotEmpty();
     charSeq = (_charSeq_1 + _builder);
@@ -767,9 +759,14 @@ public class EisGenerator extends AbstractGenerator {
             name = (_name + _plus);
           }
         }
-        boolean _containsKey = setMap.containsKey(name);
-        if (_containsKey) {
-          setMap.replace(name, this._eisInterpreter.interpret(e.getIdiom()).toString());
+        EObject _eContainer = e.getVariable().eContainer();
+        if ((_eContainer instanceof InOut)) {
+          setMap.put(name, this._eisInterpreter.interpret(e.getIdiom()).toString());
+        } else {
+          boolean _containsKey = setMap.containsKey(name);
+          if (_containsKey) {
+            setMap.replace(name, this._eisInterpreter.interpret(e.getIdiom()).toString());
+          }
         }
       }
     }
@@ -840,5 +837,38 @@ public class EisGenerator extends AbstractGenerator {
         }
       }
     }
+  }
+  
+  private String directionBlock(final EObject context) {
+    String _xblockexpression = null;
+    {
+      final EObject container = context.eContainer();
+      String _xifexpression = null;
+      if ((container instanceof DirectionBlock)) {
+        String _switchResult = null;
+        boolean _matched = false;
+        if (context instanceof Input) {
+          _matched=true;
+          _switchResult = "Input";
+        }
+        if (!_matched) {
+          if (context instanceof Output) {
+            _matched=true;
+            _switchResult = "Output";
+          }
+        }
+        if (!_matched) {
+          if (context instanceof InOut) {
+            _matched=true;
+            _switchResult = "InOut";
+          }
+        }
+        return _switchResult;
+      } else {
+        _xifexpression = this.directionBlock(container);
+      }
+      _xblockexpression = _xifexpression;
+    }
+    return _xblockexpression;
   }
 }

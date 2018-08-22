@@ -10,8 +10,8 @@ class TypeRepresentation {
 	def trueVariableType(Variable v) {
 		var string = ""
 
-		if(v.inout) string += 'inout '
-		if(v.variantKeyword) string += "variant "
+		if (v.variantKeyword)
+			string += "variant "
 
 		string += v.variableType.typeFor.toString
 	}

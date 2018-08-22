@@ -6,6 +6,9 @@
 ---->NOOOO		
 		=>CHECK => UNCHECK		---->NOOOO
 		
+		
+		
+		
 * WChars:	a-z, A-Z, 0-9														CHECK
 * Reals																						CHECK									
 * LReals																					CHECK
@@ -15,17 +18,15 @@
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Explain to Kevin:
 * coloring with udtTypes
-* mathematics with variablerefs
-* bugs:				!!! int a = 0, b = a + 1; // THIS DOESN'T WORK !!!
-* ranges ???
+* mathematics with variablerefs									!!! int a = 0, b = a + 1; // THIS DOESN'T WORK !!!
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	int a = 14 +/- 3;
-	bool b = true;														//no range
-	real c = 3.4 +/- 1.1;
-	string d = "hahaha" ;										//no range
-	char e = '9';															//no range
-	byte f = 16#02;													//no range		
-	usint g = 1 +/- 5;
-	time h = T#40s;													//no range		
-	date i = D#2018-08-22;									//no range
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Questions to Kevin:
+* if neither declared in an set or assert block, should inouts (default values) be compiled to? Input / Output
+	=> make rule that inouts have to be declared once or defined;
+	minmal example:
+		inout[ int a = 0;]
+		set[ a=19; ]
+		assert[]
+	  
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
