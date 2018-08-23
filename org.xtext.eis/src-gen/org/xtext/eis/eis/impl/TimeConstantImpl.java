@@ -52,7 +52,7 @@ public class TimeConstantImpl extends IdiomImpl implements TimeConstant
    * <!-- end-user-doc -->
    * @generated
    */
-  protected TimeConstantImpl()
+  public TimeConstantImpl()
   {
     super();
   }

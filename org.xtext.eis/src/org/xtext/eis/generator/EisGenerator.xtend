@@ -5,6 +5,7 @@ package org.xtext.eis.generator
 
 import com.google.inject.Inject
 import java.util.HashMap
+import java.util.LinkedList
 import java.util.List
 import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.EObject
@@ -13,17 +14,22 @@ import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
 import org.xtext.eis.EisModelUtil
+import org.xtext.eis.eis.Cascade
 import org.xtext.eis.eis.DefineBlock
 import org.xtext.eis.eis.DirectionBlock
 import org.xtext.eis.eis.EisModel
 import org.xtext.eis.eis.InOut
 import org.xtext.eis.eis.Input
 import org.xtext.eis.eis.Output
+import org.xtext.eis.eis.Statement
 import org.xtext.eis.eis.TeststepBlock
 import org.xtext.eis.eis.Udt
 import org.xtext.eis.eis.UdtRef
 import org.xtext.eis.eis.Variable
 import org.xtext.eis.eis.Variables
+import org.xtext.eis.eis.impl.UdtImpl
+import org.xtext.eis.eis.impl.UdtTypeImpl
+import org.xtext.eis.eis.impl.VariableImpl
 import org.xtext.eis.interpreter.EisInterpreter
 import org.xtext.eis.typing.DefineTypeComputer
 
@@ -68,7 +74,8 @@ class EisGenerator extends AbstractGenerator {
 		val steps = define?.teststeps
 		val inputs = define.direction.input.inputVariables
 		val outputs = define.direction.output.outputVariables
-		val inouts = define.direction?.inout?.inoutVariables
+		var inouts = define.direction?.inout?.inoutVariables
+		
 		
 		val inputMap = new HashMap					// key: name, value: idiom
 		val outputIdiomMap =  new HashMap		// key: name, value: idiom
@@ -82,7 +89,7 @@ class EisGenerator extends AbstractGenerator {
 		val twoTabs = oneTab + oneTab
 		val fourTabs = twoTabs + twoTabs
 		val fiveTabs = fourTabs + oneTab
-		val sixTabs = fourTabs + twoTabs
+		val sixTabs = fourTabs + twoTabs		
 		
 		// add all variables to maps with default values if undefined
 		if(!inputs.empty)
@@ -102,7 +109,11 @@ class EisGenerator extends AbstractGenerator {
 		«setMap.putAll(inputMap)»
 		«setMap.overwriteInput(e)»
 		«inputs.compileIn(setMap,'', sixTabs)»
-		«IF inouts !== null»«inouts.checkInouts(setMap,'', sixTabs)»«ENDIF»
+		«IF inouts !== null»
+		«inouts?.clear»
+		«IF (inouts += addInoutsInSet(setMap, e))»«ENDIF»		
+		«IF inouts !== null»«inouts.compileIn(setMap, '', sixTabs)»«ENDIF»
+		«ENDIF»
 		«fiveTabs»</Inputs>
 		«fiveTabs»<Outputs>
 		«assertIdiomMap.clear»
@@ -112,7 +123,11 @@ class EisGenerator extends AbstractGenerator {
 		«assertIdiomMap.overwriteOutputIdiom(e)»
 		«assertRangeMap.overwriteOutputRange(e)»
 		«outputs.compileOut(assertIdiomMap, assertRangeMap, '', sixTabs)»
-		«IF inouts !== null»«inouts.compileOut(assertIdiomMap, assertRangeMap,'', sixTabs)»«ENDIF»
+		«IF inouts !== null»
+		«inouts?.clear»
+		«IF inouts += addInoutsInAssert(assertIdiomMap, assertRangeMap, e)»«ENDIF»
+		«IF inouts !== null»«inouts.compileOut(assertIdiomMap, assertRangeMap, '', sixTabs)»«ENDIF»
+		«ENDIF»
 		«fiveTabs»</Outputs>
 		«fourTabs»</Teststep>
 		«ENDFOR»
@@ -121,26 +136,7 @@ class EisGenerator extends AbstractGenerator {
 		'''
 		
 		return multiLineString
-	}
-	
-	def private CharSequence checkInouts(EList<Variables> variables, HashMap<Object, Object> setMap,  String qualifiedName, String indent) {
-		
-		
-		for(variable : variables) {		
-			if(variable instanceof Variable) {
-				if(setMap.containsKey(qualifiedName + variable.name)){
-					
-						var List<Variables> inoutScope = emptyList
-		
-					
-					return ''
-				}
-			} else if(variable instanceof Udt)	 
-				variable.udtVariables.checkInouts(setMap, qualifiedName + variable.name + '.','')
-		 	else if (variable instanceof UdtRef)				
-				variable.udtVariables.checkInouts(setMap, qualifiedName + variable.name + '.','')					
-		}				
-	}				
+	}	
 	
 	def private CharSequence compileIn(EList<Variables> variables, HashMap<Object, Object> setMap,  String qualifiedName, String indent) {
 		var charSeq = ""
@@ -164,7 +160,9 @@ class EisGenerator extends AbstractGenerator {
 		val tab = "	"
 				
 		charSeq += indent
-		charSeq += '''<Element xsi: type="InputUDT" Name="«udt.name»" Datatype="«udt.udtType.name»" Direction="«udt.directionBlock»">
+		charSeq += '''<Element xsi: type="InputUDT" Name="«udt.name»" '''
+		charSeq += '''Datatype="«udt.udtType.name»" '''
+		charSeq += '''Direction="«udt.directionBlock»">
 		'''//newline				
 				
 		val indentPlus = indent + tab //indent++ 
@@ -231,7 +229,9 @@ class EisGenerator extends AbstractGenerator {
 		val tab = "	"
 		
 		charSeq += indent
-		charSeq += '''<Element xsi: type="OutputUDT" Name="«udt.name»" Datatype="«udt.udtType.name»" Direction="«udt.directionBlock»">
+		charSeq += '''<Element xsi: type="OutputUDT" Name="«udt.name»" ''' 
+		charSeq += '''Datatype="«udt.udtType.name»" '''
+		charSeq += '''Direction="«udt.directionBlock»">
 		'''//newline				
 				
 		val indentPlus = indent + tab //indent++ 
@@ -338,20 +338,109 @@ class EisGenerator extends AbstractGenerator {
 	
 	def private void overwriteInput(HashMap<Object, Object> setMap, TeststepBlock teststep) {
 		val statements = teststep.assertion.set.setVariables
-		var name = ""
+		var name = ""		
 		
 		for (e : statements) {
-			name = e.variable.name.toString			
-			if (!e.cascade.empty){
-				for (c : e.cascade)
-					name += '.' + c.udtVar.name.toString
-			}
+			name = buildName(e)
 			
-			//		add Inouts to the set
-			if(e.variable.eContainer instanceof InOut)
-				setMap.put(name, e.idiom.interpret.toString)
-			else if(setMap.containsKey(name))
-				setMap.replace(name,e.idiom.interpret.toString	)
+			if(!(e.variable.eContainer.directionBlock == "InOut"))		
+				 if(setMap.containsKey(name))
+					setMap.replace(name,e.idiom.interpret.toString	)
+		}
+	}
+	
+	def private List<Variables> addInoutsInSet(HashMap<Object, Object> setMap, TeststepBlock teststep) {
+		val statements = teststep.assertion.set.setVariables						
+		var LinkedList<Variables> inoutsInSet = new LinkedList	
+		
+		for (e : statements) {
+			if(e.variable.eContainer.directionBlock == "InOut"){															
+				if(e.cascade.empty){							
+					var newVariable = new VariableImpl		
+					newVariable.name = e.variable.name
+					newVariable.variableType = (e.variable as Variable).variableType 
+					newVariable.variantKeyword = (e.variable as Variable).variantKeyword
+					inoutsInSet.add(newVariable)
+				}			
+				else {	
+					var newUdt = new UdtImpl
+					newUdt.name = e.variable.name
+					var newUdtType = new UdtTypeImpl;					
+					if(e.variable instanceof Udt)
+						newUdtType.name = (e.variable as Udt).udtType.name
+					else if(e.variable instanceof UdtRef)
+						newUdtType.name = (e.variable as UdtRef).udtType.name
+					newUdt.udtType = newUdtType					
+					newUdt.udtVariables.add(generateUdtVariables(e.cascade))
+					inoutsInSet.add(newUdt)					
+				}				
+				setMap.put(buildName(e), e.idiom.interpret.toString)					
+			}
+		}
+		return inoutsInSet
+	}
+	
+	def private List<Variables> addInoutsInAssert(HashMap<Object, Object> assertIdiomMap, HashMap<Object, Object> assertRangeMap, TeststepBlock teststep) {
+		val statements = teststep.assertion.assert.assertVariables		
+		var LinkedList<Variables> inoutsInAssert = new LinkedList 		
+		
+		for (e : statements) {
+			if(e.variable.eContainer.directionBlock == "InOut"){
+				if(e.cascade.empty){							
+					var newVariable = new VariableImpl		
+					newVariable.name = e.variable.name
+					newVariable.variableType = (e.variable as Variable).variableType 
+					newVariable.variantKeyword = (e.variable as Variable).variantKeyword
+					inoutsInAssert.add(newVariable)
+				}			
+				else {	
+					var newUdt = new UdtImpl
+					newUdt.name = e.variable.name					
+					var newUdtType = new UdtTypeImpl
+					if(e.variable instanceof Udt)
+						newUdtType.name = (e.variable as Udt).udtType.name
+					else if(e.variable instanceof UdtRef)
+						newUdtType.name = (e.variable as UdtRef).udtType.name
+					newUdt.udtType = newUdtType
+					newUdt.udtVariables.add(generateUdtVariables(e.cascade))
+					inoutsInAssert.add(newUdt)
+				}
+				assertIdiomMap.put(buildName(e), e.idiom.interpret.toString)
+				
+				var range = ""
+				
+				if(e?.range?.interpret?.toString === null)
+					if(e.cascade.empty){
+						range = (e.variable as Variable)?.range?.interpret?.toString ?: ""
+					} else {						
+						range = (e.cascade.last.udtVar as Variable)?.range?.interpret?.toString ?: ""
+					}
+				
+				assertRangeMap.put(buildName(e), e?.range?.interpret?.toString ?: range)					
+			}
+		}
+		return inoutsInAssert
+	}
+	
+	def private Variables generateUdtVariables(Iterable<Cascade> cascade) {
+		if(cascade.length > 1){
+			var newUdt = new UdtImpl
+			newUdt.name = cascade.get(0).udtVar.name			
+			var newUdtType = new UdtTypeImpl
+			
+			if(cascade.get(0).udtVar instanceof Udt)
+				newUdtType.name = (cascade.get(0).udtVar as Udt).udtType.name
+			else if(cascade.get(0).udtVar instanceof UdtRef)				 
+				newUdtType.name = (cascade.get(0).udtVar as UdtRef).udtType.name
+			newUdt.udtType = newUdtType
+			newUdt.udtVariables.add(generateUdtVariables(cascade.drop(1)))
+			return newUdt
+		} else {
+			var newVariable = new VariableImpl	
+			newVariable.name = (cascade.get(0).udtVar as Variable).name
+			newVariable.variableType = (cascade.get(0).udtVar as Variable).variableType 
+			newVariable.variantKeyword = (cascade.get(0).udtVar as Variable).variantKeyword
+			return newVariable					
 		}
 	}
 	
@@ -360,17 +449,21 @@ class EisGenerator extends AbstractGenerator {
 		var name = ""
 		
 		for (e : statements) {
-			name = e.variable.name.toString			
+			name = buildName(e)
+
+			if(!(e.variable.eContainer.directionBlock == "InOut"))
+			 	if(idiomMap.containsKey(name))
+					idiomMap.replace(name,e.idiom.interpret.toString)
+		}
+	}
+	
+	def private String buildName(Statement e) {
+		var name = e.variable.name.toString			
 			if (!e.cascade.empty){
 				for (c : e.cascade)
 					name += '.' + c.udtVar.name.toString
 			}
-				//		add Inouts to the set
-			if(e.variable.eContainer instanceof InOut)
-				idiomMap.put(name, e.idiom.interpret.toString)
-			else if(idiomMap.containsKey(name))
-				idiomMap.replace(name,e.idiom.interpret.toString)
-		}
+		return name
 	}
 	
 	def private void overwriteOutputRange(HashMap<Object, Object> rangeMap, TeststepBlock teststep) {
@@ -378,44 +471,39 @@ class EisGenerator extends AbstractGenerator {
 		var name = ""
 		
 		for (e : statements) {
-			name = e.variable.name.toString			
-				if (!e.cascade.empty){
-					for (c : e.cascade)
-						name += '.' + c.udtVar.name.toString
-				}
-			
-			
+			name = buildName(e)			
+
 			if(e?.range !== null){			
-				//		add Inouts to the set
-				if(e.variable.directionBlock === "InOut")
-					rangeMap.put(name, e.range.interpret.toString)
-				else if(rangeMap.containsKey(name))
-					rangeMap.replace(name,e.range.interpret.toString)
+				if(!(e.variable.eContainer instanceof InOut))
+			 		if(rangeMap.containsKey(name))
+						rangeMap.replace(name,e.range.interpret.toString)				
 			}  
-			else if(e.variable.directionBlock === "InOut"){ // range is not defined in statement but does it have a default value?
-				if(e.cascade.empty) {
-					val range = (e.variable as Variable)?.range					
-					if(range !== null)
-						rangeMap.put(name, range.interpret.toString)				
-				}//cascade is not empty 
-				else {
-					val range = (e.cascade.last as Variable)?.range
-						if(range !== null)
-						rangeMap.put(name, range.interpret.toString)			
-				}								
-			}
+//			else if(e.variable.directionBlock === "InOut"){ // range is not defined in statement but does it have a default value?
+//				if(e.cascade.empty) {
+//					val range = (e.variable as Variable)?.range					
+//					if(range !== null)
+//						rangeMap.put(name, range.interpret.toString)				
+//				}//cascade is not empty 
+//				else {
+//					val range = (e.cascade.last as Variable)?.range
+//						if(range !== null)
+//						rangeMap.put(name, range.interpret.toString)			
+//				}								
+//			}
 		}
 	}
 	
 	def private String directionBlock(EObject context) { // context is variable to begin with
-		val container = context.eContainer
+		val container = context?.eContainer
 		if (container instanceof DirectionBlock){
 			return switch(context){
 				Input: "Input"
 				Output: "Output"
 				InOut: "InOut"
 			}
-		} else
+		} else if(container === null)
+			return  "InOut"
+		else
 			container.directionBlock
 	}
 		

@@ -4,7 +4,7 @@
 ---->NOOOO
 ---->Determine if it is an Input or an Output only by the occurance in either the Set or Assert block
 ---->NOOOO		
-		=>CHECK => UNCHECK		---->NOOOO
+		=>CHECK => UNCHECK		---->NOOOO					CHECK
 		
 		
 		
@@ -15,18 +15,10 @@
 * ranges																					HALF CHECK
 
 * turn off formatting															CHECK
+
+* udtRef needs to be extended to all types					CHECK
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Explain to Kevin:
 * coloring with udtTypes
 * mathematics with variablerefs									!!! int a = 0, b = a + 1; // THIS DOESN'T WORK !!!
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Questions to Kevin:
-* if neither declared in an set or assert block, should inouts (default values) be compiled to? Input / Output
-	=> make rule that inouts have to be declared once or defined;
-	minmal example:
-		inout[ int a = 0;]
-		set[ a=19; ]
-		assert[]
-	  
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

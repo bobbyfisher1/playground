@@ -222,13 +222,366 @@ class EisGeneratorTest {
 			define{
 				input[ ]
 				output[	]
-				inout[ int a = 1 +/- 2 ; ]
+				inout[ int a,b; ]
 			}
 			teststep(0, ""){
-				set[ 
-					a = 43;
-				]
+				set[ a = 43;	]
+				assert[b=99;]
+			}
+		''' + ending ) => [
+			parse.assertNoErrors
+			assertCompilesTo(
+		'''
+				<?xml version="1.0" encoding="utf-8"?>
+				<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+					<TiaProjectName>project</TiaProjectName>
+					<PlcName>plcname</PlcName>
+					<Author>author</Author>
+					<TestCases>
+						<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
+							<Teststeps>
+								<Teststep PlcCycle ="0" Description="">
+									<Inputs>
+										<Element xsi:type="Input" Name="a" Datatype="Int" Direction="InOut" Value="43" />
+									</Inputs>
+									<Outputs>
+										<Element xsi:type="Output" Name="b" Datatype="Int" Direction="InOut" Expect="99" Range="" />
+									</Outputs>
+								</Teststep>
+							</Teststeps>
+						</TestCase>
+					</TestCases>
+				</TestFixture>
+			''')
+		]
+	}
+
+	@Test def void testInOutsExcessively() {
+		(beginning + '''
+			define{
+				input[ ]
+				output[	]
+				inout[ int a,b; ]
+			}
+			teststep(0, ""){
+				set[ a = 43;	]
+				assert[b=99;]
+			}
+			teststep(1, ""){
+				assert[ a = 43;]
+				set[b=99;]
+			}
+		''' + ending ) => [
+			parse.assertNoErrors
+			assertCompilesTo(
+		'''
+				<?xml version="1.0" encoding="utf-8"?>
+				<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+					<TiaProjectName>project</TiaProjectName>
+					<PlcName>plcname</PlcName>
+					<Author>author</Author>
+					<TestCases>
+						<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
+							<Teststeps>
+								<Teststep PlcCycle ="0" Description="">
+									<Inputs>
+										<Element xsi:type="Input" Name="a" Datatype="Int" Direction="InOut" Value="43" />
+									</Inputs>
+									<Outputs>
+										<Element xsi:type="Output" Name="b" Datatype="Int" Direction="InOut" Expect="99" Range="" />
+									</Outputs>
+								</Teststep>
+								<Teststep PlcCycle ="1" Description="">
+									<Inputs>
+										<Element xsi:type="Input" Name="b" Datatype="Int" Direction="InOut" Value="99" />
+									</Inputs>
+									<Outputs>
+										<Element xsi:type="Output" Name="a" Datatype="Int" Direction="InOut" Expect="43" Range="" />
+									</Outputs>
+								</Teststep>
+							</Teststeps>
+						</TestCase>
+					</TestCases>
+				</TestFixture>
+			''')
+		]
+	}
+
+	@Test def void testInOutsExcessively2() {
+		(beginning + '''
+			define{
+				input[ ]
+				output[	]
+				inout[ 
+					udt a(typeA){
+						int b;
+						int c;
+					}
+					]
+			}
+			teststep(0, ""){
+				set[ a.b = 43; a.c=99;	]
 				assert[]
+			}
+		''' + ending ) => [
+			parse.assertNoErrors
+			assertCompilesTo(
+		'''
+				<?xml version="1.0" encoding="utf-8"?>
+				<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+					<TiaProjectName>project</TiaProjectName>
+					<PlcName>plcname</PlcName>
+					<Author>author</Author>
+					<TestCases>
+						<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
+							<Teststeps>
+								<Teststep PlcCycle ="0" Description="">
+									<Inputs>
+										<Element xsi: type="InputUDT" Name="a" Datatype="typeA" Direction="InOut">
+											<Elements>
+												<Element xsi:type="Input" Name="b" Datatype="Int" Direction="InOut" Value="43" />
+											</Elements>
+										</Element>
+										<Element xsi: type="InputUDT" Name="a" Datatype="typeA" Direction="InOut">
+											<Elements>
+												<Element xsi:type="Input" Name="c" Datatype="Int" Direction="InOut" Value="99" />
+											</Elements>
+										</Element>
+									</Inputs>
+									<Outputs>
+									</Outputs>
+								</Teststep>
+							</Teststeps>
+						</TestCase>
+					</TestCases>
+				</TestFixture>
+			''')
+		]
+		(beginning + '''
+			define{
+				input[ ]
+				output[	]
+				inout[ 
+					udt a(typeA){
+						int b;
+						int c;
+					}
+					]
+			}
+			teststep(0, ""){
+				set[ a.b = 43; 	]
+				assert[a.c=99;]
+			}
+		''' + ending ) => [
+			parse.assertNoErrors
+			assertCompilesTo(
+		'''
+				<?xml version="1.0" encoding="utf-8"?>
+				<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+					<TiaProjectName>project</TiaProjectName>
+					<PlcName>plcname</PlcName>
+					<Author>author</Author>
+					<TestCases>
+						<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
+							<Teststeps>
+								<Teststep PlcCycle ="0" Description="">
+									<Inputs>
+										<Element xsi: type="InputUDT" Name="a" Datatype="typeA" Direction="InOut">
+											<Elements>
+												<Element xsi:type="Input" Name="b" Datatype="Int" Direction="InOut" Value="43" />
+											</Elements>
+										</Element>
+									</Inputs>
+									<Outputs>
+										<Element xsi: type="OutputUDT" Name="a" Datatype="typeA" Direction="InOut">
+											<Elements>
+												<Element xsi:type="Output" Name="c" Datatype="Int" Direction="InOut" Expect="99" Range="" />
+											</Elements>
+										</Element>
+									</Outputs>
+								</Teststep>
+							</Teststeps>
+						</TestCase>
+					</TestCases>
+				</TestFixture>
+			''')
+		]
+		(beginning + '''
+			define{
+				input[ ]
+				output[	]
+				inout[ 
+					udt a(typeA){
+						int b;
+						int c;
+					}
+					]
+			}
+			teststep(0, ""){
+				set[ a.c=99; 	]
+				assert[a.b = 43;]
+			}
+		''' + ending ) => [
+			parse.assertNoErrors
+			assertCompilesTo('''
+				<?xml version="1.0" encoding="utf-8"?>
+				<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+					<TiaProjectName>project</TiaProjectName>
+					<PlcName>plcname</PlcName>
+					<Author>author</Author>
+					<TestCases>
+						<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
+							<Teststeps>
+								<Teststep PlcCycle ="0" Description="">
+									<Inputs>
+										<Element xsi: type="InputUDT" Name="a" Datatype="typeA" Direction="InOut">
+											<Elements>
+												<Element xsi:type="Input" Name="c" Datatype="Int" Direction="InOut" Value="99" />
+											</Elements>
+										</Element>
+									</Inputs>
+									<Outputs>
+										<Element xsi: type="OutputUDT" Name="a" Datatype="typeA" Direction="InOut">
+											<Elements>
+												<Element xsi:type="Output" Name="b" Datatype="Int" Direction="InOut" Expect="43" Range="" />
+											</Elements>
+										</Element>
+									</Outputs>
+								</Teststep>
+							</Teststeps>
+						</TestCase>
+					</TestCases>
+				</TestFixture>
+			''')
+		]
+	}
+
+	@Test def void testInOutsExcessively3() {
+		(beginning + '''
+			define{
+				input[ ]
+				output[	]
+				inout[ 
+					udt a(typeA){
+						udt b(typeB){
+							int c;
+						}
+					}
+					]
+			}
+			teststep(0, ""){
+				set[ a.b.c = 43; ]
+				assert[]
+			}
+		''' + ending ) => [
+			parse.assertNoErrors
+			assertCompilesTo(
+		'''
+				<?xml version="1.0" encoding="utf-8"?>
+				<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+					<TiaProjectName>project</TiaProjectName>
+					<PlcName>plcname</PlcName>
+					<Author>author</Author>
+					<TestCases>
+						<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
+							<Teststeps>
+								<Teststep PlcCycle ="0" Description="">
+									<Inputs>
+										<Element xsi: type="InputUDT" Name="a" Datatype="typeA" Direction="InOut">
+											<Elements>
+												<Element xsi: type="InputUDT" Name="b" Datatype="typeB" Direction="InOut">
+													<Elements>
+														<Element xsi:type="Input" Name="c" Datatype="Int" Direction="InOut" Value="43" />
+													</Elements>
+												</Element>
+											</Elements>
+										</Element>
+									</Inputs>
+									<Outputs>
+									</Outputs>
+								</Teststep>
+							</Teststeps>
+						</TestCase>
+					</TestCases>
+				</TestFixture>
+			''')
+		]
+		(beginning + '''
+			define{
+				input[ ]
+				output[	]
+				inout[ 
+					udt a(typeA){
+						udt b(typeB){
+							int c,d;
+						}
+						
+					}
+					]
+			}
+			teststep(0, ""){
+				set[ a.b.c = 43; a.b.d =2; ]
+				assert[]
+			}
+		''' + ending ) => [
+			parse.assertNoErrors
+			assertCompilesTo(
+		'''
+				<?xml version="1.0" encoding="utf-8"?>
+				<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+					<TiaProjectName>project</TiaProjectName>
+					<PlcName>plcname</PlcName>
+					<Author>author</Author>
+					<TestCases>
+						<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
+							<Teststeps>
+								<Teststep PlcCycle ="0" Description="">
+									<Inputs>
+										<Element xsi: type="InputUDT" Name="a" Datatype="typeA" Direction="InOut">
+											<Elements>
+												<Element xsi: type="InputUDT" Name="b" Datatype="typeB" Direction="InOut">
+													<Elements>
+														<Element xsi:type="Input" Name="c" Datatype="Int" Direction="InOut" Value="43" />
+													</Elements>
+												</Element>
+											</Elements>
+										</Element>
+										<Element xsi: type="InputUDT" Name="a" Datatype="typeA" Direction="InOut">
+											<Elements>
+												<Element xsi: type="InputUDT" Name="b" Datatype="typeB" Direction="InOut">
+													<Elements>
+														<Element xsi:type="Input" Name="d" Datatype="Int" Direction="InOut" Value="2" />
+													</Elements>
+												</Element>
+											</Elements>
+										</Element>
+									</Inputs>
+									<Outputs>
+									</Outputs>
+								</Teststep>
+							</Teststeps>
+						</TestCase>
+					</TestCases>
+				</TestFixture>
+			''')
+		]
+
+		(beginning + '''
+			define{
+				input[ ]
+				output[	]
+				inout[ 
+					udt a(typeA){
+						udt b(typeB){
+							int c,d;
+						}
+						
+					}
+					]
+			}
+			teststep(0, ""){
+				set[  ]
+				assert[a.b.c = 43; a.b.d =2;]
 			}
 		''' + ending ) => [
 			parse.assertNoErrors
@@ -246,7 +599,223 @@ class EisGeneratorTest {
 									<Inputs>
 									</Inputs>
 									<Outputs>
-										<Element xsi:type="Output" Name="a" Datatype="Int" Direction="InOut" Expect="10043" Range="2" />
+										<Element xsi: type="OutputUDT" Name="a" Datatype="typeA" Direction="InOut">
+											<Elements>
+												<Element xsi: type="OutputUDT" Name="b" Datatype="typeB" Direction="InOut">
+													<Elements>
+														<Element xsi:type="Output" Name="c" Datatype="Int" Direction="InOut" Expect="43" Range="" />
+													</Elements>
+												</Element>
+											</Elements>
+										</Element>
+										<Element xsi: type="OutputUDT" Name="a" Datatype="typeA" Direction="InOut">
+											<Elements>
+												<Element xsi: type="OutputUDT" Name="b" Datatype="typeB" Direction="InOut">
+													<Elements>
+														<Element xsi:type="Output" Name="d" Datatype="Int" Direction="InOut" Expect="2" Range="" />
+													</Elements>
+												</Element>
+											</Elements>
+										</Element>
+									</Outputs>
+								</Teststep>
+							</Teststeps>
+						</TestCase>
+					</TestCases>
+				</TestFixture>
+			''')
+		]
+		(beginning + '''
+			define{
+				input[ ]
+				output[	]
+				inout[ 
+					udt a(typeA){
+						udt b(typeB){
+							 variant int c,d;
+						}
+						
+					}
+					]
+			}
+			teststep(0, ""){
+				set[  ]
+				assert[a.b.c = 43; a.b.d =2;]
+			}
+		''' + ending ) => [
+			parse.assertNoErrors
+			assertCompilesTo(
+		'''
+				<?xml version="1.0" encoding="utf-8"?>
+				<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+					<TiaProjectName>project</TiaProjectName>
+					<PlcName>plcname</PlcName>
+					<Author>author</Author>
+					<TestCases>
+						<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
+							<Teststeps>
+								<Teststep PlcCycle ="0" Description="">
+									<Inputs>
+									</Inputs>
+									<Outputs>
+										<Element xsi: type="OutputUDT" Name="a" Datatype="typeA" Direction="InOut">
+											<Elements>
+												<Element xsi: type="OutputUDT" Name="b" Datatype="typeB" Direction="InOut">
+													<Elements>
+														<Element xsi:type="Output" Name="c" Datatype="Variant@Int" Direction="InOut" Expect="43" Range="" />
+													</Elements>
+												</Element>
+											</Elements>
+										</Element>
+										<Element xsi: type="OutputUDT" Name="a" Datatype="typeA" Direction="InOut">
+											<Elements>
+												<Element xsi: type="OutputUDT" Name="b" Datatype="typeB" Direction="InOut">
+													<Elements>
+														<Element xsi:type="Output" Name="d" Datatype="Variant@Int" Direction="InOut" Expect="2" Range="" />
+													</Elements>
+												</Element>
+											</Elements>
+										</Element>
+									</Outputs>
+								</Teststep>
+							</Teststeps>
+						</TestCase>
+					</TestCases>
+				</TestFixture>
+			''')
+		]
+		(beginning + '''
+			define{
+				input[ ]
+				output[	]
+				inout[ 
+					udt a(typeA){
+						udt b(typeB){
+							int c,d;
+						}
+						
+					}
+					]
+			}
+			teststep(0, ""){
+				set[  ]
+				assert[a.b.c = 43; a.b.d =2;]
+			}
+		''' + ending ) => [
+			parse.assertNoErrors
+			assertCompilesTo(
+		'''
+				<?xml version="1.0" encoding="utf-8"?>
+				<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+					<TiaProjectName>project</TiaProjectName>
+					<PlcName>plcname</PlcName>
+					<Author>author</Author>
+					<TestCases>
+						<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
+							<Teststeps>
+								<Teststep PlcCycle ="0" Description="">
+									<Inputs>
+									</Inputs>
+									<Outputs>
+										<Element xsi: type="OutputUDT" Name="a" Datatype="typeA" Direction="InOut">
+											<Elements>
+												<Element xsi: type="OutputUDT" Name="b" Datatype="typeB" Direction="InOut">
+													<Elements>
+														<Element xsi:type="Output" Name="c" Datatype="Int" Direction="InOut" Expect="43" Range="" />
+													</Elements>
+												</Element>
+											</Elements>
+										</Element>
+										<Element xsi: type="OutputUDT" Name="a" Datatype="typeA" Direction="InOut">
+											<Elements>
+												<Element xsi: type="OutputUDT" Name="b" Datatype="typeB" Direction="InOut">
+													<Elements>
+														<Element xsi:type="Output" Name="d" Datatype="Int" Direction="InOut" Expect="2" Range="" />
+													</Elements>
+												</Element>
+											</Elements>
+										</Element>
+									</Outputs>
+								</Teststep>
+							</Teststeps>
+						</TestCase>
+					</TestCases>
+				</TestFixture>
+			''')
+		]
+		(beginning + '''
+			define{
+				input[ ]
+				output[	]
+				inout[ 
+					int a = 1 +/- 2;	
+					
+				]
+			}
+			teststep(0, ""){
+				set[  ]
+				assert[a = 5;]
+			}
+		''' + ending ) => [
+			parse.assertNoErrors
+			assertCompilesTo(
+		'''
+				<?xml version="1.0" encoding="utf-8"?>
+				<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+					<TiaProjectName>project</TiaProjectName>
+					<PlcName>plcname</PlcName>
+					<Author>author</Author>
+					<TestCases>
+						<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
+							<Teststeps>
+								<Teststep PlcCycle ="0" Description="">
+									<Inputs>
+									</Inputs>
+									<Outputs>
+										<Element xsi:type="Output" Name="a" Datatype="Int" Direction="InOut" Expect="5" Range="2" />
+									</Outputs>
+								</Teststep>
+							</Teststeps>
+						</TestCase>
+					</TestCases>
+				</TestFixture>
+			''')
+		]
+		(beginning + '''
+			define{
+				input[ ]
+				output[	]
+				inout[ 
+				udt a(typeA){
+					int a = 1 +/- 2;	
+					}
+				]
+			}
+			teststep(0, ""){
+				set[  ]
+				assert[a.a = 5;]
+			}
+		''' + ending ) => [
+			parse.assertNoErrors
+			assertCompilesTo(
+		'''
+				<?xml version="1.0" encoding="utf-8"?>
+				<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+					<TiaProjectName>project</TiaProjectName>
+					<PlcName>plcname</PlcName>
+					<Author>author</Author>
+					<TestCases>
+						<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
+							<Teststeps>
+								<Teststep PlcCycle ="0" Description="">
+									<Inputs>
+									</Inputs>
+									<Outputs>
+										<Element xsi: type="OutputUDT" Name="a" Datatype="typeA" Direction="InOut">
+											<Elements>
+												<Element xsi:type="Output" Name="a" Datatype="Int" Direction="InOut" Expect="5" Range="2" />
+											</Elements>
+										</Element>
 									</Outputs>
 								</Teststep>
 							</Teststeps>
@@ -380,12 +949,12 @@ class EisGeneratorTest {
 							<Teststeps>
 								<Teststep PlcCycle ="1" Description="">
 									<Inputs>
-										<Element xsi: type="InputUDT" Name="a" Datatype="typeA" Direction="Input">
+										<Element xsi: type="InputUDT" Name="a" Datatype="typeA" Direction="InOut">
 											<Elements>
-												<Element xsi:type="Input" Name="b" Datatype="Int" Direction="Input" Value="33" />
+												<Element xsi:type="Input" Name="b" Datatype="Int" Direction="InOut" Value="33" />
 											</Elements>
 										</Element>
-										<Element xsi:type="Input" Name="c" Datatype="Int" Direction="Input" Value="3" />
+										<Element xsi:type="Input" Name="c" Datatype="Int" Direction="InOut" Value="3" />
 									</Inputs>
 									<Outputs>
 									</Outputs>
@@ -438,18 +1007,18 @@ class EisGeneratorTest {
 							<Teststeps>
 								<Teststep PlcCycle ="1" Description="">
 									<Inputs>
-										<Element xsi: type="InputUDT" Name="a" Datatype="typeA" Direction="InOut">
-											<Elements>
-												<Element xsi:type="Input" Name="b" Datatype="Int" Direction="InOut" Value="3" />
-											</Elements>
-										</Element>
-										<Element xsi:type="Input" Name="c" Datatype="Int" Direction="Input" Value="6" />
 										<Element xsi: type="InputUDT" Name="aa" Datatype="typeAA" Direction="Input">
 											<Elements>
 												<Element xsi:type="Input" Name="bb" Datatype="Int" Direction="Input" Value="33" />
 											</Elements>
 										</Element>
 										<Element xsi:type="Input" Name="cc" Datatype="Int" Direction="Input" Value="66" />
+										<Element xsi: type="InputUDT" Name="a" Datatype="typeA" Direction="InOut">
+											<Elements>
+												<Element xsi:type="Input" Name="b" Datatype="Int" Direction="InOut" Value="3" />
+											</Elements>
+										</Element>
+										<Element xsi:type="Input" Name="c" Datatype="Int" Direction="InOut" Value="6" />
 									</Inputs>
 									<Outputs>
 									</Outputs>
@@ -550,7 +1119,6 @@ class EisGeneratorTest {
 				]
 				output[	]
 			}
-			//teststep(0,"zero"){ set[] assert[] }   //  <---this shouldn't work
 			teststep(1, "one"){
 				set[ 
 					a.b = 3;
@@ -561,7 +1129,6 @@ class EisGeneratorTest {
 				]
 				assert[]
 			}
-			//teststep(2,"two"){ set[] assert[] }	// <-- neither should this
 		''' + ending ) => [
 			parse.assertNoErrors
 			assertCompilesTo(
@@ -574,21 +1141,6 @@ class EisGeneratorTest {
 					<TestCases>
 						<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
 							<Teststeps>
-								<Teststep PlcCycle ="0" Description="zero">
-									<Inputs>
-										<Element xsi:type="Input" Name="x" Datatype="Variant@Bool" Direction="Input" Value="false" />
-										<Element xsi:type="Input" Name="y" Datatype="Variant@Bool" Direction="Input" Value="false" />
-										<Element xsi:type="Input" Name="z" Datatype="Variant@Bool" Direction="Input" Value="false" />
-										<Element xsi: type="InputUDT" Name="a" Datatype="typeA" Direction="InOut">
-											<Elements>
-												<Element xsi:type="Input" Name="b" Datatype="Int" Direction="InOut" Value="46" />
-											</Elements>
-										</Element>
-										<Element xsi:type="Input" Name="c" Datatype="Int" Direction="Input" Value="2" />
-									</Inputs>
-									<Outputs>
-									</Outputs>
-								</Teststep>
 								<Teststep PlcCycle ="1" Description="one">
 									<Inputs>
 										<Element xsi:type="Input" Name="x" Datatype="Variant@Bool" Direction="Input" Value="true" />
@@ -599,22 +1151,7 @@ class EisGeneratorTest {
 												<Element xsi:type="Input" Name="b" Datatype="Int" Direction="InOut" Value="3" />
 											</Elements>
 										</Element>
-										<Element xsi:type="Input" Name="c" Datatype="Int" Direction="Input" Value="6" />
-									</Inputs>
-									<Outputs>
-									</Outputs>
-								</Teststep>
-								<Teststep PlcCycle ="2" Description="two">
-									<Inputs>
-										<Element xsi:type="Input" Name="x" Datatype="Variant@Bool" Direction="Input" Value="false" />
-										<Element xsi:type="Input" Name="y" Datatype="Variant@Bool" Direction="Input" Value="false" />
-										<Element xsi:type="Input" Name="z" Datatype="Variant@Bool" Direction="Input" Value="false" />
-										<Element xsi: type="InputUDT" Name="a" Datatype="typeA" Direction="InOut">
-											<Elements>
-												<Element xsi:type="Input" Name="b" Datatype="Int" Direction="InOut" Value="46" />
-											</Elements>
-										</Element>
-										<Element xsi:type="Input" Name="c" Datatype="Int" Direction="Input" Value="2" />
+										<Element xsi:type="Input" Name="c" Datatype="Int" Direction="InOut" Value="6" />
 									</Inputs>
 									<Outputs>
 									</Outputs>
@@ -796,18 +1333,18 @@ class EisGeneratorTest {
 									<Inputs>
 									</Inputs>
 									<Outputs>
-										<Element xsi: type="OutputUDT" Name="a" Datatype="typeA" Direction="InOut">
-											<Elements>
-												<Element xsi:type="Output" Name="b" Datatype="Int" Direction="InOut" Expect="3" Range="" />
-											</Elements>
-										</Element>
-										<Element xsi:type="Output" Name="c" Datatype="Int" Direction="Output" Expect="6" Range="" />
 										<Element xsi: type="OutputUDT" Name="aa" Datatype="typeAA" Direction="Output">
 											<Elements>
 												<Element xsi:type="Output" Name="bb" Datatype="Int" Direction="Output" Expect="33" Range="" />
 											</Elements>
 										</Element>
 										<Element xsi:type="Output" Name="cc" Datatype="Int" Direction="Output" Expect="66" Range="" />
+										<Element xsi: type="OutputUDT" Name="a" Datatype="typeA" Direction="InOut">
+											<Elements>
+												<Element xsi:type="Output" Name="b" Datatype="Int" Direction="InOut" Expect="3" Range="" />
+											</Elements>
+										</Element>
+										<Element xsi:type="Output" Name="c" Datatype="Int" Direction="InOut" Expect="6" Range="" />
 									</Outputs>
 								</Teststep>
 							</Teststeps>
@@ -1248,4 +1785,358 @@ class EisGeneratorTest {
 		]
 	}
 
+	@Test def void testUdtRef() {
+		var ref = '''	
+		define{
+			input[
+				udt a(typeA){
+					time b=T#4s;
+				}
+				typeA z; 
+			]
+			output[
+		
+			]
+		}
+		teststep(1, ""){
+			set[]
+			assert[]
+		}'''
+
+		(beginning + ref + ending) => [
+			parse.assertNoErrors
+			assertCompilesTo(
+				'''
+					<?xml version="1.0" encoding="utf-8"?>
+					<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+						<TiaProjectName>project</TiaProjectName>
+						<PlcName>plcname</PlcName>
+						<Author>author</Author>
+						<TestCases>
+							<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
+								<Teststeps>
+									<Teststep PlcCycle ="1" Description="">
+										<Inputs>
+											<Element xsi: type="InputUDT" Name="a" Datatype="typeA" Direction="Input">
+												<Elements>
+													<Element xsi:type="Input" Name="b" Datatype="Time" Direction="Input" Value="T#4s" />
+												</Elements>
+											</Element>
+											<Element xsi: type="InputUDT" Name="z" Datatype="typeA" Direction="Input">
+												<Elements>
+													<Element xsi:type="Input" Name="b" Datatype="Time" Direction="Input" Value="T#4s" />
+												</Elements>
+											</Element>
+										</Inputs>
+										<Outputs>
+										</Outputs>
+									</Teststep>
+								</Teststeps>
+							</TestCase>
+						</TestCases>
+					</TestFixture>
+				'''
+			)
+		]
+		ref = '''	
+		define{
+			output[
+				udt a(typeA){
+					lint b=14 +/-9;
+				}
+				typeA z; 
+			]
+			input[
+		
+			]
+		}
+		teststep(1, ""){
+			set[]
+			assert[]
+		}'''
+
+		(beginning + ref + ending) => [
+			parse.assertNoErrors
+			assertCompilesTo(
+				'''
+					<?xml version="1.0" encoding="utf-8"?>
+					<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+						<TiaProjectName>project</TiaProjectName>
+						<PlcName>plcname</PlcName>
+						<Author>author</Author>
+						<TestCases>
+							<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
+								<Teststeps>
+									<Teststep PlcCycle ="1" Description="">
+										<Inputs>
+										</Inputs>
+										<Outputs>
+											<Element xsi: type="OutputUDT" Name="a" Datatype="typeA" Direction="Output">
+												<Elements>
+													<Element xsi:type="Output" Name="b" Datatype="LInt" Direction="Output" Expect="14" Range="9" />
+												</Elements>
+											</Element>
+											<Element xsi: type="OutputUDT" Name="z" Datatype="typeA" Direction="Output">
+												<Elements>
+													<Element xsi:type="Output" Name="b" Datatype="LInt" Direction="Output" Expect="14" Range="9" />
+												</Elements>
+											</Element>
+										</Outputs>
+									</Teststep>
+								</Teststeps>
+							</TestCase>
+						</TestCases>
+					</TestFixture>
+				'''
+			)
+		]
+		ref = '''	
+		define{
+			output[
+				udt a(typeA){
+					lint b=14 +/-9;
+					udt c(typeC){ 
+						udt f(typeF){
+							date dd=D#2053-05-23;
+						}
+					}
+				}
+				typeA z; 
+			]
+			input[]
+		}
+		teststep(1, ""){
+			set[]
+			assert[]
+		}'''
+
+		(beginning + ref + ending) => [
+			parse.assertNoErrors
+			assertCompilesTo(
+				'''
+					<?xml version="1.0" encoding="utf-8"?>
+					<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+						<TiaProjectName>project</TiaProjectName>
+						<PlcName>plcname</PlcName>
+						<Author>author</Author>
+						<TestCases>
+							<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
+								<Teststeps>
+									<Teststep PlcCycle ="1" Description="">
+										<Inputs>
+										</Inputs>
+										<Outputs>
+											<Element xsi: type="OutputUDT" Name="a" Datatype="typeA" Direction="Output">
+												<Elements>
+													<Element xsi:type="Output" Name="b" Datatype="LInt" Direction="Output" Expect="14" Range="9" />
+													<Element xsi: type="OutputUDT" Name="c" Datatype="typeC" Direction="Output">
+														<Elements>
+															<Element xsi: type="OutputUDT" Name="f" Datatype="typeF" Direction="Output">
+																<Elements>
+																	<Element xsi:type="Output" Name="dd" Datatype="Date" Direction="Output" Expect="D#2053-05-23" Range="" />
+																</Elements>
+															</Element>
+														</Elements>
+													</Element>
+												</Elements>
+											</Element>
+											<Element xsi: type="OutputUDT" Name="z" Datatype="typeA" Direction="Output">
+												<Elements>
+													<Element xsi:type="Output" Name="b" Datatype="LInt" Direction="Output" Expect="14" Range="9" />
+													<Element xsi: type="OutputUDT" Name="c" Datatype="typeC" Direction="Output">
+														<Elements>
+															<Element xsi: type="OutputUDT" Name="f" Datatype="typeF" Direction="Output">
+																<Elements>
+																	<Element xsi:type="Output" Name="dd" Datatype="Date" Direction="Output" Expect="D#2053-05-23" Range="" />
+																</Elements>
+															</Element>
+														</Elements>
+													</Element>
+												</Elements>
+											</Element>
+										</Outputs>
+									</Teststep>
+								</Teststeps>
+							</TestCase>
+						</TestCases>
+					</TestFixture>
+				'''
+			)
+		]
+		ref = '''	
+		define{
+			output[]
+			inout[
+				udt a(typeA){
+					lint b;
+					udt c(typeC){ 
+						udt f(typeF){
+							date dd;
+						}
+					}
+				}
+				typeA z; 
+			]
+			input[]
+		}
+		teststep(1, ""){
+			set[
+				a.b = 14;
+				a.c.f.dd = D#2053-05-23;
+				z.b = 140;
+				z.c.f.dd = D#2000-09-01;
+			]
+			assert[]
+		}'''
+
+		(beginning + ref + ending) => [
+			parse.assertNoErrors
+			assertCompilesTo(
+				'''
+					<?xml version="1.0" encoding="utf-8"?>
+					<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+						<TiaProjectName>project</TiaProjectName>
+						<PlcName>plcname</PlcName>
+						<Author>author</Author>
+						<TestCases>
+							<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
+								<Teststeps>
+									<Teststep PlcCycle ="1" Description="">
+										<Inputs>
+											<Element xsi: type="InputUDT" Name="a" Datatype="typeA" Direction="InOut">
+												<Elements>
+													<Element xsi:type="Input" Name="b" Datatype="LInt" Direction="InOut" Value="14" />
+												</Elements>
+											</Element>
+											<Element xsi: type="InputUDT" Name="a" Datatype="typeA" Direction="InOut">
+												<Elements>
+													<Element xsi: type="InputUDT" Name="c" Datatype="typeC" Direction="InOut">
+														<Elements>
+															<Element xsi: type="InputUDT" Name="f" Datatype="typeF" Direction="InOut">
+																<Elements>
+																	<Element xsi:type="Input" Name="dd" Datatype="Date" Direction="InOut" Value="D#2053-05-23" />
+																</Elements>
+															</Element>
+														</Elements>
+													</Element>
+												</Elements>
+											</Element>
+											<Element xsi: type="InputUDT" Name="z" Datatype="typeA" Direction="InOut">
+												<Elements>
+													<Element xsi:type="Input" Name="b" Datatype="LInt" Direction="InOut" Value="140" />
+												</Elements>
+											</Element>
+											<Element xsi: type="InputUDT" Name="z" Datatype="typeA" Direction="InOut">
+												<Elements>
+													<Element xsi: type="InputUDT" Name="c" Datatype="typeC" Direction="InOut">
+														<Elements>
+															<Element xsi: type="InputUDT" Name="f" Datatype="typeF" Direction="InOut">
+																<Elements>
+																	<Element xsi:type="Input" Name="dd" Datatype="Date" Direction="InOut" Value="D#2000-09-01" />
+																</Elements>
+															</Element>
+														</Elements>
+													</Element>
+												</Elements>
+											</Element>
+										</Inputs>
+										<Outputs>
+										</Outputs>
+									</Teststep>
+								</Teststeps>
+							</TestCase>
+						</TestCases>
+					</TestFixture>
+				'''
+			)
+		]
+
+		ref = '''	
+		define{
+			output[]
+			inout[
+				udt a(typeA){
+					lint b;
+					udt c(typeC){ 
+						udt f(typeF){
+							date dd;
+						}
+					}
+				}
+				typeA z; 
+			]
+			input[]
+		}
+		teststep(1, ""){
+			set[
+				
+			]
+			assert[a.b = 14 +/- 9;
+				a.c.f.dd = D#2053-05-23;
+				z.b = 140 +/- 50;
+				z.c.f.dd = D#2000-09-01;]
+		}'''
+
+		(beginning + ref + ending) => [
+			parse.assertNoErrors
+			assertCompilesTo(
+				'''
+					<?xml version="1.0" encoding="utf-8"?>
+					<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+						<TiaProjectName>project</TiaProjectName>
+						<PlcName>plcname</PlcName>
+						<Author>author</Author>
+						<TestCases>
+							<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
+								<Teststeps>
+									<Teststep PlcCycle ="1" Description="">
+										<Inputs>
+										</Inputs>
+										<Outputs>
+											<Element xsi: type="OutputUDT" Name="a" Datatype="typeA" Direction="InOut">
+												<Elements>
+													<Element xsi:type="Output" Name="b" Datatype="LInt" Direction="InOut" Expect="14" Range="9" />
+												</Elements>
+											</Element>
+											<Element xsi: type="OutputUDT" Name="a" Datatype="typeA" Direction="InOut">
+												<Elements>
+													<Element xsi: type="OutputUDT" Name="c" Datatype="typeC" Direction="InOut">
+														<Elements>
+															<Element xsi: type="OutputUDT" Name="f" Datatype="typeF" Direction="InOut">
+																<Elements>
+																	<Element xsi:type="Output" Name="dd" Datatype="Date" Direction="InOut" Expect="D#2053-05-23" Range="" />
+																</Elements>
+															</Element>
+														</Elements>
+													</Element>
+												</Elements>
+											</Element>
+											<Element xsi: type="OutputUDT" Name="z" Datatype="typeA" Direction="InOut">
+												<Elements>
+													<Element xsi:type="Output" Name="b" Datatype="LInt" Direction="InOut" Expect="140" Range="50" />
+												</Elements>
+											</Element>
+											<Element xsi: type="OutputUDT" Name="z" Datatype="typeA" Direction="InOut">
+												<Elements>
+													<Element xsi: type="OutputUDT" Name="c" Datatype="typeC" Direction="InOut">
+														<Elements>
+															<Element xsi: type="OutputUDT" Name="f" Datatype="typeF" Direction="InOut">
+																<Elements>
+																	<Element xsi:type="Output" Name="dd" Datatype="Date" Direction="InOut" Expect="D#2000-09-01" Range="" />
+																</Elements>
+															</Element>
+														</Elements>
+													</Element>
+												</Elements>
+											</Element>
+										</Outputs>
+									</Teststep>
+								</Teststeps>
+							</TestCase>
+						</TestCases>
+					</TestFixture>
+				'''
+			)
+		]
+	}
 }

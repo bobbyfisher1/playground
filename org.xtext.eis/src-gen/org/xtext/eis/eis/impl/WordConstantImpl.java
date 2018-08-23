@@ -52,7 +52,7 @@ public class WordConstantImpl extends IdiomImpl implements WordConstant
    * <!-- end-user-doc -->
    * @generated
    */
-  protected WordConstantImpl()
+  public WordConstantImpl()
   {
     super();
   }

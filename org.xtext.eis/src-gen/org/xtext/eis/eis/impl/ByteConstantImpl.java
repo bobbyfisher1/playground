@@ -52,7 +52,7 @@ public class ByteConstantImpl extends IdiomImpl implements ByteConstant
    * <!-- end-user-doc -->
    * @generated
    */
-  protected ByteConstantImpl()
+  public ByteConstantImpl()
   {
     super();
   }

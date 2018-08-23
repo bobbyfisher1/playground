@@ -89,9 +89,17 @@ class DefineTypeComputer {
 		type === USINT_TYPE || type === UDINT_TYPE || type === ULINT_TYPE
 	}
 
+	def isCharType(DefineType type) { type === CHAR_TYPE || type === WCHAR_TYPE }
+
+	def isTimeType(DefineType type) { type === TIME_TYPE }
+
+	def isLTimeType(DefineType type) { type === LTIME_TYPE }
+
+	def isDateType(DefineType type) { type === DATE_TYPE }
+
 	def isBoolType(DefineType type) { type === BOOL_TYPE }
 
-	def isRealType(DefineType type) { type === REAL_TYPE }
+	def isRealType(DefineType type) { type === REAL_TYPE || type === LREAL_TYPE }
 
 	def isByteType(DefineType type) { type === BYTE_TYPE }
 

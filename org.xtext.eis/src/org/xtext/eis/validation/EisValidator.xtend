@@ -9,6 +9,7 @@ import java.time.Duration
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
+import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.validation.Check
@@ -16,7 +17,11 @@ import org.xtext.eis.eis.And
 import org.xtext.eis.eis.Assert
 import org.xtext.eis.eis.BasicType
 import org.xtext.eis.eis.BoolConstant
+import org.xtext.eis.eis.ByteConstant
+import org.xtext.eis.eis.CharConstant
 import org.xtext.eis.eis.Comparison
+import org.xtext.eis.eis.DWordConstant
+import org.xtext.eis.eis.DateConstant
 import org.xtext.eis.eis.DefineBlock
 import org.xtext.eis.eis.DirectionBlock
 import org.xtext.eis.eis.EisModel
@@ -26,24 +31,40 @@ import org.xtext.eis.eis.Idiom
 import org.xtext.eis.eis.InOut
 import org.xtext.eis.eis.Input
 import org.xtext.eis.eis.IntConstant
+import org.xtext.eis.eis.LTimeConstant
+import org.xtext.eis.eis.LWordConstant
 import org.xtext.eis.eis.Minus
 import org.xtext.eis.eis.MulOrDiv
 import org.xtext.eis.eis.Not
 import org.xtext.eis.eis.Or
 import org.xtext.eis.eis.Plus
+import org.xtext.eis.eis.RealConstant
 import org.xtext.eis.eis.Set
 import org.xtext.eis.eis.Statement
 import org.xtext.eis.eis.StringConstant
+import org.xtext.eis.eis.TeststepBlock
+import org.xtext.eis.eis.TimeConstant
 import org.xtext.eis.eis.Udt
 import org.xtext.eis.eis.UdtRef
 import org.xtext.eis.eis.Variable
 import org.xtext.eis.eis.VariableRef
 import org.xtext.eis.eis.Variables
+import org.xtext.eis.eis.WordConstant
 import org.xtext.eis.eis.impl.BoolConstantImpl
+import org.xtext.eis.eis.impl.ByteConstantImpl
+import org.xtext.eis.eis.impl.CharConstantImpl
+import org.xtext.eis.eis.impl.DWordConstantImpl
+import org.xtext.eis.eis.impl.DateConstantImpl
 import org.xtext.eis.eis.impl.IntConstantImpl
+import org.xtext.eis.eis.impl.LTimeConstantImpl
+import org.xtext.eis.eis.impl.LWordConstantImpl
+import org.xtext.eis.eis.impl.RealConstantImpl
 import org.xtext.eis.eis.impl.StringConstantImpl
+import org.xtext.eis.eis.impl.TimeConstantImpl
 import org.xtext.eis.eis.impl.UdtImpl
+import org.xtext.eis.eis.impl.UdtTypeImpl
 import org.xtext.eis.eis.impl.VariableImpl
+import org.xtext.eis.eis.impl.WordConstantImpl
 import org.xtext.eis.interpreter.EisInterpreter
 import org.xtext.eis.typing.DefineType
 import org.xtext.eis.typing.DefineTypeComputer
@@ -51,8 +72,6 @@ import org.xtext.eis.typing.types.DateType
 import org.xtext.eis.typing.types.LTimeType
 import org.xtext.eis.typing.types.RealType
 import org.xtext.eis.typing.types.TimeType
-import org.eclipse.emf.common.util.EList
-import org.xtext.eis.eis.TeststepBlock
 
 class EisValidator extends AbstractEisValidator {
 
@@ -1285,36 +1304,10 @@ class EisValidator extends AbstractEisValidator {
 			val type = newVariable.variableType.typeFor
 
 			if (variable?.idiom !== null)
-				switch type {
-					case type.isStringType: {
-						newVariable.idiom = new StringConstantImpl;
-						(newVariable.idiom as StringConstant).value = variable?.idiom?.interpret?.toString
-					}
-					case type.isBoolType: {
-						newVariable.idiom = new BoolConstantImpl;
-						(newVariable.idiom as BoolConstant).value = variable?.idiom?.interpret?.toString
-					}
-					case type.isIntSuperType: {
-						newVariable.idiom = new IntConstantImpl;
-						(newVariable.idiom as IntConstant).value = variable?.idiom?.interpret as Long
-					}
-				}
+				newVariable = newIdiom(type, variable.idiom, newVariable, false)
 
 			if (variable?.range !== null)
-				switch type {
-					case type.isStringType: {
-						newVariable.range = new StringConstantImpl;
-						(newVariable.range as StringConstant).value = variable?.range?.interpret?.toString
-					}
-					case type.isBoolType: {
-						newVariable.range = new BoolConstantImpl;
-						(newVariable.range as BoolConstant).value = variable?.range?.interpret?.toString
-					}
-					case type.isIntSuperType: {
-						newVariable.range = new IntConstantImpl;
-						(newVariable.range as IntConstant).value = (variable?.range?.interpret as Long)
-					}
-				}
+				newVariable = newIdiom(type, variable.range, newVariable, true)
 		}
 
 		return newVariable
@@ -1327,7 +1320,10 @@ class EisValidator extends AbstractEisValidator {
 		var count2 = 0
 
 		newUdt.name = childRef.name
-		newUdt.udtType = childRef.udtType
+
+		var newUdtType = new UdtTypeImpl
+		newUdtType.name = childRef.udtType.name
+		newUdt.udtType = newUdtType
 
 		if (!childRefVars.empty) {
 			for (e : childRefVars) {
@@ -1344,6 +1340,85 @@ class EisValidator extends AbstractEisValidator {
 		}
 
 		return newUdt
+	}
+
+	def private VariableImpl newIdiom(DefineType type, Idiom idiomOrRange, VariableImpl newVariable, boolean isRange) {
+		var newIdiomOrRange = newVariable.idiom
+		if (isRange)
+			newIdiomOrRange = newVariable.range
+
+		switch type {
+			case type.isStringType: {
+				newIdiomOrRange = new StringConstantImpl;
+				(newIdiomOrRange as StringConstant).value = idiomOrRange?.interpret?.toString
+				return assignNewIdiom(newVariable, newIdiomOrRange, isRange)
+			}
+			case type.isBoolType: {
+				newIdiomOrRange = new BoolConstantImpl;
+				(newIdiomOrRange as BoolConstant).value = idiomOrRange?.interpret?.toString
+				return assignNewIdiom(newVariable, newIdiomOrRange, isRange)
+			}
+			case type.isIntSuperType: {
+				newIdiomOrRange = new IntConstantImpl;
+				(newIdiomOrRange as IntConstant).value = idiomOrRange?.interpret as Long
+				return assignNewIdiom(newVariable, newIdiomOrRange, isRange)
+			}
+			case type.isRealType: {
+				newIdiomOrRange = new RealConstantImpl;
+				(newIdiomOrRange as RealConstant).value = idiomOrRange?.interpret?.toString
+				return assignNewIdiom(newVariable, newIdiomOrRange, isRange)
+			}
+			case type.isByteType: {
+				newIdiomOrRange = new ByteConstantImpl;
+				(newIdiomOrRange as ByteConstant).value = idiomOrRange?.interpret?.toString
+				return assignNewIdiom(newVariable, newIdiomOrRange, isRange)
+			}
+			case type.isWordType: {
+				newIdiomOrRange = new WordConstantImpl;
+				(newIdiomOrRange as WordConstant).value = idiomOrRange?.interpret?.toString
+				return assignNewIdiom(newVariable, newIdiomOrRange, isRange)
+			}
+			case type.isDWordType: {
+				newIdiomOrRange = new DWordConstantImpl;
+				(newIdiomOrRange as DWordConstant).value = idiomOrRange?.interpret?.toString
+				return assignNewIdiom(newVariable, newIdiomOrRange, isRange)
+			}
+			case type.isLWordType: {
+				newIdiomOrRange = new LWordConstantImpl;
+				(newIdiomOrRange as LWordConstant).value = idiomOrRange?.interpret?.toString
+				return assignNewIdiom(newVariable, newIdiomOrRange, isRange)
+			}
+			case type.isCharType: {
+				newIdiomOrRange = new CharConstantImpl;
+				(newIdiomOrRange as CharConstant).value = idiomOrRange?.interpret?.toString
+				return assignNewIdiom(newVariable, newIdiomOrRange, isRange)
+			}
+			case type.isTimeType: {
+				newIdiomOrRange = new TimeConstantImpl;
+				(newIdiomOrRange as TimeConstant).value = idiomOrRange?.interpret?.toString
+				return assignNewIdiom(newVariable, newIdiomOrRange, isRange)
+			}
+			case type.isLTimeType: {
+				newIdiomOrRange = new LTimeConstantImpl;
+				(newIdiomOrRange as LTimeConstant).value = idiomOrRange?.interpret?.toString
+				return assignNewIdiom(newVariable, newIdiomOrRange, isRange)
+			}
+			case type.isDateType: {
+				newIdiomOrRange = new DateConstantImpl;
+				(newIdiomOrRange as DateConstant).value = idiomOrRange?.interpret?.toString
+				return assignNewIdiom(newVariable, newIdiomOrRange, isRange)
+			}
+			default:
+				return newVariable
+		}
+	}
+
+	def private VariableImpl assignNewIdiom(VariableImpl newVariable, Idiom newIdiomOrRange, boolean isRange) {
+		if (isRange)
+			newVariable.range = newIdiomOrRange
+		else
+			newVariable.idiom = newIdiomOrRange
+		return newVariable
 	}
 
 //

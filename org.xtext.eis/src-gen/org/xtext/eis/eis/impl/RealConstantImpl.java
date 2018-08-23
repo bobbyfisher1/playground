@@ -52,7 +52,7 @@ public class RealConstantImpl extends IdiomImpl implements RealConstant
    * <!-- end-user-doc -->
    * @generated
    */
-  protected RealConstantImpl()
+  public RealConstantImpl()
   {
     super();
   }

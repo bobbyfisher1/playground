@@ -52,7 +52,7 @@ public class DateConstantImpl extends IdiomImpl implements DateConstant
    * <!-- end-user-doc -->
    * @generated
    */
-  protected DateConstantImpl()
+  public DateConstantImpl()
   {
     super();
   }

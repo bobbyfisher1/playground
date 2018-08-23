@@ -113,12 +113,28 @@ public class DefineTypeComputer {
     return (((type == DefineTypeComputer.USINT_TYPE) || (type == DefineTypeComputer.UDINT_TYPE)) || (type == DefineTypeComputer.ULINT_TYPE));
   }
   
+  public boolean isCharType(final DefineType type) {
+    return ((type == DefineTypeComputer.CHAR_TYPE) || (type == DefineTypeComputer.WCHAR_TYPE));
+  }
+  
+  public boolean isTimeType(final DefineType type) {
+    return (type == DefineTypeComputer.TIME_TYPE);
+  }
+  
+  public boolean isLTimeType(final DefineType type) {
+    return (type == DefineTypeComputer.LTIME_TYPE);
+  }
+  
+  public boolean isDateType(final DefineType type) {
+    return (type == DefineTypeComputer.DATE_TYPE);
+  }
+  
   public boolean isBoolType(final DefineType type) {
     return (type == DefineTypeComputer.BOOL_TYPE);
   }
   
   public boolean isRealType(final DefineType type) {
-    return (type == DefineTypeComputer.REAL_TYPE);
+    return ((type == DefineTypeComputer.REAL_TYPE) || (type == DefineTypeComputer.LREAL_TYPE));
   }
   
   public boolean isByteType(final DefineType type) {

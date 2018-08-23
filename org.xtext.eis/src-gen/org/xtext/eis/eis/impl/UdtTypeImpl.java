@@ -53,7 +53,7 @@ public class UdtTypeImpl extends MinimalEObjectImpl.Container implements UdtType
    * <!-- end-user-doc -->
    * @generated
    */
-  protected UdtTypeImpl()
+  public UdtTypeImpl()
   {
     super();
   }

@@ -52,7 +52,7 @@ public class LTimeConstantImpl extends IdiomImpl implements LTimeConstant
    * <!-- end-user-doc -->
    * @generated
    */
-  protected LTimeConstantImpl()
+  public LTimeConstantImpl()
   {
     super();
   }

@@ -52,7 +52,7 @@ public class CharConstantImpl extends IdiomImpl implements CharConstant
    * <!-- end-user-doc -->
    * @generated
    */
-  protected CharConstantImpl()
+  public CharConstantImpl()
   {
     super();
   }

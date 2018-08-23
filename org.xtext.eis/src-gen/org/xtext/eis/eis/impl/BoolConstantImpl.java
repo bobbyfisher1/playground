@@ -52,7 +52,7 @@ public class BoolConstantImpl extends IdiomImpl implements BoolConstant
    * <!-- end-user-doc -->
    * @generated
    */
-  public BoolConstantImpl()
+  public  BoolConstantImpl()
   {
     super();
   }

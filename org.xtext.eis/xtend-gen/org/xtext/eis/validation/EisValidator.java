@@ -25,8 +25,12 @@ import org.xtext.eis.eis.And;
 import org.xtext.eis.eis.Assert;
 import org.xtext.eis.eis.BasicType;
 import org.xtext.eis.eis.BoolConstant;
+import org.xtext.eis.eis.ByteConstant;
 import org.xtext.eis.eis.Cascade;
+import org.xtext.eis.eis.CharConstant;
 import org.xtext.eis.eis.Comparison;
+import org.xtext.eis.eis.DWordConstant;
+import org.xtext.eis.eis.DateConstant;
 import org.xtext.eis.eis.DefineBlock;
 import org.xtext.eis.eis.DirectionBlock;
 import org.xtext.eis.eis.EisModel;
@@ -36,25 +40,40 @@ import org.xtext.eis.eis.Idiom;
 import org.xtext.eis.eis.InOut;
 import org.xtext.eis.eis.Input;
 import org.xtext.eis.eis.IntConstant;
+import org.xtext.eis.eis.LTimeConstant;
+import org.xtext.eis.eis.LWordConstant;
 import org.xtext.eis.eis.Minus;
 import org.xtext.eis.eis.MulOrDiv;
 import org.xtext.eis.eis.Not;
 import org.xtext.eis.eis.Or;
 import org.xtext.eis.eis.Plus;
+import org.xtext.eis.eis.RealConstant;
 import org.xtext.eis.eis.Statement;
 import org.xtext.eis.eis.StringConstant;
 import org.xtext.eis.eis.Testcase;
 import org.xtext.eis.eis.TeststepBlock;
+import org.xtext.eis.eis.TimeConstant;
 import org.xtext.eis.eis.Udt;
 import org.xtext.eis.eis.UdtRef;
 import org.xtext.eis.eis.Variable;
 import org.xtext.eis.eis.VariableRef;
 import org.xtext.eis.eis.Variables;
+import org.xtext.eis.eis.WordConstant;
 import org.xtext.eis.eis.impl.BoolConstantImpl;
+import org.xtext.eis.eis.impl.ByteConstantImpl;
+import org.xtext.eis.eis.impl.CharConstantImpl;
+import org.xtext.eis.eis.impl.DWordConstantImpl;
+import org.xtext.eis.eis.impl.DateConstantImpl;
 import org.xtext.eis.eis.impl.IntConstantImpl;
+import org.xtext.eis.eis.impl.LTimeConstantImpl;
+import org.xtext.eis.eis.impl.LWordConstantImpl;
+import org.xtext.eis.eis.impl.RealConstantImpl;
 import org.xtext.eis.eis.impl.StringConstantImpl;
+import org.xtext.eis.eis.impl.TimeConstantImpl;
 import org.xtext.eis.eis.impl.UdtImpl;
+import org.xtext.eis.eis.impl.UdtTypeImpl;
 import org.xtext.eis.eis.impl.VariableImpl;
+import org.xtext.eis.eis.impl.WordConstantImpl;
 import org.xtext.eis.interpreter.EisInterpreter;
 import org.xtext.eis.typing.DefineType;
 import org.xtext.eis.typing.DefineTypeComputer;
@@ -1899,67 +1918,7 @@ public class EisValidator extends AbstractEisValidator {
       }
       boolean _tripleNotEquals = (_idiom != null);
       if (_tripleNotEquals) {
-        boolean _matched = false;
-        boolean _isStringType = this._defineTypeComputer.isStringType(type);
-        if (_isStringType) {
-          _matched=true;
-          StringConstantImpl _stringConstantImpl = new StringConstantImpl();
-          newVariable.setIdiom(_stringConstantImpl);
-          Idiom _idiom_1 = newVariable.getIdiom();
-          Idiom _idiom_2 = null;
-          if (variable!=null) {
-            _idiom_2=variable.getIdiom();
-          }
-          Object _interpret = null;
-          if (_idiom_2!=null) {
-            _interpret=this._eisInterpreter.interpret(_idiom_2);
-          }
-          String _string = null;
-          if (_interpret!=null) {
-            _string=_interpret.toString();
-          }
-          ((StringConstant) _idiom_1).setValue(_string);
-        }
-        if (!_matched) {
-          boolean _isBoolType = this._defineTypeComputer.isBoolType(type);
-          if (_isBoolType) {
-            _matched=true;
-            BoolConstantImpl _boolConstantImpl = new BoolConstantImpl();
-            newVariable.setIdiom(_boolConstantImpl);
-            Idiom _idiom_3 = newVariable.getIdiom();
-            Idiom _idiom_4 = null;
-            if (variable!=null) {
-              _idiom_4=variable.getIdiom();
-            }
-            Object _interpret_1 = null;
-            if (_idiom_4!=null) {
-              _interpret_1=this._eisInterpreter.interpret(_idiom_4);
-            }
-            String _string_1 = null;
-            if (_interpret_1!=null) {
-              _string_1=_interpret_1.toString();
-            }
-            ((BoolConstant) _idiom_3).setValue(_string_1);
-          }
-        }
-        if (!_matched) {
-          boolean _isIntSuperType = this._defineTypeComputer.isIntSuperType(type);
-          if (_isIntSuperType) {
-            _matched=true;
-            IntConstantImpl _intConstantImpl = new IntConstantImpl();
-            newVariable.setIdiom(_intConstantImpl);
-            Idiom _idiom_5 = newVariable.getIdiom();
-            Idiom _idiom_6 = null;
-            if (variable!=null) {
-              _idiom_6=variable.getIdiom();
-            }
-            Object _interpret_2 = null;
-            if (_idiom_6!=null) {
-              _interpret_2=this._eisInterpreter.interpret(_idiom_6);
-            }
-            ((IntConstant) _idiom_5).setValue((((Long) _interpret_2)).longValue());
-          }
-        }
+        newVariable = this.newIdiom(type, variable.getIdiom(), newVariable, false);
       }
       Idiom _range = null;
       if (variable!=null) {
@@ -1967,67 +1926,7 @@ public class EisValidator extends AbstractEisValidator {
       }
       boolean _tripleNotEquals_1 = (_range != null);
       if (_tripleNotEquals_1) {
-        boolean _matched_1 = false;
-        boolean _isStringType_1 = this._defineTypeComputer.isStringType(type);
-        if (_isStringType_1) {
-          _matched_1=true;
-          StringConstantImpl _stringConstantImpl_1 = new StringConstantImpl();
-          newVariable.setRange(_stringConstantImpl_1);
-          Idiom _range_1 = newVariable.getRange();
-          Idiom _range_2 = null;
-          if (variable!=null) {
-            _range_2=variable.getRange();
-          }
-          Object _interpret_3 = null;
-          if (_range_2!=null) {
-            _interpret_3=this._eisInterpreter.interpret(_range_2);
-          }
-          String _string_2 = null;
-          if (_interpret_3!=null) {
-            _string_2=_interpret_3.toString();
-          }
-          ((StringConstant) _range_1).setValue(_string_2);
-        }
-        if (!_matched_1) {
-          boolean _isBoolType_1 = this._defineTypeComputer.isBoolType(type);
-          if (_isBoolType_1) {
-            _matched_1=true;
-            BoolConstantImpl _boolConstantImpl_1 = new BoolConstantImpl();
-            newVariable.setRange(_boolConstantImpl_1);
-            Idiom _range_3 = newVariable.getRange();
-            Idiom _range_4 = null;
-            if (variable!=null) {
-              _range_4=variable.getRange();
-            }
-            Object _interpret_4 = null;
-            if (_range_4!=null) {
-              _interpret_4=this._eisInterpreter.interpret(_range_4);
-            }
-            String _string_3 = null;
-            if (_interpret_4!=null) {
-              _string_3=_interpret_4.toString();
-            }
-            ((BoolConstant) _range_3).setValue(_string_3);
-          }
-        }
-        if (!_matched_1) {
-          boolean _isIntSuperType_1 = this._defineTypeComputer.isIntSuperType(type);
-          if (_isIntSuperType_1) {
-            _matched_1=true;
-            IntConstantImpl _intConstantImpl_1 = new IntConstantImpl();
-            newVariable.setRange(_intConstantImpl_1);
-            Idiom _range_5 = newVariable.getRange();
-            Idiom _range_6 = null;
-            if (variable!=null) {
-              _range_6=variable.getRange();
-            }
-            Object _interpret_5 = null;
-            if (_range_6!=null) {
-              _interpret_5=this._eisInterpreter.interpret(_range_6);
-            }
-            ((IntConstant) _range_5).setValue((((Long) _interpret_5)).longValue());
-          }
-        }
+        newVariable = this.newIdiom(type, variable.getRange(), newVariable, true);
       }
     }
     return newVariable;
@@ -2040,7 +1939,9 @@ public class EisValidator extends AbstractEisValidator {
     final EList<Variables> childRefVars = childRef.getUdtVariables();
     int count2 = 0;
     newUdt.setName(childRef.getName());
-    newUdt.setUdtType(childRef.getUdtType());
+    UdtTypeImpl newUdtType = new UdtTypeImpl();
+    newUdtType.setName(childRef.getUdtType().getName());
+    newUdt.setUdtType(newUdtType);
     boolean _isEmpty = childRefVars.isEmpty();
     boolean _not = (!_isEmpty);
     if (_not) {
@@ -2062,6 +1963,234 @@ public class EisValidator extends AbstractEisValidator {
       }
     }
     return newUdt;
+  }
+  
+  private VariableImpl newIdiom(final DefineType type, final Idiom idiomOrRange, final VariableImpl newVariable, final boolean isRange) {
+    Idiom newIdiomOrRange = newVariable.getIdiom();
+    if (isRange) {
+      newIdiomOrRange = newVariable.getRange();
+    }
+    boolean _matched = false;
+    boolean _isStringType = this._defineTypeComputer.isStringType(type);
+    if (_isStringType) {
+      _matched=true;
+      StringConstantImpl _stringConstantImpl = new StringConstantImpl();
+      newIdiomOrRange = _stringConstantImpl;
+      Object _interpret = null;
+      if (idiomOrRange!=null) {
+        _interpret=this._eisInterpreter.interpret(idiomOrRange);
+      }
+      String _string = null;
+      if (_interpret!=null) {
+        _string=_interpret.toString();
+      }
+      ((StringConstant) newIdiomOrRange).setValue(_string);
+      return this.assignNewIdiom(newVariable, newIdiomOrRange, isRange);
+    }
+    if (!_matched) {
+      boolean _isBoolType = this._defineTypeComputer.isBoolType(type);
+      if (_isBoolType) {
+        _matched=true;
+        BoolConstantImpl _boolConstantImpl = new BoolConstantImpl();
+        newIdiomOrRange = _boolConstantImpl;
+        Object _interpret_1 = null;
+        if (idiomOrRange!=null) {
+          _interpret_1=this._eisInterpreter.interpret(idiomOrRange);
+        }
+        String _string_1 = null;
+        if (_interpret_1!=null) {
+          _string_1=_interpret_1.toString();
+        }
+        ((BoolConstant) newIdiomOrRange).setValue(_string_1);
+        return this.assignNewIdiom(newVariable, newIdiomOrRange, isRange);
+      }
+    }
+    if (!_matched) {
+      boolean _isIntSuperType = this._defineTypeComputer.isIntSuperType(type);
+      if (_isIntSuperType) {
+        _matched=true;
+        IntConstantImpl _intConstantImpl = new IntConstantImpl();
+        newIdiomOrRange = _intConstantImpl;
+        Object _interpret_2 = null;
+        if (idiomOrRange!=null) {
+          _interpret_2=this._eisInterpreter.interpret(idiomOrRange);
+        }
+        ((IntConstant) newIdiomOrRange).setValue((((Long) _interpret_2)).longValue());
+        return this.assignNewIdiom(newVariable, newIdiomOrRange, isRange);
+      }
+    }
+    if (!_matched) {
+      boolean _isRealType = this._defineTypeComputer.isRealType(type);
+      if (_isRealType) {
+        _matched=true;
+        RealConstantImpl _realConstantImpl = new RealConstantImpl();
+        newIdiomOrRange = _realConstantImpl;
+        Object _interpret_3 = null;
+        if (idiomOrRange!=null) {
+          _interpret_3=this._eisInterpreter.interpret(idiomOrRange);
+        }
+        String _string_2 = null;
+        if (_interpret_3!=null) {
+          _string_2=_interpret_3.toString();
+        }
+        ((RealConstant) newIdiomOrRange).setValue(_string_2);
+        return this.assignNewIdiom(newVariable, newIdiomOrRange, isRange);
+      }
+    }
+    if (!_matched) {
+      boolean _isByteType = this._defineTypeComputer.isByteType(type);
+      if (_isByteType) {
+        _matched=true;
+        ByteConstantImpl _byteConstantImpl = new ByteConstantImpl();
+        newIdiomOrRange = _byteConstantImpl;
+        Object _interpret_4 = null;
+        if (idiomOrRange!=null) {
+          _interpret_4=this._eisInterpreter.interpret(idiomOrRange);
+        }
+        String _string_3 = null;
+        if (_interpret_4!=null) {
+          _string_3=_interpret_4.toString();
+        }
+        ((ByteConstant) newIdiomOrRange).setValue(_string_3);
+        return this.assignNewIdiom(newVariable, newIdiomOrRange, isRange);
+      }
+    }
+    if (!_matched) {
+      boolean _isWordType = this._defineTypeComputer.isWordType(type);
+      if (_isWordType) {
+        _matched=true;
+        WordConstantImpl _wordConstantImpl = new WordConstantImpl();
+        newIdiomOrRange = _wordConstantImpl;
+        Object _interpret_5 = null;
+        if (idiomOrRange!=null) {
+          _interpret_5=this._eisInterpreter.interpret(idiomOrRange);
+        }
+        String _string_4 = null;
+        if (_interpret_5!=null) {
+          _string_4=_interpret_5.toString();
+        }
+        ((WordConstant) newIdiomOrRange).setValue(_string_4);
+        return this.assignNewIdiom(newVariable, newIdiomOrRange, isRange);
+      }
+    }
+    if (!_matched) {
+      boolean _isDWordType = this._defineTypeComputer.isDWordType(type);
+      if (_isDWordType) {
+        _matched=true;
+        DWordConstantImpl _dWordConstantImpl = new DWordConstantImpl();
+        newIdiomOrRange = _dWordConstantImpl;
+        Object _interpret_6 = null;
+        if (idiomOrRange!=null) {
+          _interpret_6=this._eisInterpreter.interpret(idiomOrRange);
+        }
+        String _string_5 = null;
+        if (_interpret_6!=null) {
+          _string_5=_interpret_6.toString();
+        }
+        ((DWordConstant) newIdiomOrRange).setValue(_string_5);
+        return this.assignNewIdiom(newVariable, newIdiomOrRange, isRange);
+      }
+    }
+    if (!_matched) {
+      boolean _isLWordType = this._defineTypeComputer.isLWordType(type);
+      if (_isLWordType) {
+        _matched=true;
+        LWordConstantImpl _lWordConstantImpl = new LWordConstantImpl();
+        newIdiomOrRange = _lWordConstantImpl;
+        Object _interpret_7 = null;
+        if (idiomOrRange!=null) {
+          _interpret_7=this._eisInterpreter.interpret(idiomOrRange);
+        }
+        String _string_6 = null;
+        if (_interpret_7!=null) {
+          _string_6=_interpret_7.toString();
+        }
+        ((LWordConstant) newIdiomOrRange).setValue(_string_6);
+        return this.assignNewIdiom(newVariable, newIdiomOrRange, isRange);
+      }
+    }
+    if (!_matched) {
+      boolean _isCharType = this._defineTypeComputer.isCharType(type);
+      if (_isCharType) {
+        _matched=true;
+        CharConstantImpl _charConstantImpl = new CharConstantImpl();
+        newIdiomOrRange = _charConstantImpl;
+        Object _interpret_8 = null;
+        if (idiomOrRange!=null) {
+          _interpret_8=this._eisInterpreter.interpret(idiomOrRange);
+        }
+        String _string_7 = null;
+        if (_interpret_8!=null) {
+          _string_7=_interpret_8.toString();
+        }
+        ((CharConstant) newIdiomOrRange).setValue(_string_7);
+        return this.assignNewIdiom(newVariable, newIdiomOrRange, isRange);
+      }
+    }
+    if (!_matched) {
+      boolean _isTimeType = this._defineTypeComputer.isTimeType(type);
+      if (_isTimeType) {
+        _matched=true;
+        TimeConstantImpl _timeConstantImpl = new TimeConstantImpl();
+        newIdiomOrRange = _timeConstantImpl;
+        Object _interpret_9 = null;
+        if (idiomOrRange!=null) {
+          _interpret_9=this._eisInterpreter.interpret(idiomOrRange);
+        }
+        String _string_8 = null;
+        if (_interpret_9!=null) {
+          _string_8=_interpret_9.toString();
+        }
+        ((TimeConstant) newIdiomOrRange).setValue(_string_8);
+        return this.assignNewIdiom(newVariable, newIdiomOrRange, isRange);
+      }
+    }
+    if (!_matched) {
+      boolean _isLTimeType = this._defineTypeComputer.isLTimeType(type);
+      if (_isLTimeType) {
+        _matched=true;
+        LTimeConstantImpl _lTimeConstantImpl = new LTimeConstantImpl();
+        newIdiomOrRange = _lTimeConstantImpl;
+        Object _interpret_10 = null;
+        if (idiomOrRange!=null) {
+          _interpret_10=this._eisInterpreter.interpret(idiomOrRange);
+        }
+        String _string_9 = null;
+        if (_interpret_10!=null) {
+          _string_9=_interpret_10.toString();
+        }
+        ((LTimeConstant) newIdiomOrRange).setValue(_string_9);
+        return this.assignNewIdiom(newVariable, newIdiomOrRange, isRange);
+      }
+    }
+    if (!_matched) {
+      boolean _isDateType = this._defineTypeComputer.isDateType(type);
+      if (_isDateType) {
+        _matched=true;
+        DateConstantImpl _dateConstantImpl = new DateConstantImpl();
+        newIdiomOrRange = _dateConstantImpl;
+        Object _interpret_11 = null;
+        if (idiomOrRange!=null) {
+          _interpret_11=this._eisInterpreter.interpret(idiomOrRange);
+        }
+        String _string_10 = null;
+        if (_interpret_11!=null) {
+          _string_10=_interpret_11.toString();
+        }
+        ((DateConstant) newIdiomOrRange).setValue(_string_10);
+        return this.assignNewIdiom(newVariable, newIdiomOrRange, isRange);
+      }
+    }
+    return newVariable;
+  }
+  
+  private VariableImpl assignNewIdiom(final VariableImpl newVariable, final Idiom newIdiomOrRange, final boolean isRange) {
+    if (isRange) {
+      newVariable.setRange(newIdiomOrRange);
+    } else {
+      newVariable.setIdiom(newIdiomOrRange);
+    }
+    return newVariable;
   }
   
   @Check
