@@ -253,4 +253,19 @@ class EisParsingTest {
 			]
 		]
 	}
+
+	@Test def void testEmptyStatement() {
+		var teststep = '''
+			define{
+				input[ char a;]
+				output[]
+			}
+			teststep(0,""){
+				set[ a; ]
+				assert[]
+			}
+		'''
+		(beginning + teststep + ending).parse.assertNoErrors
+
+	}
 }

@@ -389,7 +389,10 @@ public class EisValidator extends AbstractEisValidator {
   
   @Check
   public void checkType(final Variable variable) {
-    Idiom _idiom = variable.getIdiom();
+    Idiom _idiom = null;
+    if (variable!=null) {
+      _idiom=variable.getIdiom();
+    }
     boolean _tripleNotEquals = (_idiom != null);
     if (_tripleNotEquals) {
       final DefineType expectedType = this._defineTypeComputer.typeFor(variable.getVariableType());
@@ -397,16 +400,20 @@ public class EisValidator extends AbstractEisValidator {
       if (variable!=null) {
         _idiom_1=variable.getIdiom();
       }
-      final DefineType actualType = this._defineTypeComputer.typeFor(_idiom_1);
+      DefineType _typeFor = null;
+      if (_idiom_1!=null) {
+        _typeFor=this._defineTypeComputer.typeFor(_idiom_1);
+      }
+      final DefineType actualType = _typeFor;
       Idiom _range = null;
       if (variable!=null) {
         _range=variable.getRange();
       }
-      DefineType _typeFor = null;
+      DefineType _typeFor_1 = null;
       if (_range!=null) {
-        _typeFor=this._defineTypeComputer.typeFor(_range);
+        _typeFor_1=this._defineTypeComputer.typeFor(_range);
       }
-      final DefineType rangeType = _typeFor;
+      final DefineType rangeType = _typeFor_1;
       if (((expectedType == null) || (actualType == null))) {
         return;
       }
@@ -452,16 +459,24 @@ public class EisValidator extends AbstractEisValidator {
       _udtVar=_last.getUdtVar();
     }
     final Variables last = _udtVar;
-    final DefineType actualType = this._defineTypeComputer.typeFor(statement.getIdiom());
+    Idiom _idiom = null;
+    if (statement!=null) {
+      _idiom=statement.getIdiom();
+    }
+    DefineType _typeFor = null;
+    if (_idiom!=null) {
+      _typeFor=this._defineTypeComputer.typeFor(_idiom);
+    }
+    final DefineType actualType = _typeFor;
     Idiom _range = null;
     if (statement!=null) {
       _range=statement.getRange();
     }
-    DefineType _typeFor = null;
+    DefineType _typeFor_1 = null;
     if (_range!=null) {
-      _typeFor=this._defineTypeComputer.typeFor(_range);
+      _typeFor_1=this._defineTypeComputer.typeFor(_range);
     }
-    final DefineType rangeType = _typeFor;
+    final DefineType rangeType = _typeFor_1;
     BasicType expectedType = BasicType.NULL;
     if ((variable instanceof Variable)) {
       expectedType = ((Variable) variable).getVariableType();
@@ -516,7 +531,11 @@ public class EisValidator extends AbstractEisValidator {
   
   @Check
   public void checkNullVariableRefs(final VariableRef varRef) {
-    Idiom _idiom = varRef.getVariable().getIdiom();
+    Variable _variable = varRef.getVariable();
+    Idiom _idiom = null;
+    if (_variable!=null) {
+      _idiom=_variable.getIdiom();
+    }
     boolean _tripleEquals = (_idiom == null);
     if (_tripleEquals) {
       String _name = varRef.getVariable().getName();
@@ -835,7 +854,11 @@ public class EisValidator extends AbstractEisValidator {
     if ((variable instanceof Variable)) {
       expectedType = this._defineTypeComputer.typeFor(((Variable)variable).getVariableType());
       if ((!(idiom instanceof VariableRef))) {
-        final Object idiomValue = this._eisInterpreter.interpret(idiom);
+        Object _interpret = null;
+        if (idiom!=null) {
+          _interpret=this._eisInterpreter.interpret(idiom);
+        }
+        final Object idiomValue = _interpret;
         if ((idiomValue instanceof Long)) {
           boolean _checkNumericalValues = this.checkNumericalValues(((Long) idiomValue).longValue(), expectedType);
           if (_checkNumericalValues) {
@@ -843,25 +866,54 @@ public class EisValidator extends AbstractEisValidator {
               EisPackage.eINSTANCE.getStatement_Idiom(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
           }
         } else {
-          DefineType _typeFor = this._defineTypeComputer.typeFor(idiom);
+          DefineType _typeFor = null;
+          if (idiom!=null) {
+            _typeFor=this._defineTypeComputer.typeFor(idiom);
+          }
           if ((_typeFor instanceof TimeType)) {
             boolean _checkTime = this.checkTime(idiom);
             if (_checkTime) {
               this.error("Value is out of the datatype boundaries.", statement, 
                 EisPackage.eINSTANCE.getStatement_Idiom(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
             }
-            this.checkUnderscoreNotation(this._eisInterpreter.interpret(idiom).toString(), statement, EisPackage.eINSTANCE.getStatement_Idiom());
+            Object _interpret_1 = null;
+            if (idiom!=null) {
+              _interpret_1=this._eisInterpreter.interpret(idiom);
+            }
+            String _string = null;
+            if (_interpret_1!=null) {
+              _string=_interpret_1.toString();
+            }
+            if (_string!=null) {
+              this.checkUnderscoreNotation(_string, statement, EisPackage.eINSTANCE.getStatement_Idiom());
+            }
           } else {
-            DefineType _typeFor_1 = this._defineTypeComputer.typeFor(idiom);
+            DefineType _typeFor_1 = null;
+            if (idiom!=null) {
+              _typeFor_1=this._defineTypeComputer.typeFor(idiom);
+            }
             if ((_typeFor_1 instanceof LTimeType)) {
               boolean _isOutOfLTime = this.isOutOfLTime(idiom);
               if (_isOutOfLTime) {
                 this.error("Value is out of the datatype boundaries.", statement, 
                   EisPackage.eINSTANCE.getStatement_Idiom(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
               }
-              this.checkUnderscoreNotation(this._eisInterpreter.interpret(idiom).toString(), statement, EisPackage.eINSTANCE.getStatement_Idiom());
+              Object _interpret_2 = null;
+              if (idiom!=null) {
+                _interpret_2=this._eisInterpreter.interpret(idiom);
+              }
+              String _string_1 = null;
+              if (_interpret_2!=null) {
+                _string_1=_interpret_2.toString();
+              }
+              if (_string_1!=null) {
+                this.checkUnderscoreNotation(_string_1, statement, EisPackage.eINSTANCE.getStatement_Idiom());
+              }
             } else {
-              DefineType _typeFor_2 = this._defineTypeComputer.typeFor(idiom);
+              DefineType _typeFor_2 = null;
+              if (idiom!=null) {
+                _typeFor_2=this._defineTypeComputer.typeFor(idiom);
+              }
               if ((_typeFor_2 instanceof DateType)) {
                 boolean _checkDate = this.checkDate(idiom, EisPackage.eINSTANCE.getStatement_Idiom());
                 if (_checkDate) {
@@ -911,7 +963,11 @@ public class EisValidator extends AbstractEisValidator {
       if ((last instanceof Variable)) {
         expectedType = this._defineTypeComputer.typeFor(((Variable)last).getVariableType());
         if ((!(idiom instanceof VariableRef))) {
-          final Object idiomValue_1 = this._eisInterpreter.interpret(idiom);
+          Object _interpret_3 = null;
+          if (idiom!=null) {
+            _interpret_3=this._eisInterpreter.interpret(idiom);
+          }
+          final Object idiomValue_1 = _interpret_3;
           if ((idiomValue_1 instanceof Long)) {
             boolean _checkNumericalValues_2 = this.checkNumericalValues(((Long) idiomValue_1).longValue(), expectedType);
             if (_checkNumericalValues_2) {
@@ -919,25 +975,54 @@ public class EisValidator extends AbstractEisValidator {
                 EisPackage.eINSTANCE.getStatement_Idiom(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
             }
           } else {
-            DefineType _typeFor_5 = this._defineTypeComputer.typeFor(idiom);
+            DefineType _typeFor_5 = null;
+            if (idiom!=null) {
+              _typeFor_5=this._defineTypeComputer.typeFor(idiom);
+            }
             if ((_typeFor_5 instanceof TimeType)) {
               boolean _checkTime_2 = this.checkTime(idiom);
               if (_checkTime_2) {
                 this.error("Value is out of the datatype boundaries.", statement, 
                   EisPackage.eINSTANCE.getStatement_Idiom(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
               }
-              this.checkUnderscoreNotation(this._eisInterpreter.interpret(idiom).toString(), statement, EisPackage.eINSTANCE.getStatement_Idiom());
+              Object _interpret_4 = null;
+              if (idiom!=null) {
+                _interpret_4=this._eisInterpreter.interpret(idiom);
+              }
+              String _string_2 = null;
+              if (_interpret_4!=null) {
+                _string_2=_interpret_4.toString();
+              }
+              if (_string_2!=null) {
+                this.checkUnderscoreNotation(_string_2, statement, EisPackage.eINSTANCE.getStatement_Idiom());
+              }
             } else {
-              DefineType _typeFor_6 = this._defineTypeComputer.typeFor(idiom);
+              DefineType _typeFor_6 = null;
+              if (idiom!=null) {
+                _typeFor_6=this._defineTypeComputer.typeFor(idiom);
+              }
               if ((_typeFor_6 instanceof LTimeType)) {
                 boolean _isOutOfLTime_2 = this.isOutOfLTime(idiom);
                 if (_isOutOfLTime_2) {
                   this.error("Value is out of the datatype boundaries.", statement, 
                     EisPackage.eINSTANCE.getStatement_Idiom(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
                 }
-                this.checkUnderscoreNotation(this._eisInterpreter.interpret(idiom).toString(), statement, EisPackage.eINSTANCE.getStatement_Idiom());
+                Object _interpret_5 = null;
+                if (idiom!=null) {
+                  _interpret_5=this._eisInterpreter.interpret(idiom);
+                }
+                String _string_3 = null;
+                if (_interpret_5!=null) {
+                  _string_3=_interpret_5.toString();
+                }
+                if (_string_3!=null) {
+                  this.checkUnderscoreNotation(_string_3, statement, EisPackage.eINSTANCE.getStatement_Idiom());
+                }
               } else {
-                DefineType _typeFor_7 = this._defineTypeComputer.typeFor(idiom);
+                DefineType _typeFor_7 = null;
+                if (idiom!=null) {
+                  _typeFor_7=this._defineTypeComputer.typeFor(idiom);
+                }
                 if ((_typeFor_7 instanceof DateType)) {
                   boolean _checkDate_1 = this.checkDate(idiom, EisPackage.eINSTANCE.getStatement_Idiom());
                   if (_checkDate_1) {
@@ -1907,24 +1992,35 @@ public class EisValidator extends AbstractEisValidator {
     newVariable.setVariableType(variable.getVariableType());
     newVariable.setVariantKeyword(variable.isVariantKeyword());
     newVariable.setNextVariable(variable.isNextVariable());
-    if (((variable.getIdiom() instanceof VariableRef) || (variable.getRange() instanceof VariableRef))) {
+    boolean _or = false;
+    Idiom _idiom = null;
+    if (variable!=null) {
+      _idiom=variable.getIdiom();
+    }
+    if ((_idiom instanceof VariableRef)) {
+      _or = true;
+    } else {
+      Idiom _range = variable.getRange();
+      _or = (_range instanceof VariableRef);
+    }
+    if (_or) {
       this.error("This reference cannot be made because a variable contains other references ", 
         EisPackage.eINSTANCE.getUdtRef_UdtType(), EisValidator.RECURSIVE_VARIABLE_REFERENCE);
     } else {
       final DefineType type = this._defineTypeComputer.typeFor(newVariable.getVariableType());
-      Idiom _idiom = null;
+      Idiom _idiom_1 = null;
       if (variable!=null) {
-        _idiom=variable.getIdiom();
+        _idiom_1=variable.getIdiom();
       }
-      boolean _tripleNotEquals = (_idiom != null);
+      boolean _tripleNotEquals = (_idiom_1 != null);
       if (_tripleNotEquals) {
         newVariable = this.newIdiom(type, variable.getIdiom(), newVariable, false);
       }
-      Idiom _range = null;
+      Idiom _range_1 = null;
       if (variable!=null) {
-        _range=variable.getRange();
+        _range_1=variable.getRange();
       }
-      boolean _tripleNotEquals_1 = (_range != null);
+      boolean _tripleNotEquals_1 = (_range_1 != null);
       if (_tripleNotEquals_1) {
         newVariable = this.newIdiom(type, variable.getRange(), newVariable, true);
       }
@@ -1966,7 +2062,11 @@ public class EisValidator extends AbstractEisValidator {
   }
   
   private VariableImpl newIdiom(final DefineType type, final Idiom idiomOrRange, final VariableImpl newVariable, final boolean isRange) {
-    Idiom newIdiomOrRange = newVariable.getIdiom();
+    Idiom _idiom = null;
+    if (newVariable!=null) {
+      _idiom=newVariable.getIdiom();
+    }
+    Idiom newIdiomOrRange = _idiom;
     if (isRange) {
       newIdiomOrRange = newVariable.getRange();
     }

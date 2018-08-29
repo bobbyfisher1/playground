@@ -64,7 +64,7 @@ public class UdtImpl extends VariablesImpl implements Udt
    * <!-- end-user-doc -->
    * @generated
    */
-  public  UdtImpl()
+  public UdtImpl()
   {
     super();
   }

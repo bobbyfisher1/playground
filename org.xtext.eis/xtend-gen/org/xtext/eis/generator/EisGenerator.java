@@ -805,7 +805,7 @@ public class EisGenerator extends AbstractGenerator {
         if (_not) {
           boolean _containsKey = setMap.containsKey(name);
           if (_containsKey) {
-            setMap.replace(name, this._eisInterpreter.interpret(e.getIdiom()).toString());
+            setMap.replace(name, this.checkIfIdiomNull(e));
           }
         }
       }
@@ -847,10 +847,136 @@ public class EisGenerator extends AbstractGenerator {
           newUdt.getUdtVariables().add(this.generateUdtVariables(e.getCascade()));
           inoutsInSet.add(newUdt);
         }
-        setMap.put(this.buildName(e), this._eisInterpreter.interpret(e.getIdiom()).toString());
+        setMap.put(this.buildName(e), this.checkIfIdiomNull(e));
       }
     }
     return inoutsInSet;
+  }
+  
+  private String checkIfIdiomNull(final Statement e) {
+    Idiom _idiom = null;
+    if (e!=null) {
+      _idiom=e.getIdiom();
+    }
+    Object _interpret = null;
+    if (_idiom!=null) {
+      _interpret=this._eisInterpreter.interpret(_idiom);
+    }
+    String _string = null;
+    if (_interpret!=null) {
+      _string=_interpret.toString();
+    }
+    String idiom = _string;
+    if ((idiom == null)) {
+      boolean _isEmpty = e.getCascade().isEmpty();
+      if (_isEmpty) {
+        String _elvis = null;
+        Variables _variable = e.getVariable();
+        Idiom _idiom_1 = null;
+        if (((Variable) _variable)!=null) {
+          _idiom_1=((Variable) _variable).getIdiom();
+        }
+        Object _interpret_1 = null;
+        if (_idiom_1!=null) {
+          _interpret_1=this._eisInterpreter.interpret(_idiom_1);
+        }
+        String _string_1 = null;
+        if (_interpret_1!=null) {
+          _string_1=_interpret_1.toString();
+        }
+        if (_string_1 != null) {
+          _elvis = _string_1;
+        } else {
+          _elvis = "";
+        }
+        idiom = _elvis;
+      } else {
+        String _elvis_1 = null;
+        Variables _udtVar = IterableExtensions.<Cascade>last(e.getCascade()).getUdtVar();
+        Idiom _idiom_2 = null;
+        if (((Variable) _udtVar)!=null) {
+          _idiom_2=((Variable) _udtVar).getIdiom();
+        }
+        Object _interpret_2 = null;
+        if (_idiom_2!=null) {
+          _interpret_2=this._eisInterpreter.interpret(_idiom_2);
+        }
+        String _string_2 = null;
+        if (_interpret_2!=null) {
+          _string_2=_interpret_2.toString();
+        }
+        if (_string_2 != null) {
+          _elvis_1 = _string_2;
+        } else {
+          _elvis_1 = "";
+        }
+        idiom = _elvis_1;
+      }
+    }
+    return idiom;
+  }
+  
+  private String checkIfRangeNull(final Statement e) {
+    Idiom _range = null;
+    if (e!=null) {
+      _range=e.getRange();
+    }
+    Object _interpret = null;
+    if (_range!=null) {
+      _interpret=this._eisInterpreter.interpret(_range);
+    }
+    String _string = null;
+    if (_interpret!=null) {
+      _string=_interpret.toString();
+    }
+    String range = _string;
+    if ((range == null)) {
+      boolean _isEmpty = e.getCascade().isEmpty();
+      if (_isEmpty) {
+        String _elvis = null;
+        Variables _variable = e.getVariable();
+        Idiom _range_1 = null;
+        if (((Variable) _variable)!=null) {
+          _range_1=((Variable) _variable).getRange();
+        }
+        Object _interpret_1 = null;
+        if (_range_1!=null) {
+          _interpret_1=this._eisInterpreter.interpret(_range_1);
+        }
+        String _string_1 = null;
+        if (_interpret_1!=null) {
+          _string_1=_interpret_1.toString();
+        }
+        if (_string_1 != null) {
+          _elvis = _string_1;
+        } else {
+          _elvis = "";
+        }
+        range = _elvis;
+      } else {
+        String _elvis_1 = null;
+        Variables _udtVar = IterableExtensions.<Cascade>last(e.getCascade()).getUdtVar();
+        Idiom _range_2 = null;
+        if (((Variable) _udtVar)!=null) {
+          _range_2=((Variable) _udtVar).getRange();
+        }
+        Object _interpret_2 = null;
+        if (_range_2!=null) {
+          _interpret_2=this._eisInterpreter.interpret(_range_2);
+        }
+        String _string_2 = null;
+        if (_interpret_2!=null) {
+          _string_2=_interpret_2.toString();
+        }
+        if (_string_2 != null) {
+          _elvis_1 = _string_2;
+        } else {
+          _elvis_1 = "";
+        }
+        range = _elvis_1;
+      }
+    }
+    return range;
   }
   
   private List<Variables> addInoutsInAssert(final HashMap<Object, Object> assertIdiomMap, final HashMap<Object, Object> assertRangeMap, final TeststepBlock teststep) {
@@ -888,87 +1014,8 @@ public class EisGenerator extends AbstractGenerator {
           newUdt.getUdtVariables().add(this.generateUdtVariables(e.getCascade()));
           inoutsInAssert.add(newUdt);
         }
-        assertIdiomMap.put(this.buildName(e), this._eisInterpreter.interpret(e.getIdiom()).toString());
-        String range = "";
-        Idiom _range = null;
-        if (e!=null) {
-          _range=e.getRange();
-        }
-        Object _interpret = null;
-        if (_range!=null) {
-          _interpret=this._eisInterpreter.interpret(_range);
-        }
-        String _string = null;
-        if (_interpret!=null) {
-          _string=_interpret.toString();
-        }
-        boolean _tripleEquals = (_string == null);
-        if (_tripleEquals) {
-          boolean _isEmpty_1 = e.getCascade().isEmpty();
-          if (_isEmpty_1) {
-            String _elvis = null;
-            Variables _variable_6 = e.getVariable();
-            Idiom _range_1 = null;
-            if (((Variable) _variable_6)!=null) {
-              _range_1=((Variable) _variable_6).getRange();
-            }
-            Object _interpret_1 = null;
-            if (_range_1!=null) {
-              _interpret_1=this._eisInterpreter.interpret(_range_1);
-            }
-            String _string_1 = null;
-            if (_interpret_1!=null) {
-              _string_1=_interpret_1.toString();
-            }
-            if (_string_1 != null) {
-              _elvis = _string_1;
-            } else {
-              _elvis = "";
-            }
-            range = _elvis;
-          } else {
-            String _elvis_1 = null;
-            Variables _udtVar = IterableExtensions.<Cascade>last(e.getCascade()).getUdtVar();
-            Idiom _range_2 = null;
-            if (((Variable) _udtVar)!=null) {
-              _range_2=((Variable) _udtVar).getRange();
-            }
-            Object _interpret_2 = null;
-            if (_range_2!=null) {
-              _interpret_2=this._eisInterpreter.interpret(_range_2);
-            }
-            String _string_2 = null;
-            if (_interpret_2!=null) {
-              _string_2=_interpret_2.toString();
-            }
-            if (_string_2 != null) {
-              _elvis_1 = _string_2;
-            } else {
-              _elvis_1 = "";
-            }
-            range = _elvis_1;
-          }
-        }
-        String _buildName = this.buildName(e);
-        String _elvis_2 = null;
-        Idiom _range_3 = null;
-        if (e!=null) {
-          _range_3=e.getRange();
-        }
-        Object _interpret_3 = null;
-        if (_range_3!=null) {
-          _interpret_3=this._eisInterpreter.interpret(_range_3);
-        }
-        String _string_3 = null;
-        if (_interpret_3!=null) {
-          _string_3=_interpret_3.toString();
-        }
-        if (_string_3 != null) {
-          _elvis_2 = _string_3;
-        } else {
-          _elvis_2 = range;
-        }
-        assertRangeMap.put(_buildName, _elvis_2);
+        assertIdiomMap.put(this.buildName(e), this.checkIfIdiomNull(e));
+        assertRangeMap.put(this.buildName(e), this.checkIfRangeNull(e));
       }
     }
     return inoutsInAssert;
@@ -1019,7 +1066,7 @@ public class EisGenerator extends AbstractGenerator {
         if (_not) {
           boolean _containsKey = idiomMap.containsKey(name);
           if (_containsKey) {
-            idiomMap.replace(name, this._eisInterpreter.interpret(e.getIdiom()).toString());
+            idiomMap.replace(name, this.checkIfIdiomNull(e));
           }
         }
       }
@@ -1059,7 +1106,7 @@ public class EisGenerator extends AbstractGenerator {
           if (_not) {
             boolean _containsKey = rangeMap.containsKey(name);
             if (_containsKey) {
-              rangeMap.replace(name, this._eisInterpreter.interpret(e.getRange()).toString());
+              rangeMap.replace(name, this.checkIfRangeNull(e));
             }
           }
         }

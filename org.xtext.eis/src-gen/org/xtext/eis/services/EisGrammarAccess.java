@@ -875,20 +875,21 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cVariableVariablesIDTerminalRuleCall_0_0_1 = (RuleCall)cVariableVariablesCrossReference_0_0.eContents().get(1);
 		private final Assignment cCascadeAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cCascadeCascadeParserRuleCall_1_0 = (RuleCall)cCascadeAssignment_1.eContents().get(0);
-		private final Keyword cEqualsSignKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cIdiomAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cIdiomIdiomParserRuleCall_3_0 = (RuleCall)cIdiomAssignment_3.eContents().get(0);
-		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final Keyword cPlusSignSolidusHyphenMinusKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Assignment cRangeAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final RuleCall cRangeIdiomParserRuleCall_4_1_0 = (RuleCall)cRangeAssignment_4_1.eContents().get(0);
-		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Keyword cEqualsSignKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final Assignment cIdiomAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
+		private final RuleCall cIdiomIdiomParserRuleCall_2_1_0 = (RuleCall)cIdiomAssignment_2_1.eContents().get(0);
+		private final Group cGroup_2_2 = (Group)cGroup_2.eContents().get(2);
+		private final Keyword cPlusSignSolidusHyphenMinusKeyword_2_2_0 = (Keyword)cGroup_2_2.eContents().get(0);
+		private final Assignment cRangeAssignment_2_2_1 = (Assignment)cGroup_2_2.eContents().get(1);
+		private final RuleCall cRangeIdiomParserRuleCall_2_2_1_0 = (RuleCall)cRangeAssignment_2_2_1.eContents().get(0);
+		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//Statement:
-		//	variable=[Variables] cascade+=Cascade* '=' idiom=Idiom ('+/-' range=Idiom)? ';';
+		//	variable=[Variables] cascade+=Cascade* ('=' idiom=Idiom ('+/-' range=Idiom)?)? ';';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//variable=[Variables] cascade+=Cascade* '=' idiom=Idiom ('+/-' range=Idiom)? ';'
+		//variable=[Variables] cascade+=Cascade* ('=' idiom=Idiom ('+/-' range=Idiom)?)? ';'
 		public Group getGroup() { return cGroup; }
 		
 		//variable=[Variables]
@@ -906,29 +907,32 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		//Cascade
 		public RuleCall getCascadeCascadeParserRuleCall_1_0() { return cCascadeCascadeParserRuleCall_1_0; }
 		
+		//('=' idiom=Idiom ('+/-' range=Idiom)?)?
+		public Group getGroup_2() { return cGroup_2; }
+		
 		//'='
-		public Keyword getEqualsSignKeyword_2() { return cEqualsSignKeyword_2; }
+		public Keyword getEqualsSignKeyword_2_0() { return cEqualsSignKeyword_2_0; }
 		
 		//idiom=Idiom
-		public Assignment getIdiomAssignment_3() { return cIdiomAssignment_3; }
+		public Assignment getIdiomAssignment_2_1() { return cIdiomAssignment_2_1; }
 		
 		//Idiom
-		public RuleCall getIdiomIdiomParserRuleCall_3_0() { return cIdiomIdiomParserRuleCall_3_0; }
+		public RuleCall getIdiomIdiomParserRuleCall_2_1_0() { return cIdiomIdiomParserRuleCall_2_1_0; }
 		
 		//('+/-' range=Idiom)?
-		public Group getGroup_4() { return cGroup_4; }
+		public Group getGroup_2_2() { return cGroup_2_2; }
 		
 		//'+/-'
-		public Keyword getPlusSignSolidusHyphenMinusKeyword_4_0() { return cPlusSignSolidusHyphenMinusKeyword_4_0; }
+		public Keyword getPlusSignSolidusHyphenMinusKeyword_2_2_0() { return cPlusSignSolidusHyphenMinusKeyword_2_2_0; }
 		
 		//range=Idiom
-		public Assignment getRangeAssignment_4_1() { return cRangeAssignment_4_1; }
+		public Assignment getRangeAssignment_2_2_1() { return cRangeAssignment_2_2_1; }
 		
 		//Idiom
-		public RuleCall getRangeIdiomParserRuleCall_4_1_0() { return cRangeIdiomParserRuleCall_4_1_0; }
+		public RuleCall getRangeIdiomParserRuleCall_2_2_1_0() { return cRangeIdiomParserRuleCall_2_2_1_0; }
 		
 		//';'
-		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
+		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
 	}
 	public class CascadeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.eis.Eis.Cascade");
@@ -2097,7 +2101,7 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Statement:
-	//	variable=[Variables] cascade+=Cascade* '=' idiom=Idiom ('+/-' range=Idiom)? ';';
+	//	variable=[Variables] cascade+=Cascade* ('=' idiom=Idiom ('+/-' range=Idiom)?)? ';';
 	public StatementElements getStatementAccess() {
 		return pStatement;
 	}

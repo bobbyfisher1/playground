@@ -313,9 +313,9 @@ class EisValidator extends AbstractEisValidator {
 	}
 
 	@Check def void checkType(Variable variable) {
-		if (variable.idiom !== null) {
+		if (variable?.idiom !== null) {
 			val expectedType = variable.variableType.typeFor
-			val actualType = variable?.idiom.typeFor
+			val actualType = variable?.idiom?.typeFor
 			val rangeType = variable?.range?.typeFor
 
 			if (expectedType === null || actualType === null)
@@ -341,7 +341,7 @@ class EisValidator extends AbstractEisValidator {
 		val variable = statement.variable
 		val last = cascade?.last?.udtVar
 
-		val actualType = statement.idiom.typeFor
+		val actualType = statement?.idiom?.typeFor
 		val rangeType = statement?.range?.typeFor
 		var expectedType = BasicType.NULL
 
@@ -384,7 +384,7 @@ class EisValidator extends AbstractEisValidator {
 	}
 
 	@Check def void checkNullVariableRefs(VariableRef varRef) {
-		if (varRef.variable.idiom === null)
+		if (varRef.variable?.idiom === null)
 			error("Referred variable '" + varRef.variable.name + "' is null.", varRef,
 				EisPackage.eINSTANCE.variableRef_Variable, NULL_REFERENCE)
 	}
@@ -598,22 +598,22 @@ class EisValidator extends AbstractEisValidator {
 			expectedType = variable.variableType.typeFor
 
 			if (!(idiom instanceof VariableRef)) {
-				val idiomValue = idiom.interpret
+				val idiomValue = idiom?.interpret
 				if (idiomValue instanceof Long) {
 					if (idiomValue.checkNumericalValues(expectedType))
 						error("Value is out of the datatype boundaries.", statement,
 							EisPackage.eINSTANCE.statement_Idiom, VALUE_EXCEEDING_DATATYPE_BOUNDS)
-				} else if (idiom.typeFor instanceof TimeType) {
+				} else if (idiom?.typeFor instanceof TimeType) {
 					if (idiom.checkTime)
 						error("Value is out of the datatype boundaries.", statement,
 							EisPackage.eINSTANCE.statement_Idiom, VALUE_EXCEEDING_DATATYPE_BOUNDS)
-					idiom.interpret.toString.checkUnderscoreNotation(statement, EisPackage.eINSTANCE.statement_Idiom)
-				} else if (idiom.typeFor instanceof LTimeType) {
+					idiom?.interpret?.toString?.checkUnderscoreNotation(statement, EisPackage.eINSTANCE.statement_Idiom)
+				} else if (idiom?.typeFor instanceof LTimeType) {
 					if (idiom.isOutOfLTime)
 						error("Value is out of the datatype boundaries.", statement,
 							EisPackage.eINSTANCE.statement_Idiom, VALUE_EXCEEDING_DATATYPE_BOUNDS)
-					idiom.interpret.toString.checkUnderscoreNotation(statement, EisPackage.eINSTANCE.statement_Idiom)
-				} else if (idiom.typeFor instanceof DateType) {
+					idiom?.interpret?.toString?.checkUnderscoreNotation(statement, EisPackage.eINSTANCE.statement_Idiom)
+				} else if (idiom?.typeFor instanceof DateType) {
 					if (idiom.checkDate(EisPackage.eINSTANCE.statement_Idiom))
 						error("Value is out of the datatype boundaries.", statement,
 							EisPackage.eINSTANCE.statement_Idiom, VALUE_EXCEEDING_DATATYPE_BOUNDS)
@@ -644,22 +644,22 @@ class EisValidator extends AbstractEisValidator {
 			expectedType = last.variableType.typeFor
 
 			if (!(idiom instanceof VariableRef)) {
-				val idiomValue = idiom.interpret
+				val idiomValue = idiom?.interpret
 				if (idiomValue instanceof Long) {
 					if (idiomValue.checkNumericalValues(expectedType))
 						error("Value is out of the datatype boundaries.", statement,
 							EisPackage.eINSTANCE.statement_Idiom, VALUE_EXCEEDING_DATATYPE_BOUNDS)
-				} else if (idiom.typeFor instanceof TimeType) {
+				} else if (idiom?.typeFor instanceof TimeType) {
 					if (idiom.checkTime)
 						error("Value is out of the datatype boundaries.", statement,
 							EisPackage.eINSTANCE.statement_Idiom, VALUE_EXCEEDING_DATATYPE_BOUNDS)
-					idiom.interpret.toString.checkUnderscoreNotation(statement, EisPackage.eINSTANCE.statement_Idiom)
-				} else if (idiom.typeFor instanceof LTimeType) {
+					idiom?.interpret?.toString?.checkUnderscoreNotation(statement, EisPackage.eINSTANCE.statement_Idiom)
+				} else if (idiom?.typeFor instanceof LTimeType) {
 					if (idiom.isOutOfLTime)
 						error("Value is out of the datatype boundaries.", statement,
 							EisPackage.eINSTANCE.statement_Idiom, VALUE_EXCEEDING_DATATYPE_BOUNDS)
-					idiom.interpret.toString.checkUnderscoreNotation(statement, EisPackage.eINSTANCE.statement_Idiom)
-				} else if (idiom.typeFor instanceof DateType) {
+					idiom?.interpret?.toString?.checkUnderscoreNotation(statement, EisPackage.eINSTANCE.statement_Idiom)
+				} else if (idiom?.typeFor instanceof DateType) {
 					if (idiom.checkDate(EisPackage.eINSTANCE.statement_Idiom))
 						error("Value is out of the datatype boundaries.", statement,
 							EisPackage.eINSTANCE.statement_Idiom, VALUE_EXCEEDING_DATATYPE_BOUNDS)
@@ -1297,7 +1297,7 @@ class EisValidator extends AbstractEisValidator {
 		newVariable.variantKeyword = variable.isVariantKeyword
 		newVariable.nextVariable = variable.isNextVariable
 
-		if ((variable.idiom instanceof VariableRef) || (variable.range instanceof VariableRef))
+		if ((variable?.idiom instanceof VariableRef) || (variable.range instanceof VariableRef))
 			error("This reference cannot be made because a variable contains other references ", // udtRef,
 			EisPackage.eINSTANCE.udtRef_UdtType, RECURSIVE_VARIABLE_REFERENCE)
 		else {
@@ -1343,7 +1343,7 @@ class EisValidator extends AbstractEisValidator {
 	}
 
 	def private VariableImpl newIdiom(DefineType type, Idiom idiomOrRange, VariableImpl newVariable, boolean isRange) {
-		var newIdiomOrRange = newVariable.idiom
+		var newIdiomOrRange = newVariable?.idiom
 		if (isRange)
 			newIdiomOrRange = newVariable.range
 

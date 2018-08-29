@@ -77,7 +77,7 @@ Assert:
 	name='assert' '[' assertVariables+=Statement* ']';
 
 Statement:
-	variable=[Variables] cascade+=Cascade* '=' idiom=Idiom ('+/-' range=Idiom)? ';';
+	variable=[Variables] cascade+=Cascade* ('=' idiom=Idiom ('+/-' range=Idiom)?)? ';';
 
 Cascade:
 	'.' udtVar=[Variables];

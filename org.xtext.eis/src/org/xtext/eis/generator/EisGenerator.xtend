@@ -345,7 +345,7 @@ class EisGenerator extends AbstractGenerator {
 			
 			if(!(e.variable.eContainer.directionBlock == "InOut"))		
 				 if(setMap.containsKey(name))
-					setMap.replace(name,e.idiom.interpret.toString	)
+					setMap.replace(name, e.checkIfIdiomNull	)
 		}
 	}
 	
@@ -373,11 +373,37 @@ class EisGenerator extends AbstractGenerator {
 					newUdt.udtType = newUdtType					
 					newUdt.udtVariables.add(generateUdtVariables(e.cascade))
 					inoutsInSet.add(newUdt)					
-				}				
-				setMap.put(buildName(e), e.idiom.interpret.toString)					
+				}							
+				setMap.put(buildName(e), e.checkIfIdiomNull)											
 			}
 		}
 		return inoutsInSet
+	}
+	
+	def private String checkIfIdiomNull(Statement e){
+		var idiom = e?.idiom?.interpret?.toString 
+				
+		if( idiom === null){
+			if(e.cascade.empty){
+				idiom = (e.variable as Variable)?.idiom?.interpret?.toString ?: ""
+			} else {						
+				idiom = (e.cascade.last.udtVar as Variable)?.idiom?.interpret?.toString ?: ""
+			}
+		}				
+		 return idiom
+	}
+	
+	def private String checkIfRangeNull(Statement e){
+		var range = e?.range?.interpret?.toString
+				
+		if(range === null){
+			if(e.cascade.empty){
+				range = (e.variable as Variable)?.range?.interpret?.toString ?: ""
+			} else {						
+				range = (e.cascade.last.udtVar as Variable)?.range?.interpret?.toString ?: ""
+			}
+		}				
+		 return range
 	}
 	
 	def private List<Variables> addInoutsInAssert(HashMap<Object, Object> assertIdiomMap, HashMap<Object, Object> assertRangeMap, TeststepBlock teststep) {
@@ -405,18 +431,8 @@ class EisGenerator extends AbstractGenerator {
 					newUdt.udtVariables.add(generateUdtVariables(e.cascade))
 					inoutsInAssert.add(newUdt)
 				}
-				assertIdiomMap.put(buildName(e), e.idiom.interpret.toString)
-				
-				var range = ""
-				
-				if(e?.range?.interpret?.toString === null)
-					if(e.cascade.empty){
-						range = (e.variable as Variable)?.range?.interpret?.toString ?: ""
-					} else {						
-						range = (e.cascade.last.udtVar as Variable)?.range?.interpret?.toString ?: ""
-					}
-				
-				assertRangeMap.put(buildName(e), e?.range?.interpret?.toString ?: range)					
+				assertIdiomMap.put(buildName(e), e.checkIfIdiomNull)				
+				assertRangeMap.put(buildName(e), e.checkIfRangeNull)					
 			}
 		}
 		return inoutsInAssert
@@ -453,7 +469,7 @@ class EisGenerator extends AbstractGenerator {
 
 			if(!(e.variable.eContainer.directionBlock == "InOut"))
 			 	if(idiomMap.containsKey(name))
-					idiomMap.replace(name,e.idiom.interpret.toString)
+					idiomMap.replace(name,e.checkIfIdiomNull)
 		}
 	}
 	
@@ -476,7 +492,7 @@ class EisGenerator extends AbstractGenerator {
 			if(e?.range !== null){			
 				if(!(e.variable.eContainer instanceof InOut))
 			 		if(rangeMap.containsKey(name))
-						rangeMap.replace(name,e.range.interpret.toString)				
+						rangeMap.replace(name, e.checkIfRangeNull)				
 			}  
 //			else if(e.variable.directionBlock === "InOut"){ // range is not defined in statement but does it have a default value?
 //				if(e.cascade.empty) {

@@ -2139,4 +2139,120 @@ class EisGeneratorTest {
 			)
 		]
 	}
+
+	@Test def void testEmptyStatement() {
+		var ref = '''	
+		define{
+			input[ int a = 40; ]
+			output[]
+		}
+		teststep(1, ""){
+			set[a;]
+			assert[]
+		}'''
+
+		(beginning + ref + ending) => [
+			parse.assertNoErrors
+			assertCompilesTo(
+				'''
+					<?xml version="1.0" encoding="utf-8"?>
+					<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+						<TiaProjectName>project</TiaProjectName>
+						<PlcName>plcname</PlcName>
+						<Author>author</Author>
+						<TestCases>
+							<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
+								<Teststeps>
+									<Teststep PlcCycle ="1" Description="">
+										<Inputs>
+											<Element xsi:type="Input" Name="a" Datatype="Int" Direction="Input" Value="40" />
+										</Inputs>
+										<Outputs>
+										</Outputs>
+									</Teststep>
+								</Teststeps>
+							</TestCase>
+						</TestCases>
+					</TestFixture>
+				'''
+			)
+		]
+
+		ref = '''	
+			define{
+				input[]
+				output[ int a = 30 +/- 9;]
+			}
+			teststep(1, ""){
+				set[]
+				assert[ a = 8 ; ]
+			}		
+		'''
+
+		(beginning + ref + ending) => [
+			parse.assertNoErrors
+			assertCompilesTo(
+				'''
+					<?xml version="1.0" encoding="utf-8"?>
+					<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+						<TiaProjectName>project</TiaProjectName>
+						<PlcName>plcname</PlcName>
+						<Author>author</Author>
+						<TestCases>
+							<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
+								<Teststeps>
+									<Teststep PlcCycle ="1" Description="">
+										<Inputs>
+										</Inputs>
+										<Outputs>
+											<Element xsi:type="Output" Name="a" Datatype="Int" Direction="Output" Expect="8" Range="9" />
+										</Outputs>
+									</Teststep>
+								</Teststeps>
+							</TestCase>
+						</TestCases>
+					</TestFixture>
+				'''
+			)
+		]
+
+		ref = '''	
+			define{
+				input[]
+				output[]
+				inout[ int a = 94 +/- 3;]
+			}
+			teststep(1, ""){
+				set[]
+				assert[a;]
+			}
+		'''
+
+		(beginning + ref + ending) => [
+			parse.assertNoErrors
+			assertCompilesTo(
+				'''
+					<?xml version="1.0" encoding="utf-8"?>
+					<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+						<TiaProjectName>project</TiaProjectName>
+						<PlcName>plcname</PlcName>
+						<Author>author</Author>
+						<TestCases>
+							<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
+								<Teststeps>
+									<Teststep PlcCycle ="1" Description="">
+										<Inputs>
+										</Inputs>
+										<Outputs>
+											<Element xsi:type="Output" Name="a" Datatype="Int" Direction="InOut" Expect="94" Range="3" />
+										</Outputs>
+									</Teststep>
+								</Teststeps>
+							</TestCase>
+						</TestCases>
+					</TestFixture>
+				'''
+			)
+		]
+	}
 }

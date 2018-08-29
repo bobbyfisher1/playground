@@ -59,7 +59,8 @@ public class EisParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getSetAccess().getGroup(), "rule__Set__Group__0");
 			builder.put(grammarAccess.getAssertAccess().getGroup(), "rule__Assert__Group__0");
 			builder.put(grammarAccess.getStatementAccess().getGroup(), "rule__Statement__Group__0");
-			builder.put(grammarAccess.getStatementAccess().getGroup_4(), "rule__Statement__Group_4__0");
+			builder.put(grammarAccess.getStatementAccess().getGroup_2(), "rule__Statement__Group_2__0");
+			builder.put(grammarAccess.getStatementAccess().getGroup_2_2(), "rule__Statement__Group_2_2__0");
 			builder.put(grammarAccess.getCascadeAccess().getGroup(), "rule__Cascade__Group__0");
 			builder.put(grammarAccess.getOrAccess().getGroup(), "rule__Or__Group__0");
 			builder.put(grammarAccess.getOrAccess().getGroup_1(), "rule__Or__Group_1__0");
@@ -137,8 +138,8 @@ public class EisParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getAssertAccess().getAssertVariablesAssignment_2(), "rule__Assert__AssertVariablesAssignment_2");
 			builder.put(grammarAccess.getStatementAccess().getVariableAssignment_0(), "rule__Statement__VariableAssignment_0");
 			builder.put(grammarAccess.getStatementAccess().getCascadeAssignment_1(), "rule__Statement__CascadeAssignment_1");
-			builder.put(grammarAccess.getStatementAccess().getIdiomAssignment_3(), "rule__Statement__IdiomAssignment_3");
-			builder.put(grammarAccess.getStatementAccess().getRangeAssignment_4_1(), "rule__Statement__RangeAssignment_4_1");
+			builder.put(grammarAccess.getStatementAccess().getIdiomAssignment_2_1(), "rule__Statement__IdiomAssignment_2_1");
+			builder.put(grammarAccess.getStatementAccess().getRangeAssignment_2_2_1(), "rule__Statement__RangeAssignment_2_2_1");
 			builder.put(grammarAccess.getCascadeAccess().getUdtVarAssignment_1(), "rule__Cascade__UdtVarAssignment_1");
 			builder.put(grammarAccess.getOrAccess().getRightAssignment_1_2(), "rule__Or__RightAssignment_1_2");
 			builder.put(grammarAccess.getAndAccess().getRightAssignment_1_2(), "rule__And__RightAssignment_1_2");
