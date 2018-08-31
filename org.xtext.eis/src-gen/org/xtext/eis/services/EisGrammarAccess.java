@@ -33,30 +33,30 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cProjectKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Keyword cEqualsSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cProject_nameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cProject_nameSTRINGTerminalRuleCall_2_0 = (RuleCall)cProject_nameAssignment_2.eContents().get(0);
+		private final Assignment cProjectNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cProjectNameSTRINGTerminalRuleCall_2_0 = (RuleCall)cProjectNameAssignment_2.eContents().get(0);
 		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Keyword cPlcnameKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final Keyword cEqualsSignKeyword_5 = (Keyword)cGroup.eContents().get(5);
-		private final Assignment cPlc_nameAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final RuleCall cPlc_nameSTRINGTerminalRuleCall_6_0 = (RuleCall)cPlc_nameAssignment_6.eContents().get(0);
+		private final Assignment cPlcNameAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cPlcNameSTRINGTerminalRuleCall_6_0 = (RuleCall)cPlcNameAssignment_6.eContents().get(0);
 		private final Keyword cSemicolonKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		private final Keyword cAuthorKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		private final Keyword cEqualsSignKeyword_9 = (Keyword)cGroup.eContents().get(9);
-		private final Assignment cAuthor_nameAssignment_10 = (Assignment)cGroup.eContents().get(10);
-		private final RuleCall cAuthor_nameSTRINGTerminalRuleCall_10_0 = (RuleCall)cAuthor_nameAssignment_10.eContents().get(0);
+		private final Assignment cAuthorNameAssignment_10 = (Assignment)cGroup.eContents().get(10);
+		private final RuleCall cAuthorNameSTRINGTerminalRuleCall_10_0 = (RuleCall)cAuthorNameAssignment_10.eContents().get(0);
 		private final Keyword cSemicolonKeyword_11 = (Keyword)cGroup.eContents().get(11);
 		private final Assignment cTestcasesAssignment_12 = (Assignment)cGroup.eContents().get(12);
 		private final RuleCall cTestcasesTestcaseParserRuleCall_12_0 = (RuleCall)cTestcasesAssignment_12.eContents().get(0);
 		
 		//EisModel:
-		//	'project' '=' project_name=STRING ';'
-		//	'plcname' '=' plc_name=STRING ';'
-		//	'author' '=' author_name=STRING ';'
+		//	'project' '=' projectName=STRING ';'
+		//	'plcname' '=' plcName=STRING ';'
+		//	'author' '=' authorName=STRING ';'
 		//	testcases+=Testcase*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'project' '=' project_name=STRING ';' 'plcname' '=' plc_name=STRING ';' 'author' '=' author_name=STRING ';'
+		//'project' '=' projectName=STRING ';' 'plcname' '=' plcName=STRING ';' 'author' '=' authorName=STRING ';'
 		//testcases+=Testcase*
 		public Group getGroup() { return cGroup; }
 		
@@ -66,11 +66,11 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		//'='
 		public Keyword getEqualsSignKeyword_1() { return cEqualsSignKeyword_1; }
 		
-		//project_name=STRING
-		public Assignment getProject_nameAssignment_2() { return cProject_nameAssignment_2; }
+		//projectName=STRING
+		public Assignment getProjectNameAssignment_2() { return cProjectNameAssignment_2; }
 		
 		//STRING
-		public RuleCall getProject_nameSTRINGTerminalRuleCall_2_0() { return cProject_nameSTRINGTerminalRuleCall_2_0; }
+		public RuleCall getProjectNameSTRINGTerminalRuleCall_2_0() { return cProjectNameSTRINGTerminalRuleCall_2_0; }
 		
 		//';'
 		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
@@ -81,11 +81,11 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		//'='
 		public Keyword getEqualsSignKeyword_5() { return cEqualsSignKeyword_5; }
 		
-		//plc_name=STRING
-		public Assignment getPlc_nameAssignment_6() { return cPlc_nameAssignment_6; }
+		//plcName=STRING
+		public Assignment getPlcNameAssignment_6() { return cPlcNameAssignment_6; }
 		
 		//STRING
-		public RuleCall getPlc_nameSTRINGTerminalRuleCall_6_0() { return cPlc_nameSTRINGTerminalRuleCall_6_0; }
+		public RuleCall getPlcNameSTRINGTerminalRuleCall_6_0() { return cPlcNameSTRINGTerminalRuleCall_6_0; }
 		
 		//';'
 		public Keyword getSemicolonKeyword_7() { return cSemicolonKeyword_7; }
@@ -96,11 +96,11 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		//'='
 		public Keyword getEqualsSignKeyword_9() { return cEqualsSignKeyword_9; }
 		
-		//author_name=STRING
-		public Assignment getAuthor_nameAssignment_10() { return cAuthor_nameAssignment_10; }
+		//authorName=STRING
+		public Assignment getAuthorNameAssignment_10() { return cAuthorNameAssignment_10; }
 		
 		//STRING
-		public RuleCall getAuthor_nameSTRINGTerminalRuleCall_10_0() { return cAuthor_nameSTRINGTerminalRuleCall_10_0; }
+		public RuleCall getAuthorNameSTRINGTerminalRuleCall_10_0() { return cAuthorNameSTRINGTerminalRuleCall_10_0; }
 		
 		//';'
 		public Keyword getSemicolonKeyword_11() { return cSemicolonKeyword_11; }
@@ -115,30 +115,30 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.eis.Eis.Testcase");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cTestcaseKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cTestcase_nameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cTestcase_nameIDTerminalRuleCall_1_0 = (RuleCall)cTestcase_nameAssignment_1.eContents().get(0);
+		private final Assignment cTestcaseNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cTestcaseNameIDTerminalRuleCall_1_0 = (RuleCall)cTestcaseNameAssignment_1.eContents().get(0);
 		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cTestblockAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cTestblockTestblockParserRuleCall_3_0 = (RuleCall)cTestblockAssignment_3.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//Testcase:
-		//	"testcase" testcase_name=ID '{'
+		//	"testcase" testcaseName=ID '{'
 		//	testblock=Testblock?
 		//	'}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//"testcase" testcase_name=ID '{' testblock=Testblock? '}'
+		//"testcase" testcaseName=ID '{' testblock=Testblock? '}'
 		public Group getGroup() { return cGroup; }
 		
 		//"testcase"
 		public Keyword getTestcaseKeyword_0() { return cTestcaseKeyword_0; }
 		
-		//testcase_name=ID
-		public Assignment getTestcase_nameAssignment_1() { return cTestcase_nameAssignment_1; }
+		//testcaseName=ID
+		public Assignment getTestcaseNameAssignment_1() { return cTestcaseNameAssignment_1; }
 		
 		//ID
-		public RuleCall getTestcase_nameIDTerminalRuleCall_1_0() { return cTestcase_nameIDTerminalRuleCall_1_0; }
+		public RuleCall getTestcaseNameIDTerminalRuleCall_1_0() { return cTestcaseNameIDTerminalRuleCall_1_0; }
 		
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
@@ -238,70 +238,48 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	public class BoolConstantElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.eis.Eis.BoolConstant");
 		private final Assignment cValueAssignment = (Assignment)rule.eContents().get(1);
-		private final RuleCall cValueBooleanValueParserRuleCall_0 = (RuleCall)cValueAssignment.eContents().get(0);
+		private final Alternatives cValueAlternatives_0 = (Alternatives)cValueAssignment.eContents().get(0);
+		private final Keyword cValueTrueKeyword_0_0 = (Keyword)cValueAlternatives_0.eContents().get(0);
+		private final Keyword cValueFalseKeyword_0_1 = (Keyword)cValueAlternatives_0.eContents().get(1);
 		
 		//BoolConstant:
-		//	value=BooleanValue;
+		//	value=('true' | 'false');
 		@Override public ParserRule getRule() { return rule; }
 		
-		//value=BooleanValue
+		//value=('true' | 'false')
 		public Assignment getValueAssignment() { return cValueAssignment; }
 		
-		//BooleanValue
-		public RuleCall getValueBooleanValueParserRuleCall_0() { return cValueBooleanValueParserRuleCall_0; }
+		//('true' | 'false')
+		public Alternatives getValueAlternatives_0() { return cValueAlternatives_0; }
+		
+		//'true'
+		public Keyword getValueTrueKeyword_0_0() { return cValueTrueKeyword_0_0; }
+		
+		//'false'
+		public Keyword getValueFalseKeyword_0_1() { return cValueFalseKeyword_0_1; }
 	}
 	public class BlockConstantElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.eis.Eis.BlockConstant");
 		private final Assignment cValueAssignment = (Assignment)rule.eContents().get(1);
-		private final RuleCall cValueBlockValueParserRuleCall_0 = (RuleCall)cValueAssignment.eContents().get(0);
+		private final Alternatives cValueAlternatives_0 = (Alternatives)cValueAssignment.eContents().get(0);
+		private final Keyword cValueFCKeyword_0_0 = (Keyword)cValueAlternatives_0.eContents().get(0);
+		private final Keyword cValueFBKeyword_0_1 = (Keyword)cValueAlternatives_0.eContents().get(1);
 		
 		//BlockConstant:
-		//	value=BlockValue;
+		//	value=('FC' | 'FB');
 		@Override public ParserRule getRule() { return rule; }
 		
-		//value=BlockValue
+		//value=('FC' | 'FB')
 		public Assignment getValueAssignment() { return cValueAssignment; }
 		
-		//BlockValue
-		public RuleCall getValueBlockValueParserRuleCall_0() { return cValueBlockValueParserRuleCall_0; }
-	}
-	public class BlockValueElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.eis.Eis.BlockValue");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final Keyword cFCKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
-		private final Keyword cFBKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
-		
-		//BlockValue:
-		//	'FC' | 'FB';
-		@Override public ParserRule getRule() { return rule; }
-		
-		//'FC' | 'FB'
-		public Alternatives getAlternatives() { return cAlternatives; }
+		//('FC' | 'FB')
+		public Alternatives getValueAlternatives_0() { return cValueAlternatives_0; }
 		
 		//'FC'
-		public Keyword getFCKeyword_0() { return cFCKeyword_0; }
+		public Keyword getValueFCKeyword_0_0() { return cValueFCKeyword_0_0; }
 		
 		//'FB'
-		public Keyword getFBKeyword_1() { return cFBKeyword_1; }
-	}
-	public class BooleanValueElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.eis.Eis.BooleanValue");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final Keyword cTrueKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
-		private final Keyword cFalseKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
-		
-		//BooleanValue:
-		//	'true' | 'false';
-		@Override public ParserRule getRule() { return rule; }
-		
-		//'true' | 'false'
-		public Alternatives getAlternatives() { return cAlternatives; }
-		
-		//'true'
-		public Keyword getTrueKeyword_0() { return cTrueKeyword_0; }
-		
-		//'false'
-		public Keyword getFalseKeyword_1() { return cFalseKeyword_1; }
+		public Keyword getValueFBKeyword_0_1() { return cValueFBKeyword_0_1; }
 	}
 	public class DefineBlockElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.eis.Eis.DefineBlock");
@@ -529,8 +507,8 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cNextVariableCommaKeyword_5_1_0 = (Keyword)cNextVariableAssignment_5_1.eContents().get(0);
 		
 		//Variable:
-		//	{Variable} variantKeyword?='variant'? variableType=BasicType? name=ID ('=' idiom=Idiom ('+/-'
-		//	range=Idiom)?)? (';' | nextVariable?=',');
+		//	{Variable} variantKeyword?='variant'? variableType=BasicType? name=ID ('=' idiom=Idiom ('+/-' range=Idiom)?)? (';' |
+		//	nextVariable?=',');
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{Variable} variantKeyword?='variant'? variableType=BasicType? name=ID ('=' idiom=Idiom ('+/-' range=Idiom)?)? (';' |
@@ -983,22 +961,22 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cRightAndParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
 		
 		//Or Idiom:
-		//	And ({Or.left=current} "||" right=And)*;
+		//	And ({Or.left=current} '||' right=And)*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//And ({Or.left=current} "||" right=And)*
+		//And ({Or.left=current} '||' right=And)*
 		public Group getGroup() { return cGroup; }
 		
 		//And
 		public RuleCall getAndParserRuleCall_0() { return cAndParserRuleCall_0; }
 		
-		//({Or.left=current} "||" right=And)*
+		//({Or.left=current} '||' right=And)*
 		public Group getGroup_1() { return cGroup_1; }
 		
 		//{Or.left=current}
 		public Action getOrLeftAction_1_0() { return cOrLeftAction_1_0; }
 		
-		//"||"
+		//'||'
 		public Keyword getVerticalLineVerticalLineKeyword_1_1() { return cVerticalLineVerticalLineKeyword_1_1; }
 		
 		//right=And
@@ -1018,22 +996,22 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cRightEqualityParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
 		
 		//And Idiom:
-		//	Equality ({And.left=current} "&&" right=Equality)*;
+		//	Equality ({And.left=current} '&&' right=Equality)*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//Equality ({And.left=current} "&&" right=Equality)*
+		//Equality ({And.left=current} '&&' right=Equality)*
 		public Group getGroup() { return cGroup; }
 		
 		//Equality
 		public RuleCall getEqualityParserRuleCall_0() { return cEqualityParserRuleCall_0; }
 		
-		//({And.left=current} "&&" right=Equality)*
+		//({And.left=current} '&&' right=Equality)*
 		public Group getGroup_1() { return cGroup_1; }
 		
 		//{And.left=current}
 		public Action getAndLeftAction_1_0() { return cAndLeftAction_1_0; }
 		
-		//"&&"
+		//'&&'
 		public Keyword getAmpersandAmpersandKeyword_1_1() { return cAmpersandAmpersandKeyword_1_1; }
 		
 		//right=Equality
@@ -1056,31 +1034,31 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cRightComparisonParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
 		
 		//Equality Idiom:
-		//	Comparison ({Equality.left=current} op=("==" | "!=") right=Comparison)*;
+		//	Comparison ({Equality.left=current} op=('==' | '!=') right=Comparison)*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//Comparison ({Equality.left=current} op=("==" | "!=") right=Comparison)*
+		//Comparison ({Equality.left=current} op=('==' | '!=') right=Comparison)*
 		public Group getGroup() { return cGroup; }
 		
 		//Comparison
 		public RuleCall getComparisonParserRuleCall_0() { return cComparisonParserRuleCall_0; }
 		
-		//({Equality.left=current} op=("==" | "!=") right=Comparison)*
+		//({Equality.left=current} op=('==' | '!=') right=Comparison)*
 		public Group getGroup_1() { return cGroup_1; }
 		
 		//{Equality.left=current}
 		public Action getEqualityLeftAction_1_0() { return cEqualityLeftAction_1_0; }
 		
-		//op=("==" | "!=")
+		//op=('==' | '!=')
 		public Assignment getOpAssignment_1_1() { return cOpAssignment_1_1; }
 		
-		//("==" | "!=")
+		//('==' | '!=')
 		public Alternatives getOpAlternatives_1_1_0() { return cOpAlternatives_1_1_0; }
 		
-		//"=="
+		//'=='
 		public Keyword getOpEqualsSignEqualsSignKeyword_1_1_0_0() { return cOpEqualsSignEqualsSignKeyword_1_1_0_0; }
 		
-		//"!="
+		//'!='
 		public Keyword getOpExclamationMarkEqualsSignKeyword_1_1_0_1() { return cOpExclamationMarkEqualsSignKeyword_1_1_0_1; }
 		
 		//right=Comparison
@@ -1105,37 +1083,37 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cRightPlusOrMinusParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
 		
 		//Comparison Idiom:
-		//	PlusOrMinus ({Comparison.left=current} op=(">=" | "<=" | ">" | "<") right=PlusOrMinus)*;
+		//	PlusOrMinus ({Comparison.left=current} op=('>=' | '<=' | '>' | '<') right=PlusOrMinus)*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//PlusOrMinus ({Comparison.left=current} op=(">=" | "<=" | ">" | "<") right=PlusOrMinus)*
+		//PlusOrMinus ({Comparison.left=current} op=('>=' | '<=' | '>' | '<') right=PlusOrMinus)*
 		public Group getGroup() { return cGroup; }
 		
 		//PlusOrMinus
 		public RuleCall getPlusOrMinusParserRuleCall_0() { return cPlusOrMinusParserRuleCall_0; }
 		
-		//({Comparison.left=current} op=(">=" | "<=" | ">" | "<") right=PlusOrMinus)*
+		//({Comparison.left=current} op=('>=' | '<=' | '>' | '<') right=PlusOrMinus)*
 		public Group getGroup_1() { return cGroup_1; }
 		
 		//{Comparison.left=current}
 		public Action getComparisonLeftAction_1_0() { return cComparisonLeftAction_1_0; }
 		
-		//op=(">=" | "<=" | ">" | "<")
+		//op=('>=' | '<=' | '>' | '<')
 		public Assignment getOpAssignment_1_1() { return cOpAssignment_1_1; }
 		
-		//(">=" | "<=" | ">" | "<")
+		//('>=' | '<=' | '>' | '<')
 		public Alternatives getOpAlternatives_1_1_0() { return cOpAlternatives_1_1_0; }
 		
-		//">="
+		//'>='
 		public Keyword getOpGreaterThanSignEqualsSignKeyword_1_1_0_0() { return cOpGreaterThanSignEqualsSignKeyword_1_1_0_0; }
 		
-		//"<="
+		//'<='
 		public Keyword getOpLessThanSignEqualsSignKeyword_1_1_0_1() { return cOpLessThanSignEqualsSignKeyword_1_1_0_1; }
 		
-		//">"
+		//'>'
 		public Keyword getOpGreaterThanSignKeyword_1_1_0_2() { return cOpGreaterThanSignKeyword_1_1_0_2; }
 		
-		//"<"
+		//'<'
 		public Keyword getOpLessThanSignKeyword_1_1_0_3() { return cOpLessThanSignKeyword_1_1_0_3; }
 		
 		//right=PlusOrMinus
@@ -1261,10 +1239,10 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cAtomicParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
 		//Primary Idiom:
-		//	'(' Idiom ')' | {Not} "!" idiom=Primary | Atomic;
+		//	'(' Idiom ')' | {Not} '!' idiom=Primary | Atomic;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'(' Idiom ')' | {Not} "!" idiom=Primary | Atomic
+		//'(' Idiom ')' | {Not} '!' idiom=Primary | Atomic
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//'(' Idiom ')'
@@ -1279,13 +1257,13 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		//')'
 		public Keyword getRightParenthesisKeyword_0_2() { return cRightParenthesisKeyword_0_2; }
 		
-		//{Not} "!" idiom=Primary
+		//{Not} '!' idiom=Primary
 		public Group getGroup_1() { return cGroup_1; }
 		
 		//{Not}
 		public Action getNotAction_1_0() { return cNotAction_1_0; }
 		
-		//"!"
+		//'!'
 		public Keyword getExclamationMarkKeyword_1_1() { return cExclamationMarkKeyword_1_1; }
 		
 		//idiom=Primary
@@ -1582,7 +1560,7 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		//	NULL='null'
 		//	| INT='int'
 		//	| BOOL='bool'
-		//	| REAL='real' //
+		//	| REAL='real'
 		//	| STRING='string'
 		//	| CHAR="char"
 		//	//
@@ -1606,8 +1584,7 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		//	| WCHAR="wchar";
 		public EnumRule getRule() { return rule; }
 		
-		//NULL='null' | INT='int' | BOOL='bool' | REAL='real' //
-		//| STRING='string' | CHAR="char" //
+		//NULL='null' | INT='int' | BOOL='bool' | REAL='real' | STRING='string' | CHAR="char" //
 		//| BYTE="byte" | WORD="word" | DWORD="dword" | LWORD="lword" //
 		//| USINT="usint" | UINT="uint" | UDINT="udint" | ULINT="ulint" | SINT="sint" | DINT="dint" | LINT="lint" //
 		//| TIME="time" | LTIME="ltime" | DATE="date" | LREAL="lreal" | WCHAR="wchar"
@@ -1751,8 +1728,6 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	private final TestblockElements pTestblock;
 	private final BoolConstantElements pBoolConstant;
 	private final BlockConstantElements pBlockConstant;
-	private final BlockValueElements pBlockValue;
-	private final BooleanValueElements pBooleanValue;
 	private final DefineBlockElements pDefineBlock;
 	private final DirectionBlockElements pDirectionBlock;
 	private final InputElements pInput;
@@ -1809,8 +1784,6 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		this.pTestblock = new TestblockElements();
 		this.pBoolConstant = new BoolConstantElements();
 		this.pBlockConstant = new BlockConstantElements();
-		this.pBlockValue = new BlockValueElements();
-		this.pBooleanValue = new BooleanValueElements();
 		this.pDefineBlock = new DefineBlockElements();
 		this.pDirectionBlock = new DirectionBlockElements();
 		this.pInput = new InputElements();
@@ -1882,9 +1855,9 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//EisModel:
-	//	'project' '=' project_name=STRING ';'
-	//	'plcname' '=' plc_name=STRING ';'
-	//	'author' '=' author_name=STRING ';'
+	//	'project' '=' projectName=STRING ';'
+	//	'plcname' '=' plcName=STRING ';'
+	//	'author' '=' authorName=STRING ';'
 	//	testcases+=Testcase*;
 	public EisModelElements getEisModelAccess() {
 		return pEisModel;
@@ -1895,7 +1868,7 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Testcase:
-	//	"testcase" testcase_name=ID '{'
+	//	"testcase" testcaseName=ID '{'
 	//	testblock=Testblock?
 	//	'}';
 	public TestcaseElements getTestcaseAccess() {
@@ -1920,7 +1893,7 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//BoolConstant:
-	//	value=BooleanValue;
+	//	value=('true' | 'false');
 	public BoolConstantElements getBoolConstantAccess() {
 		return pBoolConstant;
 	}
@@ -1930,33 +1903,13 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//BlockConstant:
-	//	value=BlockValue;
+	//	value=('FC' | 'FB');
 	public BlockConstantElements getBlockConstantAccess() {
 		return pBlockConstant;
 	}
 	
 	public ParserRule getBlockConstantRule() {
 		return getBlockConstantAccess().getRule();
-	}
-	
-	//BlockValue:
-	//	'FC' | 'FB';
-	public BlockValueElements getBlockValueAccess() {
-		return pBlockValue;
-	}
-	
-	public ParserRule getBlockValueRule() {
-		return getBlockValueAccess().getRule();
-	}
-	
-	//BooleanValue:
-	//	'true' | 'false';
-	public BooleanValueElements getBooleanValueAccess() {
-		return pBooleanValue;
-	}
-	
-	public ParserRule getBooleanValueRule() {
-		return getBooleanValueAccess().getRule();
 	}
 	
 	//DefineBlock:
@@ -2020,8 +1973,8 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Variable:
-	//	{Variable} variantKeyword?='variant'? variableType=BasicType? name=ID ('=' idiom=Idiom ('+/-'
-	//	range=Idiom)?)? (';' | nextVariable?=',');
+	//	{Variable} variantKeyword?='variant'? variableType=BasicType? name=ID ('=' idiom=Idiom ('+/-' range=Idiom)?)? (';' |
+	//	nextVariable?=',');
 	public VariableElements getVariableAccess() {
 		return pVariable;
 	}
@@ -2124,7 +2077,7 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	//	NULL='null'
 	//	| INT='int'
 	//	| BOOL='bool'
-	//	| REAL='real' //
+	//	| REAL='real'
 	//	| STRING='string'
 	//	| CHAR="char"
 	//	//
@@ -2165,7 +2118,7 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Or Idiom:
-	//	And ({Or.left=current} "||" right=And)*;
+	//	And ({Or.left=current} '||' right=And)*;
 	public OrElements getOrAccess() {
 		return pOr;
 	}
@@ -2175,7 +2128,7 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//And Idiom:
-	//	Equality ({And.left=current} "&&" right=Equality)*;
+	//	Equality ({And.left=current} '&&' right=Equality)*;
 	public AndElements getAndAccess() {
 		return pAnd;
 	}
@@ -2185,7 +2138,7 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Equality Idiom:
-	//	Comparison ({Equality.left=current} op=("==" | "!=") right=Comparison)*;
+	//	Comparison ({Equality.left=current} op=('==' | '!=') right=Comparison)*;
 	public EqualityElements getEqualityAccess() {
 		return pEquality;
 	}
@@ -2195,7 +2148,7 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Comparison Idiom:
-	//	PlusOrMinus ({Comparison.left=current} op=(">=" | "<=" | ">" | "<") right=PlusOrMinus)*;
+	//	PlusOrMinus ({Comparison.left=current} op=('>=' | '<=' | '>' | '<') right=PlusOrMinus)*;
 	public ComparisonElements getComparisonAccess() {
 		return pComparison;
 	}
@@ -2225,7 +2178,7 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Primary Idiom:
-	//	'(' Idiom ')' | {Not} "!" idiom=Primary | Atomic;
+	//	'(' Idiom ')' | {Not} '!' idiom=Primary | Atomic;
 	public PrimaryElements getPrimaryAccess() {
 		return pPrimary;
 	}
@@ -2315,7 +2268,7 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//terminal CHAR:
-	//	"'" ('a'..'z' | 'A'..'Z' | '0'..'9') "'";
+	//	"'" ('a'..'z' | 'A'..'Z' | X) "'";
 	public TerminalRule getCHARRule() {
 		return tCHAR;
 	}

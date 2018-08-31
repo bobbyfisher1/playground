@@ -56,8 +56,9 @@ public class EisSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) '!' idiom=Primary
+	 *     (rule start) (ambiguity) value='false'
+	 *     (rule start) (ambiguity) value='true'
 	 *     (rule start) (ambiguity) value=BYTE
-	 *     (rule start) (ambiguity) value=BooleanValue
 	 *     (rule start) (ambiguity) value=CHAR
 	 *     (rule start) (ambiguity) value=DATE
 	 *     (rule start) (ambiguity) value=DWORD

@@ -1380,6 +1380,8 @@ class EisGeneratorTest {
 				 	 variant time q = T#40s;		
 				 	 variant ltime r = LT#400d9ns;
 				 	 variant date s = D#2018-08-22;
+					 variant wchar t = 'w';
+					 variant lreal u = 1.2;
 					}
 				]
 			}
@@ -1424,6 +1426,8 @@ class EisGeneratorTest {
 												<Element xsi:type="Output" Name="q" Datatype="Variant@Time" Direction="Output" Expect="T#40s" Range="" />
 												<Element xsi:type="Output" Name="r" Datatype="Variant@LTime" Direction="Output" Expect="LT#400d9ns" Range="" />
 												<Element xsi:type="Output" Name="s" Datatype="Variant@Date" Direction="Output" Expect="D#2018-08-22" Range="" />
+												<Element xsi:type="Output" Name="t" Datatype="Variant@WChar" Direction="Output" Expect="w" Range="" />
+												<Element xsi:type="Output" Name="u" Datatype="Variant@LReal" Direction="Output" Expect="1.2" Range="" />
 											</Elements>
 										</Element>
 									</Outputs>

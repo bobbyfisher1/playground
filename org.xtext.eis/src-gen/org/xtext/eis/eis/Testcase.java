@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.xtext.eis.eis.Testcase#getTestcase_name <em>Testcase name</em>}</li>
+ *   <li>{@link org.xtext.eis.eis.Testcase#getTestcaseName <em>Testcase Name</em>}</li>
  *   <li>{@link org.xtext.eis.eis.Testcase#getTestblock <em>Testblock</em>}</li>
  * </ul>
  *
@@ -25,30 +25,30 @@ import org.eclipse.emf.ecore.EObject;
 public interface Testcase extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Testcase name</b></em>' attribute.
+   * Returns the value of the '<em><b>Testcase Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Testcase name</em>' attribute isn't clear,
+   * If the meaning of the '<em>Testcase Name</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Testcase name</em>' attribute.
-   * @see #setTestcase_name(String)
-   * @see org.xtext.eis.eis.EisPackage#getTestcase_Testcase_name()
+   * @return the value of the '<em>Testcase Name</em>' attribute.
+   * @see #setTestcaseName(String)
+   * @see org.xtext.eis.eis.EisPackage#getTestcase_TestcaseName()
    * @model
    * @generated
    */
-  String getTestcase_name();
+  String getTestcaseName();
 
   /**
-   * Sets the value of the '{@link org.xtext.eis.eis.Testcase#getTestcase_name <em>Testcase name</em>}' attribute.
+   * Sets the value of the '{@link org.xtext.eis.eis.Testcase#getTestcaseName <em>Testcase Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Testcase name</em>' attribute.
-   * @see #getTestcase_name()
+   * @param value the new value of the '<em>Testcase Name</em>' attribute.
+   * @see #getTestcaseName()
    * @generated
    */
-  void setTestcase_name(String value);
+  void setTestcaseName(String value);
 
   /**
    * Returns the value of the '<em><b>Testblock</b></em>' containment reference.

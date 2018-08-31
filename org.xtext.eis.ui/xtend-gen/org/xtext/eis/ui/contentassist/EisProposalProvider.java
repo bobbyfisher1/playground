@@ -80,26 +80,26 @@ public class EisProposalProvider extends AbstractEisProposalProvider {
   }
   
   @Override
-  public void completeEisModel_Project_name(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
-    super.completeEisModel_Project_name(model, assignment, context, acceptor);
+  public void completeEisModel_ProjectName(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
+    super.completeEisModel_ProjectName(model, assignment, context, acceptor);
     acceptor.accept(this.createCompletionProposal("\"project_name\"", "project_name", null, context));
   }
   
   @Override
-  public void completeEisModel_Plc_name(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
-    super.completeEisModel_Plc_name(model, assignment, context, acceptor);
+  public void completeEisModel_PlcName(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
+    super.completeEisModel_PlcName(model, assignment, context, acceptor);
     acceptor.accept(this.createCompletionProposal("\"plc_name\"", "plc_name", null, context));
   }
   
   @Override
-  public void completeEisModel_Author_name(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
-    super.completeEisModel_Author_name(model, assignment, context, acceptor);
+  public void completeEisModel_AuthorName(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
+    super.completeEisModel_AuthorName(model, assignment, context, acceptor);
     acceptor.accept(this.createCompletionProposal("\"author_name\"", "author_name", null, context));
   }
   
   @Override
-  public void completeTestcase_Testcase_name(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
-    super.completeTestcase_Testcase_name(model, assignment, context, acceptor);
+  public void completeTestcase_TestcaseName(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
+    super.completeTestcase_TestcaseName(model, assignment, context, acceptor);
     acceptor.accept(this.createCompletionProposal("testcase_name", "testcase_name", null, context));
   }
   

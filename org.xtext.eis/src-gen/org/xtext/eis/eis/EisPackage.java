@@ -69,7 +69,7 @@ public interface EisPackage extends EPackage
   int EIS_MODEL = 0;
 
   /**
-   * The feature id for the '<em><b>Project name</b></em>' attribute.
+   * The feature id for the '<em><b>Project Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -78,7 +78,7 @@ public interface EisPackage extends EPackage
   int EIS_MODEL__PROJECT_NAME = 0;
 
   /**
-   * The feature id for the '<em><b>Plc name</b></em>' attribute.
+   * The feature id for the '<em><b>Plc Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -87,7 +87,7 @@ public interface EisPackage extends EPackage
   int EIS_MODEL__PLC_NAME = 1;
 
   /**
-   * The feature id for the '<em><b>Author name</b></em>' attribute.
+   * The feature id for the '<em><b>Author Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -124,7 +124,7 @@ public interface EisPackage extends EPackage
   int TESTCASE = 1;
 
   /**
-   * The feature id for the '<em><b>Testcase name</b></em>' attribute.
+   * The feature id for the '<em><b>Testcase Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -1616,37 +1616,37 @@ public interface EisPackage extends EPackage
   EClass getEisModel();
 
   /**
-   * Returns the meta object for the attribute '{@link org.xtext.eis.eis.EisModel#getProject_name <em>Project name</em>}'.
+   * Returns the meta object for the attribute '{@link org.xtext.eis.eis.EisModel#getProjectName <em>Project Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Project name</em>'.
-   * @see org.xtext.eis.eis.EisModel#getProject_name()
+   * @return the meta object for the attribute '<em>Project Name</em>'.
+   * @see org.xtext.eis.eis.EisModel#getProjectName()
    * @see #getEisModel()
    * @generated
    */
-  EAttribute getEisModel_Project_name();
+  EAttribute getEisModel_ProjectName();
 
   /**
-   * Returns the meta object for the attribute '{@link org.xtext.eis.eis.EisModel#getPlc_name <em>Plc name</em>}'.
+   * Returns the meta object for the attribute '{@link org.xtext.eis.eis.EisModel#getPlcName <em>Plc Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Plc name</em>'.
-   * @see org.xtext.eis.eis.EisModel#getPlc_name()
+   * @return the meta object for the attribute '<em>Plc Name</em>'.
+   * @see org.xtext.eis.eis.EisModel#getPlcName()
    * @see #getEisModel()
    * @generated
    */
-  EAttribute getEisModel_Plc_name();
+  EAttribute getEisModel_PlcName();
 
   /**
-   * Returns the meta object for the attribute '{@link org.xtext.eis.eis.EisModel#getAuthor_name <em>Author name</em>}'.
+   * Returns the meta object for the attribute '{@link org.xtext.eis.eis.EisModel#getAuthorName <em>Author Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Author name</em>'.
-   * @see org.xtext.eis.eis.EisModel#getAuthor_name()
+   * @return the meta object for the attribute '<em>Author Name</em>'.
+   * @see org.xtext.eis.eis.EisModel#getAuthorName()
    * @see #getEisModel()
    * @generated
    */
-  EAttribute getEisModel_Author_name();
+  EAttribute getEisModel_AuthorName();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.xtext.eis.eis.EisModel#getTestcases <em>Testcases</em>}'.
@@ -1670,15 +1670,15 @@ public interface EisPackage extends EPackage
   EClass getTestcase();
 
   /**
-   * Returns the meta object for the attribute '{@link org.xtext.eis.eis.Testcase#getTestcase_name <em>Testcase name</em>}'.
+   * Returns the meta object for the attribute '{@link org.xtext.eis.eis.Testcase#getTestcaseName <em>Testcase Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Testcase name</em>'.
-   * @see org.xtext.eis.eis.Testcase#getTestcase_name()
+   * @return the meta object for the attribute '<em>Testcase Name</em>'.
+   * @see org.xtext.eis.eis.Testcase#getTestcaseName()
    * @see #getTestcase()
    * @generated
    */
-  EAttribute getTestcase_Testcase_name();
+  EAttribute getTestcase_TestcaseName();
 
   /**
    * Returns the meta object for the containment reference '{@link org.xtext.eis.eis.Testcase#getTestblock <em>Testblock</em>}'.
@@ -2938,28 +2938,28 @@ public interface EisPackage extends EPackage
     EClass EIS_MODEL = eINSTANCE.getEisModel();
 
     /**
-     * The meta object literal for the '<em><b>Project name</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Project Name</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute EIS_MODEL__PROJECT_NAME = eINSTANCE.getEisModel_Project_name();
+    EAttribute EIS_MODEL__PROJECT_NAME = eINSTANCE.getEisModel_ProjectName();
 
     /**
-     * The meta object literal for the '<em><b>Plc name</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Plc Name</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute EIS_MODEL__PLC_NAME = eINSTANCE.getEisModel_Plc_name();
+    EAttribute EIS_MODEL__PLC_NAME = eINSTANCE.getEisModel_PlcName();
 
     /**
-     * The meta object literal for the '<em><b>Author name</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Author Name</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute EIS_MODEL__AUTHOR_NAME = eINSTANCE.getEisModel_Author_name();
+    EAttribute EIS_MODEL__AUTHOR_NAME = eINSTANCE.getEisModel_AuthorName();
 
     /**
      * The meta object literal for the '<em><b>Testcases</b></em>' containment reference list feature.
@@ -2980,12 +2980,12 @@ public interface EisPackage extends EPackage
     EClass TESTCASE = eINSTANCE.getTestcase();
 
     /**
-     * The meta object literal for the '<em><b>Testcase name</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Testcase Name</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute TESTCASE__TESTCASE_NAME = eINSTANCE.getTestcase_Testcase_name();
+    EAttribute TESTCASE__TESTCASE_NAME = eINSTANCE.getTestcase_TestcaseName();
 
     /**
      * The meta object literal for the '<em><b>Testblock</b></em>' containment reference feature.

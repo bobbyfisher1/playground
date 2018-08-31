@@ -16,9 +16,9 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.xtext.eis.eis.EisModel#getProject_name <em>Project name</em>}</li>
- *   <li>{@link org.xtext.eis.eis.EisModel#getPlc_name <em>Plc name</em>}</li>
- *   <li>{@link org.xtext.eis.eis.EisModel#getAuthor_name <em>Author name</em>}</li>
+ *   <li>{@link org.xtext.eis.eis.EisModel#getProjectName <em>Project Name</em>}</li>
+ *   <li>{@link org.xtext.eis.eis.EisModel#getPlcName <em>Plc Name</em>}</li>
+ *   <li>{@link org.xtext.eis.eis.EisModel#getAuthorName <em>Author Name</em>}</li>
  *   <li>{@link org.xtext.eis.eis.EisModel#getTestcases <em>Testcases</em>}</li>
  * </ul>
  *
@@ -29,82 +29,82 @@ import org.eclipse.emf.ecore.EObject;
 public interface EisModel extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Project name</b></em>' attribute.
+   * Returns the value of the '<em><b>Project Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Project name</em>' attribute isn't clear,
+   * If the meaning of the '<em>Project Name</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Project name</em>' attribute.
-   * @see #setProject_name(String)
-   * @see org.xtext.eis.eis.EisPackage#getEisModel_Project_name()
+   * @return the value of the '<em>Project Name</em>' attribute.
+   * @see #setProjectName(String)
+   * @see org.xtext.eis.eis.EisPackage#getEisModel_ProjectName()
    * @model
    * @generated
    */
-  String getProject_name();
+  String getProjectName();
 
   /**
-   * Sets the value of the '{@link org.xtext.eis.eis.EisModel#getProject_name <em>Project name</em>}' attribute.
+   * Sets the value of the '{@link org.xtext.eis.eis.EisModel#getProjectName <em>Project Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Project name</em>' attribute.
-   * @see #getProject_name()
+   * @param value the new value of the '<em>Project Name</em>' attribute.
+   * @see #getProjectName()
    * @generated
    */
-  void setProject_name(String value);
+  void setProjectName(String value);
 
   /**
-   * Returns the value of the '<em><b>Plc name</b></em>' attribute.
+   * Returns the value of the '<em><b>Plc Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Plc name</em>' attribute isn't clear,
+   * If the meaning of the '<em>Plc Name</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Plc name</em>' attribute.
-   * @see #setPlc_name(String)
-   * @see org.xtext.eis.eis.EisPackage#getEisModel_Plc_name()
+   * @return the value of the '<em>Plc Name</em>' attribute.
+   * @see #setPlcName(String)
+   * @see org.xtext.eis.eis.EisPackage#getEisModel_PlcName()
    * @model
    * @generated
    */
-  String getPlc_name();
+  String getPlcName();
 
   /**
-   * Sets the value of the '{@link org.xtext.eis.eis.EisModel#getPlc_name <em>Plc name</em>}' attribute.
+   * Sets the value of the '{@link org.xtext.eis.eis.EisModel#getPlcName <em>Plc Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Plc name</em>' attribute.
-   * @see #getPlc_name()
+   * @param value the new value of the '<em>Plc Name</em>' attribute.
+   * @see #getPlcName()
    * @generated
    */
-  void setPlc_name(String value);
+  void setPlcName(String value);
 
   /**
-   * Returns the value of the '<em><b>Author name</b></em>' attribute.
+   * Returns the value of the '<em><b>Author Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Author name</em>' attribute isn't clear,
+   * If the meaning of the '<em>Author Name</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Author name</em>' attribute.
-   * @see #setAuthor_name(String)
-   * @see org.xtext.eis.eis.EisPackage#getEisModel_Author_name()
+   * @return the value of the '<em>Author Name</em>' attribute.
+   * @see #setAuthorName(String)
+   * @see org.xtext.eis.eis.EisPackage#getEisModel_AuthorName()
    * @model
    * @generated
    */
-  String getAuthor_name();
+  String getAuthorName();
 
   /**
-   * Sets the value of the '{@link org.xtext.eis.eis.EisModel#getAuthor_name <em>Author name</em>}' attribute.
+   * Sets the value of the '{@link org.xtext.eis.eis.EisModel#getAuthorName <em>Author Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Author name</em>' attribute.
-   * @see #getAuthor_name()
+   * @param value the new value of the '<em>Author Name</em>' attribute.
+   * @see #getAuthorName()
    * @generated
    */
-  void setAuthor_name(String value);
+  void setAuthorName(String value);
 
   /**
    * Returns the value of the '<em><b>Testcases</b></em>' containment reference list.

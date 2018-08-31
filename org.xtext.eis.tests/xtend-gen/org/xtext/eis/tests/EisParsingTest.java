@@ -96,9 +96,9 @@ public class EisParsingTest {
       _builder.newLine();
       EisModel _parse = this._parseHelper.parse(_builder);
       final Procedure1<EisModel> _function = (EisModel it) -> {
-        Assert.assertEquals(it.getProject_name(), "x");
-        Assert.assertEquals(it.getPlc_name(), "fj484");
-        Assert.assertEquals(it.getAuthor_name(), "Paul Auster");
+        Assert.assertEquals(it.getProjectName(), "x");
+        Assert.assertEquals(it.getPlcName(), "fj484");
+        Assert.assertEquals(it.getAuthorName(), "Paul Auster");
       };
       ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
     } catch (Throwable _e) {

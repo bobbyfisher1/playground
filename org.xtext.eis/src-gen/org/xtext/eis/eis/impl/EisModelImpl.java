@@ -31,9 +31,9 @@ import org.xtext.eis.eis.Testcase;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.xtext.eis.eis.impl.EisModelImpl#getProject_name <em>Project name</em>}</li>
- *   <li>{@link org.xtext.eis.eis.impl.EisModelImpl#getPlc_name <em>Plc name</em>}</li>
- *   <li>{@link org.xtext.eis.eis.impl.EisModelImpl#getAuthor_name <em>Author name</em>}</li>
+ *   <li>{@link org.xtext.eis.eis.impl.EisModelImpl#getProjectName <em>Project Name</em>}</li>
+ *   <li>{@link org.xtext.eis.eis.impl.EisModelImpl#getPlcName <em>Plc Name</em>}</li>
+ *   <li>{@link org.xtext.eis.eis.impl.EisModelImpl#getAuthorName <em>Author Name</em>}</li>
  *   <li>{@link org.xtext.eis.eis.impl.EisModelImpl#getTestcases <em>Testcases</em>}</li>
  * </ul>
  *
@@ -42,64 +42,64 @@ import org.xtext.eis.eis.Testcase;
 public class EisModelImpl extends MinimalEObjectImpl.Container implements EisModel
 {
   /**
-   * The default value of the '{@link #getProject_name() <em>Project name</em>}' attribute.
+   * The default value of the '{@link #getProjectName() <em>Project Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getProject_name()
+   * @see #getProjectName()
    * @generated
    * @ordered
    */
   protected static final String PROJECT_NAME_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getProject_name() <em>Project name</em>}' attribute.
+   * The cached value of the '{@link #getProjectName() <em>Project Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getProject_name()
+   * @see #getProjectName()
    * @generated
    * @ordered
    */
-  protected String project_name = PROJECT_NAME_EDEFAULT;
+  protected String projectName = PROJECT_NAME_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getPlc_name() <em>Plc name</em>}' attribute.
+   * The default value of the '{@link #getPlcName() <em>Plc Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getPlc_name()
+   * @see #getPlcName()
    * @generated
    * @ordered
    */
   protected static final String PLC_NAME_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getPlc_name() <em>Plc name</em>}' attribute.
+   * The cached value of the '{@link #getPlcName() <em>Plc Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getPlc_name()
+   * @see #getPlcName()
    * @generated
    * @ordered
    */
-  protected String plc_name = PLC_NAME_EDEFAULT;
+  protected String plcName = PLC_NAME_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getAuthor_name() <em>Author name</em>}' attribute.
+   * The default value of the '{@link #getAuthorName() <em>Author Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getAuthor_name()
+   * @see #getAuthorName()
    * @generated
    * @ordered
    */
   protected static final String AUTHOR_NAME_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getAuthor_name() <em>Author name</em>}' attribute.
+   * The cached value of the '{@link #getAuthorName() <em>Author Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getAuthor_name()
+   * @see #getAuthorName()
    * @generated
    * @ordered
    */
-  protected String author_name = AUTHOR_NAME_EDEFAULT;
+  protected String authorName = AUTHOR_NAME_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getTestcases() <em>Testcases</em>}' containment reference list.
@@ -137,9 +137,9 @@ public class EisModelImpl extends MinimalEObjectImpl.Container implements EisMod
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getProject_name()
+  public String getProjectName()
   {
-    return project_name;
+    return projectName;
   }
 
   /**
@@ -147,12 +147,12 @@ public class EisModelImpl extends MinimalEObjectImpl.Container implements EisMod
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setProject_name(String newProject_name)
+  public void setProjectName(String newProjectName)
   {
-    String oldProject_name = project_name;
-    project_name = newProject_name;
+    String oldProjectName = projectName;
+    projectName = newProjectName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, EisPackage.EIS_MODEL__PROJECT_NAME, oldProject_name, project_name));
+      eNotify(new ENotificationImpl(this, Notification.SET, EisPackage.EIS_MODEL__PROJECT_NAME, oldProjectName, projectName));
   }
 
   /**
@@ -160,9 +160,9 @@ public class EisModelImpl extends MinimalEObjectImpl.Container implements EisMod
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getPlc_name()
+  public String getPlcName()
   {
-    return plc_name;
+    return plcName;
   }
 
   /**
@@ -170,12 +170,12 @@ public class EisModelImpl extends MinimalEObjectImpl.Container implements EisMod
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setPlc_name(String newPlc_name)
+  public void setPlcName(String newPlcName)
   {
-    String oldPlc_name = plc_name;
-    plc_name = newPlc_name;
+    String oldPlcName = plcName;
+    plcName = newPlcName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, EisPackage.EIS_MODEL__PLC_NAME, oldPlc_name, plc_name));
+      eNotify(new ENotificationImpl(this, Notification.SET, EisPackage.EIS_MODEL__PLC_NAME, oldPlcName, plcName));
   }
 
   /**
@@ -183,9 +183,9 @@ public class EisModelImpl extends MinimalEObjectImpl.Container implements EisMod
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getAuthor_name()
+  public String getAuthorName()
   {
-    return author_name;
+    return authorName;
   }
 
   /**
@@ -193,12 +193,12 @@ public class EisModelImpl extends MinimalEObjectImpl.Container implements EisMod
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setAuthor_name(String newAuthor_name)
+  public void setAuthorName(String newAuthorName)
   {
-    String oldAuthor_name = author_name;
-    author_name = newAuthor_name;
+    String oldAuthorName = authorName;
+    authorName = newAuthorName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, EisPackage.EIS_MODEL__AUTHOR_NAME, oldAuthor_name, author_name));
+      eNotify(new ENotificationImpl(this, Notification.SET, EisPackage.EIS_MODEL__AUTHOR_NAME, oldAuthorName, authorName));
   }
 
   /**
@@ -242,11 +242,11 @@ public class EisModelImpl extends MinimalEObjectImpl.Container implements EisMod
     switch (featureID)
     {
       case EisPackage.EIS_MODEL__PROJECT_NAME:
-        return getProject_name();
+        return getProjectName();
       case EisPackage.EIS_MODEL__PLC_NAME:
-        return getPlc_name();
+        return getPlcName();
       case EisPackage.EIS_MODEL__AUTHOR_NAME:
-        return getAuthor_name();
+        return getAuthorName();
       case EisPackage.EIS_MODEL__TESTCASES:
         return getTestcases();
     }
@@ -265,13 +265,13 @@ public class EisModelImpl extends MinimalEObjectImpl.Container implements EisMod
     switch (featureID)
     {
       case EisPackage.EIS_MODEL__PROJECT_NAME:
-        setProject_name((String)newValue);
+        setProjectName((String)newValue);
         return;
       case EisPackage.EIS_MODEL__PLC_NAME:
-        setPlc_name((String)newValue);
+        setPlcName((String)newValue);
         return;
       case EisPackage.EIS_MODEL__AUTHOR_NAME:
-        setAuthor_name((String)newValue);
+        setAuthorName((String)newValue);
         return;
       case EisPackage.EIS_MODEL__TESTCASES:
         getTestcases().clear();
@@ -292,13 +292,13 @@ public class EisModelImpl extends MinimalEObjectImpl.Container implements EisMod
     switch (featureID)
     {
       case EisPackage.EIS_MODEL__PROJECT_NAME:
-        setProject_name(PROJECT_NAME_EDEFAULT);
+        setProjectName(PROJECT_NAME_EDEFAULT);
         return;
       case EisPackage.EIS_MODEL__PLC_NAME:
-        setPlc_name(PLC_NAME_EDEFAULT);
+        setPlcName(PLC_NAME_EDEFAULT);
         return;
       case EisPackage.EIS_MODEL__AUTHOR_NAME:
-        setAuthor_name(AUTHOR_NAME_EDEFAULT);
+        setAuthorName(AUTHOR_NAME_EDEFAULT);
         return;
       case EisPackage.EIS_MODEL__TESTCASES:
         getTestcases().clear();
@@ -318,11 +318,11 @@ public class EisModelImpl extends MinimalEObjectImpl.Container implements EisMod
     switch (featureID)
     {
       case EisPackage.EIS_MODEL__PROJECT_NAME:
-        return PROJECT_NAME_EDEFAULT == null ? project_name != null : !PROJECT_NAME_EDEFAULT.equals(project_name);
+        return PROJECT_NAME_EDEFAULT == null ? projectName != null : !PROJECT_NAME_EDEFAULT.equals(projectName);
       case EisPackage.EIS_MODEL__PLC_NAME:
-        return PLC_NAME_EDEFAULT == null ? plc_name != null : !PLC_NAME_EDEFAULT.equals(plc_name);
+        return PLC_NAME_EDEFAULT == null ? plcName != null : !PLC_NAME_EDEFAULT.equals(plcName);
       case EisPackage.EIS_MODEL__AUTHOR_NAME:
-        return AUTHOR_NAME_EDEFAULT == null ? author_name != null : !AUTHOR_NAME_EDEFAULT.equals(author_name);
+        return AUTHOR_NAME_EDEFAULT == null ? authorName != null : !AUTHOR_NAME_EDEFAULT.equals(authorName);
       case EisPackage.EIS_MODEL__TESTCASES:
         return testcases != null && !testcases.isEmpty();
     }
@@ -340,12 +340,12 @@ public class EisModelImpl extends MinimalEObjectImpl.Container implements EisMod
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (project_name: ");
-    result.append(project_name);
-    result.append(", plc_name: ");
-    result.append(plc_name);
-    result.append(", author_name: ");
-    result.append(author_name);
+    result.append(" (projectName: ");
+    result.append(projectName);
+    result.append(", plcName: ");
+    result.append(plcName);
+    result.append(", authorName: ");
+    result.append(authorName);
     result.append(')');
     return result.toString();
   }

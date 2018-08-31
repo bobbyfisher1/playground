@@ -24,7 +24,7 @@ import org.xtext.eis.eis.Testcase;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.xtext.eis.eis.impl.TestcaseImpl#getTestcase_name <em>Testcase name</em>}</li>
+ *   <li>{@link org.xtext.eis.eis.impl.TestcaseImpl#getTestcaseName <em>Testcase Name</em>}</li>
  *   <li>{@link org.xtext.eis.eis.impl.TestcaseImpl#getTestblock <em>Testblock</em>}</li>
  * </ul>
  *
@@ -33,24 +33,24 @@ import org.xtext.eis.eis.Testcase;
 public class TestcaseImpl extends MinimalEObjectImpl.Container implements Testcase
 {
   /**
-   * The default value of the '{@link #getTestcase_name() <em>Testcase name</em>}' attribute.
+   * The default value of the '{@link #getTestcaseName() <em>Testcase Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getTestcase_name()
+   * @see #getTestcaseName()
    * @generated
    * @ordered
    */
   protected static final String TESTCASE_NAME_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getTestcase_name() <em>Testcase name</em>}' attribute.
+   * The cached value of the '{@link #getTestcaseName() <em>Testcase Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getTestcase_name()
+   * @see #getTestcaseName()
    * @generated
    * @ordered
    */
-  protected String testcase_name = TESTCASE_NAME_EDEFAULT;
+  protected String testcaseName = TESTCASE_NAME_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getTestblock() <em>Testblock</em>}' containment reference.
@@ -88,9 +88,9 @@ public class TestcaseImpl extends MinimalEObjectImpl.Container implements Testca
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getTestcase_name()
+  public String getTestcaseName()
   {
-    return testcase_name;
+    return testcaseName;
   }
 
   /**
@@ -98,12 +98,12 @@ public class TestcaseImpl extends MinimalEObjectImpl.Container implements Testca
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setTestcase_name(String newTestcase_name)
+  public void setTestcaseName(String newTestcaseName)
   {
-    String oldTestcase_name = testcase_name;
-    testcase_name = newTestcase_name;
+    String oldTestcaseName = testcaseName;
+    testcaseName = newTestcaseName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, EisPackage.TESTCASE__TESTCASE_NAME, oldTestcase_name, testcase_name));
+      eNotify(new ENotificationImpl(this, Notification.SET, EisPackage.TESTCASE__TESTCASE_NAME, oldTestcaseName, testcaseName));
   }
 
   /**
@@ -181,7 +181,7 @@ public class TestcaseImpl extends MinimalEObjectImpl.Container implements Testca
     switch (featureID)
     {
       case EisPackage.TESTCASE__TESTCASE_NAME:
-        return getTestcase_name();
+        return getTestcaseName();
       case EisPackage.TESTCASE__TESTBLOCK:
         return getTestblock();
     }
@@ -199,7 +199,7 @@ public class TestcaseImpl extends MinimalEObjectImpl.Container implements Testca
     switch (featureID)
     {
       case EisPackage.TESTCASE__TESTCASE_NAME:
-        setTestcase_name((String)newValue);
+        setTestcaseName((String)newValue);
         return;
       case EisPackage.TESTCASE__TESTBLOCK:
         setTestblock((Testblock)newValue);
@@ -219,7 +219,7 @@ public class TestcaseImpl extends MinimalEObjectImpl.Container implements Testca
     switch (featureID)
     {
       case EisPackage.TESTCASE__TESTCASE_NAME:
-        setTestcase_name(TESTCASE_NAME_EDEFAULT);
+        setTestcaseName(TESTCASE_NAME_EDEFAULT);
         return;
       case EisPackage.TESTCASE__TESTBLOCK:
         setTestblock((Testblock)null);
@@ -239,7 +239,7 @@ public class TestcaseImpl extends MinimalEObjectImpl.Container implements Testca
     switch (featureID)
     {
       case EisPackage.TESTCASE__TESTCASE_NAME:
-        return TESTCASE_NAME_EDEFAULT == null ? testcase_name != null : !TESTCASE_NAME_EDEFAULT.equals(testcase_name);
+        return TESTCASE_NAME_EDEFAULT == null ? testcaseName != null : !TESTCASE_NAME_EDEFAULT.equals(testcaseName);
       case EisPackage.TESTCASE__TESTBLOCK:
         return testblock != null;
     }
@@ -257,8 +257,8 @@ public class TestcaseImpl extends MinimalEObjectImpl.Container implements Testca
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (testcase_name: ");
-    result.append(testcase_name);
+    result.append(" (testcaseName: ");
+    result.append(testcaseName);
     result.append(')');
     return result.toString();
   }

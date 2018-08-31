@@ -444,7 +444,7 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getEisModel_Project_name()
+  public EAttribute getEisModel_ProjectName()
   {
     return (EAttribute)eisModelEClass.getEStructuralFeatures().get(0);
   }
@@ -454,7 +454,7 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getEisModel_Plc_name()
+  public EAttribute getEisModel_PlcName()
   {
     return (EAttribute)eisModelEClass.getEStructuralFeatures().get(1);
   }
@@ -464,7 +464,7 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getEisModel_Author_name()
+  public EAttribute getEisModel_AuthorName()
   {
     return (EAttribute)eisModelEClass.getEStructuralFeatures().get(2);
   }
@@ -494,7 +494,7 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getTestcase_Testcase_name()
+  public EAttribute getTestcase_TestcaseName()
   {
     return (EAttribute)testcaseEClass.getEStructuralFeatures().get(0);
   }
@@ -1902,13 +1902,13 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
 
     // Initialize classes and features; add operations and parameters
     initEClass(eisModelEClass, EisModel.class, "EisModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getEisModel_Project_name(), ecorePackage.getEString(), "project_name", null, 0, 1, EisModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getEisModel_Plc_name(), ecorePackage.getEString(), "plc_name", null, 0, 1, EisModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getEisModel_Author_name(), ecorePackage.getEString(), "author_name", null, 0, 1, EisModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEisModel_ProjectName(), ecorePackage.getEString(), "projectName", null, 0, 1, EisModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEisModel_PlcName(), ecorePackage.getEString(), "plcName", null, 0, 1, EisModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEisModel_AuthorName(), ecorePackage.getEString(), "authorName", null, 0, 1, EisModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getEisModel_Testcases(), this.getTestcase(), null, "testcases", null, 0, -1, EisModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(testcaseEClass, Testcase.class, "Testcase", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getTestcase_Testcase_name(), ecorePackage.getEString(), "testcase_name", null, 0, 1, Testcase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTestcase_TestcaseName(), ecorePackage.getEString(), "testcaseName", null, 0, 1, Testcase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTestcase_Testblock(), this.getTestblock(), null, "testblock", null, 0, 1, Testcase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(testblockEClass, Testblock.class, "Testblock", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

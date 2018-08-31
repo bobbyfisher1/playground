@@ -17,8 +17,8 @@
 '=='=28
 '>'=32
 '>='=30
-'FB'=24
-'FC'=23
+'FB'=26
+'FC'=25
 '['=69
 ']'=70
 'assert'=88
@@ -32,7 +32,7 @@
 'description'=67
 'dint'=51
 'dword'=44
-'false'=26
+'false'=24
 'inout'=84
 'input'=82
 'int'=37
@@ -52,7 +52,7 @@
 'testcase'=62
 'teststep'=86
 'time'=53
-'true'=25
+'true'=23
 'udint'=48
 'udt'=72
 'uint'=47

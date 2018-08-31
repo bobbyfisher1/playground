@@ -109,6 +109,19 @@ public class DefineTypeComputer {
       (type == DefineTypeComputer.LTIME_TYPE));
   }
   
+  public boolean isSecondLetterCapitalized(final BasicType type) {
+    boolean _xblockexpression = false;
+    {
+      String _string = null;
+      if (type!=null) {
+        _string=type.toString();
+      }
+      final String t = _string;
+      _xblockexpression = ((t == "wchar") || (t == "lreal"));
+    }
+    return _xblockexpression;
+  }
+  
   public boolean isThirdLetterCapitalized(final DefineType type) {
     return (((type == DefineTypeComputer.USINT_TYPE) || (type == DefineTypeComputer.UDINT_TYPE)) || (type == DefineTypeComputer.ULINT_TYPE));
   }

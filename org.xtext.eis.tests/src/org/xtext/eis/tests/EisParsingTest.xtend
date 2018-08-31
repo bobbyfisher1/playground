@@ -57,9 +57,9 @@ class EisParsingTest {
 			plcname = "fj484";
 			author = "Paul Auster";
 		'''.parse => [
-			project_name.assertEquals("x");
-			plc_name.assertEquals("fj484")
-			author_name.assertEquals("Paul Auster")
+			projectName.assertEquals("x");
+			plcName.assertEquals("fj484")
+			authorName.assertEquals("Paul Auster")
 		]
 	}
 

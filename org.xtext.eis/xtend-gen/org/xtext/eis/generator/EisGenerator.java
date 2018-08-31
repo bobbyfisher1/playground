@@ -64,8 +64,8 @@ public class EisGenerator extends AbstractGenerator {
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
     final EisModel model = IterableExtensions.<EisModel>head(Iterables.<EisModel>filter(IteratorExtensions.<EObject>toIterable(resource.getAllContents()), EisModel.class));
     StringConcatenation _builder = new StringConcatenation();
-    String _plc_name = model.getPlc_name();
-    _builder.append(_plc_name);
+    String _plcName = model.getPlcName();
+    _builder.append(_plcName);
     _builder.append("_Testfixture.xml");
     fsa.generateFile(_builder.toString(), this.compile(model));
   }
@@ -81,20 +81,20 @@ public class EisGenerator extends AbstractGenerator {
       _builder.newLine();
       _builder.append("\t");
       _builder.append("<TiaProjectName>");
-      String _project_name = model.getProject_name();
-      _builder.append(_project_name, "\t");
+      String _projectName = model.getProjectName();
+      _builder.append(_projectName, "\t");
       _builder.append("</TiaProjectName>");
       _builder.newLineIfNotEmpty();
       _builder.append("\t");
       _builder.append("<PlcName>");
-      String _plc_name = model.getPlc_name();
-      _builder.append(_plc_name, "\t");
+      String _plcName = model.getPlcName();
+      _builder.append(_plcName, "\t");
       _builder.append("</PlcName>");
       _builder.newLineIfNotEmpty();
       _builder.append("\t");
       _builder.append("<Author>");
-      String _author_name = model.getAuthor_name();
-      _builder.append(_author_name, "\t");
+      String _authorName = model.getAuthorName();
+      _builder.append(_authorName, "\t");
       _builder.append("</Author>");
       _builder.newLineIfNotEmpty();
       _builder.append("\t");
@@ -120,8 +120,8 @@ public class EisGenerator extends AbstractGenerator {
               String _value = testblock.getTestActive().getValue();
               _builder.append(_value, "\t\t");
               _builder.append("\" Blockname=\"");
-              String _testcase_name = testcases.getTestcase_name();
-              _builder.append(_testcase_name, "\t\t");
+              String _testcaseName = testcases.getTestcaseName();
+              _builder.append(_testcaseName, "\t\t");
               _builder.append("\" Blocktype=\"");
               String _value_1 = testblock.getBlockType().getValue();
               _builder.append(_value_1, "\t\t");
@@ -623,8 +623,7 @@ public class EisGenerator extends AbstractGenerator {
       String __char_1 = _char;
       _char = (__char_1 + "Variant@");
     }
-    boolean _isSecondLetterCapitalized = this._defineTypeComputer.isSecondLetterCapitalized(this._defineTypeComputer.typeFor(type));
-    if (_isSecondLetterCapitalized) {
+    if ((this._defineTypeComputer.isSecondLetterCapitalized(this._defineTypeComputer.typeFor(type)) || this._defineTypeComputer.isSecondLetterCapitalized(type))) {
       string = this._eisModelUtil.toCharUpper(string, 1);
     }
     boolean _isThirdLetterCapitalized = this._defineTypeComputer.isThirdLetterCapitalized(this._defineTypeComputer.typeFor(type));

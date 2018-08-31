@@ -87,9 +87,9 @@ ruleEisModel returns [EObject current=null]
 		}
 		(
 			(
-				lv_project_name_2_0=RULE_STRING
+				lv_projectName_2_0=RULE_STRING
 				{
-					newLeafNode(lv_project_name_2_0, grammarAccess.getEisModelAccess().getProject_nameSTRINGTerminalRuleCall_2_0());
+					newLeafNode(lv_projectName_2_0, grammarAccess.getEisModelAccess().getProjectNameSTRINGTerminalRuleCall_2_0());
 				}
 				{
 					if ($current==null) {
@@ -97,8 +97,8 @@ ruleEisModel returns [EObject current=null]
 					}
 					setWithLastConsumed(
 						$current,
-						"project_name",
-						lv_project_name_2_0,
+						"projectName",
+						lv_projectName_2_0,
 						"org.xtext.eis.Eis.STRING");
 				}
 			)
@@ -117,9 +117,9 @@ ruleEisModel returns [EObject current=null]
 		}
 		(
 			(
-				lv_plc_name_6_0=RULE_STRING
+				lv_plcName_6_0=RULE_STRING
 				{
-					newLeafNode(lv_plc_name_6_0, grammarAccess.getEisModelAccess().getPlc_nameSTRINGTerminalRuleCall_6_0());
+					newLeafNode(lv_plcName_6_0, grammarAccess.getEisModelAccess().getPlcNameSTRINGTerminalRuleCall_6_0());
 				}
 				{
 					if ($current==null) {
@@ -127,8 +127,8 @@ ruleEisModel returns [EObject current=null]
 					}
 					setWithLastConsumed(
 						$current,
-						"plc_name",
-						lv_plc_name_6_0,
+						"plcName",
+						lv_plcName_6_0,
 						"org.xtext.eis.Eis.STRING");
 				}
 			)
@@ -147,9 +147,9 @@ ruleEisModel returns [EObject current=null]
 		}
 		(
 			(
-				lv_author_name_10_0=RULE_STRING
+				lv_authorName_10_0=RULE_STRING
 				{
-					newLeafNode(lv_author_name_10_0, grammarAccess.getEisModelAccess().getAuthor_nameSTRINGTerminalRuleCall_10_0());
+					newLeafNode(lv_authorName_10_0, grammarAccess.getEisModelAccess().getAuthorNameSTRINGTerminalRuleCall_10_0());
 				}
 				{
 					if ($current==null) {
@@ -157,8 +157,8 @@ ruleEisModel returns [EObject current=null]
 					}
 					setWithLastConsumed(
 						$current,
-						"author_name",
-						lv_author_name_10_0,
+						"authorName",
+						lv_authorName_10_0,
 						"org.xtext.eis.Eis.STRING");
 				}
 			)
@@ -211,9 +211,9 @@ ruleTestcase returns [EObject current=null]
 		}
 		(
 			(
-				lv_testcase_name_1_0=RULE_ID
+				lv_testcaseName_1_0=RULE_ID
 				{
-					newLeafNode(lv_testcase_name_1_0, grammarAccess.getTestcaseAccess().getTestcase_nameIDTerminalRuleCall_1_0());
+					newLeafNode(lv_testcaseName_1_0, grammarAccess.getTestcaseAccess().getTestcaseNameIDTerminalRuleCall_1_0());
 				}
 				{
 					if ($current==null) {
@@ -221,8 +221,8 @@ ruleTestcase returns [EObject current=null]
 					}
 					setWithLastConsumed(
 						$current,
-						"testcase_name",
-						lv_testcase_name_1_0,
+						"testcaseName",
+						lv_testcaseName_1_0,
 						"org.xtext.eis.Eis.ID");
 				}
 			)
@@ -404,21 +404,29 @@ ruleBoolConstant returns [EObject current=null]
 }:
 	(
 		(
-			{
-				newCompositeNode(grammarAccess.getBoolConstantAccess().getValueBooleanValueParserRuleCall_0());
-			}
-			lv_value_0_0=ruleBooleanValue
-			{
-				if ($current==null) {
-					$current = createModelElementForParent(grammarAccess.getBoolConstantRule());
+			(
+				lv_value_0_1='true'
+				{
+					newLeafNode(lv_value_0_1, grammarAccess.getBoolConstantAccess().getValueTrueKeyword_0_0());
 				}
-				set(
-					$current,
-					"value",
-					lv_value_0_0,
-					"org.xtext.eis.Eis.BooleanValue");
-				afterParserOrEnumRuleCall();
-			}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getBoolConstantRule());
+					}
+					setWithLastConsumed($current, "value", lv_value_0_1, null);
+				}
+				    |
+				lv_value_0_2='false'
+				{
+					newLeafNode(lv_value_0_2, grammarAccess.getBoolConstantAccess().getValueFalseKeyword_0_1());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getBoolConstantRule());
+					}
+					setWithLastConsumed($current, "value", lv_value_0_2, null);
+				}
+			)
 		)
 	)
 ;
@@ -440,82 +448,30 @@ ruleBlockConstant returns [EObject current=null]
 }:
 	(
 		(
-			{
-				newCompositeNode(grammarAccess.getBlockConstantAccess().getValueBlockValueParserRuleCall_0());
-			}
-			lv_value_0_0=ruleBlockValue
-			{
-				if ($current==null) {
-					$current = createModelElementForParent(grammarAccess.getBlockConstantRule());
+			(
+				lv_value_0_1='FC'
+				{
+					newLeafNode(lv_value_0_1, grammarAccess.getBlockConstantAccess().getValueFCKeyword_0_0());
 				}
-				set(
-					$current,
-					"value",
-					lv_value_0_0,
-					"org.xtext.eis.Eis.BlockValue");
-				afterParserOrEnumRuleCall();
-			}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getBlockConstantRule());
+					}
+					setWithLastConsumed($current, "value", lv_value_0_1, null);
+				}
+				    |
+				lv_value_0_2='FB'
+				{
+					newLeafNode(lv_value_0_2, grammarAccess.getBlockConstantAccess().getValueFBKeyword_0_1());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getBlockConstantRule());
+					}
+					setWithLastConsumed($current, "value", lv_value_0_2, null);
+				}
+			)
 		)
-	)
-;
-
-// Entry rule entryRuleBlockValue
-entryRuleBlockValue returns [String current=null]:
-	{ newCompositeNode(grammarAccess.getBlockValueRule()); }
-	iv_ruleBlockValue=ruleBlockValue
-	{ $current=$iv_ruleBlockValue.current.getText(); }
-	EOF;
-
-// Rule BlockValue
-ruleBlockValue returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		kw='FC'
-		{
-			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getBlockValueAccess().getFCKeyword_0());
-		}
-		    |
-		kw='FB'
-		{
-			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getBlockValueAccess().getFBKeyword_1());
-		}
-	)
-;
-
-// Entry rule entryRuleBooleanValue
-entryRuleBooleanValue returns [String current=null]:
-	{ newCompositeNode(grammarAccess.getBooleanValueRule()); }
-	iv_ruleBooleanValue=ruleBooleanValue
-	{ $current=$iv_ruleBooleanValue.current.getText(); }
-	EOF;
-
-// Rule BooleanValue
-ruleBooleanValue returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		kw='true'
-		{
-			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getBooleanValueAccess().getTrueKeyword_0());
-		}
-		    |
-		kw='false'
-		{
-			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getBooleanValueAccess().getFalseKeyword_1());
-		}
 	)
 ;
 
@@ -2886,7 +2842,7 @@ RULE_LWORD : '16#' RULE_HEX RULE_HEX RULE_HEX RULE_HEX '_' RULE_HEX RULE_HEX RUL
 
 RULE_DATE : 'D#' RULE_X RULE_X RULE_X RULE_X '-' RULE_X RULE_X '-' RULE_X RULE_X;
 
-RULE_CHAR : '\'' ('a'..'z'|'A'..'Z'|'0'..'9') '\'';
+RULE_CHAR : '\'' ('a'..'z'|'A'..'Z'|RULE_X) '\'';
 
 RULE_TIME : 'T#' '-'? (RULE_X? RULE_X 'd' '_'?)? (RULE_X? RULE_X 'h' '_'?)? (RULE_X? RULE_X 'M' '_'?)? (RULE_X? RULE_X 's' '_'?)? ((RULE_X? RULE_X)? RULE_X 'ms')?;
 

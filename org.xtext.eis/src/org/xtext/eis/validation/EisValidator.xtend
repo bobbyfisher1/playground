@@ -108,19 +108,13 @@ class EisValidator extends AbstractEisValidator {
 // checks -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //
 	@Check def void checkNoDuplicateVariablesIO(DirectionBlock directionblock) {
+		val multiMap = HashMultimap.create()
 		val in = directionblock.input.inputVariables
 		val out = directionblock.output.outputVariables
-		val multiMap = HashMultimap.create()
 
 		// add all variables to the map
-		for (e : in) {
-			e.checkVariableTypeAndAddToMap(multiMap)
-			if (e instanceof Udt)
-				e.checkAllVariableNamesInUdtScope
-		}
-
-		for (e : out) {
-			e.checkVariableTypeAndAddToMap(multiMap)
+		for (e : in + out) {
+			multiMap.put(e.name, e)
 			if (e instanceof Udt)
 				e.checkAllVariableNamesInUdtScope
 		}
@@ -128,33 +122,21 @@ class EisValidator extends AbstractEisValidator {
 		// check for duplicates
 		for (entry : multiMap.asMap.entrySet) {
 			val duplicates = entry.value
-			if (duplicates.size > 1) {
+			if (duplicates.size > 1)
 				for (d : duplicates)
 					d.checkVariableTypeAndCallError
-			}
 		}
 	}
 
 	@Check def void checkNoDuplicateVariablesIOInOut(DirectionBlock directionblock) {
+		val multiMap = HashMultimap.create
 		val in = directionblock.input.inputVariables
 		val out = directionblock.output.outputVariables
 		val inout = directionblock.inout.inoutVariables
-		val multiMap = HashMultimap.create
 
 		// add all variables to the multimap
-		for (e : in) {
-			e.checkVariableTypeAndAddToMap(multiMap)
-			if (e instanceof Udt)
-				e.checkAllVariableNamesInUdtScope
-		}
-		for (e : out) {
-			e.checkVariableTypeAndAddToMap(multiMap)
-			if (e instanceof Udt)
-				e.checkAllVariableNamesInUdtScope
-		}
-
-		for (e : inout) {
-			e.checkVariableTypeAndAddToMap(multiMap)
+		for (e : in + inout + out) {
+			multiMap.put(e.name, e)
 			if (e instanceof Udt)
 				e.checkAllVariableNamesInUdtScope
 		}
@@ -162,10 +144,9 @@ class EisValidator extends AbstractEisValidator {
 		// check for duplicates
 		for (entry : multiMap.asMap.entrySet) {
 			val duplicates = entry.value
-			if (duplicates.size > 1) {
+			if (duplicates.size > 1)
 				for (d : duplicates)
 					d.checkVariableTypeAndCallError
-			}
 		}
 	}
 
@@ -174,28 +155,20 @@ class EisValidator extends AbstractEisValidator {
 		val in = directionblock.input.inputVariables
 		val out = directionblock.output.outputVariables
 
-		// add all udtTypes of input to the multimap
-		for (e : in) {
+		// add all udtTypes to the multimap
+		for (e : in + out)
 			if (e instanceof Udt) {
 				multiMap.put(e.udtType.name, e)
 				e.checkNoDuplicateUdtTypes
 			}
-		}
 
-		for (e : out) {
-			if (e instanceof Udt) {
-				multiMap.put(e.udtType.name, e)
-				e.checkNoDuplicateUdtTypes
-			}
-		}
 		// check for duplicates
 		for (entry : multiMap.asMap.entrySet) {
 			val duplicates = entry.value
-			if (duplicates.size > 1) {
+			if (duplicates.size > 1)
 				for (d : duplicates)
 					error("Multiple udtType '" + (d as Udt).udtType.name + "'", d, EisPackage.eINSTANCE.udt_UdtType,
 						EisValidator.MULTIPLE_UDT_TYPE)
-			}
 		}
 	}
 
@@ -206,33 +179,19 @@ class EisValidator extends AbstractEisValidator {
 		val inout = directionblock.inout.inoutVariables
 
 		// add all udtTypes of input to the multimap
-		for (e : in) {
+		for (e : in + out + inout)
 			if (e instanceof Udt) {
 				multiMap.put(e.udtType.name, e)
 				e.checkNoDuplicateUdtTypes
 			}
-		}
 
-		for (e : out) {
-			if (e instanceof Udt) {
-				multiMap.put(e.udtType.name, e)
-				e.checkNoDuplicateUdtTypes
-			}
-		}
-		for (e : inout) {
-			if (e instanceof Udt) {
-				multiMap.put(e.udtType.name, e)
-				e.checkNoDuplicateUdtTypes
-			}
-		}
 		// check for duplicates
 		for (entry : multiMap.asMap.entrySet) {
 			val duplicates = entry.value
-			if (duplicates.size > 1) {
+			if (duplicates.size > 1)
 				for (d : duplicates)
 					error("Multiple udtType '" + (d as Udt).udtType.name + "'", d, EisPackage.eINSTANCE.udt_UdtType,
 						EisValidator.MULTIPLE_UDT_TYPE)
-			}
 		}
 	}
 
@@ -279,13 +238,17 @@ class EisValidator extends AbstractEisValidator {
 
 	@Check def void checkDivisionByZero(MulOrDiv mulOrDiv) {
 		val right = mulOrDiv.right.interpret
+		var error = false
+		
 		if (right instanceof Long)
 			if (right == 0)
-				error("Division by zero.", mulOrDiv, EisPackage.eINSTANCE.mulOrDiv_Right, DIVISION_BY_ZERO)
+				error = true
 		if (right instanceof Double)
 			if (!(right < 0) && !(right > 0))
-				error("Division by zero.", mulOrDiv, EisPackage.eINSTANCE.mulOrDiv_Right, DIVISION_BY_ZERO)
+				error = true
 
+		if (error)
+			error("Division by zero.", mulOrDiv, EisPackage.eINSTANCE.mulOrDiv_Right, DIVISION_BY_ZERO)
 	}
 
 	@Check def void checkType(Equality equality) {
@@ -548,14 +511,14 @@ class EisValidator extends AbstractEisValidator {
 		var multiMap = HashMultimap.create
 		// add all udtTypes of input to the multimap
 		for (e : model?.testcases)
-			multiMap.put(e.testcase_name, e)
+			multiMap.put(e.testcaseName, e)
 
 		// check for duplicates
 		for (entry : multiMap.asMap.entrySet) {
 			val duplicates = entry.value
 			if (duplicates.size > 1) {
 				for (d : duplicates)
-					error("Multiple plcCycle", d, EisPackage.eINSTANCE.testcase_Testcase_name,
+					error("Multiple plcCycle", d, EisPackage.eINSTANCE.testcase_TestcaseName,
 						EisValidator.MULTIPLE_TESTCASE_NAME)
 			}
 		}
@@ -1111,22 +1074,12 @@ class EisValidator extends AbstractEisValidator {
 			container.direction
 	}
 
-	def private void checkVariableTypeAndAddToMap(
-		Variables e,
-		HashMultimap<String, Variables> multiMap
-	) {
-		if (e instanceof Udt) {
-			multiMap.put(e.name, e)
-		} else if (e instanceof Variable)
-			multiMap.put(e.name, e)
-	}
-
 	def private void checkAllVariableNamesInUdtScope(Udt udt) {
 		val newMultimap = HashMultimap.create
 		val udts = udt.udtVariables
 
 		for (e : udts) {
-			e.checkVariableTypeAndAddToMap(newMultimap)
+			newMultimap.put(e.name, e)
 			if (e instanceof Udt)
 				e.checkAllVariableNamesInUdtScope
 		}
@@ -1141,24 +1094,23 @@ class EisValidator extends AbstractEisValidator {
 	}
 
 	def private void checkVariableTypeAndCallError(Variables e) {
-		if (e instanceof Udt)
-			error("Multiple variable name '" + e.name + "'", e, EisPackage.eINSTANCE.variables_Name,
-				EisValidator.MULTIPLE_UDT_DECLARATION)
-		else if (e instanceof Variable)
-			error("Multiple variable name '" + e.name + "'", e, EisPackage.eINSTANCE.variables_Name,
-				EisValidator.MULTIPLE_VARIABLE_DECLARATION)
+		var error = MULTIPLE_UDT_DECLARATION
+
+		if (e instanceof Variable)
+			error = MULTIPLE_VARIABLE_DECLARATION
+
+		error("Multiple variable name '" + e.name + "'", e, EisPackage.eINSTANCE.variables_Name, error)
 	}
 
 	def private void checkNoDuplicateUdtTypes(Udt udt) {
 		var multiMap = HashMultimap.create
 		val udts = udt.udtVariables
 
-		for (e : udts) {
+		for (e : udts)
 			if (e instanceof Udt) {
 				multiMap.put(e.udtType.name, e)
 				e.checkNoDuplicateUdtTypes
 			}
-		}
 	}
 
 	def private void checkExpectedBoolean(Idiom exp, EReference reference) {
@@ -1212,7 +1164,6 @@ class EisValidator extends AbstractEisValidator {
 	}
 
 	def private void checkCommaSyntaxWithVariables(Iterable<? extends Variables> variables) {
-
 		var count = 0 // ugly programming
 		var countOfVariableBefore = 0
 		var commaBeforeVariable = false;
@@ -1420,14 +1371,5 @@ class EisValidator extends AbstractEisValidator {
 			newVariable.idiom = newIdiomOrRange
 		return newVariable
 	}
-
-//
-// yet unimplemented -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-//
-	@Check def void checkUppercaseVariantName() {}
-
-	@Check def void checkUppercaseUdtName() {}
-
-	@Check def void checkLowercaseUdtType() {}
 
 }

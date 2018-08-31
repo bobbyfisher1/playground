@@ -42,7 +42,7 @@ class EisGenerator extends AbstractGenerator {
 		
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		val model = resource.allContents.toIterable.filter(EisModel).head
-		fsa.generateFile('''«model.plc_name»_Testfixture.xml''', model.compile)
+		fsa.generateFile('''«model.plcName»_Testfixture.xml''', model.compile)
 	}
 	
 //
@@ -53,13 +53,13 @@ class EisGenerator extends AbstractGenerator {
 		'''
 			<?xml version="1.0" encoding="utf-8"?>
 			<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-				<TiaProjectName>«model.project_name»</TiaProjectName>
-				<PlcName>«model.plc_name»</PlcName>
-				<Author>«model.author_name»</Author>
+				<TiaProjectName>«model.projectName»</TiaProjectName>
+				<PlcName>«model.plcName»</PlcName>
+				<Author>«model.authorName»</Author>
 				<TestCases>
 			«FOR testcases : model.testcases»
 					«val testblock = testcases?.testblock»
-							<TestCase ID="«testcaseID++»"«IF testblock !== null» TestActive="«testblock.testActive.value»" Blockname="«testcases.testcase_name»" Blocktype="«testblock.blockType.value»" Description="«testblock.description»"«ENDIF»>
+							<TestCase ID="«testcaseID++»"«IF testblock !== null» TestActive="«testblock.testActive.value»" Blockname="«testcases.testcaseName»" Blocktype="«testblock.blockType.value»" Description="«testblock.description»"«ENDIF»>
 					«IF testblock?.define !== null»
 				«testblock.define.compileTeststeps»
 					«ENDIF»
@@ -287,7 +287,7 @@ class EisGenerator extends AbstractGenerator {
 		if(variable.variantKeyword){
 			_char += "Variant@"		
 		}
-		if(type.typeFor.isSecondLetterCapitalized){
+		if(type.typeFor.isSecondLetterCapitalized || type.isSecondLetterCapitalized){
 			string =	string.toCharUpper(1)
 		}
 		if(type.typeFor.isThirdLetterCapitalized){

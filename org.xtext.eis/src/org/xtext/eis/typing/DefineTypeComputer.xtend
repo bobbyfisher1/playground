@@ -85,6 +85,11 @@ class DefineTypeComputer {
 			type === LTIME_TYPE
 	}
 
+	def isSecondLetterCapitalized(BasicType type) {
+		val t = type?.toString
+		t === "wchar" || t === "lreal"
+	}
+
 	def isThirdLetterCapitalized(DefineType type) {
 		type === USINT_TYPE || type === UDINT_TYPE || type === ULINT_TYPE
 	}

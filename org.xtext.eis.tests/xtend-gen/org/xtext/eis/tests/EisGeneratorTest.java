@@ -3608,6 +3608,12 @@ public class EisGeneratorTest {
     _builder.append("\t \t ");
     _builder.append("variant date s = D#2018-08-22;");
     _builder.newLine();
+    _builder.append("\t\t ");
+    _builder.append("variant wchar t = \'w\';");
+    _builder.newLine();
+    _builder.append("\t\t ");
+    _builder.append("variant lreal u = 1.2;");
+    _builder.newLine();
     _builder.append("\t\t");
     _builder.append("}");
     _builder.newLine();
@@ -3728,6 +3734,12 @@ public class EisGeneratorTest {
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t\t");
         _builder_1.append("<Element xsi:type=\"Output\" Name=\"s\" Datatype=\"Variant@Date\" Direction=\"Output\" Expect=\"D#2018-08-22\" Range=\"\" />");
+        _builder_1.newLine();
+        _builder_1.append("\t\t\t\t\t\t\t\t");
+        _builder_1.append("<Element xsi:type=\"Output\" Name=\"t\" Datatype=\"Variant@WChar\" Direction=\"Output\" Expect=\"w\" Range=\"\" />");
+        _builder_1.newLine();
+        _builder_1.append("\t\t\t\t\t\t\t\t");
+        _builder_1.append("<Element xsi:type=\"Output\" Name=\"u\" Datatype=\"Variant@LReal\" Direction=\"Output\" Expect=\"1.2\" Range=\"\" />");
         _builder_1.newLine();
         _builder_1.append("\t\t\t\t\t\t\t");
         _builder_1.append("</Elements>");

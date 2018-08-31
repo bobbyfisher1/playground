@@ -649,16 +649,10 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     BlockConstant returns BlockConstant
 	 *
 	 * Constraint:
-	 *     value=BlockValue
+	 *     (value='FC' | value='FB')
 	 */
 	protected void sequence_BlockConstant(ISerializationContext context, BlockConstant semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, EisPackage.Literals.BLOCK_CONSTANT__VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EisPackage.Literals.BLOCK_CONSTANT__VALUE));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getBlockConstantAccess().getValueBlockValueParserRuleCall_0(), semanticObject.getValue());
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -683,16 +677,10 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Atomic returns BoolConstant
 	 *
 	 * Constraint:
-	 *     value=BooleanValue
+	 *     (value='true' | value='false')
 	 */
 	protected void sequence_BoolConstant(ISerializationContext context, BoolConstant semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, EisPackage.Literals.BOOL_CONSTANT__VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EisPackage.Literals.BOOL_CONSTANT__VALUE));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getBoolConstantAccess().getValueBooleanValueParserRuleCall_0(), semanticObject.getValue());
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -769,7 +757,7 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     EisModel returns EisModel
 	 *
 	 * Constraint:
-	 *     (project_name=STRING plc_name=STRING author_name=STRING testcases+=Testcase*)
+	 *     (projectName=STRING plcName=STRING authorName=STRING testcases+=Testcase*)
 	 */
 	protected void sequence_EisModel(ISerializationContext context, EisModel semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1042,7 +1030,7 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Testcase returns Testcase
 	 *
 	 * Constraint:
-	 *     (testcase_name=ID testblock=Testblock?)
+	 *     (testcaseName=ID testblock=Testblock?)
 	 */
 	protected void sequence_Testcase(ISerializationContext context, Testcase semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

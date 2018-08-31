@@ -5,6 +5,7 @@ package org.xtext.eis.validation;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -145,22 +146,15 @@ public class EisValidator extends AbstractEisValidator {
   
   @Check
   public void checkNoDuplicateVariablesIO(final DirectionBlock directionblock) {
+    final HashMultimap<String, Variables> multiMap = HashMultimap.<String, Variables>create();
     final EList<Variables> in = directionblock.getInput().getInputVariables();
     final EList<Variables> out = directionblock.getOutput().getOutputVariables();
-    final HashMultimap<String, Variables> multiMap = HashMultimap.<String, Variables>create();
-    for (final Variables e : in) {
+    Iterable<Variables> _plus = Iterables.<Variables>concat(in, out);
+    for (final Variables e : _plus) {
       {
-        this.checkVariableTypeAndAddToMap(e, multiMap);
+        multiMap.put(e.getName(), e);
         if ((e instanceof Udt)) {
           this.checkAllVariableNamesInUdtScope(((Udt)e));
-        }
-      }
-    }
-    for (final Variables e_1 : out) {
-      {
-        this.checkVariableTypeAndAddToMap(e_1, multiMap);
-        if ((e_1 instanceof Udt)) {
-          this.checkAllVariableNamesInUdtScope(((Udt)e_1));
         }
       }
     }
@@ -181,31 +175,17 @@ public class EisValidator extends AbstractEisValidator {
   
   @Check
   public void checkNoDuplicateVariablesIOInOut(final DirectionBlock directionblock) {
+    final HashMultimap<String, Variables> multiMap = HashMultimap.<String, Variables>create();
     final EList<Variables> in = directionblock.getInput().getInputVariables();
     final EList<Variables> out = directionblock.getOutput().getOutputVariables();
     final EList<Variables> inout = directionblock.getInout().getInoutVariables();
-    final HashMultimap<String, Variables> multiMap = HashMultimap.<String, Variables>create();
-    for (final Variables e : in) {
+    Iterable<Variables> _plus = Iterables.<Variables>concat(in, inout);
+    Iterable<Variables> _plus_1 = Iterables.<Variables>concat(_plus, out);
+    for (final Variables e : _plus_1) {
       {
-        this.checkVariableTypeAndAddToMap(e, multiMap);
+        multiMap.put(e.getName(), e);
         if ((e instanceof Udt)) {
           this.checkAllVariableNamesInUdtScope(((Udt)e));
-        }
-      }
-    }
-    for (final Variables e_1 : out) {
-      {
-        this.checkVariableTypeAndAddToMap(e_1, multiMap);
-        if ((e_1 instanceof Udt)) {
-          this.checkAllVariableNamesInUdtScope(((Udt)e_1));
-        }
-      }
-    }
-    for (final Variables e_2 : inout) {
-      {
-        this.checkVariableTypeAndAddToMap(e_2, multiMap);
-        if ((e_2 instanceof Udt)) {
-          this.checkAllVariableNamesInUdtScope(((Udt)e_2));
         }
       }
     }
@@ -229,16 +209,11 @@ public class EisValidator extends AbstractEisValidator {
     HashMultimap<String, Udt> multiMap = HashMultimap.<String, Udt>create();
     final EList<Variables> in = directionblock.getInput().getInputVariables();
     final EList<Variables> out = directionblock.getOutput().getOutputVariables();
-    for (final Variables e : in) {
+    Iterable<Variables> _plus = Iterables.<Variables>concat(in, out);
+    for (final Variables e : _plus) {
       if ((e instanceof Udt)) {
         multiMap.put(((Udt)e).getUdtType().getName(), ((Udt)e));
         this.checkNoDuplicateUdtTypes(((Udt)e));
-      }
-    }
-    for (final Variables e_1 : out) {
-      if ((e_1 instanceof Udt)) {
-        multiMap.put(((Udt)e_1).getUdtType().getName(), ((Udt)e_1));
-        this.checkNoDuplicateUdtTypes(((Udt)e_1));
       }
     }
     Set<Map.Entry<String, Collection<Udt>>> _entrySet = multiMap.asMap().entrySet();
@@ -250,9 +225,9 @@ public class EisValidator extends AbstractEisValidator {
         if (_greaterThan) {
           for (final Udt d : duplicates) {
             String _name = ((Udt) d).getUdtType().getName();
-            String _plus = ("Multiple udtType \'" + _name);
-            String _plus_1 = (_plus + "\'");
-            this.error(_plus_1, d, EisPackage.eINSTANCE.getUdt_UdtType(), 
+            String _plus_1 = ("Multiple udtType \'" + _name);
+            String _plus_2 = (_plus_1 + "\'");
+            this.error(_plus_2, d, EisPackage.eINSTANCE.getUdt_UdtType(), 
               EisValidator.MULTIPLE_UDT_TYPE);
           }
         }
@@ -266,22 +241,12 @@ public class EisValidator extends AbstractEisValidator {
     final EList<Variables> in = directionblock.getInput().getInputVariables();
     final EList<Variables> out = directionblock.getOutput().getOutputVariables();
     final EList<Variables> inout = directionblock.getInout().getInoutVariables();
-    for (final Variables e : in) {
+    Iterable<Variables> _plus = Iterables.<Variables>concat(in, out);
+    Iterable<Variables> _plus_1 = Iterables.<Variables>concat(_plus, inout);
+    for (final Variables e : _plus_1) {
       if ((e instanceof Udt)) {
         multiMap.put(((Udt)e).getUdtType().getName(), ((Udt)e));
         this.checkNoDuplicateUdtTypes(((Udt)e));
-      }
-    }
-    for (final Variables e_1 : out) {
-      if ((e_1 instanceof Udt)) {
-        multiMap.put(((Udt)e_1).getUdtType().getName(), ((Udt)e_1));
-        this.checkNoDuplicateUdtTypes(((Udt)e_1));
-      }
-    }
-    for (final Variables e_2 : inout) {
-      if ((e_2 instanceof Udt)) {
-        multiMap.put(((Udt)e_2).getUdtType().getName(), ((Udt)e_2));
-        this.checkNoDuplicateUdtTypes(((Udt)e_2));
       }
     }
     Set<Map.Entry<String, Collection<Udt>>> _entrySet = multiMap.asMap().entrySet();
@@ -293,9 +258,9 @@ public class EisValidator extends AbstractEisValidator {
         if (_greaterThan) {
           for (final Udt d : duplicates) {
             String _name = ((Udt) d).getUdtType().getName();
-            String _plus = ("Multiple udtType \'" + _name);
-            String _plus_1 = (_plus + "\'");
-            this.error(_plus_1, d, EisPackage.eINSTANCE.getUdt_UdtType(), 
+            String _plus_2 = ("Multiple udtType \'" + _name);
+            String _plus_3 = (_plus_2 + "\'");
+            this.error(_plus_3, d, EisPackage.eINSTANCE.getUdt_UdtType(), 
               EisValidator.MULTIPLE_UDT_TYPE);
           }
         }
@@ -349,15 +314,19 @@ public class EisValidator extends AbstractEisValidator {
   @Check
   public void checkDivisionByZero(final MulOrDiv mulOrDiv) {
     final Object right = this._eisInterpreter.interpret(mulOrDiv.getRight());
+    boolean error = false;
     if ((right instanceof Long)) {
       if ((((Long) right).longValue() == 0)) {
-        this.error("Division by zero.", mulOrDiv, EisPackage.eINSTANCE.getMulOrDiv_Right(), EisValidator.DIVISION_BY_ZERO);
+        error = true;
       }
     }
     if ((right instanceof Double)) {
       if (((!(((Double) right).doubleValue() < 0)) && (!(((Double) right).doubleValue() > 0)))) {
-        this.error("Division by zero.", mulOrDiv, EisPackage.eINSTANCE.getMulOrDiv_Right(), EisValidator.DIVISION_BY_ZERO);
+        error = true;
       }
+    }
+    if (error) {
+      this.error("Division by zero.", mulOrDiv, EisPackage.eINSTANCE.getMulOrDiv_Right(), EisValidator.DIVISION_BY_ZERO);
     }
   }
   
@@ -770,7 +739,7 @@ public class EisValidator extends AbstractEisValidator {
       _testcases=model.getTestcases();
     }
     for (final Testcase e : _testcases) {
-      multiMap.put(e.getTestcase_name(), e);
+      multiMap.put(e.getTestcaseName(), e);
     }
     Set<Map.Entry<String, Collection<Testcase>>> _entrySet = multiMap.asMap().entrySet();
     for (final Map.Entry<String, Collection<Testcase>> entry : _entrySet) {
@@ -780,7 +749,7 @@ public class EisValidator extends AbstractEisValidator {
         boolean _greaterThan = (_size > 1);
         if (_greaterThan) {
           for (final Testcase d : duplicates) {
-            this.error("Multiple plcCycle", d, EisPackage.eINSTANCE.getTestcase_Testcase_name(), 
+            this.error("Multiple plcCycle", d, EisPackage.eINSTANCE.getTestcase_TestcaseName(), 
               EisValidator.MULTIPLE_TESTCASE_NAME);
           }
         }
@@ -1768,22 +1737,12 @@ public class EisValidator extends AbstractEisValidator {
     return _xblockexpression;
   }
   
-  private void checkVariableTypeAndAddToMap(final Variables e, final HashMultimap<String, Variables> multiMap) {
-    if ((e instanceof Udt)) {
-      multiMap.put(((Udt)e).getName(), e);
-    } else {
-      if ((e instanceof Variable)) {
-        multiMap.put(((Variable)e).getName(), e);
-      }
-    }
-  }
-  
   private void checkAllVariableNamesInUdtScope(final Udt udt) {
     final HashMultimap<String, Variables> newMultimap = HashMultimap.<String, Variables>create();
     final EList<Variables> udts = udt.getUdtVariables();
     for (final Variables e : udts) {
       {
-        this.checkVariableTypeAndAddToMap(e, newMultimap);
+        newMultimap.put(e.getName(), e);
         if ((e instanceof Udt)) {
           this.checkAllVariableNamesInUdtScope(((Udt)e));
         }
@@ -1805,21 +1764,14 @@ public class EisValidator extends AbstractEisValidator {
   }
   
   private void checkVariableTypeAndCallError(final Variables e) {
-    if ((e instanceof Udt)) {
-      String _name = ((Udt)e).getName();
-      String _plus = ("Multiple variable name \'" + _name);
-      String _plus_1 = (_plus + "\'");
-      this.error(_plus_1, e, EisPackage.eINSTANCE.getVariables_Name(), 
-        EisValidator.MULTIPLE_UDT_DECLARATION);
-    } else {
-      if ((e instanceof Variable)) {
-        String _name_1 = ((Variable)e).getName();
-        String _plus_2 = ("Multiple variable name \'" + _name_1);
-        String _plus_3 = (_plus_2 + "\'");
-        this.error(_plus_3, e, EisPackage.eINSTANCE.getVariables_Name(), 
-          EisValidator.MULTIPLE_VARIABLE_DECLARATION);
-      }
+    String error = EisValidator.MULTIPLE_UDT_DECLARATION;
+    if ((e instanceof Variable)) {
+      error = EisValidator.MULTIPLE_VARIABLE_DECLARATION;
     }
+    String _name = e.getName();
+    String _plus = ("Multiple variable name \'" + _name);
+    String _plus_1 = (_plus + "\'");
+    this.error(_plus_1, e, EisPackage.eINSTANCE.getVariables_Name(), error);
   }
   
   private void checkNoDuplicateUdtTypes(final Udt udt) {
@@ -2291,17 +2243,5 @@ public class EisValidator extends AbstractEisValidator {
       newVariable.setIdiom(newIdiomOrRange);
     }
     return newVariable;
-  }
-  
-  @Check
-  public void checkUppercaseVariantName() {
-  }
-  
-  @Check
-  public void checkUppercaseUdtName() {
-  }
-  
-  @Check
-  public void checkLowercaseUdtType() {
   }
 }

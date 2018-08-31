@@ -49,27 +49,27 @@ class EisProposalProvider extends AbstractEisProposalProvider {
 		acceptor.accept(createCompletionProposal("FB", "FB", null, context))
 	}
 
-	override completeEisModel_Project_name(EObject model, Assignment assignment, ContentAssistContext context,
+	override completeEisModel_ProjectName(EObject model, Assignment assignment, ContentAssistContext context,
 		ICompletionProposalAcceptor acceptor) {
-		super.completeEisModel_Project_name(model, assignment, context, acceptor)
+		super.completeEisModel_ProjectName(model, assignment, context, acceptor)
 		acceptor.accept(createCompletionProposal('"project_name"', "project_name", null, context))
 	}
 
-	override completeEisModel_Plc_name(EObject model, Assignment assignment, ContentAssistContext context,
+	override completeEisModel_PlcName(EObject model, Assignment assignment, ContentAssistContext context,
 		ICompletionProposalAcceptor acceptor) {
-		super.completeEisModel_Plc_name(model, assignment, context, acceptor)
+		super.completeEisModel_PlcName(model, assignment, context, acceptor)
 		acceptor.accept(createCompletionProposal('"plc_name"', "plc_name", null, context))
 	}
 
-	override completeEisModel_Author_name(EObject model, Assignment assignment, ContentAssistContext context,
+	override completeEisModel_AuthorName(EObject model, Assignment assignment, ContentAssistContext context,
 		ICompletionProposalAcceptor acceptor) {
-		super.completeEisModel_Author_name(model, assignment, context, acceptor)
+		super.completeEisModel_AuthorName(model, assignment, context, acceptor)
 		acceptor.accept(createCompletionProposal('"author_name"', 'author_name', null, context))
 	}
 
-	override completeTestcase_Testcase_name(EObject model, Assignment assignment, ContentAssistContext context,
+	override completeTestcase_TestcaseName(EObject model, Assignment assignment, ContentAssistContext context,
 		ICompletionProposalAcceptor acceptor) {
-		super.completeTestcase_Testcase_name(model, assignment, context, acceptor)
+		super.completeTestcase_TestcaseName(model, assignment, context, acceptor)
 		acceptor.accept(createCompletionProposal("testcase_name", 'testcase_name', null, context))
 	}
 
