@@ -48,16 +48,7 @@ public class EisIndexTest {
       _builder.newLine();
       _builder.append("author \t= \"name two\";");
       _builder.newLine();
-      _builder.append("testcase Blockname{");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("testActive = false;");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("blockType = FC;");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("description = \"\";");
+      _builder.append("testcase Blockname(false, FC, \"\") {");
       _builder.newLine();
       return _builder.toString();
     }

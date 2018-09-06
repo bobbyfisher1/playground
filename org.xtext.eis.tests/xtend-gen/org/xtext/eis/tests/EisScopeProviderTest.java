@@ -58,16 +58,7 @@ public class EisScopeProviderTest {
       _builder.newLine();
       _builder.append("author \t= \"name two\";");
       _builder.newLine();
-      _builder.append("testcase Blockname{");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("testActive = false;");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("blockType = FC;");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("description = \"\";");
+      _builder.append("testcase Blockname(false, FC, \"\") {");
       _builder.newLine();
       return _builder.toString();
     }
@@ -114,7 +105,7 @@ public class EisScopeProviderTest {
       EisModel _parse = this._parseHelper.parse((_plus + this.ending));
       final Procedure1<EisModel> _function = (EisModel it) -> {
         this._validationTestHelper.assertNoErrors(it);
-        EList<Variables> _inputVariables = IterableExtensions.<Testcase>head(it.getTestcases()).getTestblock().getDefine().getDirection().getInput().getInputVariables();
+        EList<Variables> _inputVariables = IterableExtensions.<Testcase>head(it.getTestcases()).getDefine().getDirection().getInput().getInputVariables();
         final Procedure1<EList<Variables>> _function_1 = (EList<Variables> it_1) -> {
           Variables _get = it_1.get(2);
           final Procedure1<Variable> _function_2 = (Variable it_2) -> {
@@ -167,7 +158,7 @@ public class EisScopeProviderTest {
       _builder.append("}");
       _builder.newLine();
       String _plus = (this.beginning + _builder);
-      Input _input = IterableExtensions.<Testcase>head(this._parseHelper.parse((_plus + this.ending)).getTestcases()).getTestblock().getDefine().getDirection().getInput();
+      Input _input = IterableExtensions.<Testcase>head(this._parseHelper.parse((_plus + this.ending)).getTestcases()).getDefine().getDirection().getInput();
       final Procedure1<Input> _function = (Input it) -> {
         this._validationTestHelper.assertNoErrors(it);
         this.assertScope(it, EisPackage.eINSTANCE.getUdtRef_UdtType(), "typeB, typeD");
@@ -234,7 +225,7 @@ public class EisScopeProviderTest {
       EisModel _parse = this._parseHelper.parse((_plus + this.ending));
       final Procedure1<EisModel> _function = (EisModel it) -> {
         this._validationTestHelper.assertNoErrors(it);
-        Variables _head = IterableExtensions.<Variables>head(IterableExtensions.<Testcase>head(it.getTestcases()).getTestblock().getDefine().getDirection().getInput().getInputVariables());
+        Variables _head = IterableExtensions.<Variables>head(IterableExtensions.<Testcase>head(it.getTestcases()).getDefine().getDirection().getInput().getInputVariables());
         final Procedure1<Udt> _function_1 = (Udt it_1) -> {
           Variables _get = it_1.getUdtVariables().get(2);
           final Procedure1<Variable> _function_2 = (Variable it_2) -> {
@@ -299,7 +290,7 @@ public class EisScopeProviderTest {
       _builder.append("}");
       _builder.newLine();
       String _plus = (this.beginning + _builder);
-      Variables _get = IterableExtensions.<Testcase>head(this._parseHelper.parse((_plus + this.ending)).getTestcases()).getTestblock().getDefine().getDirection().getOutput().getOutputVariables().get(1);
+      Variables _get = IterableExtensions.<Testcase>head(this._parseHelper.parse((_plus + this.ending)).getTestcases()).getDefine().getDirection().getOutput().getOutputVariables().get(1);
       final Procedure1<Variable> _function = (Variable it) -> {
         this._validationTestHelper.assertNoErrors(it);
         this.assertScope(it.getIdiom(), EisPackage.eINSTANCE.getVariableRef_Variable(), "a");
@@ -335,7 +326,7 @@ public class EisScopeProviderTest {
       _builder.append("}");
       _builder.newLine();
       String _plus = (this.beginning + _builder);
-      Variables _get = IterableExtensions.<Testcase>head(this._parseHelper.parse((_plus + this.ending)).getTestcases()).getTestblock().getDefine().getDirection().getOutput().getOutputVariables().get(1);
+      Variables _get = IterableExtensions.<Testcase>head(this._parseHelper.parse((_plus + this.ending)).getTestcases()).getDefine().getDirection().getOutput().getOutputVariables().get(1);
       final Procedure1<Variable> _function = (Variable it) -> {
         this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getVariableRef(), EisValidator.NULL_REFERENCE);
         Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
@@ -406,7 +397,7 @@ public class EisScopeProviderTest {
       _builder.append("}");
       _builder.newLine();
       String _plus = (this.beginning + _builder);
-      Variables _get = IterableExtensions.<Testcase>head(this._parseHelper.parse((_plus + this.ending)).getTestcases()).getTestblock().getDefine().getDirection().getOutput().getOutputVariables().get(1);
+      Variables _get = IterableExtensions.<Testcase>head(this._parseHelper.parse((_plus + this.ending)).getTestcases()).getDefine().getDirection().getOutput().getOutputVariables().get(1);
       final Procedure1<Variable> _function = (Variable it) -> {
         this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getVariable(), EisValidator.VARIANT_MISMATCH);
         Assert.assertEquals(1, this._validationTestHelper.validate(it).size());

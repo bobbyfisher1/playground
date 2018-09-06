@@ -30,14 +30,12 @@ class EisValidatorTest {
 // variables -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//
 	val beginning = '''	
-		project = "";
-		plcname = "";
-		author 	= "";
-		testcase Blockname{
-			testActive = false;
-			blockType = FC;
-			description = "";
+		project = "abckdjh";
+		plcname = "d383";
+		author 	= "name two";
+		testcase Blockname(false, FC, "") {
 	'''
+
 	val ending = "}"
 
 	val start = beginning + '''
@@ -247,7 +245,7 @@ class EisValidatorTest {
 				input[int a, t;] 
 				output[]
 			}
-		''' + ending).parse.testcases.head.testblock.define.direction.input.inputVariables => [
+		''' + ending).parse.testcases.head.define.direction.input.inputVariables => [
 			(get(0) as Variable).variableType.typeFor.assertSame(INT_TYPE);
 			(get(1) as Variable).variableType.typeFor.assertSame(NULL_TYPE) // After validation the type is inferred!!!!! It works!!!!!!!!!!!
 		]
@@ -261,7 +259,7 @@ class EisValidatorTest {
 				] 
 				output[]
 			}
-		''' + ending).parse.testcases.head.testblock.define.direction.input.inputVariables => [
+		''' + ending).parse.testcases.head.define.direction.input.inputVariables => [
 			(get(0) as Variable).variantKeyword.assertTrue;
 			(get(1) as Variable).variantKeyword.assertFalse // It works after validation!!!!!!!!!!!
 		]
@@ -584,8 +582,8 @@ class EisValidatorTest {
 			project = "";
 			plcname = "";
 			author 	= "";
-			testcase Blockname{}
-			testcase Blockname{}
+			testcase Blockname(false, FC, ""){}
+			testcase Blockname(false, FC, ""){}
 		'''.parse => [
 			assertError(EisPackage.eINSTANCE.testcase, EisValidator.MULTIPLE_TESTCASE_NAME)
 			2.assertEquals(validate.size)
@@ -783,7 +781,5 @@ class EisValidatorTest {
 		(start + "int a =" + input + endWithSemicolon).parse.assertError(EisPackage.eINSTANCE.idiom,
 			EisValidator.TYPE_MISMATCH, "cannot be boolean")
 	}
-
-
 
 }

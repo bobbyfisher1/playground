@@ -50,24 +50,28 @@ class EisGenerator extends AbstractGenerator {
 //
 	def private CharSequence compile(EisModel model) {
 		var testcaseID = 0
-		'''
+		var tab="	"
+		var doubletab = tab + tab
+		var string = '''
 			<?xml version="1.0" encoding="utf-8"?>
 			<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 				<TiaProjectName>«model.projectName»</TiaProjectName>
 				<PlcName>«model.plcName»</PlcName>
 				<Author>«model.authorName»</Author>
 				<TestCases>
-			«FOR testcases : model.testcases»
-					«val testblock = testcases?.testblock»
-							<TestCase ID="«testcaseID++»"«IF testblock !== null» TestActive="«testblock.testActive.value»" Blockname="«testcases.testcaseName»" Blocktype="«testblock.blockType.value»" Description="«testblock.description»"«ENDIF»>
-					«IF testblock?.define !== null»
-				«testblock.define.compileTeststeps»
-					«ENDIF»
-							</TestCase>
-			«ENDFOR»
-				</TestCases>
-			</TestFixture>
-		'''
+				'''//newline
+			for(testcase : model.testcases){					
+				string += doubletab + '''<TestCase ID="«testcaseID++»" TestActive="«testcase.testActive.value»" Blockname="«testcase.testcaseName»" Blocktype="«testcase.blockType.value»" Description="«testcase.description»">
+				'''//newline
+				if( testcase?.define !== null)
+					string += testcase.define.compileTeststeps				
+				string += doubletab +'''</TestCase>
+				'''//newline
+			}
+			string += tab + '''</TestCases>
+			'''//newline
+			string += '''</TestFixture>
+			'''//newline		
 	}
 	
 	def private CharSequence compileTeststeps(DefineBlock define){

@@ -87,13 +87,6 @@ public class EisSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case EisPackage.TESTBLOCK:
-      {
-        Testblock testblock = (Testblock)theEObject;
-        T result = caseTestblock(testblock);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case EisPackage.BOOL_CONSTANT:
       {
         BoolConstant boolConstant = (BoolConstant)theEObject;
@@ -423,22 +416,6 @@ public class EisSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseTestcase(Testcase object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Testblock</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Testblock</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseTestblock(Testblock object)
   {
     return null;
   }

@@ -42,15 +42,6 @@ public interface EisFactory extends EFactory
   Testcase createTestcase();
 
   /**
-   * Returns a new object of class '<em>Testblock</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Testblock</em>'.
-   * @generated
-   */
-  Testblock createTestblock();
-
-  /**
    * Returns a new object of class '<em>Bool Constant</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

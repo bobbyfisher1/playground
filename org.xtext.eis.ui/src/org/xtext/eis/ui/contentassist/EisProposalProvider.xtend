@@ -36,17 +36,15 @@ class EisProposalProvider extends AbstractEisProposalProvider {
 	override completeBoolConstant_Value(EObject model, Assignment assignment, ContentAssistContext context,
 		ICompletionProposalAcceptor acceptor) {
 		super.completeBoolConstant_Value(model, assignment, context, acceptor)
-
-		acceptor.accept(createCompletionProposal("true", "true", null, context))
-		acceptor.accept(createCompletionProposal("false", "false", null, context))
-
+		acceptor.accept(createCompletionProposal("", "testActive?", null, context))
+	// acceptor.accept(createCompletionProposal("false", "false", null, context))
 	}
 
 	override completeBlockConstant_Value(EObject model, Assignment assignment, ContentAssistContext context,
 		ICompletionProposalAcceptor acceptor) {
 		super.completeBlockConstant_Value(model, assignment, context, acceptor)
-		acceptor.accept(createCompletionProposal("FC", "FC", null, context))
-		acceptor.accept(createCompletionProposal("FB", "FB", null, context))
+		acceptor.accept(createCompletionProposal("", "blocktype?", null, context))
+	// acceptor.accept(createCompletionProposal("FB", "FB", null, context))
 	}
 
 	override completeEisModel_ProjectName(EObject model, Assignment assignment, ContentAssistContext context,
@@ -73,10 +71,10 @@ class EisProposalProvider extends AbstractEisProposalProvider {
 		acceptor.accept(createCompletionProposal("testcase_name", 'testcase_name', null, context))
 	}
 
-	override completeTestblock_Description(EObject model, Assignment assignment, ContentAssistContext context,
+	override completeTestcase_Description(EObject model, Assignment assignment, ContentAssistContext context,
 		ICompletionProposalAcceptor acceptor) {
-		super.completeTestblock_Description(model, assignment, context, acceptor)
-		acceptor.accept(createCompletionProposal('"description"', 'description', null, context))
+		super.completeTestcase_Description(model, assignment, context, acceptor)
+		acceptor.accept(createCompletionProposal('""', 'description string', null, context))
 	}
 
 	override completeTeststepBlock_PlcCycle(EObject model, Assignment assignment, ContentAssistContext context,

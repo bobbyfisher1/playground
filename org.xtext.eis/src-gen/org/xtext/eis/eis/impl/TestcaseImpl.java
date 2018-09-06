@@ -12,8 +12,10 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.xtext.eis.eis.BlockConstant;
+import org.xtext.eis.eis.BoolConstant;
+import org.xtext.eis.eis.DefineBlock;
 import org.xtext.eis.eis.EisPackage;
-import org.xtext.eis.eis.Testblock;
 import org.xtext.eis.eis.Testcase;
 
 /**
@@ -25,7 +27,10 @@ import org.xtext.eis.eis.Testcase;
  * </p>
  * <ul>
  *   <li>{@link org.xtext.eis.eis.impl.TestcaseImpl#getTestcaseName <em>Testcase Name</em>}</li>
- *   <li>{@link org.xtext.eis.eis.impl.TestcaseImpl#getTestblock <em>Testblock</em>}</li>
+ *   <li>{@link org.xtext.eis.eis.impl.TestcaseImpl#getTestActive <em>Test Active</em>}</li>
+ *   <li>{@link org.xtext.eis.eis.impl.TestcaseImpl#getBlockType <em>Block Type</em>}</li>
+ *   <li>{@link org.xtext.eis.eis.impl.TestcaseImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.xtext.eis.eis.impl.TestcaseImpl#getDefine <em>Define</em>}</li>
  * </ul>
  *
  * @generated
@@ -53,14 +58,54 @@ public class TestcaseImpl extends MinimalEObjectImpl.Container implements Testca
   protected String testcaseName = TESTCASE_NAME_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getTestblock() <em>Testblock</em>}' containment reference.
+   * The cached value of the '{@link #getTestActive() <em>Test Active</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getTestblock()
+   * @see #getTestActive()
    * @generated
    * @ordered
    */
-  protected Testblock testblock;
+  protected BoolConstant testActive;
+
+  /**
+   * The cached value of the '{@link #getBlockType() <em>Block Type</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getBlockType()
+   * @generated
+   * @ordered
+   */
+  protected BlockConstant blockType;
+
+  /**
+   * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDescription()
+   * @generated
+   * @ordered
+   */
+  protected static final String DESCRIPTION_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDescription()
+   * @generated
+   * @ordered
+   */
+  protected String description = DESCRIPTION_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getDefine() <em>Define</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDefine()
+   * @generated
+   * @ordered
+   */
+  protected DefineBlock define;
 
   /**
    * <!-- begin-user-doc -->
@@ -111,9 +156,9 @@ public class TestcaseImpl extends MinimalEObjectImpl.Container implements Testca
    * <!-- end-user-doc -->
    * @generated
    */
-  public Testblock getTestblock()
+  public BoolConstant getTestActive()
   {
-    return testblock;
+    return testActive;
   }
 
   /**
@@ -121,13 +166,13 @@ public class TestcaseImpl extends MinimalEObjectImpl.Container implements Testca
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetTestblock(Testblock newTestblock, NotificationChain msgs)
+  public NotificationChain basicSetTestActive(BoolConstant newTestActive, NotificationChain msgs)
   {
-    Testblock oldTestblock = testblock;
-    testblock = newTestblock;
+    BoolConstant oldTestActive = testActive;
+    testActive = newTestActive;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EisPackage.TESTCASE__TESTBLOCK, oldTestblock, newTestblock);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EisPackage.TESTCASE__TEST_ACTIVE, oldTestActive, newTestActive);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -138,20 +183,139 @@ public class TestcaseImpl extends MinimalEObjectImpl.Container implements Testca
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setTestblock(Testblock newTestblock)
+  public void setTestActive(BoolConstant newTestActive)
   {
-    if (newTestblock != testblock)
+    if (newTestActive != testActive)
     {
       NotificationChain msgs = null;
-      if (testblock != null)
-        msgs = ((InternalEObject)testblock).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EisPackage.TESTCASE__TESTBLOCK, null, msgs);
-      if (newTestblock != null)
-        msgs = ((InternalEObject)newTestblock).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EisPackage.TESTCASE__TESTBLOCK, null, msgs);
-      msgs = basicSetTestblock(newTestblock, msgs);
+      if (testActive != null)
+        msgs = ((InternalEObject)testActive).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EisPackage.TESTCASE__TEST_ACTIVE, null, msgs);
+      if (newTestActive != null)
+        msgs = ((InternalEObject)newTestActive).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EisPackage.TESTCASE__TEST_ACTIVE, null, msgs);
+      msgs = basicSetTestActive(newTestActive, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, EisPackage.TESTCASE__TESTBLOCK, newTestblock, newTestblock));
+      eNotify(new ENotificationImpl(this, Notification.SET, EisPackage.TESTCASE__TEST_ACTIVE, newTestActive, newTestActive));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public BlockConstant getBlockType()
+  {
+    return blockType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetBlockType(BlockConstant newBlockType, NotificationChain msgs)
+  {
+    BlockConstant oldBlockType = blockType;
+    blockType = newBlockType;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EisPackage.TESTCASE__BLOCK_TYPE, oldBlockType, newBlockType);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setBlockType(BlockConstant newBlockType)
+  {
+    if (newBlockType != blockType)
+    {
+      NotificationChain msgs = null;
+      if (blockType != null)
+        msgs = ((InternalEObject)blockType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EisPackage.TESTCASE__BLOCK_TYPE, null, msgs);
+      if (newBlockType != null)
+        msgs = ((InternalEObject)newBlockType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EisPackage.TESTCASE__BLOCK_TYPE, null, msgs);
+      msgs = basicSetBlockType(newBlockType, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, EisPackage.TESTCASE__BLOCK_TYPE, newBlockType, newBlockType));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getDescription()
+  {
+    return description;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDescription(String newDescription)
+  {
+    String oldDescription = description;
+    description = newDescription;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, EisPackage.TESTCASE__DESCRIPTION, oldDescription, description));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public DefineBlock getDefine()
+  {
+    return define;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetDefine(DefineBlock newDefine, NotificationChain msgs)
+  {
+    DefineBlock oldDefine = define;
+    define = newDefine;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EisPackage.TESTCASE__DEFINE, oldDefine, newDefine);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDefine(DefineBlock newDefine)
+  {
+    if (newDefine != define)
+    {
+      NotificationChain msgs = null;
+      if (define != null)
+        msgs = ((InternalEObject)define).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EisPackage.TESTCASE__DEFINE, null, msgs);
+      if (newDefine != null)
+        msgs = ((InternalEObject)newDefine).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EisPackage.TESTCASE__DEFINE, null, msgs);
+      msgs = basicSetDefine(newDefine, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, EisPackage.TESTCASE__DEFINE, newDefine, newDefine));
   }
 
   /**
@@ -164,8 +328,12 @@ public class TestcaseImpl extends MinimalEObjectImpl.Container implements Testca
   {
     switch (featureID)
     {
-      case EisPackage.TESTCASE__TESTBLOCK:
-        return basicSetTestblock(null, msgs);
+      case EisPackage.TESTCASE__TEST_ACTIVE:
+        return basicSetTestActive(null, msgs);
+      case EisPackage.TESTCASE__BLOCK_TYPE:
+        return basicSetBlockType(null, msgs);
+      case EisPackage.TESTCASE__DEFINE:
+        return basicSetDefine(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -182,8 +350,14 @@ public class TestcaseImpl extends MinimalEObjectImpl.Container implements Testca
     {
       case EisPackage.TESTCASE__TESTCASE_NAME:
         return getTestcaseName();
-      case EisPackage.TESTCASE__TESTBLOCK:
-        return getTestblock();
+      case EisPackage.TESTCASE__TEST_ACTIVE:
+        return getTestActive();
+      case EisPackage.TESTCASE__BLOCK_TYPE:
+        return getBlockType();
+      case EisPackage.TESTCASE__DESCRIPTION:
+        return getDescription();
+      case EisPackage.TESTCASE__DEFINE:
+        return getDefine();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -201,8 +375,17 @@ public class TestcaseImpl extends MinimalEObjectImpl.Container implements Testca
       case EisPackage.TESTCASE__TESTCASE_NAME:
         setTestcaseName((String)newValue);
         return;
-      case EisPackage.TESTCASE__TESTBLOCK:
-        setTestblock((Testblock)newValue);
+      case EisPackage.TESTCASE__TEST_ACTIVE:
+        setTestActive((BoolConstant)newValue);
+        return;
+      case EisPackage.TESTCASE__BLOCK_TYPE:
+        setBlockType((BlockConstant)newValue);
+        return;
+      case EisPackage.TESTCASE__DESCRIPTION:
+        setDescription((String)newValue);
+        return;
+      case EisPackage.TESTCASE__DEFINE:
+        setDefine((DefineBlock)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -221,8 +404,17 @@ public class TestcaseImpl extends MinimalEObjectImpl.Container implements Testca
       case EisPackage.TESTCASE__TESTCASE_NAME:
         setTestcaseName(TESTCASE_NAME_EDEFAULT);
         return;
-      case EisPackage.TESTCASE__TESTBLOCK:
-        setTestblock((Testblock)null);
+      case EisPackage.TESTCASE__TEST_ACTIVE:
+        setTestActive((BoolConstant)null);
+        return;
+      case EisPackage.TESTCASE__BLOCK_TYPE:
+        setBlockType((BlockConstant)null);
+        return;
+      case EisPackage.TESTCASE__DESCRIPTION:
+        setDescription(DESCRIPTION_EDEFAULT);
+        return;
+      case EisPackage.TESTCASE__DEFINE:
+        setDefine((DefineBlock)null);
         return;
     }
     super.eUnset(featureID);
@@ -240,8 +432,14 @@ public class TestcaseImpl extends MinimalEObjectImpl.Container implements Testca
     {
       case EisPackage.TESTCASE__TESTCASE_NAME:
         return TESTCASE_NAME_EDEFAULT == null ? testcaseName != null : !TESTCASE_NAME_EDEFAULT.equals(testcaseName);
-      case EisPackage.TESTCASE__TESTBLOCK:
-        return testblock != null;
+      case EisPackage.TESTCASE__TEST_ACTIVE:
+        return testActive != null;
+      case EisPackage.TESTCASE__BLOCK_TYPE:
+        return blockType != null;
+      case EisPackage.TESTCASE__DESCRIPTION:
+        return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+      case EisPackage.TESTCASE__DEFINE:
+        return define != null;
     }
     return super.eIsSet(featureID);
   }
@@ -259,6 +457,8 @@ public class TestcaseImpl extends MinimalEObjectImpl.Container implements Testca
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (testcaseName: ");
     result.append(testcaseName);
+    result.append(", description: ");
+    result.append(description);
     result.append(')');
     return result.toString();
   }

@@ -50,16 +50,7 @@ public class DefineTypeComputerTest {
       _builder.newLine();
       _builder.append("author \t= \"name two\";");
       _builder.newLine();
-      _builder.append("testcase Blockname{");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("testActive = false;");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("blockType = FC;");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("description = \"\";");
+      _builder.append("testcase Blockname(false, FC, \"\") {");
       _builder.newLine();
       return _builder.toString();
     }
@@ -996,7 +987,7 @@ public class DefineTypeComputerTest {
   
   private void assertSameType(final String text, final DefineType expectedType) {
     try {
-      Variables _get = IterableExtensions.<Testcase>head(this._parseHelper.parse(((this.start + text) + this.end)).getTestcases()).getTestblock().getDefine().getDirection().getOutput().getOutputVariables().get(0);
+      Variables _get = IterableExtensions.<Testcase>head(this._parseHelper.parse(((this.start + text) + this.end)).getTestcases()).getDefine().getDirection().getOutput().getOutputVariables().get(0);
       Assert.assertSame(this._defineTypeComputer.typeFor(((Variable) _get).getIdiom()), expectedType);
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);

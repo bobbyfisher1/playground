@@ -32,10 +32,7 @@ class DefineTypeComputerTest {
 		project = "abckdjh";
 		plcname = "d383";
 		author 	= "name two";
-		testcase Blockname{
-			testActive = false;
-			blockType = FC;
-			description = "";
+		testcase Blockname(false, FC, "") {
 	'''
 	val ending = "}"
 
@@ -591,7 +588,7 @@ class DefineTypeComputerTest {
 // methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//
 	def private void assertSameType(String text, DefineType expectedType) {
-		((start + text + end).parse.testcases.head.testblock.define.direction.output.outputVariables.
-			get(0) as Variable).idiom.typeFor.assertSame(expectedType)
+		((start + text + end).parse.testcases.head.define.direction.output.outputVariables.get(0) as Variable).idiom.
+			typeFor.assertSame(expectedType)
 	}
 }

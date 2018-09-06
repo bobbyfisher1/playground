@@ -53,16 +53,7 @@ public class TestScopeProviderTest {
       _builder.newLine();
       _builder.append("author \t= \"name two\";");
       _builder.newLine();
-      _builder.append("testcase Blockname{");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("testActive = false;");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("blockType = FC;");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("description = \"\";");
+      _builder.append("testcase Blockname(false, FC, \"\") {");
       _builder.newLine();
       return _builder.toString();
     }
@@ -101,7 +92,7 @@ public class TestScopeProviderTest {
   @Test
   public void testSetReference() {
     try {
-      Set _set = IterableExtensions.<TeststepBlock>head(IterableExtensions.<Testcase>head(this._parseHelper.parse((((this.define + this.output) + "input[int a, b;]") + this.teststep)).getTestcases()).getTestblock().getDefine().getTeststeps()).getAssertion().getSet();
+      Set _set = IterableExtensions.<TeststepBlock>head(IterableExtensions.<Testcase>head(this._parseHelper.parse((((this.define + this.output) + "input[int a, b;]") + this.teststep)).getTestcases()).getDefine().getTeststeps()).getAssertion().getSet();
       final Procedure1<Set> _function = (Set it) -> {
         this._validationTestHelper.assertNoErrors(it);
         this.assertScope(it, EisPackage.eINSTANCE.getStatement_Variable(), "a, b");
@@ -115,7 +106,7 @@ public class TestScopeProviderTest {
   @Test
   public void testAssertReference() {
     try {
-      Assert _assert = IterableExtensions.<TeststepBlock>head(IterableExtensions.<Testcase>head(this._parseHelper.parse((((this.define + this.input) + "output[int a, b;]") + this.teststep)).getTestcases()).getTestblock().getDefine().getTeststeps()).getAssertion().getAssert();
+      Assert _assert = IterableExtensions.<TeststepBlock>head(IterableExtensions.<Testcase>head(this._parseHelper.parse((((this.define + this.input) + "output[int a, b;]") + this.teststep)).getTestcases()).getDefine().getTeststeps()).getAssertion().getAssert();
       final Procedure1<Assert> _function = (Assert it) -> {
         this._validationTestHelper.assertNoErrors(it);
         this.assertScope(it, EisPackage.eINSTANCE.getStatement_Variable(), "a, b");
@@ -145,7 +136,7 @@ public class TestScopeProviderTest {
       _builder.append("}");
       String _plus = (_builder.toString() + this.ending);
       this.teststep = _plus;
-      Set _set = IterableExtensions.<TeststepBlock>head(IterableExtensions.<Testcase>head(this._parseHelper.parse(((((this.define + this.input) + this.output) + "inout[int a, b;]") + this.teststep)).getTestcases()).getTestblock().getDefine().getTeststeps()).getAssertion().getSet();
+      Set _set = IterableExtensions.<TeststepBlock>head(IterableExtensions.<Testcase>head(this._parseHelper.parse(((((this.define + this.input) + this.output) + "inout[int a, b;]") + this.teststep)).getTestcases()).getDefine().getTeststeps()).getAssertion().getSet();
       final Procedure1<Set> _function = (Set it) -> {
         this._validationTestHelper.assertNoErrors(it);
         this.assertScope(it, EisPackage.eINSTANCE.getStatement_Variable(), "a, b");
@@ -175,7 +166,7 @@ public class TestScopeProviderTest {
       _builder.append("}");
       String _plus = (_builder.toString() + this.ending);
       this.teststep = _plus;
-      Assert _assert = IterableExtensions.<TeststepBlock>head(IterableExtensions.<Testcase>head(this._parseHelper.parse(((((this.define + this.input) + this.output) + "inout[int a, b;]") + this.teststep)).getTestcases()).getTestblock().getDefine().getTeststeps()).getAssertion().getAssert();
+      Assert _assert = IterableExtensions.<TeststepBlock>head(IterableExtensions.<Testcase>head(this._parseHelper.parse(((((this.define + this.input) + this.output) + "inout[int a, b;]") + this.teststep)).getTestcases()).getDefine().getTeststeps()).getAssertion().getAssert();
       final Procedure1<Assert> _function = (Assert it) -> {
         this._validationTestHelper.assertNoErrors(it);
         this.assertScope(it, EisPackage.eINSTANCE.getStatement_Variable(), "a, b");

@@ -11,7 +11,6 @@ import org.xtext.eis.eis.AssertionBlock;
 import org.xtext.eis.eis.DefineBlock;
 import org.xtext.eis.eis.DirectionBlock;
 import org.xtext.eis.eis.EisModel;
-import org.xtext.eis.eis.Testblock;
 import org.xtext.eis.eis.Testcase;
 import org.xtext.eis.eis.TeststepBlock;
 import org.xtext.eis.eis.Variable;
@@ -45,26 +44,18 @@ public class EisOutlineTreeProvider extends DefaultOutlineTreeProvider {
   }
   
   public void _createChildren(final EObjectNode testcaseNode, final Testcase testcase) {
-    Testblock _testblock = null;
-    if (testcase!=null) {
-      _testblock=testcase.getTestblock();
-    }
     DefineBlock _define = null;
-    if (_testblock!=null) {
-      _define=_testblock.getDefine();
+    if (testcase!=null) {
+      _define=testcase.getDefine();
     }
     DirectionBlock _direction = null;
     if (_define!=null) {
       _direction=_define.getDirection();
     }
     final DirectionBlock direction = _direction;
-    Testblock _testblock_1 = null;
-    if (testcase!=null) {
-      _testblock_1=testcase.getTestblock();
-    }
     DefineBlock _define_1 = null;
-    if (_testblock_1!=null) {
-      _define_1=_testblock_1.getDefine();
+    if (testcase!=null) {
+      _define_1=testcase.getDefine();
     }
     EList<TeststepBlock> _teststeps = null;
     if (_define_1!=null) {

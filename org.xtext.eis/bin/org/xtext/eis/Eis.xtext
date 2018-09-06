@@ -10,15 +10,15 @@ EisModel:
 	testcases+=Testcase*;
 
 Testcase:
-	"testcase" testcaseName=ID '{'
-	testblock=Testblock?
+	"testcase" testcaseName=ID
+	'('
+	testActive=BoolConstant ','
+	blockType=BlockConstant ','
+	description=STRING
+	')'
+	'{'
+	define=DefineBlock?
 	'}';
-
-Testblock:
-	'testActive' '=' testActive=BoolConstant ';'
-	'blockType' '=' blockType=BlockConstant ';'
-	'description' '=' description=STRING ';'
-	define=DefineBlock?;
 
 BoolConstant:
 	value=('true' | 'false');

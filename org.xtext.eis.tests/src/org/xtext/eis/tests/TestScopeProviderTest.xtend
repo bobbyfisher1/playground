@@ -29,17 +29,16 @@ class TestScopeProviderTest {
 		project = "abckdjh";
 		plcname = "d383";
 		author 	= "name two";
-		testcase Blockname{
-			testActive = false;
-			blockType = FC;
-			description = "";
+		testcase Blockname(false, FC, "") {
 	'''
+
 	val ending = "}"
 
 	val define = beginning + "define{"
 	val output = "output[]"
 	val input = "input[]"
-	var teststep = '''}
+	var teststep = '''
+}
 		teststep(0,''){
 			set[]
 			assert[]
@@ -50,19 +49,18 @@ class TestScopeProviderTest {
 // tests -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //
 	@Test def void testSetReference() {
-		(define + output + "input[int a, b;]" + teststep).parse.testcases.head.testblock.define.teststeps.head.
-			assertion.set => [
+		(define + output + "input[int a, b;]" + teststep).parse.testcases.head.define.teststeps.head.assertion.set => [
 			assertNoErrors
 			assertScope(EisPackage.eINSTANCE.statement_Variable, "a, b")
 		]
 	}
 
 	@Test def void testAssertReference() {
-		(define + input + "output[int a, b;]" + teststep).parse.testcases.head.testblock.define.teststeps.head.
-			assertion.assert => [
-			assertNoErrors
-			assertScope(EisPackage.eINSTANCE.statement_Variable, "a, b")
-		]
+		(define + input + "output[int a, b;]" + teststep).parse.testcases.head.define.teststeps.head.assertion.assert =>
+			[
+				assertNoErrors
+				assertScope(EisPackage.eINSTANCE.statement_Variable, "a, b")
+			]
 	}
 
 	@Test def void testSetReferenceInout() {
@@ -72,7 +70,7 @@ class TestScopeProviderTest {
 			assert[]
 		}''' + ending;
 
-		(define + input + output + "inout[int a, b;]" + teststep).parse.testcases.head.testblock.define.teststeps.head.
+		(define + input + output + "inout[int a, b;]" + teststep).parse.testcases.head.define.teststeps.head.
 			assertion.set => [
 			assertNoErrors
 			assertScope(EisPackage.eINSTANCE.statement_Variable, "a, b")
@@ -86,8 +84,8 @@ class TestScopeProviderTest {
 			assert[]
 		}''' + ending;
 
-		(define + input + output + "inout[int a, b;]" + teststep).parse.testcases.head.testblock.define.teststeps.head.
-			assertion.assert => [
+		(define + input + output + "inout[int a, b;]" + teststep).parse.testcases.head.define.teststeps.head.assertion.
+			assert => [
 			assertNoErrors
 			assertScope(EisPackage.eINSTANCE.statement_Variable, "a, b")
 		]

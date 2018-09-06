@@ -45,7 +45,6 @@ public class EisParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getBasicTypeAccess().getAlternatives(), "rule__BasicType__Alternatives");
 			builder.put(grammarAccess.getEisModelAccess().getGroup(), "rule__EisModel__Group__0");
 			builder.put(grammarAccess.getTestcaseAccess().getGroup(), "rule__Testcase__Group__0");
-			builder.put(grammarAccess.getTestblockAccess().getGroup(), "rule__Testblock__Group__0");
 			builder.put(grammarAccess.getDefineBlockAccess().getGroup(), "rule__DefineBlock__Group__0");
 			builder.put(grammarAccess.getInputAccess().getGroup(), "rule__Input__Group__0");
 			builder.put(grammarAccess.getOutputAccess().getGroup(), "rule__Output__Group__0");
@@ -95,11 +94,10 @@ public class EisParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getEisModelAccess().getAuthorNameAssignment_10(), "rule__EisModel__AuthorNameAssignment_10");
 			builder.put(grammarAccess.getEisModelAccess().getTestcasesAssignment_12(), "rule__EisModel__TestcasesAssignment_12");
 			builder.put(grammarAccess.getTestcaseAccess().getTestcaseNameAssignment_1(), "rule__Testcase__TestcaseNameAssignment_1");
-			builder.put(grammarAccess.getTestcaseAccess().getTestblockAssignment_3(), "rule__Testcase__TestblockAssignment_3");
-			builder.put(grammarAccess.getTestblockAccess().getTestActiveAssignment_2(), "rule__Testblock__TestActiveAssignment_2");
-			builder.put(grammarAccess.getTestblockAccess().getBlockTypeAssignment_6(), "rule__Testblock__BlockTypeAssignment_6");
-			builder.put(grammarAccess.getTestblockAccess().getDescriptionAssignment_10(), "rule__Testblock__DescriptionAssignment_10");
-			builder.put(grammarAccess.getTestblockAccess().getDefineAssignment_12(), "rule__Testblock__DefineAssignment_12");
+			builder.put(grammarAccess.getTestcaseAccess().getTestActiveAssignment_3(), "rule__Testcase__TestActiveAssignment_3");
+			builder.put(grammarAccess.getTestcaseAccess().getBlockTypeAssignment_5(), "rule__Testcase__BlockTypeAssignment_5");
+			builder.put(grammarAccess.getTestcaseAccess().getDescriptionAssignment_7(), "rule__Testcase__DescriptionAssignment_7");
+			builder.put(grammarAccess.getTestcaseAccess().getDefineAssignment_10(), "rule__Testcase__DefineAssignment_10");
 			builder.put(grammarAccess.getBoolConstantAccess().getValueAssignment(), "rule__BoolConstant__ValueAssignment");
 			builder.put(grammarAccess.getBlockConstantAccess().getValueAssignment(), "rule__BlockConstant__ValueAssignment");
 			builder.put(grammarAccess.getDefineBlockAccess().getDirectionAssignment_2(), "rule__DefineBlock__DirectionAssignment_2");

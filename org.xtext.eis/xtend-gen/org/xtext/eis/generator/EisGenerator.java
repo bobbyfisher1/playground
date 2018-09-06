@@ -32,7 +32,6 @@ import org.xtext.eis.eis.InOut;
 import org.xtext.eis.eis.Input;
 import org.xtext.eis.eis.Output;
 import org.xtext.eis.eis.Statement;
-import org.xtext.eis.eis.Testblock;
 import org.xtext.eis.eis.Testcase;
 import org.xtext.eis.eis.TeststepBlock;
 import org.xtext.eis.eis.Udt;
@@ -71,9 +70,11 @@ public class EisGenerator extends AbstractGenerator {
   }
   
   private CharSequence compile(final EisModel model) {
-    CharSequence _xblockexpression = null;
+    String _xblockexpression = null;
     {
       int testcaseID = 0;
+      String tab = "\t";
+      String doubletab = (tab + tab);
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
       _builder.newLine();
@@ -100,62 +101,60 @@ public class EisGenerator extends AbstractGenerator {
       _builder.append("\t");
       _builder.append("<TestCases>");
       _builder.newLine();
-      {
-        EList<Testcase> _testcases = model.getTestcases();
-        for(final Testcase testcases : _testcases) {
-          Testblock _testblock = null;
-          if (testcases!=null) {
-            _testblock=testcases.getTestblock();
-          }
-          final Testblock testblock = _testblock;
-          _builder.newLineIfNotEmpty();
-          _builder.append("\t\t");
-          _builder.append("<TestCase ID=\"");
+      String string = _builder.toString();
+      EList<Testcase> _testcases = model.getTestcases();
+      for (final Testcase testcase : _testcases) {
+        {
+          String _string = string;
+          StringConcatenation _builder_1 = new StringConcatenation();
+          _builder_1.append("<TestCase ID=\"");
           int _plusPlus = testcaseID++;
-          _builder.append(_plusPlus, "\t\t");
-          _builder.append("\"");
-          {
-            if ((testblock != null)) {
-              _builder.append(" TestActive=\"");
-              String _value = testblock.getTestActive().getValue();
-              _builder.append(_value, "\t\t");
-              _builder.append("\" Blockname=\"");
-              String _testcaseName = testcases.getTestcaseName();
-              _builder.append(_testcaseName, "\t\t");
-              _builder.append("\" Blocktype=\"");
-              String _value_1 = testblock.getBlockType().getValue();
-              _builder.append(_value_1, "\t\t");
-              _builder.append("\" Description=\"");
-              String _description = testblock.getDescription();
-              _builder.append(_description, "\t\t");
-              _builder.append("\"");
-            }
+          _builder_1.append(_plusPlus);
+          _builder_1.append("\" TestActive=\"");
+          String _value = testcase.getTestActive().getValue();
+          _builder_1.append(_value);
+          _builder_1.append("\" Blockname=\"");
+          String _testcaseName = testcase.getTestcaseName();
+          _builder_1.append(_testcaseName);
+          _builder_1.append("\" Blocktype=\"");
+          String _value_1 = testcase.getBlockType().getValue();
+          _builder_1.append(_value_1);
+          _builder_1.append("\" Description=\"");
+          String _description = testcase.getDescription();
+          _builder_1.append(_description);
+          _builder_1.append("\">");
+          _builder_1.newLineIfNotEmpty();
+          String _plus = (doubletab + _builder_1);
+          string = (_string + _plus);
+          DefineBlock _define = null;
+          if (testcase!=null) {
+            _define=testcase.getDefine();
           }
-          _builder.append(">");
-          _builder.newLineIfNotEmpty();
-          {
-            DefineBlock _define = null;
-            if (testblock!=null) {
-              _define=testblock.getDefine();
-            }
-            boolean _tripleNotEquals = (_define != null);
-            if (_tripleNotEquals) {
-              CharSequence _compileTeststeps = this.compileTeststeps(testblock.getDefine());
-              _builder.append(_compileTeststeps);
-              _builder.newLineIfNotEmpty();
-            }
+          boolean _tripleNotEquals = (_define != null);
+          if (_tripleNotEquals) {
+            String _string_1 = string;
+            CharSequence _compileTeststeps = this.compileTeststeps(testcase.getDefine());
+            string = (_string_1 + _compileTeststeps);
           }
-          _builder.append("\t\t");
-          _builder.append("</TestCase>");
-          _builder.newLine();
+          String _string_2 = string;
+          StringConcatenation _builder_2 = new StringConcatenation();
+          _builder_2.append("</TestCase>");
+          _builder_2.newLine();
+          String _plus_1 = (doubletab + _builder_2);
+          string = (_string_2 + _plus_1);
         }
       }
-      _builder.append("\t");
-      _builder.append("</TestCases>");
-      _builder.newLine();
-      _builder.append("</TestFixture>");
-      _builder.newLine();
-      _xblockexpression = _builder;
+      String _string = string;
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("</TestCases>");
+      _builder_1.newLine();
+      String _plus = (tab + _builder_1);
+      string = (_string + _plus);
+      String _string_1 = string;
+      StringConcatenation _builder_2 = new StringConcatenation();
+      _builder_2.append("</TestFixture>");
+      _builder_2.newLine();
+      _xblockexpression = string = (_string_1 + _builder_2);
     }
     return _xblockexpression;
   }

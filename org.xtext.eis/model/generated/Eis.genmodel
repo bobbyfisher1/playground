@@ -38,13 +38,10 @@
     </genClasses>
     <genClasses ecoreClass="Eis.ecore#//Testcase">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//Testcase/testcaseName"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eis.ecore#//Testcase/testblock"/>
-    </genClasses>
-    <genClasses ecoreClass="Eis.ecore#//Testblock">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eis.ecore#//Testblock/testActive"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eis.ecore#//Testblock/blockType"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//Testblock/description"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eis.ecore#//Testblock/define"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eis.ecore#//Testcase/testActive"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eis.ecore#//Testcase/blockType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//Testcase/description"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eis.ecore#//Testcase/define"/>
     </genClasses>
     <genClasses ecoreClass="Eis.ecore#//BoolConstant">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//BoolConstant/value"/>

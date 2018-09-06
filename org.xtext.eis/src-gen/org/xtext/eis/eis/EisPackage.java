@@ -133,41 +133,13 @@ public interface EisPackage extends EPackage
   int TESTCASE__TESTCASE_NAME = 0;
 
   /**
-   * The feature id for the '<em><b>Testblock</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TESTCASE__TESTBLOCK = 1;
-
-  /**
-   * The number of structural features of the '<em>Testcase</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TESTCASE_FEATURE_COUNT = 2;
-
-  /**
-   * The meta object id for the '{@link org.xtext.eis.eis.impl.TestblockImpl <em>Testblock</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.xtext.eis.eis.impl.TestblockImpl
-   * @see org.xtext.eis.eis.impl.EisPackageImpl#getTestblock()
-   * @generated
-   */
-  int TESTBLOCK = 2;
-
-  /**
    * The feature id for the '<em><b>Test Active</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TESTBLOCK__TEST_ACTIVE = 0;
+  int TESTCASE__TEST_ACTIVE = 1;
 
   /**
    * The feature id for the '<em><b>Block Type</b></em>' containment reference.
@@ -176,7 +148,7 @@ public interface EisPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TESTBLOCK__BLOCK_TYPE = 1;
+  int TESTCASE__BLOCK_TYPE = 2;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -185,7 +157,7 @@ public interface EisPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TESTBLOCK__DESCRIPTION = 2;
+  int TESTCASE__DESCRIPTION = 3;
 
   /**
    * The feature id for the '<em><b>Define</b></em>' containment reference.
@@ -194,16 +166,16 @@ public interface EisPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TESTBLOCK__DEFINE = 3;
+  int TESTCASE__DEFINE = 4;
 
   /**
-   * The number of structural features of the '<em>Testblock</em>' class.
+   * The number of structural features of the '<em>Testcase</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TESTBLOCK_FEATURE_COUNT = 4;
+  int TESTCASE_FEATURE_COUNT = 5;
 
   /**
    * The meta object id for the '{@link org.xtext.eis.eis.impl.IdiomImpl <em>Idiom</em>}' class.
@@ -213,7 +185,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getIdiom()
    * @generated
    */
-  int IDIOM = 21;
+  int IDIOM = 20;
 
   /**
    * The number of structural features of the '<em>Idiom</em>' class.
@@ -232,7 +204,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getBoolConstant()
    * @generated
    */
-  int BOOL_CONSTANT = 3;
+  int BOOL_CONSTANT = 2;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -260,7 +232,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getBlockConstant()
    * @generated
    */
-  int BLOCK_CONSTANT = 4;
+  int BLOCK_CONSTANT = 3;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -288,7 +260,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getDefineBlock()
    * @generated
    */
-  int DEFINE_BLOCK = 5;
+  int DEFINE_BLOCK = 4;
 
   /**
    * The feature id for the '<em><b>Direction</b></em>' containment reference.
@@ -325,7 +297,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getDirectionBlock()
    * @generated
    */
-  int DIRECTION_BLOCK = 6;
+  int DIRECTION_BLOCK = 5;
 
   /**
    * The feature id for the '<em><b>Input</b></em>' containment reference.
@@ -371,7 +343,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getInput()
    * @generated
    */
-  int INPUT = 7;
+  int INPUT = 6;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -408,7 +380,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getOutput()
    * @generated
    */
-  int OUTPUT = 8;
+  int OUTPUT = 7;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -445,7 +417,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getInOut()
    * @generated
    */
-  int IN_OUT = 9;
+  int IN_OUT = 8;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -482,7 +454,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getVariables()
    * @generated
    */
-  int VARIABLES = 10;
+  int VARIABLES = 9;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -510,7 +482,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getVariable()
    * @generated
    */
-  int VARIABLE = 11;
+  int VARIABLE = 10;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -583,7 +555,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getUdt()
    * @generated
    */
-  int UDT = 12;
+  int UDT = 11;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -629,7 +601,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getUdtRef()
    * @generated
    */
-  int UDT_REF = 13;
+  int UDT_REF = 12;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -675,7 +647,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getUdtType()
    * @generated
    */
-  int UDT_TYPE = 14;
+  int UDT_TYPE = 13;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -703,7 +675,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getTeststepBlock()
    * @generated
    */
-  int TESTSTEP_BLOCK = 15;
+  int TESTSTEP_BLOCK = 14;
 
   /**
    * The feature id for the '<em><b>Teststep Keyword</b></em>' attribute.
@@ -758,7 +730,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getAssertionBlock()
    * @generated
    */
-  int ASSERTION_BLOCK = 16;
+  int ASSERTION_BLOCK = 15;
 
   /**
    * The feature id for the '<em><b>Set</b></em>' containment reference.
@@ -795,7 +767,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getSet()
    * @generated
    */
-  int SET = 17;
+  int SET = 16;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -832,7 +804,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getAssert()
    * @generated
    */
-  int ASSERT = 18;
+  int ASSERT = 17;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -869,7 +841,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getStatement()
    * @generated
    */
-  int STATEMENT = 19;
+  int STATEMENT = 18;
 
   /**
    * The feature id for the '<em><b>Variable</b></em>' reference.
@@ -924,7 +896,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getCascade()
    * @generated
    */
-  int CASCADE = 20;
+  int CASCADE = 19;
 
   /**
    * The feature id for the '<em><b>Udt Var</b></em>' reference.
@@ -952,7 +924,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getOr()
    * @generated
    */
-  int OR = 22;
+  int OR = 21;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -989,7 +961,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getAnd()
    * @generated
    */
-  int AND = 23;
+  int AND = 22;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1026,7 +998,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getEquality()
    * @generated
    */
-  int EQUALITY = 24;
+  int EQUALITY = 23;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1072,7 +1044,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getComparison()
    * @generated
    */
-  int COMPARISON = 25;
+  int COMPARISON = 24;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1118,7 +1090,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getPlus()
    * @generated
    */
-  int PLUS = 26;
+  int PLUS = 25;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1155,7 +1127,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getMinus()
    * @generated
    */
-  int MINUS = 27;
+  int MINUS = 26;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1192,7 +1164,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getMulOrDiv()
    * @generated
    */
-  int MUL_OR_DIV = 28;
+  int MUL_OR_DIV = 27;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1238,7 +1210,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getNot()
    * @generated
    */
-  int NOT = 29;
+  int NOT = 28;
 
   /**
    * The feature id for the '<em><b>Idiom</b></em>' containment reference.
@@ -1266,7 +1238,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getIntConstant()
    * @generated
    */
-  int INT_CONSTANT = 30;
+  int INT_CONSTANT = 29;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1294,7 +1266,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getStringConstant()
    * @generated
    */
-  int STRING_CONSTANT = 31;
+  int STRING_CONSTANT = 30;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1322,7 +1294,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getVariableRef()
    * @generated
    */
-  int VARIABLE_REF = 32;
+  int VARIABLE_REF = 31;
 
   /**
    * The feature id for the '<em><b>Variable</b></em>' reference.
@@ -1350,7 +1322,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getRealConstant()
    * @generated
    */
-  int REAL_CONSTANT = 33;
+  int REAL_CONSTANT = 32;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1378,7 +1350,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getByteConstant()
    * @generated
    */
-  int BYTE_CONSTANT = 34;
+  int BYTE_CONSTANT = 33;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1406,7 +1378,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getWordConstant()
    * @generated
    */
-  int WORD_CONSTANT = 35;
+  int WORD_CONSTANT = 34;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1434,7 +1406,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getDWordConstant()
    * @generated
    */
-  int DWORD_CONSTANT = 36;
+  int DWORD_CONSTANT = 35;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1462,7 +1434,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getLWordConstant()
    * @generated
    */
-  int LWORD_CONSTANT = 37;
+  int LWORD_CONSTANT = 36;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1490,7 +1462,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getCharConstant()
    * @generated
    */
-  int CHAR_CONSTANT = 38;
+  int CHAR_CONSTANT = 37;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1518,7 +1490,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getTimeConstant()
    * @generated
    */
-  int TIME_CONSTANT = 39;
+  int TIME_CONSTANT = 38;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1546,7 +1518,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getLTimeConstant()
    * @generated
    */
-  int LTIME_CONSTANT = 40;
+  int LTIME_CONSTANT = 39;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1574,7 +1546,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getDateConstant()
    * @generated
    */
-  int DATE_CONSTANT = 41;
+  int DATE_CONSTANT = 40;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1602,7 +1574,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getBasicType()
    * @generated
    */
-  int BASIC_TYPE = 42;
+  int BASIC_TYPE = 41;
 
 
   /**
@@ -1681,69 +1653,48 @@ public interface EisPackage extends EPackage
   EAttribute getTestcase_TestcaseName();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.eis.eis.Testcase#getTestblock <em>Testblock</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Testblock</em>'.
-   * @see org.xtext.eis.eis.Testcase#getTestblock()
-   * @see #getTestcase()
-   * @generated
-   */
-  EReference getTestcase_Testblock();
-
-  /**
-   * Returns the meta object for class '{@link org.xtext.eis.eis.Testblock <em>Testblock</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Testblock</em>'.
-   * @see org.xtext.eis.eis.Testblock
-   * @generated
-   */
-  EClass getTestblock();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.xtext.eis.eis.Testblock#getTestActive <em>Test Active</em>}'.
+   * Returns the meta object for the containment reference '{@link org.xtext.eis.eis.Testcase#getTestActive <em>Test Active</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Test Active</em>'.
-   * @see org.xtext.eis.eis.Testblock#getTestActive()
-   * @see #getTestblock()
+   * @see org.xtext.eis.eis.Testcase#getTestActive()
+   * @see #getTestcase()
    * @generated
    */
-  EReference getTestblock_TestActive();
+  EReference getTestcase_TestActive();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.eis.eis.Testblock#getBlockType <em>Block Type</em>}'.
+   * Returns the meta object for the containment reference '{@link org.xtext.eis.eis.Testcase#getBlockType <em>Block Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Block Type</em>'.
-   * @see org.xtext.eis.eis.Testblock#getBlockType()
-   * @see #getTestblock()
+   * @see org.xtext.eis.eis.Testcase#getBlockType()
+   * @see #getTestcase()
    * @generated
    */
-  EReference getTestblock_BlockType();
+  EReference getTestcase_BlockType();
 
   /**
-   * Returns the meta object for the attribute '{@link org.xtext.eis.eis.Testblock#getDescription <em>Description</em>}'.
+   * Returns the meta object for the attribute '{@link org.xtext.eis.eis.Testcase#getDescription <em>Description</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Description</em>'.
-   * @see org.xtext.eis.eis.Testblock#getDescription()
-   * @see #getTestblock()
+   * @see org.xtext.eis.eis.Testcase#getDescription()
+   * @see #getTestcase()
    * @generated
    */
-  EAttribute getTestblock_Description();
+  EAttribute getTestcase_Description();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.eis.eis.Testblock#getDefine <em>Define</em>}'.
+   * Returns the meta object for the containment reference '{@link org.xtext.eis.eis.Testcase#getDefine <em>Define</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Define</em>'.
-   * @see org.xtext.eis.eis.Testblock#getDefine()
-   * @see #getTestblock()
+   * @see org.xtext.eis.eis.Testcase#getDefine()
+   * @see #getTestcase()
    * @generated
    */
-  EReference getTestblock_Define();
+  EReference getTestcase_Define();
 
   /**
    * Returns the meta object for class '{@link org.xtext.eis.eis.BoolConstant <em>Bool Constant</em>}'.
@@ -2988,30 +2939,12 @@ public interface EisPackage extends EPackage
     EAttribute TESTCASE__TESTCASE_NAME = eINSTANCE.getTestcase_TestcaseName();
 
     /**
-     * The meta object literal for the '<em><b>Testblock</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference TESTCASE__TESTBLOCK = eINSTANCE.getTestcase_Testblock();
-
-    /**
-     * The meta object literal for the '{@link org.xtext.eis.eis.impl.TestblockImpl <em>Testblock</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.xtext.eis.eis.impl.TestblockImpl
-     * @see org.xtext.eis.eis.impl.EisPackageImpl#getTestblock()
-     * @generated
-     */
-    EClass TESTBLOCK = eINSTANCE.getTestblock();
-
-    /**
      * The meta object literal for the '<em><b>Test Active</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference TESTBLOCK__TEST_ACTIVE = eINSTANCE.getTestblock_TestActive();
+    EReference TESTCASE__TEST_ACTIVE = eINSTANCE.getTestcase_TestActive();
 
     /**
      * The meta object literal for the '<em><b>Block Type</b></em>' containment reference feature.
@@ -3019,7 +2952,7 @@ public interface EisPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference TESTBLOCK__BLOCK_TYPE = eINSTANCE.getTestblock_BlockType();
+    EReference TESTCASE__BLOCK_TYPE = eINSTANCE.getTestcase_BlockType();
 
     /**
      * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
@@ -3027,7 +2960,7 @@ public interface EisPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute TESTBLOCK__DESCRIPTION = eINSTANCE.getTestblock_Description();
+    EAttribute TESTCASE__DESCRIPTION = eINSTANCE.getTestcase_Description();
 
     /**
      * The meta object literal for the '<em><b>Define</b></em>' containment reference feature.
@@ -3035,7 +2968,7 @@ public interface EisPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference TESTBLOCK__DEFINE = eINSTANCE.getTestblock_Define();
+    EReference TESTCASE__DEFINE = eINSTANCE.getTestcase_Define();
 
     /**
      * The meta object literal for the '{@link org.xtext.eis.eis.impl.BoolConstantImpl <em>Bool Constant</em>}' class.

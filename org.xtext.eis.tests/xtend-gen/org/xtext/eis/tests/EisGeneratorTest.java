@@ -42,16 +42,7 @@ public class EisGeneratorTest {
       _builder.newLine();
       _builder.append("author \t= \"author\";");
       _builder.newLine();
-      _builder.append("testcase Testcase{");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("testActive = false;");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("blockType = FC;");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("description = \"description\";");
+      _builder.append("testcase Testcase(false, FC, \"description\") {");
       _builder.newLine();
       return _builder.toString();
     }
@@ -67,8 +58,6 @@ public class EisGeneratorTest {
     _builder.append("plcname = \"plcname\";");
     _builder.newLine();
     _builder.append("author \t= \"author\";");
-    _builder.newLine();
-    _builder.append("testcase Testcase{}");
     _builder.newLine();
     final Procedure1<String> _function = (String it) -> {
       try {
@@ -89,12 +78,6 @@ public class EisGeneratorTest {
         _builder_1.newLine();
         _builder_1.append("\t");
         _builder_1.append("<TestCases>");
-        _builder_1.newLine();
-        _builder_1.append("\t\t");
-        _builder_1.append("<TestCase ID=\"0\">");
-        _builder_1.newLine();
-        _builder_1.append("\t\t");
-        _builder_1.append("</TestCase>");
         _builder_1.newLine();
         _builder_1.append("\t");
         _builder_1.append("</TestCases>");
@@ -152,55 +135,58 @@ public class EisGeneratorTest {
   
   @Test
   public void testMultipleEmptyTestCases() {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("testcase Test1(false, FC, \"\" ) {} testcase Test2(false, FC, \"\" ) {}");
+    String _plus = ((this.beginning + this.ending) + _builder);
     final Procedure1<String> _function = (String it) -> {
       try {
         this._validationTestHelper.assertNoErrors(this._parseHelper.parse(it));
-        StringConcatenation _builder = new StringConcatenation();
-        _builder.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
-        _builder.newLine();
-        _builder.append("<TestFixture xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">");
-        _builder.newLine();
-        _builder.append("\t");
-        _builder.append("<TiaProjectName>project</TiaProjectName>");
-        _builder.newLine();
-        _builder.append("\t");
-        _builder.append("<PlcName>plcname</PlcName>");
-        _builder.newLine();
-        _builder.append("\t");
-        _builder.append("<Author>author</Author>");
-        _builder.newLine();
-        _builder.append("\t");
-        _builder.append("<TestCases>");
-        _builder.newLine();
-        _builder.append("\t\t");
-        _builder.append("<TestCase ID=\"0\" TestActive=\"false\" Blockname=\"Testcase\" Blocktype=\"FC\" Description=\"description\">");
-        _builder.newLine();
-        _builder.append("\t\t");
-        _builder.append("</TestCase>");
-        _builder.newLine();
-        _builder.append("\t\t");
-        _builder.append("<TestCase ID=\"1\">");
-        _builder.newLine();
-        _builder.append("\t\t");
-        _builder.append("</TestCase>");
-        _builder.newLine();
-        _builder.append("\t\t");
-        _builder.append("<TestCase ID=\"2\">");
-        _builder.newLine();
-        _builder.append("\t\t");
-        _builder.append("</TestCase>");
-        _builder.newLine();
-        _builder.append("\t");
-        _builder.append("</TestCases>");
-        _builder.newLine();
-        _builder.append("</TestFixture>");
-        _builder.newLine();
-        this._compilationTestHelper.assertCompilesTo(it, _builder);
+        StringConcatenation _builder_1 = new StringConcatenation();
+        _builder_1.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+        _builder_1.newLine();
+        _builder_1.append("<TestFixture xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">");
+        _builder_1.newLine();
+        _builder_1.append("\t");
+        _builder_1.append("<TiaProjectName>project</TiaProjectName>");
+        _builder_1.newLine();
+        _builder_1.append("\t");
+        _builder_1.append("<PlcName>plcname</PlcName>");
+        _builder_1.newLine();
+        _builder_1.append("\t");
+        _builder_1.append("<Author>author</Author>");
+        _builder_1.newLine();
+        _builder_1.append("\t");
+        _builder_1.append("<TestCases>");
+        _builder_1.newLine();
+        _builder_1.append("\t\t");
+        _builder_1.append("<TestCase ID=\"0\" TestActive=\"false\" Blockname=\"Testcase\" Blocktype=\"FC\" Description=\"description\">");
+        _builder_1.newLine();
+        _builder_1.append("\t\t");
+        _builder_1.append("</TestCase>");
+        _builder_1.newLine();
+        _builder_1.append("\t\t");
+        _builder_1.append("<TestCase ID=\"1\" TestActive=\"false\" Blockname=\"Test1\" Blocktype=\"FC\" Description=\"\">");
+        _builder_1.newLine();
+        _builder_1.append("\t\t");
+        _builder_1.append("</TestCase>");
+        _builder_1.newLine();
+        _builder_1.append("\t\t");
+        _builder_1.append("<TestCase ID=\"2\" TestActive=\"false\" Blockname=\"Test2\" Blocktype=\"FC\" Description=\"\">");
+        _builder_1.newLine();
+        _builder_1.append("\t\t");
+        _builder_1.append("</TestCase>");
+        _builder_1.newLine();
+        _builder_1.append("\t");
+        _builder_1.append("</TestCases>");
+        _builder_1.newLine();
+        _builder_1.append("</TestFixture>");
+        _builder_1.newLine();
+        this._compilationTestHelper.assertCompilesTo(it, _builder_1);
       } catch (Throwable _e) {
         throw Exceptions.sneakyThrow(_e);
       }
     };
-    ObjectExtensions.<String>operator_doubleArrow(((this.beginning + this.ending) + "testcase Test1{} testcase Test2{}"), _function);
+    ObjectExtensions.<String>operator_doubleArrow(_plus, _function);
   }
   
   @Test

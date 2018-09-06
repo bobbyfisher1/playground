@@ -56,16 +56,7 @@ public class EisParsingTest {
       _builder.newLine();
       _builder.append("author \t= \"name two\";");
       _builder.newLine();
-      _builder.append("testcase Blockname{");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("testActive = false;");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("blockType = FC;");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("description = \"\";");
+      _builder.append("testcase Blockname(false, FC, \"\") {");
       _builder.newLine();
       return _builder.toString();
     }
@@ -205,7 +196,7 @@ public class EisParsingTest {
       EisModel _parse = this._parseHelper.parse((_plus + this.ending));
       final Procedure1<EisModel> _function = (EisModel it) -> {
         this._validationTestHelper.assertNoErrors(it);
-        EList<Variables> _inputVariables = IterableExtensions.<Testcase>head(it.getTestcases()).getTestblock().getDefine().getDirection().getInput().getInputVariables();
+        EList<Variables> _inputVariables = IterableExtensions.<Testcase>head(it.getTestcases()).getDefine().getDirection().getInput().getInputVariables();
         final Procedure1<EList<Variables>> _function_1 = (EList<Variables> it_1) -> {
           Variables _get = it_1.get(0);
           final Procedure1<Variable> _function_2 = (Variable it_2) -> {
@@ -272,7 +263,7 @@ public class EisParsingTest {
       EisModel _parse = this._parseHelper.parse((_plus + this.ending));
       final Procedure1<EisModel> _function = (EisModel it) -> {
         this._validationTestHelper.assertNoErrors(it);
-        EList<Variables> _inputVariables = IterableExtensions.<Testcase>head(it.getTestcases()).getTestblock().getDefine().getDirection().getInput().getInputVariables();
+        EList<Variables> _inputVariables = IterableExtensions.<Testcase>head(it.getTestcases()).getDefine().getDirection().getInput().getInputVariables();
         final Procedure1<EList<Variables>> _function_1 = (EList<Variables> it_1) -> {
           Variables _get = it_1.get(0);
           final Procedure1<Variable> _function_2 = (Variable it_2) -> {
@@ -429,7 +420,7 @@ public class EisParsingTest {
       String _plus = (this.beginning + _builder);
       EisModel _parse = this._parseHelper.parse((_plus + this.ending));
       final Procedure1<EisModel> _function = (EisModel it) -> {
-        Variables _get = IterableExtensions.<Testcase>head(it.getTestcases()).getTestblock().getDefine().getDirection().getInput().getInputVariables().get(0);
+        Variables _get = IterableExtensions.<Testcase>head(it.getTestcases()).getDefine().getDirection().getInput().getInputVariables().get(0);
         final Procedure1<Variable> _function_1 = (Variable it_1) -> {
           Idiom _idiom = it_1.getIdiom();
           Assert.assertEquals(Double.parseDouble(((RealConstant) _idiom).getValue()), 19.00000000009, this.delta);
@@ -460,7 +451,7 @@ public class EisParsingTest {
       String _plus = (this.beginning + _builder);
       EisModel _parse = this._parseHelper.parse((_plus + this.ending));
       final Procedure1<EisModel> _function = (EisModel it) -> {
-        Variables _get = IterableExtensions.<Testcase>head(it.getTestcases()).getTestblock().getDefine().getDirection().getInput().getInputVariables().get(0);
+        Variables _get = IterableExtensions.<Testcase>head(it.getTestcases()).getDefine().getDirection().getInput().getInputVariables().get(0);
         final Procedure1<Variable> _function_1 = (Variable it_1) -> {
           Idiom _idiom = it_1.getIdiom();
           Assert.assertEquals(Double.parseDouble(((RealConstant) _idiom).getValue()), 0.4, this.delta);
@@ -522,7 +513,7 @@ public class EisParsingTest {
       EisModel _parse = this._parseHelper.parse((_plus + this.ending));
       final Procedure1<EisModel> _function = (EisModel it) -> {
         this._validationTestHelper.assertNoErrors(it);
-        EList<Variables> _inputVariables = IterableExtensions.<Testcase>head(it.getTestcases()).getTestblock().getDefine().getDirection().getInput().getInputVariables();
+        EList<Variables> _inputVariables = IterableExtensions.<Testcase>head(it.getTestcases()).getDefine().getDirection().getInput().getInputVariables();
         final Procedure1<EList<Variables>> _function_1 = (EList<Variables> it_1) -> {
           Variables _get = it_1.get(0);
           final Procedure1<Variable> _function_2 = (Variable it_2) -> {

@@ -36,10 +36,7 @@ class EisParsingTest {
 		project = "abckdjh";
 		plcname = "d383";
 		author 	= "name two";
-		testcase Blockname{
-			testActive = false;
-			blockType = FC;
-			description = "";
+		testcase Blockname(false, FC, "") {
 	'''
 	val ending = "}"
 	val delta = 0
@@ -100,7 +97,7 @@ class EisParsingTest {
 			}
 		''' + ending).parse => [
 			assertNoErrors
-			testcases.head.testblock.define.direction.input.inputVariables => [
+			testcases.head.define.direction.input.inputVariables => [
 				(get(0) as Variable) => [
 					variableType.typeFor.assertSame(INT_TYPE)
 					name.assertEquals('a')
@@ -135,7 +132,7 @@ class EisParsingTest {
 			}
 		''' + ending).parse => [
 			assertNoErrors
-			testcases.head.testblock.define.direction.input.inputVariables => [
+			testcases.head.define.direction.input.inputVariables => [
 				(get(0) as Variable) => [
 					variableType.typeFor.assertSame(INT_TYPE)
 					// .assertEquals(IntType)
@@ -205,7 +202,7 @@ class EisParsingTest {
 				output[]
 			}
 		''' + ending).parse => [
-			(testcases.head.testblock.define.direction.input.inputVariables.get(0) as Variable) => [
+			(testcases.head.define.direction.input.inputVariables.get(0) as Variable) => [
 				Double.parseDouble((idiom as RealConstant).value).assertEquals(19.00000000009, delta) // .contentEquals((19.001).toString).assertTrue
 				assertNoErrors
 			]
@@ -219,7 +216,7 @@ class EisParsingTest {
 				output[]
 			}
 		''' + ending).parse => [
-			(testcases.head.testblock.define.direction.input.inputVariables.get(0) as Variable) => [
+			(testcases.head.define.direction.input.inputVariables.get(0) as Variable) => [
 				Double.parseDouble((idiom as RealConstant).value).assertEquals(0.4, delta) // .contentEquals((0.4).toString).assertTrue
 			]
 		]
@@ -244,7 +241,7 @@ class EisParsingTest {
 			}
 		''' + ending).parse => [
 			assertNoErrors
-			testcases.head.testblock.define.direction.input.inputVariables => [
+			testcases.head.define.direction.input.inputVariables => [
 				(get(0) as Variable) => [
 					variableType.typeFor.assertSame(INT_TYPE)
 					name.assertEquals('a')

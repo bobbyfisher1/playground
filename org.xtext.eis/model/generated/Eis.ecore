@@ -10,10 +10,6 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Testcase">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="testcaseName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="testblock" eType="#//Testblock"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Testblock">
     <eStructuralFeatures xsi:type="ecore:EReference" name="testActive" eType="#//BoolConstant"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="blockType" eType="#//BlockConstant"

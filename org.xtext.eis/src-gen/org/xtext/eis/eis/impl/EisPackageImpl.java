@@ -45,7 +45,6 @@ import org.xtext.eis.eis.RealConstant;
 import org.xtext.eis.eis.Set;
 import org.xtext.eis.eis.Statement;
 import org.xtext.eis.eis.StringConstant;
-import org.xtext.eis.eis.Testblock;
 import org.xtext.eis.eis.Testcase;
 import org.xtext.eis.eis.TeststepBlock;
 import org.xtext.eis.eis.TimeConstant;
@@ -78,13 +77,6 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * @generated
    */
   private EClass testcaseEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass testblockEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -504,7 +496,7 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getTestcase_Testblock()
+  public EReference getTestcase_TestActive()
   {
     return (EReference)testcaseEClass.getEStructuralFeatures().get(1);
   }
@@ -514,9 +506,9 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getTestblock()
+  public EReference getTestcase_BlockType()
   {
-    return testblockEClass;
+    return (EReference)testcaseEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -524,9 +516,9 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getTestblock_TestActive()
+  public EAttribute getTestcase_Description()
   {
-    return (EReference)testblockEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)testcaseEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -534,29 +526,9 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getTestblock_BlockType()
+  public EReference getTestcase_Define()
   {
-    return (EReference)testblockEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getTestblock_Description()
-  {
-    return (EAttribute)testblockEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getTestblock_Define()
-  {
-    return (EReference)testblockEClass.getEStructuralFeatures().get(3);
+    return (EReference)testcaseEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -1687,13 +1659,10 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
 
     testcaseEClass = createEClass(TESTCASE);
     createEAttribute(testcaseEClass, TESTCASE__TESTCASE_NAME);
-    createEReference(testcaseEClass, TESTCASE__TESTBLOCK);
-
-    testblockEClass = createEClass(TESTBLOCK);
-    createEReference(testblockEClass, TESTBLOCK__TEST_ACTIVE);
-    createEReference(testblockEClass, TESTBLOCK__BLOCK_TYPE);
-    createEAttribute(testblockEClass, TESTBLOCK__DESCRIPTION);
-    createEReference(testblockEClass, TESTBLOCK__DEFINE);
+    createEReference(testcaseEClass, TESTCASE__TEST_ACTIVE);
+    createEReference(testcaseEClass, TESTCASE__BLOCK_TYPE);
+    createEAttribute(testcaseEClass, TESTCASE__DESCRIPTION);
+    createEReference(testcaseEClass, TESTCASE__DEFINE);
 
     boolConstantEClass = createEClass(BOOL_CONSTANT);
     createEAttribute(boolConstantEClass, BOOL_CONSTANT__VALUE);
@@ -1909,13 +1878,10 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
 
     initEClass(testcaseEClass, Testcase.class, "Testcase", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getTestcase_TestcaseName(), ecorePackage.getEString(), "testcaseName", null, 0, 1, Testcase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getTestcase_Testblock(), this.getTestblock(), null, "testblock", null, 0, 1, Testcase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(testblockEClass, Testblock.class, "Testblock", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getTestblock_TestActive(), this.getBoolConstant(), null, "testActive", null, 0, 1, Testblock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getTestblock_BlockType(), this.getBlockConstant(), null, "blockType", null, 0, 1, Testblock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getTestblock_Description(), ecorePackage.getEString(), "description", null, 0, 1, Testblock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getTestblock_Define(), this.getDefineBlock(), null, "define", null, 0, 1, Testblock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTestcase_TestActive(), this.getBoolConstant(), null, "testActive", null, 0, 1, Testcase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTestcase_BlockType(), this.getBlockConstant(), null, "blockType", null, 0, 1, Testcase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTestcase_Description(), ecorePackage.getEString(), "description", null, 0, 1, Testcase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTestcase_Define(), this.getDefineBlock(), null, "define", null, 0, 1, Testcase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(boolConstantEClass, BoolConstant.class, "BoolConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getBoolConstant_Value(), ecorePackage.getEString(), "value", null, 0, 1, BoolConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

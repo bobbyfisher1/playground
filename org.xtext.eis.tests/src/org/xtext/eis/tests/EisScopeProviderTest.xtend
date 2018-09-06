@@ -32,11 +32,9 @@ class EisScopeProviderTest {
 		project = "abckdjh";
 		plcname = "d383";
 		author 	= "name two";
-		testcase Blockname{
-			testActive = false;
-			blockType = FC;
-			description = "";
+		testcase Blockname(false, FC, "") {
 	'''
+	
 	val ending = "}"
 
 //
@@ -57,7 +55,7 @@ class EisScopeProviderTest {
 			}
 		''' + ending).parse => [
 			assertNoErrors
-			testcases.head.testblock.define.direction.input.inputVariables => [
+			testcases.head.define.direction.input.inputVariables => [
 				get(2) as Variable => [
 					idiom.assertScope(EisPackage.eINSTANCE.variableRef_Variable, "a")
 				]
@@ -79,7 +77,7 @@ class EisScopeProviderTest {
 				]
 				output[]
 			}
-		''' + ending).parse.testcases.head.testblock.define.direction.input => [
+		''' + ending).parse.testcases.head.define.direction.input => [
 			assertNoErrors
 			assertScope(EisPackage.eINSTANCE.udtRef_UdtType, "typeB, typeD")
 		]
@@ -105,7 +103,7 @@ class EisScopeProviderTest {
 			]
 		}''' + ending).parse => [
 			assertNoErrors
-			testcases.head.testblock.define.direction.input.inputVariables.head as Udt => [
+			testcases.head.define.direction.input.inputVariables.head as Udt => [
 				udtVariables.get(2) as Variable => [assertScope(EisPackage.eINSTANCE.variableRef_Variable, "a")]
 				udtVariables.get(3) as UdtRef => [assertScope(EisPackage.eINSTANCE.udtRef_UdtType, "typeB")]
 				// testing the cascade
@@ -126,7 +124,7 @@ class EisScopeProviderTest {
 					int b = a;
 				]
 			}
-		''' + ending).parse.testcases.head.testblock.define.direction.output.outputVariables.get(1) as Variable => [
+		''' + ending).parse.testcases.head.define.direction.output.outputVariables.get(1) as Variable => [
 			assertNoErrors
 			idiom.assertScope(EisPackage.eINSTANCE.variableRef_Variable, "a")
 		]
@@ -141,7 +139,7 @@ class EisScopeProviderTest {
 					int b = a;
 				]
 			}
-		''' + ending).parse.testcases.head.testblock.define.direction.output.outputVariables.get(1) as Variable => [
+		''' + ending).parse.testcases.head.define.direction.output.outputVariables.get(1) as Variable => [
 			assertError(EisPackage.eINSTANCE.variableRef, EisValidator.NULL_REFERENCE)
 			1.assertEquals(validate.size)
 		]
@@ -171,7 +169,7 @@ class EisScopeProviderTest {
 					int b = a;
 				]
 			}
-		''' + ending).parse.testcases.head.testblock.define.direction.output.outputVariables.get(1) as Variable => [
+		''' + ending).parse.testcases.head.define.direction.output.outputVariables.get(1) as Variable => [
 			assertError(EisPackage.eINSTANCE.variable, EisValidator.VARIANT_MISMATCH)
 			1.assertEquals(validate.size)
 		]

@@ -227,163 +227,105 @@ ruleTestcase returns [EObject current=null]
 				}
 			)
 		)
-		otherlv_2='{'
+		otherlv_2='('
 		{
-			newLeafNode(otherlv_2, grammarAccess.getTestcaseAccess().getLeftCurlyBracketKeyword_2());
+			newLeafNode(otherlv_2, grammarAccess.getTestcaseAccess().getLeftParenthesisKeyword_2());
 		}
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getTestcaseAccess().getTestblockTestblockParserRuleCall_3_0());
+					newCompositeNode(grammarAccess.getTestcaseAccess().getTestActiveBoolConstantParserRuleCall_3_0());
 				}
-				lv_testblock_3_0=ruleTestblock
+				lv_testActive_3_0=ruleBoolConstant
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getTestcaseRule());
 					}
 					set(
 						$current,
-						"testblock",
-						lv_testblock_3_0,
-						"org.xtext.eis.Eis.Testblock");
-					afterParserOrEnumRuleCall();
-				}
-			)
-		)?
-		otherlv_4='}'
-		{
-			newLeafNode(otherlv_4, grammarAccess.getTestcaseAccess().getRightCurlyBracketKeyword_4());
-		}
-	)
-;
-
-// Entry rule entryRuleTestblock
-entryRuleTestblock returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getTestblockRule()); }
-	iv_ruleTestblock=ruleTestblock
-	{ $current=$iv_ruleTestblock.current; }
-	EOF;
-
-// Rule Testblock
-ruleTestblock returns [EObject current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		otherlv_0='testActive'
-		{
-			newLeafNode(otherlv_0, grammarAccess.getTestblockAccess().getTestActiveKeyword_0());
-		}
-		otherlv_1='='
-		{
-			newLeafNode(otherlv_1, grammarAccess.getTestblockAccess().getEqualsSignKeyword_1());
-		}
-		(
-			(
-				{
-					newCompositeNode(grammarAccess.getTestblockAccess().getTestActiveBoolConstantParserRuleCall_2_0());
-				}
-				lv_testActive_2_0=ruleBoolConstant
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getTestblockRule());
-					}
-					set(
-						$current,
 						"testActive",
-						lv_testActive_2_0,
+						lv_testActive_3_0,
 						"org.xtext.eis.Eis.BoolConstant");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)
-		otherlv_3=';'
+		otherlv_4=','
 		{
-			newLeafNode(otherlv_3, grammarAccess.getTestblockAccess().getSemicolonKeyword_3());
-		}
-		otherlv_4='blockType'
-		{
-			newLeafNode(otherlv_4, grammarAccess.getTestblockAccess().getBlockTypeKeyword_4());
-		}
-		otherlv_5='='
-		{
-			newLeafNode(otherlv_5, grammarAccess.getTestblockAccess().getEqualsSignKeyword_5());
+			newLeafNode(otherlv_4, grammarAccess.getTestcaseAccess().getCommaKeyword_4());
 		}
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getTestblockAccess().getBlockTypeBlockConstantParserRuleCall_6_0());
+					newCompositeNode(grammarAccess.getTestcaseAccess().getBlockTypeBlockConstantParserRuleCall_5_0());
 				}
-				lv_blockType_6_0=ruleBlockConstant
+				lv_blockType_5_0=ruleBlockConstant
 				{
 					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getTestblockRule());
+						$current = createModelElementForParent(grammarAccess.getTestcaseRule());
 					}
 					set(
 						$current,
 						"blockType",
-						lv_blockType_6_0,
+						lv_blockType_5_0,
 						"org.xtext.eis.Eis.BlockConstant");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)
-		otherlv_7=';'
+		otherlv_6=','
 		{
-			newLeafNode(otherlv_7, grammarAccess.getTestblockAccess().getSemicolonKeyword_7());
-		}
-		otherlv_8='description'
-		{
-			newLeafNode(otherlv_8, grammarAccess.getTestblockAccess().getDescriptionKeyword_8());
-		}
-		otherlv_9='='
-		{
-			newLeafNode(otherlv_9, grammarAccess.getTestblockAccess().getEqualsSignKeyword_9());
+			newLeafNode(otherlv_6, grammarAccess.getTestcaseAccess().getCommaKeyword_6());
 		}
 		(
 			(
-				lv_description_10_0=RULE_STRING
+				lv_description_7_0=RULE_STRING
 				{
-					newLeafNode(lv_description_10_0, grammarAccess.getTestblockAccess().getDescriptionSTRINGTerminalRuleCall_10_0());
+					newLeafNode(lv_description_7_0, grammarAccess.getTestcaseAccess().getDescriptionSTRINGTerminalRuleCall_7_0());
 				}
 				{
 					if ($current==null) {
-						$current = createModelElement(grammarAccess.getTestblockRule());
+						$current = createModelElement(grammarAccess.getTestcaseRule());
 					}
 					setWithLastConsumed(
 						$current,
 						"description",
-						lv_description_10_0,
+						lv_description_7_0,
 						"org.xtext.eis.Eis.STRING");
 				}
 			)
 		)
-		otherlv_11=';'
+		otherlv_8=')'
 		{
-			newLeafNode(otherlv_11, grammarAccess.getTestblockAccess().getSemicolonKeyword_11());
+			newLeafNode(otherlv_8, grammarAccess.getTestcaseAccess().getRightParenthesisKeyword_8());
+		}
+		otherlv_9='{'
+		{
+			newLeafNode(otherlv_9, grammarAccess.getTestcaseAccess().getLeftCurlyBracketKeyword_9());
 		}
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getTestblockAccess().getDefineDefineBlockParserRuleCall_12_0());
+					newCompositeNode(grammarAccess.getTestcaseAccess().getDefineDefineBlockParserRuleCall_10_0());
 				}
-				lv_define_12_0=ruleDefineBlock
+				lv_define_10_0=ruleDefineBlock
 				{
 					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getTestblockRule());
+						$current = createModelElementForParent(grammarAccess.getTestcaseRule());
 					}
 					set(
 						$current,
 						"define",
-						lv_define_12_0,
+						lv_define_10_0,
 						"org.xtext.eis.Eis.DefineBlock");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)?
+		otherlv_11='}'
+		{
+			newLeafNode(otherlv_11, grammarAccess.getTestcaseAccess().getRightCurlyBracketKeyword_11());
+		}
 	)
 ;
 

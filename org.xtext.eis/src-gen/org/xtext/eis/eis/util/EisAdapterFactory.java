@@ -86,11 +86,6 @@ public class EisAdapterFactory extends AdapterFactoryImpl
         return createTestcaseAdapter();
       }
       @Override
-      public Adapter caseTestblock(Testblock object)
-      {
-        return createTestblockAdapter();
-      }
-      @Override
       public Adapter caseBoolConstant(BoolConstant object)
       {
         return createBoolConstantAdapter();
@@ -333,21 +328,6 @@ public class EisAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createTestcaseAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.xtext.eis.eis.Testblock <em>Testblock</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.xtext.eis.eis.Testblock
-   * @generated
-   */
-  public Adapter createTestblockAdapter()
   {
     return null;
   }

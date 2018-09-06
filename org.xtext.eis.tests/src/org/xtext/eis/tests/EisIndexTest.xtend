@@ -28,10 +28,7 @@ class EisIndexTest {
 		project = "abckdjh";
 		plcname = "d383";
 		author 	= "name two";
-		testcase Blockname{
-			testActive = false;
-			blockType = FC;
-			description = "";
+		testcase Blockname(false, FC, "") {
 	'''
 	val ending = "}"
 

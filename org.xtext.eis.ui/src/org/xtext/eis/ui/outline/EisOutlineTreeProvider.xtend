@@ -33,8 +33,8 @@ class EisOutlineTreeProvider extends DefaultOutlineTreeProvider {
 	}
 
 	def _createChildren(EObjectNode testcaseNode, Testcase testcase) {
-		val direction = testcase?.testblock?.define?.direction
-		val teststeps = testcase?.testblock?.define?.teststeps
+		val direction = testcase?.define?.direction
+		val teststeps = testcase?.define?.teststeps
 
 		testcaseNode.createChildren(direction)
 

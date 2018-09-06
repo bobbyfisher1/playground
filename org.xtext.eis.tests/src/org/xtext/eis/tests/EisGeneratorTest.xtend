@@ -24,10 +24,7 @@ class EisGeneratorTest {
 		project = "project";
 		plcname = "plcname";
 		author 	= "author";
-		testcase Testcase{
-			testActive = false;
-			blockType = FC;
-			description = "description";
+		testcase Testcase(false, FC, "description") {
 	'''
 	val ending = "}"
 
@@ -39,7 +36,6 @@ class EisGeneratorTest {
 			project = "project";
 			plcname = "plcname";
 			author 	= "author";
-			testcase Testcase{}
 		''' => [
 			parse.assertNoErrors
 			assertCompilesTo(
@@ -50,8 +46,6 @@ class EisGeneratorTest {
 					<PlcName>plcname</PlcName>
 					<Author>author</Author>
 					<TestCases>
-						<TestCase ID="0">
-						</TestCase>
 					</TestCases>
 				</TestFixture>
 			''')
@@ -78,7 +72,7 @@ class EisGeneratorTest {
 	}
 
 	@Test def void testMultipleEmptyTestCases() {
-		(beginning + ending + "testcase Test1{} testcase Test2{}") => [
+		(beginning + ending + '''testcase Test1(false, FC, "" ) {} testcase Test2(false, FC, "" ) {}''') => [
 			parse.assertNoErrors
 			assertCompilesTo(
 		'''
@@ -90,9 +84,9 @@ class EisGeneratorTest {
 					<TestCases>
 						<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
 						</TestCase>
-						<TestCase ID="1">
+						<TestCase ID="1" TestActive="false" Blockname="Test1" Blocktype="FC" Description="">
 						</TestCase>
-						<TestCase ID="2">
+						<TestCase ID="2" TestActive="false" Blockname="Test2" Blocktype="FC" Description="">
 						</TestCase>
 					</TestCases>
 				</TestFixture>

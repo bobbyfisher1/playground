@@ -68,7 +68,6 @@ public class EisFactoryImpl extends EFactoryImpl implements EisFactory
     {
       case EisPackage.EIS_MODEL: return createEisModel();
       case EisPackage.TESTCASE: return createTestcase();
-      case EisPackage.TESTBLOCK: return createTestblock();
       case EisPackage.BOOL_CONSTANT: return createBoolConstant();
       case EisPackage.BLOCK_CONSTANT: return createBlockConstant();
       case EisPackage.DEFINE_BLOCK: return createDefineBlock();
@@ -167,17 +166,6 @@ public class EisFactoryImpl extends EFactoryImpl implements EisFactory
   {
     TestcaseImpl testcase = new TestcaseImpl();
     return testcase;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Testblock createTestblock()
-  {
-    TestblockImpl testblock = new TestblockImpl();
-    return testblock;
   }
 
   /**

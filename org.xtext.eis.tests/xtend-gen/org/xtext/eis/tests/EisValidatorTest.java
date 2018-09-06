@@ -46,22 +46,13 @@ public class EisValidatorTest {
   private final String beginning = new Function0<String>() {
     public String apply() {
       StringConcatenation _builder = new StringConcatenation();
-      _builder.append("project = \"\";");
+      _builder.append("project = \"abckdjh\";");
       _builder.newLine();
-      _builder.append("plcname = \"\";");
+      _builder.append("plcname = \"d383\";");
       _builder.newLine();
-      _builder.append("author \t= \"\";");
+      _builder.append("author \t= \"name two\";");
       _builder.newLine();
-      _builder.append("testcase Blockname{");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("testActive = false;");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("blockType = FC;");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("description = \"\";");
+      _builder.append("testcase Blockname(false, FC, \"\") {");
       _builder.newLine();
       return _builder.toString();
     }
@@ -465,7 +456,7 @@ public class EisValidatorTest {
       _builder.append("}");
       _builder.newLine();
       String _plus = (this.beginning + _builder);
-      EList<Variables> _inputVariables = IterableExtensions.<Testcase>head(this._parseHelper.parse((_plus + this.ending)).getTestcases()).getTestblock().getDefine().getDirection().getInput().getInputVariables();
+      EList<Variables> _inputVariables = IterableExtensions.<Testcase>head(this._parseHelper.parse((_plus + this.ending)).getTestcases()).getDefine().getDirection().getInput().getInputVariables();
       final Procedure1<EList<Variables>> _function = (EList<Variables> it) -> {
         Variables _get = it.get(0);
         Assert.assertSame(this._defineTypeComputer.typeFor(((Variable) _get).getVariableType()), DefineTypeComputer.INT_TYPE);
@@ -499,7 +490,7 @@ public class EisValidatorTest {
       _builder.append("}");
       _builder.newLine();
       String _plus = (this.beginning + _builder);
-      EList<Variables> _inputVariables = IterableExtensions.<Testcase>head(this._parseHelper.parse((_plus + this.ending)).getTestcases()).getTestblock().getDefine().getDirection().getInput().getInputVariables();
+      EList<Variables> _inputVariables = IterableExtensions.<Testcase>head(this._parseHelper.parse((_plus + this.ending)).getTestcases()).getDefine().getDirection().getInput().getInputVariables();
       final Procedure1<EList<Variables>> _function = (EList<Variables> it) -> {
         Variables _get = it.get(0);
         Assert.assertTrue(((Variable) _get).isVariantKeyword());
@@ -1255,9 +1246,9 @@ public class EisValidatorTest {
       _builder.newLine();
       _builder.append("author \t= \"\";");
       _builder.newLine();
-      _builder.append("testcase Blockname{}");
+      _builder.append("testcase Blockname(false, FC, \"\"){}");
       _builder.newLine();
-      _builder.append("testcase Blockname{}");
+      _builder.append("testcase Blockname(false, FC, \"\"){}");
       _builder.newLine();
       EisModel _parse = this._parseHelper.parse(_builder);
       final Procedure1<EisModel> _function = (EisModel it) -> {

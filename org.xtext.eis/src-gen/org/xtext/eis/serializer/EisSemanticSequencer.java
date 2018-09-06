@@ -44,7 +44,6 @@ import org.xtext.eis.eis.Plus;
 import org.xtext.eis.eis.RealConstant;
 import org.xtext.eis.eis.Statement;
 import org.xtext.eis.eis.StringConstant;
-import org.xtext.eis.eis.Testblock;
 import org.xtext.eis.eis.Testcase;
 import org.xtext.eis.eis.TeststepBlock;
 import org.xtext.eis.eis.TimeConstant;
@@ -159,9 +158,6 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				return; 
 			case EisPackage.STRING_CONSTANT:
 				sequence_Atomic(context, (StringConstant) semanticObject); 
-				return; 
-			case EisPackage.TESTBLOCK:
-				sequence_Testblock(context, (Testblock) semanticObject); 
 				return; 
 			case EisPackage.TESTCASE:
 				sequence_Testcase(context, (Testcase) semanticObject); 
@@ -1015,22 +1011,10 @@ public class EisSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     Testblock returns Testblock
-	 *
-	 * Constraint:
-	 *     (testActive=BoolConstant blockType=BlockConstant description=STRING define=DefineBlock?)
-	 */
-	protected void sequence_Testblock(ISerializationContext context, Testblock semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
 	 *     Testcase returns Testcase
 	 *
 	 * Constraint:
-	 *     (testcaseName=ID testblock=Testblock?)
+	 *     (testcaseName=ID testActive=BoolConstant blockType=BlockConstant description=STRING define=DefineBlock?)
 	 */
 	protected void sequence_Testcase(ISerializationContext context, Testcase semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

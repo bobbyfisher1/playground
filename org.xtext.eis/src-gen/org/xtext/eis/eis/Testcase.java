@@ -15,7 +15,10 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link org.xtext.eis.eis.Testcase#getTestcaseName <em>Testcase Name</em>}</li>
- *   <li>{@link org.xtext.eis.eis.Testcase#getTestblock <em>Testblock</em>}</li>
+ *   <li>{@link org.xtext.eis.eis.Testcase#getTestActive <em>Test Active</em>}</li>
+ *   <li>{@link org.xtext.eis.eis.Testcase#getBlockType <em>Block Type</em>}</li>
+ *   <li>{@link org.xtext.eis.eis.Testcase#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.xtext.eis.eis.Testcase#getDefine <em>Define</em>}</li>
  * </ul>
  *
  * @see org.xtext.eis.eis.EisPackage#getTestcase()
@@ -51,29 +54,107 @@ public interface Testcase extends EObject
   void setTestcaseName(String value);
 
   /**
-   * Returns the value of the '<em><b>Testblock</b></em>' containment reference.
+   * Returns the value of the '<em><b>Test Active</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Testblock</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Test Active</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Testblock</em>' containment reference.
-   * @see #setTestblock(Testblock)
-   * @see org.xtext.eis.eis.EisPackage#getTestcase_Testblock()
+   * @return the value of the '<em>Test Active</em>' containment reference.
+   * @see #setTestActive(BoolConstant)
+   * @see org.xtext.eis.eis.EisPackage#getTestcase_TestActive()
    * @model containment="true"
    * @generated
    */
-  Testblock getTestblock();
+  BoolConstant getTestActive();
 
   /**
-   * Sets the value of the '{@link org.xtext.eis.eis.Testcase#getTestblock <em>Testblock</em>}' containment reference.
+   * Sets the value of the '{@link org.xtext.eis.eis.Testcase#getTestActive <em>Test Active</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Testblock</em>' containment reference.
-   * @see #getTestblock()
+   * @param value the new value of the '<em>Test Active</em>' containment reference.
+   * @see #getTestActive()
    * @generated
    */
-  void setTestblock(Testblock value);
+  void setTestActive(BoolConstant value);
+
+  /**
+   * Returns the value of the '<em><b>Block Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Block Type</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Block Type</em>' containment reference.
+   * @see #setBlockType(BlockConstant)
+   * @see org.xtext.eis.eis.EisPackage#getTestcase_BlockType()
+   * @model containment="true"
+   * @generated
+   */
+  BlockConstant getBlockType();
+
+  /**
+   * Sets the value of the '{@link org.xtext.eis.eis.Testcase#getBlockType <em>Block Type</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Block Type</em>' containment reference.
+   * @see #getBlockType()
+   * @generated
+   */
+  void setBlockType(BlockConstant value);
+
+  /**
+   * Returns the value of the '<em><b>Description</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Description</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Description</em>' attribute.
+   * @see #setDescription(String)
+   * @see org.xtext.eis.eis.EisPackage#getTestcase_Description()
+   * @model
+   * @generated
+   */
+  String getDescription();
+
+  /**
+   * Sets the value of the '{@link org.xtext.eis.eis.Testcase#getDescription <em>Description</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Description</em>' attribute.
+   * @see #getDescription()
+   * @generated
+   */
+  void setDescription(String value);
+
+  /**
+   * Returns the value of the '<em><b>Define</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Define</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Define</em>' containment reference.
+   * @see #setDefine(DefineBlock)
+   * @see org.xtext.eis.eis.EisPackage#getTestcase_Define()
+   * @model containment="true"
+   * @generated
+   */
+  DefineBlock getDefine();
+
+  /**
+   * Sets the value of the '{@link org.xtext.eis.eis.Testcase#getDefine <em>Define</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Define</em>' containment reference.
+   * @see #getDefine()
+   * @generated
+   */
+  void setDefine(DefineBlock value);
 
 } // Testcase
