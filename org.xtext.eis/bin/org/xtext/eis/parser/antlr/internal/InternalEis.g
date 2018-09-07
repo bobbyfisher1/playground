@@ -77,102 +77,150 @@ ruleEisModel returns [EObject current=null]
 	leaveRule();
 }:
 	(
-		otherlv_0='project'
-		{
-			newLeafNode(otherlv_0, grammarAccess.getEisModelAccess().getProjectKeyword_0());
-		}
-		otherlv_1='='
-		{
-			newLeafNode(otherlv_1, grammarAccess.getEisModelAccess().getEqualsSignKeyword_1());
-		}
 		(
 			(
-				lv_projectName_2_0=RULE_STRING
-				{
-					newLeafNode(lv_projectName_2_0, grammarAccess.getEisModelAccess().getProjectNameSTRINGTerminalRuleCall_2_0());
+				{ 
+				  getUnorderedGroupHelper().enter(grammarAccess.getEisModelAccess().getUnorderedGroup_0());
 				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getEisModelRule());
+				(
+					(
+			(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getEisModelAccess().getUnorderedGroup_0(), 0)}?=>(
+					{
+						getUnorderedGroupHelper().select(grammarAccess.getEisModelAccess().getUnorderedGroup_0(), 0);
 					}
-					setWithLastConsumed(
-						$current,
-						"projectName",
-						lv_projectName_2_0,
-						"org.xtext.eis.Eis.STRING");
-				}
-			)
-		)
-		otherlv_3=';'
-		{
-			newLeafNode(otherlv_3, grammarAccess.getEisModelAccess().getSemicolonKeyword_3());
-		}
-		otherlv_4='plcname'
-		{
-			newLeafNode(otherlv_4, grammarAccess.getEisModelAccess().getPlcnameKeyword_4());
-		}
-		otherlv_5='='
-		{
-			newLeafNode(otherlv_5, grammarAccess.getEisModelAccess().getEqualsSignKeyword_5());
-		}
-		(
-			(
-				lv_plcName_6_0=RULE_STRING
-				{
-					newLeafNode(lv_plcName_6_0, grammarAccess.getEisModelAccess().getPlcNameSTRINGTerminalRuleCall_6_0());
-				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getEisModelRule());
+								({true}?=>(otherlv_1='project'
+								{
+									newLeafNode(otherlv_1, grammarAccess.getEisModelAccess().getProjectKeyword_0_0_0());
+								}
+								otherlv_2='='
+								{
+									newLeafNode(otherlv_2, grammarAccess.getEisModelAccess().getEqualsSignKeyword_0_0_1());
+								}
+								(
+									(
+										lv_projectName_3_0=RULE_STRING
+										{
+											newLeafNode(lv_projectName_3_0, grammarAccess.getEisModelAccess().getProjectNameSTRINGTerminalRuleCall_0_0_2_0());
+										}
+										{
+											if ($current==null) {
+												$current = createModelElement(grammarAccess.getEisModelRule());
+											}
+											setWithLastConsumed(
+												$current,
+												"projectName",
+												lv_projectName_3_0,
+												"org.xtext.eis.Eis.STRING");
+										}
+									)
+								)
+								otherlv_4=';'
+								{
+									newLeafNode(otherlv_4, grammarAccess.getEisModelAccess().getSemicolonKeyword_0_0_3());
+								}
+								))
+					{ 
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getEisModelAccess().getUnorderedGroup_0());
 					}
-					setWithLastConsumed(
-						$current,
-						"plcName",
-						lv_plcName_6_0,
-						"org.xtext.eis.Eis.STRING");
-				}
-			)
-		)
-		otherlv_7=';'
-		{
-			newLeafNode(otherlv_7, grammarAccess.getEisModelAccess().getSemicolonKeyword_7());
-		}
-		otherlv_8='author'
-		{
-			newLeafNode(otherlv_8, grammarAccess.getEisModelAccess().getAuthorKeyword_8());
-		}
-		otherlv_9='='
-		{
-			newLeafNode(otherlv_9, grammarAccess.getEisModelAccess().getEqualsSignKeyword_9());
-		}
-		(
+				)
+			)|
 			(
-				lv_authorName_10_0=RULE_STRING
-				{
-					newLeafNode(lv_authorName_10_0, grammarAccess.getEisModelAccess().getAuthorNameSTRINGTerminalRuleCall_10_0());
-				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getEisModelRule());
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getEisModelAccess().getUnorderedGroup_0(), 1)}?=>(
+					{
+						getUnorderedGroupHelper().select(grammarAccess.getEisModelAccess().getUnorderedGroup_0(), 1);
 					}
-					setWithLastConsumed(
-						$current,
-						"authorName",
-						lv_authorName_10_0,
-						"org.xtext.eis.Eis.STRING");
-				}
+								({true}?=>(otherlv_5='plcname'
+								{
+									newLeafNode(otherlv_5, grammarAccess.getEisModelAccess().getPlcnameKeyword_0_1_0());
+								}
+								otherlv_6='='
+								{
+									newLeafNode(otherlv_6, grammarAccess.getEisModelAccess().getEqualsSignKeyword_0_1_1());
+								}
+								(
+									(
+										lv_plcName_7_0=RULE_STRING
+										{
+											newLeafNode(lv_plcName_7_0, grammarAccess.getEisModelAccess().getPlcNameSTRINGTerminalRuleCall_0_1_2_0());
+										}
+										{
+											if ($current==null) {
+												$current = createModelElement(grammarAccess.getEisModelRule());
+											}
+											setWithLastConsumed(
+												$current,
+												"plcName",
+												lv_plcName_7_0,
+												"org.xtext.eis.Eis.STRING");
+										}
+									)
+								)
+								otherlv_8=';'
+								{
+									newLeafNode(otherlv_8, grammarAccess.getEisModelAccess().getSemicolonKeyword_0_1_3());
+								}
+								))
+					{ 
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getEisModelAccess().getUnorderedGroup_0());
+					}
+				)
+			)|
+			(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getEisModelAccess().getUnorderedGroup_0(), 2)}?=>(
+					{
+						getUnorderedGroupHelper().select(grammarAccess.getEisModelAccess().getUnorderedGroup_0(), 2);
+					}
+								({true}?=>(otherlv_9='author'
+								{
+									newLeafNode(otherlv_9, grammarAccess.getEisModelAccess().getAuthorKeyword_0_2_0());
+								}
+								otherlv_10='='
+								{
+									newLeafNode(otherlv_10, grammarAccess.getEisModelAccess().getEqualsSignKeyword_0_2_1());
+								}
+								(
+									(
+										lv_authorName_11_0=RULE_STRING
+										{
+											newLeafNode(lv_authorName_11_0, grammarAccess.getEisModelAccess().getAuthorNameSTRINGTerminalRuleCall_0_2_2_0());
+										}
+										{
+											if ($current==null) {
+												$current = createModelElement(grammarAccess.getEisModelRule());
+											}
+											setWithLastConsumed(
+												$current,
+												"authorName",
+												lv_authorName_11_0,
+												"org.xtext.eis.Eis.STRING");
+										}
+									)
+								)
+								otherlv_12=';'
+								{
+									newLeafNode(otherlv_12, grammarAccess.getEisModelAccess().getSemicolonKeyword_0_2_3());
+								}
+								))
+					{ 
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getEisModelAccess().getUnorderedGroup_0());
+					}
+				)
 			)
+					)+
+					{getUnorderedGroupHelper().canLeave(grammarAccess.getEisModelAccess().getUnorderedGroup_0())}?
+				)
+			)
+				{ 
+				  getUnorderedGroupHelper().leave(grammarAccess.getEisModelAccess().getUnorderedGroup_0());
+				}
 		)
-		otherlv_11=';'
-		{
-			newLeafNode(otherlv_11, grammarAccess.getEisModelAccess().getSemicolonKeyword_11());
-		}
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getEisModelAccess().getTestcasesTestcaseParserRuleCall_12_0());
+					newCompositeNode(grammarAccess.getEisModelAccess().getTestcasesTestcaseParserRuleCall_1_0());
 				}
-				lv_testcases_12_0=ruleTestcase
+				lv_testcases_13_0=ruleTestcase
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getEisModelRule());
@@ -180,7 +228,7 @@ ruleEisModel returns [EObject current=null]
 					add(
 						$current,
 						"testcases",
-						lv_testcases_12_0,
+						lv_testcases_13_0,
 						"org.xtext.eis.Eis.Testcase");
 					afterParserOrEnumRuleCall();
 				}

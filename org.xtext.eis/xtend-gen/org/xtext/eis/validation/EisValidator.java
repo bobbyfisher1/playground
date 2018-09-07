@@ -723,7 +723,7 @@ public class EisValidator extends AbstractEisValidator {
         boolean _greaterThan = (_size > 1);
         if (_greaterThan) {
           for (final TeststepBlock d : duplicates) {
-            this.error("Multiple plcCycle", d, EisPackage.eINSTANCE.getTeststepBlock_PlcCycle(), 
+            this.error("Multiple plcCycle. PlcCycles cannot be equal.", d, EisPackage.eINSTANCE.getTeststepBlock_PlcCycle(), 
               EisValidator.MULTIPLE_PLCCYCLE);
           }
         }
@@ -749,7 +749,7 @@ public class EisValidator extends AbstractEisValidator {
         boolean _greaterThan = (_size > 1);
         if (_greaterThan) {
           for (final Testcase d : duplicates) {
-            this.error("Multiple plcCycle", d, EisPackage.eINSTANCE.getTestcase_TestcaseName(), 
+            this.error("Multiple testcaseName. TestcaseNames cannot be equal.", d, EisPackage.eINSTANCE.getTestcase_TestcaseName(), 
               EisValidator.MULTIPLE_TESTCASE_NAME);
           }
         }

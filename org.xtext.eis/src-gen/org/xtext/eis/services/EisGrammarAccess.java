@@ -3,8 +3,9 @@
  */
 package org.xtext.eis.services;
 
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import java.util.List;
-
 import org.eclipse.xtext.Action;
 import org.eclipse.xtext.Alternatives;
 import org.eclipse.xtext.Assignment;
@@ -19,11 +20,9 @@ import org.eclipse.xtext.ParserRule;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.TerminalRule;
 import org.eclipse.xtext.UnorderedGroup;
+import org.eclipse.xtext.service.AbstractElementFinder.AbstractEnumRuleElementFinder;
 import org.eclipse.xtext.service.AbstractElementFinder.AbstractGrammarElementFinder;
 import org.eclipse.xtext.service.GrammarProvider;
-
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
 
 @Singleton
 public class EisGrammarAccess extends AbstractGrammarElementFinder {
@@ -31,85 +30,99 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	public class EisModelElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.eis.Eis.EisModel");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cProjectKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Keyword cEqualsSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cProjectNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cProjectNameSTRINGTerminalRuleCall_2_0 = (RuleCall)cProjectNameAssignment_2.eContents().get(0);
-		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Keyword cPlcnameKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Keyword cEqualsSignKeyword_5 = (Keyword)cGroup.eContents().get(5);
-		private final Assignment cPlcNameAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final RuleCall cPlcNameSTRINGTerminalRuleCall_6_0 = (RuleCall)cPlcNameAssignment_6.eContents().get(0);
-		private final Keyword cSemicolonKeyword_7 = (Keyword)cGroup.eContents().get(7);
-		private final Keyword cAuthorKeyword_8 = (Keyword)cGroup.eContents().get(8);
-		private final Keyword cEqualsSignKeyword_9 = (Keyword)cGroup.eContents().get(9);
-		private final Assignment cAuthorNameAssignment_10 = (Assignment)cGroup.eContents().get(10);
-		private final RuleCall cAuthorNameSTRINGTerminalRuleCall_10_0 = (RuleCall)cAuthorNameAssignment_10.eContents().get(0);
-		private final Keyword cSemicolonKeyword_11 = (Keyword)cGroup.eContents().get(11);
-		private final Assignment cTestcasesAssignment_12 = (Assignment)cGroup.eContents().get(12);
-		private final RuleCall cTestcasesTestcaseParserRuleCall_12_0 = (RuleCall)cTestcasesAssignment_12.eContents().get(0);
+		private final UnorderedGroup cUnorderedGroup_0 = (UnorderedGroup)cGroup.eContents().get(0);
+		private final Group cGroup_0_0 = (Group)cUnorderedGroup_0.eContents().get(0);
+		private final Keyword cProjectKeyword_0_0_0 = (Keyword)cGroup_0_0.eContents().get(0);
+		private final Keyword cEqualsSignKeyword_0_0_1 = (Keyword)cGroup_0_0.eContents().get(1);
+		private final Assignment cProjectNameAssignment_0_0_2 = (Assignment)cGroup_0_0.eContents().get(2);
+		private final RuleCall cProjectNameSTRINGTerminalRuleCall_0_0_2_0 = (RuleCall)cProjectNameAssignment_0_0_2.eContents().get(0);
+		private final Keyword cSemicolonKeyword_0_0_3 = (Keyword)cGroup_0_0.eContents().get(3);
+		private final Group cGroup_0_1 = (Group)cUnorderedGroup_0.eContents().get(1);
+		private final Keyword cPlcnameKeyword_0_1_0 = (Keyword)cGroup_0_1.eContents().get(0);
+		private final Keyword cEqualsSignKeyword_0_1_1 = (Keyword)cGroup_0_1.eContents().get(1);
+		private final Assignment cPlcNameAssignment_0_1_2 = (Assignment)cGroup_0_1.eContents().get(2);
+		private final RuleCall cPlcNameSTRINGTerminalRuleCall_0_1_2_0 = (RuleCall)cPlcNameAssignment_0_1_2.eContents().get(0);
+		private final Keyword cSemicolonKeyword_0_1_3 = (Keyword)cGroup_0_1.eContents().get(3);
+		private final Group cGroup_0_2 = (Group)cUnorderedGroup_0.eContents().get(2);
+		private final Keyword cAuthorKeyword_0_2_0 = (Keyword)cGroup_0_2.eContents().get(0);
+		private final Keyword cEqualsSignKeyword_0_2_1 = (Keyword)cGroup_0_2.eContents().get(1);
+		private final Assignment cAuthorNameAssignment_0_2_2 = (Assignment)cGroup_0_2.eContents().get(2);
+		private final RuleCall cAuthorNameSTRINGTerminalRuleCall_0_2_2_0 = (RuleCall)cAuthorNameAssignment_0_2_2.eContents().get(0);
+		private final Keyword cSemicolonKeyword_0_2_3 = (Keyword)cGroup_0_2.eContents().get(3);
+		private final Assignment cTestcasesAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cTestcasesTestcaseParserRuleCall_1_0 = (RuleCall)cTestcasesAssignment_1.eContents().get(0);
 		
 		//EisModel:
-		//	'project' '=' projectName=STRING ';'
-		//	'plcname' '=' plcName=STRING ';'
-		//	'author' '=' authorName=STRING ';'
+		//	('project' '=' projectName=STRING ';' & 'plcname' '=' plcName=STRING ';' & 'author' '=' authorName=STRING ';')
 		//	testcases+=Testcase*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'project' '=' projectName=STRING ';' 'plcname' '=' plcName=STRING ';' 'author' '=' authorName=STRING ';'
+		//('project' '=' projectName=STRING ';' & 'plcname' '=' plcName=STRING ';' & 'author' '=' authorName=STRING ';')
 		//testcases+=Testcase*
 		public Group getGroup() { return cGroup; }
 		
+		//'project' '=' projectName=STRING ';' & 'plcname' '=' plcName=STRING ';' & 'author' '=' authorName=STRING ';'
+		public UnorderedGroup getUnorderedGroup_0() { return cUnorderedGroup_0; }
+		
+		//'project' '=' projectName=STRING ';'
+		public Group getGroup_0_0() { return cGroup_0_0; }
+		
 		//'project'
-		public Keyword getProjectKeyword_0() { return cProjectKeyword_0; }
+		public Keyword getProjectKeyword_0_0_0() { return cProjectKeyword_0_0_0; }
 		
 		//'='
-		public Keyword getEqualsSignKeyword_1() { return cEqualsSignKeyword_1; }
+		public Keyword getEqualsSignKeyword_0_0_1() { return cEqualsSignKeyword_0_0_1; }
 		
 		//projectName=STRING
-		public Assignment getProjectNameAssignment_2() { return cProjectNameAssignment_2; }
+		public Assignment getProjectNameAssignment_0_0_2() { return cProjectNameAssignment_0_0_2; }
 		
 		//STRING
-		public RuleCall getProjectNameSTRINGTerminalRuleCall_2_0() { return cProjectNameSTRINGTerminalRuleCall_2_0; }
+		public RuleCall getProjectNameSTRINGTerminalRuleCall_0_0_2_0() { return cProjectNameSTRINGTerminalRuleCall_0_0_2_0; }
 		
 		//';'
-		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
+		public Keyword getSemicolonKeyword_0_0_3() { return cSemicolonKeyword_0_0_3; }
+		
+		//'plcname' '=' plcName=STRING ';'
+		public Group getGroup_0_1() { return cGroup_0_1; }
 		
 		//'plcname'
-		public Keyword getPlcnameKeyword_4() { return cPlcnameKeyword_4; }
+		public Keyword getPlcnameKeyword_0_1_0() { return cPlcnameKeyword_0_1_0; }
 		
 		//'='
-		public Keyword getEqualsSignKeyword_5() { return cEqualsSignKeyword_5; }
+		public Keyword getEqualsSignKeyword_0_1_1() { return cEqualsSignKeyword_0_1_1; }
 		
 		//plcName=STRING
-		public Assignment getPlcNameAssignment_6() { return cPlcNameAssignment_6; }
+		public Assignment getPlcNameAssignment_0_1_2() { return cPlcNameAssignment_0_1_2; }
 		
 		//STRING
-		public RuleCall getPlcNameSTRINGTerminalRuleCall_6_0() { return cPlcNameSTRINGTerminalRuleCall_6_0; }
+		public RuleCall getPlcNameSTRINGTerminalRuleCall_0_1_2_0() { return cPlcNameSTRINGTerminalRuleCall_0_1_2_0; }
 		
 		//';'
-		public Keyword getSemicolonKeyword_7() { return cSemicolonKeyword_7; }
+		public Keyword getSemicolonKeyword_0_1_3() { return cSemicolonKeyword_0_1_3; }
+		
+		//'author' '=' authorName=STRING ';'
+		public Group getGroup_0_2() { return cGroup_0_2; }
 		
 		//'author'
-		public Keyword getAuthorKeyword_8() { return cAuthorKeyword_8; }
+		public Keyword getAuthorKeyword_0_2_0() { return cAuthorKeyword_0_2_0; }
 		
 		//'='
-		public Keyword getEqualsSignKeyword_9() { return cEqualsSignKeyword_9; }
+		public Keyword getEqualsSignKeyword_0_2_1() { return cEqualsSignKeyword_0_2_1; }
 		
 		//authorName=STRING
-		public Assignment getAuthorNameAssignment_10() { return cAuthorNameAssignment_10; }
+		public Assignment getAuthorNameAssignment_0_2_2() { return cAuthorNameAssignment_0_2_2; }
 		
 		//STRING
-		public RuleCall getAuthorNameSTRINGTerminalRuleCall_10_0() { return cAuthorNameSTRINGTerminalRuleCall_10_0; }
+		public RuleCall getAuthorNameSTRINGTerminalRuleCall_0_2_2_0() { return cAuthorNameSTRINGTerminalRuleCall_0_2_2_0; }
 		
 		//';'
-		public Keyword getSemicolonKeyword_11() { return cSemicolonKeyword_11; }
+		public Keyword getSemicolonKeyword_0_2_3() { return cSemicolonKeyword_0_2_3; }
 		
 		//testcases+=Testcase*
-		public Assignment getTestcasesAssignment_12() { return cTestcasesAssignment_12; }
+		public Assignment getTestcasesAssignment_1() { return cTestcasesAssignment_1; }
 		
 		//Testcase
-		public RuleCall getTestcasesTestcaseParserRuleCall_12_0() { return cTestcasesTestcaseParserRuleCall_12_0; }
+		public RuleCall getTestcasesTestcaseParserRuleCall_1_0() { return cTestcasesTestcaseParserRuleCall_1_0; }
 	}
 	public class TestcaseElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.eis.Eis.Testcase");
@@ -1296,17 +1309,10 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cValueDATETerminalRuleCall_12_1_0 = (RuleCall)cValueAssignment_12_1.eContents().get(0);
 		
 		//Atomic Idiom:
-		//	{IntConstant} value=(LONG | NEGATIVE_LONG) | {StringConstant} value=STRING
-		//	| BoolConstant
-		//	| {VariableRef} variable=[Variable] | {RealConstant} value=REAL
-		//	| {ByteConstant} value=BYTE
-		//	| {WordConstant} value=WORD
-		//	| {DWordConstant} value=DWORD
-		//	| {LWordConstant} value=LWORD
-		//	| {CharConstant} value=CHAR
-		//	| {TimeConstant} value=TIME
-		//	| {LTimeConstant} value=LTIME
-		//	| {DateConstant} value=DATE;
+		//	{IntConstant} value=(LONG | NEGATIVE_LONG) | {StringConstant} value=STRING | BoolConstant | {VariableRef}
+		//	variable=[Variable] | {RealConstant} value=REAL | {ByteConstant} value=BYTE | {WordConstant} value=WORD |
+		//	{DWordConstant} value=DWORD | {LWordConstant} value=LWORD | {CharConstant} value=CHAR | {TimeConstant} value=TIME |
+		//	{LTimeConstant} value=LTIME | {DateConstant} value=DATE;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{IntConstant} value=(LONG | NEGATIVE_LONG) | {StringConstant} value=STRING | BoolConstant | {VariableRef}
@@ -1817,9 +1823,7 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//EisModel:
-	//	'project' '=' projectName=STRING ';'
-	//	'plcname' '=' plcName=STRING ';'
-	//	'author' '=' authorName=STRING ';'
+	//	('project' '=' projectName=STRING ';' & 'plcname' '=' plcName=STRING ';' & 'author' '=' authorName=STRING ';')
 	//	testcases+=Testcase*;
 	public EisModelElements getEisModelAccess() {
 		return pEisModel;
@@ -2143,17 +2147,10 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Atomic Idiom:
-	//	{IntConstant} value=(LONG | NEGATIVE_LONG) | {StringConstant} value=STRING
-	//	| BoolConstant
-	//	| {VariableRef} variable=[Variable] | {RealConstant} value=REAL
-	//	| {ByteConstant} value=BYTE
-	//	| {WordConstant} value=WORD
-	//	| {DWordConstant} value=DWORD
-	//	| {LWordConstant} value=LWORD
-	//	| {CharConstant} value=CHAR
-	//	| {TimeConstant} value=TIME
-	//	| {LTimeConstant} value=LTIME
-	//	| {DateConstant} value=DATE;
+	//	{IntConstant} value=(LONG | NEGATIVE_LONG) | {StringConstant} value=STRING | BoolConstant | {VariableRef}
+	//	variable=[Variable] | {RealConstant} value=REAL | {ByteConstant} value=BYTE | {WordConstant} value=WORD |
+	//	{DWordConstant} value=DWORD | {LWordConstant} value=LWORD | {CharConstant} value=CHAR | {TimeConstant} value=TIME |
+	//	{LTimeConstant} value=LTIME | {DateConstant} value=DATE;
 	public AtomicElements getAtomicAccess() {
 		return pAtomic;
 	}

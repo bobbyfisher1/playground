@@ -5,7 +5,9 @@ package org.xtext.eis.ui.contentassist;
 
 import com.google.common.collect.Iterables;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.Assignment;
+import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
@@ -68,54 +70,118 @@ public class EisProposalProvider extends AbstractEisProposalProvider {
   @Override
   public void completeBoolConstant_Value(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
     super.completeBoolConstant_Value(model, assignment, context, acceptor);
-    acceptor.accept(this.createCompletionProposal("", "testActive?", null, context));
+    acceptor.accept(this.createCompletionProposal("", "testActive (bool)", null, context));
   }
   
   @Override
   public void completeBlockConstant_Value(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
     super.completeBlockConstant_Value(model, assignment, context, acceptor);
-    acceptor.accept(this.createCompletionProposal("", "blocktype?", null, context));
+    acceptor.accept(this.createCompletionProposal("", "blocktype (FB|FC)", null, context));
+  }
+  
+  @Override
+  public void complete_EisModel(final EObject model, final RuleCall ruleCall, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
+    super.complete_EisModel(model, ruleCall, context, acceptor);
+    acceptor.accept(this.createCompletionProposal("author = ", "author", null, context));
   }
   
   @Override
   public void completeEisModel_ProjectName(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
     super.completeEisModel_ProjectName(model, assignment, context, acceptor);
-    acceptor.accept(this.createCompletionProposal("\"project_name\"", "project_name", null, context));
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("\"projectName\";");
+    _builder.newLine();
+    acceptor.accept(this.createCompletionProposal(_builder.toString(), "projectName (string)", null, context));
   }
   
   @Override
   public void completeEisModel_PlcName(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
     super.completeEisModel_PlcName(model, assignment, context, acceptor);
-    acceptor.accept(this.createCompletionProposal("\"plc_name\"", "plc_name", null, context));
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("\"plcName\";");
+    _builder.newLine();
+    acceptor.accept(this.createCompletionProposal(_builder.toString(), "plcName (string)", null, context));
   }
   
   @Override
   public void completeEisModel_AuthorName(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
     super.completeEisModel_AuthorName(model, assignment, context, acceptor);
-    acceptor.accept(this.createCompletionProposal("\"author_name\"", "author_name", null, context));
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("\"authorName\";");
+    _builder.newLine();
+    acceptor.accept(this.createCompletionProposal(_builder.toString(), "authorName (string)", null, context));
+  }
+  
+  @Override
+  public void complete_Testcase(final EObject model, final RuleCall ruleCall, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
+    super.complete_Testcase(model, ruleCall, context, acceptor);
+    acceptor.accept(this.createCompletionProposal("testcase ", "testcase", null, context));
   }
   
   @Override
   public void completeTestcase_TestcaseName(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
     super.completeTestcase_TestcaseName(model, assignment, context, acceptor);
-    acceptor.accept(this.createCompletionProposal("testcase_name", "testcase_name", null, context));
+    acceptor.accept(this.createCompletionProposal("testcaseName(", "testcaseName (ID)", null, context));
   }
   
   @Override
   public void completeTestcase_Description(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
     super.completeTestcase_Description(model, assignment, context, acceptor);
-    acceptor.accept(this.createCompletionProposal("\"\"", "description string", null, context));
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("\"description\"){");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("define {");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("input[]");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("output[]");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("inout[]");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("teststep(0, \"description\") {");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("set[]");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("assert[]");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("}");
+    _builder.newLine();
+    acceptor.accept(
+      this.createCompletionProposal(_builder.toString(), "description (string)", null, context));
   }
   
   @Override
   public void completeTeststepBlock_PlcCycle(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
     super.completeTeststepBlock_PlcCycle(model, assignment, context, acceptor);
-    acceptor.accept(this.createCompletionProposal("0", "0", null, context));
+    acceptor.accept(this.createCompletionProposal("0, ", "plcCycle (int)", null, context));
   }
   
   @Override
   public void completeTeststepBlock_Description(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
     super.completeTeststepBlock_Description(model, assignment, context, acceptor);
-    acceptor.accept(this.createCompletionProposal("\"description\"", "description", null, context));
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("\"description\"){");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("set[]");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("assert[]");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("}");
+    acceptor.accept(
+      this.createCompletionProposal(_builder.toString(), "description (string)", null, context));
   }
 }

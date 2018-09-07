@@ -4,9 +4,9 @@ import 'http://www.eclipse.org/emf/2002/Ecore' as ecore
 generate eis "http://www.xtext.org/eis/Eis"
 
 EisModel:
-	'project' '=' projectName=STRING ';'
-	'plcname' '=' plcName=STRING ';'
-	'author' '=' authorName=STRING ';'
+	(('project' '=' projectName=STRING ';') &
+	('plcname' '=' plcName=STRING ';') &
+	('author' '=' authorName=STRING ';'))
 	testcases+=Testcase*;
 
 Testcase:
@@ -127,19 +127,10 @@ Primary returns Idiom:
 	'(' Idiom ')' | {Not} '!' idiom=Primary | Atomic;
 
 Atomic returns Idiom:
-	{IntConstant} value=(LONG | NEGATIVE_LONG)
-	| {StringConstant} value=STRING
-	| BoolConstant
-	| {VariableRef} variable=[Variable]
-	| {RealConstant} value=REAL
-	| {ByteConstant} value=BYTE
-	| {WordConstant} value=WORD
-	| {DWordConstant} value=DWORD
-	| {LWordConstant} value=LWORD
-	| {CharConstant} value=CHAR
-	| {TimeConstant} value=TIME
-	| {LTimeConstant} value=LTIME
-	| {DateConstant} value=DATE;
+	{IntConstant} value=(LONG | NEGATIVE_LONG) | {StringConstant} value=STRING | BoolConstant | {VariableRef}
+	variable=[Variable] | {RealConstant} value=REAL | {ByteConstant} value=BYTE | {WordConstant} value=WORD |
+	{DWordConstant} value=DWORD | {LWordConstant} value=LWORD | {CharConstant} value=CHAR | {TimeConstant} value=TIME |
+	{LTimeConstant} value=LTIME | {DateConstant} value=DATE;
 
 	//
 //	terminal fragments-----------------------------------------------------------------------------------------------------------------------

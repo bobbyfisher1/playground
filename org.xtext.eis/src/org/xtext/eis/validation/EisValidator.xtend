@@ -501,7 +501,7 @@ class EisValidator extends AbstractEisValidator {
 			val duplicates = entry.value
 			if (duplicates.size > 1) {
 				for (d : duplicates)
-					error("Multiple plcCycle", d, EisPackage.eINSTANCE.teststepBlock_PlcCycle,
+					error("Multiple plcCycle. PlcCycles cannot be equal.", d, EisPackage.eINSTANCE.teststepBlock_PlcCycle,
 						EisValidator.MULTIPLE_PLCCYCLE)
 			}
 		}
@@ -518,7 +518,7 @@ class EisValidator extends AbstractEisValidator {
 			val duplicates = entry.value
 			if (duplicates.size > 1) {
 				for (d : duplicates)
-					error("Multiple plcCycle", d, EisPackage.eINSTANCE.testcase_TestcaseName,
+					error("Multiple testcaseName. TestcaseNames cannot be equal.", d, EisPackage.eINSTANCE.testcase_TestcaseName,
 						EisValidator.MULTIPLE_TESTCASE_NAME)
 			}
 		}
