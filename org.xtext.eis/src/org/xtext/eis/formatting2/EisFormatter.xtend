@@ -3,200 +3,28 @@
  */
 package org.xtext.eis.formatting2
 
-import com.google.inject.Inject
 import org.eclipse.xtext.formatting2.AbstractFormatter2
 import org.eclipse.xtext.formatting2.IFormattableDocument
-import org.xtext.eis.eis.And
-import org.xtext.eis.eis.Assert
-import org.xtext.eis.eis.AssertionBlock
-import org.xtext.eis.eis.Comparison
-import org.xtext.eis.eis.DefineBlock
-import org.xtext.eis.eis.DirectionBlock
 import org.xtext.eis.eis.EisModel
-import org.xtext.eis.eis.Equality
-import org.xtext.eis.eis.Input
-import org.xtext.eis.eis.Minus
-import org.xtext.eis.eis.MulOrDiv
-import org.xtext.eis.eis.Not
-import org.xtext.eis.eis.Or
-import org.xtext.eis.eis.Output
-import org.xtext.eis.eis.Plus
-import org.xtext.eis.eis.Set
-import org.xtext.eis.eis.Statement
-import org.xtext.eis.eis.Testblock
 import org.xtext.eis.eis.Testcase
-import org.xtext.eis.eis.TeststepBlock
-import org.xtext.eis.eis.Udt
-import org.xtext.eis.eis.UdtRef
-import org.xtext.eis.eis.Variable
-import org.xtext.eis.services.EisGrammarAccess
-
-import static org.xtext.eis.eis.EisPackage.Literals.*
 
 class EisFormatter extends AbstractFormatter2 {
-
-	@Inject extension EisGrammarAccess
+	
+//	@Inject extension EisGrammarAccess
 
 	def dispatch void format(EisModel eisModel, extension IFormattableDocument document) {
-		eisModel.regionFor.keyword("project").prepend[noSpace].append[oneSpace]
-		eisModel.regionFor.feature(EIS_MODEL__PROJECT_NAME).prepend[oneSpace]
-		eisModel.regionFor.keyword(eisModelAccess.semicolonKeyword_11).surround[noSpace]
-
-		eisModel.regionFor.keyword("plcname").prepend[newLine].append[oneSpace]
-		eisModel.regionFor.feature(EIS_MODEL__PLC_NAME).prepend[oneSpace]
-		eisModel.regionFor.keyword(eisModelAccess.semicolonKeyword_3).surround[noSpace]
-
-		eisModel.regionFor.keyword("author").prepend[newLine].append[space = "  "] // 2 spaces
-		eisModel.regionFor.feature(EIS_MODEL__AUTHOR_NAME).prepend[oneSpace]
-		eisModel.regionFor.keyword(eisModelAccess.semicolonKeyword_7).surround[noSpace]
-
-		if (eisModel.testcases !== null)
-			for (Testcase testcase : eisModel.testcases)
-				testcase.format(document)
-	}
-
-	def dispatch void format(Testcase testcase, extension IFormattableDocument document) {
-		testcase.regionFor.keyword("testcase").prepend[newLine].append[oneSpace]
-		testcase.regionFor.feature(TESTCASE__TESTCASE_NAME).surround[oneSpace]
-		val open = testcase.regionFor.keyword(testcaseAccess.leftCurlyBracketKeyword_2)
-		val close = testcase.regionFor.keyword(testcaseAccess.rightCurlyBracketKeyword_4)
-
-		if (testcase.testblock !== null) {
-			open.append[newLine]
-			close.prepend[newLine]
-			interior(open, close)[indent]
-
-			testcase.testblock.format(document)
-		} else {
-			open.append[noSpace]
-			close.append[newLine]
+		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
+		for (testcase : eisModel.testcases) {
+			testcase.format
 		}
 	}
 
-	def dispatch void format(Testblock testblock, extension IFormattableDocument document) {
-		testblock.regionFor.keyword(testblockAccess.equalsSignKeyword_1).prepend[space = "  "].append[oneSpace]
-		testblock.regionFor.keyword(testblockAccess.semicolonKeyword_3).surround[noSpace]
-
-		testblock.regionFor.keyword("blockType").prepend[newLine]
-		testblock.regionFor.keyword(testblockAccess.equalsSignKeyword_5).prepend[space = "   "].append[oneSpace]
-		testblock.regionFor.keyword(testblockAccess.semicolonKeyword_7).surround[noSpace]
-
-		testblock.regionFor.keyword("description").prepend[newLine]
-		testblock.regionFor.keyword(testblockAccess.equalsSignKeyword_9).surround[oneSpace]
-		testblock.regionFor.keyword(testblockAccess.semicolonKeyword_11).surround[noSpace]
-
-		if (testblock.define !== null)
-			testblock.define.format(document)
-	}
-
-	def dispatch void format(DefineBlock defineblock, extension IFormattableDocument document) {
-		defineblock.regionFor.keyword("define").append[oneSpace]
-		val open = defineblock.regionFor.keyword(defineBlockAccess.leftCurlyBracketKeyword_1)
-		val close = defineblock.regionFor.keyword(defineBlockAccess.rightCurlyBracketKeyword_3)
-
-		open.append[newLine]
-		close.prepend[newLine]
-		interior(open, close)[indent]
-
-		defineblock.direction.format(document)
-
-		if (defineblock.teststeps !== null)
-			for (TeststepBlock teststep : defineblock.teststeps)
-				teststep.format(document)
-	}
-
-	def dispatch void format(DirectionBlock directionblock, extension IFormattableDocument document) {
+	def dispatch void format(Testcase testcase, extension IFormattableDocument document) {
 		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		directionblock.format
+		testcase.testActive.format
+		testcase.blockType.format
+		testcase.define.format
 	}
-
-	def dispatch void format(Input input, extension IFormattableDocument document) {
-		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		input.format
-	}
-
-	def dispatch void format(Output output, extension IFormattableDocument document) {
-		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		output.format
-	}
-
-	def dispatch void format(Variable variable, extension IFormattableDocument document) {
-		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		variable.format
-	}
-
-	def dispatch void format(Udt udt, extension IFormattableDocument document) {
-		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		udt.format
-	}
-
-	def dispatch void format(UdtRef udtRef, extension IFormattableDocument document) {
-		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		udtRef.format
-	}
-
-	def dispatch void format(Or or, extension IFormattableDocument document) {
-		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		or.format
-	}
-
-	def dispatch void format(And and, extension IFormattableDocument document) {
-		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		and.format
-	}
-
-	def dispatch void format(Equality equality, extension IFormattableDocument document) {
-		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		equality.format
-	}
-
-	def dispatch void format(Comparison comparision, extension IFormattableDocument document) {
-		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		comparision.format
-	}
-
-	def dispatch void format(MulOrDiv mulOrDiv, extension IFormattableDocument document) {
-		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		mulOrDiv.format
-	}
-
-	def dispatch void format(Not not, extension IFormattableDocument document) {
-		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		not.format
-	}
-
-	def dispatch void format(TeststepBlock teststepBlock, extension IFormattableDocument document) {
-		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		teststepBlock.format
-	}
-
-	def dispatch void format(AssertionBlock assertionBlock, extension IFormattableDocument document) {
-		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		assertionBlock.format
-	}
-
-	def dispatch void format(Set set, extension IFormattableDocument document) {
-		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		set.format
-	}
-
-	def dispatch void format(Assert assert, extension IFormattableDocument document) {
-		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		assert.format
-	}
-
-	def dispatch void format(Statement statement, extension IFormattableDocument document) {
-		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		statement.format
-	}
-
-	def dispatch void format(Plus plus, extension IFormattableDocument document) {
-		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		plus.format
-	}
-
-	def dispatch void format(Minus minus, extension IFormattableDocument document) {
-		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		minus.format
-	}
+	
+	// TODO: implement for DefineBlock, DirectionBlock, Input, Output, InOut, Variable, Udt, UdtRef, TeststepBlock, AssertionBlock, Set, Assert, Statement, Or, And, Equality, Comparison, MulOrDiv, Not, Plus, Minus
 }

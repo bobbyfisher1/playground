@@ -239,7 +239,7 @@ class EisValidator extends AbstractEisValidator {
 	@Check def void checkDivisionByZero(MulOrDiv mulOrDiv) {
 		val right = mulOrDiv.right.interpret
 		var error = false
-		
+
 		if (right instanceof Long)
 			if (right == 0)
 				error = true
@@ -286,15 +286,19 @@ class EisValidator extends AbstractEisValidator {
 
 			if (expectedType !== actualType)
 				if (!(actualType.isIntSuperType && expectedType.isIntSuperType ))
-					error(
-						"Incompatible types. Expected '" + expectedType.toString + "' but was '" + actualType.toString +
-							"'", variable, EisPackage.eINSTANCE.variable_Idiom, INCOMPATIBLE_TYPES)
+					if (!(expectedType.isStringType && actualType.isCharType))
+						error(
+							"Incompatible types. Expected '" + expectedType.toString + "' but was '" +
+								actualType.toString + "'", variable, EisPackage.eINSTANCE.variable_Idiom,
+							INCOMPATIBLE_TYPES)
 
 			if (rangeType !== null && rangeType != expectedType)
 				if (!(rangeType.isIntSuperType && expectedType.isIntSuperType ))
-					error(
-						"Incompatible types. Expected '" + expectedType.toString + "' but was '" + rangeType.toString +
-							"'", variable, EisPackage.eINSTANCE.variable_Range, INCOMPATIBLE_TYPES)
+					if (!(expectedType.isStringType && actualType.isCharType))
+						error(
+							"Incompatible types. Expected '" + expectedType.toString + "' but was '" +
+								rangeType.toString + "'", variable, EisPackage.eINSTANCE.variable_Range,
+							INCOMPATIBLE_TYPES)
 
 		}
 	}
@@ -501,8 +505,8 @@ class EisValidator extends AbstractEisValidator {
 			val duplicates = entry.value
 			if (duplicates.size > 1) {
 				for (d : duplicates)
-					error("Multiple plcCycle. PlcCycles cannot be equal.", d, EisPackage.eINSTANCE.teststepBlock_PlcCycle,
-						EisValidator.MULTIPLE_PLCCYCLE)
+					error("Multiple plcCycle. PlcCycles cannot be equal.", d,
+						EisPackage.eINSTANCE.teststepBlock_PlcCycle, EisValidator.MULTIPLE_PLCCYCLE)
 			}
 		}
 	}
@@ -518,8 +522,8 @@ class EisValidator extends AbstractEisValidator {
 			val duplicates = entry.value
 			if (duplicates.size > 1) {
 				for (d : duplicates)
-					error("Multiple testcaseName. TestcaseNames cannot be equal.", d, EisPackage.eINSTANCE.testcase_TestcaseName,
-						EisValidator.MULTIPLE_TESTCASE_NAME)
+					error("Multiple testcaseName. TestcaseNames cannot be equal.", d,
+						EisPackage.eINSTANCE.testcase_TestcaseName, EisValidator.MULTIPLE_TESTCASE_NAME)
 			}
 		}
 	}
@@ -877,6 +881,9 @@ class EisValidator extends AbstractEisValidator {
 	def private boolean checkTime(Idiom _time) {
 		var time = _time.interpret.toString.substring(2).replaceAll('_', '')
 
+		if (time.length == 0)
+			return true
+
 		var ms = ''
 		var s = ''
 		var m = ''
@@ -936,6 +943,9 @@ class EisValidator extends AbstractEisValidator {
 
 	def private boolean isOutOfLTime(Idiom _ltime) {
 		var LTime = _ltime.interpret.toString.substring(3).replaceAll('_', '')
+
+		if (LTime.length == 0)
+			return true
 
 		var ns = ''
 		var us = ''
@@ -1155,12 +1165,16 @@ class EisValidator extends AbstractEisValidator {
 
 		if (actualType != expectedType)
 			if (!(actualType.isIntSuperType && expectedType.isIntSuperType ))
-				error("Incompatible types. Expected '" + expectedType.toString + "' but was '" + actualType.toString +
-					"'", statement, EisPackage.eINSTANCE.statement_Idiom, INCOMPATIBLE_TYPES)
+				if (!(expectedType.isStringType && actualType.isCharType))
+					error(
+						"Incompatible types. Expected '" + expectedType.toString + "' but was '" + actualType.toString +
+							"'", statement, EisPackage.eINSTANCE.statement_Idiom, INCOMPATIBLE_TYPES)
 		if (rangeType !== null && rangeType != expectedType)
 			if (!(rangeType.isIntSuperType && expectedType.isIntSuperType ))
-				error("Incompatible types. Expected '" + expectedType.toString + "' but was '" + rangeType.toString +
-					"'", statement, EisPackage.eINSTANCE.statement_Range, INCOMPATIBLE_TYPES)
+				if (!(expectedType.isStringType && actualType.isCharType))
+					error(
+						"Incompatible types. Expected '" + expectedType.toString + "' but was '" + rangeType.toString +
+							"'", statement, EisPackage.eINSTANCE.statement_Range, INCOMPATIBLE_TYPES)
 	}
 
 	def private void checkCommaSyntaxWithVariables(Iterable<? extends Variables> variables) {

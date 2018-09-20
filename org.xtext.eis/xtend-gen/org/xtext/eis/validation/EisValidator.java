@@ -389,27 +389,33 @@ public class EisValidator extends AbstractEisValidator {
       if ((expectedType != actualType)) {
         boolean _not = (!(this._defineTypeComputer.isIntSuperType(actualType) && this._defineTypeComputer.isIntSuperType(expectedType)));
         if (_not) {
-          String _string = expectedType.toString();
-          String _plus = ("Incompatible types. Expected \'" + _string);
-          String _plus_1 = (_plus + "\' but was \'");
-          String _string_1 = actualType.toString();
-          String _plus_2 = (_plus_1 + _string_1);
-          String _plus_3 = (_plus_2 + 
-            "\'");
-          this.error(_plus_3, variable, EisPackage.eINSTANCE.getVariable_Idiom(), EisValidator.INCOMPATIBLE_TYPES);
+          boolean _not_1 = (!(this._defineTypeComputer.isStringType(expectedType) && this._defineTypeComputer.isCharType(actualType)));
+          if (_not_1) {
+            String _string = expectedType.toString();
+            String _plus = ("Incompatible types. Expected \'" + _string);
+            String _plus_1 = (_plus + "\' but was \'");
+            String _string_1 = actualType.toString();
+            String _plus_2 = (_plus_1 + _string_1);
+            String _plus_3 = (_plus_2 + "\'");
+            this.error(_plus_3, variable, EisPackage.eINSTANCE.getVariable_Idiom(), 
+              EisValidator.INCOMPATIBLE_TYPES);
+          }
         }
       }
       if (((rangeType != null) && (!Objects.equal(rangeType, expectedType)))) {
-        boolean _not_1 = (!(this._defineTypeComputer.isIntSuperType(rangeType) && this._defineTypeComputer.isIntSuperType(expectedType)));
-        if (_not_1) {
-          String _string_2 = expectedType.toString();
-          String _plus_4 = ("Incompatible types. Expected \'" + _string_2);
-          String _plus_5 = (_plus_4 + "\' but was \'");
-          String _string_3 = rangeType.toString();
-          String _plus_6 = (_plus_5 + _string_3);
-          String _plus_7 = (_plus_6 + 
-            "\'");
-          this.error(_plus_7, variable, EisPackage.eINSTANCE.getVariable_Range(), EisValidator.INCOMPATIBLE_TYPES);
+        boolean _not_2 = (!(this._defineTypeComputer.isIntSuperType(rangeType) && this._defineTypeComputer.isIntSuperType(expectedType)));
+        if (_not_2) {
+          boolean _not_3 = (!(this._defineTypeComputer.isStringType(expectedType) && this._defineTypeComputer.isCharType(actualType)));
+          if (_not_3) {
+            String _string_2 = expectedType.toString();
+            String _plus_4 = ("Incompatible types. Expected \'" + _string_2);
+            String _plus_5 = (_plus_4 + "\' but was \'");
+            String _string_3 = rangeType.toString();
+            String _plus_6 = (_plus_5 + _string_3);
+            String _plus_7 = (_plus_6 + "\'");
+            this.error(_plus_7, variable, EisPackage.eINSTANCE.getVariable_Range(), 
+              EisValidator.INCOMPATIBLE_TYPES);
+          }
         }
       }
     }
@@ -723,8 +729,8 @@ public class EisValidator extends AbstractEisValidator {
         boolean _greaterThan = (_size > 1);
         if (_greaterThan) {
           for (final TeststepBlock d : duplicates) {
-            this.error("Multiple plcCycle. PlcCycles cannot be equal.", d, EisPackage.eINSTANCE.getTeststepBlock_PlcCycle(), 
-              EisValidator.MULTIPLE_PLCCYCLE);
+            this.error("Multiple plcCycle. PlcCycles cannot be equal.", d, 
+              EisPackage.eINSTANCE.getTeststepBlock_PlcCycle(), EisValidator.MULTIPLE_PLCCYCLE);
           }
         }
       }
@@ -749,8 +755,8 @@ public class EisValidator extends AbstractEisValidator {
         boolean _greaterThan = (_size > 1);
         if (_greaterThan) {
           for (final Testcase d : duplicates) {
-            this.error("Multiple testcaseName. TestcaseNames cannot be equal.", d, EisPackage.eINSTANCE.getTestcase_TestcaseName(), 
-              EisValidator.MULTIPLE_TESTCASE_NAME);
+            this.error("Multiple testcaseName. TestcaseNames cannot be equal.", d, 
+              EisPackage.eINSTANCE.getTestcase_TestcaseName(), EisValidator.MULTIPLE_TESTCASE_NAME);
           }
         }
       }
@@ -1361,6 +1367,11 @@ public class EisValidator extends AbstractEisValidator {
     boolean _xblockexpression = false;
     {
       String time = this._eisInterpreter.interpret(_time).toString().substring(2).replaceAll("_", "");
+      int _length = time.length();
+      boolean _equals = (_length == 0);
+      if (_equals) {
+        return true;
+      }
       String ms = "";
       String s = "";
       String m = "";
@@ -1465,6 +1476,11 @@ public class EisValidator extends AbstractEisValidator {
     boolean _xblockexpression = false;
     {
       String LTime = this._eisInterpreter.interpret(_ltime).toString().substring(3).replaceAll("_", "");
+      int _length = LTime.length();
+      boolean _equals = (_length == 0);
+      if (_equals) {
+        return true;
+      }
       String ns = "";
       String us = "";
       String ms = "";
@@ -1837,27 +1853,33 @@ public class EisValidator extends AbstractEisValidator {
     if (_notEquals) {
       boolean _not = (!(this._defineTypeComputer.isIntSuperType(actualType) && this._defineTypeComputer.isIntSuperType(expectedType)));
       if (_not) {
-        String _string = expectedType.toString();
-        String _plus = ("Incompatible types. Expected \'" + _string);
-        String _plus_1 = (_plus + "\' but was \'");
-        String _string_1 = actualType.toString();
-        String _plus_2 = (_plus_1 + _string_1);
-        String _plus_3 = (_plus_2 + 
-          "\'");
-        this.error(_plus_3, statement, EisPackage.eINSTANCE.getStatement_Idiom(), EisValidator.INCOMPATIBLE_TYPES);
+        boolean _not_1 = (!(this._defineTypeComputer.isStringType(expectedType) && this._defineTypeComputer.isCharType(actualType)));
+        if (_not_1) {
+          String _string = expectedType.toString();
+          String _plus = ("Incompatible types. Expected \'" + _string);
+          String _plus_1 = (_plus + "\' but was \'");
+          String _string_1 = actualType.toString();
+          String _plus_2 = (_plus_1 + _string_1);
+          String _plus_3 = (_plus_2 + 
+            "\'");
+          this.error(_plus_3, statement, EisPackage.eINSTANCE.getStatement_Idiom(), EisValidator.INCOMPATIBLE_TYPES);
+        }
       }
     }
     if (((rangeType != null) && (!Objects.equal(rangeType, expectedType)))) {
-      boolean _not_1 = (!(this._defineTypeComputer.isIntSuperType(rangeType) && this._defineTypeComputer.isIntSuperType(expectedType)));
-      if (_not_1) {
-        String _string_2 = expectedType.toString();
-        String _plus_4 = ("Incompatible types. Expected \'" + _string_2);
-        String _plus_5 = (_plus_4 + "\' but was \'");
-        String _string_3 = rangeType.toString();
-        String _plus_6 = (_plus_5 + _string_3);
-        String _plus_7 = (_plus_6 + 
-          "\'");
-        this.error(_plus_7, statement, EisPackage.eINSTANCE.getStatement_Range(), EisValidator.INCOMPATIBLE_TYPES);
+      boolean _not_2 = (!(this._defineTypeComputer.isIntSuperType(rangeType) && this._defineTypeComputer.isIntSuperType(expectedType)));
+      if (_not_2) {
+        boolean _not_3 = (!(this._defineTypeComputer.isStringType(expectedType) && this._defineTypeComputer.isCharType(actualType)));
+        if (_not_3) {
+          String _string_2 = expectedType.toString();
+          String _plus_4 = ("Incompatible types. Expected \'" + _string_2);
+          String _plus_5 = (_plus_4 + "\' but was \'");
+          String _string_3 = rangeType.toString();
+          String _plus_6 = (_plus_5 + _string_3);
+          String _plus_7 = (_plus_6 + 
+            "\'");
+          this.error(_plus_7, statement, EisPackage.eINSTANCE.getStatement_Range(), EisValidator.INCOMPATIBLE_TYPES);
+        }
       }
     }
   }

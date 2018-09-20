@@ -52,7 +52,7 @@ public class LWordConstantImpl extends IdiomImpl implements LWordConstant
    * <!-- end-user-doc -->
    * @generated
    */
-  public 	LWordConstantImpl()
+  public LWordConstantImpl()
   {
     super();
   }

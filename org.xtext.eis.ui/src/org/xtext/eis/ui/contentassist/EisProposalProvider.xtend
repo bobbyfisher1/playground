@@ -63,6 +63,7 @@ class EisProposalProvider extends AbstractEisProposalProvider {
 
 	override completeEisModel_PlcName(EObject model, Assignment assignment, ContentAssistContext context,
 		ICompletionProposalAcceptor acceptor) {
+
 		super.completeEisModel_PlcName(model, assignment, context, acceptor)
 		acceptor.accept(createCompletionProposal('''"plcName";
 		'''.toString, "plcName (string)", null, context))

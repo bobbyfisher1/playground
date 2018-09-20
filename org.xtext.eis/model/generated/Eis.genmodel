@@ -20,7 +20,6 @@
       <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/USINT"/>
       <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/UINT"/>
       <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/UDINT"/>
-      <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/ULINT"/>
       <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/SINT"/>
       <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/DINT"/>
       <genEnumLiterals ecoreEnumLiteral="Eis.ecore#//BasicType/LINT"/>

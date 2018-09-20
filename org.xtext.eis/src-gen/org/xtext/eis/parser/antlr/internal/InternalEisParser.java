@@ -22,7 +22,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalEisParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_STRING", "RULE_ID", "RULE_LONG", "RULE_NEGATIVE_LONG", "RULE_REAL", "RULE_BYTE", "RULE_WORD", "RULE_DWORD", "RULE_LWORD", "RULE_CHAR", "RULE_TIME", "RULE_LTIME", "RULE_DATE", "RULE_X", "RULE_HEX", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'project'", "'='", "';'", "'plcname'", "'author'", "'testcase'", "'('", "','", "')'", "'{'", "'}'", "'true'", "'false'", "'FC'", "'FB'", "'define'", "'input'", "'['", "']'", "'output'", "'inout'", "'variant'", "'+/-'", "'udt'", "'teststep'", "'set'", "'assert'", "'.'", "'||'", "'&&'", "'=='", "'!='", "'>='", "'<='", "'>'", "'<'", "'+'", "'-'", "'*'", "'/'", "'!'", "'null'", "'int'", "'bool'", "'real'", "'string'", "'char'", "'byte'", "'word'", "'dword'", "'lword'", "'usint'", "'uint'", "'udint'", "'ulint'", "'sint'", "'dint'", "'lint'", "'time'", "'ltime'", "'date'", "'lreal'", "'wchar'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_STRING", "RULE_ID", "RULE_LONG", "RULE_NEGATIVE_LONG", "RULE_REAL", "RULE_BYTE", "RULE_WORD", "RULE_DWORD", "RULE_LWORD", "RULE_CHAR", "RULE_TIME", "RULE_LTIME", "RULE_DATE", "RULE_X", "RULE_HEX", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'project'", "'='", "';'", "'plcname'", "'author'", "'testcase'", "'('", "','", "')'", "'{'", "'}'", "'true'", "'false'", "'FC'", "'FB'", "'define'", "'input'", "'['", "']'", "'output'", "'inout'", "'variant'", "'+/-'", "'udt'", "'teststep'", "'set'", "'assert'", "'.'", "'||'", "'&&'", "'=='", "'!='", "'>='", "'<='", "'>'", "'<'", "'+'", "'-'", "'*'", "'/'", "'!'", "'null'", "'int'", "'bool'", "'real'", "'string'", "'char'", "'byte'", "'word'", "'dword'", "'lword'", "'usint'", "'uint'", "'udint'", "'sint'", "'dint'", "'lint'", "'time'", "'ltime'", "'date'", "'lreal'", "'wchar'"
     };
     public static final int RULE_HEX=18;
     public static final int T__50=50;
@@ -104,7 +104,6 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
     public static final int T__40=40;
     public static final int T__84=84;
     public static final int T__41=41;
-    public static final int T__85=85;
     public static final int T__42=42;
     public static final int T__43=43;
 
@@ -1714,7 +1713,7 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
                 int alt8=2;
                 int LA8_0 = input.LA(1);
 
-                if ( (LA8_0==RULE_ID||LA8_0==44||LA8_0==46||(LA8_0>=64 && LA8_0<=85)) ) {
+                if ( (LA8_0==RULE_ID||LA8_0==44||LA8_0==46||(LA8_0>=64 && LA8_0<=84)) ) {
                     alt8=1;
                 }
 
@@ -1872,7 +1871,7 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
                 int alt9=2;
                 int LA9_0 = input.LA(1);
 
-                if ( (LA9_0==RULE_ID||LA9_0==44||LA9_0==46||(LA9_0>=64 && LA9_0<=85)) ) {
+                if ( (LA9_0==RULE_ID||LA9_0==44||LA9_0==46||(LA9_0>=64 && LA9_0<=84)) ) {
                     alt9=1;
                 }
 
@@ -2030,7 +2029,7 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
                 int alt10=2;
                 int LA10_0 = input.LA(1);
 
-                if ( (LA10_0==RULE_ID||LA10_0==44||LA10_0==46||(LA10_0>=64 && LA10_0<=85)) ) {
+                if ( (LA10_0==RULE_ID||LA10_0==44||LA10_0==46||(LA10_0>=64 && LA10_0<=84)) ) {
                     alt10=1;
                 }
 
@@ -2179,7 +2178,6 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
             case 82:
             case 83:
             case 84:
-            case 85:
                 {
                 alt11=1;
                 }
@@ -2403,7 +2401,7 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
             int alt13=2;
             int LA13_0 = input.LA(1);
 
-            if ( ((LA13_0>=64 && LA13_0<=85)) ) {
+            if ( ((LA13_0>=64 && LA13_0<=84)) ) {
                 alt13=1;
             }
             switch (alt13) {
@@ -2792,7 +2790,7 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
                 int alt17=2;
                 int LA17_0 = input.LA(1);
 
-                if ( (LA17_0==RULE_ID||LA17_0==44||LA17_0==46||(LA17_0>=64 && LA17_0<=85)) ) {
+                if ( (LA17_0==RULE_ID||LA17_0==44||LA17_0==46||(LA17_0>=64 && LA17_0<=84)) ) {
                     alt17=1;
                 }
 
@@ -2971,7 +2969,7 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
                 int alt18=2;
                 int LA18_0 = input.LA(1);
 
-                if ( (LA18_0==RULE_ID||LA18_0==44||LA18_0==46||(LA18_0>=64 && LA18_0<=85)) ) {
+                if ( (LA18_0==RULE_ID||LA18_0==44||LA18_0==46||(LA18_0>=64 && LA18_0<=84)) ) {
                     alt18=1;
                 }
 
@@ -6661,7 +6659,7 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleBasicType"
-    // InternalEis.g:2629:1: ruleBasicType returns [Enumerator current=null] : ( (enumLiteral_0= 'null' ) | (enumLiteral_1= 'int' ) | (enumLiteral_2= 'bool' ) | (enumLiteral_3= 'real' ) | (enumLiteral_4= 'string' ) | (enumLiteral_5= 'char' ) | (enumLiteral_6= 'byte' ) | (enumLiteral_7= 'word' ) | (enumLiteral_8= 'dword' ) | (enumLiteral_9= 'lword' ) | (enumLiteral_10= 'usint' ) | (enumLiteral_11= 'uint' ) | (enumLiteral_12= 'udint' ) | (enumLiteral_13= 'ulint' ) | (enumLiteral_14= 'sint' ) | (enumLiteral_15= 'dint' ) | (enumLiteral_16= 'lint' ) | (enumLiteral_17= 'time' ) | (enumLiteral_18= 'ltime' ) | (enumLiteral_19= 'date' ) | (enumLiteral_20= 'lreal' ) | (enumLiteral_21= 'wchar' ) ) ;
+    // InternalEis.g:2629:1: ruleBasicType returns [Enumerator current=null] : ( (enumLiteral_0= 'null' ) | (enumLiteral_1= 'int' ) | (enumLiteral_2= 'bool' ) | (enumLiteral_3= 'real' ) | (enumLiteral_4= 'string' ) | (enumLiteral_5= 'char' ) | (enumLiteral_6= 'byte' ) | (enumLiteral_7= 'word' ) | (enumLiteral_8= 'dword' ) | (enumLiteral_9= 'lword' ) | (enumLiteral_10= 'usint' ) | (enumLiteral_11= 'uint' ) | (enumLiteral_12= 'udint' ) | (enumLiteral_13= 'sint' ) | (enumLiteral_14= 'dint' ) | (enumLiteral_15= 'lint' ) | (enumLiteral_16= 'time' ) | (enumLiteral_17= 'ltime' ) | (enumLiteral_18= 'date' ) | (enumLiteral_19= 'lreal' ) | (enumLiteral_20= 'wchar' ) ) ;
     public final Enumerator ruleBasicType() throws RecognitionException {
         Enumerator current = null;
 
@@ -6686,17 +6684,16 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
         Token enumLiteral_18=null;
         Token enumLiteral_19=null;
         Token enumLiteral_20=null;
-        Token enumLiteral_21=null;
 
 
         	enterRule();
 
         try {
-            // InternalEis.g:2635:2: ( ( (enumLiteral_0= 'null' ) | (enumLiteral_1= 'int' ) | (enumLiteral_2= 'bool' ) | (enumLiteral_3= 'real' ) | (enumLiteral_4= 'string' ) | (enumLiteral_5= 'char' ) | (enumLiteral_6= 'byte' ) | (enumLiteral_7= 'word' ) | (enumLiteral_8= 'dword' ) | (enumLiteral_9= 'lword' ) | (enumLiteral_10= 'usint' ) | (enumLiteral_11= 'uint' ) | (enumLiteral_12= 'udint' ) | (enumLiteral_13= 'ulint' ) | (enumLiteral_14= 'sint' ) | (enumLiteral_15= 'dint' ) | (enumLiteral_16= 'lint' ) | (enumLiteral_17= 'time' ) | (enumLiteral_18= 'ltime' ) | (enumLiteral_19= 'date' ) | (enumLiteral_20= 'lreal' ) | (enumLiteral_21= 'wchar' ) ) )
-            // InternalEis.g:2636:2: ( (enumLiteral_0= 'null' ) | (enumLiteral_1= 'int' ) | (enumLiteral_2= 'bool' ) | (enumLiteral_3= 'real' ) | (enumLiteral_4= 'string' ) | (enumLiteral_5= 'char' ) | (enumLiteral_6= 'byte' ) | (enumLiteral_7= 'word' ) | (enumLiteral_8= 'dword' ) | (enumLiteral_9= 'lword' ) | (enumLiteral_10= 'usint' ) | (enumLiteral_11= 'uint' ) | (enumLiteral_12= 'udint' ) | (enumLiteral_13= 'ulint' ) | (enumLiteral_14= 'sint' ) | (enumLiteral_15= 'dint' ) | (enumLiteral_16= 'lint' ) | (enumLiteral_17= 'time' ) | (enumLiteral_18= 'ltime' ) | (enumLiteral_19= 'date' ) | (enumLiteral_20= 'lreal' ) | (enumLiteral_21= 'wchar' ) )
+            // InternalEis.g:2635:2: ( ( (enumLiteral_0= 'null' ) | (enumLiteral_1= 'int' ) | (enumLiteral_2= 'bool' ) | (enumLiteral_3= 'real' ) | (enumLiteral_4= 'string' ) | (enumLiteral_5= 'char' ) | (enumLiteral_6= 'byte' ) | (enumLiteral_7= 'word' ) | (enumLiteral_8= 'dword' ) | (enumLiteral_9= 'lword' ) | (enumLiteral_10= 'usint' ) | (enumLiteral_11= 'uint' ) | (enumLiteral_12= 'udint' ) | (enumLiteral_13= 'sint' ) | (enumLiteral_14= 'dint' ) | (enumLiteral_15= 'lint' ) | (enumLiteral_16= 'time' ) | (enumLiteral_17= 'ltime' ) | (enumLiteral_18= 'date' ) | (enumLiteral_19= 'lreal' ) | (enumLiteral_20= 'wchar' ) ) )
+            // InternalEis.g:2636:2: ( (enumLiteral_0= 'null' ) | (enumLiteral_1= 'int' ) | (enumLiteral_2= 'bool' ) | (enumLiteral_3= 'real' ) | (enumLiteral_4= 'string' ) | (enumLiteral_5= 'char' ) | (enumLiteral_6= 'byte' ) | (enumLiteral_7= 'word' ) | (enumLiteral_8= 'dword' ) | (enumLiteral_9= 'lword' ) | (enumLiteral_10= 'usint' ) | (enumLiteral_11= 'uint' ) | (enumLiteral_12= 'udint' ) | (enumLiteral_13= 'sint' ) | (enumLiteral_14= 'dint' ) | (enumLiteral_15= 'lint' ) | (enumLiteral_16= 'time' ) | (enumLiteral_17= 'ltime' ) | (enumLiteral_18= 'date' ) | (enumLiteral_19= 'lreal' ) | (enumLiteral_20= 'wchar' ) )
             {
-            // InternalEis.g:2636:2: ( (enumLiteral_0= 'null' ) | (enumLiteral_1= 'int' ) | (enumLiteral_2= 'bool' ) | (enumLiteral_3= 'real' ) | (enumLiteral_4= 'string' ) | (enumLiteral_5= 'char' ) | (enumLiteral_6= 'byte' ) | (enumLiteral_7= 'word' ) | (enumLiteral_8= 'dword' ) | (enumLiteral_9= 'lword' ) | (enumLiteral_10= 'usint' ) | (enumLiteral_11= 'uint' ) | (enumLiteral_12= 'udint' ) | (enumLiteral_13= 'ulint' ) | (enumLiteral_14= 'sint' ) | (enumLiteral_15= 'dint' ) | (enumLiteral_16= 'lint' ) | (enumLiteral_17= 'time' ) | (enumLiteral_18= 'ltime' ) | (enumLiteral_19= 'date' ) | (enumLiteral_20= 'lreal' ) | (enumLiteral_21= 'wchar' ) )
-            int alt38=22;
+            // InternalEis.g:2636:2: ( (enumLiteral_0= 'null' ) | (enumLiteral_1= 'int' ) | (enumLiteral_2= 'bool' ) | (enumLiteral_3= 'real' ) | (enumLiteral_4= 'string' ) | (enumLiteral_5= 'char' ) | (enumLiteral_6= 'byte' ) | (enumLiteral_7= 'word' ) | (enumLiteral_8= 'dword' ) | (enumLiteral_9= 'lword' ) | (enumLiteral_10= 'usint' ) | (enumLiteral_11= 'uint' ) | (enumLiteral_12= 'udint' ) | (enumLiteral_13= 'sint' ) | (enumLiteral_14= 'dint' ) | (enumLiteral_15= 'lint' ) | (enumLiteral_16= 'time' ) | (enumLiteral_17= 'ltime' ) | (enumLiteral_18= 'date' ) | (enumLiteral_19= 'lreal' ) | (enumLiteral_20= 'wchar' ) )
+            int alt38=21;
             switch ( input.LA(1) ) {
             case 64:
                 {
@@ -6801,11 +6798,6 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
             case 84:
                 {
                 alt38=21;
-                }
-                break;
-            case 85:
-                {
-                alt38=22;
                 }
                 break;
             default:
@@ -7038,15 +7030,15 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 14 :
-                    // InternalEis.g:2741:3: (enumLiteral_13= 'ulint' )
+                    // InternalEis.g:2741:3: (enumLiteral_13= 'sint' )
                     {
-                    // InternalEis.g:2741:3: (enumLiteral_13= 'ulint' )
-                    // InternalEis.g:2742:4: enumLiteral_13= 'ulint'
+                    // InternalEis.g:2741:3: (enumLiteral_13= 'sint' )
+                    // InternalEis.g:2742:4: enumLiteral_13= 'sint'
                     {
                     enumLiteral_13=(Token)match(input,77,FOLLOW_2); 
 
-                    				current = grammarAccess.getBasicTypeAccess().getULINTEnumLiteralDeclaration_13().getEnumLiteral().getInstance();
-                    				newLeafNode(enumLiteral_13, grammarAccess.getBasicTypeAccess().getULINTEnumLiteralDeclaration_13());
+                    				current = grammarAccess.getBasicTypeAccess().getSINTEnumLiteralDeclaration_13().getEnumLiteral().getInstance();
+                    				newLeafNode(enumLiteral_13, grammarAccess.getBasicTypeAccess().getSINTEnumLiteralDeclaration_13());
                     			
 
                     }
@@ -7055,15 +7047,15 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 15 :
-                    // InternalEis.g:2749:3: (enumLiteral_14= 'sint' )
+                    // InternalEis.g:2749:3: (enumLiteral_14= 'dint' )
                     {
-                    // InternalEis.g:2749:3: (enumLiteral_14= 'sint' )
-                    // InternalEis.g:2750:4: enumLiteral_14= 'sint'
+                    // InternalEis.g:2749:3: (enumLiteral_14= 'dint' )
+                    // InternalEis.g:2750:4: enumLiteral_14= 'dint'
                     {
                     enumLiteral_14=(Token)match(input,78,FOLLOW_2); 
 
-                    				current = grammarAccess.getBasicTypeAccess().getSINTEnumLiteralDeclaration_14().getEnumLiteral().getInstance();
-                    				newLeafNode(enumLiteral_14, grammarAccess.getBasicTypeAccess().getSINTEnumLiteralDeclaration_14());
+                    				current = grammarAccess.getBasicTypeAccess().getDINTEnumLiteralDeclaration_14().getEnumLiteral().getInstance();
+                    				newLeafNode(enumLiteral_14, grammarAccess.getBasicTypeAccess().getDINTEnumLiteralDeclaration_14());
                     			
 
                     }
@@ -7072,15 +7064,15 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 16 :
-                    // InternalEis.g:2757:3: (enumLiteral_15= 'dint' )
+                    // InternalEis.g:2757:3: (enumLiteral_15= 'lint' )
                     {
-                    // InternalEis.g:2757:3: (enumLiteral_15= 'dint' )
-                    // InternalEis.g:2758:4: enumLiteral_15= 'dint'
+                    // InternalEis.g:2757:3: (enumLiteral_15= 'lint' )
+                    // InternalEis.g:2758:4: enumLiteral_15= 'lint'
                     {
                     enumLiteral_15=(Token)match(input,79,FOLLOW_2); 
 
-                    				current = grammarAccess.getBasicTypeAccess().getDINTEnumLiteralDeclaration_15().getEnumLiteral().getInstance();
-                    				newLeafNode(enumLiteral_15, grammarAccess.getBasicTypeAccess().getDINTEnumLiteralDeclaration_15());
+                    				current = grammarAccess.getBasicTypeAccess().getLINTEnumLiteralDeclaration_15().getEnumLiteral().getInstance();
+                    				newLeafNode(enumLiteral_15, grammarAccess.getBasicTypeAccess().getLINTEnumLiteralDeclaration_15());
                     			
 
                     }
@@ -7089,15 +7081,15 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 17 :
-                    // InternalEis.g:2765:3: (enumLiteral_16= 'lint' )
+                    // InternalEis.g:2765:3: (enumLiteral_16= 'time' )
                     {
-                    // InternalEis.g:2765:3: (enumLiteral_16= 'lint' )
-                    // InternalEis.g:2766:4: enumLiteral_16= 'lint'
+                    // InternalEis.g:2765:3: (enumLiteral_16= 'time' )
+                    // InternalEis.g:2766:4: enumLiteral_16= 'time'
                     {
                     enumLiteral_16=(Token)match(input,80,FOLLOW_2); 
 
-                    				current = grammarAccess.getBasicTypeAccess().getLINTEnumLiteralDeclaration_16().getEnumLiteral().getInstance();
-                    				newLeafNode(enumLiteral_16, grammarAccess.getBasicTypeAccess().getLINTEnumLiteralDeclaration_16());
+                    				current = grammarAccess.getBasicTypeAccess().getTIMEEnumLiteralDeclaration_16().getEnumLiteral().getInstance();
+                    				newLeafNode(enumLiteral_16, grammarAccess.getBasicTypeAccess().getTIMEEnumLiteralDeclaration_16());
                     			
 
                     }
@@ -7106,15 +7098,15 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 18 :
-                    // InternalEis.g:2773:3: (enumLiteral_17= 'time' )
+                    // InternalEis.g:2773:3: (enumLiteral_17= 'ltime' )
                     {
-                    // InternalEis.g:2773:3: (enumLiteral_17= 'time' )
-                    // InternalEis.g:2774:4: enumLiteral_17= 'time'
+                    // InternalEis.g:2773:3: (enumLiteral_17= 'ltime' )
+                    // InternalEis.g:2774:4: enumLiteral_17= 'ltime'
                     {
                     enumLiteral_17=(Token)match(input,81,FOLLOW_2); 
 
-                    				current = grammarAccess.getBasicTypeAccess().getTIMEEnumLiteralDeclaration_17().getEnumLiteral().getInstance();
-                    				newLeafNode(enumLiteral_17, grammarAccess.getBasicTypeAccess().getTIMEEnumLiteralDeclaration_17());
+                    				current = grammarAccess.getBasicTypeAccess().getLTIMEEnumLiteralDeclaration_17().getEnumLiteral().getInstance();
+                    				newLeafNode(enumLiteral_17, grammarAccess.getBasicTypeAccess().getLTIMEEnumLiteralDeclaration_17());
                     			
 
                     }
@@ -7123,15 +7115,15 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 19 :
-                    // InternalEis.g:2781:3: (enumLiteral_18= 'ltime' )
+                    // InternalEis.g:2781:3: (enumLiteral_18= 'date' )
                     {
-                    // InternalEis.g:2781:3: (enumLiteral_18= 'ltime' )
-                    // InternalEis.g:2782:4: enumLiteral_18= 'ltime'
+                    // InternalEis.g:2781:3: (enumLiteral_18= 'date' )
+                    // InternalEis.g:2782:4: enumLiteral_18= 'date'
                     {
                     enumLiteral_18=(Token)match(input,82,FOLLOW_2); 
 
-                    				current = grammarAccess.getBasicTypeAccess().getLTIMEEnumLiteralDeclaration_18().getEnumLiteral().getInstance();
-                    				newLeafNode(enumLiteral_18, grammarAccess.getBasicTypeAccess().getLTIMEEnumLiteralDeclaration_18());
+                    				current = grammarAccess.getBasicTypeAccess().getDATEEnumLiteralDeclaration_18().getEnumLiteral().getInstance();
+                    				newLeafNode(enumLiteral_18, grammarAccess.getBasicTypeAccess().getDATEEnumLiteralDeclaration_18());
                     			
 
                     }
@@ -7140,15 +7132,15 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 20 :
-                    // InternalEis.g:2789:3: (enumLiteral_19= 'date' )
+                    // InternalEis.g:2789:3: (enumLiteral_19= 'lreal' )
                     {
-                    // InternalEis.g:2789:3: (enumLiteral_19= 'date' )
-                    // InternalEis.g:2790:4: enumLiteral_19= 'date'
+                    // InternalEis.g:2789:3: (enumLiteral_19= 'lreal' )
+                    // InternalEis.g:2790:4: enumLiteral_19= 'lreal'
                     {
                     enumLiteral_19=(Token)match(input,83,FOLLOW_2); 
 
-                    				current = grammarAccess.getBasicTypeAccess().getDATEEnumLiteralDeclaration_19().getEnumLiteral().getInstance();
-                    				newLeafNode(enumLiteral_19, grammarAccess.getBasicTypeAccess().getDATEEnumLiteralDeclaration_19());
+                    				current = grammarAccess.getBasicTypeAccess().getLREALEnumLiteralDeclaration_19().getEnumLiteral().getInstance();
+                    				newLeafNode(enumLiteral_19, grammarAccess.getBasicTypeAccess().getLREALEnumLiteralDeclaration_19());
                     			
 
                     }
@@ -7157,32 +7149,15 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 21 :
-                    // InternalEis.g:2797:3: (enumLiteral_20= 'lreal' )
+                    // InternalEis.g:2797:3: (enumLiteral_20= 'wchar' )
                     {
-                    // InternalEis.g:2797:3: (enumLiteral_20= 'lreal' )
-                    // InternalEis.g:2798:4: enumLiteral_20= 'lreal'
+                    // InternalEis.g:2797:3: (enumLiteral_20= 'wchar' )
+                    // InternalEis.g:2798:4: enumLiteral_20= 'wchar'
                     {
                     enumLiteral_20=(Token)match(input,84,FOLLOW_2); 
 
-                    				current = grammarAccess.getBasicTypeAccess().getLREALEnumLiteralDeclaration_20().getEnumLiteral().getInstance();
-                    				newLeafNode(enumLiteral_20, grammarAccess.getBasicTypeAccess().getLREALEnumLiteralDeclaration_20());
-                    			
-
-                    }
-
-
-                    }
-                    break;
-                case 22 :
-                    // InternalEis.g:2805:3: (enumLiteral_21= 'wchar' )
-                    {
-                    // InternalEis.g:2805:3: (enumLiteral_21= 'wchar' )
-                    // InternalEis.g:2806:4: enumLiteral_21= 'wchar'
-                    {
-                    enumLiteral_21=(Token)match(input,85,FOLLOW_2); 
-
-                    				current = grammarAccess.getBasicTypeAccess().getWCHAREnumLiteralDeclaration_21().getEnumLiteral().getInstance();
-                    				newLeafNode(enumLiteral_21, grammarAccess.getBasicTypeAccess().getWCHAREnumLiteralDeclaration_21());
+                    				current = grammarAccess.getBasicTypeAccess().getWCHAREnumLiteralDeclaration_20().getEnumLiteral().getInstance();
+                    				newLeafNode(enumLiteral_20, grammarAccess.getBasicTypeAccess().getWCHAREnumLiteralDeclaration_20());
                     			
 
                     }
@@ -7236,14 +7211,14 @@ public class InternalEisParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000800000000002L});
     public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x00000C8000000002L});
     public static final BitSet FOLLOW_20 = new BitSet(new long[]{0x0000010000000000L});
-    public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x0000520000000020L,0x00000000003FFFFFL});
-    public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x0000000000000020L,0x00000000003FFFFFL});
+    public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x0000520000000020L,0x00000000001FFFFFL});
+    public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x0000000000000020L,0x00000000001FFFFFL});
     public static final BitSet FOLLOW_23 = new BitSet(new long[]{0x0000000043000000L});
     public static final BitSet FOLLOW_24 = new BitSet(new long[]{0x8000000C2001FFF0L});
     public static final BitSet FOLLOW_25 = new BitSet(new long[]{0x0000200042000000L});
     public static final BitSet FOLLOW_26 = new BitSet(new long[]{0x0000000042000000L});
-    public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x0000500200000020L,0x00000000003FFFFFL});
-    public static final BitSet FOLLOW_28 = new BitSet(new long[]{0x0000500002000020L,0x00000000003FFFFFL});
+    public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x0000500200000020L,0x00000000001FFFFFL});
+    public static final BitSet FOLLOW_28 = new BitSet(new long[]{0x0000500002000020L,0x00000000001FFFFFL});
     public static final BitSet FOLLOW_29 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x0003000000000000L});
     public static final BitSet FOLLOW_31 = new BitSet(new long[]{0x0003000000000002L});

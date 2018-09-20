@@ -3,9 +3,8 @@
  */
 package org.xtext.eis.services;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import java.util.List;
+
 import org.eclipse.xtext.Action;
 import org.eclipse.xtext.Alternatives;
 import org.eclipse.xtext.Assignment;
@@ -20,9 +19,11 @@ import org.eclipse.xtext.ParserRule;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.TerminalRule;
 import org.eclipse.xtext.UnorderedGroup;
-import org.eclipse.xtext.service.AbstractElementFinder.AbstractEnumRuleElementFinder;
 import org.eclipse.xtext.service.AbstractElementFinder.AbstractGrammarElementFinder;
 import org.eclipse.xtext.service.GrammarProvider;
+
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 @Singleton
 public class EisGrammarAccess extends AbstractGrammarElementFinder {
@@ -1507,24 +1508,22 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cUINTUintKeyword_11_0 = (Keyword)cUINTEnumLiteralDeclaration_11.eContents().get(0);
 		private final EnumLiteralDeclaration cUDINTEnumLiteralDeclaration_12 = (EnumLiteralDeclaration)cAlternatives.eContents().get(12);
 		private final Keyword cUDINTUdintKeyword_12_0 = (Keyword)cUDINTEnumLiteralDeclaration_12.eContents().get(0);
-		private final EnumLiteralDeclaration cULINTEnumLiteralDeclaration_13 = (EnumLiteralDeclaration)cAlternatives.eContents().get(13);
-		private final Keyword cULINTUlintKeyword_13_0 = (Keyword)cULINTEnumLiteralDeclaration_13.eContents().get(0);
-		private final EnumLiteralDeclaration cSINTEnumLiteralDeclaration_14 = (EnumLiteralDeclaration)cAlternatives.eContents().get(14);
-		private final Keyword cSINTSintKeyword_14_0 = (Keyword)cSINTEnumLiteralDeclaration_14.eContents().get(0);
-		private final EnumLiteralDeclaration cDINTEnumLiteralDeclaration_15 = (EnumLiteralDeclaration)cAlternatives.eContents().get(15);
-		private final Keyword cDINTDintKeyword_15_0 = (Keyword)cDINTEnumLiteralDeclaration_15.eContents().get(0);
-		private final EnumLiteralDeclaration cLINTEnumLiteralDeclaration_16 = (EnumLiteralDeclaration)cAlternatives.eContents().get(16);
-		private final Keyword cLINTLintKeyword_16_0 = (Keyword)cLINTEnumLiteralDeclaration_16.eContents().get(0);
-		private final EnumLiteralDeclaration cTIMEEnumLiteralDeclaration_17 = (EnumLiteralDeclaration)cAlternatives.eContents().get(17);
-		private final Keyword cTIMETimeKeyword_17_0 = (Keyword)cTIMEEnumLiteralDeclaration_17.eContents().get(0);
-		private final EnumLiteralDeclaration cLTIMEEnumLiteralDeclaration_18 = (EnumLiteralDeclaration)cAlternatives.eContents().get(18);
-		private final Keyword cLTIMELtimeKeyword_18_0 = (Keyword)cLTIMEEnumLiteralDeclaration_18.eContents().get(0);
-		private final EnumLiteralDeclaration cDATEEnumLiteralDeclaration_19 = (EnumLiteralDeclaration)cAlternatives.eContents().get(19);
-		private final Keyword cDATEDateKeyword_19_0 = (Keyword)cDATEEnumLiteralDeclaration_19.eContents().get(0);
-		private final EnumLiteralDeclaration cLREALEnumLiteralDeclaration_20 = (EnumLiteralDeclaration)cAlternatives.eContents().get(20);
-		private final Keyword cLREALLrealKeyword_20_0 = (Keyword)cLREALEnumLiteralDeclaration_20.eContents().get(0);
-		private final EnumLiteralDeclaration cWCHAREnumLiteralDeclaration_21 = (EnumLiteralDeclaration)cAlternatives.eContents().get(21);
-		private final Keyword cWCHARWcharKeyword_21_0 = (Keyword)cWCHAREnumLiteralDeclaration_21.eContents().get(0);
+		private final EnumLiteralDeclaration cSINTEnumLiteralDeclaration_13 = (EnumLiteralDeclaration)cAlternatives.eContents().get(13);
+		private final Keyword cSINTSintKeyword_13_0 = (Keyword)cSINTEnumLiteralDeclaration_13.eContents().get(0);
+		private final EnumLiteralDeclaration cDINTEnumLiteralDeclaration_14 = (EnumLiteralDeclaration)cAlternatives.eContents().get(14);
+		private final Keyword cDINTDintKeyword_14_0 = (Keyword)cDINTEnumLiteralDeclaration_14.eContents().get(0);
+		private final EnumLiteralDeclaration cLINTEnumLiteralDeclaration_15 = (EnumLiteralDeclaration)cAlternatives.eContents().get(15);
+		private final Keyword cLINTLintKeyword_15_0 = (Keyword)cLINTEnumLiteralDeclaration_15.eContents().get(0);
+		private final EnumLiteralDeclaration cTIMEEnumLiteralDeclaration_16 = (EnumLiteralDeclaration)cAlternatives.eContents().get(16);
+		private final Keyword cTIMETimeKeyword_16_0 = (Keyword)cTIMEEnumLiteralDeclaration_16.eContents().get(0);
+		private final EnumLiteralDeclaration cLTIMEEnumLiteralDeclaration_17 = (EnumLiteralDeclaration)cAlternatives.eContents().get(17);
+		private final Keyword cLTIMELtimeKeyword_17_0 = (Keyword)cLTIMEEnumLiteralDeclaration_17.eContents().get(0);
+		private final EnumLiteralDeclaration cDATEEnumLiteralDeclaration_18 = (EnumLiteralDeclaration)cAlternatives.eContents().get(18);
+		private final Keyword cDATEDateKeyword_18_0 = (Keyword)cDATEEnumLiteralDeclaration_18.eContents().get(0);
+		private final EnumLiteralDeclaration cLREALEnumLiteralDeclaration_19 = (EnumLiteralDeclaration)cAlternatives.eContents().get(19);
+		private final Keyword cLREALLrealKeyword_19_0 = (Keyword)cLREALEnumLiteralDeclaration_19.eContents().get(0);
+		private final EnumLiteralDeclaration cWCHAREnumLiteralDeclaration_20 = (EnumLiteralDeclaration)cAlternatives.eContents().get(20);
+		private final Keyword cWCHARWcharKeyword_20_0 = (Keyword)cWCHAREnumLiteralDeclaration_20.eContents().get(0);
 		
 		//enum BasicType:
 		//	NULL='null'
@@ -1542,7 +1541,7 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		//	| USINT="usint"
 		//	| UINT="uint"
 		//	| UDINT="udint"
-		//	| ULINT="ulint"
+		//	//	| ULINT="ulint"
 		//	| SINT="sint"
 		//	| DINT="dint"
 		//	| LINT="lint"
@@ -1556,7 +1555,8 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//NULL='null' | INT='int' | BOOL='bool' | REAL='real' | STRING='string' | CHAR="char" //
 		//| BYTE="byte" | WORD="word" | DWORD="dword" | LWORD="lword" //
-		//| USINT="usint" | UINT="uint" | UDINT="udint" | ULINT="ulint" | SINT="sint" | DINT="dint" | LINT="lint" //
+		//| USINT="usint" | UINT="uint" | UDINT="udint" //	| ULINT="ulint"
+		//| SINT="sint" | DINT="dint" | LINT="lint" //
 		//| TIME="time" | LTIME="ltime" | DATE="date" | LREAL="lreal" | WCHAR="wchar"
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
@@ -1638,59 +1638,53 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		//"udint"
 		public Keyword getUDINTUdintKeyword_12_0() { return cUDINTUdintKeyword_12_0; }
 		
-		//ULINT="ulint"
-		public EnumLiteralDeclaration getULINTEnumLiteralDeclaration_13() { return cULINTEnumLiteralDeclaration_13; }
-		
-		//"ulint"
-		public Keyword getULINTUlintKeyword_13_0() { return cULINTUlintKeyword_13_0; }
-		
 		//SINT="sint"
-		public EnumLiteralDeclaration getSINTEnumLiteralDeclaration_14() { return cSINTEnumLiteralDeclaration_14; }
+		public EnumLiteralDeclaration getSINTEnumLiteralDeclaration_13() { return cSINTEnumLiteralDeclaration_13; }
 		
 		//"sint"
-		public Keyword getSINTSintKeyword_14_0() { return cSINTSintKeyword_14_0; }
+		public Keyword getSINTSintKeyword_13_0() { return cSINTSintKeyword_13_0; }
 		
 		//DINT="dint"
-		public EnumLiteralDeclaration getDINTEnumLiteralDeclaration_15() { return cDINTEnumLiteralDeclaration_15; }
+		public EnumLiteralDeclaration getDINTEnumLiteralDeclaration_14() { return cDINTEnumLiteralDeclaration_14; }
 		
 		//"dint"
-		public Keyword getDINTDintKeyword_15_0() { return cDINTDintKeyword_15_0; }
+		public Keyword getDINTDintKeyword_14_0() { return cDINTDintKeyword_14_0; }
 		
 		//LINT="lint"
-		public EnumLiteralDeclaration getLINTEnumLiteralDeclaration_16() { return cLINTEnumLiteralDeclaration_16; }
+		public EnumLiteralDeclaration getLINTEnumLiteralDeclaration_15() { return cLINTEnumLiteralDeclaration_15; }
 		
 		//"lint"
-		public Keyword getLINTLintKeyword_16_0() { return cLINTLintKeyword_16_0; }
+		public Keyword getLINTLintKeyword_15_0() { return cLINTLintKeyword_15_0; }
 		
 		//TIME="time"
-		public EnumLiteralDeclaration getTIMEEnumLiteralDeclaration_17() { return cTIMEEnumLiteralDeclaration_17; }
+		public EnumLiteralDeclaration getTIMEEnumLiteralDeclaration_16() { return cTIMEEnumLiteralDeclaration_16; }
 		
 		//"time"
-		public Keyword getTIMETimeKeyword_17_0() { return cTIMETimeKeyword_17_0; }
+		public Keyword getTIMETimeKeyword_16_0() { return cTIMETimeKeyword_16_0; }
 		
 		//LTIME="ltime"
-		public EnumLiteralDeclaration getLTIMEEnumLiteralDeclaration_18() { return cLTIMEEnumLiteralDeclaration_18; }
+		public EnumLiteralDeclaration getLTIMEEnumLiteralDeclaration_17() { return cLTIMEEnumLiteralDeclaration_17; }
 		
 		//"ltime"
-		public Keyword getLTIMELtimeKeyword_18_0() { return cLTIMELtimeKeyword_18_0; }
+		public Keyword getLTIMELtimeKeyword_17_0() { return cLTIMELtimeKeyword_17_0; }
 		
 		//DATE="date"
-		public EnumLiteralDeclaration getDATEEnumLiteralDeclaration_19() { return cDATEEnumLiteralDeclaration_19; }
+		public EnumLiteralDeclaration getDATEEnumLiteralDeclaration_18() { return cDATEEnumLiteralDeclaration_18; }
 		
 		//"date"
-		public Keyword getDATEDateKeyword_19_0() { return cDATEDateKeyword_19_0; }
+		public Keyword getDATEDateKeyword_18_0() { return cDATEDateKeyword_18_0; }
 		
 		//LREAL="lreal"
-		public EnumLiteralDeclaration getLREALEnumLiteralDeclaration_20() { return cLREALEnumLiteralDeclaration_20; }
+		public EnumLiteralDeclaration getLREALEnumLiteralDeclaration_19() { return cLREALEnumLiteralDeclaration_19; }
 		
 		//"lreal"
-		public Keyword getLREALLrealKeyword_20_0() { return cLREALLrealKeyword_20_0; }
+		public Keyword getLREALLrealKeyword_19_0() { return cLREALLrealKeyword_19_0; }
 		
 		//WCHAR="wchar"
-		public EnumLiteralDeclaration getWCHAREnumLiteralDeclaration_21() { return cWCHAREnumLiteralDeclaration_21; }
+		public EnumLiteralDeclaration getWCHAREnumLiteralDeclaration_20() { return cWCHAREnumLiteralDeclaration_20; }
 		
 		//"wchar"
-		public Keyword getWCHARWcharKeyword_21_0() { return cWCHARWcharKeyword_21_0; }
+		public Keyword getWCHARWcharKeyword_20_0() { return cWCHARWcharKeyword_20_0; }
 	}
 	
 	private final EisModelElements pEisModel;
@@ -2048,7 +2042,7 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	//	| USINT="usint"
 	//	| UINT="uint"
 	//	| UDINT="udint"
-	//	| ULINT="ulint"
+	//	//	| ULINT="ulint"
 	//	| SINT="sint"
 	//	| DINT="dint"
 	//	| LINT="lint"

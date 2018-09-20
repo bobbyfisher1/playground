@@ -1367,7 +1367,7 @@ class EisGeneratorTest {
 				 	 variant usint j = 1 +/- 5;
 				 	 variant uint k = 256 +/- 7;
 				 	 variant udint l = 123456 +/- 987654;
-				 	 variant ulint m = 123456798 +/- 3;
+				 	 //variant ulint m = 123456798 +/- 3;
 				 	 variant sint n = -1 +/- -25;
 				 	 variant dint o = -25600 +/- (-8545000);
 				 	 variant lint p = -222222222 +/- 9999999;
@@ -1413,7 +1413,6 @@ class EisGeneratorTest {
 												<Element xsi:type="Output" Name="j" Datatype="Variant@USInt" Direction="Output" Expect="1" Range="5" />
 												<Element xsi:type="Output" Name="k" Datatype="Variant@UInt" Direction="Output" Expect="256" Range="7" />
 												<Element xsi:type="Output" Name="l" Datatype="Variant@UDInt" Direction="Output" Expect="123456" Range="987654" />
-												<Element xsi:type="Output" Name="m" Datatype="Variant@ULInt" Direction="Output" Expect="123456798" Range="3" />
 												<Element xsi:type="Output" Name="n" Datatype="Variant@SInt" Direction="Output" Expect="-1" Range="-25" />
 												<Element xsi:type="Output" Name="o" Datatype="Variant@DInt" Direction="Output" Expect="-25600" Range="-8545000" />
 												<Element xsi:type="Output" Name="p" Datatype="Variant@LInt" Direction="Output" Expect="-222222222" Range="9999999" />
@@ -1422,6 +1421,87 @@ class EisGeneratorTest {
 												<Element xsi:type="Output" Name="s" Datatype="Variant@Date" Direction="Output" Expect="D#2018-08-22" Range="" />
 												<Element xsi:type="Output" Name="t" Datatype="Variant@WChar" Direction="Output" Expect="w" Range="" />
 												<Element xsi:type="Output" Name="u" Datatype="Variant@LReal" Direction="Output" Expect="1.2" Range="" />
+											</Elements>
+										</Element>
+									</Outputs>
+								</Teststep>
+							</Teststeps>
+						</TestCase>
+					</TestCases>
+				</TestFixture>
+			''')
+		]
+		(beginning + '''
+			define{
+				input[]
+				output[
+				 	 udt All(TypeAll){
+				 	 variant int a;
+				 	 variant bool b;
+				 	 variant real c;
+				 	 variant string d;
+				 	 variant char e;
+				 	 variant byte f;
+				 	 variant word g;
+				 	 variant dword h;
+				 	 variant lword i;
+				 	 variant usint j;
+				 	 variant uint k;
+				 	 variant udint l;
+				 	 //variant ulint m;
+				 	 variant sint n;
+				 	 variant dint o;
+				 	 variant lint p;
+				 	 variant time q;
+				 	 variant ltime r;
+				 	 variant date s;
+					 variant wchar t;
+					 variant lreal u;
+					}
+				]
+			}
+			teststep(0, ""){
+				set[]
+				assert[]
+			}
+		''' + ending ) => [
+			parse.assertNoErrors
+			assertCompilesTo(
+				'''
+				<?xml version="1.0" encoding="utf-8"?>
+				<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+					<TiaProjectName>project</TiaProjectName>
+					<PlcName>plcname</PlcName>
+					<Author>author</Author>
+					<TestCases>
+						<TestCase ID="0" TestActive="false" Blockname="Testcase" Blocktype="FC" Description="description">
+							<Teststeps>
+								<Teststep PlcCycle ="0" Description="">
+									<Inputs>
+									</Inputs>
+									<Outputs>
+										<Element xsi: type="OutputUDT" Name="All" Datatype="TypeAll" Direction="Output">
+											<Elements>
+												<Element xsi:type="Output" Name="a" Datatype="Variant@Int" Direction="Output" Expect="0" Range="" />
+												<Element xsi:type="Output" Name="b" Datatype="Variant@Bool" Direction="Output" Expect="false" Range="" />
+												<Element xsi:type="Output" Name="c" Datatype="Variant@Real" Direction="Output" Expect="0.0" Range="" />
+												<Element xsi:type="Output" Name="d" Datatype="Variant@String" Direction="Output" Expect="" Range="" />
+												<Element xsi:type="Output" Name="e" Datatype="Variant@Char" Direction="Output" Expect="" Range="" />
+												<Element xsi:type="Output" Name="f" Datatype="Variant@Byte" Direction="Output" Expect="16#00" Range="" />
+												<Element xsi:type="Output" Name="g" Datatype="Variant@Word" Direction="Output" Expect="16#0000" Range="" />
+												<Element xsi:type="Output" Name="h" Datatype="Variant@DWord" Direction="Output" Expect="16#0000_0000" Range="" />
+												<Element xsi:type="Output" Name="i" Datatype="Variant@LWord" Direction="Output" Expect="16#0000_0000_0000_0000" Range="" />
+												<Element xsi:type="Output" Name="j" Datatype="Variant@USInt" Direction="Output" Expect="0" Range="" />
+												<Element xsi:type="Output" Name="k" Datatype="Variant@UInt" Direction="Output" Expect="0" Range="" />
+												<Element xsi:type="Output" Name="l" Datatype="Variant@UDInt" Direction="Output" Expect="0" Range="" />
+												<Element xsi:type="Output" Name="n" Datatype="Variant@SInt" Direction="Output" Expect="0" Range="" />
+												<Element xsi:type="Output" Name="o" Datatype="Variant@DInt" Direction="Output" Expect="0" Range="" />
+												<Element xsi:type="Output" Name="p" Datatype="Variant@LInt" Direction="Output" Expect="0" Range="" />
+												<Element xsi:type="Output" Name="q" Datatype="Variant@Time" Direction="Output" Expect="T#0s" Range="" />
+												<Element xsi:type="Output" Name="r" Datatype="Variant@LTime" Direction="Output" Expect="LT#0s" Range="" />
+												<Element xsi:type="Output" Name="s" Datatype="Variant@Date" Direction="Output" Expect="D#1990-01-01" Range="" />
+												<Element xsi:type="Output" Name="t" Datatype="Variant@WChar" Direction="Output" Expect="" Range="" />
+												<Element xsi:type="Output" Name="u" Datatype="Variant@LReal" Direction="Output" Expect="0.0" Range="" />
 											</Elements>
 										</Element>
 									</Outputs>
@@ -1705,11 +1785,11 @@ class EisGeneratorTest {
 		(beginning + '''
 			define{
 				input[ udint a; ]
-				output[ ulint b; ]
+				output[]
 			}
 			teststep(1, ""){
 				set[ a=0; ]
-				assert[ b=0;]
+				assert[]
 			}
 		''' + ending ) => [
 			parse.assertNoErrors
@@ -1728,7 +1808,6 @@ class EisGeneratorTest {
 											<Element xsi:type="Input" Name="a" Datatype="UDInt" Direction="Input" Value="0" />
 										</Inputs>
 										<Outputs>
-											<Element xsi:type="Output" Name="b" Datatype="ULInt" Direction="Output" Expect="0" Range="" />
 										</Outputs>
 									</Teststep>
 								</Teststeps>

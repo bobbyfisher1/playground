@@ -336,6 +336,9 @@ class EisGenerator extends AbstractGenerator {
 			case type.isWordType:  "16#0000"
 			case type.isDWordType:  "16#0000_0000"
 			case type.isLWordType:  "16#0000_0000_0000_0000"
+			case type.isTimeType: "T#0s"
+			case type.isLTimeType: "LT#0s"
+			case type.isDateType: "D#1990-01-01"
 			default: ''
 		}		
 	}

@@ -784,6 +784,27 @@ public class EisGenerator extends AbstractGenerator {
         }
       }
       if (!_matched) {
+        boolean _isTimeType = this._defineTypeComputer.isTimeType(type);
+        if (_isTimeType) {
+          _matched=true;
+          _switchResult = "T#0s";
+        }
+      }
+      if (!_matched) {
+        boolean _isLTimeType = this._defineTypeComputer.isLTimeType(type);
+        if (_isLTimeType) {
+          _matched=true;
+          _switchResult = "LT#0s";
+        }
+      }
+      if (!_matched) {
+        boolean _isDateType = this._defineTypeComputer.isDateType(type);
+        if (_isDateType) {
+          _matched=true;
+          _switchResult = "D#1990-01-01";
+        }
+      }
+      if (!_matched) {
         _switchResult = "";
       }
       _xblockexpression = _switchResult;

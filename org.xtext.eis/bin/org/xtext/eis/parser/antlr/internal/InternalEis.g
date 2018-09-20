@@ -2739,74 +2739,66 @@ ruleBasicType returns [Enumerator current=null]
 		)
 		    |
 		(
-			enumLiteral_13='ulint'
+			enumLiteral_13='sint'
 			{
-				$current = grammarAccess.getBasicTypeAccess().getULINTEnumLiteralDeclaration_13().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_13, grammarAccess.getBasicTypeAccess().getULINTEnumLiteralDeclaration_13());
+				$current = grammarAccess.getBasicTypeAccess().getSINTEnumLiteralDeclaration_13().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_13, grammarAccess.getBasicTypeAccess().getSINTEnumLiteralDeclaration_13());
 			}
 		)
 		    |
 		(
-			enumLiteral_14='sint'
+			enumLiteral_14='dint'
 			{
-				$current = grammarAccess.getBasicTypeAccess().getSINTEnumLiteralDeclaration_14().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_14, grammarAccess.getBasicTypeAccess().getSINTEnumLiteralDeclaration_14());
+				$current = grammarAccess.getBasicTypeAccess().getDINTEnumLiteralDeclaration_14().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_14, grammarAccess.getBasicTypeAccess().getDINTEnumLiteralDeclaration_14());
 			}
 		)
 		    |
 		(
-			enumLiteral_15='dint'
+			enumLiteral_15='lint'
 			{
-				$current = grammarAccess.getBasicTypeAccess().getDINTEnumLiteralDeclaration_15().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_15, grammarAccess.getBasicTypeAccess().getDINTEnumLiteralDeclaration_15());
+				$current = grammarAccess.getBasicTypeAccess().getLINTEnumLiteralDeclaration_15().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_15, grammarAccess.getBasicTypeAccess().getLINTEnumLiteralDeclaration_15());
 			}
 		)
 		    |
 		(
-			enumLiteral_16='lint'
+			enumLiteral_16='time'
 			{
-				$current = grammarAccess.getBasicTypeAccess().getLINTEnumLiteralDeclaration_16().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_16, grammarAccess.getBasicTypeAccess().getLINTEnumLiteralDeclaration_16());
+				$current = grammarAccess.getBasicTypeAccess().getTIMEEnumLiteralDeclaration_16().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_16, grammarAccess.getBasicTypeAccess().getTIMEEnumLiteralDeclaration_16());
 			}
 		)
 		    |
 		(
-			enumLiteral_17='time'
+			enumLiteral_17='ltime'
 			{
-				$current = grammarAccess.getBasicTypeAccess().getTIMEEnumLiteralDeclaration_17().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_17, grammarAccess.getBasicTypeAccess().getTIMEEnumLiteralDeclaration_17());
+				$current = grammarAccess.getBasicTypeAccess().getLTIMEEnumLiteralDeclaration_17().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_17, grammarAccess.getBasicTypeAccess().getLTIMEEnumLiteralDeclaration_17());
 			}
 		)
 		    |
 		(
-			enumLiteral_18='ltime'
+			enumLiteral_18='date'
 			{
-				$current = grammarAccess.getBasicTypeAccess().getLTIMEEnumLiteralDeclaration_18().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_18, grammarAccess.getBasicTypeAccess().getLTIMEEnumLiteralDeclaration_18());
+				$current = grammarAccess.getBasicTypeAccess().getDATEEnumLiteralDeclaration_18().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_18, grammarAccess.getBasicTypeAccess().getDATEEnumLiteralDeclaration_18());
 			}
 		)
 		    |
 		(
-			enumLiteral_19='date'
+			enumLiteral_19='lreal'
 			{
-				$current = grammarAccess.getBasicTypeAccess().getDATEEnumLiteralDeclaration_19().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_19, grammarAccess.getBasicTypeAccess().getDATEEnumLiteralDeclaration_19());
+				$current = grammarAccess.getBasicTypeAccess().getLREALEnumLiteralDeclaration_19().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_19, grammarAccess.getBasicTypeAccess().getLREALEnumLiteralDeclaration_19());
 			}
 		)
 		    |
 		(
-			enumLiteral_20='lreal'
+			enumLiteral_20='wchar'
 			{
-				$current = grammarAccess.getBasicTypeAccess().getLREALEnumLiteralDeclaration_20().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_20, grammarAccess.getBasicTypeAccess().getLREALEnumLiteralDeclaration_20());
-			}
-		)
-		    |
-		(
-			enumLiteral_21='wchar'
-			{
-				$current = grammarAccess.getBasicTypeAccess().getWCHAREnumLiteralDeclaration_21().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_21, grammarAccess.getBasicTypeAccess().getWCHAREnumLiteralDeclaration_21());
+				$current = grammarAccess.getBasicTypeAccess().getWCHAREnumLiteralDeclaration_20().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_20, grammarAccess.getBasicTypeAccess().getWCHAREnumLiteralDeclaration_20());
 			}
 		)
 	)

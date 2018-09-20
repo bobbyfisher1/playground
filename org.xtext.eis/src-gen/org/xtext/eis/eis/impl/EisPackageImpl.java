@@ -2045,7 +2045,6 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
     addEEnumLiteral(basicTypeEEnum, BasicType.USINT);
     addEEnumLiteral(basicTypeEEnum, BasicType.UINT);
     addEEnumLiteral(basicTypeEEnum, BasicType.UDINT);
-    addEEnumLiteral(basicTypeEEnum, BasicType.ULINT);
     addEEnumLiteral(basicTypeEEnum, BasicType.SINT);
     addEEnumLiteral(basicTypeEEnum, BasicType.DINT);
     addEEnumLiteral(basicTypeEEnum, BasicType.LINT);

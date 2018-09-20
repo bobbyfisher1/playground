@@ -151,16 +151,6 @@ public enum BasicType implements Enumerator
   UDINT(12, "UDINT", "udint"),
 
   /**
-   * The '<em><b>ULINT</b></em>' literal object.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #ULINT_VALUE
-   * @generated
-   * @ordered
-   */
-  ULINT(13, "ULINT", "ulint"),
-
-  /**
    * The '<em><b>SINT</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -168,7 +158,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  SINT(14, "SINT", "sint"),
+  SINT(13, "SINT", "sint"),
 
   /**
    * The '<em><b>DINT</b></em>' literal object.
@@ -178,7 +168,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  DINT(15, "DINT", "dint"),
+  DINT(14, "DINT", "dint"),
 
   /**
    * The '<em><b>LINT</b></em>' literal object.
@@ -188,7 +178,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  LINT(16, "LINT", "lint"),
+  LINT(15, "LINT", "lint"),
 
   /**
    * The '<em><b>TIME</b></em>' literal object.
@@ -198,7 +188,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  TIME(17, "TIME", "time"),
+  TIME(16, "TIME", "time"),
 
   /**
    * The '<em><b>LTIME</b></em>' literal object.
@@ -208,7 +198,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  LTIME(18, "LTIME", "ltime"),
+  LTIME(17, "LTIME", "ltime"),
 
   /**
    * The '<em><b>DATE</b></em>' literal object.
@@ -218,7 +208,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  DATE(19, "DATE", "date"),
+  DATE(18, "DATE", "date"),
 
   /**
    * The '<em><b>LREAL</b></em>' literal object.
@@ -228,7 +218,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  LREAL(20, "LREAL", "lreal"),
+  LREAL(19, "LREAL", "lreal"),
 
   /**
    * The '<em><b>WCHAR</b></em>' literal object.
@@ -238,7 +228,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  WCHAR(21, "WCHAR", "wchar");
+  WCHAR(20, "WCHAR", "wchar");
 
   /**
    * The '<em><b>NULL</b></em>' literal value.
@@ -436,21 +426,6 @@ public enum BasicType implements Enumerator
   public static final int UDINT_VALUE = 12;
 
   /**
-   * The '<em><b>ULINT</b></em>' literal value.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>ULINT</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @see #ULINT
-   * @model literal="ulint"
-   * @generated
-   * @ordered
-   */
-  public static final int ULINT_VALUE = 13;
-
-  /**
    * The '<em><b>SINT</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
@@ -463,7 +438,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int SINT_VALUE = 14;
+  public static final int SINT_VALUE = 13;
 
   /**
    * The '<em><b>DINT</b></em>' literal value.
@@ -478,7 +453,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int DINT_VALUE = 15;
+  public static final int DINT_VALUE = 14;
 
   /**
    * The '<em><b>LINT</b></em>' literal value.
@@ -493,7 +468,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int LINT_VALUE = 16;
+  public static final int LINT_VALUE = 15;
 
   /**
    * The '<em><b>TIME</b></em>' literal value.
@@ -508,7 +483,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int TIME_VALUE = 17;
+  public static final int TIME_VALUE = 16;
 
   /**
    * The '<em><b>LTIME</b></em>' literal value.
@@ -523,7 +498,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int LTIME_VALUE = 18;
+  public static final int LTIME_VALUE = 17;
 
   /**
    * The '<em><b>DATE</b></em>' literal value.
@@ -538,7 +513,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int DATE_VALUE = 19;
+  public static final int DATE_VALUE = 18;
 
   /**
    * The '<em><b>LREAL</b></em>' literal value.
@@ -553,7 +528,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int LREAL_VALUE = 20;
+  public static final int LREAL_VALUE = 19;
 
   /**
    * The '<em><b>WCHAR</b></em>' literal value.
@@ -568,7 +543,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int WCHAR_VALUE = 21;
+  public static final int WCHAR_VALUE = 20;
 
   /**
    * An array of all the '<em><b>Basic Type</b></em>' enumerators.
@@ -592,7 +567,6 @@ public enum BasicType implements Enumerator
       USINT,
       UINT,
       UDINT,
-      ULINT,
       SINT,
       DINT,
       LINT,
@@ -678,7 +652,6 @@ public enum BasicType implements Enumerator
       case USINT_VALUE: return USINT;
       case UINT_VALUE: return UINT;
       case UDINT_VALUE: return UDINT;
-      case ULINT_VALUE: return ULINT;
       case SINT_VALUE: return SINT;
       case DINT_VALUE: return DINT;
       case LINT_VALUE: return LINT;

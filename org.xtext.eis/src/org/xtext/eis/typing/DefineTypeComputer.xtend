@@ -72,65 +72,65 @@ class DefineTypeComputer {
 	public static val DINT_TYPE = new DIntType
 	public static val LINT_TYPE = new LIntType
 
-	def isStringType(DefineType type) { type === STRING_TYPE }
+	def boolean isStringType(DefineType type) { type === STRING_TYPE }
 
-	def isIntSuperType(DefineType type) {
+	def boolean isIntSuperType(DefineType type) {
 		type === INT_TYPE || type === USINT_TYPE || type === UINT_TYPE || type === UDINT_TYPE || type === ULINT_TYPE ||
 			type === SINT_TYPE || type === DINT_TYPE || type === LINT_TYPE
 	}
 
-	def isSecondLetterCapitalized(DefineType type) {
+	def boolean isSecondLetterCapitalized(DefineType type) {
 		type === USINT_TYPE || type === UINT_TYPE || type === UDINT_TYPE || type === ULINT_TYPE || type === SINT_TYPE ||
 			type === DINT_TYPE || type === LINT_TYPE || type === DWORD_TYPE || type === LWORD_TYPE ||
 			type === LTIME_TYPE
 	}
 
-	def isSecondLetterCapitalized(BasicType type) {
+	def boolean isSecondLetterCapitalized(BasicType type) {
 		val t = type?.toString
 		t === "wchar" || t === "lreal"
 	}
 
-	def isThirdLetterCapitalized(DefineType type) {
+	def boolean isThirdLetterCapitalized(DefineType type) {
 		type === USINT_TYPE || type === UDINT_TYPE || type === ULINT_TYPE
 	}
 
-	def isCharType(DefineType type) { type === CHAR_TYPE || type === WCHAR_TYPE }
+	def boolean isCharType(DefineType type) { type === CHAR_TYPE || type === WCHAR_TYPE }
 
-	def isTimeType(DefineType type) { type === TIME_TYPE }
+	def boolean isTimeType(DefineType type) { type === TIME_TYPE }
 
-	def isLTimeType(DefineType type) { type === LTIME_TYPE }
+	def boolean isLTimeType(DefineType type) { type === LTIME_TYPE }
 
-	def isDateType(DefineType type) { type === DATE_TYPE }
+	def boolean isDateType(DefineType type) { type === DATE_TYPE }
 
-	def isBoolType(DefineType type) { type === BOOL_TYPE }
+	def boolean isBoolType(DefineType type) { type === BOOL_TYPE }
 
-	def isRealType(DefineType type) { type === REAL_TYPE || type === LREAL_TYPE }
+	def boolean isRealType(DefineType type) { type === REAL_TYPE || type === LREAL_TYPE }
 
-	def isByteType(DefineType type) { type === BYTE_TYPE }
+	def boolean isByteType(DefineType type) { type === BYTE_TYPE }
 
-	def isWordType(DefineType type) { type === WORD_TYPE }
+	def boolean isWordType(DefineType type) { type === WORD_TYPE }
 
-	def isDWordType(DefineType type) { type === DWORD_TYPE }
+	def boolean isDWordType(DefineType type) { type === DWORD_TYPE }
 
-	def isLWordType(DefineType type) { type === LWORD_TYPE }
+	def boolean isLWordType(DefineType type) { type === LWORD_TYPE }
 
-	def isUSIntType(DefineType type) { type === USINT_TYPE }
+	def boolean isUSIntType(DefineType type) { type === USINT_TYPE }
 
-	def isUIntType(DefineType type) { type === UINT_TYPE }
+	def boolean isUIntType(DefineType type) { type === UINT_TYPE }
 
-	def isUDIntType(DefineType type) { type === UDINT_TYPE }
+	def boolean isUDIntType(DefineType type) { type === UDINT_TYPE }
 
-	def isULIntType(DefineType type) { type === ULINT_TYPE }
+	def boolean isULIntType(DefineType type) { type === ULINT_TYPE }
 
-	def isSIntType(DefineType type) { type === SINT_TYPE }
+	def boolean isSIntType(DefineType type) { type === SINT_TYPE }
 
-	def isIntType(DefineType type) { type === INT_TYPE }
+	def boolean isIntType(DefineType type) { type === INT_TYPE }
 
-	def isDIntType(DefineType type) { type === DINT_TYPE }
+	def boolean isDIntType(DefineType type) { type === DINT_TYPE }
 
-	def isLIntType(DefineType type) { type === LINT_TYPE }
+	def boolean isLIntType(DefineType type) { type === LINT_TYPE }
 
-	def isWithoutRangeOp(DefineType type) {
+	def boolean isWithoutRangeOp(DefineType type) {
 		type === BOOL_TYPE || type === STRING_TYPE || type === BYTE_TYPE || type === WORD_TYPE || type === DWORD_TYPE ||
 			type === LWORD_TYPE || type === CHAR_TYPE || type === WCHAR_TYPE || type === TIME_TYPE ||
 			type === LTIME_TYPE || type === DATE_TYPE

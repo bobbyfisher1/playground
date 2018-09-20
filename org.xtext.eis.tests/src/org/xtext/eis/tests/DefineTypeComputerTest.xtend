@@ -301,19 +301,17 @@ class DefineTypeComputerTest {
 		]
 	}
 
-	@Test def void testULIntBounds() {
-		val uLInt = '''ulint a = '''
-		(start + uLInt + '-1' + ';' + end).parse => [
-			1.assertEquals(validate.size)
-			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
-		]
-		(start + uLInt + '0 +/- -14' + ';' + end).parse => [
-			1.assertEquals(validate.size)
-			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
-		]
-
-	}
-
+//	@Test def void testULIntBounds() {
+//		val uLInt = '''ulint a = '''
+//		(start + uLInt + '-1' + ';' + end).parse => [
+//			1.assertEquals(validate.size)
+//			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+//		]
+//		(start + uLInt + '0 +/- -14' + ';' + end).parse => [
+//			1.assertEquals(validate.size)
+//			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+//		]
+//	}
 //bug: -128 -1 isn't allowed because it's recognized as two numbers without an op in between
 	@Test def void testSIntBounds() {
 		val sInt = '''sint a = '''
@@ -438,19 +436,17 @@ class DefineTypeComputerTest {
 		]
 	}
 
-	@Test def void testULIntBoundsInStatement() {
-		val uLInt = '''ulint a; '''
-
-		(start + uLInt + "]}" + teststep + '-1' + ';]}' + ending).parse => [
-			1.assertEquals(validate.size)
-			assertError(EisPackage.eINSTANCE.statement, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
-		]
-		(start + uLInt + ']}' + teststep + '0 +/- -14' + ';]}' + ending).parse => [
-			1.assertEquals(validate.size)
-			assertError(EisPackage.eINSTANCE.statement, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
-		]
-	}
-
+//	@Test def void testULIntBoundsInStatement() {
+//		val uLInt = '''ulint a; '''
+//		(start + uLInt + "]}" + teststep + '-1' + ';]}' + ending).parse => [
+//			1.assertEquals(validate.size)
+//			assertError(EisPackage.eINSTANCE.statement, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+//		]
+//		(start + uLInt + ']}' + teststep + '0 +/- -14' + ';]}' + ending).parse => [
+//			1.assertEquals(validate.size)
+//			assertError(EisPackage.eINSTANCE.statement, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+//		]
+//	}
 	@Test def void testSIntBoundsInStatement() {
 		val sInt = '''sint a; '''
 
@@ -516,7 +512,7 @@ class DefineTypeComputerTest {
 
 	@Test def void temptingTime() {
 		var time = "24d_20h_31M_23s_647ms"
-		(start + "time a = T#" + time + ';' + end).parse.assertNoErrors
+		(start + "time a = T#" + time + ';' + end).parse.assertNoErrors;
 
 		time = "24d_20h_31M_23s_648ms"
 		(start + "time a = T#" + time + ';' + end).parse => [
@@ -528,6 +524,11 @@ class DefineTypeComputerTest {
 
 		time = "-24d_20h_31M_23s_649ms"
 		(start + "time a = T#" + time + ';' + end).parse => [
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+			1.assertEquals(validate.size)
+		]
+
+		(start + "time a = T#" + ';' + end).parse => [
 			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
 			1.assertEquals(validate.size)
 		]
@@ -548,6 +549,11 @@ class DefineTypeComputerTest {
 
 		LTime = "-106751d_23h_47M_16s_854ms_775us_809ns"
 		(start + "ltime a = LT#" + LTime + ';' + end).parse => [
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+			1.assertEquals(validate.size)
+		]
+	
+		(start + "ltime a = LT#" + ';' + end).parse => [
 			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
 			1.assertEquals(validate.size)
 		]

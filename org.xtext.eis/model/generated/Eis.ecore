@@ -127,15 +127,14 @@
     <eLiterals name="USINT" value="10" literal="usint"/>
     <eLiterals name="UINT" value="11" literal="uint"/>
     <eLiterals name="UDINT" value="12" literal="udint"/>
-    <eLiterals name="ULINT" value="13" literal="ulint"/>
-    <eLiterals name="SINT" value="14" literal="sint"/>
-    <eLiterals name="DINT" value="15" literal="dint"/>
-    <eLiterals name="LINT" value="16" literal="lint"/>
-    <eLiterals name="TIME" value="17" literal="time"/>
-    <eLiterals name="LTIME" value="18" literal="ltime"/>
-    <eLiterals name="DATE" value="19" literal="date"/>
-    <eLiterals name="LREAL" value="20" literal="lreal"/>
-    <eLiterals name="WCHAR" value="21" literal="wchar"/>
+    <eLiterals name="SINT" value="13" literal="sint"/>
+    <eLiterals name="DINT" value="14" literal="dint"/>
+    <eLiterals name="LINT" value="15" literal="lint"/>
+    <eLiterals name="TIME" value="16" literal="time"/>
+    <eLiterals name="LTIME" value="17" literal="ltime"/>
+    <eLiterals name="DATE" value="18" literal="date"/>
+    <eLiterals name="LREAL" value="19" literal="lreal"/>
+    <eLiterals name="WCHAR" value="20" literal="wchar"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Idiom"/>
   <eClassifiers xsi:type="ecore:EClass" name="Or" eSuperTypes="#//Idiom">

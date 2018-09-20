@@ -4,33 +4,26 @@ import 'http://www.eclipse.org/emf/2002/Ecore' as ecore
 generate eis "http://www.xtext.org/eis/Eis"
 
 EisModel:
-	(('project' '=' projectName=STRING ';') &
-	('plcname' '=' plcName=STRING ';') &
-	('author' '=' authorName=STRING ';'))
+	(('project' '=' projectName=STRING ';') & ('plcname' '=' plcName=STRING ';') & ('author' '=' authorName=STRING ';'))
 	testcases+=Testcase*;
 
 Testcase:
 	"testcase" testcaseName=ID
-	'('
-	testActive=BoolConstant ','
-	blockType=BlockConstant ','
-	description=STRING
-	')'
-	'{'
+	'(' testActive=BoolConstant ',' blockType=BlockConstant ',' description=STRING ')' '{'
 	define=DefineBlock?
 	'}';
-
-BoolConstant:
-	value=('true' | 'false');
-
-BlockConstant:
-	value=('FC' | 'FB');
 
 DefineBlock:
 	'define' '{' direction=DirectionBlock '}' teststeps+=TeststepBlock*;
 
 DirectionBlock:
 	input=Input & output=Output & inout=InOut?;
+
+TeststepBlock:
+	teststepKeyword='teststep' '(' plcCycle=LONG ',' description=STRING ')' '{' assertion=AssertionBlock '}';
+
+AssertionBlock:
+	set=Set & assert=Assert;
 
 Input:
 	name='input' '[' inputVariables+=Variables* ']';
@@ -57,12 +50,6 @@ UdtRef:
 UdtType:
 	name=ID;
 
-TeststepBlock:
-	teststepKeyword='teststep' '(' plcCycle=LONG ',' description=STRING ')' '{' assertion=AssertionBlock '}';
-
-AssertionBlock:
-	set=Set & assert=Assert;
-
 Set:
 	name='set' '[' setVariables+=Statement* ']';
 
@@ -74,6 +61,12 @@ Statement:
 
 Cascade:
 	'.' udtVar=[Variables];
+
+BoolConstant:
+	value=('true' | 'false');
+
+BlockConstant:
+	value=('FC' | 'FB');
 
 enum BasicType:
 	NULL='null'
@@ -91,7 +84,7 @@ enum BasicType:
 	| USINT="usint"
 	| UINT="uint"
 	| UDINT="udint"
-	| ULINT="ulint"
+	//	| ULINT="ulint"
 	| SINT="sint"
 	| DINT="dint"
 	| LINT="lint"
@@ -182,8 +175,8 @@ terminal ID:
 	'^'? ('a'..'z' | 'A'..'Z' | '_') ('a'..'z' | 'A'..'Z' | '_' | '0'..'9')*;
 
 terminal STRING:
-	'"' ('\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\' | '"'))* '"' | "'" ('\\' .
-	/* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\' | "'"))* "'";
+	'"' ('\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\' | '"'))* '"' // 
+	| "'" ('\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\' | "'"))* "'";
 
 terminal ML_COMMENT:
 	'/*'->'*/';
