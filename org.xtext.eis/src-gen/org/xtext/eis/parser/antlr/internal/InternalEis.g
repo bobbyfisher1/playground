@@ -377,94 +377,6 @@ ruleTestcase returns [EObject current=null]
 	)
 ;
 
-// Entry rule entryRuleBoolConstant
-entryRuleBoolConstant returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getBoolConstantRule()); }
-	iv_ruleBoolConstant=ruleBoolConstant
-	{ $current=$iv_ruleBoolConstant.current; }
-	EOF;
-
-// Rule BoolConstant
-ruleBoolConstant returns [EObject current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		(
-			(
-				lv_value_0_1='true'
-				{
-					newLeafNode(lv_value_0_1, grammarAccess.getBoolConstantAccess().getValueTrueKeyword_0_0());
-				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getBoolConstantRule());
-					}
-					setWithLastConsumed($current, "value", lv_value_0_1, null);
-				}
-				    |
-				lv_value_0_2='false'
-				{
-					newLeafNode(lv_value_0_2, grammarAccess.getBoolConstantAccess().getValueFalseKeyword_0_1());
-				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getBoolConstantRule());
-					}
-					setWithLastConsumed($current, "value", lv_value_0_2, null);
-				}
-			)
-		)
-	)
-;
-
-// Entry rule entryRuleBlockConstant
-entryRuleBlockConstant returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getBlockConstantRule()); }
-	iv_ruleBlockConstant=ruleBlockConstant
-	{ $current=$iv_ruleBlockConstant.current; }
-	EOF;
-
-// Rule BlockConstant
-ruleBlockConstant returns [EObject current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		(
-			(
-				lv_value_0_1='FC'
-				{
-					newLeafNode(lv_value_0_1, grammarAccess.getBlockConstantAccess().getValueFCKeyword_0_0());
-				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getBlockConstantRule());
-					}
-					setWithLastConsumed($current, "value", lv_value_0_1, null);
-				}
-				    |
-				lv_value_0_2='FB'
-				{
-					newLeafNode(lv_value_0_2, grammarAccess.getBlockConstantAccess().getValueFBKeyword_0_1());
-				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getBlockConstantRule());
-					}
-					setWithLastConsumed($current, "value", lv_value_0_2, null);
-				}
-			)
-		)
-	)
-;
-
 // Entry rule entryRuleDefineBlock
 entryRuleDefineBlock returns [EObject current=null]:
 	{ newCompositeNode(grammarAccess.getDefineBlockRule()); }
@@ -646,6 +558,202 @@ ruleDirectionBlock returns [EObject current=null]
 		)
 			{ 
 			  getUnorderedGroupHelper().leave(grammarAccess.getDirectionBlockAccess().getUnorderedGroup());
+			}
+	)
+;
+
+// Entry rule entryRuleTeststepBlock
+entryRuleTeststepBlock returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getTeststepBlockRule()); }
+	iv_ruleTeststepBlock=ruleTeststepBlock
+	{ $current=$iv_ruleTeststepBlock.current; }
+	EOF;
+
+// Rule TeststepBlock
+ruleTeststepBlock returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			(
+				lv_teststepKeyword_0_0='teststep'
+				{
+					newLeafNode(lv_teststepKeyword_0_0, grammarAccess.getTeststepBlockAccess().getTeststepKeywordTeststepKeyword_0_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getTeststepBlockRule());
+					}
+					setWithLastConsumed($current, "teststepKeyword", lv_teststepKeyword_0_0, "teststep");
+				}
+			)
+		)
+		otherlv_1='('
+		{
+			newLeafNode(otherlv_1, grammarAccess.getTeststepBlockAccess().getLeftParenthesisKeyword_1());
+		}
+		(
+			(
+				lv_plcCycle_2_0=RULE_LONG
+				{
+					newLeafNode(lv_plcCycle_2_0, grammarAccess.getTeststepBlockAccess().getPlcCycleLONGTerminalRuleCall_2_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getTeststepBlockRule());
+					}
+					setWithLastConsumed(
+						$current,
+						"plcCycle",
+						lv_plcCycle_2_0,
+						"org.xtext.eis.Eis.LONG");
+				}
+			)
+		)
+		otherlv_3=','
+		{
+			newLeafNode(otherlv_3, grammarAccess.getTeststepBlockAccess().getCommaKeyword_3());
+		}
+		(
+			(
+				lv_description_4_0=RULE_STRING
+				{
+					newLeafNode(lv_description_4_0, grammarAccess.getTeststepBlockAccess().getDescriptionSTRINGTerminalRuleCall_4_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getTeststepBlockRule());
+					}
+					setWithLastConsumed(
+						$current,
+						"description",
+						lv_description_4_0,
+						"org.xtext.eis.Eis.STRING");
+				}
+			)
+		)
+		otherlv_5=')'
+		{
+			newLeafNode(otherlv_5, grammarAccess.getTeststepBlockAccess().getRightParenthesisKeyword_5());
+		}
+		otherlv_6='{'
+		{
+			newLeafNode(otherlv_6, grammarAccess.getTeststepBlockAccess().getLeftCurlyBracketKeyword_6());
+		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getTeststepBlockAccess().getAssertionAssertionBlockParserRuleCall_7_0());
+				}
+				lv_assertion_7_0=ruleAssertionBlock
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getTeststepBlockRule());
+					}
+					set(
+						$current,
+						"assertion",
+						lv_assertion_7_0,
+						"org.xtext.eis.Eis.AssertionBlock");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		otherlv_8='}'
+		{
+			newLeafNode(otherlv_8, grammarAccess.getTeststepBlockAccess().getRightCurlyBracketKeyword_8());
+		}
+	)
+;
+
+// Entry rule entryRuleAssertionBlock
+entryRuleAssertionBlock returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getAssertionBlockRule()); }
+	iv_ruleAssertionBlock=ruleAssertionBlock
+	{ $current=$iv_ruleAssertionBlock.current; }
+	EOF;
+
+// Rule AssertionBlock
+ruleAssertionBlock returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			{ 
+			  getUnorderedGroupHelper().enter(grammarAccess.getAssertionBlockAccess().getUnorderedGroup());
+			}
+			(
+				(
+		(
+			{getUnorderedGroupHelper().canSelect(grammarAccess.getAssertionBlockAccess().getUnorderedGroup(), 0)}?=>(
+				{
+					getUnorderedGroupHelper().select(grammarAccess.getAssertionBlockAccess().getUnorderedGroup(), 0);
+				}
+							({true}?=>((
+								{
+									newCompositeNode(grammarAccess.getAssertionBlockAccess().getSetSetParserRuleCall_0_0());
+								}
+								lv_set_1_0=ruleSet
+								{
+									if ($current==null) {
+										$current = createModelElementForParent(grammarAccess.getAssertionBlockRule());
+									}
+									set(
+										$current,
+										"set",
+										lv_set_1_0,
+										"org.xtext.eis.Eis.Set");
+									afterParserOrEnumRuleCall();
+								}
+							)
+							))
+				{ 
+					getUnorderedGroupHelper().returnFromSelection(grammarAccess.getAssertionBlockAccess().getUnorderedGroup());
+				}
+			)
+		)|
+		(
+			{getUnorderedGroupHelper().canSelect(grammarAccess.getAssertionBlockAccess().getUnorderedGroup(), 1)}?=>(
+				{
+					getUnorderedGroupHelper().select(grammarAccess.getAssertionBlockAccess().getUnorderedGroup(), 1);
+				}
+							({true}?=>((
+								{
+									newCompositeNode(grammarAccess.getAssertionBlockAccess().getAssertAssertParserRuleCall_1_0());
+								}
+								lv_assert_2_0=ruleAssert
+								{
+									if ($current==null) {
+										$current = createModelElementForParent(grammarAccess.getAssertionBlockRule());
+									}
+									set(
+										$current,
+										"assert",
+										lv_assert_2_0,
+										"org.xtext.eis.Eis.Assert");
+									afterParserOrEnumRuleCall();
+								}
+							)
+							))
+				{ 
+					getUnorderedGroupHelper().returnFromSelection(grammarAccess.getAssertionBlockAccess().getUnorderedGroup());
+				}
+			)
+		)
+				)+
+				{getUnorderedGroupHelper().canLeave(grammarAccess.getAssertionBlockAccess().getUnorderedGroup())}?
+			)
+		)
+			{ 
+			  getUnorderedGroupHelper().leave(grammarAccess.getAssertionBlockAccess().getUnorderedGroup());
 			}
 	)
 ;
@@ -1226,202 +1334,6 @@ ruleUdtType returns [EObject current=null]
 	)
 ;
 
-// Entry rule entryRuleTeststepBlock
-entryRuleTeststepBlock returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getTeststepBlockRule()); }
-	iv_ruleTeststepBlock=ruleTeststepBlock
-	{ $current=$iv_ruleTeststepBlock.current; }
-	EOF;
-
-// Rule TeststepBlock
-ruleTeststepBlock returns [EObject current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		(
-			(
-				lv_teststepKeyword_0_0='teststep'
-				{
-					newLeafNode(lv_teststepKeyword_0_0, grammarAccess.getTeststepBlockAccess().getTeststepKeywordTeststepKeyword_0_0());
-				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getTeststepBlockRule());
-					}
-					setWithLastConsumed($current, "teststepKeyword", lv_teststepKeyword_0_0, "teststep");
-				}
-			)
-		)
-		otherlv_1='('
-		{
-			newLeafNode(otherlv_1, grammarAccess.getTeststepBlockAccess().getLeftParenthesisKeyword_1());
-		}
-		(
-			(
-				lv_plcCycle_2_0=RULE_LONG
-				{
-					newLeafNode(lv_plcCycle_2_0, grammarAccess.getTeststepBlockAccess().getPlcCycleLONGTerminalRuleCall_2_0());
-				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getTeststepBlockRule());
-					}
-					setWithLastConsumed(
-						$current,
-						"plcCycle",
-						lv_plcCycle_2_0,
-						"org.xtext.eis.Eis.LONG");
-				}
-			)
-		)
-		otherlv_3=','
-		{
-			newLeafNode(otherlv_3, grammarAccess.getTeststepBlockAccess().getCommaKeyword_3());
-		}
-		(
-			(
-				lv_description_4_0=RULE_STRING
-				{
-					newLeafNode(lv_description_4_0, grammarAccess.getTeststepBlockAccess().getDescriptionSTRINGTerminalRuleCall_4_0());
-				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getTeststepBlockRule());
-					}
-					setWithLastConsumed(
-						$current,
-						"description",
-						lv_description_4_0,
-						"org.xtext.eis.Eis.STRING");
-				}
-			)
-		)
-		otherlv_5=')'
-		{
-			newLeafNode(otherlv_5, grammarAccess.getTeststepBlockAccess().getRightParenthesisKeyword_5());
-		}
-		otherlv_6='{'
-		{
-			newLeafNode(otherlv_6, grammarAccess.getTeststepBlockAccess().getLeftCurlyBracketKeyword_6());
-		}
-		(
-			(
-				{
-					newCompositeNode(grammarAccess.getTeststepBlockAccess().getAssertionAssertionBlockParserRuleCall_7_0());
-				}
-				lv_assertion_7_0=ruleAssertionBlock
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getTeststepBlockRule());
-					}
-					set(
-						$current,
-						"assertion",
-						lv_assertion_7_0,
-						"org.xtext.eis.Eis.AssertionBlock");
-					afterParserOrEnumRuleCall();
-				}
-			)
-		)
-		otherlv_8='}'
-		{
-			newLeafNode(otherlv_8, grammarAccess.getTeststepBlockAccess().getRightCurlyBracketKeyword_8());
-		}
-	)
-;
-
-// Entry rule entryRuleAssertionBlock
-entryRuleAssertionBlock returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getAssertionBlockRule()); }
-	iv_ruleAssertionBlock=ruleAssertionBlock
-	{ $current=$iv_ruleAssertionBlock.current; }
-	EOF;
-
-// Rule AssertionBlock
-ruleAssertionBlock returns [EObject current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		(
-			{ 
-			  getUnorderedGroupHelper().enter(grammarAccess.getAssertionBlockAccess().getUnorderedGroup());
-			}
-			(
-				(
-		(
-			{getUnorderedGroupHelper().canSelect(grammarAccess.getAssertionBlockAccess().getUnorderedGroup(), 0)}?=>(
-				{
-					getUnorderedGroupHelper().select(grammarAccess.getAssertionBlockAccess().getUnorderedGroup(), 0);
-				}
-							({true}?=>((
-								{
-									newCompositeNode(grammarAccess.getAssertionBlockAccess().getSetSetParserRuleCall_0_0());
-								}
-								lv_set_1_0=ruleSet
-								{
-									if ($current==null) {
-										$current = createModelElementForParent(grammarAccess.getAssertionBlockRule());
-									}
-									set(
-										$current,
-										"set",
-										lv_set_1_0,
-										"org.xtext.eis.Eis.Set");
-									afterParserOrEnumRuleCall();
-								}
-							)
-							))
-				{ 
-					getUnorderedGroupHelper().returnFromSelection(grammarAccess.getAssertionBlockAccess().getUnorderedGroup());
-				}
-			)
-		)|
-		(
-			{getUnorderedGroupHelper().canSelect(grammarAccess.getAssertionBlockAccess().getUnorderedGroup(), 1)}?=>(
-				{
-					getUnorderedGroupHelper().select(grammarAccess.getAssertionBlockAccess().getUnorderedGroup(), 1);
-				}
-							({true}?=>((
-								{
-									newCompositeNode(grammarAccess.getAssertionBlockAccess().getAssertAssertParserRuleCall_1_0());
-								}
-								lv_assert_2_0=ruleAssert
-								{
-									if ($current==null) {
-										$current = createModelElementForParent(grammarAccess.getAssertionBlockRule());
-									}
-									set(
-										$current,
-										"assert",
-										lv_assert_2_0,
-										"org.xtext.eis.Eis.Assert");
-									afterParserOrEnumRuleCall();
-								}
-							)
-							))
-				{ 
-					getUnorderedGroupHelper().returnFromSelection(grammarAccess.getAssertionBlockAccess().getUnorderedGroup());
-				}
-			)
-		)
-				)+
-				{getUnorderedGroupHelper().canLeave(grammarAccess.getAssertionBlockAccess().getUnorderedGroup())}?
-			)
-		)
-			{ 
-			  getUnorderedGroupHelper().leave(grammarAccess.getAssertionBlockAccess().getUnorderedGroup());
-			}
-	)
-;
-
 // Entry rule entryRuleSet
 entryRuleSet returns [EObject current=null]:
 	{ newCompositeNode(grammarAccess.getSetRule()); }
@@ -1677,6 +1589,94 @@ ruleCascade returns [EObject current=null]
 				otherlv_1=RULE_ID
 				{
 					newLeafNode(otherlv_1, grammarAccess.getCascadeAccess().getUdtVarVariablesCrossReference_1_0());
+				}
+			)
+		)
+	)
+;
+
+// Entry rule entryRuleBoolConstant
+entryRuleBoolConstant returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getBoolConstantRule()); }
+	iv_ruleBoolConstant=ruleBoolConstant
+	{ $current=$iv_ruleBoolConstant.current; }
+	EOF;
+
+// Rule BoolConstant
+ruleBoolConstant returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			(
+				lv_value_0_1='true'
+				{
+					newLeafNode(lv_value_0_1, grammarAccess.getBoolConstantAccess().getValueTrueKeyword_0_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getBoolConstantRule());
+					}
+					setWithLastConsumed($current, "value", lv_value_0_1, null);
+				}
+				    |
+				lv_value_0_2='false'
+				{
+					newLeafNode(lv_value_0_2, grammarAccess.getBoolConstantAccess().getValueFalseKeyword_0_1());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getBoolConstantRule());
+					}
+					setWithLastConsumed($current, "value", lv_value_0_2, null);
+				}
+			)
+		)
+	)
+;
+
+// Entry rule entryRuleBlockConstant
+entryRuleBlockConstant returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getBlockConstantRule()); }
+	iv_ruleBlockConstant=ruleBlockConstant
+	{ $current=$iv_ruleBlockConstant.current; }
+	EOF;
+
+// Rule BlockConstant
+ruleBlockConstant returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			(
+				lv_value_0_1='FC'
+				{
+					newLeafNode(lv_value_0_1, grammarAccess.getBlockConstantAccess().getValueFCKeyword_0_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getBlockConstantRule());
+					}
+					setWithLastConsumed($current, "value", lv_value_0_1, null);
+				}
+				    |
+				lv_value_0_2='FB'
+				{
+					newLeafNode(lv_value_0_2, grammarAccess.getBlockConstantAccess().getValueFBKeyword_0_1());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getBlockConstantRule());
+					}
+					setWithLastConsumed($current, "value", lv_value_0_2, null);
 				}
 			)
 		)

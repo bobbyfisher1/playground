@@ -31,10 +31,10 @@ public class EisParser extends AbstractContentAssistParser {
 		}
 		
 		private static void init(ImmutableMap.Builder<AbstractElement, String> builder, EisGrammarAccess grammarAccess) {
-			builder.put(grammarAccess.getBoolConstantAccess().getValueAlternatives_0(), "rule__BoolConstant__ValueAlternatives_0");
-			builder.put(grammarAccess.getBlockConstantAccess().getValueAlternatives_0(), "rule__BlockConstant__ValueAlternatives_0");
 			builder.put(grammarAccess.getVariablesAccess().getAlternatives(), "rule__Variables__Alternatives");
 			builder.put(grammarAccess.getVariableAccess().getAlternatives_5(), "rule__Variable__Alternatives_5");
+			builder.put(grammarAccess.getBoolConstantAccess().getValueAlternatives_0(), "rule__BoolConstant__ValueAlternatives_0");
+			builder.put(grammarAccess.getBlockConstantAccess().getValueAlternatives_0(), "rule__BlockConstant__ValueAlternatives_0");
 			builder.put(grammarAccess.getEqualityAccess().getOpAlternatives_1_1_0(), "rule__Equality__OpAlternatives_1_1_0");
 			builder.put(grammarAccess.getComparisonAccess().getOpAlternatives_1_1_0(), "rule__Comparison__OpAlternatives_1_1_0");
 			builder.put(grammarAccess.getPlusOrMinusAccess().getAlternatives_1_0(), "rule__PlusOrMinus__Alternatives_1_0");
@@ -49,6 +49,7 @@ public class EisParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getEisModelAccess().getGroup_0_2(), "rule__EisModel__Group_0_2__0");
 			builder.put(grammarAccess.getTestcaseAccess().getGroup(), "rule__Testcase__Group__0");
 			builder.put(grammarAccess.getDefineBlockAccess().getGroup(), "rule__DefineBlock__Group__0");
+			builder.put(grammarAccess.getTeststepBlockAccess().getGroup(), "rule__TeststepBlock__Group__0");
 			builder.put(grammarAccess.getInputAccess().getGroup(), "rule__Input__Group__0");
 			builder.put(grammarAccess.getOutputAccess().getGroup(), "rule__Output__Group__0");
 			builder.put(grammarAccess.getInOutAccess().getGroup(), "rule__InOut__Group__0");
@@ -57,7 +58,6 @@ public class EisParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getVariableAccess().getGroup_4_2(), "rule__Variable__Group_4_2__0");
 			builder.put(grammarAccess.getUdtAccess().getGroup(), "rule__Udt__Group__0");
 			builder.put(grammarAccess.getUdtRefAccess().getGroup(), "rule__UdtRef__Group__0");
-			builder.put(grammarAccess.getTeststepBlockAccess().getGroup(), "rule__TeststepBlock__Group__0");
 			builder.put(grammarAccess.getSetAccess().getGroup(), "rule__Set__Group__0");
 			builder.put(grammarAccess.getAssertAccess().getGroup(), "rule__Assert__Group__0");
 			builder.put(grammarAccess.getStatementAccess().getGroup(), "rule__Statement__Group__0");
@@ -101,13 +101,17 @@ public class EisParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getTestcaseAccess().getBlockTypeAssignment_5(), "rule__Testcase__BlockTypeAssignment_5");
 			builder.put(grammarAccess.getTestcaseAccess().getDescriptionAssignment_7(), "rule__Testcase__DescriptionAssignment_7");
 			builder.put(grammarAccess.getTestcaseAccess().getDefineAssignment_10(), "rule__Testcase__DefineAssignment_10");
-			builder.put(grammarAccess.getBoolConstantAccess().getValueAssignment(), "rule__BoolConstant__ValueAssignment");
-			builder.put(grammarAccess.getBlockConstantAccess().getValueAssignment(), "rule__BlockConstant__ValueAssignment");
 			builder.put(grammarAccess.getDefineBlockAccess().getDirectionAssignment_2(), "rule__DefineBlock__DirectionAssignment_2");
 			builder.put(grammarAccess.getDefineBlockAccess().getTeststepsAssignment_4(), "rule__DefineBlock__TeststepsAssignment_4");
 			builder.put(grammarAccess.getDirectionBlockAccess().getInputAssignment_0(), "rule__DirectionBlock__InputAssignment_0");
 			builder.put(grammarAccess.getDirectionBlockAccess().getOutputAssignment_1(), "rule__DirectionBlock__OutputAssignment_1");
 			builder.put(grammarAccess.getDirectionBlockAccess().getInoutAssignment_2(), "rule__DirectionBlock__InoutAssignment_2");
+			builder.put(grammarAccess.getTeststepBlockAccess().getTeststepKeywordAssignment_0(), "rule__TeststepBlock__TeststepKeywordAssignment_0");
+			builder.put(grammarAccess.getTeststepBlockAccess().getPlcCycleAssignment_2(), "rule__TeststepBlock__PlcCycleAssignment_2");
+			builder.put(grammarAccess.getTeststepBlockAccess().getDescriptionAssignment_4(), "rule__TeststepBlock__DescriptionAssignment_4");
+			builder.put(grammarAccess.getTeststepBlockAccess().getAssertionAssignment_7(), "rule__TeststepBlock__AssertionAssignment_7");
+			builder.put(grammarAccess.getAssertionBlockAccess().getSetAssignment_0(), "rule__AssertionBlock__SetAssignment_0");
+			builder.put(grammarAccess.getAssertionBlockAccess().getAssertAssignment_1(), "rule__AssertionBlock__AssertAssignment_1");
 			builder.put(grammarAccess.getInputAccess().getNameAssignment_0(), "rule__Input__NameAssignment_0");
 			builder.put(grammarAccess.getInputAccess().getInputVariablesAssignment_2(), "rule__Input__InputVariablesAssignment_2");
 			builder.put(grammarAccess.getOutputAccess().getNameAssignment_0(), "rule__Output__NameAssignment_0");
@@ -127,12 +131,6 @@ public class EisParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getUdtRefAccess().getNameAssignment_1(), "rule__UdtRef__NameAssignment_1");
 			builder.put(grammarAccess.getUdtRefAccess().getUdtVariablesAssignment_2(), "rule__UdtRef__UdtVariablesAssignment_2");
 			builder.put(grammarAccess.getUdtTypeAccess().getNameAssignment(), "rule__UdtType__NameAssignment");
-			builder.put(grammarAccess.getTeststepBlockAccess().getTeststepKeywordAssignment_0(), "rule__TeststepBlock__TeststepKeywordAssignment_0");
-			builder.put(grammarAccess.getTeststepBlockAccess().getPlcCycleAssignment_2(), "rule__TeststepBlock__PlcCycleAssignment_2");
-			builder.put(grammarAccess.getTeststepBlockAccess().getDescriptionAssignment_4(), "rule__TeststepBlock__DescriptionAssignment_4");
-			builder.put(grammarAccess.getTeststepBlockAccess().getAssertionAssignment_7(), "rule__TeststepBlock__AssertionAssignment_7");
-			builder.put(grammarAccess.getAssertionBlockAccess().getSetAssignment_0(), "rule__AssertionBlock__SetAssignment_0");
-			builder.put(grammarAccess.getAssertionBlockAccess().getAssertAssignment_1(), "rule__AssertionBlock__AssertAssignment_1");
 			builder.put(grammarAccess.getSetAccess().getNameAssignment_0(), "rule__Set__NameAssignment_0");
 			builder.put(grammarAccess.getSetAccess().getSetVariablesAssignment_2(), "rule__Set__SetVariablesAssignment_2");
 			builder.put(grammarAccess.getAssertAccess().getNameAssignment_0(), "rule__Assert__NameAssignment_0");
@@ -142,6 +140,8 @@ public class EisParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getStatementAccess().getIdiomAssignment_2_1(), "rule__Statement__IdiomAssignment_2_1");
 			builder.put(grammarAccess.getStatementAccess().getRangeAssignment_2_2_1(), "rule__Statement__RangeAssignment_2_2_1");
 			builder.put(grammarAccess.getCascadeAccess().getUdtVarAssignment_1(), "rule__Cascade__UdtVarAssignment_1");
+			builder.put(grammarAccess.getBoolConstantAccess().getValueAssignment(), "rule__BoolConstant__ValueAssignment");
+			builder.put(grammarAccess.getBlockConstantAccess().getValueAssignment(), "rule__BlockConstant__ValueAssignment");
 			builder.put(grammarAccess.getOrAccess().getRightAssignment_1_2(), "rule__Or__RightAssignment_1_2");
 			builder.put(grammarAccess.getAndAccess().getRightAssignment_1_2(), "rule__And__RightAssignment_1_2");
 			builder.put(grammarAccess.getEqualityAccess().getOpAssignment_1_1(), "rule__Equality__OpAssignment_1_1");

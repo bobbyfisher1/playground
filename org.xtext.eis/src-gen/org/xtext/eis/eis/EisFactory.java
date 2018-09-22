@@ -42,24 +42,6 @@ public interface EisFactory extends EFactory
   Testcase createTestcase();
 
   /**
-   * Returns a new object of class '<em>Bool Constant</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Bool Constant</em>'.
-   * @generated
-   */
-  BoolConstant createBoolConstant();
-
-  /**
-   * Returns a new object of class '<em>Block Constant</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Block Constant</em>'.
-   * @generated
-   */
-  BlockConstant createBlockConstant();
-
-  /**
    * Returns a new object of class '<em>Define Block</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -76,6 +58,24 @@ public interface EisFactory extends EFactory
    * @generated
    */
   DirectionBlock createDirectionBlock();
+
+  /**
+   * Returns a new object of class '<em>Teststep Block</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Teststep Block</em>'.
+   * @generated
+   */
+  TeststepBlock createTeststepBlock();
+
+  /**
+   * Returns a new object of class '<em>Assertion Block</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Assertion Block</em>'.
+   * @generated
+   */
+  AssertionBlock createAssertionBlock();
 
   /**
    * Returns a new object of class '<em>Input</em>'.
@@ -150,24 +150,6 @@ public interface EisFactory extends EFactory
   UdtType createUdtType();
 
   /**
-   * Returns a new object of class '<em>Teststep Block</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Teststep Block</em>'.
-   * @generated
-   */
-  TeststepBlock createTeststepBlock();
-
-  /**
-   * Returns a new object of class '<em>Assertion Block</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Assertion Block</em>'.
-   * @generated
-   */
-  AssertionBlock createAssertionBlock();
-
-  /**
    * Returns a new object of class '<em>Set</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -202,6 +184,24 @@ public interface EisFactory extends EFactory
    * @generated
    */
   Cascade createCascade();
+
+  /**
+   * Returns a new object of class '<em>Bool Constant</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Bool Constant</em>'.
+   * @generated
+   */
+  BoolConstant createBoolConstant();
+
+  /**
+   * Returns a new object of class '<em>Block Constant</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Block Constant</em>'.
+   * @generated
+   */
+  BlockConstant createBlockConstant();
 
   /**
    * Returns a new object of class '<em>Idiom</em>'.

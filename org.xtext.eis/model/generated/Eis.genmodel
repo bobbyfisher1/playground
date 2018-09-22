@@ -42,12 +42,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//Testcase/description"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eis.ecore#//Testcase/define"/>
     </genClasses>
-    <genClasses ecoreClass="Eis.ecore#//BoolConstant">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//BoolConstant/value"/>
-    </genClasses>
-    <genClasses ecoreClass="Eis.ecore#//BlockConstant">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//BlockConstant/value"/>
-    </genClasses>
     <genClasses ecoreClass="Eis.ecore#//DefineBlock">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eis.ecore#//DefineBlock/direction"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eis.ecore#//DefineBlock/teststeps"/>
@@ -56,6 +50,16 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eis.ecore#//DirectionBlock/input"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eis.ecore#//DirectionBlock/output"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eis.ecore#//DirectionBlock/inout"/>
+    </genClasses>
+    <genClasses ecoreClass="Eis.ecore#//TeststepBlock">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//TeststepBlock/teststepKeyword"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//TeststepBlock/plcCycle"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//TeststepBlock/description"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eis.ecore#//TeststepBlock/assertion"/>
+    </genClasses>
+    <genClasses ecoreClass="Eis.ecore#//AssertionBlock">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eis.ecore#//AssertionBlock/set"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eis.ecore#//AssertionBlock/assert"/>
     </genClasses>
     <genClasses ecoreClass="Eis.ecore#//Input">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//Input/name"/>
@@ -90,16 +94,6 @@
     <genClasses ecoreClass="Eis.ecore#//UdtType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//UdtType/name"/>
     </genClasses>
-    <genClasses ecoreClass="Eis.ecore#//TeststepBlock">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//TeststepBlock/teststepKeyword"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//TeststepBlock/plcCycle"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//TeststepBlock/description"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eis.ecore#//TeststepBlock/assertion"/>
-    </genClasses>
-    <genClasses ecoreClass="Eis.ecore#//AssertionBlock">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eis.ecore#//AssertionBlock/set"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eis.ecore#//AssertionBlock/assert"/>
-    </genClasses>
     <genClasses ecoreClass="Eis.ecore#//Set">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//Set/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eis.ecore#//Set/setVariables"/>
@@ -116,6 +110,12 @@
     </genClasses>
     <genClasses ecoreClass="Eis.ecore#//Cascade">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Eis.ecore#//Cascade/udtVar"/>
+    </genClasses>
+    <genClasses ecoreClass="Eis.ecore#//BoolConstant">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//BoolConstant/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Eis.ecore#//BlockConstant">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eis.ecore#//BlockConstant/value"/>
     </genClasses>
     <genClasses ecoreClass="Eis.ecore#//Idiom"/>
     <genClasses ecoreClass="Eis.ecore#//Or">

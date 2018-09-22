@@ -86,16 +86,6 @@ public class EisAdapterFactory extends AdapterFactoryImpl
         return createTestcaseAdapter();
       }
       @Override
-      public Adapter caseBoolConstant(BoolConstant object)
-      {
-        return createBoolConstantAdapter();
-      }
-      @Override
-      public Adapter caseBlockConstant(BlockConstant object)
-      {
-        return createBlockConstantAdapter();
-      }
-      @Override
       public Adapter caseDefineBlock(DefineBlock object)
       {
         return createDefineBlockAdapter();
@@ -104,6 +94,16 @@ public class EisAdapterFactory extends AdapterFactoryImpl
       public Adapter caseDirectionBlock(DirectionBlock object)
       {
         return createDirectionBlockAdapter();
+      }
+      @Override
+      public Adapter caseTeststepBlock(TeststepBlock object)
+      {
+        return createTeststepBlockAdapter();
+      }
+      @Override
+      public Adapter caseAssertionBlock(AssertionBlock object)
+      {
+        return createAssertionBlockAdapter();
       }
       @Override
       public Adapter caseInput(Input object)
@@ -146,16 +146,6 @@ public class EisAdapterFactory extends AdapterFactoryImpl
         return createUdtTypeAdapter();
       }
       @Override
-      public Adapter caseTeststepBlock(TeststepBlock object)
-      {
-        return createTeststepBlockAdapter();
-      }
-      @Override
-      public Adapter caseAssertionBlock(AssertionBlock object)
-      {
-        return createAssertionBlockAdapter();
-      }
-      @Override
       public Adapter caseSet(Set object)
       {
         return createSetAdapter();
@@ -174,6 +164,16 @@ public class EisAdapterFactory extends AdapterFactoryImpl
       public Adapter caseCascade(Cascade object)
       {
         return createCascadeAdapter();
+      }
+      @Override
+      public Adapter caseBoolConstant(BoolConstant object)
+      {
+        return createBoolConstantAdapter();
+      }
+      @Override
+      public Adapter caseBlockConstant(BlockConstant object)
+      {
+        return createBlockConstantAdapter();
       }
       @Override
       public Adapter caseIdiom(Idiom object)
@@ -333,36 +333,6 @@ public class EisAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.xtext.eis.eis.BoolConstant <em>Bool Constant</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.xtext.eis.eis.BoolConstant
-   * @generated
-   */
-  public Adapter createBoolConstantAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.xtext.eis.eis.BlockConstant <em>Block Constant</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.xtext.eis.eis.BlockConstant
-   * @generated
-   */
-  public Adapter createBlockConstantAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link org.xtext.eis.eis.DefineBlock <em>Define Block</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -388,6 +358,36 @@ public class EisAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createDirectionBlockAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.eis.eis.TeststepBlock <em>Teststep Block</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.eis.eis.TeststepBlock
+   * @generated
+   */
+  public Adapter createTeststepBlockAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.eis.eis.AssertionBlock <em>Assertion Block</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.eis.eis.AssertionBlock
+   * @generated
+   */
+  public Adapter createAssertionBlockAdapter()
   {
     return null;
   }
@@ -513,36 +513,6 @@ public class EisAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.xtext.eis.eis.TeststepBlock <em>Teststep Block</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.xtext.eis.eis.TeststepBlock
-   * @generated
-   */
-  public Adapter createTeststepBlockAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.xtext.eis.eis.AssertionBlock <em>Assertion Block</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.xtext.eis.eis.AssertionBlock
-   * @generated
-   */
-  public Adapter createAssertionBlockAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link org.xtext.eis.eis.Set <em>Set</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -598,6 +568,36 @@ public class EisAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createCascadeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.eis.eis.BoolConstant <em>Bool Constant</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.eis.eis.BoolConstant
+   * @generated
+   */
+  public Adapter createBoolConstantAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.eis.eis.BlockConstant <em>Block Constant</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.eis.eis.BlockConstant
+   * @generated
+   */
+  public Adapter createBlockConstantAdapter()
   {
     return null;
   }

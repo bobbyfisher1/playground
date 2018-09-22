@@ -178,81 +178,6 @@ public interface EisPackage extends EPackage
   int TESTCASE_FEATURE_COUNT = 5;
 
   /**
-   * The meta object id for the '{@link org.xtext.eis.eis.impl.IdiomImpl <em>Idiom</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.xtext.eis.eis.impl.IdiomImpl
-   * @see org.xtext.eis.eis.impl.EisPackageImpl#getIdiom()
-   * @generated
-   */
-  int IDIOM = 20;
-
-  /**
-   * The number of structural features of the '<em>Idiom</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IDIOM_FEATURE_COUNT = 0;
-
-  /**
-   * The meta object id for the '{@link org.xtext.eis.eis.impl.BoolConstantImpl <em>Bool Constant</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.xtext.eis.eis.impl.BoolConstantImpl
-   * @see org.xtext.eis.eis.impl.EisPackageImpl#getBoolConstant()
-   * @generated
-   */
-  int BOOL_CONSTANT = 2;
-
-  /**
-   * The feature id for the '<em><b>Value</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int BOOL_CONSTANT__VALUE = IDIOM_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Bool Constant</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int BOOL_CONSTANT_FEATURE_COUNT = IDIOM_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link org.xtext.eis.eis.impl.BlockConstantImpl <em>Block Constant</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.xtext.eis.eis.impl.BlockConstantImpl
-   * @see org.xtext.eis.eis.impl.EisPackageImpl#getBlockConstant()
-   * @generated
-   */
-  int BLOCK_CONSTANT = 3;
-
-  /**
-   * The feature id for the '<em><b>Value</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int BLOCK_CONSTANT__VALUE = 0;
-
-  /**
-   * The number of structural features of the '<em>Block Constant</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int BLOCK_CONSTANT_FEATURE_COUNT = 1;
-
-  /**
    * The meta object id for the '{@link org.xtext.eis.eis.impl.DefineBlockImpl <em>Define Block</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -260,7 +185,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getDefineBlock()
    * @generated
    */
-  int DEFINE_BLOCK = 4;
+  int DEFINE_BLOCK = 2;
 
   /**
    * The feature id for the '<em><b>Direction</b></em>' containment reference.
@@ -297,7 +222,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getDirectionBlock()
    * @generated
    */
-  int DIRECTION_BLOCK = 5;
+  int DIRECTION_BLOCK = 3;
 
   /**
    * The feature id for the '<em><b>Input</b></em>' containment reference.
@@ -334,6 +259,98 @@ public interface EisPackage extends EPackage
    * @ordered
    */
   int DIRECTION_BLOCK_FEATURE_COUNT = 3;
+
+  /**
+   * The meta object id for the '{@link org.xtext.eis.eis.impl.TeststepBlockImpl <em>Teststep Block</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtext.eis.eis.impl.TeststepBlockImpl
+   * @see org.xtext.eis.eis.impl.EisPackageImpl#getTeststepBlock()
+   * @generated
+   */
+  int TESTSTEP_BLOCK = 4;
+
+  /**
+   * The feature id for the '<em><b>Teststep Keyword</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TESTSTEP_BLOCK__TESTSTEP_KEYWORD = 0;
+
+  /**
+   * The feature id for the '<em><b>Plc Cycle</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TESTSTEP_BLOCK__PLC_CYCLE = 1;
+
+  /**
+   * The feature id for the '<em><b>Description</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TESTSTEP_BLOCK__DESCRIPTION = 2;
+
+  /**
+   * The feature id for the '<em><b>Assertion</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TESTSTEP_BLOCK__ASSERTION = 3;
+
+  /**
+   * The number of structural features of the '<em>Teststep Block</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TESTSTEP_BLOCK_FEATURE_COUNT = 4;
+
+  /**
+   * The meta object id for the '{@link org.xtext.eis.eis.impl.AssertionBlockImpl <em>Assertion Block</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtext.eis.eis.impl.AssertionBlockImpl
+   * @see org.xtext.eis.eis.impl.EisPackageImpl#getAssertionBlock()
+   * @generated
+   */
+  int ASSERTION_BLOCK = 5;
+
+  /**
+   * The feature id for the '<em><b>Set</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASSERTION_BLOCK__SET = 0;
+
+  /**
+   * The feature id for the '<em><b>Assert</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASSERTION_BLOCK__ASSERT = 1;
+
+  /**
+   * The number of structural features of the '<em>Assertion Block</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASSERTION_BLOCK_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link org.xtext.eis.eis.impl.InputImpl <em>Input</em>}' class.
@@ -668,98 +685,6 @@ public interface EisPackage extends EPackage
   int UDT_TYPE_FEATURE_COUNT = 1;
 
   /**
-   * The meta object id for the '{@link org.xtext.eis.eis.impl.TeststepBlockImpl <em>Teststep Block</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.xtext.eis.eis.impl.TeststepBlockImpl
-   * @see org.xtext.eis.eis.impl.EisPackageImpl#getTeststepBlock()
-   * @generated
-   */
-  int TESTSTEP_BLOCK = 14;
-
-  /**
-   * The feature id for the '<em><b>Teststep Keyword</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TESTSTEP_BLOCK__TESTSTEP_KEYWORD = 0;
-
-  /**
-   * The feature id for the '<em><b>Plc Cycle</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TESTSTEP_BLOCK__PLC_CYCLE = 1;
-
-  /**
-   * The feature id for the '<em><b>Description</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TESTSTEP_BLOCK__DESCRIPTION = 2;
-
-  /**
-   * The feature id for the '<em><b>Assertion</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TESTSTEP_BLOCK__ASSERTION = 3;
-
-  /**
-   * The number of structural features of the '<em>Teststep Block</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TESTSTEP_BLOCK_FEATURE_COUNT = 4;
-
-  /**
-   * The meta object id for the '{@link org.xtext.eis.eis.impl.AssertionBlockImpl <em>Assertion Block</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.xtext.eis.eis.impl.AssertionBlockImpl
-   * @see org.xtext.eis.eis.impl.EisPackageImpl#getAssertionBlock()
-   * @generated
-   */
-  int ASSERTION_BLOCK = 15;
-
-  /**
-   * The feature id for the '<em><b>Set</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSERTION_BLOCK__SET = 0;
-
-  /**
-   * The feature id for the '<em><b>Assert</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSERTION_BLOCK__ASSERT = 1;
-
-  /**
-   * The number of structural features of the '<em>Assertion Block</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSERTION_BLOCK_FEATURE_COUNT = 2;
-
-  /**
    * The meta object id for the '{@link org.xtext.eis.eis.impl.SetImpl <em>Set</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -767,7 +692,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getSet()
    * @generated
    */
-  int SET = 16;
+  int SET = 14;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -804,7 +729,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getAssert()
    * @generated
    */
-  int ASSERT = 17;
+  int ASSERT = 15;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -841,7 +766,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getStatement()
    * @generated
    */
-  int STATEMENT = 18;
+  int STATEMENT = 16;
 
   /**
    * The feature id for the '<em><b>Variable</b></em>' reference.
@@ -896,7 +821,7 @@ public interface EisPackage extends EPackage
    * @see org.xtext.eis.eis.impl.EisPackageImpl#getCascade()
    * @generated
    */
-  int CASCADE = 19;
+  int CASCADE = 17;
 
   /**
    * The feature id for the '<em><b>Udt Var</b></em>' reference.
@@ -915,6 +840,81 @@ public interface EisPackage extends EPackage
    * @ordered
    */
   int CASCADE_FEATURE_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link org.xtext.eis.eis.impl.IdiomImpl <em>Idiom</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtext.eis.eis.impl.IdiomImpl
+   * @see org.xtext.eis.eis.impl.EisPackageImpl#getIdiom()
+   * @generated
+   */
+  int IDIOM = 20;
+
+  /**
+   * The number of structural features of the '<em>Idiom</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IDIOM_FEATURE_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link org.xtext.eis.eis.impl.BoolConstantImpl <em>Bool Constant</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtext.eis.eis.impl.BoolConstantImpl
+   * @see org.xtext.eis.eis.impl.EisPackageImpl#getBoolConstant()
+   * @generated
+   */
+  int BOOL_CONSTANT = 18;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BOOL_CONSTANT__VALUE = IDIOM_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Bool Constant</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BOOL_CONSTANT_FEATURE_COUNT = IDIOM_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.xtext.eis.eis.impl.BlockConstantImpl <em>Block Constant</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtext.eis.eis.impl.BlockConstantImpl
+   * @see org.xtext.eis.eis.impl.EisPackageImpl#getBlockConstant()
+   * @generated
+   */
+  int BLOCK_CONSTANT = 19;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BLOCK_CONSTANT__VALUE = 0;
+
+  /**
+   * The number of structural features of the '<em>Block Constant</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BLOCK_CONSTANT_FEATURE_COUNT = 1;
 
   /**
    * The meta object id for the '{@link org.xtext.eis.eis.impl.OrImpl <em>Or</em>}' class.
@@ -1697,48 +1697,6 @@ public interface EisPackage extends EPackage
   EReference getTestcase_Define();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.eis.eis.BoolConstant <em>Bool Constant</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Bool Constant</em>'.
-   * @see org.xtext.eis.eis.BoolConstant
-   * @generated
-   */
-  EClass getBoolConstant();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.xtext.eis.eis.BoolConstant#getValue <em>Value</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Value</em>'.
-   * @see org.xtext.eis.eis.BoolConstant#getValue()
-   * @see #getBoolConstant()
-   * @generated
-   */
-  EAttribute getBoolConstant_Value();
-
-  /**
-   * Returns the meta object for class '{@link org.xtext.eis.eis.BlockConstant <em>Block Constant</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Block Constant</em>'.
-   * @see org.xtext.eis.eis.BlockConstant
-   * @generated
-   */
-  EClass getBlockConstant();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.xtext.eis.eis.BlockConstant#getValue <em>Value</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Value</em>'.
-   * @see org.xtext.eis.eis.BlockConstant#getValue()
-   * @see #getBlockConstant()
-   * @generated
-   */
-  EAttribute getBlockConstant_Value();
-
-  /**
    * Returns the meta object for class '{@link org.xtext.eis.eis.DefineBlock <em>Define Block</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1812,6 +1770,92 @@ public interface EisPackage extends EPackage
    * @generated
    */
   EReference getDirectionBlock_Inout();
+
+  /**
+   * Returns the meta object for class '{@link org.xtext.eis.eis.TeststepBlock <em>Teststep Block</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Teststep Block</em>'.
+   * @see org.xtext.eis.eis.TeststepBlock
+   * @generated
+   */
+  EClass getTeststepBlock();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.eis.eis.TeststepBlock#getTeststepKeyword <em>Teststep Keyword</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Teststep Keyword</em>'.
+   * @see org.xtext.eis.eis.TeststepBlock#getTeststepKeyword()
+   * @see #getTeststepBlock()
+   * @generated
+   */
+  EAttribute getTeststepBlock_TeststepKeyword();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.eis.eis.TeststepBlock#getPlcCycle <em>Plc Cycle</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Plc Cycle</em>'.
+   * @see org.xtext.eis.eis.TeststepBlock#getPlcCycle()
+   * @see #getTeststepBlock()
+   * @generated
+   */
+  EAttribute getTeststepBlock_PlcCycle();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.eis.eis.TeststepBlock#getDescription <em>Description</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Description</em>'.
+   * @see org.xtext.eis.eis.TeststepBlock#getDescription()
+   * @see #getTeststepBlock()
+   * @generated
+   */
+  EAttribute getTeststepBlock_Description();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.eis.eis.TeststepBlock#getAssertion <em>Assertion</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Assertion</em>'.
+   * @see org.xtext.eis.eis.TeststepBlock#getAssertion()
+   * @see #getTeststepBlock()
+   * @generated
+   */
+  EReference getTeststepBlock_Assertion();
+
+  /**
+   * Returns the meta object for class '{@link org.xtext.eis.eis.AssertionBlock <em>Assertion Block</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Assertion Block</em>'.
+   * @see org.xtext.eis.eis.AssertionBlock
+   * @generated
+   */
+  EClass getAssertionBlock();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.eis.eis.AssertionBlock#getSet <em>Set</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Set</em>'.
+   * @see org.xtext.eis.eis.AssertionBlock#getSet()
+   * @see #getAssertionBlock()
+   * @generated
+   */
+  EReference getAssertionBlock_Set();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.eis.eis.AssertionBlock#getAssert <em>Assert</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Assert</em>'.
+   * @see org.xtext.eis.eis.AssertionBlock#getAssert()
+   * @see #getAssertionBlock()
+   * @generated
+   */
+  EReference getAssertionBlock_Assert();
 
   /**
    * Returns the meta object for class '{@link org.xtext.eis.eis.Input <em>Input</em>}'.
@@ -2081,92 +2125,6 @@ public interface EisPackage extends EPackage
   EAttribute getUdtType_Name();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.eis.eis.TeststepBlock <em>Teststep Block</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Teststep Block</em>'.
-   * @see org.xtext.eis.eis.TeststepBlock
-   * @generated
-   */
-  EClass getTeststepBlock();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.xtext.eis.eis.TeststepBlock#getTeststepKeyword <em>Teststep Keyword</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Teststep Keyword</em>'.
-   * @see org.xtext.eis.eis.TeststepBlock#getTeststepKeyword()
-   * @see #getTeststepBlock()
-   * @generated
-   */
-  EAttribute getTeststepBlock_TeststepKeyword();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.xtext.eis.eis.TeststepBlock#getPlcCycle <em>Plc Cycle</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Plc Cycle</em>'.
-   * @see org.xtext.eis.eis.TeststepBlock#getPlcCycle()
-   * @see #getTeststepBlock()
-   * @generated
-   */
-  EAttribute getTeststepBlock_PlcCycle();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.xtext.eis.eis.TeststepBlock#getDescription <em>Description</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Description</em>'.
-   * @see org.xtext.eis.eis.TeststepBlock#getDescription()
-   * @see #getTeststepBlock()
-   * @generated
-   */
-  EAttribute getTeststepBlock_Description();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.xtext.eis.eis.TeststepBlock#getAssertion <em>Assertion</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Assertion</em>'.
-   * @see org.xtext.eis.eis.TeststepBlock#getAssertion()
-   * @see #getTeststepBlock()
-   * @generated
-   */
-  EReference getTeststepBlock_Assertion();
-
-  /**
-   * Returns the meta object for class '{@link org.xtext.eis.eis.AssertionBlock <em>Assertion Block</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Assertion Block</em>'.
-   * @see org.xtext.eis.eis.AssertionBlock
-   * @generated
-   */
-  EClass getAssertionBlock();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.xtext.eis.eis.AssertionBlock#getSet <em>Set</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Set</em>'.
-   * @see org.xtext.eis.eis.AssertionBlock#getSet()
-   * @see #getAssertionBlock()
-   * @generated
-   */
-  EReference getAssertionBlock_Set();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.xtext.eis.eis.AssertionBlock#getAssert <em>Assert</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Assert</em>'.
-   * @see org.xtext.eis.eis.AssertionBlock#getAssert()
-   * @see #getAssertionBlock()
-   * @generated
-   */
-  EReference getAssertionBlock_Assert();
-
-  /**
    * Returns the meta object for class '{@link org.xtext.eis.eis.Set <em>Set</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2304,6 +2262,48 @@ public interface EisPackage extends EPackage
    * @generated
    */
   EReference getCascade_UdtVar();
+
+  /**
+   * Returns the meta object for class '{@link org.xtext.eis.eis.BoolConstant <em>Bool Constant</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Bool Constant</em>'.
+   * @see org.xtext.eis.eis.BoolConstant
+   * @generated
+   */
+  EClass getBoolConstant();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.eis.eis.BoolConstant#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see org.xtext.eis.eis.BoolConstant#getValue()
+   * @see #getBoolConstant()
+   * @generated
+   */
+  EAttribute getBoolConstant_Value();
+
+  /**
+   * Returns the meta object for class '{@link org.xtext.eis.eis.BlockConstant <em>Block Constant</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Block Constant</em>'.
+   * @see org.xtext.eis.eis.BlockConstant
+   * @generated
+   */
+  EClass getBlockConstant();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.eis.eis.BlockConstant#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see org.xtext.eis.eis.BlockConstant#getValue()
+   * @see #getBlockConstant()
+   * @generated
+   */
+  EAttribute getBlockConstant_Value();
 
   /**
    * Returns the meta object for class '{@link org.xtext.eis.eis.Idiom <em>Idiom</em>}'.
@@ -2971,42 +2971,6 @@ public interface EisPackage extends EPackage
     EReference TESTCASE__DEFINE = eINSTANCE.getTestcase_Define();
 
     /**
-     * The meta object literal for the '{@link org.xtext.eis.eis.impl.BoolConstantImpl <em>Bool Constant</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.xtext.eis.eis.impl.BoolConstantImpl
-     * @see org.xtext.eis.eis.impl.EisPackageImpl#getBoolConstant()
-     * @generated
-     */
-    EClass BOOL_CONSTANT = eINSTANCE.getBoolConstant();
-
-    /**
-     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute BOOL_CONSTANT__VALUE = eINSTANCE.getBoolConstant_Value();
-
-    /**
-     * The meta object literal for the '{@link org.xtext.eis.eis.impl.BlockConstantImpl <em>Block Constant</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.xtext.eis.eis.impl.BlockConstantImpl
-     * @see org.xtext.eis.eis.impl.EisPackageImpl#getBlockConstant()
-     * @generated
-     */
-    EClass BLOCK_CONSTANT = eINSTANCE.getBlockConstant();
-
-    /**
-     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute BLOCK_CONSTANT__VALUE = eINSTANCE.getBlockConstant_Value();
-
-    /**
      * The meta object literal for the '{@link org.xtext.eis.eis.impl.DefineBlockImpl <em>Define Block</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3065,6 +3029,74 @@ public interface EisPackage extends EPackage
      * @generated
      */
     EReference DIRECTION_BLOCK__INOUT = eINSTANCE.getDirectionBlock_Inout();
+
+    /**
+     * The meta object literal for the '{@link org.xtext.eis.eis.impl.TeststepBlockImpl <em>Teststep Block</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtext.eis.eis.impl.TeststepBlockImpl
+     * @see org.xtext.eis.eis.impl.EisPackageImpl#getTeststepBlock()
+     * @generated
+     */
+    EClass TESTSTEP_BLOCK = eINSTANCE.getTeststepBlock();
+
+    /**
+     * The meta object literal for the '<em><b>Teststep Keyword</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute TESTSTEP_BLOCK__TESTSTEP_KEYWORD = eINSTANCE.getTeststepBlock_TeststepKeyword();
+
+    /**
+     * The meta object literal for the '<em><b>Plc Cycle</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute TESTSTEP_BLOCK__PLC_CYCLE = eINSTANCE.getTeststepBlock_PlcCycle();
+
+    /**
+     * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute TESTSTEP_BLOCK__DESCRIPTION = eINSTANCE.getTeststepBlock_Description();
+
+    /**
+     * The meta object literal for the '<em><b>Assertion</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TESTSTEP_BLOCK__ASSERTION = eINSTANCE.getTeststepBlock_Assertion();
+
+    /**
+     * The meta object literal for the '{@link org.xtext.eis.eis.impl.AssertionBlockImpl <em>Assertion Block</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtext.eis.eis.impl.AssertionBlockImpl
+     * @see org.xtext.eis.eis.impl.EisPackageImpl#getAssertionBlock()
+     * @generated
+     */
+    EClass ASSERTION_BLOCK = eINSTANCE.getAssertionBlock();
+
+    /**
+     * The meta object literal for the '<em><b>Set</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ASSERTION_BLOCK__SET = eINSTANCE.getAssertionBlock_Set();
+
+    /**
+     * The meta object literal for the '<em><b>Assert</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ASSERTION_BLOCK__ASSERT = eINSTANCE.getAssertionBlock_Assert();
 
     /**
      * The meta object literal for the '{@link org.xtext.eis.eis.impl.InputImpl <em>Input</em>}' class.
@@ -3283,74 +3315,6 @@ public interface EisPackage extends EPackage
     EAttribute UDT_TYPE__NAME = eINSTANCE.getUdtType_Name();
 
     /**
-     * The meta object literal for the '{@link org.xtext.eis.eis.impl.TeststepBlockImpl <em>Teststep Block</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.xtext.eis.eis.impl.TeststepBlockImpl
-     * @see org.xtext.eis.eis.impl.EisPackageImpl#getTeststepBlock()
-     * @generated
-     */
-    EClass TESTSTEP_BLOCK = eINSTANCE.getTeststepBlock();
-
-    /**
-     * The meta object literal for the '<em><b>Teststep Keyword</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute TESTSTEP_BLOCK__TESTSTEP_KEYWORD = eINSTANCE.getTeststepBlock_TeststepKeyword();
-
-    /**
-     * The meta object literal for the '<em><b>Plc Cycle</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute TESTSTEP_BLOCK__PLC_CYCLE = eINSTANCE.getTeststepBlock_PlcCycle();
-
-    /**
-     * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute TESTSTEP_BLOCK__DESCRIPTION = eINSTANCE.getTeststepBlock_Description();
-
-    /**
-     * The meta object literal for the '<em><b>Assertion</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference TESTSTEP_BLOCK__ASSERTION = eINSTANCE.getTeststepBlock_Assertion();
-
-    /**
-     * The meta object literal for the '{@link org.xtext.eis.eis.impl.AssertionBlockImpl <em>Assertion Block</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.xtext.eis.eis.impl.AssertionBlockImpl
-     * @see org.xtext.eis.eis.impl.EisPackageImpl#getAssertionBlock()
-     * @generated
-     */
-    EClass ASSERTION_BLOCK = eINSTANCE.getAssertionBlock();
-
-    /**
-     * The meta object literal for the '<em><b>Set</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ASSERTION_BLOCK__SET = eINSTANCE.getAssertionBlock_Set();
-
-    /**
-     * The meta object literal for the '<em><b>Assert</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ASSERTION_BLOCK__ASSERT = eINSTANCE.getAssertionBlock_Assert();
-
-    /**
      * The meta object literal for the '{@link org.xtext.eis.eis.impl.SetImpl <em>Set</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3461,6 +3425,42 @@ public interface EisPackage extends EPackage
      * @generated
      */
     EReference CASCADE__UDT_VAR = eINSTANCE.getCascade_UdtVar();
+
+    /**
+     * The meta object literal for the '{@link org.xtext.eis.eis.impl.BoolConstantImpl <em>Bool Constant</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtext.eis.eis.impl.BoolConstantImpl
+     * @see org.xtext.eis.eis.impl.EisPackageImpl#getBoolConstant()
+     * @generated
+     */
+    EClass BOOL_CONSTANT = eINSTANCE.getBoolConstant();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute BOOL_CONSTANT__VALUE = eINSTANCE.getBoolConstant_Value();
+
+    /**
+     * The meta object literal for the '{@link org.xtext.eis.eis.impl.BlockConstantImpl <em>Block Constant</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtext.eis.eis.impl.BlockConstantImpl
+     * @see org.xtext.eis.eis.impl.EisPackageImpl#getBlockConstant()
+     * @generated
+     */
+    EClass BLOCK_CONSTANT = eINSTANCE.getBlockConstant();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute BLOCK_CONSTANT__VALUE = eINSTANCE.getBlockConstant_Value();
 
     /**
      * The meta object literal for the '{@link org.xtext.eis.eis.impl.IdiomImpl <em>Idiom</em>}' class.

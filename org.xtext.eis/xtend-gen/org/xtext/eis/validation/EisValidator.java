@@ -1371,6 +1371,10 @@ public class EisValidator extends AbstractEisValidator {
       boolean _equals = (_length == 0);
       if (_equals) {
         return true;
+      } else {
+        if (((time.length() == 1) && time.contains("-"))) {
+          return true;
+        }
       }
       String ms = "";
       String s = "";
@@ -1480,6 +1484,10 @@ public class EisValidator extends AbstractEisValidator {
       boolean _equals = (_length == 0);
       if (_equals) {
         return true;
+      } else {
+        if (((LTime.length() == 1) && LTime.contains("-"))) {
+          return true;
+        }
       }
       String ns = "";
       String us = "";

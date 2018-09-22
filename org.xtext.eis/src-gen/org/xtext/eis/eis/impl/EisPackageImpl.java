@@ -83,20 +83,6 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass boolConstantEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass blockConstantEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   private EClass defineBlockEClass = null;
 
   /**
@@ -105,6 +91,20 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * @generated
    */
   private EClass directionBlockEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass teststepBlockEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass assertionBlockEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -167,20 +167,6 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass teststepBlockEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass assertionBlockEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   private EClass setEClass = null;
 
   /**
@@ -203,6 +189,20 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * @generated
    */
   private EClass cascadeEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass boolConstantEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass blockConstantEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -536,46 +536,6 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getBoolConstant()
-  {
-    return boolConstantEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getBoolConstant_Value()
-  {
-    return (EAttribute)boolConstantEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getBlockConstant()
-  {
-    return blockConstantEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getBlockConstant_Value()
-  {
-    return (EAttribute)blockConstantEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getDefineBlock()
   {
     return defineBlockEClass;
@@ -639,6 +599,86 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
   public EReference getDirectionBlock_Inout()
   {
     return (EReference)directionBlockEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getTeststepBlock()
+  {
+    return teststepBlockEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getTeststepBlock_TeststepKeyword()
+  {
+    return (EAttribute)teststepBlockEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getTeststepBlock_PlcCycle()
+  {
+    return (EAttribute)teststepBlockEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getTeststepBlock_Description()
+  {
+    return (EAttribute)teststepBlockEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTeststepBlock_Assertion()
+  {
+    return (EReference)teststepBlockEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getAssertionBlock()
+  {
+    return assertionBlockEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAssertionBlock_Set()
+  {
+    return (EReference)assertionBlockEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAssertionBlock_Assert()
+  {
+    return (EReference)assertionBlockEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -896,86 +936,6 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getTeststepBlock()
-  {
-    return teststepBlockEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getTeststepBlock_TeststepKeyword()
-  {
-    return (EAttribute)teststepBlockEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getTeststepBlock_PlcCycle()
-  {
-    return (EAttribute)teststepBlockEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getTeststepBlock_Description()
-  {
-    return (EAttribute)teststepBlockEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getTeststepBlock_Assertion()
-  {
-    return (EReference)teststepBlockEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getAssertionBlock()
-  {
-    return assertionBlockEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getAssertionBlock_Set()
-  {
-    return (EReference)assertionBlockEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getAssertionBlock_Assert()
-  {
-    return (EReference)assertionBlockEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getSet()
   {
     return setEClass;
@@ -1099,6 +1059,46 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
   public EReference getCascade_UdtVar()
   {
     return (EReference)cascadeEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getBoolConstant()
+  {
+    return boolConstantEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getBoolConstant_Value()
+  {
+    return (EAttribute)boolConstantEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getBlockConstant()
+  {
+    return blockConstantEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getBlockConstant_Value()
+  {
+    return (EAttribute)blockConstantEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1664,12 +1664,6 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
     createEAttribute(testcaseEClass, TESTCASE__DESCRIPTION);
     createEReference(testcaseEClass, TESTCASE__DEFINE);
 
-    boolConstantEClass = createEClass(BOOL_CONSTANT);
-    createEAttribute(boolConstantEClass, BOOL_CONSTANT__VALUE);
-
-    blockConstantEClass = createEClass(BLOCK_CONSTANT);
-    createEAttribute(blockConstantEClass, BLOCK_CONSTANT__VALUE);
-
     defineBlockEClass = createEClass(DEFINE_BLOCK);
     createEReference(defineBlockEClass, DEFINE_BLOCK__DIRECTION);
     createEReference(defineBlockEClass, DEFINE_BLOCK__TESTSTEPS);
@@ -1678,6 +1672,16 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
     createEReference(directionBlockEClass, DIRECTION_BLOCK__INPUT);
     createEReference(directionBlockEClass, DIRECTION_BLOCK__OUTPUT);
     createEReference(directionBlockEClass, DIRECTION_BLOCK__INOUT);
+
+    teststepBlockEClass = createEClass(TESTSTEP_BLOCK);
+    createEAttribute(teststepBlockEClass, TESTSTEP_BLOCK__TESTSTEP_KEYWORD);
+    createEAttribute(teststepBlockEClass, TESTSTEP_BLOCK__PLC_CYCLE);
+    createEAttribute(teststepBlockEClass, TESTSTEP_BLOCK__DESCRIPTION);
+    createEReference(teststepBlockEClass, TESTSTEP_BLOCK__ASSERTION);
+
+    assertionBlockEClass = createEClass(ASSERTION_BLOCK);
+    createEReference(assertionBlockEClass, ASSERTION_BLOCK__SET);
+    createEReference(assertionBlockEClass, ASSERTION_BLOCK__ASSERT);
 
     inputEClass = createEClass(INPUT);
     createEAttribute(inputEClass, INPUT__NAME);
@@ -1712,16 +1716,6 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
     udtTypeEClass = createEClass(UDT_TYPE);
     createEAttribute(udtTypeEClass, UDT_TYPE__NAME);
 
-    teststepBlockEClass = createEClass(TESTSTEP_BLOCK);
-    createEAttribute(teststepBlockEClass, TESTSTEP_BLOCK__TESTSTEP_KEYWORD);
-    createEAttribute(teststepBlockEClass, TESTSTEP_BLOCK__PLC_CYCLE);
-    createEAttribute(teststepBlockEClass, TESTSTEP_BLOCK__DESCRIPTION);
-    createEReference(teststepBlockEClass, TESTSTEP_BLOCK__ASSERTION);
-
-    assertionBlockEClass = createEClass(ASSERTION_BLOCK);
-    createEReference(assertionBlockEClass, ASSERTION_BLOCK__SET);
-    createEReference(assertionBlockEClass, ASSERTION_BLOCK__ASSERT);
-
     setEClass = createEClass(SET);
     createEAttribute(setEClass, SET__NAME);
     createEReference(setEClass, SET__SET_VARIABLES);
@@ -1738,6 +1732,12 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
 
     cascadeEClass = createEClass(CASCADE);
     createEReference(cascadeEClass, CASCADE__UDT_VAR);
+
+    boolConstantEClass = createEClass(BOOL_CONSTANT);
+    createEAttribute(boolConstantEClass, BOOL_CONSTANT__VALUE);
+
+    blockConstantEClass = createEClass(BLOCK_CONSTANT);
+    createEAttribute(blockConstantEClass, BLOCK_CONSTANT__VALUE);
 
     idiomEClass = createEClass(IDIOM);
 
@@ -1844,10 +1844,10 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
-    boolConstantEClass.getESuperTypes().add(this.getIdiom());
     variableEClass.getESuperTypes().add(this.getVariables());
     udtEClass.getESuperTypes().add(this.getVariables());
     udtRefEClass.getESuperTypes().add(this.getVariables());
+    boolConstantEClass.getESuperTypes().add(this.getIdiom());
     orEClass.getESuperTypes().add(this.getIdiom());
     andEClass.getESuperTypes().add(this.getIdiom());
     equalityEClass.getESuperTypes().add(this.getIdiom());
@@ -1883,12 +1883,6 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
     initEAttribute(getTestcase_Description(), ecorePackage.getEString(), "description", null, 0, 1, Testcase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTestcase_Define(), this.getDefineBlock(), null, "define", null, 0, 1, Testcase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(boolConstantEClass, BoolConstant.class, "BoolConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getBoolConstant_Value(), ecorePackage.getEString(), "value", null, 0, 1, BoolConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(blockConstantEClass, BlockConstant.class, "BlockConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getBlockConstant_Value(), ecorePackage.getEString(), "value", null, 0, 1, BlockConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
     initEClass(defineBlockEClass, DefineBlock.class, "DefineBlock", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getDefineBlock_Direction(), this.getDirectionBlock(), null, "direction", null, 0, 1, DefineBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getDefineBlock_Teststeps(), this.getTeststepBlock(), null, "teststeps", null, 0, -1, DefineBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1897,6 +1891,16 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
     initEReference(getDirectionBlock_Input(), this.getInput(), null, "input", null, 0, 1, DirectionBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getDirectionBlock_Output(), this.getOutput(), null, "output", null, 0, 1, DirectionBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getDirectionBlock_Inout(), this.getInOut(), null, "inout", null, 0, 1, DirectionBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(teststepBlockEClass, TeststepBlock.class, "TeststepBlock", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getTeststepBlock_TeststepKeyword(), ecorePackage.getEString(), "teststepKeyword", null, 0, 1, TeststepBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTeststepBlock_PlcCycle(), ecorePackage.getELong(), "plcCycle", null, 0, 1, TeststepBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTeststepBlock_Description(), ecorePackage.getEString(), "description", null, 0, 1, TeststepBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTeststepBlock_Assertion(), this.getAssertionBlock(), null, "assertion", null, 0, 1, TeststepBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(assertionBlockEClass, AssertionBlock.class, "AssertionBlock", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getAssertionBlock_Set(), this.getSet(), null, "set", null, 0, 1, AssertionBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAssertionBlock_Assert(), this.getAssert(), null, "assert", null, 0, 1, AssertionBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(inputEClass, Input.class, "Input", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getInput_Name(), ecorePackage.getEString(), "name", null, 0, 1, Input.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1931,16 +1935,6 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
     initEClass(udtTypeEClass, UdtType.class, "UdtType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getUdtType_Name(), ecorePackage.getEString(), "name", null, 0, 1, UdtType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(teststepBlockEClass, TeststepBlock.class, "TeststepBlock", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getTeststepBlock_TeststepKeyword(), ecorePackage.getEString(), "teststepKeyword", null, 0, 1, TeststepBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getTeststepBlock_PlcCycle(), ecorePackage.getELong(), "plcCycle", null, 0, 1, TeststepBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getTeststepBlock_Description(), ecorePackage.getEString(), "description", null, 0, 1, TeststepBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getTeststepBlock_Assertion(), this.getAssertionBlock(), null, "assertion", null, 0, 1, TeststepBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(assertionBlockEClass, AssertionBlock.class, "AssertionBlock", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getAssertionBlock_Set(), this.getSet(), null, "set", null, 0, 1, AssertionBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAssertionBlock_Assert(), this.getAssert(), null, "assert", null, 0, 1, AssertionBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
     initEClass(setEClass, Set.class, "Set", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getSet_Name(), ecorePackage.getEString(), "name", null, 0, 1, Set.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSet_SetVariables(), this.getStatement(), null, "setVariables", null, 0, -1, Set.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1957,6 +1951,12 @@ public class EisPackageImpl extends EPackageImpl implements EisPackage
 
     initEClass(cascadeEClass, Cascade.class, "Cascade", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getCascade_UdtVar(), this.getVariables(), null, "udtVar", null, 0, 1, Cascade.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(boolConstantEClass, BoolConstant.class, "BoolConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getBoolConstant_Value(), ecorePackage.getEString(), "value", null, 0, 1, BoolConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(blockConstantEClass, BlockConstant.class, "BlockConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getBlockConstant_Value(), ecorePackage.getEString(), "value", null, 0, 1, BlockConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(idiomEClass, Idiom.class, "Idiom", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

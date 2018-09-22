@@ -532,6 +532,11 @@ class DefineTypeComputerTest {
 			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
 			1.assertEquals(validate.size)
 		]
+		(start + "time a = T#-" + ';' + end).parse => [
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+			1.assertEquals(validate.size)
+		]
+
 	}
 
 	@Test def void testingLTime() {
@@ -552,11 +557,17 @@ class DefineTypeComputerTest {
 			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
 			1.assertEquals(validate.size)
 		]
-	
+
 		(start + "ltime a = LT#" + ';' + end).parse => [
 			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
 			1.assertEquals(validate.size)
 		]
+		
+		(start + "ltime a = LT#-" + ';' + end).parse => [
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+			1.assertEquals(validate.size)
+		]
+
 	}
 
 	@Test def void testingUnderscores() {

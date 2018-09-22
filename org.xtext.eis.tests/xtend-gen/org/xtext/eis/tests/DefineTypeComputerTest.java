@@ -868,6 +868,12 @@ public class DefineTypeComputerTest {
         Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
       };
       ObjectExtensions.<EisModel>operator_doubleArrow(_parse_2, _function_2);
+      EisModel _parse_3 = this._parseHelper.parse((((this.start + "time a = T#-") + ";") + this.end));
+      final Procedure1<EisModel> _function_3 = (EisModel it) -> {
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getVariable(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse_3, _function_3);
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
@@ -900,6 +906,12 @@ public class DefineTypeComputerTest {
         Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
       };
       ObjectExtensions.<EisModel>operator_doubleArrow(_parse_2, _function_2);
+      EisModel _parse_3 = this._parseHelper.parse((((this.start + "ltime a = LT#-") + ";") + this.end));
+      final Procedure1<EisModel> _function_3 = (EisModel it) -> {
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getVariable(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse_3, _function_3);
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }

@@ -18,12 +18,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="define" eType="#//DefineBlock"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BoolConstant" eSuperTypes="#//Idiom">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BlockConstant">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DefineBlock">
     <eStructuralFeatures xsi:type="ecore:EReference" name="direction" eType="#//DirectionBlock"
         containment="true"/>
@@ -36,6 +30,18 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="output" eType="#//Output"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="inout" eType="#//InOut"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TeststepBlock">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="teststepKeyword" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="plcCycle" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assertion" eType="#//AssertionBlock"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AssertionBlock">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="set" eType="#//Set" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assert" eType="#//Assert"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Input">
@@ -79,18 +85,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="UdtType">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TeststepBlock">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="teststepKeyword" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="plcCycle" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="assertion" eType="#//AssertionBlock"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AssertionBlock">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="set" eType="#//Set" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="assert" eType="#//Assert"
-        containment="true"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Set">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="setVariables" upperBound="-1"
@@ -112,6 +106,12 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Cascade">
     <eStructuralFeatures xsi:type="ecore:EReference" name="udtVar" eType="#//Variables"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BoolConstant" eSuperTypes="#//Idiom">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BlockConstant">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="BasicType">
     <eLiterals name="NULL" literal="null"/>

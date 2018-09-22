@@ -68,10 +68,10 @@ public class EisFactoryImpl extends EFactoryImpl implements EisFactory
     {
       case EisPackage.EIS_MODEL: return createEisModel();
       case EisPackage.TESTCASE: return createTestcase();
-      case EisPackage.BOOL_CONSTANT: return createBoolConstant();
-      case EisPackage.BLOCK_CONSTANT: return createBlockConstant();
       case EisPackage.DEFINE_BLOCK: return createDefineBlock();
       case EisPackage.DIRECTION_BLOCK: return createDirectionBlock();
+      case EisPackage.TESTSTEP_BLOCK: return createTeststepBlock();
+      case EisPackage.ASSERTION_BLOCK: return createAssertionBlock();
       case EisPackage.INPUT: return createInput();
       case EisPackage.OUTPUT: return createOutput();
       case EisPackage.IN_OUT: return createInOut();
@@ -80,12 +80,12 @@ public class EisFactoryImpl extends EFactoryImpl implements EisFactory
       case EisPackage.UDT: return createUdt();
       case EisPackage.UDT_REF: return createUdtRef();
       case EisPackage.UDT_TYPE: return createUdtType();
-      case EisPackage.TESTSTEP_BLOCK: return createTeststepBlock();
-      case EisPackage.ASSERTION_BLOCK: return createAssertionBlock();
       case EisPackage.SET: return createSet();
       case EisPackage.ASSERT: return createAssert();
       case EisPackage.STATEMENT: return createStatement();
       case EisPackage.CASCADE: return createCascade();
+      case EisPackage.BOOL_CONSTANT: return createBoolConstant();
+      case EisPackage.BLOCK_CONSTANT: return createBlockConstant();
       case EisPackage.IDIOM: return createIdiom();
       case EisPackage.OR: return createOr();
       case EisPackage.AND: return createAnd();
@@ -173,28 +173,6 @@ public class EisFactoryImpl extends EFactoryImpl implements EisFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public BoolConstant createBoolConstant()
-  {
-    BoolConstantImpl boolConstant = new BoolConstantImpl();
-    return boolConstant;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public BlockConstant createBlockConstant()
-  {
-    BlockConstantImpl blockConstant = new BlockConstantImpl();
-    return blockConstant;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public DefineBlock createDefineBlock()
   {
     DefineBlockImpl defineBlock = new DefineBlockImpl();
@@ -210,6 +188,28 @@ public class EisFactoryImpl extends EFactoryImpl implements EisFactory
   {
     DirectionBlockImpl directionBlock = new DirectionBlockImpl();
     return directionBlock;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TeststepBlock createTeststepBlock()
+  {
+    TeststepBlockImpl teststepBlock = new TeststepBlockImpl();
+    return teststepBlock;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AssertionBlock createAssertionBlock()
+  {
+    AssertionBlockImpl assertionBlock = new AssertionBlockImpl();
+    return assertionBlock;
   }
 
   /**
@@ -305,28 +305,6 @@ public class EisFactoryImpl extends EFactoryImpl implements EisFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public TeststepBlock createTeststepBlock()
-  {
-    TeststepBlockImpl teststepBlock = new TeststepBlockImpl();
-    return teststepBlock;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public AssertionBlock createAssertionBlock()
-  {
-    AssertionBlockImpl assertionBlock = new AssertionBlockImpl();
-    return assertionBlock;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public Set createSet()
   {
     SetImpl set = new SetImpl();
@@ -364,6 +342,28 @@ public class EisFactoryImpl extends EFactoryImpl implements EisFactory
   {
     CascadeImpl cascade = new CascadeImpl();
     return cascade;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public BoolConstant createBoolConstant()
+  {
+    BoolConstantImpl boolConstant = new BoolConstantImpl();
+    return boolConstant;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public BlockConstant createBlockConstant()
+  {
+    BlockConstantImpl blockConstant = new BlockConstantImpl();
+    return blockConstant;
   }
 
   /**

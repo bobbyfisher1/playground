@@ -883,6 +883,8 @@ class EisValidator extends AbstractEisValidator {
 
 		if (time.length == 0)
 			return true
+		else if (time.length == 1 && time.contains('-'))
+			return true
 
 		var ms = ''
 		var s = ''
@@ -945,6 +947,8 @@ class EisValidator extends AbstractEisValidator {
 		var LTime = _ltime.interpret.toString.substring(3).replaceAll('_', '')
 
 		if (LTime.length == 0)
+			return true
+		else if (LTime.length == 1 && LTime.contains('-'))
 			return true
 
 		var ns = ''
