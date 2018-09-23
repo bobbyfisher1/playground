@@ -118,8 +118,8 @@ public class EisScopeProvider extends AbstractEisScopeProvider {
     if (!_matched) {
       if (context instanceof Idiom) {
         _matched=true;
-        EObject _eContainer = ((Idiom)context).eContainer();
-        _switchResult = Scopes.scopeFor(this._eisModelUtil.variablesDefinedBefore(((Variable) _eContainer)));
+        EObject _var = this.getVar(context);
+        _switchResult = Scopes.scopeFor(this._eisModelUtil.variablesDefinedBefore(((Variable) _var)));
       }
     }
     return _switchResult;
@@ -213,6 +213,21 @@ public class EisScopeProvider extends AbstractEisScopeProvider {
         return container;
       } else {
         _xifexpression = this.getDefineBlock(container);
+      }
+      _xblockexpression = _xifexpression;
+    }
+    return _xblockexpression;
+  }
+  
+  private EObject getVar(final EObject context) {
+    EObject _xblockexpression = null;
+    {
+      final EObject container = context.eContainer();
+      EObject _xifexpression = null;
+      if ((container instanceof Variable)) {
+        return container;
+      } else {
+        _xifexpression = this.getVar(container);
       }
       _xblockexpression = _xifexpression;
     }

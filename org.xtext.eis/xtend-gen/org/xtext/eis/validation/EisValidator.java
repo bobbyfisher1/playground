@@ -422,6 +422,25 @@ public class EisValidator extends AbstractEisValidator {
   }
   
   @Check
+  public void checkType(final VariableRef varRef) {
+    EObject _var = this.getVar(varRef);
+    final DefineType expectedType = this._defineTypeComputer.typeFor(((Variable) _var).getVariableType());
+    final DefineType actualType = this._defineTypeComputer.typeFor(varRef.getVariable().getVariableType());
+    if (((expectedType == null) || (actualType == null))) {
+      return;
+    }
+    if ((expectedType != actualType)) {
+      String _string = expectedType.toString();
+      String _plus = ("Incompatible types. Expected \'" + _string);
+      String _plus_1 = (_plus + "\' but was \'");
+      String _string_1 = actualType.toString();
+      String _plus_2 = (_plus_1 + _string_1);
+      String _plus_3 = (_plus_2 + "\'");
+      this.error(_plus_3, varRef, EisPackage.eINSTANCE.getVariableRef_Variable(), EisValidator.INCOMPATIBLE_TYPES);
+    }
+  }
+  
+  @Check
   public void checkRangesOnStatements(final Statement statement) {
     final EList<Cascade> cascade = statement.getCascade();
     final Variables variable = statement.getVariable();
@@ -523,7 +542,7 @@ public class EisValidator extends AbstractEisValidator {
   
   @Check
   public void checkVariantWithRefs(final VariableRef varRef) {
-    final EObject variable = varRef.eContainer();
+    final EObject variable = this.getVar(varRef);
     boolean _isVariantKeyword = ((Variable) variable).isVariantKeyword();
     boolean _isVariantKeyword_1 = varRef.getVariable().isVariantKeyword();
     boolean _tripleNotEquals = (Boolean.valueOf(_isVariantKeyword) != Boolean.valueOf(_isVariantKeyword_1));
@@ -1200,6 +1219,21 @@ public class EisValidator extends AbstractEisValidator {
   public void checkOccuranceOfInOuts(final InOut _inouts) {
     final EList<Variables> inouts = _inouts.getInoutVariables();
     this.checkOccuranceInOuts(inouts, "");
+  }
+  
+  private EObject getVar(final EObject context) {
+    EObject _xblockexpression = null;
+    {
+      final EObject container = context.eContainer();
+      EObject _xifexpression = null;
+      if ((container instanceof Variable)) {
+        return container;
+      } else {
+        _xifexpression = this.getVar(container);
+      }
+      _xblockexpression = _xifexpression;
+    }
+    return _xblockexpression;
   }
   
   private void checkOccuranceInOuts(final EList<Variables> inouts, final String qualifiedName) {

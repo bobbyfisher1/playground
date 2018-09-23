@@ -69,7 +69,7 @@ class EisScopeProvider extends AbstractEisScopeProvider {
 			Variable:
 				Scopes.scopeFor(context.variablesDefinedBefore)
 			Idiom:
-				Scopes.scopeFor((context.eContainer as Variable).variablesDefinedBefore)
+				Scopes.scopeFor((context.^var as Variable).variablesDefinedBefore)
 		}
 	}
 
@@ -135,6 +135,14 @@ class EisScopeProvider extends AbstractEisScopeProvider {
 			return container
 		else
 			getDefineBlock(container)
+	}
+
+	def private EObject getVar(EObject context) {
+		val container = context.eContainer
+		if (container instanceof Variable)
+			return container
+		else
+			getVar(container)
 	}
 
 	def protected IScope statementScope(EObject context, Input inputs, Output outputs, List<Variables> inoutScope) {

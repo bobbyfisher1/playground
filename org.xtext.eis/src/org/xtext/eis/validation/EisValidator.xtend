@@ -303,6 +303,27 @@ class EisValidator extends AbstractEisValidator {
 		}
 	}
 
+	@Check def void checkType(VariableRef varRef) {
+
+		val expectedType = (varRef.getVar as Variable).variableType.typeFor
+		val actualType = varRef.variable.variableType.typeFor
+
+		if (expectedType === null || actualType === null)
+			return;
+
+		if (expectedType !== actualType)
+//				if (!(actualType.isIntSuperType && expectedType.isIntSuperType ))
+//					if (!(expectedType.isStringType && actualType.isCharType))
+			error("Incompatible types. Expected '" + expectedType.toString + "' but was '" + actualType.toString + "'",
+				varRef, EisPackage.eINSTANCE.variableRef_Variable, INCOMPATIBLE_TYPES)
+
+//		if (rangeType !== null && rangeType != expectedType)
+//				if (!(rangeType.isIntSuperType && expectedType.isIntSuperType ))
+//					if (!(expectedType.isStringType && actualType.isCharType))
+//			error("Incompatible types. Expected '" + expectedType.toString + "' but was '" + rangeType.toString + "'",
+//				varRef, EisPackage.eINSTANCE.variable_Range, INCOMPATIBLE_TYPES)
+	}
+
 	@Check def void checkRangesOnStatements(Statement statement) {
 		val cascade = statement.cascade
 		val variable = statement.variable
@@ -357,7 +378,7 @@ class EisValidator extends AbstractEisValidator {
 	}
 
 	@Check def void checkVariantWithRefs(VariableRef varRef) {
-		val variable = varRef.eContainer
+		val variable = varRef.getVar
 		if ((variable as Variable).variantKeyword !== varRef.variable.variantKeyword)
 			error("Both variables must be variant types.", variable, EisPackage.eINSTANCE.variable_VariantKeyword,
 				VARIANT_MISMATCH)
@@ -747,6 +768,14 @@ class EisValidator extends AbstractEisValidator {
 //
 // methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //
+	def private EObject getVar(EObject context) {
+		val container = context.eContainer
+		if (container instanceof Variable)
+			return container
+		else
+			getVar(container)
+	}
+
 	def private void checkOccuranceInOuts(EList<Variables> inouts, String qualifiedName) {
 		for (inout : inouts) {
 			if (inout instanceof Udt)

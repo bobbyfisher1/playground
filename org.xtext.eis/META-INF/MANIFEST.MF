@@ -27,6 +27,5 @@ Export-Package: org.xtext.eis,
  org.xtext.eis.serializer,
  org.xtext.eis.services,
  org.xtext.eis.typing,
- org.xtext.eis.validation,
- org.xtext.eis.formatting2
+ org.xtext.eis.validation
 Import-Package: org.apache.log4j

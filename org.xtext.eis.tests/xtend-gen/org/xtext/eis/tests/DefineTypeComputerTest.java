@@ -963,6 +963,46 @@ public class DefineTypeComputerTest {
     }
   }
   
+  @Test
+  public void testVarRef() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("int a = 0;");
+      _builder.newLine();
+      _builder.append("int b = a+1;");
+      _builder.newLine();
+      String _plus = (this.start + _builder);
+      this._validationTestHelper.assertNoErrors(this._parseHelper.parse((_plus + this.end)));
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("dint a = 32766;");
+      _builder_1.newLine();
+      _builder_1.append("int b = a+1;");
+      _builder_1.newLine();
+      String _plus_1 = (this.start + _builder_1);
+      EisModel _parse = this._parseHelper.parse((_plus_1 + this.end));
+      final Procedure1<EisModel> _function = (EisModel it) -> {
+        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getVariableRef(), EisValidator.INCOMPATIBLE_TYPES);
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
+      StringConcatenation _builder_2 = new StringConcatenation();
+      _builder_2.append("dint a = 32768;");
+      _builder_2.newLine();
+      _builder_2.append("int b = a+1;");
+      _builder_2.newLine();
+      String _plus_2 = (this.start + _builder_2);
+      EisModel _parse_1 = this._parseHelper.parse((_plus_2 + this.end));
+      final Procedure1<EisModel> _function_1 = (EisModel it) -> {
+        Assert.assertEquals(2, this._validationTestHelper.validate(it).size());
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getVariableRef(), EisValidator.INCOMPATIBLE_TYPES);
+        this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getVariable(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
+      };
+      ObjectExtensions.<EisModel>operator_doubleArrow(_parse_1, _function_1);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
   private void assertSameType(final String text, final DefineType expectedType) {
     try {
       Variables _get = IterableExtensions.<Testcase>head(this._parseHelper.parse(((this.start + text) + this.end)).getTestcases()).getDefine().getDirection().getOutput().getOutputVariables().get(0);

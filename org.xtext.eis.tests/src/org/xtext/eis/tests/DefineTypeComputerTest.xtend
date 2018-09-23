@@ -562,7 +562,7 @@ class DefineTypeComputerTest {
 			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
 			1.assertEquals(validate.size)
 		]
-		
+
 		(start + "ltime a = LT#-" + ';' + end).parse => [
 			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
 			1.assertEquals(validate.size)
@@ -597,6 +597,30 @@ class DefineTypeComputerTest {
 		date = "2169-06-07"
 		(start + "date a = D#" + date + ';' + end).parse => [
 			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
+		]
+	}
+
+	@Test def void testVarRef() {
+		(start + '''
+			int a = 0;
+			int b = a+1;
+		''' + end).parse.assertNoErrors;
+
+		(start + '''
+			dint a = 32766;
+			int b = a+1;
+		''' + end).parse => [
+			1.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variableRef, EisValidator.INCOMPATIBLE_TYPES)
+		]
+
+		(start + '''
+			dint a = 32768;
+			int b = a+1;
+		''' + end).parse => [
+			2.assertEquals(validate.size)
+			assertError(EisPackage.eINSTANCE.variableRef, EisValidator.INCOMPATIBLE_TYPES)
 			assertError(EisPackage.eINSTANCE.variable, EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS)
 		]
 	}
