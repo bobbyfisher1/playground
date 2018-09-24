@@ -130,8 +130,6 @@ public class EisValidator extends AbstractEisValidator {
   
   public final static String DIVISION_BY_ZERO = (EisValidator.ISSUE_CODE_PREFIX + "DivisionByZero");
   
-  public final static String NEGATIVE_PLCCYCLE = (EisValidator.ISSUE_CODE_PREFIX + "NegativePlcCycle");
-  
   public final static String INVALID_UNDERSCORE_NOTATION = (EisValidator.ISSUE_CODE_PREFIX + "InvalidUnderscoreNotation");
   
   public final static String INVALID_DATE_NOTATION = (EisValidator.ISSUE_CODE_PREFIX + "InvalidDateNotation");

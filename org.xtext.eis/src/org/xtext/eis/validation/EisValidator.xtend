@@ -97,7 +97,6 @@ class EisValidator extends AbstractEisValidator {
 	public static val MULTIPLE_TESTCASE_NAME = ISSUE_CODE_PREFIX + "MultipleTestcaseName"
 	public static val VALUE_EXCEEDING_DATATYPE_BOUNDS = ISSUE_CODE_PREFIX + "ValueExceedingDatatypeBounds"
 	public static val DIVISION_BY_ZERO = ISSUE_CODE_PREFIX + "DivisionByZero"
-	public static val NEGATIVE_PLCCYCLE = ISSUE_CODE_PREFIX + "NegativePlcCycle"
 	public static val INVALID_UNDERSCORE_NOTATION = ISSUE_CODE_PREFIX + "InvalidUnderscoreNotation"
 	public static val INVALID_DATE_NOTATION = ISSUE_CODE_PREFIX + "InvalidDateNotation"
 
