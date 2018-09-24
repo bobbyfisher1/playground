@@ -34,15 +34,15 @@ class EisProposalProvider extends AbstractEisProposalProvider {
 			acceptor.accept(createCompletionProposal(e.name, e.name + " - UdtType", null, context))
 	}
 
-	override completeBoolConstant_Value(EObject model, Assignment assignment, ContentAssistContext context,
+	override completeTestcase_TestActive(EObject model, Assignment assignment, ContentAssistContext context,
 		ICompletionProposalAcceptor acceptor) {
-		super.completeBoolConstant_Value(model, assignment, context, acceptor)
+		super.completeTestcase_TestActive(model, assignment, context, acceptor)
 		acceptor.accept(createCompletionProposal("", "testActive (bool)", null, context))
 	}
 
-	override completeBlockConstant_Value(EObject model, Assignment assignment, ContentAssistContext context,
+	override completeTestcase_BlockType(EObject model, Assignment assignment, ContentAssistContext context,
 		ICompletionProposalAcceptor acceptor) {
-		super.completeBlockConstant_Value(model, assignment, context, acceptor)
+		super.completeTestcase_BlockType(model, assignment, context, acceptor)
 		acceptor.accept(createCompletionProposal("", "blocktype (FB|FC)", null, context))
 	}
 
@@ -94,13 +94,13 @@ class EisProposalProvider extends AbstractEisProposalProvider {
 		acceptor.accept(createCompletionProposal(
 		'''"description"){
 	define {
-		input[ ]
-		output[ ]
-		inout[ ]
+		input[]
+		output[]
+		inout[]
 	}
 	teststep(0, "description") {
-		set[ ]
-		assert[ ]
+		set[]
+		assert[]
 	}
 ''', 'description (string)', null, context))
 	}
@@ -116,8 +116,8 @@ class EisProposalProvider extends AbstractEisProposalProvider {
 		super.completeTeststepBlock_Description(model, assignment, context, acceptor)
 		acceptor.accept(createCompletionProposal(
 		'''"description"){
-		set[ ]
-		assert[ ]
+		set[]
+		assert[]
 	}''', 'description (string)', null, context))
 	}
 }

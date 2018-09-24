@@ -68,14 +68,14 @@ public class EisProposalProvider extends AbstractEisProposalProvider {
   }
   
   @Override
-  public void completeBoolConstant_Value(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
-    super.completeBoolConstant_Value(model, assignment, context, acceptor);
+  public void completeTestcase_TestActive(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
+    super.completeTestcase_TestActive(model, assignment, context, acceptor);
     acceptor.accept(this.createCompletionProposal("", "testActive (bool)", null, context));
   }
   
   @Override
-  public void completeBlockConstant_Value(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
-    super.completeBlockConstant_Value(model, assignment, context, acceptor);
+  public void completeTestcase_BlockType(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
+    super.completeTestcase_BlockType(model, assignment, context, acceptor);
     acceptor.accept(this.createCompletionProposal("", "blocktype (FB|FC)", null, context));
   }
   
@@ -134,13 +134,13 @@ public class EisProposalProvider extends AbstractEisProposalProvider {
     _builder.append("define {");
     _builder.newLine();
     _builder.append("\t\t");
-    _builder.append("input[ ]");
+    _builder.append("input[]");
     _builder.newLine();
     _builder.append("\t\t");
-    _builder.append("output[ ]");
+    _builder.append("output[]");
     _builder.newLine();
     _builder.append("\t\t");
-    _builder.append("inout[ ]");
+    _builder.append("inout[]");
     _builder.newLine();
     _builder.append("\t");
     _builder.append("}");
@@ -149,10 +149,10 @@ public class EisProposalProvider extends AbstractEisProposalProvider {
     _builder.append("teststep(0, \"description\") {");
     _builder.newLine();
     _builder.append("\t\t");
-    _builder.append("set[ ]");
+    _builder.append("set[]");
     _builder.newLine();
     _builder.append("\t\t");
-    _builder.append("assert[ ]");
+    _builder.append("assert[]");
     _builder.newLine();
     _builder.append("\t");
     _builder.append("}");
@@ -174,10 +174,10 @@ public class EisProposalProvider extends AbstractEisProposalProvider {
     _builder.append("\"description\"){");
     _builder.newLine();
     _builder.append("\t\t");
-    _builder.append("set[ ]");
+    _builder.append("set[]");
     _builder.newLine();
     _builder.append("\t\t");
-    _builder.append("assert[ ]");
+    _builder.append("assert[]");
     _builder.newLine();
     _builder.append("\t");
     _builder.append("}");
