@@ -120,4 +120,34 @@ class EisProposalProvider extends AbstractEisProposalProvider {
 		assert[]
 	}''', 'description (string)', null, context))
 	}
+
+	override completeInput_Name(EObject model, Assignment assignment, ContentAssistContext context,
+		ICompletionProposalAcceptor acceptor) {
+		super.completeInput_Name(model, assignment, context, acceptor)
+		acceptor.accept(createCompletionProposal('input[]', 'input', null, context))
+	}
+
+	override completeOutput_Name(EObject model, Assignment assignment, ContentAssistContext context,
+		ICompletionProposalAcceptor acceptor) {
+		super.completeOutput_Name(model, assignment, context, acceptor)
+		acceptor.accept(createCompletionProposal('output[]', 'output', null, context))
+	}
+
+	override completeInOut_Name(EObject model, Assignment assignment, ContentAssistContext context,
+		ICompletionProposalAcceptor acceptor) {
+		super.completeInOut_Name(model, assignment, context, acceptor)
+		acceptor.accept(createCompletionProposal('inout[]', 'inout', null, context))
+	}
+
+	override completeSet_Name(EObject model, Assignment assignment, ContentAssistContext context,
+		ICompletionProposalAcceptor acceptor) {
+		super.completeSet_Name(model, assignment, context, acceptor)
+		acceptor.accept(createCompletionProposal('set[]', 'set', null, context))
+	}
+
+	override completeAssert_Name(EObject model, Assignment assignment, ContentAssistContext context,
+		ICompletionProposalAcceptor acceptor) {
+		super.completeAssert_Name(model, assignment, context, acceptor)
+		acceptor.accept(createCompletionProposal('assert[]', 'assert', null, context))
+	}
 }

@@ -184,4 +184,34 @@ public class EisProposalProvider extends AbstractEisProposalProvider {
     acceptor.accept(
       this.createCompletionProposal(_builder.toString(), "description (string)", null, context));
   }
+  
+  @Override
+  public void completeInput_Name(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
+    super.completeInput_Name(model, assignment, context, acceptor);
+    acceptor.accept(this.createCompletionProposal("input[]", "input", null, context));
+  }
+  
+  @Override
+  public void completeOutput_Name(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
+    super.completeOutput_Name(model, assignment, context, acceptor);
+    acceptor.accept(this.createCompletionProposal("output[]", "output", null, context));
+  }
+  
+  @Override
+  public void completeInOut_Name(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
+    super.completeInOut_Name(model, assignment, context, acceptor);
+    acceptor.accept(this.createCompletionProposal("inout[]", "inout", null, context));
+  }
+  
+  @Override
+  public void completeSet_Name(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
+    super.completeSet_Name(model, assignment, context, acceptor);
+    acceptor.accept(this.createCompletionProposal("set[]", "set", null, context));
+  }
+  
+  @Override
+  public void completeAssert_Name(final EObject model, final Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
+    super.completeAssert_Name(model, assignment, context, acceptor);
+    acceptor.accept(this.createCompletionProposal("assert[]", "assert", null, context));
+  }
 }
