@@ -3,56 +3,12 @@
  */
 package org.xtext.eis.formatting2;
 
-import java.util.Arrays;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.formatting2.AbstractFormatter2;
 import org.eclipse.xtext.formatting2.IFormattableDocument;
-import org.eclipse.xtext.resource.XtextResource;
-import org.eclipse.xtext.xbase.lib.Extension;
-import org.xtext.eis.eis.BlockConstant;
-import org.xtext.eis.eis.BoolConstant;
-import org.xtext.eis.eis.DefineBlock;
-import org.xtext.eis.eis.EisModel;
-import org.xtext.eis.eis.Testcase;
 
 @SuppressWarnings("all")
 public class EisFormatter extends AbstractFormatter2 {
-  protected void _format(final EisModel eisModel, @Extension final IFormattableDocument document) {
-    EList<Testcase> _testcases = eisModel.getTestcases();
-    for (final Testcase testcase : _testcases) {
-      document.<Testcase>format(testcase);
-    }
-  }
-  
-  protected void _format(final Testcase testcase, @Extension final IFormattableDocument document) {
-    document.<BoolConstant>format(testcase.getTestActive());
-    document.<BlockConstant>format(testcase.getBlockType());
-    document.<DefineBlock>format(testcase.getDefine());
-  }
-  
-  public void format(final Object eisModel, final IFormattableDocument document) {
-    if (eisModel instanceof XtextResource) {
-      _format((XtextResource)eisModel, document);
-      return;
-    } else if (eisModel instanceof EisModel) {
-      _format((EisModel)eisModel, document);
-      return;
-    } else if (eisModel instanceof Testcase) {
-      _format((Testcase)eisModel, document);
-      return;
-    } else if (eisModel instanceof EObject) {
-      _format((EObject)eisModel, document);
-      return;
-    } else if (eisModel == null) {
-      _format((Void)null, document);
-      return;
-    } else if (eisModel != null) {
-      _format(eisModel, document);
-      return;
-    } else {
-      throw new IllegalArgumentException("Unhandled parameter types: " +
-        Arrays.<Object>asList(eisModel, document).toString());
-    }
+  @Override
+  public void format(final Object obj, final IFormattableDocument document) {
   }
 }

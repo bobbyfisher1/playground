@@ -36,8 +36,11 @@ Workflow {
 				generateStub = false
 			}
 			validator = {
-			// composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
-			}			
+			// composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"			
+			}
+			formatter = {//this is required to override the default one-line formatting
+				generateStub = true
+			}
 		}
 	}
 }

@@ -5,26 +5,29 @@ package org.xtext.eis.formatting2
 
 import org.eclipse.xtext.formatting2.AbstractFormatter2
 import org.eclipse.xtext.formatting2.IFormattableDocument
-import org.xtext.eis.eis.EisModel
-import org.xtext.eis.eis.Testcase
 
 class EisFormatter extends AbstractFormatter2 {
 	
-//	@Inject extension EisGrammarAccess
-
-	def dispatch void format(EisModel eisModel, extension IFormattableDocument document) {
-		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		for (testcase : eisModel.testcases) {
-			testcase.format
-		}
-	}
-
-	def dispatch void format(Testcase testcase, extension IFormattableDocument document) {
-		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		testcase.testActive.format
-		testcase.blockType.format
-		testcase.define.format
+	override format(Object obj, IFormattableDocument document) {
+//		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
 	
-	// TODO: implement for DefineBlock, DirectionBlock, Input, Output, InOut, Variable, Udt, UdtRef, TeststepBlock, AssertionBlock, Set, Assert, Statement, Or, And, Equality, Comparison, MulOrDiv, Not, Plus, Minus
+//	
+//	@Inject extension EisGrammarAccess
+//
+//	def dispatch void format(EisModel eisModel, extension IFormattableDocument document) {
+//		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
+//		for (testcase : eisModel.testcases) {
+//			testcase.format
+//		}
+//	}
+//
+//	def dispatch void format(Testcase testcase, extension IFormattableDocument document) {
+//		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
+//		testcase.testActive.format
+//		testcase.blockType.format
+//		testcase.define.format
+//	}
+//	
+	// TODO: implement for DefineBlock, DirectionBlock, TeststepBlock, AssertionBlock, Input, Output, InOut, Variable, Udt, UdtRef, Set, Assert, Statement, Or, And, Equality, Comparison, MulOrDiv, Not, Plus, Minus
 }

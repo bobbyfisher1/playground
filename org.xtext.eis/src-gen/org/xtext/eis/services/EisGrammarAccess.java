@@ -1305,16 +1305,30 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cValueDATETerminalRuleCall_12_1_0 = (RuleCall)cValueAssignment_12_1.eContents().get(0);
 		
 		//Atomic Idiom:
-		//	{IntConstant} value=(LONG | NEGATIVE_LONG) | {StringConstant} value=STRING | BoolConstant | {VariableRef}
-		//	variable=[Variable] | {RealConstant} value=REAL | {ByteConstant} value=BYTE | {WordConstant} value=WORD |
-		//	{DWordConstant} value=DWORD | {LWordConstant} value=LWORD | {CharConstant} value=CHAR | {TimeConstant} value=TIME |
-		//	{LTimeConstant} value=LTIME | {DateConstant} value=DATE;
+		//	{IntConstant} value=(LONG | NEGATIVE_LONG) | {StringConstant} value=STRING //
+		//	| BoolConstant //
+		//	| {VariableRef} variable=[Variable] | {RealConstant} value=REAL //
+		//	| {ByteConstant} value=BYTE //
+		//	| {WordConstant} value=WORD //
+		//	| {DWordConstant} value=DWORD // 
+		//	| {LWordConstant} value=LWORD //
+		//	| {CharConstant} value=CHAR //
+		//	| {TimeConstant} value=TIME //
+		//	| {LTimeConstant} value=LTIME // 
+		//	| {DateConstant} value=DATE;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{IntConstant} value=(LONG | NEGATIVE_LONG) | {StringConstant} value=STRING | BoolConstant | {VariableRef}
-		//variable=[Variable] | {RealConstant} value=REAL | {ByteConstant} value=BYTE | {WordConstant} value=WORD |
-		//{DWordConstant} value=DWORD | {LWordConstant} value=LWORD | {CharConstant} value=CHAR | {TimeConstant} value=TIME |
-		//{LTimeConstant} value=LTIME | {DateConstant} value=DATE
+		//{IntConstant} value=(LONG | NEGATIVE_LONG) | {StringConstant} value=STRING //
+		//| BoolConstant //
+		//| {VariableRef} variable=[Variable] | {RealConstant} value=REAL //
+		//| {ByteConstant} value=BYTE //
+		//| {WordConstant} value=WORD //
+		//| {DWordConstant} value=DWORD // 
+		//| {LWordConstant} value=LWORD //
+		//| {CharConstant} value=CHAR //
+		//| {TimeConstant} value=TIME //
+		//| {LTimeConstant} value=LTIME // 
+		//| {DateConstant} value=DATE
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//{IntConstant} value=(LONG | NEGATIVE_LONG)
@@ -2131,10 +2145,17 @@ public class EisGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Atomic Idiom:
-	//	{IntConstant} value=(LONG | NEGATIVE_LONG) | {StringConstant} value=STRING | BoolConstant | {VariableRef}
-	//	variable=[Variable] | {RealConstant} value=REAL | {ByteConstant} value=BYTE | {WordConstant} value=WORD |
-	//	{DWordConstant} value=DWORD | {LWordConstant} value=LWORD | {CharConstant} value=CHAR | {TimeConstant} value=TIME |
-	//	{LTimeConstant} value=LTIME | {DateConstant} value=DATE;
+	//	{IntConstant} value=(LONG | NEGATIVE_LONG) | {StringConstant} value=STRING //
+	//	| BoolConstant //
+	//	| {VariableRef} variable=[Variable] | {RealConstant} value=REAL //
+	//	| {ByteConstant} value=BYTE //
+	//	| {WordConstant} value=WORD //
+	//	| {DWordConstant} value=DWORD // 
+	//	| {LWordConstant} value=LWORD //
+	//	| {CharConstant} value=CHAR //
+	//	| {TimeConstant} value=TIME //
+	//	| {LTimeConstant} value=LTIME // 
+	//	| {DateConstant} value=DATE;
 	public AtomicElements getAtomicAccess() {
 		return pAtomic;
 	}
