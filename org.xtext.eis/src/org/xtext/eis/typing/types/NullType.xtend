@@ -1,7 +1,7 @@
 package org.xtext.eis.typing.types
 
-import org.xtext.eis.typing.DefineType
+import org.xtext.eis.typing.EisType
 
-class NullType implements DefineType {
+class NullType implements EisType {
 	override toString() { "null" }
 }

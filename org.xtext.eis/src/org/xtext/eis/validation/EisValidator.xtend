@@ -66,12 +66,12 @@ import org.xtext.eis.eis.impl.UdtTypeImpl
 import org.xtext.eis.eis.impl.VariableImpl
 import org.xtext.eis.eis.impl.WordConstantImpl
 import org.xtext.eis.interpreter.EisInterpreter
-import org.xtext.eis.typing.DefineType
-import org.xtext.eis.typing.DefineTypeComputer
 import org.xtext.eis.typing.types.DateType
 import org.xtext.eis.typing.types.LTimeType
 import org.xtext.eis.typing.types.RealType
 import org.xtext.eis.typing.types.TimeType
+import org.xtext.eis.typing.EisTypeComputer
+import org.xtext.eis.typing.EisType
 
 class EisValidator extends AbstractEisValidator {
 
@@ -100,7 +100,7 @@ class EisValidator extends AbstractEisValidator {
 	public static val INVALID_UNDERSCORE_NOTATION = ISSUE_CODE_PREFIX + "InvalidUnderscoreNotation"
 	public static val INVALID_DATE_NOTATION = ISSUE_CODE_PREFIX + "InvalidDateNotation"
 
-	@Inject extension DefineTypeComputer
+	@Inject extension EisTypeComputer
 	@Inject extension EisInterpreter
 
 //
@@ -1086,7 +1086,7 @@ class EisValidator extends AbstractEisValidator {
 			error("Invalid underscore notation.", object, reference, INVALID_UNDERSCORE_NOTATION)
 	}
 
-	def private boolean checkNumericalValues(long idiom, DefineType expectedType) {
+	def private boolean checkNumericalValues(long idiom, EisType expectedType) {
 		switch expectedType {
 			case expectedType.isUSIntType: idiom.isOutOfNumericalBounds(0, 255)
 			case expectedType.isUIntType: idiom.isOutOfNumericalBounds(0, 65535)
@@ -1156,43 +1156,43 @@ class EisValidator extends AbstractEisValidator {
 	}
 
 	def private void checkExpectedBoolean(Idiom exp, EReference reference) {
-		checkExpectedType(exp, DefineTypeComputer.BOOL_TYPE, reference)
+		checkExpectedType(exp, EisTypeComputer.BOOL_TYPE, reference)
 	}
 
 	def private void checkExpectedInt(Idiom exp, EReference reference) {
-		checkExpectedType(exp, DefineTypeComputer.INT_TYPE, reference)
+		checkExpectedType(exp, EisTypeComputer.INT_TYPE, reference)
 	}
 
 	def private void checkExpectedDouble(Idiom exp, EReference reference) {
-		checkExpectedType(exp, DefineTypeComputer.REAL_TYPE, reference)
+		checkExpectedType(exp, EisTypeComputer.REAL_TYPE, reference)
 	}
 
-	def private void checkExpectedType(Idiom exp, DefineType expectedType, EReference reference) {
+	def private void checkExpectedType(Idiom exp, EisType expectedType, EReference reference) {
 		val actualType = getTypeAndCheckNotNull(exp, reference)
 		if (actualType != expectedType)
 			error("expected " + expectedType + " type, but was " + actualType, reference, TYPE_MISMATCH)
 	}
 
-	def private DefineType getTypeAndCheckNotNull(Idiom exp, EReference reference) {
+	def private EisType getTypeAndCheckNotNull(Idiom exp, EReference reference) {
 		var type = exp?.typeFor
 		if (type === null)
 			error("null type", reference, TYPE_MISMATCH)
 		return type;
 	}
 
-	def private void checkExpectedSameType(DefineType left, DefineType right) {
+	def private void checkExpectedSameType(EisType left, EisType right) {
 		if (right !== null && left !== null && right != left)
 			error("expected the same type, but was " + left + ", " + right, EisPackage.Literals.EQUALITY.EIDAttribute,
 				TYPE_MISMATCH)
 	}
 
-	def private void checkNotBoolean(DefineType type, EReference reference) {
+	def private void checkNotBoolean(EisType type, EReference reference) {
 		if (type.isBoolType)
 			error("cannot be boolean", reference, TYPE_MISMATCH)
 	}
 
-	def private void compareTypesAndCallErrorOnMismatch(Statement statement, DefineType actualType,
-		BasicType _expectedType, DefineType rangeType) {
+	def private void compareTypesAndCallErrorOnMismatch(Statement statement, EisType actualType,
+		BasicType _expectedType, EisType rangeType) {
 		val expectedType = _expectedType.typeFor
 
 		if (actualType != expectedType)
@@ -1339,7 +1339,7 @@ class EisValidator extends AbstractEisValidator {
 		return newUdt
 	}
 
-	def private VariableImpl newIdiom(DefineType type, Idiom idiomOrRange, VariableImpl newVariable, boolean isRange) {
+	def private VariableImpl newIdiom(EisType type, Idiom idiomOrRange, VariableImpl newVariable, boolean isRange) {
 		var newIdiomOrRange = newVariable?.idiom
 		if (isRange)
 			newIdiomOrRange = newVariable.range

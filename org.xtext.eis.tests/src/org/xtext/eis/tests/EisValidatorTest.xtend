@@ -11,20 +11,20 @@ import org.junit.runner.RunWith
 import org.xtext.eis.eis.EisModel
 import org.xtext.eis.eis.EisPackage
 import org.xtext.eis.eis.Variable
-import org.xtext.eis.typing.DefineType
-import org.xtext.eis.typing.DefineTypeComputer
 import org.xtext.eis.validation.EisValidator
 
-import static org.xtext.eis.typing.DefineTypeComputer.*
 
 import static extension org.junit.Assert.*
+import static org.xtext.eis.typing.EisTypeComputer.*
+import org.xtext.eis.typing.EisTypeComputer
+import org.xtext.eis.typing.EisType
 
 @RunWith(XtextRunner)
 @InjectWith(EisInjectorProvider)
 class EisValidatorTest {
 	@Inject extension ParseHelper<EisModel>
 	@Inject extension ValidationTestHelper
-	@Inject extension DefineTypeComputer
+	@Inject extension EisTypeComputer
 
 	//
 // variables -----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -767,12 +767,12 @@ class EisValidatorTest {
 		]
 	}
 
-	def void assertType(CharSequence input, DefineType expectedWrongType, DefineType expectedActualType) {
+	def void assertType(CharSequence input, EisType expectedWrongType, EisType expectedActualType) {
 		(start + "int a =" + input + endWithSemicolon).parse.assertError(EisPackage.eINSTANCE.idiom,
 			EisValidator.TYPE_MISMATCH, "expected " + expectedActualType + " type, but was " + expectedWrongType)
 	}
 
-	def void assertSameType(CharSequence input, DefineType expectedLeft, DefineType expectedRight) {
+	def void assertSameType(CharSequence input, EisType expectedLeft, EisType expectedRight) {
 		(start + "int a =" + input + endWithSemicolon).parse.assertError(EisPackage.eINSTANCE.idiom,
 			EisValidator.TYPE_MISMATCH, "expected the same type, but was " + expectedLeft + ", " + expectedRight)
 	}

@@ -42,8 +42,8 @@ import org.xtext.eis.eis.impl.UdtImpl;
 import org.xtext.eis.eis.impl.UdtTypeImpl;
 import org.xtext.eis.eis.impl.VariableImpl;
 import org.xtext.eis.interpreter.EisInterpreter;
-import org.xtext.eis.typing.DefineType;
-import org.xtext.eis.typing.DefineTypeComputer;
+import org.xtext.eis.typing.EisType;
+import org.xtext.eis.typing.EisTypeComputer;
 
 @SuppressWarnings("all")
 public class EisGenerator extends AbstractGenerator {
@@ -53,7 +53,7 @@ public class EisGenerator extends AbstractGenerator {
   
   @Inject
   @Extension
-  private DefineTypeComputer _defineTypeComputer;
+  private EisTypeComputer _eisTypeComputer;
   
   @Inject
   @Extension
@@ -622,10 +622,10 @@ public class EisGenerator extends AbstractGenerator {
       String __char_1 = _char;
       _char = (__char_1 + "Variant@");
     }
-    if ((this._defineTypeComputer.isSecondLetterCapitalized(this._defineTypeComputer.typeFor(type)) || this._defineTypeComputer.isSecondLetterCapitalized(type))) {
+    if ((this._eisTypeComputer.isSecondLetterCapitalized(this._eisTypeComputer.typeFor(type)) || this._eisTypeComputer.isSecondLetterCapitalized(type))) {
       string = this._eisModelUtil.toCharUpper(string, 1);
     }
-    boolean _isThirdLetterCapitalized = this._defineTypeComputer.isThirdLetterCapitalized(this._defineTypeComputer.typeFor(type));
+    boolean _isThirdLetterCapitalized = this._eisTypeComputer.isThirdLetterCapitalized(this._eisTypeComputer.typeFor(type));
     if (_isThirdLetterCapitalized) {
       string = this._eisModelUtil.toCharUpper(string, 2);
     }
@@ -726,79 +726,79 @@ public class EisGenerator extends AbstractGenerator {
   private String defaultValue(final Variable variable) {
     String _xblockexpression = null;
     {
-      final DefineType type = this._defineTypeComputer.typeFor(variable.getVariableType());
+      final EisType type = this._eisTypeComputer.typeFor(variable.getVariableType());
       String _switchResult = null;
       boolean _matched = false;
-      boolean _isBoolType = this._defineTypeComputer.isBoolType(type);
+      boolean _isBoolType = this._eisTypeComputer.isBoolType(type);
       if (_isBoolType) {
         _matched=true;
         _switchResult = "false";
       }
       if (!_matched) {
-        boolean _isIntSuperType = this._defineTypeComputer.isIntSuperType(type);
+        boolean _isIntSuperType = this._eisTypeComputer.isIntSuperType(type);
         if (_isIntSuperType) {
           _matched=true;
           _switchResult = "0";
         }
       }
       if (!_matched) {
-        boolean _isStringType = this._defineTypeComputer.isStringType(type);
+        boolean _isStringType = this._eisTypeComputer.isStringType(type);
         if (_isStringType) {
           _matched=true;
           _switchResult = "";
         }
       }
       if (!_matched) {
-        boolean _isRealType = this._defineTypeComputer.isRealType(type);
+        boolean _isRealType = this._eisTypeComputer.isRealType(type);
         if (_isRealType) {
           _matched=true;
           _switchResult = "0.0";
         }
       }
       if (!_matched) {
-        boolean _isByteType = this._defineTypeComputer.isByteType(type);
+        boolean _isByteType = this._eisTypeComputer.isByteType(type);
         if (_isByteType) {
           _matched=true;
           _switchResult = "16#00";
         }
       }
       if (!_matched) {
-        boolean _isWordType = this._defineTypeComputer.isWordType(type);
+        boolean _isWordType = this._eisTypeComputer.isWordType(type);
         if (_isWordType) {
           _matched=true;
           _switchResult = "16#0000";
         }
       }
       if (!_matched) {
-        boolean _isDWordType = this._defineTypeComputer.isDWordType(type);
+        boolean _isDWordType = this._eisTypeComputer.isDWordType(type);
         if (_isDWordType) {
           _matched=true;
           _switchResult = "16#0000_0000";
         }
       }
       if (!_matched) {
-        boolean _isLWordType = this._defineTypeComputer.isLWordType(type);
+        boolean _isLWordType = this._eisTypeComputer.isLWordType(type);
         if (_isLWordType) {
           _matched=true;
           _switchResult = "16#0000_0000_0000_0000";
         }
       }
       if (!_matched) {
-        boolean _isTimeType = this._defineTypeComputer.isTimeType(type);
+        boolean _isTimeType = this._eisTypeComputer.isTimeType(type);
         if (_isTimeType) {
           _matched=true;
           _switchResult = "T#0s";
         }
       }
       if (!_matched) {
-        boolean _isLTimeType = this._defineTypeComputer.isLTimeType(type);
+        boolean _isLTimeType = this._eisTypeComputer.isLTimeType(type);
         if (_isLTimeType) {
           _matched=true;
           _switchResult = "LT#0s";
         }
       }
       if (!_matched) {
-        boolean _isDateType = this._defineTypeComputer.isDateType(type);
+        boolean _isDateType = this._eisTypeComputer.isDateType(type);
         if (_isDateType) {
           _matched=true;
           _switchResult = "D#1990-01-01";

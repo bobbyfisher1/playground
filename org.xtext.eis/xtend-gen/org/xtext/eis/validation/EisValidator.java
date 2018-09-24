@@ -76,8 +76,8 @@ import org.xtext.eis.eis.impl.UdtTypeImpl;
 import org.xtext.eis.eis.impl.VariableImpl;
 import org.xtext.eis.eis.impl.WordConstantImpl;
 import org.xtext.eis.interpreter.EisInterpreter;
-import org.xtext.eis.typing.DefineType;
-import org.xtext.eis.typing.DefineTypeComputer;
+import org.xtext.eis.typing.EisType;
+import org.xtext.eis.typing.EisTypeComputer;
 import org.xtext.eis.typing.types.DateType;
 import org.xtext.eis.typing.types.LTimeType;
 import org.xtext.eis.typing.types.RealType;
@@ -136,7 +136,7 @@ public class EisValidator extends AbstractEisValidator {
   
   @Inject
   @Extension
-  private DefineTypeComputer _defineTypeComputer;
+  private EisTypeComputer _eisTypeComputer;
   
   @Inject
   @Extension
@@ -330,15 +330,15 @@ public class EisValidator extends AbstractEisValidator {
   
   @Check
   public void checkType(final Equality equality) {
-    final DefineType leftType = this.getTypeAndCheckNotNull(equality.getLeft(), EisPackage.Literals.EQUALITY__LEFT);
-    final DefineType rightType = this.getTypeAndCheckNotNull(equality.getRight(), EisPackage.Literals.EQUALITY__RIGHT);
+    final EisType leftType = this.getTypeAndCheckNotNull(equality.getLeft(), EisPackage.Literals.EQUALITY__LEFT);
+    final EisType rightType = this.getTypeAndCheckNotNull(equality.getRight(), EisPackage.Literals.EQUALITY__RIGHT);
     this.checkExpectedSameType(leftType, rightType);
   }
   
   @Check
   public void checkType(final Comparison comparison) {
-    final DefineType leftType = this.getTypeAndCheckNotNull(comparison.getLeft(), EisPackage.Literals.COMPARISON__LEFT);
-    final DefineType rightType = this.getTypeAndCheckNotNull(comparison.getRight(), EisPackage.Literals.COMPARISON__RIGHT);
+    final EisType leftType = this.getTypeAndCheckNotNull(comparison.getLeft(), EisPackage.Literals.COMPARISON__LEFT);
+    final EisType rightType = this.getTypeAndCheckNotNull(comparison.getRight(), EisPackage.Literals.COMPARISON__RIGHT);
     this.checkExpectedSameType(leftType, rightType);
     this.checkNotBoolean(leftType, EisPackage.Literals.COMPARISON__LEFT);
     this.checkNotBoolean(rightType, EisPackage.Literals.COMPARISON__RIGHT);
@@ -346,9 +346,9 @@ public class EisValidator extends AbstractEisValidator {
   
   @Check
   public void checkType(final Plus plus) {
-    final DefineType leftType = this.getTypeAndCheckNotNull(plus.getLeft(), EisPackage.Literals.PLUS__LEFT);
-    final DefineType rightType = this.getTypeAndCheckNotNull(plus.getRight(), EisPackage.Literals.PLUS__RIGHT);
-    if (((this._defineTypeComputer.isIntSuperType(leftType) || this._defineTypeComputer.isIntSuperType(rightType)) || ((!this._defineTypeComputer.isStringType(leftType)) && (!this._defineTypeComputer.isStringType(rightType))))) {
+    final EisType leftType = this.getTypeAndCheckNotNull(plus.getLeft(), EisPackage.Literals.PLUS__LEFT);
+    final EisType rightType = this.getTypeAndCheckNotNull(plus.getRight(), EisPackage.Literals.PLUS__RIGHT);
+    if (((this._eisTypeComputer.isIntSuperType(leftType) || this._eisTypeComputer.isIntSuperType(rightType)) || ((!this._eisTypeComputer.isStringType(leftType)) && (!this._eisTypeComputer.isStringType(rightType))))) {
       this.checkNotBoolean(leftType, EisPackage.Literals.PLUS__LEFT);
       this.checkNotBoolean(rightType, EisPackage.Literals.PLUS__RIGHT);
     }
@@ -362,32 +362,32 @@ public class EisValidator extends AbstractEisValidator {
     }
     boolean _tripleNotEquals = (_idiom != null);
     if (_tripleNotEquals) {
-      final DefineType expectedType = this._defineTypeComputer.typeFor(variable.getVariableType());
+      final EisType expectedType = this._eisTypeComputer.typeFor(variable.getVariableType());
       Idiom _idiom_1 = null;
       if (variable!=null) {
         _idiom_1=variable.getIdiom();
       }
-      DefineType _typeFor = null;
+      EisType _typeFor = null;
       if (_idiom_1!=null) {
-        _typeFor=this._defineTypeComputer.typeFor(_idiom_1);
+        _typeFor=this._eisTypeComputer.typeFor(_idiom_1);
       }
-      final DefineType actualType = _typeFor;
+      final EisType actualType = _typeFor;
       Idiom _range = null;
       if (variable!=null) {
         _range=variable.getRange();
       }
-      DefineType _typeFor_1 = null;
+      EisType _typeFor_1 = null;
       if (_range!=null) {
-        _typeFor_1=this._defineTypeComputer.typeFor(_range);
+        _typeFor_1=this._eisTypeComputer.typeFor(_range);
       }
-      final DefineType rangeType = _typeFor_1;
+      final EisType rangeType = _typeFor_1;
       if (((expectedType == null) || (actualType == null))) {
         return;
       }
       if ((expectedType != actualType)) {
-        boolean _not = (!(this._defineTypeComputer.isIntSuperType(actualType) && this._defineTypeComputer.isIntSuperType(expectedType)));
+        boolean _not = (!(this._eisTypeComputer.isIntSuperType(actualType) && this._eisTypeComputer.isIntSuperType(expectedType)));
         if (_not) {
-          boolean _not_1 = (!(this._defineTypeComputer.isStringType(expectedType) && this._defineTypeComputer.isCharType(actualType)));
+          boolean _not_1 = (!(this._eisTypeComputer.isStringType(expectedType) && this._eisTypeComputer.isCharType(actualType)));
           if (_not_1) {
             String _string = expectedType.toString();
             String _plus = ("Incompatible types. Expected \'" + _string);
@@ -401,9 +401,9 @@ public class EisValidator extends AbstractEisValidator {
         }
       }
       if (((rangeType != null) && (!Objects.equal(rangeType, expectedType)))) {
-        boolean _not_2 = (!(this._defineTypeComputer.isIntSuperType(rangeType) && this._defineTypeComputer.isIntSuperType(expectedType)));
+        boolean _not_2 = (!(this._eisTypeComputer.isIntSuperType(rangeType) && this._eisTypeComputer.isIntSuperType(expectedType)));
         if (_not_2) {
-          boolean _not_3 = (!(this._defineTypeComputer.isStringType(expectedType) && this._defineTypeComputer.isCharType(actualType)));
+          boolean _not_3 = (!(this._eisTypeComputer.isStringType(expectedType) && this._eisTypeComputer.isCharType(actualType)));
           if (_not_3) {
             String _string_2 = expectedType.toString();
             String _plus_4 = ("Incompatible types. Expected \'" + _string_2);
@@ -422,8 +422,8 @@ public class EisValidator extends AbstractEisValidator {
   @Check
   public void checkType(final VariableRef varRef) {
     EObject _var = this.getVar(varRef);
-    final DefineType expectedType = this._defineTypeComputer.typeFor(((Variable) _var).getVariableType());
-    final DefineType actualType = this._defineTypeComputer.typeFor(varRef.getVariable().getVariableType());
+    final EisType expectedType = this._eisTypeComputer.typeFor(((Variable) _var).getVariableType());
+    final EisType actualType = this._eisTypeComputer.typeFor(varRef.getVariable().getVariableType());
     if (((expectedType == null) || (actualType == null))) {
       return;
     }
@@ -455,26 +455,26 @@ public class EisValidator extends AbstractEisValidator {
     if (statement!=null) {
       _idiom=statement.getIdiom();
     }
-    DefineType _typeFor = null;
+    EisType _typeFor = null;
     if (_idiom!=null) {
-      _typeFor=this._defineTypeComputer.typeFor(_idiom);
+      _typeFor=this._eisTypeComputer.typeFor(_idiom);
     }
-    final DefineType actualType = _typeFor;
+    final EisType actualType = _typeFor;
     Idiom _range = null;
     if (statement!=null) {
       _range=statement.getRange();
     }
-    DefineType _typeFor_1 = null;
+    EisType _typeFor_1 = null;
     if (_range!=null) {
-      _typeFor_1=this._defineTypeComputer.typeFor(_range);
+      _typeFor_1=this._eisTypeComputer.typeFor(_range);
     }
-    final DefineType rangeType = _typeFor_1;
+    final EisType rangeType = _typeFor_1;
     BasicType expectedType = BasicType.NULL;
     if ((variable instanceof Variable)) {
       expectedType = ((Variable) variable).getVariableType();
       this.compareTypesAndCallErrorOnMismatch(statement, actualType, expectedType, rangeType);
       if ((rangeType != null)) {
-        boolean _isWithoutRangeOp = this._defineTypeComputer.isWithoutRangeOp(this._defineTypeComputer.typeFor(expectedType));
+        boolean _isWithoutRangeOp = this._eisTypeComputer.isWithoutRangeOp(this._eisTypeComputer.typeFor(expectedType));
         if (_isWithoutRangeOp) {
           this.error("The range feature is not permitted to this type", statement, 
             EisPackage.eINSTANCE.getStatement_Range(), EisValidator.INVALID_RANGE_DEFINITION);
@@ -485,7 +485,7 @@ public class EisValidator extends AbstractEisValidator {
         expectedType = ((Variable)last).getVariableType();
         this.compareTypesAndCallErrorOnMismatch(statement, actualType, expectedType, rangeType);
         if ((rangeType != null)) {
-          boolean _isWithoutRangeOp_1 = this._defineTypeComputer.isWithoutRangeOp(this._defineTypeComputer.typeFor(expectedType));
+          boolean _isWithoutRangeOp_1 = this._eisTypeComputer.isWithoutRangeOp(this._eisTypeComputer.typeFor(expectedType));
           if (_isWithoutRangeOp_1) {
             this.error("The range feature is not permitted to this type", statement, 
               EisPackage.eINSTANCE.getStatement_Range(), EisValidator.INVALID_RANGE_DEFINITION);
@@ -698,11 +698,11 @@ public class EisValidator extends AbstractEisValidator {
   
   @Check
   public void checkRangeOperator(final Variable variable) {
-    final DefineType type = this._defineTypeComputer.typeFor(variable.getVariableType());
+    final EisType type = this._eisTypeComputer.typeFor(variable.getVariableType());
     Idiom _range = variable.getRange();
     boolean _tripleNotEquals = (_range != null);
     if (_tripleNotEquals) {
-      boolean _isWithoutRangeOp = this._defineTypeComputer.isWithoutRangeOp(type);
+      boolean _isWithoutRangeOp = this._eisTypeComputer.isWithoutRangeOp(type);
       if (_isWithoutRangeOp) {
         this.error("The range feature is not permitted to this type", variable, EisPackage.eINSTANCE.getVariable_Range(), 
           EisValidator.INVALID_RANGE_DEFINITION);
@@ -782,7 +782,7 @@ public class EisValidator extends AbstractEisValidator {
   
   @Check
   public void checkNumericalValues(final Variable variable) {
-    final DefineType expectedType = this._defineTypeComputer.typeFor(variable.getVariableType());
+    final EisType expectedType = this._eisTypeComputer.typeFor(variable.getVariableType());
     Idiom _idiom = null;
     if (variable!=null) {
       _idiom=variable.getIdiom();
@@ -842,9 +842,9 @@ public class EisValidator extends AbstractEisValidator {
       _range=statement.getRange();
     }
     final Idiom range = _range;
-    DefineType expectedType = this._defineTypeComputer.typeFor(BasicType.NULL);
+    EisType expectedType = this._eisTypeComputer.typeFor(BasicType.NULL);
     if ((variable instanceof Variable)) {
-      expectedType = this._defineTypeComputer.typeFor(((Variable)variable).getVariableType());
+      expectedType = this._eisTypeComputer.typeFor(((Variable)variable).getVariableType());
       if ((!(idiom instanceof VariableRef))) {
         Object _interpret = null;
         if (idiom!=null) {
@@ -858,9 +858,9 @@ public class EisValidator extends AbstractEisValidator {
               EisPackage.eINSTANCE.getStatement_Idiom(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
           }
         } else {
-          DefineType _typeFor = null;
+          EisType _typeFor = null;
           if (idiom!=null) {
-            _typeFor=this._defineTypeComputer.typeFor(idiom);
+            _typeFor=this._eisTypeComputer.typeFor(idiom);
           }
           if ((_typeFor instanceof TimeType)) {
             boolean _checkTime = this.checkTime(idiom);
@@ -880,9 +880,9 @@ public class EisValidator extends AbstractEisValidator {
               this.checkUnderscoreNotation(_string, statement, EisPackage.eINSTANCE.getStatement_Idiom());
             }
           } else {
-            DefineType _typeFor_1 = null;
+            EisType _typeFor_1 = null;
             if (idiom!=null) {
-              _typeFor_1=this._defineTypeComputer.typeFor(idiom);
+              _typeFor_1=this._eisTypeComputer.typeFor(idiom);
             }
             if ((_typeFor_1 instanceof LTimeType)) {
               boolean _isOutOfLTime = this.isOutOfLTime(idiom);
@@ -902,9 +902,9 @@ public class EisValidator extends AbstractEisValidator {
                 this.checkUnderscoreNotation(_string_1, statement, EisPackage.eINSTANCE.getStatement_Idiom());
               }
             } else {
-              DefineType _typeFor_2 = null;
+              EisType _typeFor_2 = null;
               if (idiom!=null) {
-                _typeFor_2=this._defineTypeComputer.typeFor(idiom);
+                _typeFor_2=this._eisTypeComputer.typeFor(idiom);
               }
               if ((_typeFor_2 instanceof DateType)) {
                 boolean _checkDate = this.checkDate(idiom, EisPackage.eINSTANCE.getStatement_Idiom());
@@ -927,7 +927,7 @@ public class EisValidator extends AbstractEisValidator {
                 EisPackage.eINSTANCE.getStatement_Range(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
             }
           } else {
-            DefineType _typeFor_3 = this._defineTypeComputer.typeFor(range);
+            EisType _typeFor_3 = this._eisTypeComputer.typeFor(range);
             if ((_typeFor_3 instanceof TimeType)) {
               boolean _checkTime_1 = this.checkTime(range);
               if (_checkTime_1) {
@@ -937,7 +937,7 @@ public class EisValidator extends AbstractEisValidator {
               this.checkUnderscoreNotation(this._eisInterpreter.interpret(range).toString(), statement, 
                 EisPackage.eINSTANCE.getStatement_Range());
             } else {
-              DefineType _typeFor_4 = this._defineTypeComputer.typeFor(range);
+              EisType _typeFor_4 = this._eisTypeComputer.typeFor(range);
               if ((_typeFor_4 instanceof LTimeType)) {
                 boolean _isOutOfLTime_1 = this.isOutOfLTime(range);
                 if (_isOutOfLTime_1) {
@@ -953,7 +953,7 @@ public class EisValidator extends AbstractEisValidator {
       }
     } else {
       if ((last instanceof Variable)) {
-        expectedType = this._defineTypeComputer.typeFor(((Variable)last).getVariableType());
+        expectedType = this._eisTypeComputer.typeFor(((Variable)last).getVariableType());
         if ((!(idiom instanceof VariableRef))) {
           Object _interpret_3 = null;
           if (idiom!=null) {
@@ -967,9 +967,9 @@ public class EisValidator extends AbstractEisValidator {
                 EisPackage.eINSTANCE.getStatement_Idiom(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
             }
           } else {
-            DefineType _typeFor_5 = null;
+            EisType _typeFor_5 = null;
             if (idiom!=null) {
-              _typeFor_5=this._defineTypeComputer.typeFor(idiom);
+              _typeFor_5=this._eisTypeComputer.typeFor(idiom);
             }
             if ((_typeFor_5 instanceof TimeType)) {
               boolean _checkTime_2 = this.checkTime(idiom);
@@ -989,9 +989,9 @@ public class EisValidator extends AbstractEisValidator {
                 this.checkUnderscoreNotation(_string_2, statement, EisPackage.eINSTANCE.getStatement_Idiom());
               }
             } else {
-              DefineType _typeFor_6 = null;
+              EisType _typeFor_6 = null;
               if (idiom!=null) {
-                _typeFor_6=this._defineTypeComputer.typeFor(idiom);
+                _typeFor_6=this._eisTypeComputer.typeFor(idiom);
               }
               if ((_typeFor_6 instanceof LTimeType)) {
                 boolean _isOutOfLTime_2 = this.isOutOfLTime(idiom);
@@ -1011,9 +1011,9 @@ public class EisValidator extends AbstractEisValidator {
                   this.checkUnderscoreNotation(_string_3, statement, EisPackage.eINSTANCE.getStatement_Idiom());
                 }
               } else {
-                DefineType _typeFor_7 = null;
+                EisType _typeFor_7 = null;
                 if (idiom!=null) {
-                  _typeFor_7=this._defineTypeComputer.typeFor(idiom);
+                  _typeFor_7=this._eisTypeComputer.typeFor(idiom);
                 }
                 if ((_typeFor_7 instanceof DateType)) {
                   boolean _checkDate_1 = this.checkDate(idiom, EisPackage.eINSTANCE.getStatement_Idiom());
@@ -1036,7 +1036,7 @@ public class EisValidator extends AbstractEisValidator {
                   EisPackage.eINSTANCE.getStatement_Range(), EisValidator.VALUE_EXCEEDING_DATATYPE_BOUNDS);
               }
             } else {
-              DefineType _typeFor_8 = this._defineTypeComputer.typeFor(range);
+              EisType _typeFor_8 = this._eisTypeComputer.typeFor(range);
               if ((_typeFor_8 instanceof TimeType)) {
                 boolean _checkTime_3 = this.checkTime(range);
                 if (_checkTime_3) {
@@ -1046,7 +1046,7 @@ public class EisValidator extends AbstractEisValidator {
                 this.checkUnderscoreNotation(this._eisInterpreter.interpret(range).toString(), statement, 
                   EisPackage.eINSTANCE.getStatement_Range());
               } else {
-                DefineType _typeFor_9 = this._defineTypeComputer.typeFor(range);
+                EisType _typeFor_9 = this._eisTypeComputer.typeFor(range);
                 if ((_typeFor_9 instanceof LTimeType)) {
                   boolean _isOutOfLTime_3 = this.isOutOfLTime(range);
                   if (_isOutOfLTime_3) {
@@ -1078,7 +1078,7 @@ public class EisValidator extends AbstractEisValidator {
     final Idiom range = _range;
     if ((idiom != null)) {
       if ((!(idiom instanceof VariableRef))) {
-        DefineType _typeFor = this._defineTypeComputer.typeFor(idiom);
+        EisType _typeFor = this._eisTypeComputer.typeFor(idiom);
         if ((_typeFor instanceof TimeType)) {
           boolean _checkTime = this.checkTime(idiom);
           if (_checkTime) {
@@ -1087,7 +1087,7 @@ public class EisValidator extends AbstractEisValidator {
           }
           this.checkUnderscoreNotation(this._eisInterpreter.interpret(idiom).toString(), variable, EisPackage.eINSTANCE.getVariable_Idiom());
         } else {
-          DefineType _typeFor_1 = this._defineTypeComputer.typeFor(idiom);
+          EisType _typeFor_1 = this._eisTypeComputer.typeFor(idiom);
           if ((_typeFor_1 instanceof LTimeType)) {
             boolean _isOutOfLTime = this.isOutOfLTime(idiom);
             if (_isOutOfLTime) {
@@ -1101,7 +1101,7 @@ public class EisValidator extends AbstractEisValidator {
     }
     if ((range != null)) {
       if ((!(range instanceof VariableRef))) {
-        DefineType _typeFor_2 = this._defineTypeComputer.typeFor(range);
+        EisType _typeFor_2 = this._eisTypeComputer.typeFor(range);
         if ((_typeFor_2 instanceof TimeType)) {
           boolean _checkTime_1 = this.checkTime(range);
           if (_checkTime_1) {
@@ -1110,7 +1110,7 @@ public class EisValidator extends AbstractEisValidator {
           }
           this.checkUnderscoreNotation(this._eisInterpreter.interpret(range).toString(), variable, EisPackage.eINSTANCE.getVariable_Range());
         } else {
-          DefineType _typeFor_3 = this._defineTypeComputer.typeFor(range);
+          EisType _typeFor_3 = this._eisTypeComputer.typeFor(range);
           if ((_typeFor_3 instanceof LTimeType)) {
             boolean _isOutOfLTime_1 = this.isOutOfLTime(range);
             if (_isOutOfLTime_1) {
@@ -1133,7 +1133,7 @@ public class EisValidator extends AbstractEisValidator {
     final Idiom idiom = _idiom;
     if ((idiom != null)) {
       if ((!(idiom instanceof VariableRef))) {
-        DefineType _typeFor = this._defineTypeComputer.typeFor(idiom);
+        EisType _typeFor = this._eisTypeComputer.typeFor(idiom);
         if ((_typeFor instanceof DateType)) {
           boolean _checkDate = this.checkDate(idiom, EisPackage.eINSTANCE.getVariable_Idiom());
           if (_checkDate) {
@@ -1165,7 +1165,7 @@ public class EisValidator extends AbstractEisValidator {
     final Idiom range = _range;
     if ((idiom != null)) {
       if ((!(idiom instanceof VariableRef))) {
-        DefineType _typeFor = this._defineTypeComputer.typeFor(idiom);
+        EisType _typeFor = this._eisTypeComputer.typeFor(idiom);
         if ((_typeFor instanceof RealType)) {
           if ((type == "real")) {
             Object _interpret = this._eisInterpreter.interpret(idiom);
@@ -1189,7 +1189,7 @@ public class EisValidator extends AbstractEisValidator {
     }
     if ((range != null)) {
       if ((!(range instanceof VariableRef))) {
-        DefineType _typeFor_1 = this._defineTypeComputer.typeFor(range);
+        EisType _typeFor_1 = this._eisTypeComputer.typeFor(range);
         if ((_typeFor_1 instanceof RealType)) {
           if ((type == "real")) {
             Object _interpret_2 = this._eisInterpreter.interpret(range);
@@ -1706,30 +1706,30 @@ public class EisValidator extends AbstractEisValidator {
     }
   }
   
-  private boolean checkNumericalValues(final long idiom, final DefineType expectedType) {
+  private boolean checkNumericalValues(final long idiom, final EisType expectedType) {
     boolean _switchResult = false;
     boolean _matched = false;
-    boolean _isUSIntType = this._defineTypeComputer.isUSIntType(expectedType);
+    boolean _isUSIntType = this._eisTypeComputer.isUSIntType(expectedType);
     if (_isUSIntType) {
       _matched=true;
       _switchResult = this.isOutOfNumericalBounds(idiom, 0, 255);
     }
     if (!_matched) {
-      boolean _isUIntType = this._defineTypeComputer.isUIntType(expectedType);
+      boolean _isUIntType = this._eisTypeComputer.isUIntType(expectedType);
       if (_isUIntType) {
         _matched=true;
         _switchResult = this.isOutOfNumericalBounds(idiom, 0, 65535);
       }
     }
     if (!_matched) {
-      boolean _isUDIntType = this._defineTypeComputer.isUDIntType(expectedType);
+      boolean _isUDIntType = this._eisTypeComputer.isUDIntType(expectedType);
       if (_isUDIntType) {
         _matched=true;
         _switchResult = this.isOutOfNumericalBounds(idiom, 0, 4294967295L);
       }
     }
     if (!_matched) {
-      boolean _isULIntType = this._defineTypeComputer.isULIntType(expectedType);
+      boolean _isULIntType = this._eisTypeComputer.isULIntType(expectedType);
       if (_isULIntType) {
         _matched=true;
         boolean _xifexpression = false;
@@ -1744,21 +1744,21 @@ public class EisValidator extends AbstractEisValidator {
       }
     }
     if (!_matched) {
-      boolean _isSIntType = this._defineTypeComputer.isSIntType(expectedType);
+      boolean _isSIntType = this._eisTypeComputer.isSIntType(expectedType);
       if (_isSIntType) {
         _matched=true;
         _switchResult = this.isOutOfNumericalBounds(idiom, (-128), 127);
       }
     }
     if (!_matched) {
-      boolean _isIntType = this._defineTypeComputer.isIntType(expectedType);
+      boolean _isIntType = this._eisTypeComputer.isIntType(expectedType);
       if (_isIntType) {
         _matched=true;
         _switchResult = this.isOutOfNumericalBounds(idiom, (-32768), 32767);
       }
     }
     if (!_matched) {
-      boolean _isDIntType = this._defineTypeComputer.isDIntType(expectedType);
+      boolean _isDIntType = this._eisTypeComputer.isDIntType(expectedType);
       if (_isDIntType) {
         _matched=true;
         _switchResult = this.isOutOfNumericalBounds(idiom, (-2147483647), 2147483647);
@@ -1842,58 +1842,58 @@ public class EisValidator extends AbstractEisValidator {
   }
   
   private void checkExpectedBoolean(final Idiom exp, final EReference reference) {
-    this.checkExpectedType(exp, DefineTypeComputer.BOOL_TYPE, reference);
+    this.checkExpectedType(exp, EisTypeComputer.BOOL_TYPE, reference);
   }
   
   private void checkExpectedInt(final Idiom exp, final EReference reference) {
-    this.checkExpectedType(exp, DefineTypeComputer.INT_TYPE, reference);
+    this.checkExpectedType(exp, EisTypeComputer.INT_TYPE, reference);
   }
   
   private void checkExpectedDouble(final Idiom exp, final EReference reference) {
-    this.checkExpectedType(exp, DefineTypeComputer.REAL_TYPE, reference);
+    this.checkExpectedType(exp, EisTypeComputer.REAL_TYPE, reference);
   }
   
-  private void checkExpectedType(final Idiom exp, final DefineType expectedType, final EReference reference) {
-    final DefineType actualType = this.getTypeAndCheckNotNull(exp, reference);
+  private void checkExpectedType(final Idiom exp, final EisType expectedType, final EReference reference) {
+    final EisType actualType = this.getTypeAndCheckNotNull(exp, reference);
     boolean _notEquals = (!Objects.equal(actualType, expectedType));
     if (_notEquals) {
       this.error(((("expected " + expectedType) + " type, but was ") + actualType), reference, EisValidator.TYPE_MISMATCH);
     }
   }
   
-  private DefineType getTypeAndCheckNotNull(final Idiom exp, final EReference reference) {
-    DefineType _typeFor = null;
+  private EisType getTypeAndCheckNotNull(final Idiom exp, final EReference reference) {
+    EisType _typeFor = null;
     if (exp!=null) {
-      _typeFor=this._defineTypeComputer.typeFor(exp);
+      _typeFor=this._eisTypeComputer.typeFor(exp);
     }
-    DefineType type = _typeFor;
+    EisType type = _typeFor;
     if ((type == null)) {
       this.error("null type", reference, EisValidator.TYPE_MISMATCH);
     }
     return type;
   }
   
-  private void checkExpectedSameType(final DefineType left, final DefineType right) {
+  private void checkExpectedSameType(final EisType left, final EisType right) {
     if ((((right != null) && (left != null)) && (!Objects.equal(right, left)))) {
       this.error(((("expected the same type, but was " + left) + ", ") + right), EisPackage.Literals.EQUALITY.getEIDAttribute(), 
         EisValidator.TYPE_MISMATCH);
     }
   }
   
-  private void checkNotBoolean(final DefineType type, final EReference reference) {
-    boolean _isBoolType = this._defineTypeComputer.isBoolType(type);
+  private void checkNotBoolean(final EisType type, final EReference reference) {
+    boolean _isBoolType = this._eisTypeComputer.isBoolType(type);
     if (_isBoolType) {
       this.error("cannot be boolean", reference, EisValidator.TYPE_MISMATCH);
     }
   }
   
-  private void compareTypesAndCallErrorOnMismatch(final Statement statement, final DefineType actualType, final BasicType _expectedType, final DefineType rangeType) {
-    final DefineType expectedType = this._defineTypeComputer.typeFor(_expectedType);
+  private void compareTypesAndCallErrorOnMismatch(final Statement statement, final EisType actualType, final BasicType _expectedType, final EisType rangeType) {
+    final EisType expectedType = this._eisTypeComputer.typeFor(_expectedType);
     boolean _notEquals = (!Objects.equal(actualType, expectedType));
     if (_notEquals) {
-      boolean _not = (!(this._defineTypeComputer.isIntSuperType(actualType) && this._defineTypeComputer.isIntSuperType(expectedType)));
+      boolean _not = (!(this._eisTypeComputer.isIntSuperType(actualType) && this._eisTypeComputer.isIntSuperType(expectedType)));
       if (_not) {
-        boolean _not_1 = (!(this._defineTypeComputer.isStringType(expectedType) && this._defineTypeComputer.isCharType(actualType)));
+        boolean _not_1 = (!(this._eisTypeComputer.isStringType(expectedType) && this._eisTypeComputer.isCharType(actualType)));
         if (_not_1) {
           String _string = expectedType.toString();
           String _plus = ("Incompatible types. Expected \'" + _string);
@@ -1907,9 +1907,9 @@ public class EisValidator extends AbstractEisValidator {
       }
     }
     if (((rangeType != null) && (!Objects.equal(rangeType, expectedType)))) {
-      boolean _not_2 = (!(this._defineTypeComputer.isIntSuperType(rangeType) && this._defineTypeComputer.isIntSuperType(expectedType)));
+      boolean _not_2 = (!(this._eisTypeComputer.isIntSuperType(rangeType) && this._eisTypeComputer.isIntSuperType(expectedType)));
       if (_not_2) {
-        boolean _not_3 = (!(this._defineTypeComputer.isStringType(expectedType) && this._defineTypeComputer.isCharType(actualType)));
+        boolean _not_3 = (!(this._eisTypeComputer.isStringType(expectedType) && this._eisTypeComputer.isCharType(actualType)));
         if (_not_3) {
           String _string_2 = expectedType.toString();
           String _plus_4 = ("Incompatible types. Expected \'" + _string_2);
@@ -2021,7 +2021,7 @@ public class EisValidator extends AbstractEisValidator {
       this.error("This reference cannot be made because a variable contains other references ", 
         EisPackage.eINSTANCE.getUdtRef_UdtType(), EisValidator.RECURSIVE_VARIABLE_REFERENCE);
     } else {
-      final DefineType type = this._defineTypeComputer.typeFor(newVariable.getVariableType());
+      final EisType type = this._eisTypeComputer.typeFor(newVariable.getVariableType());
       Idiom _idiom_1 = null;
       if (variable!=null) {
         _idiom_1=variable.getIdiom();
@@ -2075,7 +2075,7 @@ public class EisValidator extends AbstractEisValidator {
     return newUdt;
   }
   
-  private VariableImpl newIdiom(final DefineType type, final Idiom idiomOrRange, final VariableImpl newVariable, final boolean isRange) {
+  private VariableImpl newIdiom(final EisType type, final Idiom idiomOrRange, final VariableImpl newVariable, final boolean isRange) {
     Idiom _idiom = null;
     if (newVariable!=null) {
       _idiom=newVariable.getIdiom();
@@ -2085,7 +2085,7 @@ public class EisValidator extends AbstractEisValidator {
       newIdiomOrRange = newVariable.getRange();
     }
     boolean _matched = false;
-    boolean _isStringType = this._defineTypeComputer.isStringType(type);
+    boolean _isStringType = this._eisTypeComputer.isStringType(type);
     if (_isStringType) {
       _matched=true;
       StringConstantImpl _stringConstantImpl = new StringConstantImpl();
@@ -2102,7 +2102,7 @@ public class EisValidator extends AbstractEisValidator {
       return this.assignNewIdiom(newVariable, newIdiomOrRange, isRange);
     }
     if (!_matched) {
-      boolean _isBoolType = this._defineTypeComputer.isBoolType(type);
+      boolean _isBoolType = this._eisTypeComputer.isBoolType(type);
       if (_isBoolType) {
         _matched=true;
         BoolConstantImpl _boolConstantImpl = new BoolConstantImpl();
@@ -2120,7 +2120,7 @@ public class EisValidator extends AbstractEisValidator {
       }
     }
     if (!_matched) {
-      boolean _isIntSuperType = this._defineTypeComputer.isIntSuperType(type);
+      boolean _isIntSuperType = this._eisTypeComputer.isIntSuperType(type);
       if (_isIntSuperType) {
         _matched=true;
         IntConstantImpl _intConstantImpl = new IntConstantImpl();
@@ -2134,7 +2134,7 @@ public class EisValidator extends AbstractEisValidator {
       }
     }
     if (!_matched) {
-      boolean _isRealType = this._defineTypeComputer.isRealType(type);
+      boolean _isRealType = this._eisTypeComputer.isRealType(type);
       if (_isRealType) {
         _matched=true;
         RealConstantImpl _realConstantImpl = new RealConstantImpl();
@@ -2152,7 +2152,7 @@ public class EisValidator extends AbstractEisValidator {
       }
     }
     if (!_matched) {
-      boolean _isByteType = this._defineTypeComputer.isByteType(type);
+      boolean _isByteType = this._eisTypeComputer.isByteType(type);
       if (_isByteType) {
         _matched=true;
         ByteConstantImpl _byteConstantImpl = new ByteConstantImpl();
@@ -2170,7 +2170,7 @@ public class EisValidator extends AbstractEisValidator {
       }
     }
     if (!_matched) {
-      boolean _isWordType = this._defineTypeComputer.isWordType(type);
+      boolean _isWordType = this._eisTypeComputer.isWordType(type);
       if (_isWordType) {
         _matched=true;
         WordConstantImpl _wordConstantImpl = new WordConstantImpl();
@@ -2188,7 +2188,7 @@ public class EisValidator extends AbstractEisValidator {
       }
     }
     if (!_matched) {
-      boolean _isDWordType = this._defineTypeComputer.isDWordType(type);
+      boolean _isDWordType = this._eisTypeComputer.isDWordType(type);
       if (_isDWordType) {
         _matched=true;
         DWordConstantImpl _dWordConstantImpl = new DWordConstantImpl();
@@ -2206,7 +2206,7 @@ public class EisValidator extends AbstractEisValidator {
       }
     }
     if (!_matched) {
-      boolean _isLWordType = this._defineTypeComputer.isLWordType(type);
+      boolean _isLWordType = this._eisTypeComputer.isLWordType(type);
       if (_isLWordType) {
         _matched=true;
         LWordConstantImpl _lWordConstantImpl = new LWordConstantImpl();
@@ -2224,7 +2224,7 @@ public class EisValidator extends AbstractEisValidator {
       }
     }
     if (!_matched) {
-      boolean _isCharType = this._defineTypeComputer.isCharType(type);
+      boolean _isCharType = this._eisTypeComputer.isCharType(type);
       if (_isCharType) {
         _matched=true;
         CharConstantImpl _charConstantImpl = new CharConstantImpl();
@@ -2242,7 +2242,7 @@ public class EisValidator extends AbstractEisValidator {
       }
     }
     if (!_matched) {
-      boolean _isTimeType = this._defineTypeComputer.isTimeType(type);
+      boolean _isTimeType = this._eisTypeComputer.isTimeType(type);
       if (_isTimeType) {
         _matched=true;
         TimeConstantImpl _timeConstantImpl = new TimeConstantImpl();
@@ -2260,7 +2260,7 @@ public class EisValidator extends AbstractEisValidator {
       }
     }
     if (!_matched) {
-      boolean _isLTimeType = this._defineTypeComputer.isLTimeType(type);
+      boolean _isLTimeType = this._eisTypeComputer.isLTimeType(type);
       if (_isLTimeType) {
         _matched=true;
         LTimeConstantImpl _lTimeConstantImpl = new LTimeConstantImpl();
@@ -2278,7 +2278,7 @@ public class EisValidator extends AbstractEisValidator {
       }
     }
     if (!_matched) {
-      boolean _isDateType = this._defineTypeComputer.isDateType(type);
+      boolean _isDateType = this._eisTypeComputer.isDateType(type);
       if (_isDateType) {
         _matched=true;
         DateConstantImpl _dateConstantImpl = new DateConstantImpl();

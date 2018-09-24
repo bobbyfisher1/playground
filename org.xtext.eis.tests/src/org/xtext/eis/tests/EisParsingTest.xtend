@@ -16,18 +16,18 @@ import org.xtext.eis.eis.IntConstant
 import org.xtext.eis.eis.RealConstant
 import org.xtext.eis.eis.Udt
 import org.xtext.eis.eis.Variable
-import org.xtext.eis.typing.DefineTypeComputer
 
-import static org.xtext.eis.typing.DefineTypeComputer.*
 
 import static extension org.junit.Assert.*
+import static org.xtext.eis.typing.EisTypeComputer.*
+import org.xtext.eis.typing.EisTypeComputer
 
 @RunWith(XtextRunner)
 @InjectWith(EisInjectorProvider)
 class EisParsingTest {
 	@Inject extension ParseHelper<EisModel>
 	@Inject extension ValidationTestHelper
-	@Inject extension DefineTypeComputer
+	@Inject extension EisTypeComputer
 
 //
 // variables -----------------------------------------------------------------------------------------------------------------------------------------------------------------

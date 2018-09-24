@@ -1,9 +1,9 @@
 package org.xtext.eis.typing.types;
 
-import org.xtext.eis.typing.DefineType;
+import org.xtext.eis.typing.EisType;
 
 @SuppressWarnings("all")
-public class LWordType implements DefineType {
+public class LWordType implements EisType {
   @Override
   public String toString() {
     return "lword";

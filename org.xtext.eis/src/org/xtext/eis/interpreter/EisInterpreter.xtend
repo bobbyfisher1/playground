@@ -25,12 +25,12 @@ import org.xtext.eis.eis.TimeConstant
 import org.xtext.eis.eis.Variable
 import org.xtext.eis.eis.VariableRef
 import org.xtext.eis.eis.WordConstant
-import org.xtext.eis.typing.DefineTypeComputer
 import org.xtext.eis.eis.DateConstant
+import org.xtext.eis.typing.EisTypeComputer
 
 class EisInterpreter {
 
-	@Inject extension DefineTypeComputer
+	@Inject extension EisTypeComputer
 	@Inject IResourceScopeCache cache
 	@Inject extension EisModelUtil
 

@@ -23,8 +23,8 @@ import org.xtext.eis.eis.Testcase;
 import org.xtext.eis.eis.Variable;
 import org.xtext.eis.eis.Variables;
 import org.xtext.eis.tests.EisInjectorProvider;
-import org.xtext.eis.typing.DefineType;
-import org.xtext.eis.typing.DefineTypeComputer;
+import org.xtext.eis.typing.EisType;
+import org.xtext.eis.typing.EisTypeComputer;
 import org.xtext.eis.validation.EisValidator;
 
 @RunWith(XtextRunner.class)
@@ -41,7 +41,7 @@ public class EisValidatorTest {
   
   @Inject
   @Extension
-  private DefineTypeComputer _defineTypeComputer;
+  private EisTypeComputer _eisTypeComputer;
   
   private final String beginning = new Function0<String>() {
     public String apply() {
@@ -201,47 +201,47 @@ public class EisValidatorTest {
   
   @Test
   public void testWrongNotType() {
-    this.assertType("!10", DefineTypeComputer.INT_TYPE, DefineTypeComputer.BOOL_TYPE);
+    this.assertType("!10", EisTypeComputer.INT_TYPE, EisTypeComputer.BOOL_TYPE);
   }
   
   @Test
   public void testWrongMulOrDivType() {
-    this.assertType("10 * true", DefineTypeComputer.BOOL_TYPE, DefineTypeComputer.INT_TYPE);
-    this.assertType(" \'10\' / 10", DefineTypeComputer.STRING_TYPE, DefineTypeComputer.INT_TYPE);
+    this.assertType("10 * true", EisTypeComputer.BOOL_TYPE, EisTypeComputer.INT_TYPE);
+    this.assertType(" \'10\' / 10", EisTypeComputer.STRING_TYPE, EisTypeComputer.INT_TYPE);
   }
   
   @Test
   public void testWrongMinusType() {
-    this.assertType("10 - true", DefineTypeComputer.BOOL_TYPE, DefineTypeComputer.INT_TYPE);
-    this.assertType(" \'10\' - 10", DefineTypeComputer.STRING_TYPE, DefineTypeComputer.INT_TYPE);
+    this.assertType("10 - true", EisTypeComputer.BOOL_TYPE, EisTypeComputer.INT_TYPE);
+    this.assertType(" \'10\' - 10", EisTypeComputer.STRING_TYPE, EisTypeComputer.INT_TYPE);
   }
   
   @Test
   public void testWrongAndType() {
-    this.assertType("10 && true", DefineTypeComputer.INT_TYPE, DefineTypeComputer.BOOL_TYPE);
-    this.assertType("false && \'10\' ", DefineTypeComputer.STRING_TYPE, DefineTypeComputer.BOOL_TYPE);
+    this.assertType("10 && true", EisTypeComputer.INT_TYPE, EisTypeComputer.BOOL_TYPE);
+    this.assertType("false && \'10\' ", EisTypeComputer.STRING_TYPE, EisTypeComputer.BOOL_TYPE);
   }
   
   @Test
   public void testWrongOrType() {
-    this.assertType("10 || true", DefineTypeComputer.INT_TYPE, DefineTypeComputer.BOOL_TYPE);
-    this.assertType("false || \'10\' ", DefineTypeComputer.STRING_TYPE, DefineTypeComputer.BOOL_TYPE);
+    this.assertType("10 || true", EisTypeComputer.INT_TYPE, EisTypeComputer.BOOL_TYPE);
+    this.assertType("false || \'10\' ", EisTypeComputer.STRING_TYPE, EisTypeComputer.BOOL_TYPE);
   }
   
   @Test
   public void testWrongEqualityType() {
-    this.assertSameType("10 == true", DefineTypeComputer.INT_TYPE, DefineTypeComputer.BOOL_TYPE);
-    this.assertSameType("false != \'10\' ", DefineTypeComputer.BOOL_TYPE, DefineTypeComputer.STRING_TYPE);
+    this.assertSameType("10 == true", EisTypeComputer.INT_TYPE, EisTypeComputer.BOOL_TYPE);
+    this.assertSameType("false != \'10\' ", EisTypeComputer.BOOL_TYPE, EisTypeComputer.STRING_TYPE);
   }
   
   @Test
   public void testWrongComparisonType() {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("10 < \"1\"");
-    this.assertSameType(_builder, DefineTypeComputer.INT_TYPE, DefineTypeComputer.STRING_TYPE);
+    this.assertSameType(_builder, EisTypeComputer.INT_TYPE, EisTypeComputer.STRING_TYPE);
     StringConcatenation _builder_1 = new StringConcatenation();
     _builder_1.append("\"10\" > 10");
-    this.assertSameType(_builder_1, DefineTypeComputer.STRING_TYPE, DefineTypeComputer.INT_TYPE);
+    this.assertSameType(_builder_1, EisTypeComputer.STRING_TYPE, EisTypeComputer.INT_TYPE);
   }
   
   @Test
@@ -459,9 +459,9 @@ public class EisValidatorTest {
       EList<Variables> _inputVariables = IterableExtensions.<Testcase>head(this._parseHelper.parse((_plus + this.ending)).getTestcases()).getDefine().getDirection().getInput().getInputVariables();
       final Procedure1<EList<Variables>> _function = (EList<Variables> it) -> {
         Variables _get = it.get(0);
-        Assert.assertSame(this._defineTypeComputer.typeFor(((Variable) _get).getVariableType()), DefineTypeComputer.INT_TYPE);
+        Assert.assertSame(this._eisTypeComputer.typeFor(((Variable) _get).getVariableType()), EisTypeComputer.INT_TYPE);
         Variables _get_1 = it.get(1);
-        Assert.assertSame(this._defineTypeComputer.typeFor(((Variable) _get_1).getVariableType()), DefineTypeComputer.NULL_TYPE);
+        Assert.assertSame(this._eisTypeComputer.typeFor(((Variable) _get_1).getVariableType()), EisTypeComputer.NULL_TYPE);
       };
       ObjectExtensions.<EList<Variables>>operator_doubleArrow(_inputVariables, _function);
     } catch (Throwable _e) {
@@ -1531,7 +1531,7 @@ public class EisValidatorTest {
     }
   }
   
-  public void assertType(final CharSequence input, final DefineType expectedWrongType, final DefineType expectedActualType) {
+  public void assertType(final CharSequence input, final EisType expectedWrongType, final EisType expectedActualType) {
     try {
       this._validationTestHelper.assertError(this._parseHelper.parse((((this.start + "int a =") + input) + this.endWithSemicolon)), EisPackage.eINSTANCE.getIdiom(), 
         EisValidator.TYPE_MISMATCH, ((("expected " + expectedActualType) + " type, but was ") + expectedWrongType));
@@ -1540,7 +1540,7 @@ public class EisValidatorTest {
     }
   }
   
-  public void assertSameType(final CharSequence input, final DefineType expectedLeft, final DefineType expectedRight) {
+  public void assertSameType(final CharSequence input, final EisType expectedLeft, final EisType expectedRight) {
     try {
       this._validationTestHelper.assertError(this._parseHelper.parse((((this.start + "int a =") + input) + this.endWithSemicolon)), EisPackage.eINSTANCE.getIdiom(), 
         EisValidator.TYPE_MISMATCH, ((("expected the same type, but was " + expectedLeft) + ", ") + expectedRight));

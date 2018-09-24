@@ -94,13 +94,13 @@ class EisProposalProvider extends AbstractEisProposalProvider {
 		acceptor.accept(createCompletionProposal(
 		'''"description"){
 	define {
-		input[]
-		output[]
-		inout[]
+		input[ ]
+		output[ ]
+		inout[ ]
 	}
 	teststep(0, "description") {
-		set[]
-		assert[]
+		set[ ]
+		assert[ ]
 	}
 ''', 'description (string)', null, context))
 	}
@@ -116,8 +116,8 @@ class EisProposalProvider extends AbstractEisProposalProvider {
 		super.completeTeststepBlock_Description(model, assignment, context, acceptor)
 		acceptor.accept(createCompletionProposal(
 		'''"description"){
-		set[]
-		assert[]
+		set[ ]
+		assert[ ]
 	}''', 'description (string)', null, context))
 	}
 }

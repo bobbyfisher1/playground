@@ -10,20 +10,20 @@ import org.junit.runner.RunWith
 import org.xtext.eis.eis.EisModel
 import org.xtext.eis.eis.EisPackage
 import org.xtext.eis.eis.Variable
-import org.xtext.eis.typing.DefineType
-import org.xtext.eis.typing.DefineTypeComputer
 import org.xtext.eis.validation.EisValidator
 
-import static org.xtext.eis.typing.DefineTypeComputer.*
 
 import static extension org.junit.Assert.*
+import static org.xtext.eis.typing.EisTypeComputer.*
+import org.xtext.eis.typing.EisTypeComputer
+import org.xtext.eis.typing.EisType
 
 @RunWith(XtextRunner)
 @InjectWith(EisInjectorProvider)
 class DefineTypeComputerTest {
 	@Inject extension ParseHelper<EisModel>
 	@Inject extension ValidationTestHelper
-	@Inject extension DefineTypeComputer
+	@Inject extension EisTypeComputer
 
 //
 // variables -----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -50,7 +50,7 @@ class DefineTypeComputerTest {
 //
 // tests -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //
-	@Test def void testIsInt() { (DefineTypeComputer.INT_TYPE).isIntSuperType.assertTrue }
+	@Test def void testIsInt() { (EisTypeComputer.INT_TYPE).isIntSuperType.assertTrue }
 
 	@Test def void testAllTypes() {
 		// basic types
@@ -84,15 +84,15 @@ class DefineTypeComputerTest {
 		"string f = true + 'string';".assertSameType(STRING_TYPE)
 	}
 
-	@Test def void testIsString() { (DefineTypeComputer.STRING_TYPE).isStringType.assertTrue }
+	@Test def void testIsString() { (EisTypeComputer.STRING_TYPE).isStringType.assertTrue }
 
-	@Test def void testIsBool() { (DefineTypeComputer.BOOL_TYPE).isBoolType.assertTrue }
+	@Test def void testIsBool() { (EisTypeComputer.BOOL_TYPE).isBoolType.assertTrue }
 
-	@Test def void testNotIsInt() { (DefineTypeComputer.STRING_TYPE).isIntSuperType.assertFalse }
+	@Test def void testNotIsInt() { (EisTypeComputer.STRING_TYPE).isIntSuperType.assertFalse }
 
-	@Test def void testNotIsString() { (DefineTypeComputer.INT_TYPE).isStringType.assertFalse }
+	@Test def void testNotIsString() { (EisTypeComputer.INT_TYPE).isStringType.assertFalse }
 
-	@Test def void testNotIsBool() { (DefineTypeComputer.INT_TYPE).isBoolType.assertFalse }
+	@Test def void testNotIsBool() { (EisTypeComputer.INT_TYPE).isBoolType.assertFalse }
 
 	@Test def void testInt() {
 		val _int = '''
@@ -628,7 +628,7 @@ class DefineTypeComputerTest {
 	//
 // methods -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//
-	def private void assertSameType(String text, DefineType expectedType) {
+	def private void assertSameType(String text, EisType expectedType) {
 		((start + text + end).parse.testcases.head.define.direction.output.outputVariables.get(0) as Variable).idiom.
 			typeFor.assertSame(expectedType)
 	}

@@ -1,7 +1,7 @@
 package org.xtext.eis.typing.types
 
-import org.xtext.eis.typing.DefineType
+import org.xtext.eis.typing.EisType
 
-class ByteType implements DefineType {
+class ByteType implements EisType {
 	override toString() { "byte" }
 }

@@ -1,7 +1,7 @@
 package org.xtext.eis.typing.types
 
-import org.xtext.eis.typing.DefineType
+import org.xtext.eis.typing.EisType
 
-class StringType implements DefineType {
+class StringType implements EisType {
 	override toString() { "string" }
 }

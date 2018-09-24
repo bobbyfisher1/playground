@@ -31,13 +31,13 @@ import org.xtext.eis.eis.impl.UdtImpl
 import org.xtext.eis.eis.impl.UdtTypeImpl
 import org.xtext.eis.eis.impl.VariableImpl
 import org.xtext.eis.interpreter.EisInterpreter
-import org.xtext.eis.typing.DefineTypeComputer
+import org.xtext.eis.typing.EisTypeComputer
 
 class EisGenerator extends AbstractGenerator {
 
 
 	@Inject extension EisInterpreter
-	@Inject extension DefineTypeComputer
+	@Inject extension EisTypeComputer
 	@Inject extension EisModelUtil
 		
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {

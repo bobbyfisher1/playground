@@ -34,13 +34,13 @@ import org.xtext.eis.eis.TimeConstant;
 import org.xtext.eis.eis.Variable;
 import org.xtext.eis.eis.VariableRef;
 import org.xtext.eis.eis.WordConstant;
-import org.xtext.eis.typing.DefineTypeComputer;
+import org.xtext.eis.typing.EisTypeComputer;
 
 @SuppressWarnings("all")
 public class EisInterpreter {
   @Inject
   @Extension
-  private DefineTypeComputer _defineTypeComputer;
+  private EisTypeComputer _eisTypeComputer;
   
   @Inject
   private IResourceScopeCache cache;
@@ -216,7 +216,7 @@ public class EisInterpreter {
       if (e instanceof Plus) {
         _matched=true;
         Object _xifexpression = null;
-        if ((this._defineTypeComputer.isStringType(this._defineTypeComputer.typeFor(((Plus)e).getLeft())) || this._defineTypeComputer.isStringType(this._defineTypeComputer.typeFor(((Plus)e).getRight())))) {
+        if ((this._eisTypeComputer.isStringType(this._eisTypeComputer.typeFor(((Plus)e).getLeft())) || this._eisTypeComputer.isStringType(this._eisTypeComputer.typeFor(((Plus)e).getRight())))) {
           String _string = this.interpret(((Plus)e).getLeft()).toString();
           String _string_1 = this.interpret(((Plus)e).getRight()).toString();
           _xifexpression = (_string + _string_1);
@@ -302,7 +302,7 @@ public class EisInterpreter {
       if (e instanceof Comparison) {
         _matched=true;
         Boolean _xifexpression = null;
-        boolean _isStringType = this._defineTypeComputer.isStringType(this._defineTypeComputer.typeFor(((Comparison)e).getLeft()));
+        boolean _isStringType = this._eisTypeComputer.isStringType(this._eisTypeComputer.typeFor(((Comparison)e).getLeft()));
         if (_isStringType) {
           Boolean _xblockexpression = null;
           {

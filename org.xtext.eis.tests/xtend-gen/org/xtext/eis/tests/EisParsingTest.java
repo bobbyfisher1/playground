@@ -29,7 +29,7 @@ import org.xtext.eis.eis.Udt;
 import org.xtext.eis.eis.Variable;
 import org.xtext.eis.eis.Variables;
 import org.xtext.eis.tests.EisInjectorProvider;
-import org.xtext.eis.typing.DefineTypeComputer;
+import org.xtext.eis.typing.EisTypeComputer;
 
 @RunWith(XtextRunner.class)
 @InjectWith(EisInjectorProvider.class)
@@ -45,7 +45,7 @@ public class EisParsingTest {
   
   @Inject
   @Extension
-  private DefineTypeComputer _defineTypeComputer;
+  private EisTypeComputer _eisTypeComputer;
   
   private final String beginning = new Function0<String>() {
     public String apply() {
@@ -200,7 +200,7 @@ public class EisParsingTest {
         final Procedure1<EList<Variables>> _function_1 = (EList<Variables> it_1) -> {
           Variables _get = it_1.get(0);
           final Procedure1<Variable> _function_2 = (Variable it_2) -> {
-            Assert.assertSame(this._defineTypeComputer.typeFor(it_2.getVariableType()), DefineTypeComputer.INT_TYPE);
+            Assert.assertSame(this._eisTypeComputer.typeFor(it_2.getVariableType()), EisTypeComputer.INT_TYPE);
             Assert.assertEquals(it_2.getName(), "a");
             Idiom _idiom = it_2.getIdiom();
             Assert.assertEquals(((IntConstant) _idiom).getValue(), 4);
@@ -212,7 +212,7 @@ public class EisParsingTest {
             Assert.assertEquals(it_2.getUdtType().getName(), "typeDido");
             Variables _get_2 = it_2.getUdtVariables().get(0);
             final Procedure1<Variable> _function_4 = (Variable it_3) -> {
-              Assert.assertSame(this._defineTypeComputer.typeFor(it_3.getVariableType()), DefineTypeComputer.INT_TYPE);
+              Assert.assertSame(this._eisTypeComputer.typeFor(it_3.getVariableType()), EisTypeComputer.INT_TYPE);
               Assert.assertEquals(it_3.getName(), "b");
               Idiom _idiom = it_3.getIdiom();
               Assert.assertEquals(((IntConstant) _idiom).getValue(), 39);
@@ -223,7 +223,7 @@ public class EisParsingTest {
           Variables _get_2 = it_1.get(2);
           final Procedure1<Variable> _function_4 = (Variable it_2) -> {
             Assert.assertEquals(it_2.getName(), "Train");
-            Assert.assertSame(this._defineTypeComputer.typeFor(it_2.getVariableType()), DefineTypeComputer.INT_TYPE);
+            Assert.assertSame(this._eisTypeComputer.typeFor(it_2.getVariableType()), EisTypeComputer.INT_TYPE);
             Assert.assertEquals(Boolean.valueOf(it_2.isVariantKeyword()), Boolean.valueOf(true));
           };
           ObjectExtensions.<Variable>operator_doubleArrow(((Variable) _get_2), _function_4);
@@ -267,7 +267,7 @@ public class EisParsingTest {
         final Procedure1<EList<Variables>> _function_1 = (EList<Variables> it_1) -> {
           Variables _get = it_1.get(0);
           final Procedure1<Variable> _function_2 = (Variable it_2) -> {
-            Assert.assertSame(this._defineTypeComputer.typeFor(it_2.getVariableType()), DefineTypeComputer.INT_TYPE);
+            Assert.assertSame(this._eisTypeComputer.typeFor(it_2.getVariableType()), EisTypeComputer.INT_TYPE);
             Assert.assertEquals(it_2.getName(), "a");
             Idiom _idiom = it_2.getIdiom();
             Assert.assertEquals(((IntConstant) _idiom).getValue(), 4);
@@ -280,7 +280,7 @@ public class EisParsingTest {
           ObjectExtensions.<Variables>operator_doubleArrow(_get_1, _function_3);
           Variables _get_2 = it_1.get(2);
           final Procedure1<Variable> _function_4 = (Variable it_2) -> {
-            Assert.assertSame(this._defineTypeComputer.typeFor(it_2.getVariableType()), DefineTypeComputer.BOOL_TYPE);
+            Assert.assertSame(this._eisTypeComputer.typeFor(it_2.getVariableType()), EisTypeComputer.BOOL_TYPE);
             Assert.assertEquals(it_2.getName(), "c");
             Idiom _idiom = it_2.getIdiom();
             Assert.assertEquals(((BoolConstant) _idiom).getValue(), "false");
@@ -288,7 +288,7 @@ public class EisParsingTest {
           ObjectExtensions.<Variable>operator_doubleArrow(((Variable) _get_2), _function_4);
           Variables _get_3 = it_1.get(3);
           final Procedure1<Variable> _function_5 = (Variable it_2) -> {
-            Assert.assertSame(this._defineTypeComputer.typeFor(it_2.getVariableType()), DefineTypeComputer.BOOL_TYPE);
+            Assert.assertSame(this._eisTypeComputer.typeFor(it_2.getVariableType()), EisTypeComputer.BOOL_TYPE);
             Assert.assertEquals(it_2.getName(), "d");
             Idiom _idiom = it_2.getIdiom();
             Assert.assertEquals(((BoolConstant) _idiom).getValue(), "true");
@@ -517,7 +517,7 @@ public class EisParsingTest {
         final Procedure1<EList<Variables>> _function_1 = (EList<Variables> it_1) -> {
           Variables _get = it_1.get(0);
           final Procedure1<Variable> _function_2 = (Variable it_2) -> {
-            Assert.assertSame(this._defineTypeComputer.typeFor(it_2.getVariableType()), DefineTypeComputer.INT_TYPE);
+            Assert.assertSame(this._eisTypeComputer.typeFor(it_2.getVariableType()), EisTypeComputer.INT_TYPE);
             Assert.assertEquals(it_2.getName(), "a");
             Idiom _idiom = it_2.getIdiom();
             Assert.assertEquals(((IntConstant) _idiom).getValue(), 4);
