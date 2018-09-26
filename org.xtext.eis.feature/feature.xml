@@ -1,23 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feature id="org.xtext.eis.feature"
-	label="Eis Feature "
-	version="1.0.0.qualifier">
-	<plugin
-			id="org.xtext.eis"
-			download-size="0"
-			install-size="0"
-			version="0.0.0"
-			unpack="false"/>
-	<plugin
-			id="org.xtext.eis.ide"
-			download-size="0"
-			install-size="0"
-			version="0.0.0"
-			unpack="false"/>
-	<plugin
-			id="org.xtext.eis.ui"
-			download-size="0"
-			install-size="0"
-			version="0.0.0"
-			unpack="false"/>
+<feature
+      id="org.xtext.eis.feature"
+      label="Eis"
+      version="1.0.0.qualifier">
+
+   <description>
+      DSL for easily defining unit tests with TIA EIS
+   </description>
+
+   <plugin
+         id="org.xtext.eis"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.xtext.eis.ide"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.xtext.eis.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
 </feature>

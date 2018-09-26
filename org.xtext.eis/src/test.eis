@@ -1,0 +1,16 @@
+author="authorName";
+plcname="plcName";
+project="projectName";
+testcase testcaseName(false,FB,"description"){
+	define {
+		input[]
+		output[]
+		inout[]
+	}
+	teststep(0, "description") {
+		set[]
+		assert[]
+	}
+
+	
+	}

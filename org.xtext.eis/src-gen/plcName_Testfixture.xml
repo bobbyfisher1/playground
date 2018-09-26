@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TestFixture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<TiaProjectName>projectName</TiaProjectName>
+	<PlcName>plcName</PlcName>
+	<Author>authorName</Author>
+	<TestCases>
+		<TestCase ID="0" TestActive="false" Blockname="testcaseName" Blocktype="FB" Description="description">
+			<Teststeps>
+				<Teststep PlcCycle ="0" Description="description">
+					<Inputs>
+					</Inputs>
+					<Outputs>
+					</Outputs>
+				</Teststep>
+			</Teststeps>
+		</TestCase>
+	</TestCases>
+</TestFixture>
