@@ -365,7 +365,7 @@ public class EisScopeProviderTest {
       EisModel _parse = this._parseHelper.parse((_plus + this.ending));
       final Procedure1<EisModel> _function = (EisModel it) -> {
         this._validationTestHelper.assertError(it, EisPackage.eINSTANCE.getVariable(), EisValidator.INCOMPATIBLE_TYPES);
-        Assert.assertEquals(1, this._validationTestHelper.validate(it).size());
+        Assert.assertEquals(2, this._validationTestHelper.validate(it).size());
       };
       ObjectExtensions.<EisModel>operator_doubleArrow(_parse, _function);
     } catch (Throwable _e) {

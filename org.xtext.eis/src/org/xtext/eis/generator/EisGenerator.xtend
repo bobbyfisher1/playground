@@ -58,12 +58,11 @@ class EisGenerator extends AbstractGenerator {
 				<PlcName>«model.plcName»</PlcName>
 				<Author>«model.authorName»</Author>
 				<TestCases>
-			''' // newline
+		''' // newline
 		for (testcase : model.testcases) {
-			string +=
-				doubletab +
-					'''<TestCase ID="«testcaseID++»" TestActive="«testcase.testActive.value»" Blockname="«testcase.testcaseName»" Blocktype="«testcase.blockType.value»" Description="«testcase.description»">
-					''' // newline
+			string += doubletab +
+				'''<TestCase ID="«testcaseID++»" TestActive="«testcase.testActive.value»" Blockname="«testcase.testcaseName»" Blocktype="«testcase.blockType.value»" Description="«testcase.description»">
+				''' // newline
 			if (testcase?.define !== null)
 				string += testcase.define.compileTeststeps
 			string += doubletab + '''</TestCase>
@@ -73,7 +72,6 @@ class EisGenerator extends AbstractGenerator {
 		''' // newline
 		string += '''</TestFixture>
 		''' // newline	
-			
 		return string
 	}
 
@@ -98,10 +96,10 @@ class EisGenerator extends AbstractGenerator {
 
 		// add all variables to maps with default values if undefined
 		if (!inputs.empty)
-			inputMap.generateMap(inputs, '')
+			inputMap.generateMap(inputs, '', false)
 		if (!outputs.empty) {
-			outputIdiomMap.generateMap(outputs, '')
-			outputRangeMap.generateRangeMap(outputs, '')
+			outputIdiomMap.generateMap(outputs, '', false)
+			outputRangeMap.generateMap(outputs, '', true)
 		}
 
 		val multiLineString = '''
@@ -151,10 +149,9 @@ class EisGenerator extends AbstractGenerator {
 			if (variable instanceof Variable) {
 				val value = setMap.get(qualifiedName + variable.name).toString
 
-				charSeq +=
-					indent +
-						'''<Element xsi:type="Input" Name="«variable.name»" «variable.datatype»" Direction="«variable.directionBlock»" Value="«value»" />
-						''' // newline
+				charSeq += indent +
+					'''<Element xsi:type="Input" Name="«variable.name»" «variable.datatype»" Direction="«variable.directionBlock»" Value="«value»" />
+					''' // newline
 			} else if (variable instanceof Udt)
 				charSeq += buildUdt(setMap, qualifiedName, indent, variable)
 			else if (variable instanceof UdtRef)
@@ -216,10 +213,9 @@ class EisGenerator extends AbstractGenerator {
 				val idiom = idiomMap.get(qualifiedName + variable.name).toString
 				val range = rangeMap.get(qualifiedName + variable.name).toString
 
-				charSeq +=
-					indent +
-						'''<Element xsi:type="Output" Name="«variable.name»" «variable.datatype»" Direction="«variable.directionBlock»" Expect="«idiom»" Range="«range»" />
-						''' // newline
+				charSeq += indent +
+					'''<Element xsi:type="Output" Name="«variable.name»" «variable.datatype»" Direction="«variable.directionBlock»" Expect="«idiom»" Range="«range»" />
+					''' // newline
 			} else if (variable instanceof Udt)
 				charSeq += buildUdt(variable, idiomMap, rangeMap, qualifiedName, indent)
 			else if (variable instanceof UdtRef)
@@ -298,25 +294,18 @@ class EisGenerator extends AbstractGenerator {
 		return _char
 	}
 
-	def private void generateMap(HashMap<Object, Object> map, EList<Variables> variables, String name) {
+	def private void generateMap(HashMap<Object, Object> map, EList<Variables> variables, String name,
+		boolean isRange) {
 		for (variable : variables) {
 			if (variable instanceof Variable)
-				map.put(name + variable.name, variable?.idiom?.interpret?.toString ?: variable.defaultValue)
+				if (!isRange)
+					map.put(name + variable.name, variable?.idiom?.interpret?.toString ?: variable.defaultValue)
+				else
+					map.put(name + variable.name, variable?.range?.interpret?.toString ?: '')
 			else if (variable instanceof Udt)
-				map.generateMap(variable.udtVariables, name + variable.name + '.')
+				map.generateMap(variable.udtVariables, name + variable.name + '.', isRange)
 			else if (variable instanceof UdtRef)
-				map.generateMap(variable.udtVariables, name + variable.name + '.')
-		}
-	}
-
-	def private void generateRangeMap(HashMap<Object, Object> map, EList<Variables> variables, String name) {
-		for (variable : variables) {
-			if (variable instanceof Variable)
-				map.put(name + variable.name, variable?.range?.interpret?.toString ?: '')
-			else if (variable instanceof Udt)
-				map.generateRangeMap(variable.udtVariables, name + variable.name + '.')
-			else if (variable instanceof UdtRef)
-				map.generateRangeMap(variable.udtVariables, name + variable.name + '.')
+				map.generateMap(variable.udtVariables, name + variable.name + '.', isRange)
 		}
 	}
 

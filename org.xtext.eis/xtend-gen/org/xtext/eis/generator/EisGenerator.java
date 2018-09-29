@@ -188,13 +188,13 @@ public class EisGenerator extends AbstractGenerator {
     boolean _isEmpty = inputs.isEmpty();
     boolean _not = (!_isEmpty);
     if (_not) {
-      this.generateMap(inputMap, inputs, "");
+      this.generateMap(inputMap, inputs, "", false);
     }
     boolean _isEmpty_1 = outputs.isEmpty();
     boolean _not_1 = (!_isEmpty_1);
     if (_not_1) {
-      this.generateMap(outputIdiomMap, outputs, "");
-      this.generateRangeMap(outputRangeMap, outputs, "");
+      this.generateMap(outputIdiomMap, outputs, "", false);
+      this.generateMap(outputRangeMap, outputs, "", true);
     }
     StringConcatenation _builder = new StringConcatenation();
     {
@@ -631,89 +631,69 @@ public class EisGenerator extends AbstractGenerator {
     return _char;
   }
   
-  private void generateMap(final HashMap<Object, Object> map, final EList<Variables> variables, final String name) {
+  private void generateMap(final HashMap<Object, Object> map, final EList<Variables> variables, final String name, final boolean isRange) {
     for (final Variables variable : variables) {
       if ((variable instanceof Variable)) {
-        String _name = ((Variable)variable).getName();
-        String _plus = (name + _name);
-        String _elvis = null;
-        Idiom _idiom = null;
-        if (((Variable)variable)!=null) {
-          _idiom=((Variable)variable).getIdiom();
-        }
-        Object _interpret = null;
-        if (_idiom!=null) {
-          _interpret=this._eisInterpreter.interpret(_idiom);
-        }
-        String _string = null;
-        if (_interpret!=null) {
-          _string=_interpret.toString();
-        }
-        if (_string != null) {
-          _elvis = _string;
-        } else {
-          String _defaultValue = this.defaultValue(((Variable)variable));
-          _elvis = _defaultValue;
-        }
-        map.put(_plus, _elvis);
-      } else {
-        if ((variable instanceof Udt)) {
-          EList<Variables> _udtVariables = ((Udt)variable).getUdtVariables();
-          String _name_1 = ((Udt)variable).getName();
-          String _plus_1 = (name + _name_1);
-          String _plus_2 = (_plus_1 + ".");
-          this.generateMap(map, _udtVariables, _plus_2);
-        } else {
-          if ((variable instanceof UdtRef)) {
-            EList<Variables> _udtVariables_1 = ((UdtRef)variable).getUdtVariables();
-            String _name_2 = ((UdtRef)variable).getName();
-            String _plus_3 = (name + _name_2);
-            String _plus_4 = (_plus_3 + ".");
-            this.generateMap(map, _udtVariables_1, _plus_4);
+        if ((!isRange)) {
+          String _name = ((Variable)variable).getName();
+          String _plus = (name + _name);
+          String _elvis = null;
+          Idiom _idiom = null;
+          if (((Variable)variable)!=null) {
+            _idiom=((Variable)variable).getIdiom();
           }
-        }
-      }
-    }
-  }
-  
-  private void generateRangeMap(final HashMap<Object, Object> map, final EList<Variables> variables, final String name) {
-    for (final Variables variable : variables) {
-      if ((variable instanceof Variable)) {
-        String _name = ((Variable)variable).getName();
-        String _plus = (name + _name);
-        String _elvis = null;
-        Idiom _range = null;
-        if (((Variable)variable)!=null) {
-          _range=((Variable)variable).getRange();
-        }
-        Object _interpret = null;
-        if (_range!=null) {
-          _interpret=this._eisInterpreter.interpret(_range);
-        }
-        String _string = null;
-        if (_interpret!=null) {
-          _string=_interpret.toString();
-        }
-        if (_string != null) {
-          _elvis = _string;
+          Object _interpret = null;
+          if (_idiom!=null) {
+            _interpret=this._eisInterpreter.interpret(_idiom);
+          }
+          String _string = null;
+          if (_interpret!=null) {
+            _string=_interpret.toString();
+          }
+          if (_string != null) {
+            _elvis = _string;
+          } else {
+            String _defaultValue = this.defaultValue(((Variable)variable));
+            _elvis = _defaultValue;
+          }
+          map.put(_plus, _elvis);
         } else {
-          _elvis = "";
+          String _name_1 = ((Variable)variable).getName();
+          String _plus_1 = (name + _name_1);
+          String _elvis_1 = null;
+          Idiom _range = null;
+          if (((Variable)variable)!=null) {
+            _range=((Variable)variable).getRange();
+          }
+          Object _interpret_1 = null;
+          if (_range!=null) {
+            _interpret_1=this._eisInterpreter.interpret(_range);
+          }
+          String _string_1 = null;
+          if (_interpret_1!=null) {
+            _string_1=_interpret_1.toString();
+          }
+          if (_string_1 != null) {
+            _elvis_1 = _string_1;
+          } else {
+            _elvis_1 = "";
+          }
+          map.put(_plus_1, _elvis_1);
         }
-        map.put(_plus, _elvis);
       } else {
         if ((variable instanceof Udt)) {
           EList<Variables> _udtVariables = ((Udt)variable).getUdtVariables();
-          String _name_1 = ((Udt)variable).getName();
-          String _plus_1 = (name + _name_1);
-          String _plus_2 = (_plus_1 + ".");
-          this.generateRangeMap(map, _udtVariables, _plus_2);
+          String _name_2 = ((Udt)variable).getName();
+          String _plus_2 = (name + _name_2);
+          String _plus_3 = (_plus_2 + ".");
+          this.generateMap(map, _udtVariables, _plus_3, isRange);
         } else {
           if ((variable instanceof UdtRef)) {
             EList<Variables> _udtVariables_1 = ((UdtRef)variable).getUdtVariables();
-            String _name_2 = ((UdtRef)variable).getName();
-            String _plus_3 = (name + _name_2);
-            String _plus_4 = (_plus_3 + ".");
-            this.generateRangeMap(map, _udtVariables_1, _plus_4);
+            String _name_3 = ((UdtRef)variable).getName();
+            String _plus_4 = (name + _name_3);
+            String _plus_5 = (_plus_4 + ".");
+            this.generateMap(map, _udtVariables_1, _plus_5, isRange);
           }
         }
       }

@@ -156,7 +156,7 @@ class EisScopeProviderTest {
 			}
 		''' + ending).parse => [
 			assertError(EisPackage.eINSTANCE.variable, EisValidator.INCOMPATIBLE_TYPES)
-			1.assertEquals(validate.size)
+			2.assertEquals(validate.size)
 		]
 	}
 
