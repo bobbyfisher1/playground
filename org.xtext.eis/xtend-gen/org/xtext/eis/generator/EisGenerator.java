@@ -70,93 +70,90 @@ public class EisGenerator extends AbstractGenerator {
   }
   
   private CharSequence compile(final EisModel model) {
-    String _xblockexpression = null;
-    {
-      int testcaseID = 0;
-      String tab = "\t";
-      String doubletab = (tab + tab);
-      StringConcatenation _builder = new StringConcatenation();
-      _builder.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
-      _builder.newLine();
-      _builder.append("<TestFixture xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("<TiaProjectName>");
-      String _projectName = model.getProjectName();
-      _builder.append(_projectName, "\t");
-      _builder.append("</TiaProjectName>");
-      _builder.newLineIfNotEmpty();
-      _builder.append("\t");
-      _builder.append("<PlcName>");
-      String _plcName = model.getPlcName();
-      _builder.append(_plcName, "\t");
-      _builder.append("</PlcName>");
-      _builder.newLineIfNotEmpty();
-      _builder.append("\t");
-      _builder.append("<Author>");
-      String _authorName = model.getAuthorName();
-      _builder.append(_authorName, "\t");
-      _builder.append("</Author>");
-      _builder.newLineIfNotEmpty();
-      _builder.append("\t");
-      _builder.append("<TestCases>");
-      _builder.newLine();
-      String string = _builder.toString();
-      EList<Testcase> _testcases = model.getTestcases();
-      for (final Testcase testcase : _testcases) {
-        {
-          String _string = string;
-          StringConcatenation _builder_1 = new StringConcatenation();
-          _builder_1.append("<TestCase ID=\"");
-          int _plusPlus = testcaseID++;
-          _builder_1.append(_plusPlus);
-          _builder_1.append("\" TestActive=\"");
-          String _value = testcase.getTestActive().getValue();
-          _builder_1.append(_value);
-          _builder_1.append("\" Blockname=\"");
-          String _testcaseName = testcase.getTestcaseName();
-          _builder_1.append(_testcaseName);
-          _builder_1.append("\" Blocktype=\"");
-          String _value_1 = testcase.getBlockType().getValue();
-          _builder_1.append(_value_1);
-          _builder_1.append("\" Description=\"");
-          String _description = testcase.getDescription();
-          _builder_1.append(_description);
-          _builder_1.append("\">");
-          _builder_1.newLineIfNotEmpty();
-          String _plus = (doubletab + _builder_1);
-          string = (_string + _plus);
-          DefineBlock _define = null;
-          if (testcase!=null) {
-            _define=testcase.getDefine();
-          }
-          boolean _tripleNotEquals = (_define != null);
-          if (_tripleNotEquals) {
-            String _string_1 = string;
-            CharSequence _compileTeststeps = this.compileTeststeps(testcase.getDefine());
-            string = (_string_1 + _compileTeststeps);
-          }
-          String _string_2 = string;
-          StringConcatenation _builder_2 = new StringConcatenation();
-          _builder_2.append("</TestCase>");
-          _builder_2.newLine();
-          String _plus_1 = (doubletab + _builder_2);
-          string = (_string_2 + _plus_1);
+    int testcaseID = 0;
+    String tab = "\t";
+    String doubletab = (tab + tab);
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+    _builder.newLine();
+    _builder.append("<TestFixture xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("<TiaProjectName>");
+    String _projectName = model.getProjectName();
+    _builder.append(_projectName, "\t");
+    _builder.append("</TiaProjectName>");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("<PlcName>");
+    String _plcName = model.getPlcName();
+    _builder.append(_plcName, "\t");
+    _builder.append("</PlcName>");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("<Author>");
+    String _authorName = model.getAuthorName();
+    _builder.append(_authorName, "\t");
+    _builder.append("</Author>");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("<TestCases>");
+    _builder.newLine();
+    String string = _builder.toString();
+    EList<Testcase> _testcases = model.getTestcases();
+    for (final Testcase testcase : _testcases) {
+      {
+        String _string = string;
+        StringConcatenation _builder_1 = new StringConcatenation();
+        _builder_1.append("<TestCase ID=\"");
+        int _plusPlus = testcaseID++;
+        _builder_1.append(_plusPlus);
+        _builder_1.append("\" TestActive=\"");
+        String _value = testcase.getTestActive().getValue();
+        _builder_1.append(_value);
+        _builder_1.append("\" Blockname=\"");
+        String _testcaseName = testcase.getTestcaseName();
+        _builder_1.append(_testcaseName);
+        _builder_1.append("\" Blocktype=\"");
+        String _value_1 = testcase.getBlockType().getValue();
+        _builder_1.append(_value_1);
+        _builder_1.append("\" Description=\"");
+        String _description = testcase.getDescription();
+        _builder_1.append(_description);
+        _builder_1.append("\">");
+        _builder_1.newLineIfNotEmpty();
+        String _plus = (doubletab + _builder_1);
+        string = (_string + _plus);
+        DefineBlock _define = null;
+        if (testcase!=null) {
+          _define=testcase.getDefine();
         }
+        boolean _tripleNotEquals = (_define != null);
+        if (_tripleNotEquals) {
+          String _string_1 = string;
+          CharSequence _compileTeststeps = this.compileTeststeps(testcase.getDefine());
+          string = (_string_1 + _compileTeststeps);
+        }
+        String _string_2 = string;
+        StringConcatenation _builder_2 = new StringConcatenation();
+        _builder_2.append("</TestCase>");
+        _builder_2.newLine();
+        String _plus_1 = (doubletab + _builder_2);
+        string = (_string_2 + _plus_1);
       }
-      String _string = string;
-      StringConcatenation _builder_1 = new StringConcatenation();
-      _builder_1.append("</TestCases>");
-      _builder_1.newLine();
-      String _plus = (tab + _builder_1);
-      string = (_string + _plus);
-      String _string_1 = string;
-      StringConcatenation _builder_2 = new StringConcatenation();
-      _builder_2.append("</TestFixture>");
-      _builder_2.newLine();
-      _xblockexpression = string = (_string_1 + _builder_2);
     }
-    return _xblockexpression;
+    String _string = string;
+    StringConcatenation _builder_1 = new StringConcatenation();
+    _builder_1.append("</TestCases>");
+    _builder_1.newLine();
+    String _plus = (tab + _builder_1);
+    string = (_string + _plus);
+    String _string_1 = string;
+    StringConcatenation _builder_2 = new StringConcatenation();
+    _builder_2.append("</TestFixture>");
+    _builder_2.newLine();
+    string = (_string_1 + _builder_2);
+    return string;
   }
   
   private CharSequence compileTeststeps(final DefineBlock define) {

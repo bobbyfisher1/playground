@@ -5,14 +5,6 @@
 	<Author>authorName</Author>
 	<TestCases>
 		<TestCase ID="0" TestActive="false" Blockname="testcaseName" Blocktype="FB" Description="description">
-			<Teststeps>
-				<Teststep PlcCycle ="0" Description="description">
-					<Inputs>
-					</Inputs>
-					<Outputs>
-					</Outputs>
-				</Teststep>
-			</Teststeps>
 		</TestCase>
 	</TestCases>
 </TestFixture>

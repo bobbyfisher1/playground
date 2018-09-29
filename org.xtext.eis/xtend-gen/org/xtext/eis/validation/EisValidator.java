@@ -1729,21 +1729,6 @@ public class EisValidator extends AbstractEisValidator {
       }
     }
     if (!_matched) {
-      boolean _isULIntType = this._eisTypeComputer.isULIntType(expectedType);
-      if (_isULIntType) {
-        _matched=true;
-        boolean _xifexpression = false;
-        int _intValue = Long.valueOf(idiom).intValue();
-        boolean _lessThan = (_intValue < 0);
-        if (_lessThan) {
-          _xifexpression = true;
-        } else {
-          _xifexpression = false;
-        }
-        _switchResult = _xifexpression;
-      }
-    }
-    if (!_matched) {
       boolean _isSIntType = this._eisTypeComputer.isSIntType(expectedType);
       if (_isSIntType) {
         _matched=true;

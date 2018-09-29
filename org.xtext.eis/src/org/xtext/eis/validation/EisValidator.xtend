@@ -554,7 +554,7 @@ class EisValidator extends AbstractEisValidator {
 		val range = variable?.range
 
 		if (idiom !== null)
-			if (!(idiom instanceof VariableRef)) {
+			if (!(idiom instanceof VariableRef)) { //done to avoid confusion
 				val idiomValue = idiom.interpret
 				if (idiomValue instanceof Long)
 					if (idiomValue.checkNumericalValues(expectedType))
@@ -1091,7 +1091,7 @@ class EisValidator extends AbstractEisValidator {
 			case expectedType.isUSIntType: idiom.isOutOfNumericalBounds(0, 255)
 			case expectedType.isUIntType: idiom.isOutOfNumericalBounds(0, 65535)
 			case expectedType.isUDIntType: idiom.isOutOfNumericalBounds(0, 4294967295L)
-			case expectedType.isULIntType: if(idiom.intValue < 0) true else false
+			//case expectedType.isULIntType: if(idiom.intValue < 0) true else false
 			case expectedType.isSIntType: idiom.isOutOfNumericalBounds(-128, 127)
 			case expectedType.isIntType: idiom.isOutOfNumericalBounds(-32768, 32767)
 			case expectedType.isDIntType: idiom.isOutOfNumericalBounds(-2147483647, 2147483647) // the xtend (java) int is a 32-Bit-Int

@@ -1,16 +1,16 @@
-author="authorName";
 plcname="plcName";
+author="authorName";
 project="projectName";
-testcase testcaseName(false,FB,"description"){
+testcase testcaseName(false, FB,"description"){
 	define {
-		input[]
-		output[]
-		inout[]
+		input[
+			int a = 0;
+			udt b(typeB){
+				int c;
+			}
+			int d = a;
+		]
+		output[ ]	
 	}
-	teststep(0, "description") {
-		set[]
-		assert[]
-	}
-
 	
-	}
+}
