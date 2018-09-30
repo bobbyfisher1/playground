@@ -375,9 +375,11 @@ class EisGenerator extends AbstractGenerator {
 
 		if (idiom === null) {
 			if (e.cascade.empty) {
-				idiom = (e.variable as Variable)?.idiom?.interpret?.toString ?: ""
+				val variable = e.variable as Variable
+				idiom = variable?.idiom?.interpret?.toString ?: variable.defaultValue
 			} else {
-				idiom = (e.cascade.last.udtVar as Variable)?.idiom?.interpret?.toString ?: ""
+				val variable = e.cascade.last.udtVar as Variable
+				idiom = variable?.idiom?.interpret?.toString ?: variable.defaultValue
 			}
 		}
 		return idiom

@@ -866,11 +866,12 @@ public class EisGenerator extends AbstractGenerator {
     if ((idiom == null)) {
       boolean _isEmpty = e.getCascade().isEmpty();
       if (_isEmpty) {
-        String _elvis = null;
         Variables _variable = e.getVariable();
+        final Variable variable = ((Variable) _variable);
+        String _elvis = null;
         Idiom _idiom_1 = null;
-        if (((Variable) _variable)!=null) {
-          _idiom_1=((Variable) _variable).getIdiom();
+        if (variable!=null) {
+          _idiom_1=variable.getIdiom();
         }
         Object _interpret_1 = null;
         if (_idiom_1!=null) {
@@ -883,15 +884,17 @@ public class EisGenerator extends AbstractGenerator {
         if (_string_1 != null) {
           _elvis = _string_1;
         } else {
-          _elvis = "";
+          String _defaultValue = this.defaultValue(variable);
+          _elvis = _defaultValue;
         }
         idiom = _elvis;
       } else {
-        String _elvis_1 = null;
         Variables _udtVar = IterableExtensions.<Cascade>last(e.getCascade()).getUdtVar();
+        final Variable variable_1 = ((Variable) _udtVar);
+        String _elvis_1 = null;
         Idiom _idiom_2 = null;
-        if (((Variable) _udtVar)!=null) {
-          _idiom_2=((Variable) _udtVar).getIdiom();
+        if (variable_1!=null) {
+          _idiom_2=variable_1.getIdiom();
         }
         Object _interpret_2 = null;
         if (_idiom_2!=null) {
@@ -904,7 +907,8 @@ public class EisGenerator extends AbstractGenerator {
         if (_string_2 != null) {
           _elvis_1 = _string_2;
         } else {
-          _elvis_1 = "";
+          String _defaultValue_1 = this.defaultValue(variable_1);
+          _elvis_1 = _defaultValue_1;
         }
         idiom = _elvis_1;
       }
